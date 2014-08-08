@@ -1,0 +1,29 @@
+@header("HelloWorld")
+
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/login.css")">
+<script>
+
+    function init(){
+        document.loginForm.username.focus();
+    }
+</script>
+
+<body onload="init()" >
+@headerTag()
+    <form method="post" action="@routes.Application.authentication()" name="loginForm" autocomplete="off">
+        <div class="inputBox">
+            <div class ="input-group input-group-lg">
+                <span class="input-group-addon"> Username </span>
+                <input type="text" class="form-control" placeholder="Username">
+            </div>
+            <div class ="input-group input-group-lg">
+                <span class="input-group-addon"> Password</span>
+                <input type="text" class="form-control" placeholder="Password">
+            </div>
+        </div>
+        <div class ="">
+            <button class="btn btn-success"> Login </button>
+        </div> 
+    </form>
+</body>
+
