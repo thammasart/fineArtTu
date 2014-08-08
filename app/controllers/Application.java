@@ -15,10 +15,24 @@ public class Application extends Controller {
     public static Result index() {
         return ok(login.render());
     }
-    
+
     @Security.Authenticated(Secured.class)
+    public static Result home(){
+    	return ok(home.render());
+    }
+    
+    //@Security.Authenticated(Secured.class)
     public static Result authentication(){
-        return TODO;
+    	Form<UserForm> userForm = Form.form(UserForm.class).bindFromRequest();
+    	if(userForm.hasErrors()) {
+            flash("unauthenticate", "Incorrect Username/Password.");
+            return badRequest(login.render());
+        }
+        else {
+            session().clear();
+            session("username", userForm.get().username);
+            return redirect(routes.Application.home());
+        }
     }
 
 }

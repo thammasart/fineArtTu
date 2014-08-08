@@ -1,0 +1,12 @@
+- &test01 !!models.User
+    username:              test01
+    password:              test01
+- &test02 !!models.User
+    username:              test02
+    password:              test02
+- &test03 !!models.User
+    username:              test03
+    password:              test03
+- &test04 !!models.User
+    username:              test04
+    password:              test04
