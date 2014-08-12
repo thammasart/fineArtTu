@@ -20,6 +20,11 @@ public class Application extends Controller {
     public static Result home(){
     	return ok(home.render());
     }
+
+    @Security.Authenticated(Secured.class)
+    public static Result user(){
+    	return ok(user.render());
+    }
     
     //@Security.Authenticated(Secured.class)
     public static Result authentication(){
