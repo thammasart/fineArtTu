@@ -1,6 +1,9 @@
 package models;
+
 import play.db.ebean.*;
 import javax.persistence.*;
+
+import models.fsn.FSN_Type;
 
 @Entity
 public class DurableArticles extends Model{	// ครุภัณฑ์
@@ -22,6 +25,10 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 	public String details; // รายละเอียด
 	public String partOfPic; // รูปภาพ
 
+	@ManyToOne
+	public FSN_Type fsn_number;
+
+
 	@SuppressWarnings("unchecked")
-	public static Finder<String,User> find = new Finder(String.class,Supplies.class);
+	public static Finder<String,DurableArticles> find = new Finder(String.class,DurableArticles.class);
 }
