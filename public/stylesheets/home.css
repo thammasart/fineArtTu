@@ -1,0 +1,20 @@
+.sideMenu{
+    width:15%;
+    height:75%;
+    margin-left:2%;
+    position:fixed;
+    top:13%;
+    font-size:18px;
+}
+.mainWindow{
+    width:75%;
+    height:800px;
+    border:solid;
+    margin-left:20%;
+    position:fixed;
+    margin-top:5.5%;
+    
+}
+.lineShadow{
+    box-shadow: 0px 1px 0px lightgrey;
+}

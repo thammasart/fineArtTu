@@ -1,0 +1,58 @@
+@(user : User)
+@header("admin")
+
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
+
+@navAdmin(user)
+<h1 align="center" class="titleHeader" > ระบบจัดการบัญชีผู้ใช้</h1>
+<h4 class="titleLine"></h4>
+@sideMenu()
+
+<div class ="mainWindow">
+    <div class ="headButtonAddDelete">
+        <button class="btn btn-lg btn-danger btnFloatRight">ลบบัญชีผู้ใช้<span class="glyphicon glyphicon-minus"></span></button>
+        <button class="btn btn-lg btn-success btnFloatRight"style="margin-right:20px">เพิ่มบัญชีผู้ใช้<span class="glyphicon glyphicon-plus"></span></button>
+
+    </div>
+    <div class="adminUserinfoTableContainer">
+        <table class="table table-striped overlayTable">
+            <thead>
+                <tr>
+                    <th> CH </th>
+                    <th>สายงาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ตำแหน่ง<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>สกุล<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>หน้าที่<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>สิทธการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+<!--   loop here --!>
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th>ภาควิชา</th>
+                    <th>เจ้าหน้าที่</th>
+                    <th>อินทัช</th>
+                    <th>เงินยวง</th>
+                    <th>ตรวจสอบ</th>
+                    <th>1<input type="checkbox">2<input type="checkbox">3<input type="checkbox">4<input type="checkbox">5<input type="checkbox"></th>
+
+            </tbody>
+        </table>
+
+        <div class="pagingContainer" align="center">
+            <ul class="pagination" style="margin:0;">
+              <li class="disabled"><a href="#">&laquo;</a></li>
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li><a href="#">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+</div> 
+
+<a href="@routes.Application.user()" > User </a>
