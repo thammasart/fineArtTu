@@ -18,7 +18,14 @@ public class Application extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result home(){
-    	return ok(home.render());
+        User user = User.find.byId(request().username());
+    	return ok(home.render(user));
+    }
+
+    public static Result logout() {
+        session().clear();
+        flash("success", "You've been logged out");
+        return redirect(routes.Application.index());
     }
 
     @Security.Authenticated(Secured.class)

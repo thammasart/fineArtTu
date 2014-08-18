@@ -1,5 +1,54 @@
 .headerText{
     background-color:lightgrey;
 }
+.titleLine{
+    color:#34495E;
+    padding:10px 100px;
+    border-color:#BDC3C7;
+    border-top-style:dashed;
+    position:fixed;
+    width:100%;
+    top:10%;
+}
+.titleHeader{
+    color:#34495E;
+    background:#BDC3C7;
+    padding:20px;
+    margin-top: 0px;
+    position:fixed;
+    width:100%;
+}
+.footLine{
+ color:#34495E;
+ padding: 10px;
+ border-color:#BDC3C7;
+ border-top-style:dashed;
+ position:relative;
+ bottom:11%;
+ width:100%;
+ display: inline-block;
+}
 
+.footDiv{
+color:#34495E; 
+background-color:#BDC3C7; 
+padding:5px;
+position:relative;
+bottom : 2%;
+width:100%;
+height:4em;
+text-align:center;
+}
+.user-status-bar{
+    margin-bottom: 0px;
+    text-align: right;
+    height:30px;
+}
 
+.headButtonAddDelete{
+height:50px;
+width:100%;
+}
+.btnFloatRight{
+float:right;
+}
