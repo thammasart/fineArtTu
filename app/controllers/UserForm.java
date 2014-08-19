@@ -15,9 +15,6 @@ public class UserForm {
         if (User.authenticate(username, password) == null) {
           	errors.add(new ValidationError("unauthenticate", "Incorrect Username/Password"));
         }
-        else{
-        	System.out.println("not null");
-        }
         return errors.isEmpty() ? null : errors;
     }
 }
