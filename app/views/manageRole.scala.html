@@ -1,0 +1,44 @@
+@(user : User)
+@header("admin")
+
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
+
+@navAdmin(user)
+@headerTag("ระบบระบบจัดการบัญชีผู้ใช้")
+@sideMenu()
+
+<div class ="mainWindow">
+    <form role="form" class="form-horizontal" name="userProfileForm"  method="post">
+        <div class="well wellSize" align="center" > <h3> กำหนดหน้าที่ </h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>หน้าที่<span class="glyphicon glyphicon-sort"></span></th>
+                            <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
+                            <th>1<span ></span></th>
+                            <th>2<span ></span></th>
+                            <th>3<span ></span></th>
+                            <th>4<span ></span></th>
+                            <th>ลบ<span ></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        <!--   loop here --!>
+                        <tr>
+                            <th>เจ้าหน้าที่</th>
+                            <th>5</th>
+                            <th><input type="checkbox"></th>
+                            <th><input type="checkbox"></th>
+                            <th><input type="checkbox"></th>
+                            <th><input type="checkbox"></th>
+                            <th><button class="btn btn-danger btn-xs"> ลบ </button>
+                    </tbody>
+                </table>
+            <button class="btn btn-lg btn-primary" > เพิ่มหน้าที่ </button>
+            <button class="btn btn-lg btn-success" > ยืนยัน </button>
+            <button class="btn btn-lg btn-danger" > ยกเลิก </button>
+        </div>
+    </form>
+</div> 
+
+<a href="@routes.Application.user()" > User </a>
