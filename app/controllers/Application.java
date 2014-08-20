@@ -47,4 +47,38 @@ public class Application extends Controller {
         }
     }
 
+    public static Result imports() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(imports.render(user));
+    }
+
+    public static Result importsInstitute() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsInstitute.render(user));
+    }
+
+    public static Result importsInstituteAdd() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsInstituteAdd.render(user));
+    }
+
+        public static Result importsMaterialDurableArticles() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsMaterialDurableArticles.render(user));
+    }
+
+        public static Result importsMaterialDurableArticlesAdd() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsMaterialDurableArticlesAdd.render(user));
+    }
+
+        public static Result importsMaterialDurableGoods() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsMaterialDurableGoods.render(user));
+    }
+        public static Result importsMaterialConsumable() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsMaterialConsumable.render(user));
+    }
+
 }

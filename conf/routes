@@ -7,7 +7,19 @@ GET     /                           controllers.Application.index()
 GET     /User                       controllers.Application.user()
 GET     /logout                     controllers.Application.logout()
 POST    /                           controllers.Application.authentication()
-GET	/home	        	    controllers.Application.home()
+GET	/home	        	    		controllers.Application.home()
+
+GET		/import						controllers.Application.imports()
+
+GET		/import/institute			controllers.Application.importsInstitute()
+GET		/import/institute/add		controllers.Application.importsInstituteAdd()
+
+GET		/import/materialDurableArticles			controllers.Application.importsMaterialDurableArticles()
+GET		/import/materialDurableArticles/add			controllers.Application.importsMaterialDurableArticlesAdd()
+
+GET		/import/materialDurableGoods			controllers.Application.importsMaterialDurableGoods()
+GET		/import/materialConsumable				controllers.Application.importsMaterialConsumable()
+
 
 GET     /Admin                      controllers.Admin.index()
 
