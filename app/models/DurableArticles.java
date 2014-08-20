@@ -3,7 +3,7 @@ package models;
 import play.db.ebean.*;
 import javax.persistence.*;
 
-import models.fsnNumber.FSN_Type;
+import models.fsnNumber.FSN_Description;
 
 @Entity
 public class DurableArticles extends Model{	// ครุภัณฑ์
@@ -30,7 +30,7 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 	public String partOfPic; // รูปภาพ
 
 	@ManyToOne
-	public FSN_Type fsn_number;
+	public FSN_Description fsn;
 	@ManyToOne
 	public Company company;
 

@@ -15,7 +15,13 @@ public class User extends Model{
 
         System.out.println("จำนวน ผู้ใช้ :" + User.find.findRowCount());
 		System.out.println("จำนวน รหัสวัสดุ :" + ConsumableCode.find.findRowCount());
-        System.out.println("จำนวน ประเภทวัสดุ :" + ConsumableType.find.findRowCount());
+		for(ConsumableCode code : ConsumableCode.find.all()){
+			System.out.println( code.id + "\t" + code.number + "\t" + code.code + " \t" + code.consumableType.acronym + " \t" + code.description );
+		}
+        System.out.println("\nจำนวน ประเภทวัสดุ :" + ConsumableType.find.findRowCount());
+        for(ConsumableType type : ConsumableType.find.all()){
+			System.out.println( type.id + "\t" + type.acronym + "\t" + type.typeName );
+		}
 
         User user = find.byId(username);
 		if(user == null){
