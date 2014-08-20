@@ -3,6 +3,7 @@ package models;
 import play.db.ebean.*;
 import javax.persistence.*;
 
+import models.type.*;
 import models.fsnNumber.FSN_Description;
 
 @Entity
@@ -28,6 +29,7 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 	public String telephoneNumber;// เบอร์โทร
 	public String details; // รายละเอียด
 	public String partOfPic; // รูปภาพ
+	public SuppliesStatus status; // สถานะ
 
 	@ManyToOne
 	public FSN_Description fsn;
