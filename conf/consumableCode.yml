@@ -586,3 +586,195 @@
   code:    '1107'   
   description:   ตรายาง วันที่
   consumableType:     *cType001
+
+###########################################################################
+
+- &cCodecc2001  !!models.ConsumableCode   
+  number:    1
+  code:    '2001'   
+  description:   แผ่นดิสเก็ต 3.5 (1/10 แผ่น)
+  consumableType:     *cType004
+- &cCodecc2002  !!models.ConsumableCode   
+  number:    2
+  code:    '2002'   
+  description:   แผ่น CD-R 700MB
+  consumableType:     *cType004
+- &cCodecc2003  !!models.ConsumableCode   
+  number:    3
+  code:    '2003'   
+  description:   HP TONER (ORG) รุ่น Q7516A
+  consumableType:     *cType004
+- &cCodecc2004  !!models.ConsumableCode   
+  number:    4
+  code:    '2004'   
+  description:   ซองกระดาษใส่ CD
+  consumableType:     *cType004
+- &cCodecc2005  !!models.ConsumableCode   
+  number:    5
+  code:    '2005'   
+  description:   แผ่น DVD
+  consumableType:     *cType004
+- &cCodecc2006  !!models.ConsumableCode   
+  number:    6
+  code:    '2006'  
+  description:   กล่องใส่ DVD 2 หน้า
+  consumableType:     *cType004
+- &cCodecc2007  !!models.ConsumableCode   
+  number:    7
+  code:    '2007'   
+  description:   เมาส์
+  consumableType:     *cType004
+
+###########################################################################
+
+- &cCodec3001  !!models.ConsumableCode   
+  number:    1
+  code:    '3001'   
+  description:   ไม้กวาดดอกหญ้า
+  consumableType:     *cType003
+- &cCodec3002  !!models.ConsumableCode   
+  number:    2
+  code:    '3002'   
+  description:   กระดาษทิชชู (ม้วน)
+  consumableType:     *cType003
+- &cCodec3003  !!models.ConsumableCode   
+  number:    3
+  code:    '3003'   
+  description:   ผงซักฟอก - 450 g.
+  consumableType:     *cType003
+- &cCodec3004  !!models.ConsumableCode   
+  number:    4
+  code:    '3004'   
+  description:   ผงซักฟอก - 900 g.
+  consumableType:     *cType003
+- &cCodec3005  !!models.ConsumableCode   
+  number:    5
+  code:    '3005'   
+  description:   กระดาษทิชชู (แผ่น)
+  consumableType:     *cType003
+- &cCodec3006  !!models.ConsumableCode   
+  number:    6
+  code:    '3006'   
+  description:   ถุงขยะ ขนาด 24*28
+  consumableType:     *cType003
+- &cCodec3007  !!models.ConsumableCode   
+  number:    7
+  code:    '3007'   
+  description:   ผ้าเอนกประสงค์
+  consumableType:     *cType003
+- &cCodec3008  !!models.ConsumableCode   
+  number:    8
+  code:    '3008'   
+  description:   น้ำยาล้างจาน
+  consumableType:     *cType003
+
+###########################################################################
+
+- &cCodec4001  !!models.ConsumableCode
+  number:     1
+  code:       '4001'
+  description:     ถ่านไฟฉาย 1.5V.
+  consumableType:     *cType002
+- &cCodec4002  !!models.ConsumableCode
+  number:     2
+  code:       '4002'
+  description:     ถ่านไฟ - Panasonic Alkaline (AAA)
+  consumableType:     *cType002
+- &cCodec4003  !!models.ConsumableCode
+  number:     3
+  code:       '4003'
+  description:     ถ่านอัลคาไลน์ แม็กเซล 9V.
+  consumableType:     *cType002
+- &cCodec4004  !!models.ConsumableCode
+  number:     4
+  code:       '4004'
+  description:     ถ่านแม็กเซล 3VCR2032 (ชนิดกลม)
+  consumableType:     *cType002
+- &cCodec4005  !!models.ConsumableCode
+  number:     5
+  code:       '4005'
+  description:     ปลั๊กไฟ 5 เต้า 1 สวิทซ์ ยาว 5 เมตร
+  consumableType:     *cType002
+- &cCodec4006  !!models.ConsumableCode
+  number:     6
+  code:       '4006'
+  description:     ถ่านไฟ - Panasonic Alkaline (AA)
+  consumableType:     *cType002
+- &cCodec4007  !!models.ConsumableCode
+  number:     7
+  code:       '4007'
+  description:     ถ่าน AA2500mA
+  consumableType:     *cType002
+- &cCodec4008  !!models.ConsumableCode
+  number:     8
+  code:       '4008'
+  description:     สายไมโครโฟน ยาว 10 ม. พร้อมขั้วต่อ
+  consumableType:     *cType002
+- &cCodec4009  !!models.ConsumableCode
+  number:     9
+  code:       '4009'
+  description:     ถ่านไมโครโฟนเคลื่อนที่ 9V.
+  consumableType:     *cType002
+- &cCodec4010  !!models.ConsumableCode
+  number:     10
+  code:       '4010'
+  description:     ถ่าน AA
+  consumableType:     *cType002
+- &cCodec4011  !!models.ConsumableCode
+  number:     11
+  code:       '4011'
+  description:     ถ่าน AAA
+  consumableType:     *cType002
+
+###########################################################################
+
+- &cCode5001  !!models.ConsumableCode
+  number:     1
+  code:       '5001'
+  description:     เนสกาแฟเรดคัพ - ซอง - 3กรัม (1/50)
+  consumableType:     *cType017
+- &cCode5002  !!models.ConsumableCode
+  number:     2
+  code:       '5002'
+  description:     น้ำตาลชนิด - ซอง - 6กรัม (1/50)
+  consumableType:     *cType017
+- &cCode5003  !!models.ConsumableCode
+  number:     3
+  code:       '5003'
+  description:     ครีมเทียมคอฟฟี่เมต - ซอง - 3กรัม (1/50)
+  consumableType:     *cType017
+- &cCode5004  !!models.ConsumableCode
+  number:     4
+  code:       '5004'
+  description:     โอวัลติน 3 in 1
+  consumableType:     *cType017
+- &cCode5005  !!models.ConsumableCode
+  number:     5
+  code:       '5005'
+  description:     ขิงผงจินเจน (กล่อง)
+  consumableType:     *cType017
+- &cCode5006  !!models.ConsumableCode
+  number:     6
+  code:       '5006'
+  description:     ชาเขียวญี่ปุ่น (1/10)
+  consumableType:     *cType017
+- &cCode5007  !!models.ConsumableCode
+  number:     7
+  code:       '5007'
+  description:     ไมโล 3 in 1
+  consumableType:     *cType017
+- &cCode5008  !!models.ConsumableCode
+  number:     8
+  code:       '5008'
+  description:     กาแฟ 360g.
+  consumableType:     *cType017
+- &cCode5009  !!models.ConsumableCode
+  number:     9
+  code:       '5009'
+  description:     ครีมเทียม 450g.
+  consumableType:     *cType017
+- &cCode5010  !!models.ConsumableCode
+  number:     10
+  code:       '5010'
+  description:     ชา 2g.
+  consumableType:     *cType017
