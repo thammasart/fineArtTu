@@ -52,3 +52,22 @@ width:100%;
 .btnFloatRight{
 float:right;
 }
+.width300px{
+    width:300px !important;
+    text-align:right;
+}
+.width150px{
+    width:150px !important;
+    text-align:right;
+}
+.width100px{
+    width:100px !important;
+    text-align:right;
+}
+.wellSize{
+    width:60%;
+    margin:10% auto;
+}
+.marginBtm1{
+    margin-bottom:1.5%;
+}

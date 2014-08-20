@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class FSN_Class extends Model{
 
 	@Id
+	@Column(length=2)
 	public String groupClassId;
 	@Column(nullable=false)
 	public String groupClassDescription;

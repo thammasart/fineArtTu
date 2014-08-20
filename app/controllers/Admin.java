@@ -17,4 +17,13 @@ public class Admin extends Controller {
         return ok(admin.render(user));
     }
 
+    public static Result addUser() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(addUser.render(user));
+    }
+
+    public static Result manageRole() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(manageRole.render(user));
+    }
 }
