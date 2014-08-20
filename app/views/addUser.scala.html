@@ -1,0 +1,56 @@
+@(user : User)
+@header("admin")
+
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
+
+@navAdmin(user)
+@headerTag("ระบบระบบจัดการบัญชีผู้ใช้")
+@sideMenu()
+
+<div class ="mainWindow">
+    <form role="form" class="form-horizontal" name="userProfileForm"  method="post">
+        <div class="well wellSize" align="center" > <h3>เพิ่มบัญชีผู้ใช้</h3>
+            <div class="input-group marginBtm1">
+              <span class="input-group-addon width150px">Username</span>
+              <input type="text" class="form-control" >
+            </div>
+            <div class="input-group marginBtm1">
+              <span class="input-group-addon width150px">Password</span>
+              <input type="password" class="form-control" >
+            </div>
+            <div class="input-group marginBtm1">
+              <span class="input-group-addon width150px">Re-Password</span>
+              <input type="password" class="form-control" >
+            </div>
+            <div class="input-group marginBtm1">
+              <span class="input-group-addon width150px">สายงาน</span>
+              <input type="text" class="form-control" >
+            </div>
+            <div class="input-group marginBtm1">
+              <span class="input-group-addon width150px">ตำแหน่ง</span>
+              <input type="text" class="form-control" >
+            </div>
+            <div class="input-group marginBtm1">
+              <span class="input-group-addon width150px">ชื่อ</span>
+              <input type="text" class="form-control" >
+            </div>
+            <div class="input-group marginBtm1">
+              <span class="input-group-addon width150px">นามสกุล</span>
+              <input type="text" class="form-control" >
+            </div>
+            <div class="input-group marginBtm1">
+              <span class="input-group-addon width150px">หน้าที่</span>
+                <select class="form-control">
+                  <option>---เลือก---</option>
+                  <option>Admin</option>
+                  <option>เจ้าหน้าที่</option>
+                  <option>ผู้บริหาร</option>
+                </select>
+            </div>
+            <button class="btn btn-lg btn-success" > ยืนยัน </button>
+            <button class="btn btn-lg btn-danger" > ยกเลิก </button>
+        </div>
+    </form>
+</div> 
+
+<a href="@routes.Application.user()" > User </a>
