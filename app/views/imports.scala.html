@@ -1,0 +1,28 @@
+@(user : User)
+@header("imports")
+
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
+
+@nav(user)
+@headerTag("ระบบงานพัสดุ คณะศิลปกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์")
+@sideMenu()
+
+
+<div class ="mainWindow" style="text-align:center;">
+
+
+<a href="@routes.Application.importsInstitute()">
+<button class="btn btn-default" style="width:100%;">ระบบหน่วยงานจัดซื้อและนำเข้า </button>
+</a>
+
+<a href="@routes.Application.importsMaterialDurableArticles()">
+<button class="btn btn-default" style="width:100%;">ระบบจัดการพัสดุ </button>
+</a>
+
+<button class="btn btn-default" style="width:100%;">ระบบจัดซื้อและนำเข้าวัสดุครุภัณฑ์ </button>
+
+
+
+</div> 
+
+<a href="@routes.Application.user()" > User </a>

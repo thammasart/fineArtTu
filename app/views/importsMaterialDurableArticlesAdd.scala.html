@@ -1,0 +1,115 @@
+@(user : User)
+@header("importsMaterialDurableArticlesAdd")
+
+
+@nav(user)
+@headerTag("เพิ่มรายละเอียดครุภัณฑ์")
+
+
+
+<div class="detailWindow">
+
+
+<form>
+
+		<div class="form-inline" role="form">
+
+		 <div class="form-group" style="padding-top:10px">
+				  	<div class="input-group" style="margin-left:5%">
+					    <span class="input-group-addon" style="width:150px">ประเภทครุภัณฑ์:</span>
+					    <input type="text" class="form-control" placeholder="กรอกชื่อ" style="width: 300px">
+					</div>
+				  </div>
+				   <div class="form-group" style="padding-top:10px">
+				  	<div class="input-group" style="margin-left:5%">
+					    <span class="input-group-addon" style="width:150px">ประเภทย่อยของครุภัณฑ์:</span>
+					    <input type="text" class="form-control" placeholder="กรอกชื่อ" style="width: 300px">
+					</div>
+				  </div>
+					
+		</div>
+
+		<div class="form-horizontal" role="form">
+
+				  <div class="form-group" style="padding-top:10px">
+				  	<div class="input-group" style="margin-left:5%">
+					    <span class="input-group-addon" style="width:150px">ชื่อครุภัณฑ์:</span>
+					    <input type="text" class="form-control" placeholder="กรอกชื่อ" style="width: 300px">
+					</div>
+				  </div>
+
+				  <div class="form-group" style="padding-top:10px">
+				  	<div class="input-group" style="margin-left:5%">
+					    <span class="input-group-addon" style="width:150px">รหัสหมายเลขพัสดุ(FSN):</span>
+					    <input type="text" class="form-control" placeholder="กรอกชื่อ" style="width: 300px">
+					</div>
+				  </div>
+
+				  <div class="form-group" style="padding-top:10px">
+				  	<div class="input-group" style="margin-left:5%">
+					    <span class="input-group-addon" style="width:150px">รหัสจากคลัง:</span>
+					    <input type="text" class="form-control" placeholder="กรอกชื่อ" style="width: 300px">
+					</div>
+				  </div>
+		</div>
+
+
+<div class="form-inline" role="form">
+
+		 <div class="form-group" style="padding-top:10px">
+				  	<div class="input-group" style="margin-left:5%">
+					    <span class="input-group-addon" style="width:150px">ประเภทงบประมาณ:</span>
+					    <input type="text" class="form-control" placeholder="กรอกชื่อ" style="width: 200px">
+					</div>
+		</div>
+				   
+		<div class="form-group" style="padding-top:10px">
+				  	<div class="input-group" style="margin-left:5%">
+					    <span class="input-group-addon" style="width:150px">ปีงบประมาณ:</span>
+					    <input type="text" class="form-control" placeholder="กรอกชื่อ" style="width: 200px">
+					</div>
+		</div>
+
+		<div class="form-group" style="padding-top:10px">
+				  	<div class="input-group" style="margin-left:5%">
+					    <span class="input-group-addon" style="width:150px">อายุการใช้งาน:</span>
+					    <input type="text" class="form-control" placeholder="กรอกชื่อ" style="width: 200px">
+					</div>
+		</div>
+					
+</div>
+
+
+
+		
+
+
+
+
+ </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+<div>
+	<a href="@routes.Application.importsInstitute()">
+	<button class="btn btn-default" style="float:right;margin-right:15%;">ยืนยัน</button>
+	</a>
+	<a href="@routes.Application.importsInstitute()">
+	<button class="btn btn-default" style="float:right;">ยกเลิก</button>
+	</a>
+</div>
+
