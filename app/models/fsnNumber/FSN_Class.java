@@ -1,4 +1,4 @@
-package models.fsn;
+package models.fsnNumber;
 
 import play.db.ebean.*;
 import javax.persistence.*;

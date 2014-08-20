@@ -12,6 +12,11 @@ public class User extends Model{
 	public String password;
 
 	public static User authenticate(String username, String password) {
+
+        System.out.println("จำนวน ผู้ใช้ :" + User.find.findRowCount());
+		System.out.println("จำนวน รหัสวัสดุ :" + ConsumableCode.find.findRowCount());
+        System.out.println("จำนวน ประเภทวัสดุ :" + ConsumableType.find.findRowCount());
+
         User user = find.byId(username);
 		if(user == null){
             return null;
@@ -19,6 +24,7 @@ public class User extends Model{
         else if(!username.equals(user.username) || !password.equals(user.password)){
             return null;
         }
+
         return user;
 	}
 
