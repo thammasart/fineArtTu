@@ -44,6 +44,7 @@ create table consumable (
   telephone_number          varchar(255),
   details                   varchar(255),
   part_of_pic               varchar(255),
+  code_id                   bigint,
   company_id                bigint,
   constraint pk_consumable primary key (id))
 ;
@@ -84,8 +85,10 @@ create table durable_articles (
   telephone_number          varchar(255),
   details                   varchar(255),
   part_of_pic               varchar(255),
+  status                    integer,
   fsn_description_id        varchar(4),
   company_id                bigint,
+  constraint ck_durable_articles_status check (status in (0,1,2,3,4)),
   constraint pk_durable_articles primary key (id))
 ;
 
@@ -107,7 +110,10 @@ create table durable_goods (
   telephone_number          varchar(255),
   details                   varchar(255),
   part_of_pic               varchar(255),
+  status                    integer,
+  code_id                   bigint,
   company_id                bigint,
+  constraint ck_durable_goods_status check (status in (0,1,2,3,4)),
   constraint pk_durable_goods primary key (id))
 ;
 
@@ -177,22 +183,26 @@ create sequence user_seq;
 
 alter table company add constraint fk_company_address_1 foreign key (address_id) references address (id) on delete restrict on update restrict;
 create index ix_company_address_1 on company (address_id);
-alter table consumable add constraint fk_consumable_company_2 foreign key (company_id) references company (id) on delete restrict on update restrict;
-create index ix_consumable_company_2 on consumable (company_id);
-alter table consumable_code add constraint fk_consumable_code_consumableT_3 foreign key (consumable_type_id) references consumable_type (id) on delete restrict on update restrict;
-create index ix_consumable_code_consumableT_3 on consumable_code (consumable_type_id);
-alter table durable_articles add constraint fk_durable_articles_fsn_4 foreign key (fsn_description_id) references fsn_description (description_id) on delete restrict on update restrict;
-create index ix_durable_articles_fsn_4 on durable_articles (fsn_description_id);
-alter table durable_articles add constraint fk_durable_articles_company_5 foreign key (company_id) references company (id) on delete restrict on update restrict;
-create index ix_durable_articles_company_5 on durable_articles (company_id);
-alter table durable_goods add constraint fk_durable_goods_company_6 foreign key (company_id) references company (id) on delete restrict on update restrict;
-create index ix_durable_goods_company_6 on durable_goods (company_id);
-alter table fsn_class add constraint fk_fsn_class_group_7 foreign key (group_group_id) references fsn_group (group_id) on delete restrict on update restrict;
-create index ix_fsn_class_group_7 on fsn_class (group_group_id);
-alter table fsn_description add constraint fk_fsn_description_type_8 foreign key (type_type_id) references fsn_type (type_id) on delete restrict on update restrict;
-create index ix_fsn_description_type_8 on fsn_description (type_type_id);
-alter table fsn_type add constraint fk_fsn_type_groupClass_9 foreign key (group_class_group_class_id) references fsn_class (group_class_id) on delete restrict on update restrict;
-create index ix_fsn_type_groupClass_9 on fsn_type (group_class_group_class_id);
+alter table consumable add constraint fk_consumable_code_2 foreign key (code_id) references consumable_code (id) on delete restrict on update restrict;
+create index ix_consumable_code_2 on consumable (code_id);
+alter table consumable add constraint fk_consumable_company_3 foreign key (company_id) references company (id) on delete restrict on update restrict;
+create index ix_consumable_company_3 on consumable (company_id);
+alter table consumable_code add constraint fk_consumable_code_consumableT_4 foreign key (consumable_type_id) references consumable_type (id) on delete restrict on update restrict;
+create index ix_consumable_code_consumableT_4 on consumable_code (consumable_type_id);
+alter table durable_articles add constraint fk_durable_articles_fsn_5 foreign key (fsn_description_id) references fsn_description (description_id) on delete restrict on update restrict;
+create index ix_durable_articles_fsn_5 on durable_articles (fsn_description_id);
+alter table durable_articles add constraint fk_durable_articles_company_6 foreign key (company_id) references company (id) on delete restrict on update restrict;
+create index ix_durable_articles_company_6 on durable_articles (company_id);
+alter table durable_goods add constraint fk_durable_goods_code_7 foreign key (code_id) references consumable_code (id) on delete restrict on update restrict;
+create index ix_durable_goods_code_7 on durable_goods (code_id);
+alter table durable_goods add constraint fk_durable_goods_company_8 foreign key (company_id) references company (id) on delete restrict on update restrict;
+create index ix_durable_goods_company_8 on durable_goods (company_id);
+alter table fsn_class add constraint fk_fsn_class_group_9 foreign key (group_group_id) references fsn_group (group_id) on delete restrict on update restrict;
+create index ix_fsn_class_group_9 on fsn_class (group_group_id);
+alter table fsn_description add constraint fk_fsn_description_type_10 foreign key (type_type_id) references fsn_type (type_id) on delete restrict on update restrict;
+create index ix_fsn_description_type_10 on fsn_description (type_type_id);
+alter table fsn_type add constraint fk_fsn_type_groupClass_11 foreign key (group_class_group_class_id) references fsn_class (group_class_id) on delete restrict on update restrict;
+create index ix_fsn_type_groupClass_11 on fsn_type (group_class_group_class_id);
 
 
 

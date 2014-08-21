@@ -1,0 +1,42 @@
+@(user : User)
+@header("importsOrderAddMaterialDurableArticles2")
+    <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
+
+@nav(user)
+@headerTag("เพิ่มครุภัณฑ์ลงสัญญาจัดซื้อ")
+
+<div class="detailWindow">
+
+
+<form>
+คณะกรรมการเปิดซอง1:<input type="text" placeholder="NULL"><br>
+คณะกรรมการเปิดซอง2:<input type="text" placeholder="NULL"><br>  
+คณะกรรมการเปิดซอง3:<input type="text" placeholder="NULL"><br>  
+คณะกรรมการเปิดซอง4:<input type="text" placeholder="NULL"><br>  
+คณะกรรมการเปิดซอง5:<input type="text" placeholder="NULL"><br>  
+<br>
+คณะกรรมการตรวจรับ1:<input type="text" placeholder="NULL"><br>
+คณะกรรมการตรวจรับ2:<input type="text" placeholder="NULL"><br>
+คณะกรรมการตรวจรับ3:<input type="text" placeholder="NULL"><br>
+คณะกรรมการตรวจรับ4:<input type="text" placeholder="NULL"><br>
+คณะกรรมการตรวจรับ5:<input type="text" placeholder="NULL"><br>
+
+</form>
+
+    <div>
+            <a href="@routes.Application.importsOrderAddMaterialDurableArticles3()">
+            <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
+            </a>
+            <a href="@routes.Application.importsOrderAddMaterialDurableArticles()">
+            <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ย้อนกลับ</button>
+            </a>
+    </div>
+
+
+</div>
+
+
+
+
+
+

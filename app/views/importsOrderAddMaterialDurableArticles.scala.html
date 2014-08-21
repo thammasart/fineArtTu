@@ -1,0 +1,45 @@
+@(user : User)
+@header("importsOrderAddMaterialDurableArticles")
+    <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
+
+@nav(user)
+@headerTag("เพิ่มครุภัณฑ์ลงสัญญาจัดซื้อ")
+
+<div class="detailWindow">
+
+
+<form>
+ชื่อครุภัณฑ์:<input type="text" placeholder="asus F81se">    
+รหัสFSN:<input type="text" placeholder="5005-105-0001"><br>
+จำนวน:<input type="number"><br>
+
+
+
+
+<fieldset>
+<legend>ตัวช่วยค้นหา</legend>
+รหัสกลุ่ม:<input type="number">ชื่อกลุ่ม:<input type="number"><br>
+รหัสประเภท:<input type="number">ชื่อรหัส:<input type="number"><br>
+รูปภาพ<img src="">
+</fieldset>
+
+
+</form>
+
+    <div>
+            <a href="@routes.Application.importsOrderAddMaterialDurableArticles2()">
+            <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
+            </a>
+            <a href="@routes.Application.importsOrderAdd()">
+            <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ยกเลิก</button>
+            </a>
+    </div>
+
+
+</div>
+
+
+
+
+
+

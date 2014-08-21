@@ -96,4 +96,31 @@ public class Application extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsOrderAdd.render(user));
     }
+        public static Result importsOrderAddMaterialDurableArticles() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrderAddMaterialDurableArticles.render(user));
+    }
+        public static Result importsOrderAddMaterialDurableArticles2() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrderAddMaterialDurableArticles2.render(user));
+    }
+            public static Result importsOrderAddMaterialDurableArticles3() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrderAddMaterialDurableArticles3.render(user));
+    }
+
+        public static Result importsOrderAddMaterialConsumable() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrderAddMaterialConsumable.render(user));
+    }
+        public static Result importsOrderAddMaterialConsumable2() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrderAddMaterialConsumable2.render(user));
+    }
+        public static Result importsOrderAddMaterialConsumable3() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrderAddMaterialConsumable3.render(user));
+    }
+
+    
 }
