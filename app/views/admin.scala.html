@@ -2,13 +2,11 @@
 @header("admin")
     <script src="@routes.Assets.at("javascripts/controllers/adminUser.js")"></script>
 
-<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
-
 @navAdmin(user)
 @headerTag("ระบบระบบจัดการบัญชีผู้ใช้")
 @sideMenu()
 
-<div class ="mainWindow" ng-app="adminApp" ng-controller="adminCtrl">
+<div class ="mainWindow" style="margin-top:0; border:none;" ng-app="adminApp" ng-controller="adminCtrl">
     <div class ="headButtonAddDelete">
         <button class="btn btn-lg btn-danger btnFloatRight">ลบบัญชีผู้ใช้<span class="glyphicon glyphicon-minus"></span></button>
        <a href="@routes.Admin.addUser()"><button class="btn btn-lg btn-success btnFloatRight" style="margin-right:20px">เพิ่มบัญชีผู้ใช้<span class="glyphicon glyphicon-plus"></span></button></a>
