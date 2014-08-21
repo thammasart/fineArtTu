@@ -3,7 +3,8 @@
 
 
 @nav(user)
-@headerTag("เพิ่มรายละเอียดหน่วยงาน")
+<h1 align="center" class="titleHeader" style="position:relative"> เพิ่มรายละเอียดหน่วยงาน</h1>
+<h4 class="titleLine" style="position:relative"></h4>
 
 
 
@@ -30,24 +31,24 @@
 		</div>
 
 
-		<div class="form-inline" role="form" style="text-align : center">
+		<div class="form-inline" role="form" align="center">
 
 		 <div class="form-group" style="padding-top:10px">
 				  	<div class="input-group" style="margin-left:5%">
 					    <span class="input-group-addon" style="width:150px">ระยะเวลาในการชำระเงิน:</span>
-					    <input type="text" class="form-control"  style="width: 300px">
+					    <input type="number" class="form-control width100px" min="1" max="365" onkeypress="validateNumberKey(event)">
 					</div>
 				  </div>
 				   <div class="form-group" style="padding-top:10px">
 				  	<div class="input-group" style="margin-left:5%">
 					    <span class="input-group-addon" style="width:150px">ระยะเวลาในการจัดส่ง:</span>
-					    <input type="text" class="form-control"  style="width: 300px">
+					    <input type="number" class="form-control width100px" min="1" max="365" onkeypress="validateNumberKey(event)">
 					</div>
 				  </div>
 					
 		</div>
 
-		
+    <div class="well" style="margin-top:1.5%;">
 	<fieldset>
 		<legend style="width:auto">ที่อยู่</legend>
 
@@ -115,6 +116,7 @@
 					  </div>
 		</div>
 	</fieldset>
+    </div>
 
 <style>
 table,th,td
@@ -124,6 +126,7 @@ border-collapse:collapse;
 }
 </style>
 
+    <div class="well">
 	<fieldset>
             <legend style="width:auto">ประเถทครุภัณฑ์</legend>
             <table class="table table-striped">
@@ -155,8 +158,9 @@ border-collapse:collapse;
             </table>
   	
   	</fieldset>
+    </div>
 
-
+    <div class="well">
   	<fieldset>
   	<legend style="width:auto">ประเถทวัสดุ</legend>
 
@@ -187,11 +191,12 @@ border-collapse:collapse;
   	</table>
 
   	</fieldset>
+    </div>
 
  </form>
     <div>
             <a href="@routes.Application.importsInstitute()">
-            <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
+            <button class="btn btn-success btn-lg" style="float:right; margin-top:1%; margin-bottom:2%;">ยืนยัน</button>
             </a>
             <a href="@routes.Application.importsInstitute()">
             <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ยกเลิก</button>
@@ -199,4 +204,4 @@ border-collapse:collapse;
     </div>
 </div>
 
-
+@footer()
