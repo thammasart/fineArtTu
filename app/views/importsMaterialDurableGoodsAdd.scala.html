@@ -1,9 +1,9 @@
 @(user : User)
-@header("importsMaterialDurableArticlesAdd")
+@header("importsMaterialDurableGoodsAdd")
 
 
 @nav(user)
-@headerTag("เพิ่มรายละเอียดครุภัณฑ์")
+@headerTag("เพิ่มรายละเอียดวัสดุคงทนถาวร")
 
 
 
@@ -11,12 +11,9 @@
 
 
 <form>
-
 รหัสกลุ่ม:<input type="number" placeholder="ใส่ค่า"> ชื่อกลุ่ม:<input type="text" placeholder="ใส่ค่า"><br>
 รหัสประเภท<input type="number" placeholder="ใส่ค่า"> ชื่อรหัส:<input type="text" placeholder="ใส่ค่า"><br>
-รหัสชนิด<input type="number" placeholder="ใส่ค่า"> ชื่อชนิด:<input type="text" placeholder="ใส่ค่า"><br>
-รหัสรายละเอียด<input type="number" placeholder="ใส่ค่า"> ชื่อครุภัณฑ์:<input type="text" placeholder="ใส่ค่า"><br>
-รหัสจากคลัง<input type="number"><br>
+รหัสวัสดุ<input type="number" placeholder="ใส่ค่า">ชื่อวัสดุ<input type="text" placeholder="ใส่ค่า"><br>
 ราคา<input type="number" placeholder="ใส่ค่า"> ราคารวมภาษี<input type="number" placeholder="ใส่ค่า"><br>
 
 
@@ -26,7 +23,7 @@
 	<option>ProBike</option>
 <select><br>
 
-อายุการใช้งาน:<input type="number" placeholder="ใส่ค่า">เวลาก่อนการแจ้งเตือนเมื่อหมดอายุการใช้งาน:<input type="number"><br>
+อายุการใช้งาน:<input type="number" placeholder="ใส่ค่า"><br>
 
 หน่วย:<select name ="อัน">
 	<option>อัน</option>
@@ -44,10 +41,10 @@
 </form>
 
     <div>
-            <a href="@routes.Application.importsMaterialDurableArticles()">
+            <a href="@routes.Application.importsMaterialDurableGoods()">
             <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
             </a>
-            <a href="@routes.Application.importsMaterialDurableArticles()">
+            <a href="@routes.Application.importsMaterialDurableGoods()">
             <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ยกเลิก</button>
             </a>
     </div>
