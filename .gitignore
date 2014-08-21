@@ -14,5 +14,6 @@ dist
 /RUNNING_PID
 /.settings
 conf/evolution/default/1.sql
+conf/evolutions/default/1.sql
 conf/evolutions/
 *.swp

@@ -3,6 +3,8 @@ package models;
 import play.db.ebean.*;
 import javax.persistence.*;
 
+import models.type.*;
+
 @Entity
 public class DurableGoods extends Model{	// ครุภัณฑ์
 
@@ -24,8 +26,10 @@ public class DurableGoods extends Model{	// ครุภัณฑ์
 	public String telephoneNumber;// เบอร์โทร
 	public String details; // รายละเอียด
 	public String partOfPic; // รูปภาพ
+	public SuppliesStatus status; // สถานะ
 
-//	@ManyToOne //หมายเลขพัสดุ
+	@ManyToOne //หมายเลขวัสดุ
+	public ConsumableCode code;
 	@ManyToOne
 	public Company company;
 

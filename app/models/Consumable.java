@@ -23,6 +23,8 @@ public class Consumable extends Model{ // วัสดุสิ้นเปล�
 	public String details; // รายละเอียด
 	public String partOfPic; // รูปภาพ
 
+	@ManyToOne //หมายเลขวัสดุ
+	public ConsumableCode code;
 	@ManyToOne
 	public Company company;
 
