@@ -76,9 +76,24 @@ public class Application extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsMaterialDurableGoods.render(user));
     }
+        public static Result importsMaterialDurableGoodsAdd() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsMaterialDurableGoodsAdd.render(user));
+    }
+
+
         public static Result importsMaterialConsumable() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsMaterialConsumable.render(user));
     }
 
+        public static Result importsOrder() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrder.render(user));
+    }
+
+        public static Result importsOrderAdd() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrderAdd.render(user));
+    }
 }

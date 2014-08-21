@@ -18,7 +18,12 @@ GET		/import/materialDurableArticles			controllers.Application.importsMaterialDu
 GET		/import/materialDurableArticles/add			controllers.Application.importsMaterialDurableArticlesAdd()
 
 GET		/import/materialDurableGoods			controllers.Application.importsMaterialDurableGoods()
+GET		/import/materialDurableGoods/add			controllers.Application.importsMaterialDurableGoodsAdd()
+
 GET		/import/materialConsumable				controllers.Application.importsMaterialConsumable()
+
+GET		/import/order							controllers.Application.importsOrder()
+GET		/import/order/add							controllers.Application.importsOrderAdd()
 
 
 GET     /Admin                      controllers.Admin.index()

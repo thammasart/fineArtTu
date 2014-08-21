@@ -1,9 +1,9 @@
 @(user : User)
-@header("importsInstitute")
+@header("importsOrder")
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
 
 @nav(user)
-@headerTag("ระบบโครงสร้างหน่วยงานจัดซื้อและนำเข้า")
+@headerTag("ระบบจัดซื้อและนำเข้าวัสดุครุภัณฑ์")
 
 <div class="searchS">
 	<form>
@@ -22,11 +22,11 @@
 @importsInstituteOverlay()
 
         <div>
-                <a href="@routes.Application.importsInstituteAdd()">
-                <button class="btn btn-success btn-lg">เพิ่มหน่วยงาน</button>
+                <a href="@routes.Application.importsOrderAdd()">
+                <button class="btn btn-success btn-lg">เพิ่มสัญญาจัดซื้อ</button>
                 </a>
 
-                <button class="btn btn-danger btn-lg" ng-click="open()">ลบหน่วยงาน</button>
+                <button class="btn btn-danger btn-lg" ng-click="open()">ลบสัญญาจัดซื้อ</button>
 
                 <a href="@routes.Application.imports()">
                 <button class="btn btn-danger btn-lg" style="float:right;">ย้อนกลับ</button>
@@ -37,8 +37,8 @@
             <table class="table table-striped overlayTable">
                 <thead>
                     <tr>
-                        <th> CH </th>
-                        <th>ซื่อหน่วยงาน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ลำดับ </th>
+                        <th>ซื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ผู้ติดต่อ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>เบอร์โทร<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ระยะเวลาในการชำระเงิน<span class="glyphicon glyphicon-sort"></span></th>

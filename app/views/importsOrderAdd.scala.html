@@ -1,9 +1,9 @@
 @(user : User)
-@header("importsInstitute")
+@header("importsOrderAdd")
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
 
 @nav(user)
-@headerTag("ระบบโครงสร้างหน่วยงานจัดซื้อและนำเข้า")
+@headerTag("เพิ่มสัญญาจัดซื้อ")
 
 <div class="searchS">
 	<form>
@@ -22,38 +22,36 @@
 @importsInstituteOverlay()
 
         <div>
-                <a href="@routes.Application.importsInstituteAdd()">
-                <button class="btn btn-success btn-lg">เพิ่มหน่วยงาน</button>
+                <a href="@routes.Application.importsOrderAdd()">
+                <button class="btn btn-success btn-lg">เพิ่มพัสดุ</button>
                 </a>
 
-                <button class="btn btn-danger btn-lg" ng-click="open()">ลบหน่วยงาน</button>
+                <button class="btn btn-danger btn-lg" ng-click="open()">ลบพัสดุ</button>
 
                 <a href="@routes.Application.imports()">
                 <button class="btn btn-danger btn-lg" style="float:right;">ย้อนกลับ</button>
                 </a>
+
+                <form>
+                    ปีงบประมาณ:<input "text">
+                </form>
 
         </div>
         <div class="adminUserinfoTableContainer">
             <table class="table table-striped overlayTable">
                 <thead>
                     <tr>
-                        <th> CH </th>
-                        <th>ซื่อหน่วยงาน<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>ผู้ติดต่อ<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>เบอร์โทร<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>ระยะเวลาในการชำระเงิน<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>ระยะเวลาในการจัดส่ง<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ลำดับ </th>
+                        <th>ซื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>เวลาจัดซื้อและนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
                         <th>รายละเอียด</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
-                        <th><input type="checkbox"></th>
-                        <th>ภาควิชา</th>
-                        <th>เจ้าหน้าที่</th>
-                        <th>อินทัช</th>
-                        <th>เงินยวง</th>
+                        <th>1</th>
+                        <th>รายการABC</th>
                         <th>ตรวจสอบ</th>
                         <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
 
