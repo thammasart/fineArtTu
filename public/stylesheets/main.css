@@ -6,8 +6,6 @@
     padding:10px 100px;
     border-color:#BDC3C7;
     border-top-style:dashed;
-    position:fixed;
-    width:100%;
     top:10%;
 }
 .titleHeader{
@@ -15,8 +13,6 @@
     background:#BDC3C7;
     padding:20px;
     margin-top: 0px;
-    position:fixed;
-    width:100%;
 }
 .footLine{
  color:#34495E;
@@ -73,4 +69,7 @@ float:right;
 }
 .marginLeft2{
     margin-left:2%;
+}
+.textAlignCenter{
+    text-align:center;
 }
