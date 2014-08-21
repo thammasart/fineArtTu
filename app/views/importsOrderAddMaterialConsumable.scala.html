@@ -1,0 +1,44 @@
+@(user : User)
+@header("importsOrderAddMaterialConsumable")
+    <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
+
+@nav(user)
+@headerTag("เพิ่มวัสดุสิ้นเปลืองลงสัญญาจัดซื้อ")
+
+<div class="detailWindow">
+
+
+<form>
+ชื่อวัสดุสิ้นเปลือง:<input type="text" placeholder="ปากกา">รหัสวัสดุ:<input type="number" placeholder="1002"><br>
+จำนวน:<input type="number"><br>
+
+
+
+
+<fieldset>
+<legend>ตัวช่วยค้นหา</legend>
+รหัสกลุ่ม:<input type="number">ชื่อกลุ่ม:<input type="number"><br>
+รหัสประเภท:<input type="number">ชื่อรหัส:<input type="number"><br>
+รูปภาพ<img src="">
+</fieldset>
+
+
+</form>
+
+    <div>
+            <a href="@routes.Application.importsOrderAddMaterialConsumable2()">
+            <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
+            </a>
+            <a href="@routes.Application.importsOrderAdd()">
+            <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ยกเลิก</button>
+            </a>
+    </div>
+
+
+</div>
+
+
+
+
+
+

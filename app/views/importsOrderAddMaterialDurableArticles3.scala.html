@@ -1,0 +1,49 @@
+@(user : User)
+@header("importsOrderAddMaterialDurableArticles3")
+    <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
+
+@nav(user)
+@headerTag("เพิ่มครุภัณฑ์ลงสัญญาจัดซื้อ")
+
+<div class="detailWindow">
+
+
+<form>
+จำนวนนำเข้าคงเหลือก่อนการกระจาย:<input type="number" placeholder="20"><br>
+
+<fieldset>
+	<legend>แยกย่อย</legend>
+	จำนวนการกระจายต่อสาขา:<input type="number" placeholder="5"><br>
+	สาขา:<select name ="1">
+	<option>1</option>
+	<option>2</option>
+	<option>3</option>
+<select><br>
+
+
+	ห้อง:<input type="text">ชั้น:<input type="text"><br>
+	จำนวนการกระจายต่อผู้รับ:<input type="number" placeholder="5">ชื่อผู้รับ:<input type="text"><br>
+	
+	
+</fieldset>
+
+
+</form>
+
+    <div>
+            <a href="@routes.Application.importsOrderAdd()">
+            <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
+            </a>
+            <a href="@routes.Application.importsOrderAddMaterialDurableArticles2()">
+            <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ย้อนกลับ</button>
+            </a>
+    </div>
+
+
+</div>
+
+
+
+
+
+

@@ -25,6 +25,15 @@ GET		/import/materialConsumable				controllers.Application.importsMaterialConsum
 GET		/import/order							controllers.Application.importsOrder()
 GET		/import/order/add							controllers.Application.importsOrderAdd()
 
+GET		/import/order/add/materialDurableArticles			controllers.Application.importsOrderAddMaterialDurableArticles()
+GET		/import/order/add/materialDurableArticles2			controllers.Application.importsOrderAddMaterialDurableArticles2()
+GET		/import/order/add/materialDurableArticles3			controllers.Application.importsOrderAddMaterialDurableArticles3()
+
+GET		/import/order/add/materialConsumable			controllers.Application.importsOrderAddMaterialConsumable()
+GET		/import/order/add/materialConsumable2			controllers.Application.importsOrderAddMaterialConsumable2()
+GET		/import/order/add/materialConsumable3			controllers.Application.importsOrderAddMaterialConsumable3()
+
+
 
 GET     /Admin                      controllers.Admin.index()
 GET     /Admin/addUser              controllers.Admin.addUser()
