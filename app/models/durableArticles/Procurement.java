@@ -1,4 +1,4 @@
-package models;
+package models.durableArticles;
 
 import play.db.ebean.*;
 import javax.persistence.*;
@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+
+import models.*;
 
 @Entity
 public class Procurement extends Model{
