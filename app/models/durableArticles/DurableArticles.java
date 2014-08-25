@@ -16,7 +16,7 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 	public SuppliesStatus status; // สถานะ
 
 	@ManyToOne
-	public ContractsDetail detail;
+	public ProcurementDetail detail;
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,DurableArticles> find = new Finder(Long.class,DurableArticles.class);

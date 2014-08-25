@@ -6,7 +6,7 @@ import javax.persistence.*;
 import models.fsnNumber.FSN_Description;
 
 @Entity
-public class ContractsDetail extends Model{
+public class ProcurementDetail extends Model{
 
 	@Id
 	public long id;
@@ -29,5 +29,5 @@ public class ContractsDetail extends Model{
 	public Procurement procurement; // การจัดซื้อ
 
 	@SuppressWarnings("unchecked")
-	public static Finder<Long,Procurement> find = new Finder(Long.class,Procurement.class);
+	public static Finder<Long,ProcurementDetail> find = new Finder(Long.class,ProcurementDetail.class);
 }

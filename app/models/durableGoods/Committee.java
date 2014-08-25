@@ -1,4 +1,4 @@
-package models.durableGoods;
+package models.durableArticles;
 
 import play.db.ebean.*;
 import javax.persistence.*;
