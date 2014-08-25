@@ -1,0 +1,67 @@
+durable articles	ครุภัณฑ์
+durable goods 		วัสดุคงทนถาวร
+consumable			วัสดุสิ้นเปลือง
+procurement			จัดซื้อจัดจ้าง
+requisition 		ใบเบิกของ
+durable type		ประเภทครุภัณฑ์
+consumable type 	ประเภทวัสดุ
+acronym				ตัวย่อ
+imports				นำเข้า
+institute			หน่วยงาน (same as company in models)
+order				จัดซื้อ (same as procument in models ??)
+
+// FSN
+FSN					หมายเลขพัสดุครุภัณฑ์
+
+// supplies status
+supplies status 	สถานะของพัสดุ
+normal				ใช้งาน
+repairing			ส่งซ่อม
+donate				บริจาค
+transferred			โอนย้าย
+sold				จำหน่าย
+
+
+// user role
+userStatus			สถานะผู้ใช้
+student				นักเรียน
+admin				ผู้ดูแลระบบ
+
+
+//address ที่อยู่
+buildingNo			เลขที่อยู่
+alley				ซอย
+road				ถนน
+parish				แขวง
+district			เขต
+province			จังหวัด
+postCode			รหัสไปรษณีย์
+
+//company หน่วยงาน(สถานประกอบการ)
+dealer				ผู้ติดต่อ
+telephone number	เบอร์โทรศัพท์
+pay period			ระยะเวลาการชำระเงิน
+send period			ระยะเวลาการจัดส่ง
+
+
+//@supplies พัสดุ
+//comsumable วัสดุสิ้นเปลือง
+//durable articles	ครุภัณฑ์
+//durable goods		วัสดุคงทนถาวร
+group class			ประเภท
+type				ประเภทย่อย
+budget type			ประเภทงบประมาณ
+budget year			ปีงบประมาณ
+priceNoVat			ราคาไม่รวมภาษี
+price 				ราคา
+remain				ยอดคงเหลือ
+classifier			หน่วย(ลักษณะนาม)
+brand				ยี่ห้อ
+path of pic 		ที่อยู่ของรูปภาพ
+consumable code 	รหัสวัสดุสิ้นเปลือง
+consumable type		ประเภทวัสดุสิ้นเปลือง
+code from stock		รหัสจากคลัง
+lifetime			อายุการใช้งาน
+alert time			เวลาแจ้งเตือน
+serial number		หมายเลขเครื่อง
+details				รายละเอียด
