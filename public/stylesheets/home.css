@@ -1,10 +1,9 @@
 .sideMenu{
-    width:15%;
-    height:75%;
-    margin-left:2%;
-    position:fixed;
-    top:13%;
-    font-size:18px;
+width: 15%;
+height: 75%;
+margin-left: 2%;
+font-size: 18px;
+float: left;
 }
 .mainWindow{
     width:75%;
@@ -12,7 +11,6 @@
     border:solid;
     margin-left:20%;
     position:fixed;
-    margin-top:5.5%;
 }
 
 .lineShadow{

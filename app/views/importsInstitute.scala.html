@@ -5,29 +5,29 @@
 @nav(user)
 @headerTag("ระบบโครงสร้างหน่วยงานจัดซื้อและนำเข้า")
 
-<div class="searchS">
-	<form>
-            <div class="form-group">
-                <div class="input-group">
-                  <span class="input-group-addon">ค้นหา</span>
-                  <input type="text" class="form-control" style="width:100px">
-                </div>
-              </div>
-	</form>
-</div>
+@sideMenu()
 
 <div class="listWindow" ng-app="importsInstituteApp"  ng-controller="importsInstituteCtrl">
-    <div class = "fixSize" >
 
 @importsInstituteOverlay()
 
         <div>
-                <a href="@routes.Application.importsInstituteAdd()">
-                <button class="btn btn-success btn-lg">เพิ่มหน่วยงาน</button>
-                </a>
-
+                <div class="searchS">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                  <span class="input-group-addon">ค้นหา</span>
+                                  <input type="text" class="form-control" style="width:300px">
+                                </div>
+                              </div>
+                        </form>
+                </div>
                 <a href="@routes.Application.imports()">
                 <button class="btn btn-danger btn-lg" style="float:right;">ย้อนกลับ</button>
+                </a>
+
+                <a href="@routes.Application.importsInstituteAdd()">
+                <button class="btn btn-success btn-lg"style="float:right; margin-right:15px;">เพิ่มหน่วยงาน</button>
                 </a>
 
         </div>
@@ -67,9 +67,9 @@
                   <li><a href="#">5</a></li>
                   <li><a href="#">&raquo;</a></li>
                 </ul>
-            </div>
-        </div>
-    </div> 
+           </div>
+        </div> 
 <!---->
 </div>
 
+@footer()
