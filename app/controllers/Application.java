@@ -72,10 +72,6 @@ public class Application extends Controller {
         return ok(importsMaterialDurableArticlesAdd.render(user));
     }
 
-        public static Result importsMaterialDurableGoods() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsMaterialDurableGoods.render(user));
-    }
         public static Result importsMaterialDurableGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsMaterialDurableGoodsAdd.render(user));

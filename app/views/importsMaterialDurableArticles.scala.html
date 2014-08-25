@@ -5,37 +5,99 @@
 @nav(user)
 @headerTag("ระบบจัดการพัสดุ")
 
+@sideMenu()
 
-<div class="searchS">
-	<form>
-					<div class="form-group">
-					    <div class="input-group">
-					      <span class="input-group-addon">ค้นหา</span>
-					      <input type="text" class="form-control" style="width:100px">
-					    </div>
-					  </div>
-	</form>
-</div>
+<div class="listWindowMaterial">
+    <ul class="nav nav-tabs" role="tablist" id="imdTabs" style="height:42px; margin-bottom:10px;">
+      <li class="active"><a href="#1" role="tab" data-toggle="tab">ครุภัณฑ์</a></li>
+      <li><a href="#2" role="tab" data-toggle="tab">วัสดุคงทนถาวร</a></li>
+      <li><a href="#3" role="tab" data-toggle="tab">วัสดุสิ้นเปลือง</a></li>
+    </ul>
 
-<div style="margin-left:15%;margin-top:5.6%;">
-	<ul class="nav nav-pills">
-	  <li class="active"><a href="@routes.Application.importsMaterialDurableArticles()">ครุภัณฑ์</a></li>
-	  <li><a href="@routes.Application.importsMaterialDurableGoods()">วัสดุคงทนถาวร</a></li>
-	  <li><a href="@routes.Application.importsMaterialConsumable()">วัสดุสิ้นเปลือง</a></li>
-	</ul>
+    <div class="tab-content">
+      <div class="tab-pane fade active" id="1">
+        <div class="searchS">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">ค้นหา</span>
+                          <input type="text" class="form-control" style="width:300px">
+                        </div>
+                      </div>
+                </form>
+        </div>
+        <div style="width:300px;float:right;">
+                <a href="@routes.Application.importsMaterialDurableArticlesAdd()">
+                <button class="btn btn-success" style="margin-left:15%;">เพิ่มครุภัณฑ์</button>
+                </a>
 
-	<div class="listWindowMaterial">
+                <button class="btn btn-danger">ลบครุภัณฑ์</button>
 
 
-<div class = "fixSize" >
+        </div>
+            <table class="table table-striped overlayTable">
+                <thead>
+                    <tr>
+                        <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <th>7510-003-0001</th>
+                        <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
+                        <th>75</th>
+                        <th>1</th>
+                        <th><img src=""></th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagingContainer" align="center">
+                <ul class="pagination" style="margin:0;">
+                  <li class="disabled"><a href="#">&laquo;</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+    </div>
+<!-- ========================================== tab2 ============================================ --!>
+      <div class="tab-pane fade" id="2">
+        <div class="searchS">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">ค้นหา</span>
+                          <input type="text" class="form-control" style="width:300px">
+                        </div>
+                      </div>
+                </form>
+        </div>
+        <div style="width:380px;float:right;">
+                <a href="@routes.Application.importsMaterialDurableGoodsAdd()">
+                <button class="btn btn-success" style="margin-left:15%;">เพิ่มพัสดุคงทนถาวร</button>
+                </a>
+
 
   
 
-    <div class="adminUserinfoTableContainer">
-        <table class="table table-striped overlayTable">
-            <thead>
+                <button class="btn btn-danger">ลบพัสดุคงทนถาวร</button>
+        </div>
+
+
+           <table class="table table-striped overlayTable">
+            <legend>วัสดุสำนักงาน</legend>
+             <thead>
                 <tr>
-                    <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รหัสวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
                     <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
@@ -43,91 +105,64 @@
                 </tr>
             </thead>
             <tbody>
-
                 <tr>
-                    <th>7510-003-0001</th>
+                    <th>1001</th>
                     <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
                     <th>75</th>
                     <th>1</th>
                     <th><img src=""></th>
                 </tr>
-
-
-<!--- Del  Modal ------!>
-                        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header" style="border-bottom:none;">
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                              </div>
-                              <div class="modal-body">
-                                <p class="modalDelete ">Delete record(s) ?</p>
-                                <br><br> <i>Experimental results and answer will be deleted.</i>
-                                <br><br> <p class="modalWarning" > Warning: **This action cannot be undone**</p>
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" ></span>&nbsp;Delete Records</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-<!-- view Modal --!>
-                        <div class="modal fade" id="questionIDModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header" >
-                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                <h4 class="modal-title">Question ID : </h4>
-                              </div>
-                                  <div class="modal-body">
-                                  </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" ></span>&nbsp;Delete Records</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                <tr>
+                    <th>1002</th>
+                    <th>ดินสอกดล็อตติ้งสีcแดง</th>
+                    <th>75</th>
+                    <th>1</th>
+                    <th><img src=""></th>
                 </tr>
-<!--  End  loop here --!>
-            </tbody>
-        </table>
+             </tbody>
+           </table>
 
-        <div class="pagingContainer" align="center">
-            <ul class="pagination" style="margin:0;">
-              <li class="disabled"><a href="#">&laquo;</a></li>
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#">&raquo;</a></li>
-            </ul>
+            <table class="table table-striped overlayTable">
+            <legend>วัสดุไฟฟ้าและวิทยุ</legend>
+             <thead>
+                <tr>
+                    <th>รหัสวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>2002</th>
+                    <th>มอนิเตอร์</th>
+                    <th>4999</th>
+                    <th>1</th>
+                    <th><img src=""></th>
+                </tr>
+              </tbody>
+           </table>
+
+            <div class="pagingContainer" align="center">
+                <ul class="pagination" style="margin:0;">
+                  <li class="disabled"><a href="#">&laquo;</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
         </div>
+      <div class="tab-pane fade" id="3">...</div>
     </div>
-</div> 
-
-
-
-<!---->
-
-	</div>
 
 </div>
-
-
-
-<div>
-	<a href="@routes.Application.importsMaterialDurableArticlesAdd()">
-	<button class="btn btn-default" style="margin-left:15%;">เพิ่มครุภัณฑ์</button>
-	</a>
-
-	<button class="btn btn-default">ลบครุภัณฑ์</button>
-
-	<a href="@routes.Application.imports()">
-	<button class="btn btn-default" style="float:right;margin-right:15%;">ย้อนกลับ</button>
-	</a>
-
-</div>
-
+<script>
+  $(function () {
+    $('#imdTabs a:last').tab('show')
+  })
+</script>
+@footer()

@@ -17,7 +17,6 @@ GET		/import/institute/add		controllers.Application.importsInstituteAdd()
 GET		/import/materialDurableArticles			controllers.Application.importsMaterialDurableArticles()
 GET		/import/materialDurableArticles/add			controllers.Application.importsMaterialDurableArticlesAdd()
 
-GET		/import/materialDurableGoods			controllers.Application.importsMaterialDurableGoods()
 GET		/import/materialDurableGoods/add			controllers.Application.importsMaterialDurableGoodsAdd()
 
 GET		/import/materialConsumable				controllers.Application.importsMaterialConsumable()

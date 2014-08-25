@@ -4,21 +4,25 @@
 }
 
 .listWindow{
-    width:70%;
-    margin-left:15%;
-    height:500px;
-    border:solid;
-    margin-top:7%;
+width: 75%;
+margin-left: 20%;
+min-height: 700px;
 }
 
 
 .listWindowMaterial{
-    width:82.3%;
-    border:solid;
+    width:75%;
+    min-height:600px;
+    margin-left:20%;
 }
 
 .searchS{
+<<<<<<< HEAD
 	float:right;
 	margin-right:15%;
 	margin-top:4%;
+=======
+	float:left;
+        width:300px;
+>>>>>>> 84640f1b419c85cfecb8a28afdf93f1c7389edbb
 }
