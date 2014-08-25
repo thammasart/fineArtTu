@@ -28,9 +28,9 @@ public class DurableGoods extends Model{	// ครุภัณฑ์
 	public String partOfPic; // รูปภาพ
 	public SuppliesStatus status; // สถานะ
 
-	@ManyToOne //หมายเลขวัสดุ
+	@OneToMany //หมายเลขวัสดุ
 	public ConsumableCode code;
-	@ManyToOne
+	@OneToMany
 	public Company company;
 
 

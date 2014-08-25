@@ -18,7 +18,7 @@ public class Company extends Model{	// ครุภัณฑ์
 	public String durableType; // ประเภทครุภัณฑ์
 	public String consumableType; // ประเภทวัสดุ
 
-	@ManyToOne
+	@OneToMany
 	public Address address;// ที่อยู่
 
 	@SuppressWarnings("unchecked")
