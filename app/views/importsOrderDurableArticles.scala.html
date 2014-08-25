@@ -1,30 +1,29 @@
 @(user : User)
-@header("importsMaterialDurableArticles")
-
+@header("importsOrder")
+    <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
 
 @nav(user)
-@headerTag("ระบบจัดการพัสดุ")
-
+@headerTag("รายการจัดซื้อและนำเข้า")
 
 <div class="searchS">
-	<form>
-					<div class="form-group">
-					    <div class="input-group">
-					      <span class="input-group-addon">ค้นหา</span>
-					      <input type="text" class="form-control" style="width:100px">
-					    </div>
-					  </div>
-	</form>
+  <form>
+          <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">ค้นหา</span>
+                <input type="text" class="form-control" style="width:100px">
+              </div>
+            </div>
+  </form>
 </div>
 
 <div style="margin-left:15%;margin-top:5.6%;">
-	<ul class="nav nav-pills">
-	  <li class="active"><a href="@routes.Application.importsMaterialDurableArticles()">ครุภัณฑ์</a></li>
-	  <li><a href="@routes.Application.importsMaterialDurableGoods()">วัสดุคงทนถาวร</a></li>
-	  <li><a href="@routes.Application.importsMaterialConsumable()">วัสดุสิ้นเปลือง</a></li>
-	</ul>
+  <ul class="nav nav-pills">
+    <li class="active"><a href="@routes.Application.importsOrderDurableArticles()">ครุภัณฑ์</a></li>
+    <li><a href="@routes.Application.importsMaterialDurableGoods()">วัสดุคงทนถาวร</a></li>
+    <li><a href="@routes.Application.importsMaterialConsumable()">วัสดุสิ้นเปลือง</a></li>
+  </ul>
 
-	<div class="listWindowMaterial">
+  <div class="listWindowMaterial">
 
 
 <div class = "fixSize" >
@@ -112,22 +111,19 @@
 
 <!---->
 
-	</div>
+  </div>
 
 </div>
-
-
 
 <div>
-	<a href="@routes.Application.importsMaterialDurableArticlesAdd()">
-	<button class="btn btn-default" style="margin-left:15%;">เพิ่มครุภัณฑ์</button>
-	</a>
+  <a href="@routes.Application.importsOrderDurableArticlesAdd()">
+  <button class="btn btn-default" style="margin-left:15%;">เพิ่มรายการครุภัณฑ์</button>
+  </a>
 
-	<button class="btn btn-default">ลบครุภัณฑ์</button>
+  <button class="btn btn-default">ลบรายการครุภัณฑ์</button>
 
-	<a href="@routes.Application.imports()">
-	<button class="btn btn-default" style="float:right;margin-right:15%;">ย้อนกลับ</button>
-	</a>
+  <a href="@routes.Application.imports()">
+  <button class="btn btn-default" style="float:right;margin-right:15%;">ย้อนกลับ</button>
+  </a>
 
 </div>
-

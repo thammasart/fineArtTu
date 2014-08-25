@@ -87,26 +87,33 @@ public class Application extends Controller {
         return ok(importsMaterialConsumable.render(user));
     }
 
-        public static Result importsOrder() {
+        public static Result importsOrderDurableArticles() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrder.render(user));
+        return ok(importsOrderDurableArticles.render(user));
     }
 
-        public static Result importsOrderAdd() {
+        public static Result importsOrderDurableArticlesAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderAdd.render(user));
+        return ok(importsOrderDurableArticlesAdd.render(user));
+
+
+
+
+
+
+
     }
-        public static Result importsOrderAddMaterialDurableArticles() {
+        public static Result importsOrderDurableArticlesAddMaterial1() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderAddMaterialDurableArticles.render(user));
+        return ok(importsOrderDurableArticlesAddMaterial1.render(user));
     }
-        public static Result importsOrderAddMaterialDurableArticles2() {
+        public static Result importsOrderDurableArticlesAddMaterial2() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderAddMaterialDurableArticles2.render(user));
+        return ok(importsOrderDurableArticlesAddMaterial2.render(user));
     }
-            public static Result importsOrderAddMaterialDurableArticles3() {
+            public static Result importsOrderDurableArticlesAddMaterial3() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderAddMaterialDurableArticles3.render(user));
+        return ok(importsOrderDurableArticlesAddMaterial3.render(user));
     }
 
         public static Result importsOrderAddMaterialConsumable() {
