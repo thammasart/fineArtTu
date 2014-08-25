@@ -21,7 +21,7 @@ GET		/import/materialDurableGoods/add			controllers.Application.importsMaterialD
 
 GET		/import/materialConsumable				controllers.Application.importsMaterialConsumable()
 
-GET		/import/order							controllers.Application.importsOrderDurableArticles()
+GET		/import/order							controllers.Application.importsOrder()
 GET		/import/order/DurableArticlesAdd	    controllers.Application.importsOrderDurableArticlesAdd()
 
 
