@@ -18,12 +18,14 @@ public class ContractsDetail extends Model{
 	public double priceNoVat; // ราคาไม่รวมภาษี
 	public double price; // ราคราต่อหน่วย
 	public double llifeTime;// อายุการใช้งาน
+	public double alertTime;// เวลาแจ้งเตือน
 	public String brand; // ยี่ห้อ
 	public String serialNumber; //หมายเลขเครื่อง
+	public String partOfPic; // รูปภาพ
 
-	@OneToMany
+	@ManyToOne
 	public FSN_Description fsn; // หมายเลขครุภัณฑ์
-	@OneToMany
+	@ManyToOne
 	public Procurement procurement; // การจัดซื้อ
 
 	@SuppressWarnings("unchecked")

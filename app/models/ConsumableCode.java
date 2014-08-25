@@ -15,7 +15,7 @@ public class ConsumableCode extends Model{
 	@Column(nullable=false)
 	public String description;
 
-	@OneToMany
+	@ManyToOne
 	public ConsumableType consumableType;
 
 	@SuppressWarnings("unchecked")

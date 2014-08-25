@@ -13,6 +13,6 @@ public class Committee extends Model{
 
 	public CommitteeType type;
 
-	@OneToMany
+	@ManyToOne
 	public Procurement procurement;
 }

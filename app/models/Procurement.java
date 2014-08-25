@@ -18,12 +18,12 @@ public class Procurement extends Model{
 	public Date dateOfApproval; // วันที่อนุมัติในสัญญา
 	public String dealer; // ผู้ติดต่อ พนักงานขาย
 	public String telephoneNumber;// เบอร์โทร พนักงานขาย
-	@OneToMany
+	@ManyToOne
 	public Company company; // บริษัทที่ทำการซื้อ
 
-	@ManyToOne
+	@OneToMany
 	public List<Committee> eoCommittee = new ArrayList<Committee>(); // คณะกรรมการตรวจรับ
-	@ManyToOne
+	@OneToMany
 	public List<Committee> aiCommittee = new ArrayList<Committee>(); // คณะกรรมการเปิดซองสอบราคา
 
 	@SuppressWarnings("unchecked")

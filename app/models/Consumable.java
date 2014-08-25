@@ -23,9 +23,9 @@ public class Consumable extends Model{ // วัสดุสิ้นเปล�
 	public String details; // รายละเอียด
 	public String partOfPic; // รูปภาพ
 
-	@OneToMany //หมายเลขวัสดุ
+	@ManyToOne //หมายเลขวัสดุ
 	public ConsumableCode code;
-	@OneToMany
+	@ManyToOne
 	public Company company;
 
 	@SuppressWarnings("unchecked")

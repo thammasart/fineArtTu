@@ -15,7 +15,7 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 	public String codeFromStock; //รหัสจากคลัง
 	public SuppliesStatus status; // สถานะ
 
-	@OneToMany
+	@ManyToOne
 	public ContractsDetail detail;
 
 	@SuppressWarnings("unchecked")
