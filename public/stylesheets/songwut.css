@@ -17,12 +17,6 @@ min-height: 700px;
 }
 
 .searchS{
-<<<<<<< HEAD
-	float:right;
-	margin-right:15%;
-	margin-top:4%;
-=======
 	float:left;
-        width:300px;
->>>>>>> 84640f1b419c85cfecb8a28afdf93f1c7389edbb
+        width:350px;
 }
