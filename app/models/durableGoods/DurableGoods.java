@@ -7,6 +7,7 @@ import models.type.*;
 import models.ConsumableCode;
 
 @Entity
+@Table (name = "durable_goods")
 public class DurableGoods extends Model{	// ครุภัณฑ์
 
 	@Id

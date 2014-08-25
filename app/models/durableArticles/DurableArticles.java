@@ -7,6 +7,7 @@ import models.type.*;
 import models.fsnNumber.FSN_Description;
 
 @Entity
+@Table (name = "durable_articles")
 public class DurableArticles extends Model{	// ครุภัณฑ์
 
 	@Id

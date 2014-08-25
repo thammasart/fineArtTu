@@ -6,6 +6,7 @@ import javax.persistence.*;
 import models.fsnNumber.FSN_Description;
 
 @Entity
+@Table (name = "durable_articles_procurement_detail")
 public class ProcurementDetail extends Model{
 
 	@Id

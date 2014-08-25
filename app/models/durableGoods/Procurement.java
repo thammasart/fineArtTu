@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import models.*;
 
 @Entity
+@Table (name = "durable_goods_procurement")
 public class Procurement extends Model{
 
 	@Id
