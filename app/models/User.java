@@ -13,6 +13,7 @@ public class User extends Model{
 
 	public static User authenticate(String username, String password) {
 
+	/*
         System.out.println("จำนวน ผู้ใช้ :" + User.find.findRowCount());
 		System.out.println("จำนวน รหัสวัสดุ :" + ConsumableCode.find.findRowCount());
 		for(ConsumableCode code : ConsumableCode.find.all()){
@@ -22,6 +23,7 @@ public class User extends Model{
         for(ConsumableType type : ConsumableType.find.all()){
 			System.out.println( type.id + "\t" + type.acronym + "\t" + type.typeName );
 		}
+	*/
 
         User user = find.byId(username);
 		if(user == null){
