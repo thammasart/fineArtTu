@@ -1,0 +1,104 @@
+@(user : User)
+@header("importsOrder")
+
+
+@nav(user)
+@headerTag("รายการจัดซื้อและนำเข้า")
+
+@sideMenu()
+
+<div class="listWindowMaterial">
+    <ul class="nav nav-tabs" role="tablist" id="imdTabs" style="height:42px; margin-bottom:10px;">
+      <li class="active"><a href="#1" role="tab" data-toggle="tab">ครุภัณฑ์</a></li>
+      <li><a href="#2" role="tab" data-toggle="tab">วัสดุคงทนถาวร</a></li>
+      <li><a href="#3" role="tab" data-toggle="tab">วัสดุสิ้นเปลือง</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane fade in active" id="1">
+
+
+
+
+
+
+        <div class="searchS">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">ค้นหา</span>
+                          <input type="text" class="form-control" style="width:300px">
+                        </div>
+                      </div>
+                </form>
+        </div>
+        <div style="width:300px;float:right;">
+                <a href="@routes.Application.importsOrderDurableArticlesAddMaterial1()">
+                <button class="btn btn-success" style="margin-left:15%;">เพิ่มรายการครุภัณฑ์</button>
+                </a>
+
+                <button class="btn btn-danger">ลบรายการครุภัณฑ์</button>
+
+
+        </div>
+            <table class="table table-striped overlayTable">
+                <thead>
+                    <tr>
+                        <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <th>7510-003-0001</th>
+                        <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
+                        <th>75</th>
+                        <th>1</th>
+                        <th><img src=""></th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pagingContainer" align="center">
+                <ul class="pagination" style="margin:0;">
+                  <li class="disabled"><a href="#">&laquo;</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+
+
+
+
+
+
+
+
+
+
+    </div>
+<!-- ========================================== tab2 ============================================ -->
+      <div class="tab-pane fade" id="2">
+      
+      </div>
+      <div class="tab-pane fade" id="3">...</div>
+    </div>
+
+</div>
+<script>
+  $(function () {
+    $('#imdTabs a:1').tab('show')
+  })
+</script>
+@footer()
+
+
+

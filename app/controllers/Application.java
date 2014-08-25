@@ -83,9 +83,9 @@ public class Application extends Controller {
         return ok(importsMaterialConsumable.render(user));
     }
 
-        public static Result importsOrderDurableArticles() {
+        public static Result importsOrder() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderDurableArticles.render(user));
+        return ok(importsOrder.render(user));
     }
 
         public static Result importsOrderDurableArticlesAdd() {
