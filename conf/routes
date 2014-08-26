@@ -10,6 +10,9 @@ POST    /                           controllers.Application.authentication()
 GET	/home	        	    		controllers.Application.home()
 
 GET		/import						controllers.Application.imports()
+GET		/export                                         controllers.Application.export()
+
+GET		/export/exportOrder                             controllers.Application.exportOrder()
 
 GET		/import/institute			controllers.Application.importsInstitute()
 GET		/import/institute/add		controllers.Application.importsInstituteAdd()

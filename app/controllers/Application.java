@@ -52,6 +52,16 @@ public class Application extends Controller {
         return ok(imports.render(user));
     }
 
+    public static Result export() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(export.render(user));
+    }
+
+    public static Result exportOrder() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportOrder.render(user));
+    }
+
     public static Result importsInstitute() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsInstitute.render(user));

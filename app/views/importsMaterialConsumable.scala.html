@@ -1,0 +1,112 @@
+@(user : User)
+@header("importsMaterialConsumable")
+
+
+@nav(user)
+@headerTag("ระบบจัดการพัสดุ")
+
+
+<div class="searchS">
+	<form>
+					<div class="form-group">
+					    <div class="input-group">
+					      <span class="input-group-addon">ค้นหา</span>
+					      <input type="text" class="form-control" style="width:100px">
+					    </div>
+					  </div>
+	</form>
+</div>
+
+<div style="margin-left:15%;margin-top:5.6%;">
+	<ul class="nav nav-pills">
+	  <li><a href="@routes.Application.importsMaterialDurableArticles()">ครุภัณฑ์</a></li>
+	  <li><a href="">วัสดุคงทนถาวร</a></li>
+	  <li class="active"><a href="@routes.Application.importsMaterialConsumable()">วัสดุสิ้นเปลือง</a></li>
+	</ul>
+
+	<div class="listWindowMaterial">
+
+
+<div class = "fixSize" >
+
+   <div class = "adminIndexHeaderContainer" >
+        <button class ="btn-default btn adminHeaderBtn">
+            Export
+        </button > 
+        <button class ="btn-info btn adminHeaderBtn">
+           <span class="glyphicon glyphicon-info-sign adminGlyBtn"></span>Trial Summary
+        </button > 
+        <a href="">
+            <button class ="btn-primary btn adminHeaderBtn" >
+                <span class="glyphicon glyphicon-search adminGlyBtn"></span>Find Trial
+            </button> 
+        </a>
+        <button class ="btn-danger btn adminHeaderBtn" style="margin-right:2.5%;">
+            <span class="glyphicon glyphicon-remove adminGlyBtn"></span>Del. Select
+        </button > 
+   </div>  
+
+    <div class="adminUserinfoTableContainer">
+        <table class="table table-striped overlayTable">
+            <thead>
+                <tr>
+                    <th> CH </th>
+                    <th>สายงาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ตำแหน่ง<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>สกุล<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>หน้าที่<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>สิทธการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+<!--   loop here --!>
+                <tr>
+                    <th><input type="checkbox"></th>
+                    <th>ภาควิชา</th>
+                    <th>เจ้าหน้าที่</th>
+                    <th>อินทัช</th>
+                    <th>เงินยวง</th>
+                    <th>ตรวจสอบ</th>
+                    <th>1<input type="checkbox">2<input type="checkbox">3<input type="checkbox">4<input type="checkbox"><5<input type="checkbox"></th>
+
+            </tbody>
+        </table>
+
+        <div class="pagingContainer" align="center">
+            <ul class="pagination" style="margin:0;">
+              <li class="disabled"><a href="#">&laquo;</a></li>
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li><a href="#">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+</div> 
+
+
+
+<!---->
+
+	</div>
+
+</div>
+
+
+
+<div>
+	<a href="@routes.Application.importsMaterialDurableGoodsAdd()">
+	<button class="btn btn-default" style="margin-left:15%;">เพิ่มวัสดุสิ้นเปลือง</button>
+	</a>
+
+	<button class="btn btn-default">ลบพัสดุสิ้นเปลือง</button>
+
+	<a href="@routes.Application.imports()">
+	<button class="btn btn-default" style="float:right;margin-right:15%;">ย้อนกลับ</button>
+	</a>
+
+</div>
+
