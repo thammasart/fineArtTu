@@ -1,4 +1,4 @@
-package models.durableGoods;
+package models.consumable;
 
 import play.db.ebean.*;
 import javax.persistence.*;
@@ -6,7 +6,7 @@ import javax.persistence.*;
 import models.type.CommitteeType;
 
 @Entity
-@Table (name = "durable_goods_committee")
+@Table (name = "consumable_committee")
 public class Committee extends Model{
 
 	@Id

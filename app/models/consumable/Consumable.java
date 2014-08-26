@@ -1,9 +1,14 @@
-package models;
+package models.consumable;
 
 import play.db.ebean.*;
 import javax.persistence.*;
 
+import models.ConsumableCode;
+import models.Company;
+
+
 @Entity
+@Table (name = "consumable")
 public class Consumable extends Model{ // วัสดุสิ้นเปลือง
 
 	@Id

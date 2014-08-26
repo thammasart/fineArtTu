@@ -11,9 +11,18 @@ public class Committee extends Model{
 
 	@Id
 	public long id;
-
-	public CommitteeType type;
+	public CommitteeType type; // ประเภทคณะกรรมการ
+	public String identificationNo; // เลขประจำตัวประชาชน
+	public String title; // คำหนำหน้าชื่อ
+	public String firstName; // ชื่อ
+	public String lastName; // นามสกุล
+	public String position; // ตำแหน่ง
+	public String employeesType; // ประเภทกรรมการ - ประเภทบุคลากร
+	public String committeePosition; // ตำแหน่งในคณกรรมการ
 
 	@ManyToOne
 	public Procurement procurement;
+
+	@SuppressWarnings("unchecked")
+	public static Finder<Long,Committee> find = new Finder(Long.class,Committee.class);
 }
