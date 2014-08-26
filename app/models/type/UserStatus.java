@@ -1,5 +1,5 @@
 package models.type;
 
 public enum UserStatus{
-	ADMIN, STUDENT
+	ผู้บริหาร, เจ้าหน้าที่พัสดุ, บุคลากร
 }

@@ -3,6 +3,8 @@ package models;
 import play.db.ebean.*;
 import javax.persistence.*;
 
+import models.type.UserStatus;
+
 @Entity
 public class User extends Model{
 
@@ -10,6 +12,7 @@ public class User extends Model{
 	public String username;
 	@Column(nullable=false)
 	public String password;
+	public UserStatus status;
 
 	public static User authenticate(String username, String password) {
 
