@@ -3,7 +3,7 @@
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
 
 @nav(user)
-@headerTag("เพิ่มครุภัณฑ์ลงสัญญาจัดซื้อ")
+@headerTag("เพิ่มวัสดุลงสัญญาจัดซื้อ")
 
 <div class="detailWindow">
 	<div class="well" >
@@ -185,11 +185,11 @@
 	</div> <!--well-->
 
     <div>
-    	  	<a href="@routes.Application.importsOrderDurableArticlesAdd">
+    	  	<a href="@routes.Application.importsOrderGoodsAdd()">
             <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
             </a>
 
-            <a href="@routes.Application.importsOrderDurableArticlesAddMaterial1()">
+            <a href="@routes.Application.importsOrderGoodsAddMaterial1()">
             <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ย้อนกลับ</button>
             </a>
     </div>

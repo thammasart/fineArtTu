@@ -1,9 +1,9 @@
 @(user : User)
-@header("importsOrderDurableArticlesAdd")
+@header("importsOrderDurableGoodsAdd")
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
 
 @nav(user)
-@headerTag("เพิ่มรายการครุภัณฑ์จัดซื้อและนำเข้า")
+@headerTag("เพิ่มรายการวัสดุจัดซื้อและนำเข้า")
 
 
 
@@ -120,55 +120,7 @@
  <button>เพิ่ม</button>
 
 
-                  <legend>คณะกรรมการเปิดซอง</legend>
-                  <div class="form-inline marginBtm1" role="form">
-                                        <div class="form-group" >
-                                              <div class="input-group" >
-                                                  <span class="input-group-addon width100px" >คำนำหน้าชื่อ</span>
-                                                  <input type="number" class="form-control textAlignCenter  width50px"placeholder="ใส่ค่า">
-                                              </div>
-                                        </div>
-                                        <div class="form-group" >
-                                              <div class="input-group" >
-                                                  <span class="input-group-addon width50px" >ชื่อ</span>
-                                                  <input type="text" class="form-control textAlignCenter  width150px"placeholder="ใส่ค่า">
-                                              </div>
-                                        </div>
-                                        <div class="form-group" >
-                                              <div class="input-group" >
-                                                  <span class="input-group-addon width80px" >ตำแหน่ง</span>
-                                                  <input type="number" class="form-control textAlignCenter  width150px"placeholder="ใส่ค่า">
-                                              </div>
-                                        </div>
-
-
-                                         <div class="form-group" role="form">
-                                      <div class="input-group marginBtm1">
-                                        <span class="input-group-addon width150px">หน่วยงาน</span>
-                                          <select class="form-control textAlignCenter  width100px">
-                                            <option>---เลือก---</option>
-                                            <option>ข้าราชการ</option>
-                                            <option>พนักงานมหาลัย</option>
-                                          </select>
-                                      </div>
-                                  </div>
-
-                                  <div class="form-group" role="form">
-                                      <div class="input-group marginBtm1">
-                                        <span class="input-group-addon width150px">ตำแหน่งในคณะกรรมการ</span>
-                                          <select class="form-control textAlignCenter  width100px">
-                                            <option>---เลือก---</option>
-                                            <option>ประธารกรรมการ</option>
-                                            <option>กรรมการ</option>
-                                            <option>กรรมการและเรขานุการ</option>
-                                          </select>
-                                      </div>
-                                  </div>
-
-
-                                   <button>ลบ</button>
-                  </div>
-                   <button>เพิ่ม</button>
+                
                   
             </div> <!--well-->
 
@@ -186,48 +138,43 @@
         </div>
 
         <div style="width:300px;float:right;">
-                <a href="@routes.Application.importsOrderDurableArticlesAddMaterial1()">
-                <button class="btn btn-success" style="margin-left:15%;">เพิ่มครุภัณฑ์</button>
+                <a href="@routes.Application.importsOrderGoodsAddMaterial1()">
+                <button class="btn btn-success" style="margin-left:15%;">เพิ่มวัสดุ</button>
                 </a>
 
-                <button class="btn btn-danger">ลบครุภัณฑ์</button>
-
-
+                <button class="btn btn-danger">ลบวัสดุ</button>
         </div>
 
         
            <table class="table table-striped overlayTable">
-            <legend>ครุภัณฑ์สำนักงาน</legend>
+            <legend>วัสดุสำนักงาน</legend>
              <thead>
                 <tr>
-                    <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รหัสวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
                     <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
                     <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
                     <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
                     <th><button>ลบ</button></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>ศก.พ.57-7400-100-0005</th>
+                    <th>ศก.พ.57-01001</th>
                     <th>กระดานดำ</th>
                     <th>2</th>
                     <th>อัน</th>
                     <th>5500</th>
-                    <th>8</th>
                     <th><button>รายละเอียด</button></th>
                     <th></th>
                 </tr>
                 <tr>
-                    <th>ศก.พ.57-7400-100-0006</th>
+                    <th>ศก.พ.57-01002</th>
                     <th>บอร์ด</th>
                     <th>3</th>
                     <th>อัน</th>
                     <th>6500</th>
-                    <th>10</th>
                     <th><button>รายละเอียด</button></th>
                     <th></th>
                 </tr>

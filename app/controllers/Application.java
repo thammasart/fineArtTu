@@ -62,9 +62,9 @@ public class Application extends Controller {
         return ok(importsInstituteAdd.render(user));
     }
 
-        public static Result importsMaterialDurableArticles() {
+        public static Result importsMaterial() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsMaterialDurableArticles.render(user));
+        return ok(importsMaterial.render(user));
     }
 
         public static Result importsMaterialDurableArticlesAdd() {
@@ -76,28 +76,20 @@ public class Application extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsMaterialDurableGoodsAdd.render(user));
     }
-
-
-        public static Result importsMaterialConsumable() {
+        public static Result importsMaterialConsumableGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsMaterialConsumable.render(user));
+        return ok(importsMaterialConsumableGoodsAdd.render(user));
     }
+
+
 
         public static Result importsOrder() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsOrder.render(user));
     }
-
         public static Result importsOrderDurableArticlesAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsOrderDurableArticlesAdd.render(user));
-
-
-
-
-
-
-
     }
         public static Result importsOrderDurableArticlesAddMaterial1() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -107,23 +99,22 @@ public class Application extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsOrderDurableArticlesAddMaterial2.render(user));
     }
-            public static Result importsOrderDurableArticlesAddMaterial3() {
+
+        public static Result importsOrderGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderDurableArticlesAddMaterial3.render(user));
+        return ok(importsOrderGoodsAdd.render(user));
+    }
+        public static Result importsOrderGoodsAddMaterial1() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrderGoodsAddMaterial1.render(user));
+    }
+        public static Result importsOrderGoodsAddMaterial2() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
-        public static Result importsOrderAddMaterialConsumable() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderAddMaterialConsumable.render(user));
-    }
-        public static Result importsOrderAddMaterialConsumable2() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderAddMaterialConsumable2.render(user));
-    }
-        public static Result importsOrderAddMaterialConsumable3() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderAddMaterialConsumable3.render(user));
-    }
+
+    
 
     
 }

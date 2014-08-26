@@ -14,27 +14,23 @@ GET		/import						controllers.Application.imports()
 GET		/import/institute			controllers.Application.importsInstitute()
 GET		/import/institute/add		controllers.Application.importsInstituteAdd()
 
-GET		/import/materialDurableArticles			controllers.Application.importsMaterialDurableArticles()
-GET		/import/materialDurableArticles/add			controllers.Application.importsMaterialDurableArticlesAdd()
+GET		/import/material							controllers.Application.importsMaterial()
 
-GET		/import/materialDurableGoods/add			controllers.Application.importsMaterialDurableGoodsAdd()
 
-GET		/import/materialConsumable				controllers.Application.importsMaterialConsumable()
+GET		/import/materialDurableArticlesAdd			controllers.Application.importsMaterialDurableArticlesAdd()
+GET		/import/materialDurableGoodsAdd			controllers.Application.importsMaterialDurableGoodsAdd()
+GET		/import/materialConsumableGoodsAdd			controllers.Application.importsMaterialConsumableGoodsAdd()
+
 
 GET		/import/order							controllers.Application.importsOrder()
-GET		/import/order/DurableArticlesAdd	    controllers.Application.importsOrderDurableArticlesAdd()
 
-
-
-
-
+GET		/import/order/DurableArticlesAdd	    			controllers.Application.importsOrderDurableArticlesAdd()
 GET		/import/order/DurableArticlesAdd/Material1			controllers.Application.importsOrderDurableArticlesAddMaterial1()
 GET		/import/order/DurableArticlesAdd/Material2			controllers.Application.importsOrderDurableArticlesAddMaterial2()
-GET		/import/order/DurableArticlesAdd/Material3			controllers.Application.importsOrderDurableArticlesAddMaterial3()
 
-GET		/import/order/add/materialConsumable			controllers.Application.importsOrderAddMaterialConsumable()
-GET		/import/order/add/materialConsumable2			controllers.Application.importsOrderAddMaterialConsumable2()
-GET		/import/order/add/materialConsumable3			controllers.Application.importsOrderAddMaterialConsumable3()
+GET		/import/order/GoodsAdd	    					controllers.Application.importsOrderGoodsAdd()
+GET		/import/order/GoodsAdd/Material1				controllers.Application.importsOrderGoodsAddMaterial1()
+GET		/import/order/GoodsAdd/Material2				controllers.Application.importsOrderGoodsAddMaterial2()
 
 
 

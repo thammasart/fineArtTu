@@ -3,7 +3,7 @@
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
 
 @nav(user)
-@headerTag("เพิ่มครุภัณฑ์ลงสัญญาจัดซื้อ")
+@headerTag("เพิ่มวัสดุลงสัญญาจัดซื้อ")
 
 <div class="detailWindow">
     <div class="well" >
@@ -13,13 +13,13 @@
         <div class="form-inline marginBtm1" role="form" align="left">
                 <div class="form-group" >
                     <div class="input-group" >
-                        <span class="input-group-addon width150px" >ชื่อครุภัณฑ์</span>
+                        <span class="input-group-addon width150px" >ชื่อวัสดุคงทนถาวร</span>
                         <input type="number" name="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
                     </div>
                 </div>
                 <div class="form-group" >
                     <div class="input-group" >
-                        <span class="input-group-addon width150px" >รหัสFSN</span>
+                        <span class="input-group-addon width150px" >รหัสวัสดุคงทนถาวร</span>
                         <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
                     </div>
                 </div>
@@ -68,21 +68,6 @@
                         <option>Lotus</option>
                         <option>ProBike</option>
                     </select>
-            </div>
-        </div>
-
-        <div class="form-inline marginBtm1" role="form" align="left">
-            <div class="form-group" >
-                <div class="input-group" >
-                    <span class="input-group-addon width150px" >อายุการใช้งาน</span>
-                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
-                </div>
-            </div>
-            <div class="form-group" >
-                <div class="input-group" >
-                    <span class="input-group-addon width150px" >เวลาแจ้งเตือนก่อนหมดอายุการใช้งาน</span>
-                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
-                </div>
             </div>
         </div>
 
@@ -160,11 +145,11 @@
     </div> <!--well-->
 
         <div>
-                <a href="@routes.Application.importsOrderDurableArticlesAddMaterial2()">
+                <a href="@routes.Application.importsOrderGoodsAddMaterial2()">
                 <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
                 </a>
                	
-               	<a href="@routes.Application.importsOrderDurableArticlesAdd()">
+               	<a href="@routes.Application.importsOrderGoodsAdd()">
                 <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ยกเลิก</button>
                 </a>
         </div>

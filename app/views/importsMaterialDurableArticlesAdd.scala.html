@@ -71,14 +71,7 @@
                             </div>
                       </div>
                 </div>
-		<div class="form-inline marginBtm1" role="form" align="center">
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width150px" >รหัสจากคลัง</span>
-                                <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)">
-                            </div>
-                      </div>
-                </div>
+		
                 <div class="form-inline" role="form" align="center">
                     <div class="input-group marginBtm1">
                       <span class="input-group-addon width150px">หน่วย</span>
@@ -89,61 +82,11 @@
                           <option>เครื่อง</option>
                         </select>
                     </div>
-                <div class="form-inline" role="form" align="center">
-                    <div class="input-group marginBtm1">
-                      <span class="input-group-addon width150px">หน่วยงาน</span>
-                        <select class="form-control textAlignCenter  width300px">
-                          <option>---เลือก---</option>
-                          <option>Asissoft</option>
-                          <option>Lotus</option>
-                          <option>ProBike</option>
-                        </select>
-                    </div>
-                </div>
+                
 
-		<div class="form-inline marginBtm1" role="form" align="center">
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width150px" >พนักงานขาย</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
-                            </div>
-                      </div>
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width150px" >เบอร์โทรศัพท์</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
-                            </div>
-                      </div>
-                </div>
-		<div class="form-inline marginBtm1" role="form" align="center">
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width150px" >ราคา</span>
-                                <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
-                            </div>
-                      </div>
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width150px" >ราคารวมภาษี</span>
-                                <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
-                            </div>
-                      </div>
-                </div>
+		
 
-		<div class="form-inline marginBtm1" role="form" align="center">
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width150px" >ยี่ห้อ</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
-                            </div>
-                      </div>
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width150px" >หมายเลขเครื่อง</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
-                            </div>
-                      </div>
-                </div>
+		
 		<div class="form-inline marginBtm1" role="form" align="center">
                       <div class="form-group" >
                             <div class="input-group" >
@@ -168,7 +111,7 @@
                 </div>
         </div>
 
-    <legend style="width:auto">ลายละเอียดเพิ่มเติม</legend>
+    <legend style="width:auto">รายละเอียดเพิ่มเติม</legend>
     <textarea class="form-control" rows="3"></textarea>
 
 
@@ -176,10 +119,10 @@
     </form>
     </div>
         <div style="margin-bottom:7%;">
-                <a href="@routes.Application.importsMaterialDurableArticles()">
+                <a href="@routes.Application.importsMaterial()">
                 <button class="btn btn-success btn-lg" style="float:right;">ยืนยัน</button>
                 </a>
-                <a href="@routes.Application.importsMaterialDurableArticles()">
+                <a href="@routes.Application.importsMaterial()">
                 <button class="btn btn-danger btn-lg" style="float:right; margin-right:5%;">ยกเลิก</button>
                 </a>
         </div>

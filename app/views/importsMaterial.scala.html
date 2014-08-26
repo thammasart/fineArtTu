@@ -1,5 +1,5 @@
 @(user : User)
-@header("importsMaterialDurableArticles")
+@header("importsMaterial")
 
 
 @nav(user)
@@ -15,7 +15,9 @@
     </ul>
 
     <div class="tab-content">
-      <div class="tab-pane fade active" id="1">
+
+
+      <div class="tab-pane fade in active" id="1">
         <div class="searchS">
                 <form>
                     <div class="form-group">
@@ -26,9 +28,9 @@
                       </div>
                 </form>
         </div>
-        <div style="width:300px;float:right;">
-                <a href="@routes.Application.importsMaterialDurableArticlesAdd()">
-                <button class="btn btn-success" style="margin-left:15%;">เพิ่มครุภัณฑ์</button>
+        <div >
+                <a class="btn btn-success" style="margin-left:44%;" href="@routes.Application.importsMaterialDurableArticlesAdd()">
+                เพิ่มครุภัณฑ์
                 </a>
 
                 <button class="btn btn-danger">ลบครุภัณฑ์</button>
@@ -156,13 +158,103 @@
                 </ul>
             </div>
         </div>
-      <div class="tab-pane fade" id="3">...</div>
-    </div>
+
+
+<!-- ========================================== tab3 ============================================ -->
+      <div class="tab-pane fade" id="3">
+
+          <div class="searchS">
+              <form>
+                  <div class="form-group">
+                      <div class="input-group">
+                        <span class="input-group-addon">ค้นหา</span>
+                        <input type="text" class="form-control" style="width:300px">
+                      </div>
+                    </div>
+              </form>
+          </div>
+
+          <div style="width:380px;float:right;">
+              <a href="@routes.Application.importsMaterialConsumableGoodsAdd()">
+              <button class="btn btn-success" style="margin-left:15%;">เพิ่มวัสดุสิ้นเปลือง</button>
+              </a>
+              <button class="btn btn-danger">ลบวัสดุสิ้นเปลือง</button>
+          </div>
+
+
+           <table class="table table-striped overlayTable">
+            <legend>วัสดุสำนักงาน</legend>
+             <thead>
+                <tr>
+                    <th>รหัสวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>1001</th>
+                    <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
+                    <th>75</th>
+                    <th>1</th>
+                    <th><img src=""></th>
+                </tr>
+                <tr>
+                    <th>1002</th>
+                    <th>ดินสอกดล็อตติ้งสีcแดง</th>
+                    <th>75</th>
+                    <th>1</th>
+                    <th><img src=""></th>
+                </tr>
+             </tbody>
+           </table>
+
+            <table class="table table-striped overlayTable">
+            <legend>วัสดุไฟฟ้าและวิทยุ</legend>
+             <thead>
+                <tr>
+                    <th>รหัสวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>2002</th>
+                    <th>มอนิเตอร์</th>
+                    <th>4999</th>
+                    <th>1</th>
+                    <th><img src=""></th>
+                </tr>
+              </tbody>
+           </table>
+
+            <div class="pagingContainer" align="center">
+                <ul class="pagination" style="margin:0;">
+                  <li class="disabled"><a href="#">&laquo;</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+            </div>
+        </div>
+
+      </div>
+
+
+  </div> <!--end tab cottent-->
 
 </div>
 <script>
   $(function () {
-    $('#imdTabs a:last').tab('show')
+    $('#imdTabs a:1').tab('show')
   })
 </script>
 @footer()
