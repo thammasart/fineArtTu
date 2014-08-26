@@ -77,3 +77,8 @@ float:right;
 .textAlignCenter{
     text-align:center;
 }
+.addDelBtnContainer{
+    margin-left:70%;
+    width:30%;
+    height:50px;
+}
