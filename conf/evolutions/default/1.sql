@@ -30,21 +30,6 @@ create table durable_articles_committee (
   constraint pk_durable_articles_committee primary key (id))
 ;
 
-create table consumable_committee (
-  id                        bigint not null,
-  type                      integer,
-  identification_no         varchar(255),
-  title                     varchar(255),
-  first_name                varchar(255),
-  last_name                 varchar(255),
-  position                  varchar(255),
-  employees_type            varchar(255),
-  committee_position        varchar(255),
-  procurement_id            bigint,
-  constraint ck_consumable_committee_type check (type in (0,1,2,3,4)),
-  constraint pk_consumable_committee primary key (id))
-;
-
 create table durable_goods_committee (
   id                        bigint not null,
   type                      integer,
@@ -58,6 +43,21 @@ create table durable_goods_committee (
   procurement_id            bigint,
   constraint ck_durable_goods_committee_type check (type in (0,1,2,3,4)),
   constraint pk_durable_goods_committee primary key (id))
+;
+
+create table consumable_committee (
+  id                        bigint not null,
+  type                      integer,
+  identification_no         varchar(255),
+  title                     varchar(255),
+  first_name                varchar(255),
+  last_name                 varchar(255),
+  position                  varchar(255),
+  employees_type            varchar(255),
+  committee_position        varchar(255),
+  procurement_id            bigint,
+  constraint ck_consumable_committee_type check (type in (0,1,2,3,4)),
+  constraint pk_consumable_committee primary key (id))
 ;
 
 create table company (
@@ -279,9 +279,9 @@ create sequence address_seq;
 
 create sequence durable_articles_committee_seq;
 
-create sequence consumable_committee_seq;
-
 create sequence durable_goods_committee_seq;
+
+create sequence consumable_committee_seq;
 
 create sequence company_seq;
 
@@ -327,10 +327,10 @@ create sequence user_seq;
 
 alter table durable_articles_committee add constraint fk_durable_articles_committee__1 foreign key (procurement_id) references durable_articles_procurement (id) on delete restrict on update restrict;
 create index ix_durable_articles_committee__1 on durable_articles_committee (procurement_id);
-alter table consumable_committee add constraint fk_consumable_committee_procur_2 foreign key (procurement_id) references consumable_procurement (id) on delete restrict on update restrict;
-create index ix_consumable_committee_procur_2 on consumable_committee (procurement_id);
-alter table durable_goods_committee add constraint fk_durable_goods_committee_pro_3 foreign key (procurement_id) references durable_goods_procurement (id) on delete restrict on update restrict;
-create index ix_durable_goods_committee_pro_3 on durable_goods_committee (procurement_id);
+alter table durable_goods_committee add constraint fk_durable_goods_committee_pro_2 foreign key (procurement_id) references durable_goods_procurement (id) on delete restrict on update restrict;
+create index ix_durable_goods_committee_pro_2 on durable_goods_committee (procurement_id);
+alter table consumable_committee add constraint fk_consumable_committee_procur_3 foreign key (procurement_id) references consumable_procurement (id) on delete restrict on update restrict;
+create index ix_consumable_committee_procur_3 on consumable_committee (procurement_id);
 alter table company add constraint fk_company_address_4 foreign key (address_id) references address (id) on delete restrict on update restrict;
 create index ix_company_address_4 on company (address_id);
 alter table consumable add constraint fk_consumable_code_5 foreign key (code_id) references consumable_code (id) on delete restrict on update restrict;
@@ -388,9 +388,9 @@ drop table if exists address;
 
 drop table if exists durable_articles_committee;
 
-drop table if exists consumable_committee;
-
 drop table if exists durable_goods_committee;
+
+drop table if exists consumable_committee;
 
 drop table if exists company;
 
@@ -440,9 +440,9 @@ drop sequence if exists address_seq;
 
 drop sequence if exists durable_articles_committee_seq;
 
-drop sequence if exists consumable_committee_seq;
-
 drop sequence if exists durable_goods_committee_seq;
+
+drop sequence if exists consumable_committee_seq;
 
 drop sequence if exists company_seq;
 
