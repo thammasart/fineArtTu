@@ -15,6 +15,11 @@ create table address (
   constraint pk_address primary key (id))
 ;
 
+create table durable_articles_Auction (
+  id                        bigint not null,
+  constraint pk_durable_articles_Auction primary key (id))
+;
+
 create table durable_articles_committee (
   id                        bigint not null,
   type                      integer,
@@ -110,6 +115,16 @@ create table consumable_type (
   constraint pk_consumable_type primary key (id))
 ;
 
+create table durable_articles_donation (
+  id                        bigint not null,
+  constraint pk_durable_articles_donation primary key (id))
+;
+
+create table durable_goods_donation_detail (
+  id                        bigint not null,
+  constraint pk_durable_goods_donation_detail primary key (id))
+;
+
 create table durable_articles (
   id                        bigint not null,
   code                      varchar(255),
@@ -126,6 +141,11 @@ create table durable_goods (
   code_id                   bigint,
   detail_id                 bigint,
   constraint pk_durable_goods primary key (id))
+;
+
+create table durable_articles_external_external (
+  id                        bigint not null,
+  constraint pk_durable_articles_external_ext primary key (id))
 ;
 
 create table fsn_class (
@@ -153,6 +173,21 @@ create table fsn_type (
   type_description          varchar(255) not null,
   group_class_group_class_id varchar(2),
   constraint pk_fsn_type primary key (type_id))
+;
+
+create table durable_articles_internal_transfer (
+  id                        bigint not null,
+  constraint pk_durable_articles_internal_tra primary key (id))
+;
+
+create table durable_articles_other_external (
+  id                        bigint not null,
+  constraint pk_durable_articles_other_extern primary key (id))
+;
+
+create table durable_goods_other_transfer_detail (
+  id                        bigint not null,
+  constraint pk_durable_goods_other_transfer_ primary key (id))
 ;
 
 create table durable_goods_procurement (
@@ -239,13 +274,24 @@ create table durable_goods_procurement_detail (
   constraint pk_durable_goods_procurement_det primary key (id))
 ;
 
+create table durable_articles_repair (
+  id                        bigint not null,
+  constraint pk_durable_articles_repair primary key (id))
+;
+
 create table durable_goods_requisition (
   id                        bigint not null,
+  approve_date              timestamp,
+  user_username             varchar(255),
+  approver_username         varchar(255),
   constraint pk_durable_goods_requisition primary key (id))
 ;
 
 create table consumable_requisition (
   id                        bigint not null,
+  approve_date              timestamp,
+  user_username             varchar(255),
+  approver_username         varchar(255),
   constraint pk_consumable_requisition primary key (id))
 ;
 
@@ -253,7 +299,7 @@ create table durable_goods_requisition_detail (
   id                        bigint not null,
   quantity                  integer,
   description               varchar(255),
-  user_username             varchar(255),
+  withdrawer_username       varchar(255),
   requisition_id            bigint,
   constraint pk_durable_goods_requisition_det primary key (id))
 ;
@@ -262,7 +308,7 @@ create table consumable_requisition_detail (
   id                        bigint not null,
   quantity                  integer,
   description               varchar(255),
-  user_username             varchar(255),
+  withdrawer_username       varchar(255),
   requisition_id            bigint,
   constraint pk_consumable_requisition_detail primary key (id))
 ;
@@ -276,6 +322,8 @@ create table user (
 ;
 
 create sequence address_seq;
+
+create sequence durable_articles_Auction_seq;
 
 create sequence durable_articles_committee_seq;
 
@@ -291,9 +339,15 @@ create sequence consumable_code_seq;
 
 create sequence consumable_type_seq;
 
+create sequence durable_articles_donation_seq;
+
+create sequence durable_goods_donation_detail_seq;
+
 create sequence durable_articles_seq;
 
 create sequence durable_goods_seq;
+
+create sequence durable_articles_external_external_seq;
 
 create sequence fsn_class_seq;
 
@@ -302,6 +356,12 @@ create sequence fsn_description_seq;
 create sequence fsn_group_seq;
 
 create sequence fsn_type_seq;
+
+create sequence durable_articles_internal_transfer_seq;
+
+create sequence durable_articles_other_external_seq;
+
+create sequence durable_goods_other_transfer_detail_seq;
 
 create sequence durable_goods_procurement_seq;
 
@@ -314,6 +374,8 @@ create sequence durable_articles_procurement_detail_seq;
 create sequence consumable_procurement_detail_seq;
 
 create sequence durable_goods_procurement_detail_seq;
+
+create sequence durable_articles_repair_seq;
 
 create sequence durable_goods_requisition_seq;
 
@@ -369,14 +431,22 @@ alter table durable_goods_procurement_detail add constraint fk_durable_goods_pro
 create index ix_durable_goods_procurement__21 on durable_goods_procurement_detail (fsn_description_id);
 alter table durable_goods_procurement_detail add constraint fk_durable_goods_procurement__22 foreign key (procurement_id) references durable_goods_procurement (id) on delete restrict on update restrict;
 create index ix_durable_goods_procurement__22 on durable_goods_procurement_detail (procurement_id);
-alter table durable_goods_requisition_detail add constraint fk_durable_goods_requisition__23 foreign key (user_username) references user (username) on delete restrict on update restrict;
-create index ix_durable_goods_requisition__23 on durable_goods_requisition_detail (user_username);
-alter table durable_goods_requisition_detail add constraint fk_durable_goods_requisition__24 foreign key (requisition_id) references durable_goods_requisition (id) on delete restrict on update restrict;
-create index ix_durable_goods_requisition__24 on durable_goods_requisition_detail (requisition_id);
-alter table consumable_requisition_detail add constraint fk_consumable_requisition_det_25 foreign key (user_username) references user (username) on delete restrict on update restrict;
-create index ix_consumable_requisition_det_25 on consumable_requisition_detail (user_username);
-alter table consumable_requisition_detail add constraint fk_consumable_requisition_det_26 foreign key (requisition_id) references consumable_requisition (id) on delete restrict on update restrict;
-create index ix_consumable_requisition_det_26 on consumable_requisition_detail (requisition_id);
+alter table durable_goods_requisition add constraint fk_durable_goods_requisition__23 foreign key (user_username) references user (username) on delete restrict on update restrict;
+create index ix_durable_goods_requisition__23 on durable_goods_requisition (user_username);
+alter table durable_goods_requisition add constraint fk_durable_goods_requisition__24 foreign key (approver_username) references user (username) on delete restrict on update restrict;
+create index ix_durable_goods_requisition__24 on durable_goods_requisition (approver_username);
+alter table consumable_requisition add constraint fk_consumable_requisition_use_25 foreign key (user_username) references user (username) on delete restrict on update restrict;
+create index ix_consumable_requisition_use_25 on consumable_requisition (user_username);
+alter table consumable_requisition add constraint fk_consumable_requisition_app_26 foreign key (approver_username) references user (username) on delete restrict on update restrict;
+create index ix_consumable_requisition_app_26 on consumable_requisition (approver_username);
+alter table durable_goods_requisition_detail add constraint fk_durable_goods_requisition__27 foreign key (withdrawer_username) references user (username) on delete restrict on update restrict;
+create index ix_durable_goods_requisition__27 on durable_goods_requisition_detail (withdrawer_username);
+alter table durable_goods_requisition_detail add constraint fk_durable_goods_requisition__28 foreign key (requisition_id) references durable_goods_requisition (id) on delete restrict on update restrict;
+create index ix_durable_goods_requisition__28 on durable_goods_requisition_detail (requisition_id);
+alter table consumable_requisition_detail add constraint fk_consumable_requisition_det_29 foreign key (withdrawer_username) references user (username) on delete restrict on update restrict;
+create index ix_consumable_requisition_det_29 on consumable_requisition_detail (withdrawer_username);
+alter table consumable_requisition_detail add constraint fk_consumable_requisition_det_30 foreign key (requisition_id) references consumable_requisition (id) on delete restrict on update restrict;
+create index ix_consumable_requisition_det_30 on consumable_requisition_detail (requisition_id);
 
 
 
@@ -385,6 +455,8 @@ create index ix_consumable_requisition_det_26 on consumable_requisition_detail (
 SET REFERENTIAL_INTEGRITY FALSE;
 
 drop table if exists address;
+
+drop table if exists durable_articles_Auction;
 
 drop table if exists durable_articles_committee;
 
@@ -400,9 +472,15 @@ drop table if exists consumable_code;
 
 drop table if exists consumable_type;
 
+drop table if exists durable_articles_donation;
+
+drop table if exists durable_goods_donation_detail;
+
 drop table if exists durable_articles;
 
 drop table if exists durable_goods;
+
+drop table if exists durable_articles_external_external;
 
 drop table if exists fsn_class;
 
@@ -411,6 +489,12 @@ drop table if exists fsn_description;
 drop table if exists fsn_group;
 
 drop table if exists fsn_type;
+
+drop table if exists durable_articles_internal_transfer;
+
+drop table if exists durable_articles_other_external;
+
+drop table if exists durable_goods_other_transfer_detail;
 
 drop table if exists durable_goods_procurement;
 
@@ -423,6 +507,8 @@ drop table if exists durable_articles_procurement_detail;
 drop table if exists consumable_procurement_detail;
 
 drop table if exists durable_goods_procurement_detail;
+
+drop table if exists durable_articles_repair;
 
 drop table if exists durable_goods_requisition;
 
@@ -438,6 +524,8 @@ SET REFERENTIAL_INTEGRITY TRUE;
 
 drop sequence if exists address_seq;
 
+drop sequence if exists durable_articles_Auction_seq;
+
 drop sequence if exists durable_articles_committee_seq;
 
 drop sequence if exists consumable_committee_seq;
@@ -452,9 +540,15 @@ drop sequence if exists consumable_code_seq;
 
 drop sequence if exists consumable_type_seq;
 
+drop sequence if exists durable_articles_donation_seq;
+
+drop sequence if exists durable_goods_donation_detail_seq;
+
 drop sequence if exists durable_articles_seq;
 
 drop sequence if exists durable_goods_seq;
+
+drop sequence if exists durable_articles_external_external_seq;
 
 drop sequence if exists fsn_class_seq;
 
@@ -463,6 +557,12 @@ drop sequence if exists fsn_description_seq;
 drop sequence if exists fsn_group_seq;
 
 drop sequence if exists fsn_type_seq;
+
+drop sequence if exists durable_articles_internal_transfer_seq;
+
+drop sequence if exists durable_articles_other_external_seq;
+
+drop sequence if exists durable_goods_other_transfer_detail_seq;
 
 drop sequence if exists durable_goods_procurement_seq;
 
@@ -475,6 +575,8 @@ drop sequence if exists durable_articles_procurement_detail_seq;
 drop sequence if exists consumable_procurement_detail_seq;
 
 drop sequence if exists durable_goods_procurement_detail_seq;
+
+drop sequence if exists durable_articles_repair_seq;
 
 drop sequence if exists durable_goods_requisition_seq;
 

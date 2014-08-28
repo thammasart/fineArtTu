@@ -12,7 +12,7 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 
 	@Id
 	public long id;
-	public String code;
+	public String code; // รหัส
 	public String codeFromStock; //รหัสจากคลัง
 	public SuppliesStatus status; // สถานะ
 
