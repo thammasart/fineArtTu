@@ -44,5 +44,7 @@ GET     /Admin                      controllers.Admin.index()
 GET     /Admin/addUser              controllers.Admin.addUser()
 GET     /Admin/manageRole           controllers.Admin.manageRole()
 
+GET     /graph           controllers.Graph.index()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

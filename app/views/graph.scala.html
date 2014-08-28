@@ -1,0 +1,28 @@
+@(user : User)
+@header("ระบบติดตามและตรวจสอบ")
+@nav(user)
+@headerTag("ระบบติดตามและตรวจสอบ")
+
+@sideMenu()
+
+
+
+<div class ="mainWindow">
+	<div class="search-option"> 
+		<form>
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">ค้นหา</span>
+					<input type="text" class="form-control" style="width:300px">
+				</div>
+			</div>
+        </form>
+	</div>
+	<div class="graph-content">
+		<div class="graph-container"></div>
+		<div class="right-pane"></div>
+	</div>
+</div> 
+
+
+@footer()

@@ -1,0 +1,16 @@
+.graph-content{
+	width:100%;
+	height:600px;
+}
+.graph-container{
+	width:65%;
+	height:100%;
+	background: grey;
+	float:left;
+}
+.right-pane{
+	width:35%;
+	height:100%;
+	background:black;
+	float:right;
+}
