@@ -1,10 +1,11 @@
 @(user : User)
 @header("ระบบงานพัสดุ คณะศิลปกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์")
+    <script src="@routes.Assets.at("javascripts/controllers/importController.js")"></script>
 
 @nav(user)
 @headerTag("โอนย้ายภายนอก")
 @sideMenu()
-<div class ="mainWindow" style="border:none; height:500px;">
+<div style="width:75%; margin-left:20%;min-height:500px;">
         <h3 > โอนย้ายภายใน<button class="btn  btn-success" style="float:right"><span class="glyphicon glyphicon-plus"></span> เพิ่ม </button> </h3>
         <table class="table table-striped overlayTable" style="margin-bottom:3%;">
             <thead>
@@ -20,14 +21,14 @@
                 <tr>
                     <th>1</th>
                     <th>007</th>
-                    <th>rail Gun</th>
+                    <th>rail Gun f;dsfj;sdjf;dsjfdsj:w</th>
                     <th>btf</th>
                 </tr>
                 <tr>
                     <th>2</th>
                     <th>010</th>
                     <th>nuke</th>
-                    <th>cod</th>
+                    <th>cod  ;lf;dsjf;sdjfdsjf;dj</th>
                 </tr>
             </tbody>
         </table>
@@ -63,15 +64,26 @@
                     </div>
                   </div>
             </div>
+
+
+<div  ng-app="addCommiteApp" ng-controller="addCommiteCtrl">
             <div class="form-inline marginBtm1" role="form">
                    <div class="form-group">
+            <form ng-submit="addTodo()">
+                    <div class="input-group width450px" ng-repeat="todo in todos">
+                      <span class="input-group-addon width100px">คณะกรรมการสอบข้อเท็จจริง</span>
+                      <input type="text" class="form-control width300px dont-{{todo.done}}"value="{{todo.text}}" disabled>
+                    </div>
                     <div class="input-group width450px">
                       <span class="input-group-addon width100px">คณะกรรมการสอบข้อเท็จจริง</span>
-                      <input type="text" class="form-control width300px">
+                      <input type="text" class="form-control width300px" ng-model="todoText">
                     </div>
                   </div>
-                      <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
+                      <button class="btn btn-success" type="submit" value="add"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
             </div>
+            </form>
+
+
             <div class="form-inline marginBtm1" role="form">
                    <div class="form-group">
                     <div class="input-group width450px">
@@ -81,7 +93,7 @@
                   </div>
                       <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
             </div>
-
+</div>
             <button class="btn btn-lg btn-success" style="float:right" > บันทึก </button>
         </div>
 </div> 

@@ -2,9 +2,9 @@
 @header("ระบบงานพัสดุ คณะศิลปกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์")
 
 @nav(user)
-@headerTag("โอนย้ายภายนอก")
+@headerTag("จำหน่าย")
 @sideMenu()
-<div class ="mainWindow" style="border:none; height:500px;">
+<div class ="mainWindow" >
         <h3 > โอนย้ายภายใน<button class="btn  btn-success" style="float:right"><span class="glyphicon glyphicon-plus"></span> เพิ่ม </button> </h3>
         <table class="table table-striped overlayTable" style="margin-bottom:3%;">
             <thead>
@@ -36,9 +36,19 @@
         </table>
         <div>
             <div class="form-inline marginBtm1" align="right" role="form">
-                   <div class="form-group">
+                   <div class="form-group" style="float:right">
                     <div class="input-group width300px">
                       <span class="input-group-addon width100px">ราคารวม</span>
+                      <input type="text" class="form-control width150px" value="1080000" disabled>
+                      <span class="input-group-addon" > บาท </span>
+                    </div>
+                    <div class="input-group width300px">
+                      <span class="input-group-addon width100px">งบคลัง</span>
+                      <input type="text" class="form-control width150px" value="1080000" disabled>
+                      <span class="input-group-addon" > บาท </span>
+                    </div>
+                    <div class="input-group width300px">
+                      <span class="input-group-addon width100px">งบประจำปี</span>
                       <input type="text" class="form-control width150px" value="1080000" disabled>
                       <span class="input-group-addon" > บาท </span>
                     </div>
