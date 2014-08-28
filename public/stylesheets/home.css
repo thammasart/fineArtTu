@@ -7,8 +7,7 @@ float: left;
 }
 .mainWindow{
     width:75%;
-    height:800px;
-    border:solid;
+    min-height:500px;
     margin-left:20%;
 }
 
