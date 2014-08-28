@@ -1,0 +1,91 @@
+@(user : User)
+@header("ระบบงานพัสดุ คณะศิลปกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์")
+
+@nav(user)
+@headerTag("โอนย้ายภายนอก")
+@sideMenu()
+<div class ="mainWindow" style="border:none; height:500px;">
+        <h3 > โอนย้ายภายใน<button class="btn  btn-success" style="float:right"><span class="glyphicon glyphicon-plus"></span> เพิ่ม </button> </h3>
+        <table class="table table-striped overlayTable" style="margin-bottom:3%;">
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>รหัส วัสดุ-ครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ประเภทงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ราคา/ตัว<span class="glyphicon glyphicon-sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+<!--   loop here --!>
+                <tr>
+                    <th>1</th>
+                    <th>007</th>
+                    <th>rail Gun</th>
+                    <th>งบคลัง</th>
+                    <th>90000</th>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <th>010</th>
+                    <th>งบบริจาค</th>
+                    <th>990000</th>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <div class="form-inline marginBtm1" role="form">
+                   <div class="form-group">
+                    <div class="input-group width450px">
+                      <span class="input-group-addon width100px">ผู้อนุมัติ</span>
+                      <input type="text" class="form-control width300px">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="input-group width450px">
+                      <span class="input-group-addon width100px">ตำแหน่ง</span>
+                      <input type="text" class="form-control width300px">
+                    </div>
+                  </div>
+            </div>
+            <div class="form-inline marginBtm1" role="form">
+                   <div class="form-group">
+                    <div class="input-group width450px">
+                      <span class="input-group-addon width100px">วัน/เดือน/ปี อนุมัติ</span>
+                      <input type="text" class="form-control width300px">
+                    </div>
+                  </div>
+            </div>
+            <div class="form-inline marginBtm1" role="form">
+                   <div class="form-group">
+                    <div class="input-group width450px">
+                      <span class="input-group-addon width100px">หน่วยงานที่โอนย้าย</span>
+                      <input type="text" class="form-control width300px">
+                    </div>
+                  </div>
+            </div>
+            <div class="form-inline marginBtm1" role="form">
+                   <div class="form-group">
+                    <div class="input-group width450px">
+                      <span class="input-group-addon width100px">คณะกรรมการสอบข้อเท็จจริง</span>
+                      <input type="text" class="form-control width300px">
+                    </div>
+                  </div>
+                      <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
+            </div>
+            <div class="form-inline marginBtm1" role="form">
+                   <div class="form-group">
+                    <div class="input-group width450px">
+                      <span class="input-group-addon width100px">คณะกรรมการจำหน่าย</span>
+                      <input type="text" class="form-control width300px">
+                    </div>
+                  </div>
+                      <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
+            </div>
+
+            <button class="btn btn-lg btn-success" style="float:right" > บันทึก </button>
+        </div>
+</div> 
+
+@footer()

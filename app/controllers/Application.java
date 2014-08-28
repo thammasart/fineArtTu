@@ -80,6 +80,16 @@ public class Application extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(exportOrder.render(user));
     }
+    @Security.Authenticated(Secured.class)
+    public static Result exportSold() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportSold.render(user));
+    }
+    @Security.Authenticated(Secured.class)
+    public static Result exportOther() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok( exportOther.render(user));
+    }
 
     @Security.Authenticated(Secured.class)
     public static Result importsInstitute() {

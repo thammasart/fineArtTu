@@ -16,6 +16,8 @@ GET		/export/exportOrder                             controllers.Application.exp
 GET		/export/transferOutSide                         controllers.Application.transferOutSide()
 GET		/export/transferInside                          controllers.Application.transferInside()
 GET		/export/donate                                  controllers.Application.donate()
+GET		/export/exportSold                              controllers.Application.exportSold()
+GET		/export/exportOther                             controllers.Application.exportOther()
 
 GET		/import/institute			controllers.Application.importsInstitute()
 GET		/import/institute/add		controllers.Application.importsInstituteAdd()
