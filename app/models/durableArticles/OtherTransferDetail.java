@@ -8,7 +8,7 @@ import java.util.Date;
 import models.*;
 
 @Entity
-@Table (name = "durable_articles_other_transfer_detail")
+@Table (name = "other_transfer_detail")
 public class OtherTransferDetail extends Model{
 
 	@Id

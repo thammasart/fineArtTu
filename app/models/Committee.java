@@ -1,4 +1,4 @@
-package models.durableGoods;
+package models;
 
 import play.db.ebean.*;
 import javax.persistence.*;
@@ -6,7 +6,7 @@ import javax.persistence.*;
 import models.type.CommitteeType;
 
 @Entity
-@Table (name = "durable_goods_committee")
+@Table (name = "consumable_committee")
 public class Committee extends Model{
 
 	@Id
@@ -19,9 +19,6 @@ public class Committee extends Model{
 	public String position; // ตำแหน่ง
 	public String employeesType; // ประเภทกรรมการ - ประเภทบุคลากร
 	public String committeePosition; // ตำแหน่งในคณกรรมการ
-
-	@ManyToOne
-	public Procurement procurement;
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Committee> find = new Finder(Long.class,Committee.class);

@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
-import models.*;
+import models.Company;
 
 @Entity
 @Table (name = "durable_articles_procurement")
@@ -25,9 +25,9 @@ public class Procurement extends Model{
 	public Company company; // บริษัทที่ทำการซื้อ
 
 	@OneToMany
-	public List<Committee> eoCommittee = new ArrayList<Committee>(); // คณะกรรมการตรวจรับ
+	public List<EO_Committee> eoCommittee = new ArrayList<EO_Committee>(); // คณะกรรมการตรวจรับ
 	@OneToMany
-	public List<Committee> aiCommittee = new ArrayList<Committee>(); // คณะกรรมการเปิดซองสอบราคา
+	public List<AI_Committee> aiCommittee = new ArrayList<AI_Committee>(); // คณะกรรมการเปิดซองสอบราคา
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Procurement> find = new Finder(Long.class,Procurement.class);

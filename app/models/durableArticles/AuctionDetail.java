@@ -4,11 +4,16 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "durable_articles_auction_detail")
+@Table (name = "auction_detail")
 public class AuctionDetail extends Model{
 
 	@Id
 	public long id;
+ 	public String code; //รหัส
+ 	public double price; //มูลค่าคงเหลือ หลังหักค่าเสื่อม
+
+ 	@ManyToOne
+	public Auction auction;	// ใบเบิก
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,AuctionDetail> find = new Finder(Long.class,AuctionDetail.class);
