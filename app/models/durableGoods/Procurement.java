@@ -21,11 +21,11 @@ public class Procurement extends Model{
 	public Date dateOfApproval; // วันที่อนุมัติในสัญญา
 	public String dealer; // ผู้ติดต่อ พนักงานขาย
 	public String telephoneNumber;// เบอร์โทร พนักงานขาย
+
 	@ManyToOne
 	public Company company; // บริษัทที่ทำการซื้อ
-
 	@OneToMany
-	public List<Committee> eoCommittee = new ArrayList<Committee>(); // คณะกรรมการตรวจรับ
+	public List<EO_Committee> eoCommittee = new ArrayList<EO_Committee>(); // คณะกรรมการตรวจรับ
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Procurement> find = new Finder(Long.class,Procurement.class);

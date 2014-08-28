@@ -4,7 +4,7 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 @Entity
-@Table (name = "durable_articles_internal_transfer")
+@Table (name = "internal_transfer")
 public class InternalTransfer extends Model{
 
 	@Id
