@@ -1,28 +1,48 @@
-@(user : User)
+@(user : User) 
 @header("ระบบติดตามและตรวจสอบ")
 @nav(user)
-@headerTag("ระบบติดตามและตรวจสอบ")
-
+@headerTag("ระบบติดตามและตรวจสอบ") 
 @sideMenu()
 
 
-
-<div class ="mainWindow">
-	<div class="search-option"> 
+<div class="mainWindow">
+	<div class="search-option">
 		<form>
 			<div class="form-group">
 				<div class="input-group">
-					<span class="input-group-addon">ค้นหา</span>
-					<input type="text" class="form-control" style="width:300px">
+					<span class="input-group-addon">ค้นหา</span> <input type="text"
+						class="form-control" style="width: 300px">
 				</div>
 			</div>
-        </form>
+		</form>
 	</div>
+	<!--
+	<ul class="nav nav-tabs" role="tablist" id="test"
+		style="height: 42px; margin-bottom: 10px;">
+		<li class="active"><a href="#1" role="tab" data-toggle="tab">ครุภัณฑ์</a></li>
+		<li><a href="#2" role="tab" data-toggle="tab">วัสดุคงทนถาวร</a></li>
+	</ul>
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="1">tab1</div>
+		<!-- ========================================== tab2 ============================================ --
+		<div class="tab-pane fade" id="2">tab2</div>
+
+	</div> 
+	<script>
+		$(function() {
+			$('#test a:1').tab('show')
+		})
+	</script>
+	-->
+	<!--end tab content-->
+
+
 	<div class="graph-content">
-		<div class="graph-container"></div>
+		<div id="graph-container" class="graph-container"></div>
+		<!-- right pane content is option item where user choose -->
 		<div class="right-pane"></div>
 	</div>
-</div> 
+</div>
 
 
 @footer()

@@ -3,13 +3,13 @@
 	height:600px;
 }
 .graph-container{
-	width:65%;
-	height:100%;
+	width:80%;
+	height:600px;
 	background: grey;
 	float:left;
 }
 .right-pane{
-	width:35%;
+	width:20%;
 	height:100%;
 	background:black;
 	float:right;
