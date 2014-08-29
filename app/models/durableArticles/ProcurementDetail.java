@@ -11,13 +11,11 @@ public class ProcurementDetail extends Model{
 
 	@Id
 	public long id;
-
-	public String code; // รหัสวัสดุ - ครุภัณฑ์
 	public String description; // ชื่อ - รายละเอียด
-	public int quantity; // จำนวน
-	public String classifier; // หน่วย, ลักษณนาม
 	public double priceNoVat; // ราคาไม่รวมภาษี
 	public double price; // ราคราต่อหน่วย
+	public int quantity; // จำนวน
+	public String classifier; // หน่วย, ลักษณนาม
 	public double llifeTime;// อายุการใช้งาน
 	public double alertTime;// เวลาแจ้งเตือน
 	public String brand; // ยี่ห้อ
