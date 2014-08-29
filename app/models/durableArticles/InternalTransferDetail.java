@@ -9,6 +9,17 @@ public class InternalTransferDetail extends Model{
 
 	@Id
 	public long id;
+	public String code; // รหัส
+	public String oldBranch; // สาขาวิชาเก่า
+	public String oldRoom; // ห้องเก่า
+	public String oldFloor; // ชั้น เก่า
+	public String oldBuilding; // อาคารเก่า
+
+	@ManyToOne
+	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการโอนย่าย
+
+	@ManyToOne
+	public InternalTransfer internalTransfer; // การโอนย้ายภายใน
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,InternalTransferDetail> find = new Finder(Long.class,InternalTransferDetail.class);
