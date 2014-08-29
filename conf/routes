@@ -16,6 +16,8 @@ GET		/export/exportOrder                             controllers.Application.exp
 GET		/export/transferOutSide                         controllers.Application.transferOutSide()
 GET		/export/transferInside                          controllers.Application.transferInside()
 GET		/export/donate                                  controllers.Application.donate()
+GET		/export/exportSold                              controllers.Application.exportSold()
+GET		/export/exportOther                             controllers.Application.exportOther()
 
 GET		/import/institute			controllers.Application.importsInstitute()
 GET		/import/institute/add		controllers.Application.importsInstituteAdd()
@@ -43,6 +45,8 @@ GET		/import/order/GoodsAdd/Material2				controllers.Application.importsOrderGoo
 GET     /Admin                      controllers.Admin.index()
 GET     /Admin/addUser              controllers.Admin.addUser()
 GET     /Admin/manageRole           controllers.Admin.manageRole()
+
+GET     /graph           controllers.Graph.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

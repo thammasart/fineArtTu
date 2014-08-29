@@ -13,13 +13,13 @@
         <div class="form-inline marginBtm1" role="form" align="left">
                 <div class="form-group" >
                     <div class="input-group" >
-                        <span class="input-group-addon width150px" >ชื่อวัสดุคงทนถาวร</span>
+                        <span class="input-group-addon width150px" >ชื่อวัสดุ</span>
                         <input type="number" name="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
                     </div>
                 </div>
                 <div class="form-group" >
                     <div class="input-group" >
-                        <span class="input-group-addon width150px" >รหัสวัสดุคงทนถาวร</span>
+                        <span class="input-group-addon width150px" >รหัสวัสดุ</span>
                         <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
                     </div>
                 </div>
@@ -102,42 +102,45 @@
         </div> 
 
 
-        <fieldset>
-        <legend>ตัวช่วยกรอง</legend>
+        <div class="well">
+                  <fieldset>
+                    <legend style="width:auto">ตัวช่วยกรอง</legend>
 
-        <div class="form-inline marginBtm1" role="form" align="left">
-                <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width150px" >รหัสกลุ่ม</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
-                    </div>
-                </div>
-                <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width150px" >ชื่อกลุ่ม</span>
-                        <input type="number" name="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
-                    </div>
-                </div>
-        </div>
+                    <table  class="table table-striped">
+                    <tr>
+                      <td ><input type="radio"> วัสดุสำนักงาน(01)</td>
+                        <td ><input type="radio"> วัสดุไฟฟ้าและวิทยุ(02)</td>
+                        <td ><input type="radio"> วัสดุงานบ้านงานครัว(03)</td>
+                        <td ><input type="radio"> วัสดุคอมพิวเตอร์(04)</td>
+                        <td ><input type="radio"> วัสดุยานพาหนะและขนส่ง(05)</td>
+                        <td ><input type="radio"> วัสดุวิทยาศาสตร์และการแพทย์(06)</td>
+                      </tr>
 
-        <div class="form-inline marginBtm1" role="form" align="left">
-                <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width150px" >รหัสประเภท</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
-                    </div>
-                </div>
-                <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width150px" >ชื่อรหัส</span>
-                        <input type="number" name="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
-                    </div>
-                </div>
-        </div>
+                      <tr>
+                      <td><input type="radio"> วัสดุโฆษณาและเผยแพร่(07)</td>
+                        <td><input type="radio"> วัสดุการศึกษา(08)</td>
+                        <td><input type="radio"> วัสดุสนาม(09)</td>
+                        <td><input type="radio"> วัสดุการเกษตร(10)</td>
+                        <td><input type="radio"> วัสดุสำรวจ(11)</td>
+                        <td><input type="radio"> วัสดุก่อสร้าง(12)</td>
+                      </tr>
+
+                      <tr>
+                        <td><input type="radio"> วัสดุโรงงาน(13)</td>
+                        <td><input type="radio"> วัสดุดนตรีและนาฏศิลทป์(14)</td>
+                        <td><input type="radio"> วัสดุกีฬา(15)</td>
+                        <td><input type="radio"> วัสดุอาวุธ(16)</td>
+                        <td><input type="radio"> วัสดุอื่นๆ(17)</td>
+                      </tr>
+
+                    </table>
+                     รูปภาพ<img src="">
+                  </fieldset>
+              </div>
         
        
-        รูปภาพ<img src="">
-        </fieldset>
+       
+  
 
 
         </form>
