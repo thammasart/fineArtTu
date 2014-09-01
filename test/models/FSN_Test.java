@@ -46,7 +46,7 @@ public class FSN_Test extends WithApplication {
 		FSN_Group group2 = new FSN_Group();
 		group2.id = "75";
 		group2.description = "พัสดุและเครื่องใช้สำนักงาน";
-		group2.save();
+		group2.save(); 
 
 		assertEquals(2, FSN_Group.find.findRowCount());
 		assertEquals(group, FSN_Group.find.byId("10"));
@@ -88,10 +88,10 @@ public class FSN_Test extends WithApplication {
 		groupClass.save();
 
 		assertEquals(1, FSN_Class.find.findRowCount());
-		group =  FSN_Group.find.byId("75");
+	/*	group =  FSN_Group.find.byId("75");
 		List<FSN_Class> l = group.groupClassList;
 		int size = l.size();
-//		assertEquals(1, FSN_Group.find.byId("75").groupClassList.size());
+//		assertEquals(1, FSN_Group.find.byId("75").groupClassList.size());*/
 
 
 		FSN_Class groupClass2 = new FSN_Class();
