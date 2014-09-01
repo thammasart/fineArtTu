@@ -12,6 +12,9 @@ public class AuctionDetail extends Model{
  	public String code; //รหัส
  	public double price; //มูลค่าคงเหลือ หลังหักค่าเสื่อม
 
+	@ManyToOne
+	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการจำหน่าย
+
  	@ManyToOne
 	public Auction auction;	// ใบเบิก
 

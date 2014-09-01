@@ -13,6 +13,13 @@ public class OtherTransferDetail extends Model{
 
 	@Id
 	public long id;
+	public Date approveDate; // วันที่ทำการอนุมัติ
+	public String descliption; // สาเหตุการโอนย้าย
+
+	@ManyToOne
+	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการโอนย่าย
+	@ManyToOne
+	public OtherTransfer otherTransfer; // การโอนย้าย ภายนอก
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,OtherTransferDetail> find = new Finder(Long.class,OtherTransferDetail.class);
