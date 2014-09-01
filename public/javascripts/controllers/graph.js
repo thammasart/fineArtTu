@@ -7,10 +7,7 @@ google.setOnLoadCallback(drawChart);
 
 var isSetChart = false;
 var data;
-var data1;
-var data3;
 var chart2;
-var balanceData = [];
 var options = {
 	title : 'เปรียบเทียบการใช้งบประมาณรายเดือน',
 	animation : {
@@ -101,6 +98,8 @@ function load() {
                          Math.floor(Math.random() * 1000),
                          Math.floor(Math.random() * 1000),
                          Math.floor(Math.random() * 1000)]]);*/
+			}else{
+				$('#graph-tab a[href="#tracking"]').tab('show');
 			}
 			state['mode'] = 'detail';
 			chart2.draw(data, options);
@@ -198,9 +197,9 @@ var setMode = function(m, element) {
 	drawChart();
 }
 
-var setOption = function(o) {
-	for ( var k in o) {
-		options[k] = o[k];
+var setOption = function(obj) {
+	for ( var k in obj) {
+		options[k] = obj[k];
 	}
 	/*
 	 * for ( var k in options) { console.log(k + " " + options[k]); }

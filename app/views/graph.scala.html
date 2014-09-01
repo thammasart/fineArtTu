@@ -18,7 +18,7 @@
 			</div>
 		</form>
 	</div>
-	<ul class="nav nav-tabs" role="tablist" id="test"
+	<ul class="nav nav-tabs" role="tablist" id="graph-tab"
 		style="height: 42px; margin-bottom: 10px;">
 		<li class="active"><a href="#relation" role="tab"
 			data-toggle="tab">ความสัมพันธ์</a></li>
@@ -47,12 +47,67 @@
 			</div>
 		</div>
 		<!-- ========================================== tab2 ============================================ -->
-		<div class="tab-pane fade" id="tracking">tab2</div>
+		<div class="tab-pane fade" id="tracking">
+			<div class="adminUserinfoTableContainer">
+				<table class="table table-striped overlayTable">
+					<thead>
+						<tr>
+							<th>ลำดับ<span class="glyphicon glyphicon-sort"></span></th>
+							<th>รหัสวัสดุ/ครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+							<th>รายการ<span class="glyphicon glyphicon-sort"></span></th>
+							<th>วันที่ทำรายการ<span class="glyphicon glyphicon-sort"></span></th>
+							<th>รายละเอียด</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>1</th>
+							<th>1001</th>
+							<th>กระดาษ A4</th>
+							<th>12/9/57</th>
+							<th><button class="btn btn-xs btn-info">รายละเอียด</button></th>
+						</tr>
+						<tr>
+							<th>2</th>
+							<th>2002</th>
+							<th>กรรไกร</th>
+							<th>11/8/57</th>
+							<th><button class="btn btn-xs btn-info">รายละเอียด</button></th>
+						</tr>
+						<tr>
+							<th>3</th>
+							<th>3003</th>
+							<th>โต๊ะทำงาน</th>
+							<th>10/7/57</th>
+							<th><button class="btn btn-xs btn-info">รายละเอียด</button></th>
+						</tr>
+						<tr>
+							<th>4</th>
+							<th>4004</th>
+							<th>ซองขาว - ครุฑ</th>
+							<th>9/7/57</th>
+							<th><button class="btn btn-xs btn-info">รายละเอียด</button></th>
+						</tr>
+					</tbody>
+				</table>
+				<div class="pagingContainer" align="center">
+					<ul class="pagination" style="margin: 0;">
+						<li class="disabled"><a href="#">&laquo;</a></li>
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">&raquo;</a></li>
+					</ul>
+				</div>
+			</div>		
+		</div>
 
 	</div>
 	<script>
 		$(function() {
-			$('#test a:relation').tab('show')
+			$('#graph-tab a[href="#relation"]').tab('show');
 		})
 	</script>
 	<!--end tab content-->
