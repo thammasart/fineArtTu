@@ -7,10 +7,10 @@ import javax.persistence.*;
 public class FSN_Class extends Model{
 
 	@Id
-	@Column(length=2)
-	public String groupClassId;
+	@Column(length=4)
+	public String id;
 	@Column(nullable=false)
-	public String groupClassDescription;
+	public String description;
 
 	@ManyToOne
 	public FSN_Group group;

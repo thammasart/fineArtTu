@@ -8,7 +8,7 @@ public class FSN_Description extends Model{
 
 	@Id
 	@Column(length=4)
-	public String descriptionId;
+	public String id;
 	@Column(nullable=false)
 	public String description;
 
