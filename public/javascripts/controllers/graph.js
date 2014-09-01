@@ -5,6 +5,7 @@ google.load('visualization', '1.0', {
 // ... draw the chart...
 google.setOnLoadCallback(drawChart);
 
+var isSetChart = false;
 var data;
 var data1;
 var data3;
@@ -26,7 +27,8 @@ var state = {
 	'relation' : 'month',
 	'mode' : 'balance',
 	'item' : 'durableArticle'
-};
+}
+var modeBtn = null;
 var mode = {
 	balance : 'เปรียบเทียบการใช้งบประมาณ',
 	procurement : 'เปรียบเทียบจำนวนการนำเข้า',
@@ -36,6 +38,7 @@ var mode = {
 	transfer : 'เปรียบเทียบจำนวนการโอนย้าย',
 	remain : 'เปรียบเทียบจำนวนคงเหลือ'
 };
+var relationBtn = null;
 var relation = {
 	year : 'รายปี',
 	quarter : 'รายไตรมาส',
@@ -44,31 +47,74 @@ var relation = {
 
 function load() {
 	// Instantiate and draw our chart, passing in some options.
-	chart1 = new google.visualization.PieChart(document
-			.getElementById('graph-container'));
-	chart2 = new google.visualization.ColumnChart(document
-			.getElementById('graph-container'));
-	google.visualization.events.addListener(chart2, 'select', function() {
+	if(!isSetChart){
+		isSetChart = true;
+		chart1 = new google.visualization.PieChart(document.getElementById('graph-container'));
+		chart2 = new google.visualization.ColumnChart(document.getElementById('graph-container'));
+		google.visualization.events.addListener(chart2, 'select', function() {
 
-		console.log(chart2.getSelection()[0]['column'] + " "
-				+ chart2.getSelection()[0]['row']);
+			console.log(chart2.getSelection()[0]['column'] + " "
+					+ chart2.getSelection()[0]['row']);
 
-		var object = chart2.getSelection();
-		if (state['relation'] == 'year') {
-
-		} else if (state['relation'] == 'quarter') {
-
-		} else if (state['relation'] == 'month') {
-
-		} else if (state['relation'] == 'nYear') {
-
-		}
-
-	});
+			var object = chart2.getSelection()[0];
+			//data = getData(object);
+			//drawChart();
+			if(object['column'] == 1 && state['mode'] != 'detail'){
+				console.log('in1');
+				data = null;
+				/*data = new google.visualization.arrayToDataTable([['name','numberOfItem'],
+						['สนง',Math.floor(Math.random() * 1000)],
+						['ยานพหนะและขนส่ง',Math.floor(Math.random() * 1000)],
+						['ไฟฟ้าและวิทยุ',Math.floor(Math.random() * 1000)],
+						['คอมฯ',Math.floor(Math.random() * 1000)],
+						['การศึกษา',Math.floor(Math.random() * 1000)],
+						['งานบ้านงานครัว',Math.floor(Math.random() * 1000)],
+						['ดนตรี',Math.floor(Math.random() * 1000)],
+						['โฆษณาและเผยแพร่',Math.floor(Math.random() * 1000)],
+						['ก่อสร้าง',Math.floor(Math.random() * 1000)]]);*/
+				data = new google.visualization.arrayToDataTable([
+                        ['durable','สนง','ยานพหนะและขนส่ง','ไฟฟ้าและวิทยุ','คอมฯ','การศึกษา','งานบ้านงานครัว','ดนตรี','โฆษณาและเผยแพร่','ก่อสร้าง'],
+                        [Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000)]]);
+			}else if(object['column'] == 2 && state['mode'] != 'detail'){
+				console.log('in2');
+				data = null;
+				data = new google.visualization.arrayToDataTable([['name','numberOfItem'],
+						['สนง',Math.floor(Math.random() * 1000)],
+						['คอม',Math.floor(Math.random() * 1000)],
+						['งานบ้าน',Math.floor(Math.random() * 1000)],
+						['ไฟฟ้า',Math.floor(Math.random() * 1000)],
+						['บริโภค',Math.floor(Math.random() * 1000)]]);
+				/*data = new google.visualization.arrayToDataTable([
+                        ['consumable','สนง','คอม','งานบ้าน','ไฟฟ้า','บริโภค'],
+                        [Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000),
+                         Math.floor(Math.random() * 1000)]]);*/
+			}
+			state['mode'] = 'detail';
+			chart2.draw(data, options);
+		});
+	}
+	
 
 }
 
-function myRandom(){
+function getData(obj){
+	
+}
+
+function myRandom() {
 	data = null;
 	var num1;
 	var num2;
@@ -76,19 +122,19 @@ function myRandom(){
 	data.addColumn('string', 'relation');
 	data.addColumn('number', 'ครุภัณฑ์');
 	data.addColumn('number', 'วัสดุ');
-	if(state['relation'] == 'month'){
+	if (state['relation'] == 'month') {
 		for ( var i = 0; i < months.length; i++) {
 			num1 = Math.floor(Math.random() * 1000);
 			num2 = Math.floor(Math.random() * 1000);
 			data.addRow([ months[i], num1, num2 ]);
 		}
-	}else if(state['relation'] == 'quarter') {
+	} else if (state['relation'] == 'quarter') {
 		for ( var i = 0; i < quarters.length; i++) {
 			num1 = Math.floor(Math.random() * 1000);
 			num2 = Math.floor(Math.random() * 1000);
 			data.addRow([ quarters[i], num1, num2 ]);
 		}
-	}else if(state['relation'] == 'year'){
+	} else if (state['relation'] == 'year') {
 		for ( var i = 0; i < years.length; i++) {
 			num1 = Math.floor(Math.random() * 1000);
 			num2 = Math.floor(Math.random() * 1000);
@@ -104,7 +150,16 @@ function drawChart() {
 	chart2.draw(data, options);
 }
 
-var setRelation = function(r) {
+var setRelation = function(r, element) {
+	$(element).addClass('active');
+    if(relationBtn == null){
+    	var x = $( "button:contains('รายปี')" )[0];
+    	$(x).removeClass('active');
+    	relationBtn = element;
+    }else{
+    	$(relationBtn).removeClass('active');
+    	relationBtn = element;
+    }
 	state['relation'] = r;
 	switch (r) {
 	case 'month':
@@ -117,7 +172,17 @@ var setRelation = function(r) {
 	drawChart();
 }
 
-var setMode = function(m) {
+var setMode = function(m, element) {
+	$(element).addClass('active');
+    if(modeBtn == null){
+    	var x = $( "button:contains('การใช้งบประมาณ')" )[0];
+    	$(x).removeClass('active');
+    	modeBtn = element;
+    }else{
+    	$(modeBtn).removeClass('active');
+    	modeBtn = element;
+    }
+	state['mode'] = m;
 	switch (m) {
 	case 'balance':
 	case 'procurement':
