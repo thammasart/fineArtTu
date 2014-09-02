@@ -4,6 +4,7 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 import models.type.UserStatus;
+import models.fsnNumber.*;
 
 @Entity
 public class User extends Model{
@@ -27,6 +28,10 @@ public class User extends Model{
 			System.out.println( type.id + "\t" + type.acronym + "\t" + type.typeName );
 		}
 	*/
+		System.out.println("\nจำนวน ผู้ใช้ :" + User.find.findRowCount());
+		System.out.println("จำนวน รหัสวัสดุ :" + ConsumableCode.find.findRowCount());
+		System.out.println("จำนวน fsn group :" + FSN_Group.find.findRowCount());
+		System.out.println("จำนวน fsn class :" + FSN_Class.find.findRowCount());
 
         User user = find.byId(username);
 		if(user == null){

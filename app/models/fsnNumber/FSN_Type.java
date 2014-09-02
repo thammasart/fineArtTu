@@ -7,9 +7,9 @@ import javax.persistence.*;
 public class FSN_Type extends Model{
 
 	@Id
-	public String typeId;
+	public String id;
 	@Column(nullable=false)
-	public String typeDescription;
+	public String description;
 
 	@ManyToOne
 	public FSN_Class groupClass;
