@@ -7,11 +7,7 @@ import javax.persistence.*;
 public class ConsumableCode extends Model{
 
 	@Id
-	public long id;
-	@Column(nullable=false)
-	public long number;
-	@Column(nullable=false)
-	public int code;
+	public String code;
 	@Column(nullable=false)
 	public String description;
 
@@ -19,5 +15,5 @@ public class ConsumableCode extends Model{
 	public ConsumableType consumableType;
 
 	@SuppressWarnings("unchecked")
-	public static Finder<Long,ConsumableCode> find = new Finder(Long.class,ConsumableCode.class);
+	public static Finder<String,ConsumableCode> find = new Finder(String.class,ConsumableCode.class);
 }
