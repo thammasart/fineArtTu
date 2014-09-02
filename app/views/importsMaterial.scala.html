@@ -41,21 +41,25 @@
             <legend>ครุภัณฑ์สำนักงาน 7510</legend>
                 <thead>
                     <tr>
+                        <th></th>
                         <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
                         <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รูปภาพ</th>
+                        <th>รายละเอียด</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
+                        <th> <input type="checkbox"/> </th>
                         <th>7510-003-0001</th>
                         <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
                         <th>75</th>
                         <th>1</th>
                         <th><img src=""></th>
+                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
                     </tr>
                 </tbody>
            </table>
@@ -90,60 +94,70 @@
             </div>
             <div class="tableBtnContainer">
                     <a href="@routes.Application.importsMaterialDurableGoodsAdd()">
-                    <button class="btn btn-success" >เพิ่มพัสดุคงทนถาวร</button>
+                    <button class="btn btn-success" >เพิ่มวัสดุคงทนถาวร</button>
                     </a>
-                    <button class="btn btn-danger">ลบพัสดุคงทนถาวร</button>
+                    <button class="btn btn-danger">ลบวัสดุคงทนถาวร</button>
             </div>
         </div>
 
 
            <table class="table table-striped overlayTable">
-            <legend>วัสดุสำนักงาน</legend>
+            <legend>วัสดุคงทนถาวรสำนักงาน</legend>
              <thead>
                 <tr>
+                    <th></th>
                     <th>รหัสวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
                     <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รูปภาพ</th>
+                    <th>รายละเอียด</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>1001</th>
+                    <th> <input type="checkbox"/> </th>
+                    <th>01001</th>
                     <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
                     <th>75</th>
                     <th>1</th>
                     <th><img src=""></th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
                 </tr>
                 <tr>
-                    <th>1002</th>
+                    <th> <input type="checkbox"/> </th>
+                    <th>01002</th>
                     <th>ดินสอกดล็อตติ้งสีcแดง</th>
                     <th>75</th>
                     <th>1</th>
                     <th><img src=""></th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
                 </tr>
              </tbody>
            </table>
 
             <table class="table table-striped overlayTable">
-            <legend>วัสดุไฟฟ้าและวิทยุ</legend>
+            <legend>วัสดุคงทนถาวรไฟฟ้าและวิทยุ</legend>
              <thead>
                 <tr>
+                    <th></th>
                     <th>รหัสวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
                     <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รูปภาพ</th>
+                    <th>รายละเอียด</th>  
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>2002</th>
+                    <th> <input type="checkbox"/> </th>
+                    <th>02002</th>
                     <th>มอนิเตอร์</th>
                     <th>4999</th>
                     <th>1</th>
                     <th><img src=""></th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
                 </tr>
               </tbody>
            </table>
@@ -189,54 +203,41 @@
 
 
            <table class="table table-striped overlayTable">
-            <legend>วัสดุสำนักงาน</legend>
+            <legend>วัสดุสิ้นเปลืองสำนักงาน</legend>
              <thead>
                 <tr>
+                    <th></th>
                     <th>รหัสวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
                     <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รูปภาพ</th>
+                    <th>รายละเอียด</th>  
+                    
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>1001</th>
-                    <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
+                    <th> <input type="checkbox"/> </th>
+                    <th>01011</th>
+                    <th>หมึกดำ</th>
                     <th>75</th>
                     <th>1</th>
                     <th><img src=""></th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
+
                 </tr>
                 <tr>
-                    <th>1002</th>
-                    <th>ดินสอกดล็อตติ้งสีcแดง</th>
+                    <th> <input type="checkbox"/> </th>
+                    <th>01013</th>
+                    <th>หมึกแดง</th>
                     <th>75</th>
                     <th>1</th>
                     <th><img src=""></th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
+
                 </tr>
              </tbody>
-           </table>
-
-            <table class="table table-striped overlayTable">
-            <legend>วัสดุไฟฟ้าและวิทยุ</legend>
-             <thead>
-                <tr>
-                    <th>รหัสวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>2002</th>
-                    <th>มอนิเตอร์</th>
-                    <th>4999</th>
-                    <th>1</th>
-                    <th><img src=""></th>
-                </tr>
-              </tbody>
            </table>
 
             <div class="pagingContainer" align="center">

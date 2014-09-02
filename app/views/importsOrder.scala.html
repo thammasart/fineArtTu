@@ -35,20 +35,25 @@
                     <button class="btn btn-danger">ลบรายการครุภัณฑ์</button>
             </div>
         </div>
+
             <table class="table table-striped overlayTable">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
                         <th>วันนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รายละเอียด</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
+                        <th> <input type="checkbox"/> </th>
                         <th>รายการส่งเสริมการศึกษา1</th>
                         <th>1/57</th>
                         <th>20/5/57</th>
+                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
                     </tr>
                 </tbody>
             </table>
@@ -91,17 +96,21 @@
               <table class="table table-striped overlayTable">
                   <thead>
                       <tr>
+                          <th></th>
                           <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
                           <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
                           <th>วันนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
+                          <th>รายละเอียด</th>
                       </tr>
                   </thead>
                   <tbody>
 
                       <tr>
-                          <th>รายการส่งเสริมการลอคอน1</th>
+                          <th> <input type="checkbox"/> </th>
+                          <th>รายการส่งเสริมการละคอน1</th>
                           <th>1/57</th>
                           <th>20/5/57</th>
+                           <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
                       </tr>
                   </tbody>
               </table>

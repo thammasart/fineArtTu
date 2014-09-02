@@ -23,39 +23,37 @@
                         </form>
                 </div>
             <div class="tableBtnContainer">
-                <a href="@routes.Application.imports()">
-                <button class="btn btn-danger " >ย้อนกลับ</button>
+                <a class="btn btn-success" href="@routes.Application.importsInstituteAdd()">
+                เพิ่มสถานประกอบการ
                 </a>
-
-                <a href="@routes.Application.importsInstituteAdd()">
-                <button class="btn btn-success "style=" margin-right:15px;">เพิ่มหน่วยงาน</button>
-                </a>
+                <button class="btn btn-danger">ลบสถานประกอบการ</button>
             </div>
+
+
         </div>
         <div class="adminUserinfoTableContainer">
             <table class="table table-striped overlayTable">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>ซื่อหน่วยงาน<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ผู้ติดต่อ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>เบอร์โทร<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ระยะเวลาในการชำระเงิน<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ระยะเวลาในการจัดส่ง<span class="glyphicon glyphicon-sort"></span></th>
                         <th>รายละเอียด</th>
-                        <th> <button class="btn btn-xs btn-danger" > ลบหน่วยงาน</button></th>
                     </tr>
                 </thead>
                 <tbody>
 
                     <tr>
+                        <th> <input type="checkbox"/> </th>
                         <th>MSI computer</th>
                         <th>barack obama</th>
                         <th>09-999-9998</th>
                         <th>1<span>&nbsp;วัน</span></th>
                         <th>5<span>&nbsp;วัน</span></th>
                         <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-                        <th> <input type="checkbox"/> </th>
-
                 </tbody>
             </table>
             <div class="pagingContainer" align="center">

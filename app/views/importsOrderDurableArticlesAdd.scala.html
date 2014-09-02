@@ -5,7 +5,7 @@
 @nav(user)
 @headerTag("เพิ่มรายการครุภัณฑ์จัดซื้อและนำเข้า")
 
-    <div class="listWindowMaterial" style="margin-left:13%;" align="center">
+    <div class="detailWindow">
         <div class="well" >
         
                 <form>
@@ -168,68 +168,67 @@
 
 
 
-        <div class="searchS">
-                <form>
-                    <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon">ค้นหา</span>
-                          <input type="text" class="form-control" style="width:300px">
-                        </div>
-                      </div>
-                </form>
+        <div class="tableHeaderBtnContainer" >
+            <div class="searchS">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">ค้นหา</span>
+                              <input type="text" class="form-control" style="width:300px">
+                            </div>
+                          </div>
+                    </form>
+            </div>
+                 <div style="width:300px;float:right;">
+                    <a href="@routes.Application.importsOrderDurableArticlesAddMaterial1()">
+                    <button class="btn btn-success" style="margin-left:15%;">เพิ่มครุภัณฑ์</button>
+                    </a>
+
+                    <button class="btn btn-danger">ลบครุภัณฑ์</button>
+                </div>
         </div>
 
-        <div style="width:300px;float:right;">
-                <a href="@routes.Application.importsOrderDurableArticlesAddMaterial1()">
-                <button class="btn btn-success" style="margin-left:15%;">เพิ่มครุภัณฑ์</button>
-                </a>
-
-                <button class="btn btn-danger">ลบครุภัณฑ์</button>
-
-
-        </div>
 
         
            <table class="table table-striped overlayTable">
             <legend>ครุภัณฑ์สำนักงาน</legend>
              <thead>
                 <tr>
+                    <th></th>
                     <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                     <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
                     <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
                     <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
-                    <th><button>ลบ</button></th>
+                    <th>รายละเอียด</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                    <th> <input type="checkbox"/> </th>
                     <th>ศก.พ.57-7400-100-0005</th>
                     <th>กระดานดำ</th>
                     <th>2</th>
                     <th>อัน</th>
                     <th>5500</th>
                     <th>8</th>
-                    <th><button>รายละเอียด</button></th>
-                    <th></th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
                 </tr>
                 <tr>
+                    <th> <input type="checkbox"/> </th>
                     <th>ศก.พ.57-7400-100-0006</th>
                     <th>บอร์ด</th>
                     <th>3</th>
                     <th>อัน</th>
                     <th>6500</th>
                     <th>10</th>
-                    <th><button>รายละเอียด</button></th>
-                    <th></th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
                 </tr>
              </tbody>
            </table>
 
-            </tbody>
-        </table>
+
 
 
 
