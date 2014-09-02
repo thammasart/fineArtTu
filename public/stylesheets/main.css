@@ -55,6 +55,12 @@ width:100%;
 .btnFloatRight{
 float:right;
 }
+.shadowGray{
+    box-shadow:2px 2px 5px gray;
+}
+.shadowLightBlue{
+    box-shadow:5px 5px 5px lightblue;
+}
 .width450px{
     width:450px !important;
     text-align:right;
