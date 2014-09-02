@@ -165,7 +165,17 @@ public class Application extends Controller {
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
+    @Security.Authenticated(Secured.class)
+        public static Result report() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(report.render(user));
+    }
 
+    @Security.Authenticated(Secured.class)
+        public static Result reportRemainingMaterial() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(reportRemainingMaterial.render(user));
+    }
     
 
     

@@ -1,0 +1,138 @@
+@(user : User)
+@header("รายงาน")
+
+@nav(user)
+@headerTag("สรุปวัสดุคงเหลือ")
+
+
+@sideMenu()
+
+<div class="listWindow">
+
+@importsInstituteOverlay()
+
+        <div style="width:100%; height:50px; ">
+                <div class="searchS">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                  <span class="input-group-addon">ค้นหา</span>
+                                  <input type="text" class="form-control" style="width:300px">
+                                </div>
+                              </div>
+                        </form>
+                </div>
+                       <div class="form-inline marginBtm1" role="form"  style="float:right;">
+                          <div class="form-group" >
+                              <div class="input-group date width300px" id="start-picker">
+                                  <input type="text" class="form-control" data-format="DD/MM/YYYY" autocomplete="off" id="birthInputBoxShow"placeholder="จากวันที่" disabled>
+                                  <input type="text" name="birthDate" id="birthInputBox" hidden>
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                              </div>
+                         </div>
+                          <div class="form-group" >
+                              <div class="input-group date width300px" id="end-picker">
+                                  <input type="text" class="form-control" data-format="DD/MM/YYYY" autocomplete="off" id="birthInputBoxShow"placeholder="ถึงวันที่" disabled>
+                                  <input type="text" name="birthDate" id="birthInputBox" hidden>
+                                  <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                              </div>
+                         </div>
+                            <script type="text/javascript">
+                                $(function () {
+                                    $('#start-picker').datetimepicker()
+                                });
+                                $(function () {
+                                    $('#end-picker').datetimepicker()
+                                });
+                            </script>
+                       </div>
+        </div>
+
+        <div >
+            <table class="table table-striped overlayTable" align="center">
+                <thead>
+                    <tr>
+                        <th style="text-align:center"> ลำดับที่</th>
+                        <th style="text-align:center"> รายการ </th>
+                        <th style="text-align:center"> หน่วย </th>
+                        <th style="text-align:center"> ว.ด.ป. </th>
+                        <th style="text-align:center"> รับจาก </th>
+                        <th style="text-align:center"> จ่ายไห้ </th>
+                        <th style="text-align:center"> เลขที่เอกสาร </th>
+                        <th style="text-align:center"> ราคาต่อหน่วย </th>
+                        <th style="text-align:center"> รับ/จำนวน </th>
+                        <th style="text-align:center"> รับ/ราคา </th>
+                        <th style="text-align:center"> จ่าย/จำนวน</th>
+                        <th style="text-align:center"> จ่าย/ราคา</th>
+                        <th style="text-align:center"> คงเหลือ/จำนวน </th>
+                        <th style="text-align:center"> คงเหลือ/ราคา </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="success">
+                        <th style="text-align:center">1</th>
+                        <th style="text-align:center">กรรไกร 6 นิ้ว</th>
+                        <th style="text-align:center">อัน</th>
+                        <th style="text-align:center">1 ต.ค.55</th>
+                        <th style="text-align:center">ยอดยกมา</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">30</th>
+                        <th style="text-align:center">3</th>
+                        <th style="text-align:center">90.00</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">3</th>
+                        <th style="text-align:center">90</th>
+                    </tr>
+                    <tr class="danger">
+                        <th style="text-align:center">1</th>
+                        <th style="text-align:center">กรรไกร 6 นิ้ว</th>
+                        <th style="text-align:center">อัน</th>
+                        <th style="text-align:center">15 ก.พ.56</th>
+                        <th style="text-align:center">mr.bond</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">1</th>
+                        <th style="text-align:center">30</th>
+                        <th style="text-align:center">2</th>
+                        <th style="text-align:center">60</th>
+                    </tr>
+                    <tr class="success">
+                        <th style="text-align:center">1</th>
+                        <th style="text-align:center">กรรไกร 6 นิ้ว</th>
+                        <th style="text-align:center">อัน</th>
+                        <th style="text-align:center">27 ก.พ.56</th>
+                        <th style="text-align:center">apple.cop</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">56-0003183</th>
+                        <th style="text-align:center">32.10</th>
+                        <th style="text-align:center">12</th>
+                        <th style="text-align:center">385.20</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">14</th>
+                        <th style="text-align:center">445.20</th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagingContainer" align="center">
+                <ul class="pagination" style="margin:0;">
+                  <li class="disabled"><a href="#">&laquo;</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+           </div>
+        </div> 
+<!---->
+</div>
+
+@footer()
