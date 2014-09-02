@@ -3,6 +3,9 @@ package models.fsnNumber;
 import play.db.ebean.*;
 import javax.persistence.*;
 
+import java.util.List;
+import java.util.ArrayList;
+
 @Entity
 public class FSN_Class extends Model{
 
@@ -12,6 +15,8 @@ public class FSN_Class extends Model{
 	@Column(nullable=false)
 	public String description;
 
+	@OneToMany(mappedBy="groupClass")
+	public List<FSN_Type> typeInClass = new ArrayList<FSN_Type>();
 	@ManyToOne
 	public FSN_Group group;
 

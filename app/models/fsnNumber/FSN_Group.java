@@ -15,8 +15,8 @@ public class FSN_Group extends Model{
 	@Column(nullable=false)
 	public String description;
 
-	@OneToMany
-	public List<FSN_Class> groupClassList = new ArrayList<FSN_Class>(); // คณะกรรมการตรวจรับ
+	@OneToMany(mappedBy="group")
+	public List<FSN_Class> classInGroup = new ArrayList<FSN_Class>();
 
 	@SuppressWarnings("unchecked")
 	public static Finder<String,FSN_Group> find = new Finder(String.class,FSN_Group.class);
