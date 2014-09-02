@@ -8,15 +8,23 @@
 <script src="@routes.Assets.at("javascripts/controllers/graph.js")"></script>
 
 <div class="mainWindow">
-	<div class="search-option">
-		<form>
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">ค้นหา</span> <input type="text"
-						class="form-control" style="width: 300px">
-				</div>
-			</div>
-		</form>
+	<div class="tableHeaderBtnContainer">
+            <div class="search-option">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">ค้นหา</span> <input type="text"
+                                class="form-control" style="width: 300px">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div align="center">
+                <button type="button" class="btn btn-default active" onclick="setRelation('year',this)">รายปี</button>
+                <button type="button" class="btn btn-default" onclick="setRelation('quarter',this)">รายไตรมาส</button>
+                <button type="button" class="btn btn-default" onclick="setRelation('month',this)">รายเดือน</button>
+            </div>
 	</div>
 	<ul class="nav nav-tabs" role="tablist" id="graph-tab"
 		style="height: 42px; margin-bottom: 10px;">
@@ -29,19 +37,14 @@
 			<div class="graph-content">
 				<div id="graph-container" class="graph-container"></div>
 				<!-- right pane content is option item where user choose -->
-				<div class="right-pane">
+				<div class="well" style="width:20% float:right" align="center">
 					<div class="btn-group-vertical">
-						<button type="button" class="btn btn-default active" onclick="setRelation('year',this)">รายปี</button>
-						<button type="button" class="btn btn-default" onclick="setRelation('quarter',this)">รายไตรมาส</button>
-						<button type="button" class="btn btn-default" onclick="setRelation('month',this)">รายเดือน</button>
-					</div>
-					<div class="btn-group-vertical">
-						<button type="button" class="btn btn-default active" onclick="setMode('balance',this)">การใช้งบประมาณ</button>
-						<button type="button" class="btn btn-default" onclick="setMode('procurement',this)">จำนวนนำเข้า</button>
-						<button type="button" class="btn btn-default" onclick="setMode('requisition',this)">จำนวนเบิกจ่าย</button>
-						<button type="button" class="btn btn-default" onclick="setMode('transfer',this)">จำนวนโอนย้าย</button>
-						<button type="button" class="btn btn-default" onclick="setMode('repairing',this)">จำนวนส่งซ่อม</button>
-						<button type="button" class="btn btn-default" onclick="setMode('remain',this)">จำนวนคงเหลือ</button>
+						<button type="button"style="margin-bottom:10%; width:160px;"class="btn btn-default btn-block  active" onclick="setMode('balance',this)">การใช้งบประมาณ</button>
+						<button type="button"style="margin-bottom:10%; width:160px;"class="btn btn-default btn-block " onclick="setMode('procurement',this)">จำนวนนำเข้า</button>
+						<button type="button"style="margin-bottom:10%; width:160px;"class="btn btn-default btn-block " onclick="setMode('requisition',this)">จำนวนเบิกจ่าย</button>
+						<button type="button"style="margin-bottom:10%; width:160px;"class="btn btn-default btn-block " onclick="setMode('transfer',this)">จำนวนโอนย้าย</button>
+						<button type="button"style="margin-bottom:10%; width:160px;"class="btn btn-default btn-block " onclick="setMode('repairing',this)">จำนวนส่งซ่อม</button>
+						<button type="button"style="margin-bottom:10%; width:160px;"class="btn btn-default btn-block " onclick="setMode('remain',this)">จำนวนคงเหลือ</button>
 					</div>
 				</div>
 			</div>

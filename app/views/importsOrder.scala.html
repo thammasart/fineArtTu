@@ -16,27 +16,24 @@
     <div class="tab-content">
       <div class="tab-pane fade in active" id="1">
 
-
-
-        <div class="searchS">
-                <form>
-                    <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon">ค้นหา</span>
-                          <input type="text" class="form-control" style="width:300px">
-                        </div>
-                      </div>
-                </form>
-        </div>
-        
-        <div class="addDelBtnContainer">
-                <a href="@routes.Application.importsOrderDurableArticlesAdd">
-                <button class="btn btn-success" style="margin-left:15%;">เพิ่มรายการครุภัณฑ์</button>
-                </a>
-
-                <button class="btn btn-danger">ลบรายการครุภัณฑ์</button>
-
-
+        <div class="tableHeaderBtnContainer">
+            <div class="searchS">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">ค้นหา</span>
+                              <input type="text" class="form-control" style="width:300px">
+                            </div>
+                          </div>
+                    </form>
+            </div>
+            
+            <div class="tableBtnContainer">
+                    <a href="@routes.Application.importsOrderDurableArticlesAdd">
+                    <button class="btn btn-success" >เพิ่มรายการครุภัณฑ์</button>
+                    </a>
+                    <button class="btn btn-danger">ลบรายการครุภัณฑ์</button>
+            </div>
         </div>
             <table class="table table-striped overlayTable">
                 <thead>
@@ -70,26 +67,27 @@
     </div>
 <!-- ========================================== tab2 ============================================ -->
       <div class="tab-pane fade" id="2">
-        <div class="searchS">
-                  <form>
-                      <div class="form-group">
-                          <div class="input-group">
-                            <span class="input-group-addon">ค้นหา</span>
-                            <input type="text" class="form-control" style="width:300px">
-                          </div>
-                        </div>
-                  </form>
-          </div>
-          
-          <div class="addDelBtnContainer">
-                  <a href="@routes.Application.importsOrderGoodsAdd()">
-                  <button class="btn btn-success" style="margin-left:15%;">เพิ่มรายการวัสดุ</button>
-                  </a>
 
-                  <button class="btn btn-danger">ลบรายการวัสดุ</button>
-
-
-          </div>
+        <div class="tableHeaderBtnContainer">
+            <div class="searchS">
+                      <form>
+                          <div class="form-group">
+                              <div class="input-group">
+                                <span class="input-group-addon">ค้นหา</span>
+                                <input type="text" class="form-control" style="width:300px">
+                              </div>
+                            </div>
+                      </form>
+              </div>
+              
+              <div class="tableBtnContainer">
+                      <a href="@routes.Application.importsOrderGoodsAdd()">
+                      <button class="btn btn-success" >เพิ่มรายการวัสดุ</button>
+                      </a>
+    
+                      <button class="btn btn-danger">ลบรายการวัสดุ</button>
+              </div>
+        </div>
               <table class="table table-striped overlayTable">
                   <thead>
                       <tr>

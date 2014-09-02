@@ -18,24 +18,23 @@
 
 
       <div class="tab-pane fade in active" id="1">
-        <div class="searchS">
-                <form>
-                    <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon">ค้นหา</span>
-                          <input type="text" class="form-control" style="width:300px">
-                        </div>
-                      </div>
-                </form>
-        </div>
-        <div >
-                <a class="btn btn-success" style="margin-left:44%;" href="@routes.Application.importsMaterialDurableArticlesAdd()">
-                เพิ่มครุภัณฑ์
-                </a>
-
-                <button class="btn btn-danger">ลบครุภัณฑ์</button>
-
-
+        <div class="tableHeaderBtnContainer" >
+            <div class="searchS">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">ค้นหา</span>
+                              <input type="text" class="form-control" style="width:300px">
+                            </div>
+                          </div>
+                    </form>
+            </div>
+                <div class="tableBtnContainer">
+                    <a class="btn btn-success" href="@routes.Application.importsMaterialDurableArticlesAdd()">
+                    เพิ่มครุภัณฑ์
+                    </a>
+                    <button class="btn btn-danger">ลบครุภัณฑ์</button>
+                </div>
         </div>
 
          <table class="table table-striped overlayTable">
@@ -77,25 +76,24 @@
     </div>  <!--end id =1-->
 <!-- ========================================== tab2 ============================================ -->
       <div class="tab-pane fade" id="2">
-        <div class="searchS">
-                <form>
-                    <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon">ค้นหา</span>
-                          <input type="text" class="form-control" style="width:300px">
-                        </div>
-                      </div>
-                </form>
-        </div>
-        <div style="width:380px;float:right;">
-                <a href="@routes.Application.importsMaterialDurableGoodsAdd()">
-                <button class="btn btn-success" style="margin-left:15%;">เพิ่มพัสดุคงทนถาวร</button>
-                </a>
-
-
-  
-
-                <button class="btn btn-danger">ลบพัสดุคงทนถาวร</button>
+    
+        <div class="tableHeaderBtnContainer">
+            <div class="searchS">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">ค้นหา</span>
+                              <input type="text" class="form-control" style="width:300px">
+                            </div>
+                          </div>
+                    </form>
+            </div>
+            <div class="tableBtnContainer">
+                    <a href="@routes.Application.importsMaterialDurableGoodsAdd()">
+                    <button class="btn btn-success" >เพิ่มพัสดุคงทนถาวร</button>
+                    </a>
+                    <button class="btn btn-danger">ลบพัสดุคงทนถาวร</button>
+            </div>
         </div>
 
 
@@ -169,22 +167,24 @@
 <!-- ========================================== tab3 ============================================ -->
       <div class="tab-pane fade" id="3">
 
-          <div class="searchS">
-              <form>
-                  <div class="form-group">
-                      <div class="input-group">
-                        <span class="input-group-addon">ค้นหา</span>
-                        <input type="text" class="form-control" style="width:300px">
-                      </div>
-                    </div>
-              </form>
-          </div>
-
-          <div style="width:380px;float:right;">
-              <a href="@routes.Application.importsMaterialConsumableGoodsAdd()">
-              <button class="btn btn-success" style="margin-left:15%;">เพิ่มวัสดุสิ้นเปลือง</button>
-              </a>
-              <button class="btn btn-danger">ลบวัสดุสิ้นเปลือง</button>
+          <div class="tableHeaderBtnContainer">
+              <div class="searchS">
+                  <form>
+                      <div class="form-group">
+                          <div class="input-group">
+                            <span class="input-group-addon">ค้นหา</span>
+                            <input type="text" class="form-control" style="width:300px">
+                          </div>
+                        </div>
+                  </form>
+              </div>
+    
+              <div class="tableBtnContainer">
+                  <a href="@routes.Application.importsMaterialConsumableGoodsAdd()">
+                  <button class="btn btn-success" >เพิ่มวัสดุสิ้นเปลือง</button>
+                  </a>
+                  <button class="btn btn-danger">ลบวัสดุสิ้นเปลือง</button>
+              </div>
           </div>
 
 

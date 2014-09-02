@@ -9,24 +9,29 @@
 
 <div class ="mainWindow" style="text-align:center;">
 
-<a href="@routes.Application.exportOrder()">
-<button class="btn btn-default" style="width:100%;">ระบบจัดเบิกจ่าย </button>
-</a>
-<a href="@routes.Application.transferInside()">
-<button class="btn btn-default" style="width:100%;">ระบบโอนย้ายภายใน </button>
-</a>
-<a href="@routes.Application.transferOutSide()">
-<button class="btn btn-default" style="width:100%;">ระบบโอนย้ายภายนอก</button>
-</a>
-<a href="@routes.Application.exportSold()">
-<button class="btn btn-default" style="width:100%;">จำหน่าย</button>
-</a>
-<a href="@routes.Application.transferOutSide()">
-<button class="btn btn-default" style="width:100%;">บริจาค</button>
-</a>
-<a href="@routes.Application.exportOther()">
-<button class="btn btn-default" style="width:100%;">อื่น</button>
-</a>
+    <div class="well wellCenter">
+        <h3>
+            ระบบเบิกจ่ายและโอนย้าย 
+        </h3>
+        <a href="@routes.Application.exportOrder()">
+        <button class="btn btn-default btn-lg btn-block marginBtm1" style="width:100%;">ระบบจัดเบิกจ่าย </button>
+        </a>
+        <a href="@routes.Application.transferInside()">
+        <button class="btn btn-default btn-lg btn-block marginBtm1" style="width:100%;">ระบบโอนย้ายภายใน </button>
+        </a>
+        <a href="@routes.Application.transferOutSide()">
+        <button class="btn btn-default btn-lg btn-block marginBtm1" style="width:100%;">ระบบโอนย้ายภายนอก</button>
+        </a>
+        <a href="@routes.Application.exportSold()">
+        <button class="btn btn-default btn-lg btn-block marginBtm1" style="width:100%;">จำหน่าย</button>
+        </a>
+        <a href="@routes.Application.transferOutSide()">
+        <button class="btn btn-default btn-lg btn-block marginBtm1" style="width:100%;">บริจาค</button>
+        </a>
+        <a href="@routes.Application.exportOther()">
+        <button class="btn btn-default btn-lg btn-block marginBtm1" style="width:100%;">อื่นๆ</button>
+        </a>
+    </div>
 
 </div> 
 @footer()

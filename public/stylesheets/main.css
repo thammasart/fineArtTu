@@ -45,6 +45,13 @@ text-align:center;
 height:50px;
 width:100%;
 }
+.tableHeaderBtnContainer{
+    height:50px;
+    width:100%;
+}
+.tableBtnContainer{
+    float:right;
+}
 .btnFloatRight{
 float:right;
 }
@@ -68,11 +75,15 @@ float:right;
     width:60%;
     margin:10% auto;
 }
+.wellCenter{
+    width:60%;
+    margin:3% 0 0 20%;
+}
 .marginBtm1{
-    margin-bottom:1.5%;
+    margin-bottom:1.5% !important;
 }
 .marginLeft2{
-    margin-left:2%;
+    margin-left:2% !important;
 }
 .textAlignCenter{
     text-align:center;
