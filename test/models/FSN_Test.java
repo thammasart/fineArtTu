@@ -6,7 +6,6 @@ import play.test.WithApplication;
 import static play.test.Helpers.*;
 
 import models.fsnNumber.*;
-import models.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -41,7 +40,6 @@ public class FSN_Test extends WithApplication {
 		group.save();
 
 		assertEquals(1, FSN_Group.find.findRowCount());
-		assertEquals(group, FSN_Group.find.byId("10"));
 
 		FSN_Group group2 = new FSN_Group();
 		group2.id = "75";

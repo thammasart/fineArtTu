@@ -1,780 +1,627 @@
-- &cType001  !!models.ConsumableType
-  typeName:   วัสดุสำนักงาน
-  acronym:   ว.สนง.
-- &cType002  !!models.ConsumableType
-  typeName:   วัสดุไฟฟ้าและวิทยุ
-  acronym:   ว.ฟฟ.
-- &cType003  !!models.ConsumableType
-  typeName:   วัสดุงานบ้านงานครัว
-  acronym:   ว.งบ.
-- &cType004  !!models.ConsumableType
-  typeName:   วัสดุคอมพิวเตอร์
-  acronym:   ว.คต.
-- &cType005  !!models.ConsumableType
-  typeName:   วัสดุยานพาหนะและขนส่ง
-  acronym:   ว.ยพ.
-- &cType006  !!models.ConsumableType
-  typeName:   วัสดุวิทยาศาสตร์และการแพทย์
-  acronym:   ว.วพ.
-- &cType007  !!models.ConsumableType
-  typeName:   วัสดุโฆษณาและเผยแพร่
-  acronym:   ว.ฆผ.
-- &cType008  !!models.ConsumableType
-  typeName:   วัสดุการศึกษา
-  acronym:   ว.ศษ.
-- &cType009  !!models.ConsumableType
-  typeName:   วัสดุสนาม
-  acronym:   ว.ส.
-- &cType010  !!models.ConsumableType
-  typeName:   วัสดุการเกษตร
-  acronym:   ว.กษ.
-- &cType011  !!models.ConsumableType
-  typeName:   วัสดุสำรวจ
-  acronym:   ว.สร.
-- &cType012  !!models.ConsumableType
-  typeName:   วัสดุก่อสร้าง
-  acronym:   ว.กส.
-- &cType013  !!models.ConsumableType
-  typeName:   วัสดุโรงงาน
-  acronym:   ว.รง.
-- &cType014  !!models.ConsumableType
-  typeName:   วัสดุดนตรีและนาฏศิลป์
-  acronym:   ว.ดต.
-- &cType015  !!models.ConsumableType
-  typeName:   วัสดุกีฬา
-  acronym:   ว.กฬ.
-- &cType016  !!models.ConsumableType
-  typeName:   วัสดุอาวุธ 
-  acronym:   ว.อว.
-- &cType017  !!models.ConsumableType
-  typeName:   วัสดุอื่น 
-  acronym:   ว.อ.
-
-
-- &cCode001  !!models.ConsumableCode   
-  number:    1   
-  code:    '1001'   
-  description:   กรรไกร 6" 
-  consumableType:     *cType001
-- &cCode002  !!models.ConsumableCode   
-  number:    2   
-  code:    '1002'   
-  description:   กระดาษกาว 2 หน้า-บาง- 1" ครึ่ง
-  consumableType:     *cType001
-- &cCode003  !!models.ConsumableCode   
-  number:    3   
-  code:    '1003'   
-  description:   กระดาษกาว 2 หน้า-บาง-1" 
-  consumableType:     *cType001
-- &cCode004  !!models.ConsumableCode   
-  number:    4   
-  code:    '1004'   
-  description:   กระดาษกาวย่น - 1" 
-  consumableType:     *cType001
-- &cCode005  !!models.ConsumableCode   
-  number:    5   
-  code:    '1005'   
-  description:   กระดาษกาวย่น - 2" 
-  consumableType:     *cType001
-- &cCode006  !!models.ConsumableCode   
-  number:    6   
-  code:    '1006'   
-  description:   กระดาษคาร์บอน
-  consumableType:     *cType001
-- &cCode007  !!models.ConsumableCode   
-  number:    7   
-  code:    '1007'   
-  description:   กระดาษถ่ายเอกสาร A4 - 80 G.
-  consumableType:     *cType001
-- &cCode008  !!models.ConsumableCode   
-  number:    8   
-  code:    '1008'   
-  description:   กระดาษปอนด์สี เอ4  80 G.
-  consumableType:     *cType001
-- &cCode009  !!models.ConsumableCode   
-  number:    9   
-  code:    '1009'   
-  description:   กระดาษฟลิปชาร์ท 
-  consumableType:     *cType001
-- &cCode010  !!models.ConsumableCode   
-  number:    10   
-  code:    '1010'   
-  description:   กระดาษสีชมพู - 80 G
-  consumableType:     *cType001
-- &cCode011  !!models.ConsumableCode   
-  number:    11   
-  code:    '1011'   
-  description:   กระดาษสีฟ้า - 80 G
-  consumableType:     *cType001
-- &cCode012  !!models.ConsumableCode   
-  number:    12   
-  code:    '1012'   
-  description:   กระดาษสีเหลือง - 80 G.
-  consumableType:     *cType001
-- &cCode013  !!models.ConsumableCode   
-  number:    13   
-  code:    '1013'   
-  description:   กระดาษสีเหลือง - 120 G
-  consumableType:     *cType001
-- &cCode014  !!models.ConsumableCode   
-  number:    14   
-  code:    '1014'   
-  description:   กระดาษสีเหลือง - 150 G
-  consumableType:     *cType001
-- &cCode015  !!models.ConsumableCode   
-  number:    15   
-  code:    '1015'   
-  description:   กระดาษสีเหลือง - 180 G
-  consumableType:     *cType001
-- &cCode016  !!models.ConsumableCode   
-  number:    16   
-  code:    '1016'   
-  description:   คลิบดำ -108
-  consumableType:     *cType001
-- &cCode017  !!models.ConsumableCode   
-  number:    17   
-  code:    '1017'   
-  description:   คลิบดำ -109
-  consumableType:     *cType001
-- &cCode018  !!models.ConsumableCode   
-  number:    18   
-  code:    '1018'   
-  description:   คลิบดำ -110
-  consumableType:     *cType001
-- &cCode019  !!models.ConsumableCode   
-  number:    19   
-  code:    '1019'   
-  description:   คลิบดำ -111
-  consumableType:     *cType001
-- &cCode020  !!models.ConsumableCode   
-  number:    20   
-  code:    '1020'   
-  description:   คลิบดำ -112  (1/12)
-  consumableType:     *cType001
-- &cCode021  !!models.ConsumableCode   
-  number:    21   
-  code:    '1021'   
-  description:   คลิปดำ 113 (1/12)
-  consumableType:     *cType001
-- &cCode022  !!models.ConsumableCode   
-  number:    22   
-  code:    '1022'   
-  description:   เครื่องเหลาดินสอ
-  consumableType:     *cType001
-- &cCode023  !!models.ConsumableCode   
-  number:    23   
-  code:    '1023'   
-  description:   เชือกขาวมัดข้อสอบ
-  consumableType:     *cType001
-- &cCode024  !!models.ConsumableCode   
-  number:    24   
-  code:    '1024'   
-  description:   เชือกฟาง 
-  consumableType:     *cType001
-- &cCode025  !!models.ConsumableCode   
-  number:    25   
-  code:    '1025'   
-  description:   ซองขาว   
-  consumableType:     *cType001
-- &cCode026  !!models.ConsumableCode   
-  number:    26   
-  code:    '1026'   
-  description:   ซองขาว - ครุฑ
-  consumableType:     *cType001
-- &cCode027  !!models.ConsumableCode   
-  number:    27   
-  code:    '1027'   
-  description:   ซองน้ำตาล - ครุฑ - C5
-  consumableType:     *cType001
-- &cCode028  !!models.ConsumableCode   
-  number:    28   
-  code:    '1028'   
-  description:   ซองน้ำตาล - ครุฑ - A4 - ขยายข้าง
-  consumableType:     *cType001
-- &cCode029  !!models.ConsumableCode   
-  number:    29   
-  code:    '1029'   
-  description:   ซองน้ำตาล - ครุฑ - ใหญ่ 1/50
-  consumableType:     *cType001
-- &cCode030  !!models.ConsumableCode   
-  number:    30   
-  code:    '1030'   
-  description:   ซองน้ำตาล - 4A - ขยายข้าง
-  consumableType:     *cType001
-- &cCode031  !!models.ConsumableCode   
-  number:    31   
-  code:    '1031'   
-  description:   ซองน้ำตาล - ใหญ่ - ขยายข้าง 1/50
-  consumableType:     *cType001
-- &cCode032  !!models.ConsumableCode   
-  number:    32   
-  code:    '1032'   
-  description:   ซองอเนกประสงค์  A4
-  consumableType:     *cType001
-- &cCode033  !!models.ConsumableCode   
-  number:    33   
-  code:    '1033'   
-  description:   ดินสอ 
-  consumableType:     *cType001
-- &cCode034  !!models.ConsumableCode   
-  number:    34   
-  code:    '1034'   
-  description:   ที่คั่นหนังสือ 
-  consumableType:     *cType001
-- &cCode035  !!models.ConsumableCode   
-  number:    35   
-  code:    '1035'   
-  description:   ที่เจาะกระดาษ
-  consumableType:     *cType001
-- &cCode036  !!models.ConsumableCode   
-  number:    36   
-  code:    '1036'   
-  description:   ที่ถอดลวด
-  consumableType:     *cType001
-- &cCode037  !!models.ConsumableCode   
-  number:    37   
-  code:    '1037'   
-  description:   ที่เย็บกระดาษ HD-10
-  consumableType:     *cType001
-- &cCode038  !!models.ConsumableCode   
-  number:    38   
-  code:    '1038'   
-  description:   ที่เย็บกระดาษ HD-50
-  consumableType:     *cType001
-- &cCode039  !!models.ConsumableCode   
-  number:    39   
-  code:    '1039'   
-  description:   เทปกระดาษ 3"  - แพ็คกล่อง
-  consumableType:     *cType001
-- &cCode040  !!models.ConsumableCode   
-  number:    40   
-  code:    '1040'   
-  description:   เทปกาวน้ำตาล - 2"  
-  consumableType:     *cType001
-- &cCode041  !!models.ConsumableCode   
-  number:    41   
-  code:    '1041'   
-  description:   เทปติดสันปก - 3"  - ดำ
-  consumableType:     *cType001
-- &cCode042  !!models.ConsumableCode   
-  number:    42   
-  code:    '1042'   
-  description:   เทปติดสันปก - 3"  - แดง
-  consumableType:     *cType001
-- &cCode043  !!models.ConsumableCode   
-  number:    43   
-  code:    '1043'   
-  description:   เทปปั๊มตัวอักษร
-  consumableType:     *cType001
-- &cCode044  !!models.ConsumableCode   
-  number:    44   
-  code:    '1044'   
-  description:   เทปโฟม 2 หน้า 3M ยาว 3 ม.
-  consumableType:     *cType001
-- &cCode045  !!models.ConsumableCode   
-  number:    45   
-  code:    '1045'   
-  description:   เทปลบคำผิดพิมพ์ดีดไฟฟ้า (IBM 1337765)
-  consumableType:     *cType001
-- &cCode046  !!models.ConsumableCode   
-  number:    46   
-  code:    '1046'   
-  description:   แท่นตัดเทปใส
-  consumableType:     *cType001
-- &cCode047  !!models.ConsumableCode   
-  number:    47   
-  code:    '1047'   
-  description:   แท่นประทับตรา - แดง
-  consumableType:     *cType001
-- &cCode048  !!models.ConsumableCode   
-  number:    48   
-  code:    '1048'   
-  description:   แท่นประทับตรา - น้ำเงิน
-  consumableType:     *cType001
-- &cCode049  !!models.ConsumableCode   
-  number:    49   
-  code:    '1049'   
-  description:   แท่นเสียบป้ายชื่อ 2 หน้า - ยาว
-  consumableType:     *cType001
-- &cCode050  !!models.ConsumableCode   
-  number:    50   
-  code:    '1050'   
-  description:   น้ำยาลบคำผิด - ( PENTEL )
-  consumableType:     *cType001
-- &cCode051  !!models.ConsumableCode   
-  number:    51   
-  code:    '1051'   
-  description:   น้ำยาลบคำผิด - ขวดคู่
-  consumableType:     *cType001
-- &cCode052  !!models.ConsumableCode   
-  number:    52   
-  code:    '1052'   
-  description:   ใบมีดคัตเตอร์ - 9 ม.ม.
-  consumableType:     *cType001
-- &cCode053  !!models.ConsumableCode   
-  number:    53   
-  code:    '1053'   
-  description:   ใบมีดคัตเตอร์ 18 ม.ม.
-  consumableType:     *cType001
-- &cCode054  !!models.ConsumableCode   
-  number:    54   
-  code:    '1054'   
-  description:   ปากกา - แดง
-  consumableType:     *cType001
-- &cCode055  !!models.ConsumableCode   
-  number:    55   
-  code:    '1055'   
-  description:   ปากกา - ลูกลื่น 
-  consumableType:     *cType001
-- &cCode056  !!models.ConsumableCode   
-  number:    56   
-  code:    '1056'   
-  description:   ปากกาเขียน - ครุภัณฑ์ - ขาว  
-  consumableType:     *cType001
-- &cCode057  !!models.ConsumableCode   
-  number:    57   
-  code:    '1057'   
-  description:   ปากกาเขียน - ครุภัณฑ์ - ดำ  
-  consumableType:     *cType001
-- &cCode058  !!models.ConsumableCode   
-  number:    58   
-  code:    '1058'   
-  description:   ปากกาเขียน - ซีดี
-  consumableType:     *cType001
-- &cCode059  !!models.ConsumableCode   
-  number:    59   
-  code:    '1059'   
-  description:   ปากกาเขียน - แผ่นใส - 1/4 
-  consumableType:     *cType001
-- &cCode060  !!models.ConsumableCode   
-  number:    60   
-  code:    '1060'   
-  description:   ปากกาเขียน - แผ่นใส-ลบไม่ได้ -1/4
-  consumableType:     *cType001
-- &cCode061  !!models.ConsumableCode   
-  number:    61   
-  code:    '1061'   
-  description:   ปากกาเน้นข้อความ - เหลือง
-  consumableType:     *cType001
-- &cCode062  !!models.ConsumableCode   
-  number:    62   
-  code:    '1062'   
-  description:   ปากกาไวท์บอร์ด - Arrow - ดำ  
-  consumableType:     *cType001
-- &cCode063  !!models.ConsumableCode   
-  number:    63   
-  code:    '1063'   
-  description:   ปากกาไวท์บอร์ด - Arrow - แดง  
-  consumableType:     *cType001
-- &cCode064  !!models.ConsumableCode   
-  number:    64   
-  code:    '1064'   
-  description:   ปากกาไวท์บอร์ด - Arrow - น้ำเงิน  
-  consumableType:     *cType001
-- &cCode065  !!models.ConsumableCode   
-  number:    65   
-  code:    '1065'   
-  description:   ปากกาไวท์บอร์ด - Pilot - แดง  
-  consumableType:     *cType001
-- &cCode066  !!models.ConsumableCode   
-  number:    66   
-  code:    '1066'   
-  description:   ผงหมึกเครื่องโทรสาร Panasonic KX-FA136A 
-  consumableType:     *cType001
-- &cCode067  !!models.ConsumableCode   
-  number:    67   
-  code:    '1067'   
-  description:   ผ้าหมึกเครื่องคิดเลข-ดำ/แดง
-  consumableType:     *cType001
-- &cCode068  !!models.ConsumableCode   
-  number:    68   
-  code:    '1068'   
-  description:   แผ่นใสชนิดเขียน
-  consumableType:     *cType001
-- &cCode069  !!models.ConsumableCode   
-  number:    69   
-  code:    '1069'   
-  description:   แผ่นใสชนิดถ่าย
-  consumableType:     *cType001
-- &cCode070  !!models.ConsumableCode   
-  number:    70   
-  code:    '1070'   
-  description:   แฟ้ม 2"  - 125 F
-  consumableType:     *cType001
-- &cCode071  !!models.ConsumableCode   
-  number:    71   
-  code:    '1071'   
-  description:   แฟ้มกระดาษ
-  consumableType:     *cType001
-- &cCode072  !!models.ConsumableCode   
-  number:    72   
-  code:    '1072'   
-  description:   แฟ้มแขวน
-  consumableType:     *cType001
-- &cCode073  !!models.ConsumableCode   
-  number:    73   
-  code:    '1073'   
-  description:   แฟ้มพลาสติก - ตรามธ. 
-  consumableType:     *cType001
-- &cCode074  !!models.ConsumableCode   
-  number:    74   
-  code:    '1074'   
-  description:   แฟ้มพลาสติก - A4 - ชั้นเดียว
-  consumableType:     *cType001
-- &cCode075  !!models.ConsumableCode   
-  number:    75   
-  code:    '1075'   
-  description:   แฟ้มพลาสติก - A4 - 3 ชั้น
-  consumableType:     *cType001
-- &cCode076  !!models.ConsumableCode   
-  number:    76   
-  code:    '1076'   
-  description:   แฟ้มเสนอเซ็น - ปกกระดาษ
-  consumableType:     *cType001
-- &cCode077  !!models.ConsumableCode   
-  number:    77   
-  code:    '1077'   
-  description:   แฟ้มห่วง 2 ห่วง - ปกสอด
-  consumableType:     *cType001
-- &cCode078  !!models.ConsumableCode   
-  number:    78   
-  code:    '1078'   
-  description:   ไม้บรรทัด
-  consumableType:     *cType001
-- &cCode079  !!models.ConsumableCode   
-  number:    79   
-  code:    '1079'   
-  description:   ยางลบ
-  consumableType:     *cType001
-- &cCode080  !!models.ConsumableCode   
-  number:    80   
-  code:    '1080'   
-  description:   ลวดเย็บกระดาษ No.10 - 1M
-  consumableType:     *cType001
-- &cCode081  !!models.ConsumableCode   
-  number:    81   
-  code:    '1081'   
-  description:   ลวดเย็บกระดาษ No.35 - 1M 
-  consumableType:     *cType001
-- &cCode082  !!models.ConsumableCode   
-  number:    82   
-  code:    '1082'   
-  description:   ลวดเย็บกระดาษ 3 - 1M
-  consumableType:     *cType001
-- &cCode083  !!models.ConsumableCode   
-  number:    83   
-  code:    '1083'   
-  description:   ลวดเย็บกระดาษ 1213FA-H
-  consumableType:     *cType001
-- &cCode084  !!models.ConsumableCode   
-  number:    84   
-  code:    '1084'   
-  description:   ลวดเสียบกระดาษ
-  consumableType:     *cType001
-- &cCode085  !!models.ConsumableCode   
-  number:    85   
-  code:    '1085'   
-  description:   สมุดบัญชี 4 ช่อง หน้าคู่
-  consumableType:     *cType001
-- &cCode086  !!models.ConsumableCode   
-  number:    86   
-  code:    '1086'   
-  description:   สมุดปกแข็งเบอร์ 1 ใหญ่
-  consumableType:     *cType001
-- &cCode087  !!models.ConsumableCode   
-  number:    87   
-  code:    '1087'   
-  description:   หนังสือรับ
-  consumableType:     *cType001
-- &cCode088  !!models.ConsumableCode   
-  number:    88   
-  code:    '1088'   
-  description:   หนังสือส่ง
-  consumableType:     *cType001
-- &cCode089  !!models.ConsumableCode   
-  number:    89   
-  code:    '1089'   
-  description:   หมึกเติมแท่นประทับตรา-แดง
-  consumableType:     *cType001
-- &cCode090  !!models.ConsumableCode   
-  number:    90   
-  code:    '1089'   
-  description:   หมึกเติมแท่นประทับตรา-น้ำเงิน
-  consumableType:     *cType001
-- &cCode091  !!models.ConsumableCode   
-  number:    91   
-  code:    '1091'   
-  description:   หมึกพิมพ์ดีดไฟฟ้า-IBM 1380999
-  consumableType:     *cType001
-- &cCode092  !!models.ConsumableCode   
-  number:    92   
-  code:    '1092'   
-  description:   เหล็กเสียบกระดาษ
-  consumableType:     *cType001
-- &cCode093  !!models.ConsumableCode   
-  number:    93   
-  code:    '1093'   
-  description:   กระดาษบวกเลข 2"
-  consumableType:     *cType001
-- &cCode094  !!models.ConsumableCode   
-  number:    94   
-  code:    '1094'   
-  description:   กาวแท่ง  21ml.
-  consumableType:     *cType001
-- &cCode095  !!models.ConsumableCode   
-  number:    95   
-  code:    '1095'   
-  description:   กาวน้ำ  50ml.
-  consumableType:     *cType001
-- &cCode096  !!models.ConsumableCode   
-  number:    96   
-  code:    '1096'   
-  description:   ซองน้ำตาล - A4 
-  consumableType:     *cType001
-- &cCode097  !!models.ConsumableCode   
-  number:    97   
-  code:    '1097'   
-  description:   ซองน้ำตาล - A4 - ครุฑ
-  consumableType:     *cType001
-- &cCode098  !!models.ConsumableCode   
-  number:    98   
-  code:    '1098'   
-  description:   เทปกาวโฟม  21mm. - 5m.
-  consumableType:     *cType001
-- &cCode099  !!models.ConsumableCode   
-  number:    99   
-  code:    '1099'   
-  description:   เทปใส  3/4  แกนเล็ก  1"
-  consumableType:     *cType001
-- &cCode100  !!models.ConsumableCode   
-  number:    100   
-  code:    '1100'   
-  description:   ปากกาเคมี
-  consumableType:     *cType001
-- &cCode101  !!models.ConsumableCode   
-  number:    101   
-  code:    '1101'   
-  description:   แฟ้มห่วง 2 ห่วง 
-  consumableType:     *cType001
-- &cCode102  !!models.ConsumableCode   
-  number:    102   
-  code:    '1102'   
-  description:   แฟ้ม 3"  - 125F
-  consumableType:     *cType001
-- &cCode103  !!models.ConsumableCode   
-  number:    103   
-  code:    '1103'   
-  description:   ลิ้นแฟ้มพลาสติก
-  consumableType:     *cType001
-- &cCode104  !!models.ConsumableCode   
-  number:    104   
-  code:    '1104'   
-  description:   สมุดปกน้ำเงิน เบอร์ 2/80
-  consumableType:     *cType001
-- &cCode105  !!models.ConsumableCode   
-  number:    105   
-  code:    '1105'   
-  description:   หมุดปักหัวกลม (50)
-  consumableType:     *cType001
-- &cCode106  !!models.ConsumableCode   
-  number:    106   
-  code:    '1106'   
-  description:   ตรายาง จ่ายแล้วพร้อมวันที่
-  consumableType:     *cType001
-- &cCode107  !!models.ConsumableCode   
-  number:    107   
-  code:    '1107'   
-  description:   ตรายาง วันที่
-  consumableType:     *cType001
-
+- &cType001 !!models.ConsumableType
+  typeName: วัสดุสำนักงาน
+  acronym: ว.สนง.
+- &cType002 !!models.ConsumableType
+  typeName: วัสดุไฟฟ้าและวิทยุ
+  acronym: ว.ฟฟ.
+- &cType003 !!models.ConsumableType
+  typeName: วัสดุงานบ้านงานครัว
+  acronym: ว.งบ.
+- &cType004 !!models.ConsumableType
+  typeName: วัสดุคอมพิวเตอร์
+  acronym: ว.คต.
+- &cType005 !!models.ConsumableType
+  typeName: วัสดุยานพาหนะและขนส่ง
+  acronym: ว.ยพ.
+- &cType006 !!models.ConsumableType
+  typeName: วัสดุวิทยาศาสตร์และการแพทย์
+  acronym: ว.วพ.
+- &cType007 !!models.ConsumableType
+  typeName: วัสดุโฆษณาและเผยแพร่
+  acronym: ว.ฆผ.
+- &cType008 !!models.ConsumableType
+  typeName: วัสดุการศึกษา
+  acronym: ว.ศษ.
+- &cType009 !!models.ConsumableType
+  typeName: วัสดุสนาม
+  acronym: ว.ส.
+- &cType010 !!models.ConsumableType
+  typeName: วัสดุการเกษตร
+  acronym: ว.กษ.
+- &cType011 !!models.ConsumableType
+  typeName: วัสดุสำรวจ
+  acronym: ว.สร.
+- &cType012 !!models.ConsumableType
+  typeName: วัสดุก่อสร้าง
+  acronym: ว.กส.
+- &cType013 !!models.ConsumableType
+  typeName: วัสดุโรงงาน
+  acronym: ว.รง.
+- &cType014 !!models.ConsumableType
+  typeName: วัสดุดนตรีและนาฏศิลป์
+  acronym: ว.ดต.
+- &cType015 !!models.ConsumableType
+  typeName: วัสดุกีฬา
+  acronym: ว.กฬ.
+- &cType016 !!models.ConsumableType
+  typeName: วัสดุอาวุธ
+  acronym: ว.อว.
+- &cType017 !!models.ConsumableType
+  typeName: วัสดุอื่น
+  acronym: ว.อ.
+- &cCode001 !!models.ConsumableCode
+  code: '1001'
+  description: กรรไกร 6"
+  consumableType: *cType001
+- &cCode002 !!models.ConsumableCode
+  code: '1002'
+  description: กระดาษกาว 2 หน้า-บาง- 1" ครึ่ง
+  consumableType: *cType001
+- &cCode003 !!models.ConsumableCode
+  code: '1003'
+  description: กระดาษกาว 2 หน้า-บาง-1"
+  consumableType: *cType001
+- &cCode004 !!models.ConsumableCode
+  code: '1004'
+  description: กระดาษกาวย่น - 1"
+  consumableType: *cType001
+- &cCode005 !!models.ConsumableCode
+  code: '1005'
+  description: กระดาษกาวย่น - 2"
+  consumableType: *cType001
+- &cCode006 !!models.ConsumableCode
+  code: '1006'
+  description: กระดาษคาร์บอน
+  consumableType: *cType001
+- &cCode007 !!models.ConsumableCode
+  code: '1007'
+  description: กระดาษถ่ายเอกสาร A4 - 80 G.
+  consumableType: *cType001
+- &cCode008 !!models.ConsumableCode
+  code: '1008'
+  description: กระดาษปอนด์สี เอ4 80 G.
+  consumableType: *cType001
+- &cCode009 !!models.ConsumableCode
+  code: '1009'
+  description: กระดาษฟลิปชาร์ท
+  consumableType: *cType001
+- &cCode010 !!models.ConsumableCode
+  code: '1010'
+  description: กระดาษสีชมพู - 80 G
+  consumableType: *cType001
+- &cCode011 !!models.ConsumableCode
+  code: '1011'
+  description: กระดาษสีฟ้า - 80 G
+  consumableType: *cType001
+- &cCode012 !!models.ConsumableCode
+  code: '1012'
+  description: กระดาษสีเหลือง - 80 G.
+  consumableType: *cType001
+- &cCode013 !!models.ConsumableCode
+  code: '1013'
+  description: กระดาษสีเหลือง - 120 G
+  consumableType: *cType001
+- &cCode014 !!models.ConsumableCode
+  code: '1014'
+  description: กระดาษสีเหลือง - 150 G
+  consumableType: *cType001
+- &cCode015 !!models.ConsumableCode
+  code: '1015'
+  description: กระดาษสีเหลือง - 180 G
+  consumableType: *cType001
+- &cCode016 !!models.ConsumableCode
+  code: '1016'
+  description: คลิบดำ -108
+  consumableType: *cType001
+- &cCode017 !!models.ConsumableCode
+  code: '1017'
+  description: คลิบดำ -109
+  consumableType: *cType001
+- &cCode018 !!models.ConsumableCode
+  code: '1018'
+  description: คลิบดำ -110
+  consumableType: *cType001
+- &cCode019 !!models.ConsumableCode
+  code: '1019'
+  description: คลิบดำ -111
+  consumableType: *cType001
+- &cCode020 !!models.ConsumableCode
+  code: '1020'
+  description: คลิบดำ -112 (1/12)
+  consumableType: *cType001
+- &cCode021 !!models.ConsumableCode
+  code: '1021'
+  description: คลิปดำ 113 (1/12)
+  consumableType: *cType001
+- &cCode022 !!models.ConsumableCode
+  code: '1022'
+  description: เครื่องเหลาดินสอ
+  consumableType: *cType001
+- &cCode023 !!models.ConsumableCode
+  code: '1023'
+  description: เชือกขาวมัดข้อสอบ
+  consumableType: *cType001
+- &cCode024 !!models.ConsumableCode
+  code: '1024'
+  description: เชือกฟาง
+  consumableType: *cType001
+- &cCode025 !!models.ConsumableCode
+  code: '1025'
+  description: ซองขาว
+  consumableType: *cType001
+- &cCode026 !!models.ConsumableCode
+  code: '1026'
+  description: ซองขาว - ครุฑ
+  consumableType: *cType001
+- &cCode027 !!models.ConsumableCode
+  code: '1027'
+  description: ซองน้ำตาล - ครุฑ - C5
+  consumableType: *cType001
+- &cCode028 !!models.ConsumableCode
+  code: '1028'
+  description: ซองน้ำตาล - ครุฑ - A4 - ขยายข้าง
+  consumableType: *cType001
+- &cCode029 !!models.ConsumableCode
+  code: '1029'
+  description: ซองน้ำตาล - ครุฑ - ใหญ่ 1/50
+  consumableType: *cType001
+- &cCode030 !!models.ConsumableCode
+  code: '1030'
+  description: ซองน้ำตาล - 4A - ขยายข้าง
+  consumableType: *cType001
+- &cCode031 !!models.ConsumableCode
+  code: '1031'
+  description: ซองน้ำตาล - ใหญ่ - ขยายข้าง 1/50
+  consumableType: *cType001
+- &cCode032 !!models.ConsumableCode
+  code: '1032'
+  description: ซองอเนกประสงค์ A4
+  consumableType: *cType001
+- &cCode033 !!models.ConsumableCode
+  code: '1033'
+  description: ดินสอ
+  consumableType: *cType001
+- &cCode034 !!models.ConsumableCode
+  code: '1034'
+  description: ที่คั่นหนังสือ
+  consumableType: *cType001
+- &cCode035 !!models.ConsumableCode
+  code: '1035'
+  description: ที่เจาะกระดาษ
+  consumableType: *cType001
+- &cCode036 !!models.ConsumableCode
+  code: '1036'
+  description: ที่ถอดลวด
+  consumableType: *cType001
+- &cCode037 !!models.ConsumableCode
+  code: '1037'
+  description: ที่เย็บกระดาษ HD-10
+  consumableType: *cType001
+- &cCode038 !!models.ConsumableCode
+  code: '1038'
+  description: ที่เย็บกระดาษ HD-50
+  consumableType: *cType001
+- &cCode039 !!models.ConsumableCode
+  code: '1039'
+  description: เทปกระดาษ 3" - แพ็คกล่อง
+  consumableType: *cType001
+- &cCode040 !!models.ConsumableCode
+  code: '1040'
+  description: เทปกาวน้ำตาล - 2"
+  consumableType: *cType001
+- &cCode041 !!models.ConsumableCode
+  code: '1041'
+  description: เทปติดสันปก - 3" - ดำ
+  consumableType: *cType001
+- &cCode042 !!models.ConsumableCode
+  code: '1042'
+  description: เทปติดสันปก - 3" - แดง
+  consumableType: *cType001
+- &cCode043 !!models.ConsumableCode
+  code: '1043'
+  description: เทปปั๊มตัวอักษร
+  consumableType: *cType001
+- &cCode044 !!models.ConsumableCode
+  code: '1044'
+  description: เทปโฟม 2 หน้า 3M ยาว 3 ม.
+  consumableType: *cType001
+- &cCode045 !!models.ConsumableCode
+  code: '1045'
+  description: เทปลบคำผิดพิมพ์ดีดไฟฟ้า (IBM 1337765)
+  consumableType: *cType001
+- &cCode046 !!models.ConsumableCode
+  code: '1046'
+  description: แท่นตัดเทปใส
+  consumableType: *cType001
+- &cCode047 !!models.ConsumableCode
+  code: '1047'
+  description: แท่นประทับตรา - แดง
+  consumableType: *cType001
+- &cCode048 !!models.ConsumableCode
+  code: '1048'
+  description: แท่นประทับตรา - น้ำเงิน
+  consumableType: *cType001
+- &cCode049 !!models.ConsumableCode
+  code: '1049'
+  description: แท่นเสียบป้ายชื่อ 2 หน้า - ยาว
+  consumableType: *cType001
+- &cCode050 !!models.ConsumableCode
+  code: '1050'
+  description: น้ำยาลบคำผิด - ( PENTEL )
+  consumableType: *cType001
+- &cCode051 !!models.ConsumableCode
+  code: '1051'
+  description: น้ำยาลบคำผิด - ขวดคู่
+  consumableType: *cType001
+- &cCode052 !!models.ConsumableCode
+  code: '1052'
+  description: ใบมีดคัตเตอร์ - 9 ม.ม.
+  consumableType: *cType001
+- &cCode053 !!models.ConsumableCode
+  code: '1053'
+  description: ใบมีดคัตเตอร์ 18 ม.ม.
+  consumableType: *cType001
+- &cCode054 !!models.ConsumableCode
+  code: '1054'
+  description: ปากกา - แดง
+  consumableType: *cType001
+- &cCode055 !!models.ConsumableCode
+  code: '1055'
+  description: ปากกา - ลูกลื่น
+  consumableType: *cType001
+- &cCode056 !!models.ConsumableCode
+  code: '1056'
+  description: ปากกาเขียน - ครุภัณฑ์ - ขาว
+  consumableType: *cType001
+- &cCode057 !!models.ConsumableCode
+  code: '1057'
+  description: ปากกาเขียน - ครุภัณฑ์ - ดำ
+  consumableType: *cType001
+- &cCode058 !!models.ConsumableCode
+  code: '1058'
+  description: ปากกาเขียน - ซีดี
+  consumableType: *cType001
+- &cCode059 !!models.ConsumableCode
+  code: '1059'
+  description: ปากกาเขียน - แผ่นใส - 1/4
+  consumableType: *cType001
+- &cCode060 !!models.ConsumableCode
+  code: '1060'
+  description: ปากกาเขียน - แผ่นใส-ลบไม่ได้ -1/4
+  consumableType: *cType001
+- &cCode061 !!models.ConsumableCode
+  code: '1061'
+  description: ปากกาเน้นข้อความ - เหลือง
+  consumableType: *cType001
+- &cCode062 !!models.ConsumableCode
+  code: '1062'
+  description: ปากกาไวท์บอร์ด - Arrow - ดำ
+  consumableType: *cType001
+- &cCode063 !!models.ConsumableCode
+  code: '1063'
+  description: ปากกาไวท์บอร์ด - Arrow - แดง
+  consumableType: *cType001
+- &cCode064 !!models.ConsumableCode
+  code: '1064'
+  description: ปากกาไวท์บอร์ด - Arrow - น้ำเงิน
+  consumableType: *cType001
+- &cCode065 !!models.ConsumableCode
+  code: '1065'
+  description: ปากกาไวท์บอร์ด - Pilot - แดง
+  consumableType: *cType001
+- &cCode066 !!models.ConsumableCode
+  code: '1066'
+  description: ผงหมึกเครื่องโทรสาร Panasonic KX-FA136A
+  consumableType: *cType001
+- &cCode067 !!models.ConsumableCode
+  code: '1067'
+  description: ผ้าหมึกเครื่องคิดเลข-ดำ/แดง
+  consumableType: *cType001
+- &cCode068 !!models.ConsumableCode
+  code: '1068'
+  description: แผ่นใสชนิดเขียน
+  consumableType: *cType001
+- &cCode069 !!models.ConsumableCode
+  code: '1069'
+  description: แผ่นใสชนิดถ่าย
+  consumableType: *cType001
+- &cCode070 !!models.ConsumableCode
+  code: '1070'
+  description: แฟ้ม 2" - 125 F
+  consumableType: *cType001
+- &cCode071 !!models.ConsumableCode
+  code: '1071'
+  description: แฟ้มกระดาษ
+  consumableType: *cType001
+- &cCode072 !!models.ConsumableCode
+  code: '1072'
+  description: แฟ้มแขวน
+  consumableType: *cType001
+- &cCode073 !!models.ConsumableCode
+  code: '1073'
+  description: แฟ้มพลาสติก - ตรามธ.
+  consumableType: *cType001
+- &cCode074 !!models.ConsumableCode
+  code: '1074'
+  description: แฟ้มพลาสติก - A4 - ชั้นเดียว
+  consumableType: *cType001
+- &cCode075 !!models.ConsumableCode
+  code: '1075'
+  description: แฟ้มพลาสติก - A4 - 3 ชั้น
+  consumableType: *cType001
+- &cCode076 !!models.ConsumableCode
+  code: '1076'
+  description: แฟ้มเสนอเซ็น - ปกกระดาษ
+  consumableType: *cType001
+- &cCode077 !!models.ConsumableCode
+  code: '1077'
+  description: แฟ้มห่วง 2 ห่วง - ปกสอด
+  consumableType: *cType001
+- &cCode078 !!models.ConsumableCode
+  code: '1078'
+  description: ไม้บรรทัด
+  consumableType: *cType001
+- &cCode079 !!models.ConsumableCode
+  code: '1079'
+  description: ยางลบ
+  consumableType: *cType001
+- &cCode080 !!models.ConsumableCode
+  code: '1080'
+  description: ลวดเย็บกระดาษ No.10 - 1M
+  consumableType: *cType001
+- &cCode081 !!models.ConsumableCode
+  code: '1081'
+  description: ลวดเย็บกระดาษ No.35 - 1M
+  consumableType: *cType001
+- &cCode082 !!models.ConsumableCode
+  code: '1082'
+  description: ลวดเย็บกระดาษ 3 - 1M
+  consumableType: *cType001
+- &cCode083 !!models.ConsumableCode
+  code: '1083'
+  description: ลวดเย็บกระดาษ 1213FA-H
+  consumableType: *cType001
+- &cCode084 !!models.ConsumableCode
+  code: '1084'
+  description: ลวดเสียบกระดาษ
+  consumableType: *cType001
+- &cCode085 !!models.ConsumableCode
+  code: '1085'
+  description: สมุดบัญชี 4 ช่อง หน้าคู่
+  consumableType: *cType001
+- &cCode086 !!models.ConsumableCode
+  code: '1086'
+  description: สมุดปกแข็งเบอร์ 1 ใหญ่
+  consumableType: *cType001
+- &cCode087 !!models.ConsumableCode
+  code: '1087'
+  description: หนังสือรับ
+  consumableType: *cType001
+- &cCode088 !!models.ConsumableCode
+  code: '1088'
+  description: หนังสือส่ง
+  consumableType: *cType001
+- &cCode089 !!models.ConsumableCode
+  code: '1089'
+  description: หมึกเติมแท่นประทับตรา-แดง
+  consumableType: *cType001
+- &cCode090 !!models.ConsumableCode
+  code: '1090'
+  description: หมึกเติมแท่นประทับตรา-น้ำเงิน
+  consumableType: *cType001
+- &cCode091 !!models.ConsumableCode
+  code: '1091'
+  description: หมึกพิมพ์ดีดไฟฟ้า-IBM 1380999
+  consumableType: *cType001
+- &cCode092 !!models.ConsumableCode
+  code: '1092'
+  description: เหล็กเสียบกระดาษ
+  consumableType: *cType001
+- &cCode093 !!models.ConsumableCode
+  code: '1093'
+  description: กระดาษบวกเลข 2"
+  consumableType: *cType001
+- &cCode094 !!models.ConsumableCode
+  code: '1094'
+  description: กาวแท่ง 21ml.
+  consumableType: *cType001
+- &cCode095 !!models.ConsumableCode
+  code: '1095'
+  description: กาวน้ำ 50ml.
+  consumableType: *cType001
+- &cCode096 !!models.ConsumableCode
+  code: '1096'
+  description: ซองน้ำตาล - A4
+  consumableType: *cType001
+- &cCode097 !!models.ConsumableCode
+  code: '1097'
+  description: ซองน้ำตาล - A4 - ครุฑ
+  consumableType: *cType001
+- &cCode098 !!models.ConsumableCode
+  code: '1098'
+  description: เทปกาวโฟม 21mm. - 5m.
+  consumableType: *cType001
+- &cCode099 !!models.ConsumableCode
+  code: '1099'
+  description: เทปใส 3/4 แกนเล็ก 1"
+  consumableType: *cType001
+- &cCode100 !!models.ConsumableCode
+  code: '1100'
+  description: ปากกาเคมี
+  consumableType: *cType001
+- &cCode101 !!models.ConsumableCode
+  code: '1101'
+  description: แฟ้มห่วง 2 ห่วง
+  consumableType: *cType001
+- &cCode102 !!models.ConsumableCode
+  code: '1102'
+  description: แฟ้ม 3" - 125F
+  consumableType: *cType001
+- &cCode103 !!models.ConsumableCode
+  code: '1103'
+  description: ลิ้นแฟ้มพลาสติก
+  consumableType: *cType001
+- &cCode104 !!models.ConsumableCode
+  code: '1104'
+  description: สมุดปกน้ำเงิน เบอร์ 2/80
+  consumableType: *cType001
+- &cCode105 !!models.ConsumableCode
+  code: '1105'
+  description: หมุดปักหัวกลม (50)
+  consumableType: *cType001
+- &cCode106 !!models.ConsumableCode
+  code: '1106'
+  description: ตรายาง จ่ายแล้วพร้อมวันที่
+  consumableType: *cType001
+- &cCode107 !!models.ConsumableCode
+  code: '1107'
+  description: ตรายาง วันที่
+  consumableType: *cType001
 ###########################################################################
-
-- &cCodecc2001  !!models.ConsumableCode   
-  number:    1
-  code:    '2001'   
-  description:   แผ่นดิสเก็ต 3.5 (1/10 แผ่น)
-  consumableType:     *cType004
-- &cCodecc2002  !!models.ConsumableCode   
-  number:    2
-  code:    '2002'   
-  description:   แผ่น CD-R 700MB
-  consumableType:     *cType004
-- &cCodecc2003  !!models.ConsumableCode   
-  number:    3
-  code:    '2003'   
-  description:   HP TONER (ORG) รุ่น Q7516A
-  consumableType:     *cType004
-- &cCodecc2004  !!models.ConsumableCode   
-  number:    4
-  code:    '2004'   
-  description:   ซองกระดาษใส่ CD
-  consumableType:     *cType004
-- &cCodecc2005  !!models.ConsumableCode   
-  number:    5
-  code:    '2005'   
-  description:   แผ่น DVD
-  consumableType:     *cType004
-- &cCodecc2006  !!models.ConsumableCode   
-  number:    6
-  code:    '2006'  
-  description:   กล่องใส่ DVD 2 หน้า
-  consumableType:     *cType004
-- &cCodecc2007  !!models.ConsumableCode   
-  number:    7
-  code:    '2007'   
-  description:   เมาส์
-  consumableType:     *cType004
-
+- &cCodecc2001 !!models.ConsumableCode
+  code: '2001'
+  description: แผ่นดิสเก็ต 3.5 (1/10 แผ่น)
+  consumableType: *cType004
+- &cCodecc2002 !!models.ConsumableCode
+  code: '2002'
+  description: แผ่น CD-R 700MB
+  consumableType: *cType004
+- &cCodecc2003 !!models.ConsumableCode
+  code: '2003'
+  description: HP TONER (ORG) รุ่น Q7516A
+  consumableType: *cType004
+- &cCodecc2004 !!models.ConsumableCode
+  code: '2004'
+  description: ซองกระดาษใส่ CD
+  consumableType: *cType004
+- &cCodecc2005 !!models.ConsumableCode
+  code: '2005'
+  description: แผ่น DVD
+  consumableType: *cType004
+- &cCodecc2006 !!models.ConsumableCode
+  code: '2006'
+  description: กล่องใส่ DVD 2 หน้า
+  consumableType: *cType004
+- &cCodecc2007 !!models.ConsumableCode
+  code: '2007'
+  description: เมาส์
+  consumableType: *cType004
 ###########################################################################
-
-- &cCodec3001  !!models.ConsumableCode   
-  number:    1
-  code:    '3001'   
-  description:   ไม้กวาดดอกหญ้า
-  consumableType:     *cType003
-- &cCodec3002  !!models.ConsumableCode   
-  number:    2
-  code:    '3002'   
-  description:   กระดาษทิชชู (ม้วน)
-  consumableType:     *cType003
-- &cCodec3003  !!models.ConsumableCode   
-  number:    3
-  code:    '3003'   
-  description:   ผงซักฟอก - 450 g.
-  consumableType:     *cType003
-- &cCodec3004  !!models.ConsumableCode   
-  number:    4
-  code:    '3004'   
-  description:   ผงซักฟอก - 900 g.
-  consumableType:     *cType003
-- &cCodec3005  !!models.ConsumableCode   
-  number:    5
-  code:    '3005'   
-  description:   กระดาษทิชชู (แผ่น)
-  consumableType:     *cType003
-- &cCodec3006  !!models.ConsumableCode   
-  number:    6
-  code:    '3006'   
-  description:   ถุงขยะ ขนาด 24*28
-  consumableType:     *cType003
-- &cCodec3007  !!models.ConsumableCode   
-  number:    7
-  code:    '3007'   
-  description:   ผ้าเอนกประสงค์
-  consumableType:     *cType003
-- &cCodec3008  !!models.ConsumableCode   
-  number:    8
-  code:    '3008'   
-  description:   น้ำยาล้างจาน
-  consumableType:     *cType003
-
+- &cCodec3001 !!models.ConsumableCode
+  code: '3001'
+  description: ไม้กวาดดอกหญ้า
+  consumableType: *cType003
+- &cCodec3002 !!models.ConsumableCode
+  code: '3002'
+  description: กระดาษทิชชู (ม้วน)
+  consumableType: *cType003
+- &cCodec3003 !!models.ConsumableCode
+  code: '3003'
+  description: ผงซักฟอก - 450 g.
+  consumableType: *cType003
+- &cCodec3004 !!models.ConsumableCode
+  code: '3004'
+  description: ผงซักฟอก - 900 g.
+  consumableType: *cType003
+- &cCodec3005 !!models.ConsumableCode
+  code: '3005'
+  description: กระดาษทิชชู (แผ่น)
+  consumableType: *cType003
+- &cCodec3006 !!models.ConsumableCode
+  code: '3006'
+  description: ถุงขยะ ขนาด 24*28
+  consumableType: *cType003
+- &cCodec3007 !!models.ConsumableCode
+  code: '3007'
+  description: ผ้าเอนกประสงค์
+  consumableType: *cType003
+- &cCodec3008 !!models.ConsumableCode
+  code: '3008'
+  description: น้ำยาล้างจาน
+  consumableType: *cType003
 ###########################################################################
-
-- &cCodec4001  !!models.ConsumableCode
-  number:     1
-  code:       '4001'
-  description:     ถ่านไฟฉาย 1.5V.
-  consumableType:     *cType002
-- &cCodec4002  !!models.ConsumableCode
-  number:     2
-  code:       '4002'
-  description:     ถ่านไฟ - Panasonic Alkaline (AAA)
-  consumableType:     *cType002
-- &cCodec4003  !!models.ConsumableCode
-  number:     3
-  code:       '4003'
-  description:     ถ่านอัลคาไลน์ แม็กเซล 9V.
-  consumableType:     *cType002
-- &cCodec4004  !!models.ConsumableCode
-  number:     4
-  code:       '4004'
-  description:     ถ่านแม็กเซล 3VCR2032 (ชนิดกลม)
-  consumableType:     *cType002
-- &cCodec4005  !!models.ConsumableCode
-  number:     5
-  code:       '4005'
-  description:     ปลั๊กไฟ 5 เต้า 1 สวิทซ์ ยาว 5 เมตร
-  consumableType:     *cType002
-- &cCodec4006  !!models.ConsumableCode
-  number:     6
-  code:       '4006'
-  description:     ถ่านไฟ - Panasonic Alkaline (AA)
-  consumableType:     *cType002
-- &cCodec4007  !!models.ConsumableCode
-  number:     7
-  code:       '4007'
-  description:     ถ่าน AA2500mA
-  consumableType:     *cType002
-- &cCodec4008  !!models.ConsumableCode
-  number:     8
-  code:       '4008'
-  description:     สายไมโครโฟน ยาว 10 ม. พร้อมขั้วต่อ
-  consumableType:     *cType002
-- &cCodec4009  !!models.ConsumableCode
-  number:     9
-  code:       '4009'
-  description:     ถ่านไมโครโฟนเคลื่อนที่ 9V.
-  consumableType:     *cType002
-- &cCodec4010  !!models.ConsumableCode
-  number:     10
-  code:       '4010'
-  description:     ถ่าน AA
-  consumableType:     *cType002
-- &cCodec4011  !!models.ConsumableCode
-  number:     11
-  code:       '4011'
-  description:     ถ่าน AAA
-  consumableType:     *cType002
-
+- &cCodec4001 !!models.ConsumableCode
+  code: '4001'
+  description: ถ่านไฟฉาย 1.5V.
+  consumableType: *cType002
+- &cCodec4002 !!models.ConsumableCode
+  code: '4002'
+  description: ถ่านไฟ - Panasonic Alkaline (AAA)
+  consumableType: *cType002
+- &cCodec4003 !!models.ConsumableCode
+  code: '4003'
+  description: ถ่านอัลคาไลน์ แม็กเซล 9V.
+  consumableType: *cType002
+- &cCodec4004 !!models.ConsumableCode
+  code: '4004'
+  description: ถ่านแม็กเซล 3VCR2032 (ชนิดกลม)
+  consumableType: *cType002
+- &cCodec4005 !!models.ConsumableCode
+  code: '4005'
+  description: ปลั๊กไฟ 5 เต้า 1 สวิทซ์ ยาว 5 เมตร
+  consumableType: *cType002
+- &cCodec4006 !!models.ConsumableCode
+  code: '4006'
+  description: ถ่านไฟ - Panasonic Alkaline (AA)
+  consumableType: *cType002
+- &cCodec4007 !!models.ConsumableCode
+  code: '4007'
+  description: ถ่าน AA2500mA
+  consumableType: *cType002
+- &cCodec4008 !!models.ConsumableCode
+  code: '4008'
+  description: สายไมโครโฟน ยาว 10 ม. พร้อมขั้วต่อ
+  consumableType: *cType002
+- &cCodec4009 !!models.ConsumableCode
+  code: '4009'
+  description: ถ่านไมโครโฟนเคลื่อนที่ 9V.
+  consumableType: *cType002
+- &cCodec4010 !!models.ConsumableCode
+  code: '4010'
+  description: ถ่าน AA
+  consumableType: *cType002
+- &cCodec4011 !!models.ConsumableCode
+  code: '4011'
+  description: ถ่าน AAA
+  consumableType: *cType002
 ###########################################################################
-
-- &cCode5001  !!models.ConsumableCode
-  number:     1
-  code:       '5001'
-  description:     เนสกาแฟเรดคัพ - ซอง - 3กรัม (1/50)
-  consumableType:     *cType017
-- &cCode5002  !!models.ConsumableCode
-  number:     2
-  code:       '5002'
-  description:     น้ำตาลชนิด - ซอง - 6กรัม (1/50)
-  consumableType:     *cType017
-- &cCode5003  !!models.ConsumableCode
-  number:     3
-  code:       '5003'
-  description:     ครีมเทียมคอฟฟี่เมต - ซอง - 3กรัม (1/50)
-  consumableType:     *cType017
-- &cCode5004  !!models.ConsumableCode
-  number:     4
-  code:       '5004'
-  description:     โอวัลติน 3 in 1
-  consumableType:     *cType017
-- &cCode5005  !!models.ConsumableCode
-  number:     5
-  code:       '5005'
-  description:     ขิงผงจินเจน (กล่อง)
-  consumableType:     *cType017
-- &cCode5006  !!models.ConsumableCode
-  number:     6
-  code:       '5006'
-  description:     ชาเขียวญี่ปุ่น (1/10)
-  consumableType:     *cType017
-- &cCode5007  !!models.ConsumableCode
-  number:     7
-  code:       '5007'
-  description:     ไมโล 3 in 1
-  consumableType:     *cType017
-- &cCode5008  !!models.ConsumableCode
-  number:     8
-  code:       '5008'
-  description:     กาแฟ 360g.
-  consumableType:     *cType017
-- &cCode5009  !!models.ConsumableCode
-  number:     9
-  code:       '5009'
-  description:     ครีมเทียม 450g.
-  consumableType:     *cType017
-- &cCode5010  !!models.ConsumableCode
-  number:     10
-  code:       '5010'
-  description:     ชา 2g.
-  consumableType:     *cType017
+- &cCode5001 !!models.ConsumableCode
+  code: '5001'
+  description: เนสกาแฟเรดคัพ - ซอง - 3กรัม (1/50)
+  consumableType: *cType017
+- &cCode5002 !!models.ConsumableCode
+  code: '5002'
+  description: น้ำตาลชนิด - ซอง - 6กรัม (1/50)
+  consumableType: *cType017
+- &cCode5003 !!models.ConsumableCode
+  code: '5003'
+  description: ครีมเทียมคอฟฟี่เมต - ซอง - 3กรัม (1/50)
+  consumableType: *cType017
+- &cCode5004 !!models.ConsumableCode
+  code: '5004'
+  description: โอวัลติน 3 in 1
+  consumableType: *cType017
+- &cCode5005 !!models.ConsumableCode
+  code: '5005'
+  description: ขิงผงจินเจน (กล่อง)
+  consumableType: *cType017
+- &cCode5006 !!models.ConsumableCode
+  code: '5006'
+  description: ชาเขียวญี่ปุ่น (1/10)
+  consumableType: *cType017
+- &cCode5007 !!models.ConsumableCode
+  code: '5007'
+  description: ไมโล 3 in 1
+  consumableType: *cType017
+- &cCode5008 !!models.ConsumableCode
+  code: '5008'
+  description: กาแฟ 360g.
+  consumableType: *cType017
+- &cCode5009 !!models.ConsumableCode
+  code: '5009'
+  description: ครีมเทียม 450g.
+  consumableType: *cType017
+- &cCode5010 !!models.ConsumableCode
+  code: '5010'
+  description: ชา 2g.
+  consumableType: *cType017
