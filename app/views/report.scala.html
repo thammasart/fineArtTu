@@ -1,0 +1,16 @@
+@(user : User)
+@header("report")
+
+<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
+
+@nav(user)
+@headerTag("ระบบงานพัสดุ คณะศิลปกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์")
+@sideMenu()
+
+<div class ="mainWindow" style="text-align:center;">
+
+<a href="@routes.Application.reportRemainingMaterial()">
+<button class="btn btn-default" style="width:100%;">สรุปยอดวัสดุคงเหลือ</button>
+</a>
+</div> 
+@footer()

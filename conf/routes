@@ -19,11 +19,11 @@ GET		/export/donate                                  controllers.Application.don
 GET		/export/exportSold                              controllers.Application.exportSold()
 GET		/export/exportOther                             controllers.Application.exportOther()
 
+
 GET		/import/institute			controllers.Application.importsInstitute()
 GET		/import/institute/add		controllers.Application.importsInstituteAdd()
 
 GET		/import/material							controllers.Application.importsMaterial()
-
 
 GET		/import/materialDurableArticlesAdd			controllers.Application.importsMaterialDurableArticlesAdd()
 GET		/import/materialDurableGoodsAdd			controllers.Application.importsMaterialDurableGoodsAdd()
@@ -40,6 +40,8 @@ GET		/import/order/GoodsAdd	    					controllers.Application.importsOrderGoodsAd
 GET		/import/order/GoodsAdd/Material1				controllers.Application.importsOrderGoodsAddMaterial1()
 GET		/import/order/GoodsAdd/Material2				controllers.Application.importsOrderGoodsAddMaterial2()
 
+GET             /report                                                         controllers.Application.report()
+GET             /report/RemainingMaterial                                       controllers.Application.reportRemainingMaterial()
 
 
 GET     /Admin                      controllers.Admin.index()
