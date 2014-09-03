@@ -4,7 +4,7 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 @Entity
-public class ConsumableCode extends Model{
+public class MaterialCode extends Model{
 
 	@Id
 	public String code;
@@ -12,8 +12,8 @@ public class ConsumableCode extends Model{
 	public String description;
 
 	@ManyToOne
-	public ConsumableType consumableType;
+	public MaterialType materialType;
 
 	@SuppressWarnings("unchecked")
-	public static Finder<String,ConsumableCode> find = new Finder(String.class,ConsumableCode.class);
+	public static Finder<String,MaterialCode> find = new Finder(String.class,MaterialCode.class);
 }

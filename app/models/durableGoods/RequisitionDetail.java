@@ -4,7 +4,7 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 import models.User;
-import models.ConsumableCode;
+import models.MaterialCode;
 
 import models.*;
 
@@ -14,7 +14,7 @@ public class RequisitionDetail extends Model{
 
 	@Id
 	public long id;
-	public ConsumableCode code; //รหัส
+	public MaterialCode code; //รหัส
 	public int quantity; // จำนวน
 	public String description; // หมายเหตุการเบิก
 
