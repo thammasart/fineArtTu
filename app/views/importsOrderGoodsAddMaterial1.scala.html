@@ -13,13 +13,13 @@
         <div class="form-inline marginBtm1" role="form" align="left">
                 <div class="form-group" >
                     <div class="input-group" >
-                        <span class="input-group-addon width150px" >ชื่อวัสดุ</span>
+                        <span class="input-group-addon width250px" >ชื่อวัสดุ</span>
                         <input type="number" name="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
                     </div>
                 </div>
                 <div class="form-group" >
                     <div class="input-group" >
-                        <span class="input-group-addon width150px" >รหัสวัสดุ</span>
+                        <span class="input-group-addon width250px" >รหัสวัสดุ</span>
                         <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
                     </div>
                 </div>
@@ -28,13 +28,13 @@
         <div class="form-inline marginBtm1" role="form" align="left">
             <div class="form-group" >
                 <div class="input-group" >
-                    <span class="input-group-addon width150px" >ราคา</span>
+                    <span class="input-group-addon width250px" >ราคา</span>
                         <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
-                    <span class="input-group-addon width150px" >ราคารวมภาษี</span>
+                    <span class="input-group-addon width250px" >ราคารวมภาษี</span>
                         <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
                     </div>
                 </div>
@@ -43,7 +43,7 @@
         <div class="form-inline marginBtm1" role="form" align="left">
             <div class="form-group" >
                 <div class="input-group" >
-                    <span class="input-group-addon width150px" >จำนวน</span>
+                    <span class="input-group-addon width250px" >จำนวน</span>
                     <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)">
                 </div>
             </div>
@@ -53,7 +53,7 @@
         <div class="form-inline marginBtm1" role="form" align="left">
             <div class="form-group" >
                 <div class="input-group" >
-                    <span class="input-group-addon width150px" >รหัสจากคลัง</span>
+                    <span class="input-group-addon width250px" >รหัสจากคลัง</span>
                     <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)">
                 </div>
             </div>
@@ -61,7 +61,7 @@
 
         <div class="form-inline" role="form" align="left">
             <div class="input-group marginBtm1">
-                <span class="input-group-addon width150px">หน่วยงาน</span>
+                <span class="input-group-addon width250px">หน่วยงาน</span>
                     <select class="form-control textAlignCenter  width300px">
                         <option>---เลือก---</option>
                         <option>Asissoft</option>
@@ -74,13 +74,13 @@
         <div class="form-inline marginBtm1" role="form" align="left">
             <div class="form-group" >
                 <div class="input-group" >
-                    <span class="input-group-addon width150px" >พนักงานขาย</span>
+                    <span class="input-group-addon width250px" >พนักงานขาย</span>
                     <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
-                    <span class="input-group-addon width150px" >เบอร์โทรศัพท์</span>
+                    <span class="input-group-addon width250px" >เบอร์โทรศัพท์</span>
                     <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
                 </div>
             </div>
@@ -89,13 +89,13 @@
         <div class="form-inline marginBtm1" role="form" align="left">
             <div class="form-group" >
                 <div class="input-group" >
-                    <span class="input-group-addon width150px" >ยี่ห้อ</span>
+                    <span class="input-group-addon width250px" >ยี่ห้อ</span>
                     <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
-                    <span class="input-group-addon width150px" >หมายเลขเครื่อง</span>
+                    <span class="input-group-addon width250px" >หมายเลขเครื่อง</span>
                     <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
                 </div>
             </div>
@@ -147,20 +147,22 @@
 
     </div> <!--well-->
 
-        <div>
-                <a href="@routes.Import.importsOrderGoodsAddMaterial2()">
-                <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
-                </a>
-               	
-               	<a href="@routes.Import.importsOrderGoodsAdd()">
-                <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ยกเลิก</button>
-                </a>
+
+        <div align="center" style="margin-bottom:1%;">
+
+              <a href="@routes.Import.importsOrderGoodsAdd()">
+              <button class="btn btn-danger btn-lg" style="margin-top:1%;margin-right:1%;">ยกเลิก</button>
+              </a>
+              <a href="@routes.Import.importsOrderGoodsAddMaterial2()">
+              <button class="btn btn-success btn-lg" style=" margin-top:1%;">ยืนยัน</button>
+              </a>
         </div>
 
 
 
 </div> <!--detailWindow-->
 
+@footer()
 
 
 
