@@ -3,52 +3,51 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
-GET     /User                       controllers.Application.user()
-GET     /logout                     controllers.Application.logout()
-POST    /                           controllers.Application.authentication()
-GET	/home	        	    		controllers.Application.home()
-
-GET		/import						controllers.Application.imports()
-GET		/export                                         controllers.Application.export()
-
-GET		/export/exportOrder                             controllers.Application.exportOrder()
-GET		/export/transferOutSide                         controllers.Application.transferOutSide()
-GET		/export/transferInside                          controllers.Application.transferInside()
-GET		/export/donate                                  controllers.Application.donate()
-GET		/export/exportSold                              controllers.Application.exportSold()
-GET		/export/exportOther                             controllers.Application.exportOther()
+GET     /                           					controllers.Application.index()
+GET     /User                       					controllers.Application.user()
+GET     /logout                     					controllers.Application.logout()
+POST    /                          						controllers.Application.authentication()
+GET		/home	        	    						controllers.Application.home()
 
 
-GET		/import/institute			controllers.Application.importsInstitute()
-GET		/import/institute/add		controllers.Application.importsInstituteAdd()
+GET		/export                                         controllers.Export.export()
 
-GET		/import/material							controllers.Application.importsMaterial()
+GET		/export/exportOrder                             controllers.Export.exportOrder()
+GET		/export/transferOutSide                         controllers.Export.exportTransferOutSide()
+GET		/export/transferInside                          controllers.Export.exportTransferInside()
+GET		/export/donate                                  controllers.Export.exportDonate()
+GET		/export/exportSold                              controllers.Export.exportSold()
+GET		/export/exportOther                             controllers.Export.exportOther()
 
-GET		/import/materialDurableArticlesAdd			controllers.Application.importsMaterialDurableArticlesAdd()
-GET		/import/materialDurableGoodsAdd			controllers.Application.importsMaterialDurableGoodsAdd()
-GET		/import/materialConsumableGoodsAdd			controllers.Application.importsMaterialConsumableGoodsAdd()
+GET		/import											controllers.Import.imports()
+GET		/import/institute								controllers.Import.importsInstitute()
+GET		/import/institute/add							controllers.Import.importsInstituteAdd()
+
+GET		/import/material								controllers.Import.importsMaterial()
+
+GET		/import/materialDurableArticlesAdd				controllers.Import.importsMaterialDurableArticlesAdd()
+GET		/import/materialDurableGoodsAdd					controllers.Import.importsMaterialDurableGoodsAdd()
+GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
+
+GET		/import/order									controllers.Import.importsOrder()
+
+GET		/import/order/DurableArticlesAdd	    		controllers.Import.importsOrderDurableArticlesAdd()
+GET		/import/order/DurableArticlesAdd/Material1		controllers.Import.importsOrderDurableArticlesAddMaterial1()
+GET		/import/order/DurableArticlesAdd/Material2		controllers.Import.importsOrderDurableArticlesAddMaterial2()
+
+GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()
+GET		/import/order/GoodsAdd/Material1				controllers.Import.importsOrderGoodsAddMaterial1()
+GET		/import/order/GoodsAdd/Material2				controllers.Import.importsOrderGoodsAddMaterial2()
+
+GET     /report                                 		controllers.Application.report()
+GET     /report/RemainingMaterial               		controllers.Application.reportRemainingMaterial()
 
 
-GET		/import/order							controllers.Application.importsOrder()
+GET     /Admin                      					controllers.Admin.index()
+GET     /Admin/addUser              					controllers.Admin.addUser()
+GET     /Admin/manageRole           					controllers.Admin.manageRole()
 
-GET		/import/order/DurableArticlesAdd	    			controllers.Application.importsOrderDurableArticlesAdd()
-GET		/import/order/DurableArticlesAdd/Material1			controllers.Application.importsOrderDurableArticlesAddMaterial1()
-GET		/import/order/DurableArticlesAdd/Material2			controllers.Application.importsOrderDurableArticlesAddMaterial2()
-
-GET		/import/order/GoodsAdd	    					controllers.Application.importsOrderGoodsAdd()
-GET		/import/order/GoodsAdd/Material1				controllers.Application.importsOrderGoodsAddMaterial1()
-GET		/import/order/GoodsAdd/Material2				controllers.Application.importsOrderGoodsAddMaterial2()
-
-GET             /report                                                         controllers.Application.report()
-GET             /report/RemainingMaterial                                       controllers.Application.reportRemainingMaterial()
-
-
-GET     /Admin                      controllers.Admin.index()
-GET     /Admin/addUser              controllers.Admin.addUser()
-GET     /Admin/manageRole           controllers.Admin.manageRole()
-
-GET     /graph           controllers.Graph.index()
+GET     /graph           								controllers.Graph.index()
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file               					controllers.Assets.at(path="/public", file)
