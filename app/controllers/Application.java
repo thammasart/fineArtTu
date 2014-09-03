@@ -192,7 +192,7 @@ public class Application extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result reportImportDurableArticles() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportImportDurableArticles.render(user));
+        return ok(reportImportDurableArticle.render(user));
     }
     @Security.Authenticated(Secured.class)
         public static Result reportExportDurableArticles() {

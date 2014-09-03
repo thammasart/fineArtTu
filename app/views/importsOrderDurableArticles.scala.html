@@ -1,0 +1,129 @@
+@(user : User)
+@header("importsOrder")
+    <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
+
+@nav(user)
+@headerTag("รายการจัดซื้อและนำเข้า")
+
+<div class="searchS">
+  <form>
+          <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">ค้นหา</span>
+                <input type="text" class="form-control" style="width:100px">
+              </div>
+            </div>
+  </form>
+</div>
+
+<div style="margin-left:15%;margin-top:5.6%;">
+  <ul class="nav nav-pills">
+    <li class="active"><a href="@routes.Application.importsOrderDurableArticles()">ครุภัณฑ์</a></li>
+    <li><a href="">วัสดุคงทนถาวร</a></li>
+    <li><a href="@routes.Application.importsMaterialConsumable()">วัสดุสิ้นเปลือง</a></li>
+  </ul>
+
+  <div class="listWindowMaterial">
+
+
+<div class = "fixSize" >
+
+  
+
+    <div class="adminUserinfoTableContainer">
+        <table class="table table-striped overlayTable">
+            <thead>
+                <tr>
+                    <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รูปภาพ<span class="glyphicon glyphicon-sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <th>7510-003-0001</th>
+                    <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
+                    <th>75</th>
+                    <th>1</th>
+                    <th><img src=""></th>
+                </tr>
+
+
+<!--- Del  Modal ------!>
+                        <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header" style="border-bottom:none;">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                              </div>
+                              <div class="modal-body">
+                                <p class="modalDelete ">Delete record(s) ?</p>
+                                <br><br> <i>Experimental results and answer will be deleted.</i>
+                                <br><br> <p class="modalWarning" > Warning: **This action cannot be undone**</p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" ></span>&nbsp;Delete Records</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+<!-- view Modal --!>
+                        <div class="modal fade" id="questionIDModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header" >
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title">Question ID : </h4>
+                              </div>
+                                  <div class="modal-body">
+                                  </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove" ></span>&nbsp;Delete Records</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                </tr>
+<!--  End  loop here --!>
+            </tbody>
+        </table>
+
+        <div class="pagingContainer" align="center">
+            <ul class="pagination" style="margin:0;">
+              <li class="disabled"><a href="#">&laquo;</a></li>
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li><a href="#">&raquo;</a></li>
+            </ul>
+        </div>
+    </div>
+</div> 
+
+
+
+<!---->
+
+  </div>
+
+</div>
+
+<div>
+  <a href="@routes.Application.importsOrderDurableArticlesAdd()">
+  <button class="btn btn-default" style="margin-left:15%;">เพิ่มรายการครุภัณฑ์</button>
+  </a>
+
+  <button class="btn btn-default">ลบรายการครุภัณฑ์</button>
+
+  <a href="@routes.Application.imports()">
+  <button class="btn btn-default" style="float:right;margin-right:15%;">ย้อนกลับ</button>
+  </a>
+
+</div>
