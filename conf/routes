@@ -44,6 +44,9 @@ GET             /report                                                         
 GET             /report/RemainingMaterial                                       controllers.Application.reportRemainingMaterial()
 GET             /report/RemainingMaterialConclusion                             controllers.Application.reportRemainingMaterialConclusion()
 GET             /report/DurableArticles                                         controllers.Application.reportDurableArticles()
+GET             /report/ImportDurableArticles                                   controllers.Application.reportImportDurableArticles()
+GET             /report/exportDurableArticles                                   controllers.Application.reportExportDurableArticles()
+GET             /report/exchangeDurableArticles                                 controllers.Application.reportExchangeDurableArticles()
 
 GET     /Admin                      controllers.Admin.index()
 GET     /Admin/addUser              controllers.Admin.addUser()

@@ -1,0 +1,120 @@
+@(user : User)
+@header("รายงาน")
+
+@nav(user)
+@headerTag("รายการนำเข้าครุภัณฑ์")
+
+
+@sideMenu()
+
+<div class="listWindow">
+
+            <legend>
+                รายการนำเข้าครุภัณฑ์
+            </legend>
+        <div class="tableHeaderBtnContainer">
+                <div class="searchS">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                  <span class="input-group-addon">ค้นหา</span>
+                                  <input type="text" class="form-control" style="width:300px">
+                                </div>
+                              </div>
+                        </form>
+                </div>
+               <div class="form-inline" role="form"  style="float:right;">
+                  <div class="form-group" >
+                      <div class="input-group date width190px" id="start-picker">
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="birthInputBoxShow"placeholder="จากวันที่" disabled>
+                          <input type="text" name="birthDate" id="birthInputBox" hidden>
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                 </div>
+                  <div class="form-group" >
+                      <div class="input-group date width190px" id="end-picker">
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="birthInputBoxShow"placeholder="ถึงวันที่" disabled>
+                          <input type="text" name="birthDate" id="birthInputBox" hidden>
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                 </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#start-picker').datetimepicker()
+                        });
+                        $(function () {
+                            $('#end-picker').datetimepicker()
+                        });
+                    </script>
+               </div>
+               <div class="form-inline marginBtm1" role="form"  style="float:right;">
+                    <div class="input-group marginBtm1">
+                      <span class="input-group-addon width150px">ประเภทครุภัณฑ์</span>
+                        <select class="form-control textAlignCenter  width300px">
+                          <option>ทั้งหมด</option>
+                          <option>วัสดุสำนักงาน</option>
+                          <option>วัสดุ....</option>
+                          <option>วัสดุ....</option>
+                          <option>วัสดุ....</option>
+                        </select>
+                   </div>
+              </div>
+        </div>
+
+        <div >
+            <table class="table table-striped overlayTable" align="center">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">รายการ</th>
+                        <th style="text-align:center">หมายเลขครุภัณฑ์</th>
+                        <th style="text-align:center">อายุการใช้งาน/ปี</th>
+                        <th style="text-align:center">จำนวน</th>
+                        <th style="text-align:center">หน่วยนับ</th>
+                        <th style="text-align:center">ราคา/หน่วย</th>
+                        <th style="text-align:center">ราคาปัจจุบัญ</th>
+                        <th style="text-align:center">จำนวนเงิน</th>
+                        <th style="text-align:center">วันที่</th>
+                        <th style="text-align:center">ที่เก็บ</th>
+                        <th style="text-align:center">ผู้ขาย</th>
+                        <th style="text-align:center">งบประมาณ</th>
+                        <th style="text-align:center">หมายเหตุ</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <th style="text-align:center">1</th>
+                        <th style="text-align:center">โต็ะพิมพ์ผ้า</th>
+                        <th style="text-align:center">พ.41/7110-007-001</th>
+                        <th style="text-align:center">5</th>
+                        <th style="text-align:center">1</th>
+                        <th style="text-align:center">ตัว</th>
+                        <th style="text-align:center">32162.50</th>
+                        <th style="text-align:center">28162.50</th>
+                        <th style="text-align:center">32162.50</th>
+                        <th style="text-align:center">01/01/42</th>
+                        <th style="text-align:center">ห้อง 5013</th>
+                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">งบพิเศษ42</th>
+                        <th style="text-align:center">หน้า 1/2</th>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="pagingContainer" align="center">
+                <ul class="pagination" style="margin:0;">
+                  <li class="disabled"><a href="#">&laquo;</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+           </div>
+        </div> 
+<!---->
+</div>
+
+@footer()
+
