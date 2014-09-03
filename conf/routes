@@ -42,7 +42,8 @@ GET		/import/order/GoodsAdd/Material2				controllers.Application.importsOrderGoo
 
 GET             /report                                                         controllers.Application.report()
 GET             /report/RemainingMaterial                                       controllers.Application.reportRemainingMaterial()
-
+GET             /report/RemainingMaterialConclusion                             controllers.Application.reportRemainingMaterialConclusion()
+GET             /report/DurableArticles                                         controllers.Application.reportDurableArticles()
 
 GET     /Admin                      controllers.Admin.index()
 GET     /Admin/addUser              controllers.Admin.addUser()
