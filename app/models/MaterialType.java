@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-public class ConsumableType extends Model{
+public class MaterialType extends Model{
 
 	@Id
 	public long id;
@@ -16,9 +16,9 @@ public class ConsumableType extends Model{
 	@Column(nullable=false)
 	public String acronym;
 
-	@OneToMany(mappedBy="consumableType")
-	public List<ConsumableCode> codeInType = new ArrayList<ConsumableCode>();
+	@OneToMany(mappedBy="materialType")
+	public List<MaterialCode> codeInType = new ArrayList<MaterialCode>();
 
 	@SuppressWarnings("unchecked")
-	public static Finder<Long,ConsumableType> find = new Finder(Long.class,ConsumableType.class);
+	public static Finder<Long,MaterialType> find = new Finder(Long.class,MaterialType.class);
 }

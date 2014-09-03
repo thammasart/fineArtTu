@@ -29,7 +29,7 @@ public class User extends Model{
 		}
 	*/
 		System.out.println("\nจำนวน ผู้ใช้ :" + User.find.findRowCount());
-		System.out.println("จำนวน รหัสวัสดุ :" + ConsumableCode.find.findRowCount());
+		System.out.println("จำนวน รหัสวัสดุ :" + MaterialCode.find.findRowCount());
 		System.out.println("จำนวน fsn group :" + FSN_Group.find.findRowCount());
 		System.out.println("จำนวน fsn class :" + FSN_Class.find.findRowCount());
 

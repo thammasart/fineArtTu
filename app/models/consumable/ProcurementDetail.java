@@ -3,7 +3,7 @@ package models.consumable;
 import play.db.ebean.*;
 import javax.persistence.*;
 
-import models.ConsumableCode;
+import models.MaterialCode;
 
 @Entity
 @Table (name = "consumable_procurement_detail")
@@ -20,7 +20,7 @@ public class ProcurementDetail extends Model{
 	public String partOfPic; // รูปภาพ
 
 	@ManyToOne
-	public ConsumableCode code; // หมายเลขวัสดุ
+	public MaterialCode code; // หมายเลขวัสดุ
 	@ManyToOne
 	public Procurement procurement; // การจัดซื้อ
 
