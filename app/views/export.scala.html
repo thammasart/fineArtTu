@@ -1,5 +1,5 @@
 @(user : User)
-@header("imports")
+@header("exports")
 
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
 
@@ -13,22 +13,22 @@
         <h3>
             ระบบเบิกจ่ายและโอนย้าย 
         </h3>
-        <a href="@routes.Application.exportOrder()">
+        <a href="@routes.Export.exportOrder()">
         <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">ระบบจัดเบิกจ่าย </button>
         </a>
-        <a href="@routes.Application.transferInside()">
+        <a href="@routes.Export.exportTransferInside()">
         <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">ระบบโอนย้ายภายใน </button>
         </a>
-        <a href="@routes.Application.transferOutSide()">
+        <a href="@routes.Export.exportTransferOutSide()">
         <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">ระบบโอนย้ายภายนอก</button>
         </a>
-        <a href="@routes.Application.exportSold()">
+        <a href="@routes.Export.exportSold()">
         <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">จำหน่าย</button>
         </a>
-        <a href="@routes.Application.donate()">
+        <a href="@routes.Export.exportDonate()">
         <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">บริจาค</button>
         </a>
-        <a href="@routes.Application.exportOther()">
+        <a href="@routes.Export.exportOther()">
         <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">อื่นๆ</button>
         </a>
     </div>

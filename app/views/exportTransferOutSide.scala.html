@@ -1,30 +1,32 @@
 @(user : User)
-@header("exportSold")
-
+@header("exportTransferOutSide")
+   
 @nav(user)
-@headerTag("ระบบจัดการรายการจำหน่าย")
+@headerTag("ระบบจัดการรายการโอนย้ายภายนอก")
 @sideMenu()
-<div class ="listWindowMaterial" >
-    <div class="tableHeaderBtnContainer">
-            <div class="searchS">
-                    <form>
-                        <div class="form-group">
-                            <div class="input-group">
-                              <span class="input-group-addon">ค้นหา</span>
-                              <input type="text" class="form-control" style="width:300px">
-                            </div>
-                          </div>
-                    </form>
-            </div>
+
+<div class="listWindowMaterial">
+
+   <div class="tableHeaderBtnContainer">
+                <div class="searchS">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                  <span class="input-group-addon">ค้นหา</span>
+                                  <input type="text" class="form-control" style="width:300px">
+                                </div>
+                              </div>
+                        </form>
+                </div>
             <div>
-                <a style="float:right;margin-left:1%;"href="@routes.Export.exportSoldAdd()">
-                <button class="btn btn-success">เพิ่มรายการจำหน่าย</button>
+                <a style="float:right;margin-left:1%;"href="@routes.Export.exportTransferOutSideAdd()">
+                <button class="btn btn-success">เพิ่มรายการโอนย้ายภายนอก</button>
                 </a>
-                <button class="btn btn-danger" style="float:right;">ลบรายการจำหน่าย</button>
+                <button class="btn btn-danger" style="float:right;">ลบรายการโอนย้ายภายนอก</button>
             </div>
    </div>
 
-    <table class="table table-striped overlayTable">
+   <table class="table table-striped overlayTable">
     <thead>
         <tr>
             <th></th>
@@ -58,6 +60,6 @@
       </ul>
   </div>
 
-</div> 
+</div>
 
 @footer()

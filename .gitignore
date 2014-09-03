@@ -17,3 +17,4 @@ conf/evolution/default/1.sql
 conf/evolutions/default/1.sql
 conf/evolutions/
 *.swp
+.target/

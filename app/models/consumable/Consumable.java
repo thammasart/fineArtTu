@@ -3,7 +3,7 @@ package models.consumable;
 import play.db.ebean.*;
 import javax.persistence.*;
 
-import models.ConsumableCode;
+import models.MaterialCode;
 import models.Company;
 
 
@@ -25,6 +25,8 @@ public class Consumable extends Model{ // วัสดุสิ้นเปล�
 	public String details; // รายละเอียด
 	public String partOfPic; // รูปภาพ
 
+	@ManyToOne //หมายเลขวัสดุ
+	public MaterialCode code;
 	@ManyToOne
 	public Company company;
 

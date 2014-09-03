@@ -10,6 +10,7 @@ var data;
 var chart2;
 var options = {
 	title : 'เปรียบเทียบการใช้งบประมาณรายเดือน',
+	chartArea : {'top':'10%','left':'13%'},
 	animation : {
 		duration : 1000,
 		easing : 'out',
@@ -105,7 +106,6 @@ function load() {
 			chart2.draw(data, options);
 		});
 	}
-	
 
 }
 
