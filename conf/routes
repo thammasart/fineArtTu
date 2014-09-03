@@ -12,16 +12,28 @@ GET		/home	        	    						controllers.Application.home()
 
 GET		/export                                         controllers.Export.export()
 
-GET		/export/exportOrder                             controllers.Export.exportOrder()
+GET		/export/order                             		controllers.Export.exportOrder()
+GET		/export/order/add                         		controllers.Export.exportOrderAdd()
+
 GET		/export/transferOutSide                         controllers.Export.exportTransferOutSide()
+GET		/export/transferOutSide/add                     controllers.Export.exportTransferOutSideAdd()
+
 GET		/export/transferInside                          controllers.Export.exportTransferInside()
+GET		/export/transferInside/add                      controllers.Export.exportTransferInsideAdd()
+
 GET		/export/donate                                  controllers.Export.exportDonate()
-GET		/export/exportSold                              controllers.Export.exportSold()
-GET		/export/exportOther                             controllers.Export.exportOther()
+GET		/export/donate/add                              controllers.Export.exportDonateAdd()
+
+GET		/export/sold                              		controllers.Export.exportSold()
+GET		/export/sold/add                              	controllers.Export.exportSoldAdd()
+
+GET		/export/other                             		controllers.Export.exportOther()
+GET		/export/other/add                             	controllers.Export.exportOtherAdd()
+
 
 GET		/import											controllers.Import.imports()
 GET		/import/institute								controllers.Import.importsInstitute()
-GET		/import/institute/add							controllers.Import.importsInstituteAdd()
+GET		/import/instituteAdd							controllers.Import.importsInstituteAdd()
 
 GET		/import/material								controllers.Import.importsMaterial()
 

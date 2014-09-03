@@ -1,105 +1,63 @@
 @(user : User)
-@header("ระบบงานพัสดุ คณะศิลปกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์")
+@header("exportSold")
 
 @nav(user)
-@headerTag("จำหน่าย")
+@headerTag("ระบบจัดการรายการจำหน่าย")
 @sideMenu()
-<div class ="mainWindow" >
-        <h3 > โอนย้ายภายใน<button class="btn  btn-success" style="float:right"><span class="glyphicon glyphicon-plus"></span> เพิ่ม </button> </h3>
-        <table class="table table-striped overlayTable" style="margin-bottom:3%;">
-            <thead>
-                <tr>
-                    <th>ลำดับ</th>
-                    <th>รหัส วัสดุ-ครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ประเภทงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ราคา/ตัว<span class="glyphicon glyphicon-sort"></span></th>
-                </tr>
-            </thead>
-            <tbody>
-<!--   loop here --!>
-                <tr>
-                    <th>1</th>
-                    <th>007</th>
-                    <th>rail Gun</th>
-                    <th>งบคลัง</th>
-                    <th>90000</th>
-                </tr>
-                <tr>
-                    <th>2</th>
-                    <th>010</th>
-                    <th>nuke</th>
-                    <th>งบบริจาค</th>
-                    <th>990000</th>
-                </tr>
-            </tbody>
-        </table>
-        <div>
-            <div class="form-inline marginBtm1" align="right" role="form">
-                   <div class="form-group" style="float:right">
-                    <div class="input-group width300px">
-                      <span class="input-group-addon width100px">ราคารวม</span>
-                      <input type="text" class="form-control width150px" value="1080000" disabled>
-                      <span class="input-group-addon" > บาท </span>
-                    </div>
-                    <div class="input-group width300px">
-                      <span class="input-group-addon width100px">งบคลัง</span>
-                      <input type="text" class="form-control width150px" value="1080000" disabled>
-                      <span class="input-group-addon" > บาท </span>
-                    </div>
-                    <div class="input-group width300px">
-                      <span class="input-group-addon width100px">งบประจำปี</span>
-                      <input type="text" class="form-control width150px" value="1080000" disabled>
-                      <span class="input-group-addon" > บาท </span>
-                    </div>
-                  </div>
+<div class ="listWindowMaterial" >
+    <div class="tableHeaderBtnContainer">
+            <div class="searchS">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">ค้นหา</span>
+                              <input type="text" class="form-control" style="width:300px">
+                            </div>
+                          </div>
+                    </form>
             </div>
-            <div class="form-inline marginBtm1" role="form">
-                   <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">วัน/เดือน/ปี อนุมัติ</span>
-                      <input type="text" class="form-control width300px">
-                    </div>
-                  </div>
+            <div class="tableBtnContainer">
+                <a class="btn btn-success" href="@routes.Export.exportSoldAdd()">
+                เพิ่มรายการจำหน่าย
+                </a>
+                <button class="btn btn-danger">ลบรายการจำหน่าย</button>
             </div>
-            <div class="form-inline marginBtm1" role="form">
-                   <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">บริษัท-ร้านค้า ที่จำหน่วยไป</span>
-                      <input type="text" class="form-control width300px">
-                    </div>
-                  </div>
-            </div>
-            <div class="form-inline marginBtm1" role="form">
-                   <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">คณะกรรมการสอบข้อเท็จจริง</span>
-                      <input type="text" class="form-control width300px">
-                    </div>
-                  </div>
-                      <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
-            </div>
-            <div class="form-inline marginBtm1" role="form">
-                   <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">คณะกรรมการประเมิณราคากลาง</span>
-                      <input type="text" class="form-control width300px">
-                    </div>
-                  </div>
-                      <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
-            </div>
-            <div class="form-inline marginBtm1" role="form">
-                   <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">คณะกรรมการจำหน่าย</span>
-                      <input type="text" class="form-control width300px">
-                    </div>
-                  </div>
-                      <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
-            </div>
+   </div>
 
-            <button class="btn btn-lg btn-success" style="float:right" > บันทึก </button>
-        </div>
+    <table class="table table-striped overlayTable">
+    <thead>
+        <tr>
+            <th></th>
+            <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+            <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+            <th>วันนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
+            <th>รายละเอียด</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <th> <input type="checkbox"/> </th>
+            <th>รายการส่งเสริมการศึกษา1</th>
+            <th>1/57</th>
+            <th>20/5/57</th>
+            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
+        </tr>
+    </tbody>
+  </table>
+
+  <div class="pagingContainer" align="center">
+      <ul class="pagination" style="margin:0;">
+        <li class="disabled"><a href="#">&laquo;</a></li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li><a href="#">&raquo;</a></li>
+      </ul>
+  </div>
+
 </div> 
 
 @footer()

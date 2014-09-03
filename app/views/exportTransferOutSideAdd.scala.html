@@ -1,0 +1,146 @@
+@(user : User) @header("exportTransferOutSideAdd")
+<script src="@routes.Assets.at("javascripts/controllers/importController.js")"></script>
+
+@nav(user) @headerTag("เพิ่มรายการโอนย้ายภายนอก")
+
+<div class="detailWindow">
+
+	<div class="tableHeaderBtnContainer">
+		<div class="searchS">
+			<form>
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">ค้นหา</span> <input type="text"
+							class="form-control" style="width: 300px">
+					</div>
+				</div>
+			</form>
+		</div>
+		<div style="width: 300px; float: right;">
+			<a href="@routes.Import.importsOrderDurableArticlesAddMaterial1()">
+				<button class="btn btn-success" style="margin-left: 15%;">เพิ่มครุภัณฑ์</button>
+			</a>
+
+			<button class="btn btn-danger">ลบครุภัณฑ์</button>
+		</div>
+	</div>
+
+
+
+	<table class="table table-striped overlayTable"
+		style="margin-bottom: 3%;">
+		<thead>
+			<tr>
+				<th>ลำดับ</th>
+				<th>รหัส วัสดุ-ครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+				<th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
+				<th>หมายเหตุ<span class="glyphicon glyphicon-sort"></span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<!--   loop here -->
+			<tr>
+				<th>1</th>
+				<th>007</th>
+				<th>rail Gun f;dsfj;sdjf;dsjfdsj:w</th>
+				<th>btf</th>
+			</tr>
+			<tr>
+				<th>2</th>
+				<th>010</th>
+				<th>nuke</th>
+				<th>cod ;lf;dsjf;sdjfdsjf;dj</th>
+			</tr>
+		</tbody>
+	</table>
+
+
+
+
+	<div class="form-inline marginBtm1" role="form">
+		<div class="form-group">
+			<div class="input-group width450px">
+				<span class="input-group-addon width100px">ผู้อนุมัติ</span> <input
+					type="text" class="form-control width300px">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group width450px">
+				<span class="input-group-addon width100px">ตำแหน่ง</span> <input
+					type="text" class="form-control width300px">
+			</div>
+		</div>
+	</div>
+	<div class="form-inline marginBtm1" role="form">
+		<div class="form-group">
+			<div class="input-group width450px">
+				<span class="input-group-addon width100px">วัน/เดือน/ปี
+					อนุมัติ</span> <input type="text" class="form-control width300px">
+			</div>
+		</div>
+	</div>
+	<div class="form-inline marginBtm1" role="form">
+		<div class="form-group">
+			<div class="input-group width450px">
+				<span class="input-group-addon width100px">หน่วยงานที่โอนย้าย</span>
+				<input type="text" class="form-control width300px">
+			</div>
+		</div>
+	</div>
+
+
+	<div ng-app="addCommiteApp" ng-controller="addCommiteCtrl">
+		<div class="form-inline marginBtm1" role="form">
+			<div class="form-group">
+				<form ng-submit="addTodo()">
+					<div class="input-group width450px" ng-repeat="todo in todos">
+						<span class="input-group-addon width100px">คณะกรรมการสอบข้อเท็จจริง</span>
+						<input type="text"
+							class="form-control width300px dont-{{todo.done}}"
+							value="{{todo.text}}" disabled>
+					</div>
+					<div class="input-group width450px">
+						<span class="input-group-addon width100px">คณะกรรมการสอบข้อเท็จจริง</span>
+						<input type="text" class="form-control width300px"
+							ng-model="todoText">
+					</div>
+			</div>
+			<button class="btn btn-success" type="submit" value="add">
+				<span class="glyphicon glyphicon-plus"></span>เพิ่ม
+			</button>
+		</div>
+		</form>
+
+
+		<div class="form-inline marginBtm1" role="form">
+			<div class="form-group">
+				<div class="input-group width450px">
+					<span class="input-group-addon width100px">คณะกรรมการจำหน่าย</span>
+					<input type="text" class="form-control width300px">
+				</div>
+			</div>
+			<button class="btn btn-success">
+				<span class="glyphicon glyphicon-plus"></span>เพิ่ม
+			</button>
+		</div>
+	</div><!--ng-app="addCommiteApp"-->
+
+
+
+
+	<div>
+		<a href="@routes.Export.exportTransferOutSide()">
+			<button class="btn btn-success btn-lg"
+				style="float: right; margin-top: 1%;">ยืนยัน</button>
+		</a> <a href="@routes.Export.exportTransferOutSide()">
+			<button class="btn btn-danger btn-lg"
+				style="float: right; margin-top: 1%; margin-right: 5%;">ยกเลิก</button>
+		</a>
+	</div>
+
+
+</div>
+<!--window-->
+
+@footer()
