@@ -1,8 +1,8 @@
 @(user : User)
-@header("exportOtherAdd")
+@header("exportOrderAdd")
 
 @nav(user)
-@headerTag("เพิ่มรายการเบิกจ่าย")
+@headerTagFull("เพิ่มรายการเบิกจ่าย")
 
 <div class ="detailWindow">
        
@@ -64,7 +64,7 @@
                       </form>
               </div>
               <div>
-                  <a style="float:right;margin-left:1%;"href="@routes.Import.importsOrderDurableArticlesAddMaterial1()">
+                  <a style="float:right;margin-left:1%;"href="@routes.Export.exportOrderAddDetail()">
                   <button class="btn btn-success width200px">เพิ่มวัสดุ</button>
                   </a>
                   <button class="btn btn-danger width200px" style="float:right;">ลบวัสดุ</button>
@@ -75,7 +75,7 @@
             <thead>
                 <tr>
                     <th>ลำดับ</th>
-                    <th>รหัส วัสดุ-ครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>หมายเลขวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
                     <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
                     <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
                     <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
@@ -87,7 +87,7 @@
 <!--   loop here -->
                 <tr>
                     <th>1</th>
-                    <th>007</th>
+                    <th>02007</th>
                     <th>rail Gun</th>
                     <th>999</th>
                     <th>ea</th>
@@ -96,7 +96,7 @@
                 </tr>
                 <tr>
                     <th>1</th>
-                    <th>007</th>
+                    <th>02007</th>
                     <th>rail Gun</th>
                     <th>999</th>
                     <th>ea</th>
@@ -105,10 +105,11 @@
                 </tr>
                 <tr>
                     <th>1</th>
-                    <th>007</th>
+                    <th>02007</th>
                     <th>rail Gun</th>
                     <th>999</th>
                     <th>ea</th>
+                    <th>sell</th>
                     <th>bond</th>
                 </tr>
             </tbody>
@@ -130,4 +131,4 @@
 
 </div> 
 
-@footer()
+@footerFull()

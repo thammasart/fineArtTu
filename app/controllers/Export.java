@@ -29,6 +29,11 @@ public class Export extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(exportOrderAdd.render(user));
     }
+    @Security.Authenticated(Secured.class)
+    public static Result exportOrderAddDetail() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportOrderAddDetail.render(user));
+    }
 
 
     @Security.Authenticated(Secured.class)
@@ -41,6 +46,12 @@ public class Export extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(exportTransferInsideAdd.render(user));
     }
+    @Security.Authenticated(Secured.class)
+    public static Result exportTransferInsideAddDetail() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportTransferInsideAddDetail.render(user));
+    }
+
 
 
     @Security.Authenticated(Secured.class)
