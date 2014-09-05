@@ -1,7 +1,9 @@
-@(user : User) @header("exportTransferOutSideAdd")
+@(user : User)
+ @header("exportTransferOutSideAdd")
 <script src="@routes.Assets.at("javascripts/controllers/importController.js")"></script>
 
-@nav(user) @headerTag("เพิ่มรายการโอนย้ายภายนอก")
+@nav(user) 
+@headerTagFull("เพิ่มรายการโอนย้ายภายนอก")
 
 <div class="detailWindow">
 
@@ -144,4 +146,4 @@
 </div>
 <!--window-->
 
-@footer()
+@footerFull()
