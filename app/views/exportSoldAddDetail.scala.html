@@ -1,0 +1,91 @@
+@(user : User)
+@header("exportSoldAddDetail")
+    <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
+
+@nav(user)
+@headerTag("เลือกครุภัณฑ์ที่ต้องการจำหน่าย")
+
+
+<div class="detailWindow">
+
+     <form>
+	     <div class="form-inline marginBtm1" role="form" align="left">
+			<div class="form-group" >
+			    <div class="input-group" >
+			        <span class="input-group-addon width250px" >รหัสFSN</span>
+			        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+			    </div>
+			</div>
+			<div class="form-group" >
+			    <div class="input-group" >
+			        <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
+			        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+			    </div>
+			</div>
+	    </div>
+    </form>  
+
+
+        <div class="well" >
+        <h2 style ="text-align:center;">รายการครุภัณฑ์</h2>
+
+           <table class="table table-striped overlayTable">
+             <thead>
+                <tr>
+                    <th> <input type="checkbox"/> </th>
+                    <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ราคาปัจจุบัน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>อายุการใช้งานคงเหลือ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รายละเอียด</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th> <input type="checkbox"/> </th>
+                    <th>ศก.พ.57-7400-100-0005(01/02)</th>
+                    <th>กระดานดำ</th>
+                    <th>5500</th>
+                    <th>5</th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
+                </tr>
+                <tr>
+                    <th> <input type="checkbox"/> </th>
+                    <th>ศก.พ.57-7400-100-0005(02/02)</th>
+                    <th>กระดานดำ</th>
+                    <th>5500</th>
+                    <th>5</th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
+                </tr>
+             </tbody>
+           </table>
+
+           </div>
+
+
+
+        <!--__________________________________________________________________________-->
+        
+
+
+
+<!---->
+
+
+        <div align="center" style="margin-bottom:1%;">
+            <a href="@routes.Export.exportSoldAdd()">
+                <button class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+                    <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                </button>
+            </a>
+            <a href="@routes.Export.exportSoldAdd()">
+                <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                    ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+                </button>
+            </a>
+        </div>
+
+    </div>   <!--listWindowMaterial--> 
+@footer()
+
+
