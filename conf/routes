@@ -14,9 +14,11 @@ GET		/export                                         controllers.Export.export()
 
 GET		/export/order                             		controllers.Export.exportOrder()
 GET		/export/order/add                         		controllers.Export.exportOrderAdd()
+GET		/export/order/add/Detail                        controllers.Export.exportOrderAddDetail()
 
 GET		/export/transferInside                          controllers.Export.exportTransferInside()
 GET		/export/transferInside/add                      controllers.Export.exportTransferInsideAdd()
+GET		/export/transferInside/add/Detail               controllers.Export.exportTransferInsideAddDetail()
 
 GET		/export/transferOutSide                         controllers.Export.exportTransferOutSide()
 GET		/export/transferOutSide/add                     controllers.Export.exportTransferOutSideAdd()
