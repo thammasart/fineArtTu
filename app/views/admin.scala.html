@@ -7,12 +7,16 @@
 @sideMenu()
 
 <div class ="mainWindow" style="margin-top:0; border:none;" ng-app="adminApp" ng-controller="adminCtrl">
-    <div class ="headButtonAddDelete">
-        <button class="btn btn-lg btn-danger btnFloatRight">ลบบัญชีผู้ใช้<span class="glyphicon glyphicon-minus"></span></button>
-       <a href="@routes.Admin.addUser()"><button class="btn btn-lg btn-success btnFloatRight" style="margin-right:20px">เพิ่มบัญชีผู้ใช้<span class="glyphicon glyphicon-plus"></span></button></a>
-        <a href="@routes.Admin.manageRole()"><button class="btn btn-lg btn-primary btnFloatRight" style="margin-right:20px">กำหนดหน้าที่<span class="glyphicon glyphicon-wrench"></span></button></a>
+
+
+    <div class ="tableHeaderBtnContainer">
+        
+        <a href="@routes.Admin.addUser()"><button class="btn btn-success btnFloatRight width200px">เพิ่มบัญชีผู้ใช้</button></a>
+        <button class="btn btn-danger btnFloatRight width200px" style="margin-right:1%;">ลบบัญชีผู้ใช้</button>
+        <a href="@routes.Admin.manageRole()"><button class="btn btn-primary btnFloatRight width200px" style="margin-right:1%">กำหนดสิทธิ</button></a>
 
     </div>
+
     <div class="adminUserinfoTableContainer">
         <table class="table table-striped overlayTable">
             <thead>
@@ -22,12 +26,12 @@
                     <th>ตำแหน่ง<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อ<span class="glyphicon glyphicon-sort"></span></th>
                     <th>สกุล<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>หน้าที่<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>สิทธการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>สิทธิ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>สิทธิการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
                 </tr>
             </thead>
             <tbody>
-<!--   loop here --!>
+<!--   loop here -->
                 <tr>
                     <th><input type="checkbox"></th>
                     <th>ภาควิชา</th>
@@ -54,4 +58,4 @@
     </div>
 </div> 
 
-<a href="@routes.Application.user()" > User </a>
+@footer()

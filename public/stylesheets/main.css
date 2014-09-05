@@ -1,30 +1,42 @@
+.marginTopSpace{
+    margin-top:6%;
+}
 .headerText{
     background-color:lightgrey;
 }
-.titleLine{
-    color:#34495E;
-    padding:10px 100px;
-    border-color:#BDC3C7;
-    border-top-style:dashed;
-    top:10%;
+.headerContainerFull{
+    position: fixed;
+    top:25px;
+    left:0;
+    right: 0;
+    z-index:101;
+}
+.headerContainer{
+    position: fixed;
+    top:25px;
+    left:15%;
+    right: 0;
+    z-index:101;
 }
 .titleHeader{
     color:#34495E;
     background:#BDC3C7;
-    padding:20px;
+    padding:15px;
     margin-top: 0px;
+    font-size:20px;
 }
-.footLine{
- color:#34495E;
- padding: 10px;
- border-color:#BDC3C7;
- border-top-style:dashed;
- position:relative;
- bottom:11%;
- width:100%;
- display: inline-block;
+.footerContainerFull{
+    position:relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
-
+.footerContainer{
+    position: fixed;
+    left: 15%;
+    right: 0;
+    bottom: 0;
+}
 .footDiv{
 color:#34495E; 
 background-color:#BDC3C7; 
@@ -32,10 +44,16 @@ padding:5px;
 position:relative;
 bottom : 2%;
 width:100%;
-height:4em;
+height:3em;
 text-align:center;
 }
 .user-status-bar{
+    position:fixed;
+    top:0;
+    right:0;
+    left:0;
+    background-color:white;
+    z-index:5;
     margin-bottom: 0px;
     text-align: right;
     height:30px;
@@ -61,22 +79,87 @@ float:right;
 .shadowLightBlue{
     box-shadow:5px 5px 5px lightblue;
 }
+
+.width500px{
+    width:500px !important;
+    text-align:right;
+}
+.width475px{
+    width:475px !important;
+    text-align:right;
+}
 .width450px{
     width:450px !important;
+    text-align:right;
+}
+.width425px{
+    width:425px !important;
+    text-align:right;
+}
+.width400px{
+    width:400px !important;
+    text-align:right;
+}
+.width375px{
+    width:375px !important;
+    text-align:right;
+}
+.width350px{
+    width:350px !important;
+    text-align:right;
+}
+.width325px{
+    width:325px !important;
     text-align:right;
 }
 .width300px{
     width:300px !important;
     text-align:right;
 }
+.width275px{
+    width:275px !important;
+    text-align:right;
+}
+.width250px{
+    width:250px !important;
+    text-align:right;
+}
+.width225px{
+    width:225px !important;
+    text-align:right;
+}
+.width200px{
+    width:200px !important;
+    text-align:right;
+}
+.width175px{
+    width:175px !important;
+    text-align:right;
+}
 .width150px{
     width:150px !important;
+    text-align:right;
+}
+.width190px{
+    width:190px !important;
+}
+.width125px{
+    width:125px !important;
     text-align:right;
 }
 .width100px{
     width:100px !important;
     text-align:right;
 }
+.width75px{
+    width:75px !important;
+    text-align:right;
+}
+.width50px{
+    width:50px !important;
+    text-align:right;
+}
+
 .wellSize{
     width:60%;
     margin:10% auto;

@@ -3,7 +3,7 @@
 
 
 @nav(user)
-@headerTag("เพิ่มรายละเอียดวัสดุคงทนถาวร")
+@headerTagFull("เพิ่มรายละเอียดวัสดุคงทนถาวร")
 
 <script>
 
@@ -61,13 +61,13 @@
     <div class="form-inline marginBtm1" role="form" align="center">
                       <div class="form-group" >
                             <div class="input-group" >
-                                <span class="input-group-addon width150px" >รหัสวัสดุ</span>
+                                <span class="input-group-addon width250px" >รหัสวัสดุ</span>
                                 <input type="text" class="form-control  textAlignCenter width300px"placeholder="ตัวอย่าง 01001 สองตัวแรกมาจากradioสามตัวหลังรันไล่เลข" onkeypress="validateNumberKey(event)">
                             </div>
                       </div>
                       <div class="form-group" >
                             <div class="input-group" >
-                                <span class="input-group-addon width150px" >  ชื่อวัสดุ</span>
+                                <span class="input-group-addon width250px" >  ชื่อวัสดุ</span>
                                 <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
                             </div>
                       </div>
@@ -76,7 +76,7 @@
 		
                 <div class="form-inline" role="form" align="center">
                     <div class="input-group marginBtm1">
-                      <span class="input-group-addon width150px">หน่วย</span>
+                      <span class="input-group-addon width250px">หน่วย</span>
                         <select class="form-control textAlignCenter  width300px">
                           <option>---เลือก---</option>
                           <option>อัน</option>
@@ -94,7 +94,7 @@
 		<div class="form-inline marginBtm1" role="form" align="center">
                       <div class="form-group" >
                             <div class="input-group" >
-                                <span class="input-group-addon width150px" >รูปภาพ</span>
+                                <span class="input-group-addon width250px" >รูปภาพ</span>
                                 <button>Browse</button>
                             </div>
                       </div>
@@ -107,18 +107,23 @@
 
     </form>
     </div>
-        <div style="margin-bottom:7%;">
-                <a href="@routes.Import.importsMaterial()">
-                <button class="btn btn-success btn-lg" style="float:right;">ยืนยัน</button>
-                </a>
-                <a href="@routes.Import.importsMaterial()">
-                <button class="btn btn-danger btn-lg" style="float:right; margin-right:5%;">ยกเลิก</button>
-                </a>
-        </div>
+        
+
+            <div align="center" style="margin-bottom:1%;">
+              <a href="@routes.Import.importsMaterial()">
+                  <button class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+                      <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                  </button>
+              </a>
+              <a href="@routes.Import.importsMaterial()">
+                  <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+                  </button>
+              </a>
+
+            </div>
 
     </div>
 </div>
 
-@footer()
-
-
+@footerFull()

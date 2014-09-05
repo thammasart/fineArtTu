@@ -1,8 +1,6 @@
 @(user : User)
 @header("imports")
 
-<link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
-
 @nav(user)
 @headerTag("ระบบงานพัสดุ คณะศิลปกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์")
 @sideMenu()
@@ -13,18 +11,18 @@
 
 <div class="well wellCenter">
     <h3>
-        ระบบจัดซื้อและนำเข้าวัสดุครุภัณฑ์ 
+        ระบบจัดซื้อและนำเข้าพัสดุ
     </h3>
     <a href="@routes.Import.importsInstitute()">
-    <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">ระบบโครงสร้างสถานประกอบการจัดซื้อและนำเข้า </button>
+    <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">ระบบลงทะเบียนสถานประกอบการ</button>
     </a>
     
     <a href="@routes.Import.importsMaterial()">
-    <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">ระบบจัดการพัสดุ </button>
+    <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">ระบบออกหมายเลขพัสดุ </button>
     </a>
     
     <a href="@routes.Import.importsOrder()">
-    <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">ระบบจัดการรายการจัดซื้อและนำเข้า </button>
+    <button class="btn btn-default btn-lg btn-block marginBtm1 shadowGray" style="width:100%;">ระบบนำเข้าพัสดุ </button>
     </a>
 </div>
 

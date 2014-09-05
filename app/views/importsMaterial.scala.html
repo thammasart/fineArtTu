@@ -3,7 +3,7 @@
 
 
 @nav(user)
-@headerTag("ระบบจัดการพัสดุ")
+@headerTag("ระบบออกหมายเลขพัสดุ")
 
 @sideMenu()
 
@@ -29,12 +29,14 @@
                           </div>
                     </form>
             </div>
-                <div class="tableBtnContainer">
-                    <a class="btn btn-success" href="@routes.Import.importsMaterialDurableArticlesAdd()">
-                    เพิ่มครุภัณฑ์
-                    </a>
-                    <button class="btn btn-danger">ลบครุภัณฑ์</button>
-                </div>
+              <div>
+                  <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialDurableArticlesAdd()">
+                  <button class="btn btn-success width200px">เพิ่มครุภัณฑ์</button>
+                  </a>
+                  <button class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
+              </div>
+
+
         </div>
 
          <table class="table table-striped overlayTable">
@@ -92,12 +94,13 @@
                           </div>
                     </form>
             </div>
-            <div class="tableBtnContainer">
-                    <a href="@routes.Import.importsMaterialDurableGoodsAdd()">
-                    <button class="btn btn-success" >เพิ่มวัสดุคงทนถาวร</button>
-                    </a>
-                    <button class="btn btn-danger">ลบวัสดุคงทนถาวร</button>
+            <div>
+                  <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialDurableGoodsAdd()">
+                  <button class="btn btn-success width200px">เพิ่มวัสดุคงทนถาวร</button>
+                  </a>
+                  <button class="btn btn-danger width200px" style="float:right;">ลบวัสดุคงทนถาวร</button>
             </div>
+
         </div>
 
 
@@ -106,7 +109,7 @@
              <thead>
                 <tr>
                     <th></th>
-                    <th>รหัสวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>หมายเลขวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
                     <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
@@ -141,7 +144,7 @@
              <thead>
                 <tr>
                     <th></th>
-                    <th>รหัสวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>หมายเลขวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
                     <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
@@ -193,12 +196,13 @@
                   </form>
               </div>
     
-              <div class="tableBtnContainer">
-                  <a href="@routes.Import.importsMaterialConsumableGoodsAdd()">
-                  <button class="btn btn-success" >เพิ่มวัสดุสิ้นเปลือง</button>
-                  </a>
-                  <button class="btn btn-danger">ลบวัสดุสิ้นเปลือง</button>
+              <div>
+                    <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialConsumableGoodsAdd()">
+                    <button class="btn btn-success width200px">เพิ่มวัสดุสิ้นเปลือง</button>
+                    </a>
+                    <button class="btn btn-danger width200px" style="float:right;">ลบวัสดุสิ้นเปลือง</button>
               </div>
+
           </div>
 
 
@@ -207,7 +211,7 @@
              <thead>
                 <tr>
                     <th></th>
-                    <th>รหัสวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>หมายเลขวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
                     <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>

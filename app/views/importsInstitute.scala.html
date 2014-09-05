@@ -3,7 +3,7 @@
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
 
 @nav(user)
-@headerTag("ระบบโครงสร้างสถานประกอบการจัดซื้อและนำเข้า")
+@headerTag("ระบบลงทะเบียนสถานประกอบการ")
 
 @sideMenu()
 
@@ -22,12 +22,13 @@
                               </div>
                         </form>
                 </div>
-            <div class="tableBtnContainer">
-                <a class="btn btn-success" href="@routes.Import.importsInstituteAdd()">
-                เพิ่มสถานประกอบการ
-                </a>
-                <button class="btn btn-danger">ลบสถานประกอบการ</button>
-            </div>
+                 <div>
+                    <a style="float:right;margin-left:1%;"href="@routes.Import.importsInstituteAdd()">
+                    <button class="btn btn-success width200px">เพิ่มสถานประกอบการ</button>
+                    </a>
+                    <button class="btn btn-danger width200px" style="float:right;">ลบสถานประกอบการ</button>
+                </div>
+
 
 
         </div>

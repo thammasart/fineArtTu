@@ -2,60 +2,11 @@
 @header("exportSoldAdd")
 
 @nav(user)
-@headerTag("เพิ่มรายการจำหน่าย")
+@headerTagFull("เพิ่มรายการจำหน่าย")
 
 <div class ="detailWindow" >
        
-       <div class="tableHeaderBtnContainer" >
-            <div class="searchS">
-                    <form>
-                        <div class="form-group">
-                            <div class="input-group">
-                              <span class="input-group-addon">ค้นหา</span>
-                              <input type="text" class="form-control" style="width:300px">
-                            </div>
-                          </div>
-                    </form>
-            </div>
-                 <div style="width:300px;float:right;">
-                    <a href="@routes.Import.importsOrderDurableArticlesAddMaterial1()">
-                    <button class="btn btn-success" style="margin-left:15%;">เพิ่มครุภัณฑ์</button>
-                    </a>
 
-                    <button class="btn btn-danger">ลบครุภัณฑ์</button>
-                </div>
-      </div>
-
-
-
-        <table class="table table-striped overlayTable" style="margin-bottom:3%;">
-            <thead>
-                <tr>
-                    <th>ลำดับ</th>
-                    <th>รหัส วัสดุ-ครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ประเภทงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ราคา/ตัว<span class="glyphicon glyphicon-sort"></span></th>
-                </tr>
-            </thead>
-            <tbody>
-<!--   loop here -->
-                <tr>
-                    <th>1</th>
-                    <th>007</th>
-                    <th>rail Gun</th>
-                    <th>งบคลัง</th>
-                    <th>90000</th>
-                </tr>
-                <tr>
-                    <th>2</th>
-                    <th>010</th>
-                    <th>nuke</th>
-                    <th>งบบริจาค</th>
-                    <th>990000</th>
-                </tr>
-            </tbody>
-        </table>
         <div>
             <div class="form-inline marginBtm1" align="right" role="form">
                    <div class="form-group" style="float:right">
@@ -78,33 +29,24 @@
             </div>
             <div class="form-inline marginBtm1" role="form">
                    <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">วัน/เดือน/ปี อนุมัติ</span>
+                    <div class="input-group">
+                      <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
                       <input type="text" class="form-control width300px">
                     </div>
                   </div>
             </div>
             <div class="form-inline marginBtm1" role="form">
                    <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">บริษัท-ร้านค้า ที่จำหน่วยไป</span>
+                    <div class="input-group">
+                      <span class="input-group-addon width250px">บริษัท-ร้านค้า ที่จำหน่วยไป</span>
                       <input type="text" class="form-control width300px">
                     </div>
                   </div>
             </div>
             <div class="form-inline marginBtm1" role="form">
                    <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">คณะกรรมการสอบข้อเท็จจริง</span>
-                      <input type="text" class="form-control width300px">
-                    </div>
-                  </div>
-                      <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
-            </div>
-            <div class="form-inline marginBtm1" role="form">
-                   <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">คณะกรรมการประเมิณราคากลาง</span>
+                    <div class="input-group">
+                      <span class="input-group-addon width250px">คณะกรรมการสอบข้อเท็จจริง</span>
                       <input type="text" class="form-control width300px">
                     </div>
                   </div>
@@ -112,8 +54,17 @@
             </div>
             <div class="form-inline marginBtm1" role="form">
                    <div class="form-group">
-                    <div class="input-group width450px">
-                      <span class="input-group-addon width100px">คณะกรรมการจำหน่าย</span>
+                    <div class="input-group">
+                      <span class="input-group-addon width250px">คณะกรรมการประเมิณราคากลาง</span>
+                      <input type="text" class="form-control width300px">
+                    </div>
+                  </div>
+                      <button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
+            </div>
+            <div class="form-inline marginBtm1" role="form">
+                   <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon width250px">คณะกรรมการจำหน่าย</span>
                       <input type="text" class="form-control width300px">
                     </div>
                   </div>
@@ -122,16 +73,76 @@
 
         </div>
 
-        <div>
-                <a href="@routes.Export.exportSold()">
-                <button class="btn btn-success btn-lg" style="float:right; margin-top:1%;">ยืนยัน</button>
-                </a>
-                
-                <a href="@routes.Export.exportSold()">
-                <button class="btn btn-danger btn-lg" style="float:right; margin-top:1%;margin-right:5%;">ยกเลิก</button>
-                </a>
+
+
+  <div class="well" >
+      <h2 style ="text-align:center;">รายละเอียดครุภัณฑ์</h2>
+       <div class="tableHeaderBtnContainer" >
+            <div class="searchS">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                              <span class="input-group-addon">ค้นหา</span>
+                              <input type="text" class="form-control" style="width:300px">
+                            </div>
+                          </div>
+                    </form>
+            </div>
+                 <div>
+                  <a style="float:right;margin-left:1%;"href="@routes.Export.exportSoldAddDetail()">
+                  <button class="btn btn-success width200px">เพิ่มครุภัณฑ์</button>
+                  </a>
+                  <button class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
+                  </div> 
+        </div>
+
+
+
+        <table class="table table-striped overlayTable" style="margin-bottom:3%;">
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ประเภทงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ราคา/ตัว<span class="glyphicon glyphicon-sort"></span></th>
+                </tr>
+            </thead>
+            <tbody>
+<!--   loop here -->
+                <tr>
+                    <th>1</th>
+                    <th>ศก.พ.57-1000-100-0005(01/01)</th>
+                    <th>rail Gun</th>
+                    <th>งบคลัง</th>
+                    <th>90000</th>
+                </tr>
+                <tr>
+                    <th>2</th>
+                    <th>ศก.พ.57-1200-100-0005(01/01)</th>
+                    <th>nuke</th>
+                    <th>งบบริจาค</th>
+                    <th>990000</th>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>  <!--end well-->
+
+
+        <div align="center" style="margin-bottom:1%;">
+            <a href="@routes.Export.exportOrder()">
+                <button class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+                    <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                </button>
+            </a>
+            <a href="@routes.Export.exportOrder()">
+                <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                    ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+                </button>
+            </a>
         </div>
 
 </div> 
 
-@footer()
+@footerFull()

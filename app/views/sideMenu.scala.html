@@ -1,15 +1,65 @@
 <div class ="sideMenu">
-    <img src="@routes.Assets.at("images/fineArtLogo.png")"style="width:100%;">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">เมนูหลัก</h3>
-      </div>
+    <a href="@routes.Application.home()">
+        <img src="@routes.Assets.at("images/fineArtLogo.png")"style="width:100%;">
+    </a>
+    <div class="panel panel-default" style="border-color:white;">
       <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
-                <li class="lineShadow"><a href="@routes.Import.imports()">ระบบจัดซื้อและนำเข้าวัสดุครุภัณฑ์ </a></li>
+                <li class="lineShadow"><a href="@routes.Import.imports()">ระบบจัดซื้อและนำเข้าพัสดุ </a></li>
                 <li class="lineShadow"><a href="@routes.Export.export()">ระบบเบิกจ่ายและโอนย้าย </a></li>
-                <li class="lineShadow"><a href="@routes.Application.report()">ระบบบริหารจัดการรายงาน </a></li>
+                <li class="lineShadow"><a href="@routes.Application.report()">ระบบรายงาน </a></li>
                 <li class="lineShadow"><a href="@routes.Graph.index()">ระบบติดตามและตรวจสอบ </a></li>
+                <!--
+                    <li>
+                        <div >
+                            <div class="dropdown">
+                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                                ระบบจัดซื้อและนำเข้าวัสดุครุภัณฑ์
+                              </button>
+                              <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsInstitute()">ระบบโครงสร้างสถานประกอบการจัดซื้อและนำเข้า </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsMaterial()">ระบบจัดการพัสดุ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsOrder()">ระบบจัดการรายการจัดซื้อและนำเข้า</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div >
+                            <div class="dropdown">
+                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+                                ระบบเบิกจ่ายและโอนย้าย
+                              </button>
+                              <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu2">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Export.exportOrder()">ระบบจัดเบิกจ่าย </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Export.exportTransferInside">ระบบโอนย้ายภายใน</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Export.exportTransferOutSide">ระบบโอนย้ายภายนอก</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Export.exportSold">จำหน่าย</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Export.exportDonate">บริจาค</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Export.exportOrder">อื่นๆ</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div >
+                            <div class="dropdown">
+                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown">
+                                ระบบบริหารจัดการรายงาน
+                              </button>
+                              <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu3">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Application.reportRemainingMaterial()">รายงานวัสดุคงเหลือ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Application.reportRemainingMaterialConclusion()">สรุปวัสดุคงเหลือ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Application.reportDurableArticles()">สรุปครุภัณฑ์</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Application.reportImportDurableArticles()">รายการนำเข้าครุภัณฑ์</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Application.reportExportDurableArticles()">รายการเบิกจ่าย</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Application.reportExchangeDurableArticles()">รายการโอนย้าย</a></li>
+                              </ul>
+                            </div>
+                        </div>
+                    </li>
+                -->
+
             </ul>
       </div>
     </div>

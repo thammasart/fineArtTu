@@ -29,16 +29,10 @@ public class Export extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(exportOrderAdd.render(user));
     }
-
     @Security.Authenticated(Secured.class)
-    public static Result exportTransferOutSide() {
+    public static Result exportOrderAddDetail() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(exportTransferOutSide.render(user));
-    }
-    @Security.Authenticated(Secured.class)
-    public static Result exportTransferOutSideAdd() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(exportTransferOutSideAdd.render(user));
+        return ok(exportOrderAddDetail.render(user));
     }
 
 
@@ -52,7 +46,29 @@ public class Export extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(exportTransferInsideAdd.render(user));
     }
+    @Security.Authenticated(Secured.class)
+    public static Result exportTransferInsideAddDetail() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportTransferInsideAddDetail.render(user));
+    }
 
+
+
+    @Security.Authenticated(Secured.class)
+    public static Result exportTransferOutSide() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportTransferOutSide.render(user));
+    }
+    @Security.Authenticated(Secured.class)
+    public static Result exportTransferOutSideAdd() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportTransferOutSideAdd.render(user));
+    }
+    @Security.Authenticated(Secured.class)
+    public static Result exportTransferOutSideAddDetail() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportTransferOutSideAddDetail.render(user));
+    }
 
     @Security.Authenticated(Secured.class)
     public static Result exportDonate() {
@@ -64,6 +80,11 @@ public class Export extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(exportDonateAdd.render(user));
     }
+    @Security.Authenticated(Secured.class)
+    public static Result exportDonateAddDetail() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportDonateAddDetail.render(user));
+    }
 
     @Security.Authenticated(Secured.class)
     public static Result exportSold() {
@@ -74,6 +95,11 @@ public class Export extends Controller {
     public static Result exportSoldAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(exportSoldAdd.render(user));
+    }
+    @Security.Authenticated(Secured.class)
+    public static Result exportSoldAddDetail() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(exportSoldAddDetail.render(user));
     }
 
 
@@ -87,6 +113,11 @@ public class Export extends Controller {
     public static Result exportOtherAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok( exportOtherAdd.render(user));
+    }
+    @Security.Authenticated(Secured.class)
+    public static Result exportOtherAddDetail() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok( exportOtherAddDetail.render(user));
     }
 
 }
