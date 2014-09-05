@@ -85,20 +85,20 @@ function load() {
 			}else if(object['column'] == 2 && state['mode'] != 'detail'){
 				console.log('in2');
 				data = null;
-				data = new google.visualization.arrayToDataTable([['name','numberOfItem'],
+				/*data = new google.visualization.arrayToDataTable([['name','numberOfItem'],
 						['สนง',Math.floor(Math.random() * 1000)],
 						['คอม',Math.floor(Math.random() * 1000)],
 						['งานบ้าน',Math.floor(Math.random() * 1000)],
 						['ไฟฟ้า',Math.floor(Math.random() * 1000)],
-						['บริโภค',Math.floor(Math.random() * 1000)]]);
-				/*data = new google.visualization.arrayToDataTable([
+						['บริโภค',Math.floor(Math.random() * 1000)]]);*/
+				data = new google.visualization.arrayToDataTable([
                         ['consumable','สนง','คอม','งานบ้าน','ไฟฟ้า','บริโภค'],
                         [Math.floor(Math.random() * 1000),
                          Math.floor(Math.random() * 1000),
                          Math.floor(Math.random() * 1000),
                          Math.floor(Math.random() * 1000),
                          Math.floor(Math.random() * 1000),
-                         Math.floor(Math.random() * 1000)]]);*/
+                         Math.floor(Math.random() * 1000)]]);
 			}else{
 				$('#graph-tab a[href="#tracking"]').tab('show');
 			}
@@ -110,7 +110,16 @@ function load() {
 }
 
 function getData(obj){
-	
+	$.ajax({
+		url:'/graph',
+	    type: 'post',
+	    data: JSON.stringify(obj),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		alert(result);
+    	}
+	});
 }
 
 function myRandom() {
