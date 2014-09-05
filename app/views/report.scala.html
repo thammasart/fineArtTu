@@ -2,41 +2,51 @@
 @header("report")
 
 @nav(user)
-@headerTag("ระบบงานพัสดุ คณะศิลปกรรมศาสตร์ มหาวิทยาลัยธรรมศาสตร์")
+@headerTag("ระบบบริหารจัดการรายงาน")
 @sideMenu()
 
 <div class ="mainWindow" style="text-align:center;">
 
-    <h3>
-        ระบบบริหารจัดการรายงาน 
-    </h3>
+         <div>
+                <div class="well wellCenter">
+                     <div class="reportWellNameTag">
+                         วัสดุ 
+                     </div>
+                    <a href="@routes.Application.reportRemainingMaterial()">
+                    <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:50%;">รายงานวัสดุคงเหลือ</button>
+                    </a>
+                    <a href="@routes.Application.reportRemainingMaterialConclusion()">
+                    <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:50%;">สรุปวัสดุคงเหลือ</button>
+                    </a>
+                </div>
+         </div>
 
-    <div class="well wellCenter">
-        <legend > วัสดุ </legend>
-        <a href="@routes.Application.reportRemainingMaterial()">
-        <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:100%;">รายงานวัสดุคงเหลือ</button>
-        </a>
-        <a href="@routes.Application.reportRemainingMaterialConclusion()">
-        <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:100%;">สรุปวัสดุคงเหลือ</button>
-        </a>
-    </div>
-    <div class="well wellCenter">
-        <legend> ครุภัณฑ์</legend>
-        <a href="@routes.Application.reportDurableArticles()">
-        <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:100%;">สรุปครุภัณฑ์</button>
-        </a>
-        <a href="@routes.Application.reportImportDurableArticles()">
-        <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:100%;">รายการนำเข้าครุภัณฑ์</button>
-        </a>
-    </div>
-    <div class="well wellCenter">
-        <legend > เบิกจ่าย</legend>
-        <a href="@routes.Application.reportExportDurableArticles()">
-        <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:100%;">รายการเบิกจ่าย</button>
-        </a>
-        <a href="@routes.Application.reportExchangeDurableArticles()">
-        <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:100%;">รายการโอนย้าย</button>
-        </a>
-    </div>
+        <div>
+            <div class="well wellCenter">
+                <div class="reportWellNameTag">
+                    ครุภัณฑ์
+                </div>
+                <a href="@routes.Application.reportDurableArticles()">
+                <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:50%;">สรุปครุภัณฑ์</button>
+                </a>
+                <a href="@routes.Application.reportImportDurableArticles()">
+                <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:50%;">รายการนำเข้าครุภัณฑ์</button>
+                </a>
+            </div>
+        </div>
+
+         <div>
+        <div class="well wellCenter">
+             <div class="reportWellNameTag">
+                 เบิกจ่าย
+             </div>
+            <a href="@routes.Application.reportExportDurableArticles()">
+            <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:50%;">รายการเบิกจ่าย</button>
+            </a>
+            <a href="@routes.Application.reportExchangeDurableArticles()">
+            <button class="btn btn-default btn-block btn-lg marginBtm1 shadowGray"  style="width:50%;">รายการโอนย้าย</button>
+            </a>
+        </div>
+         </div>
 </div> 
 @footer()
