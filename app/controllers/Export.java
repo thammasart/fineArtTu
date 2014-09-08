@@ -4,8 +4,12 @@ import play.*;
 import play.mvc.*;
 import play.data.*;
 import play.libs.Json;
+
 import views.html.*;
+import views.html.export.*;
+
 import models.*;
+
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -19,6 +23,7 @@ public class Export extends Controller {
     }
 
 
+    // เยิกจ่าย
     @Security.Authenticated(Secured.class)
     public static Result exportOrder() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -36,6 +41,7 @@ public class Export extends Controller {
     }
 
 
+    // โอนย้ายภายใน
     @Security.Authenticated(Secured.class)
     public static Result exportTransferInside() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -53,7 +59,7 @@ public class Export extends Controller {
     }
 
 
-
+    // โอนย่ายภานนอก
     @Security.Authenticated(Secured.class)
     public static Result exportTransferOutSide() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -70,6 +76,8 @@ public class Export extends Controller {
         return ok(exportTransferOutSideAddDetail.render(user));
     }
 
+
+    // บริจาค
     @Security.Authenticated(Secured.class)
     public static Result exportDonate() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -86,6 +94,8 @@ public class Export extends Controller {
         return ok(exportDonateAddDetail.render(user));
     }
 
+
+    // จำหน่าย
     @Security.Authenticated(Secured.class)
     public static Result exportSold() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -103,7 +113,7 @@ public class Export extends Controller {
     }
 
 
-
+    // อื่นๆ
     @Security.Authenticated(Secured.class)
     public static Result exportOther() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
