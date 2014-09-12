@@ -13,6 +13,11 @@ public class User extends Model{
 	@Column(nullable=false)
 	public String password;
 
+	public String departure;
+	public String position;
+	public String firstName;
+	public String lastName;
+
 	@ManyToOne
 	public UserStatus status;
 

@@ -17,6 +17,13 @@ public class Admin extends Controller {
         return ok(admin.render(user));
     }
 
+    public static Result saveNewUser() {
+        Form<User> newUserFrom = Form.form(User.class).bindFromRequest();
+        User newUser = newUserFrom.get();    
+        newUser.save();
+        return redirect(routes.Admin.index());
+    }
+
     public static Result addUser() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(addUser.render(user));
@@ -26,4 +33,6 @@ public class Admin extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(manageRole.render(user));
     }
+
+
 }
