@@ -1,4 +1,4 @@
-@(user : User)
+@(user : User, allStatus:List[UserStatus])
 @header("admin")
 
 
@@ -40,11 +40,11 @@
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">สิทธิ</span>
-                <select class="form-control textAlignCenter width300px">
+                <select class="form-control textAlignCenter width300px" name="statusName">
                   <option >---เลือก---</option>
-                  <option value = "ผู้ดูแลระบบ" ></option>
-                  <option>เจ้าหน้าที่</option>
-                  <option>ผู้บริหาร</option>
+                  @for(status <- allStatus){
+                    <option >@status.name</option>
+                  }
                 </select>
             </div>
             

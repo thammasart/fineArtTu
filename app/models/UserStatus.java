@@ -21,5 +21,5 @@ public class UserStatus extends Model{
 	public List<User> numberOfUser = new ArrayList<User>();
 
 	@SuppressWarnings("unchecked")
-	public static Finder<String,User> find = new Finder(String.class,User.class);
+	public static Finder<String,UserStatus> find = new Finder(String.class,UserStatus.class);
 }
