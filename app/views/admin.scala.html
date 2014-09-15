@@ -1,18 +1,19 @@
 @(users:List[User], user : User)
 @header("admin")
-    <script src="@routes.Assets.at("javascripts/controllers/adminUser.js")"></script>
+    <script src="@routes.Assets.at("javascripts/controllers/admin.js")"></script>
+    <script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
 
 @navAdmin(user)
 @headerTag("ระบบจัดการบัญชีผู้ใช้")
 @sideMenu()
 
-<div class ="mainWindow" style="margin-top:0; border:none;" ng-app="adminApp" ng-controller="adminCtrl">
+<div class ="mainWindow" style="margin-top:0; border:none;">
 
 
     <div class ="tableHeaderBtnContainer">
         
         <a href="@routes.Admin.addUser()"><button class="btn btn-success btnFloatRight width200px">เพิ่มบัญชีผู้ใช้</button></a>
-        <button class="btn btn-danger btnFloatRight width200px" style="margin-right:1%;">ลบบัญชีผู้ใช้</button>
+        <button class="btn btn-danger btnFloatRight width200px" style="margin-right:1%;" onclick="removeUser()">ลบบัญชีผู้ใช้</button>
         <a href="@routes.Admin.manageRole()"><button class="btn btn-primary btnFloatRight width200px" style="margin-right:1%">กำหนดสิทธิ</button></a>
 
     </div>
@@ -32,15 +33,15 @@
             </thead>
             <tbody>
 <!--   loop here -->
-                @for(users<- users){
+                @for(user<- users){
                     <tr>
-                        <th><input type="checkbox"></th>
-                        <th>@users.username</th>
-                        <th>@users.firstName</th>
-                        <th>@users.lastName</th>
-                        <th>@users.departure</th>
-                        <th>@users.position</th>
-                        <th>@users.status.name</th>
+                        <th><input id="@user.username" type="checkbox" onclick="addTick(@user.username)"></th>
+                        <th>@user.username</th>
+                        <th>@user.firstName</th>
+                        <th>@user.lastName</th>
+                        <th>@user.departure</th>
+                        <th>@user.position</th>
+                        <th>@user.status.name</th>
                         
                     </tr>
                 }

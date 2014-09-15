@@ -9,6 +9,7 @@ import models.*;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Admin extends Controller {
 
@@ -73,5 +74,14 @@ public class Admin extends Controller {
     	return redirect(routes.Admin.manageRole());
     }
 
-
+    public static Result removeUser(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	
+    	String[] usernames = form.get("data").split(",");
+    	for(int i=0;i<usernames.length;i++){
+    		User user = User.find.byId(usernames[i]);
+    		user.delete();
+    	}
+    	return redirect(routes.Admin.index());
+    }
 }
