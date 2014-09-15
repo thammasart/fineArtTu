@@ -39,6 +39,8 @@ GET		/export/other/add/detail                        controllers.Export.exportOt
 GET		/import											controllers.Import.imports()
 GET		/import/institute								controllers.Import.importsInstitute()
 GET		/import/instituteAdd							controllers.Import.importsInstituteAdd()
+POST	/import/saveinstitute							controllers.Import.saveNewInstitute()
+
 
 GET             /report                                                         controllers.Application.report()
 GET             /report/RemainingMaterial                                       controllers.Application.reportRemainingMaterial()

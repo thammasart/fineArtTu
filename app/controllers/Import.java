@@ -23,7 +23,8 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result importsInstitute() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsInstitute.render(user));
+        List<Company> institutes = Company.find.all(); 
+        return ok(importsInstitute.render(institutes,user));
     }
 
     @Security.Authenticated(Secured.class)
@@ -31,6 +32,22 @@ public class Import extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsInstituteAdd.render(user));
     }
+
+
+    public static Result saveNewInstitute(){
+        Form<Company> newInstituteFrom = Form.form(Company.class).bindFromRequest();
+        Form<Address> newAddressFrom = Form.form(Address.class).bindFromRequest();
+        Company newInstitute = newInstituteFrom.get();
+        Address newInstituteaddress = newAddressFrom.get();
+        newInstituteaddress.save();
+        newInstitute.address = newInstituteaddress;
+        newInstitute.save();
+        return redirect(routes.Import.importsInstitute());
+    }
+    
+
+    //----------------------------------------------------------------------------------------------------
+
 
     @Security.Authenticated(Secured.class)
         public static Result importsMaterial() {

@@ -27,6 +27,7 @@ public class Admin extends Controller {
         newUser.save();
         return redirect(routes.Admin.index());
     }
+    
 
     public static Result addUser() {
         User user = User.find.byId(session().get("username"));
