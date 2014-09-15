@@ -2,7 +2,7 @@
 @header("admin")
 
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
-
+<script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
 @navAdmin(user) @headerTag("ระบบจัดการบัญชีผู้ใช้") @sideMenu()
 
 <div class="mainWindow">
@@ -13,8 +13,6 @@
 	    }
 	    
 	    function save(){
-	    	var method = "post";
-	    	console.log(document.getElementById("add1"));
 	    	var data = {
 	    			'name' : document.getElementById("addName").value,
 	    			'module1' : document.getElementById("add1").checked,
@@ -24,49 +22,15 @@
 	    			'module5' : document.getElementById("add5").checked
 	    	};
 	    	
-	    	var form = document.createElement("form");
-	        form.setAttribute("method", method);
-	        form.setAttribute("action", "/Admin/addRole");
-
-	        for(var key in data) {
-	            if(data.hasOwnProperty(key)) {
-	                var hiddenField = document.createElement("input");
-	                hiddenField.setAttribute("type", "hidden");
-	                hiddenField.setAttribute("name", key);
-	                hiddenField.setAttribute("value", data[key]);
-
-	                form.appendChild(hiddenField);
-	             }
-	        }
-
-	        document.body.appendChild(form);
-	        form.submit();
+	    	postData('/Admin/addRole',data);
+	    	
 	    }
 	    
 	    function del(name){
-	    	var method = "post";
-	    	console.log(document.getElementById("add1"));
 	    	var data = {
 	    			'name' : name.textContent
 	    	};
-	    	
-	    	var form = document.createElement("form");
-	        form.setAttribute("method", method);
-	        form.setAttribute("action", "/Admin/removeRole");
-
-	        for(var key in data) {
-	            if(data.hasOwnProperty(key)) {
-	                var hiddenField = document.createElement("input");
-	                hiddenField.setAttribute("type", "hidden");
-	                hiddenField.setAttribute("name", key);
-	                hiddenField.setAttribute("value", data[key]);
-
-	                form.appendChild(hiddenField);
-	             }
-	        }
-
-	        document.body.appendChild(form);
-	        form.submit();
+	    	postData('/Admin/removeRole',data);
 	    }
 	</script>
 		<div class="well wellSize" align="center">
