@@ -69,6 +69,7 @@ GET     /Admin/manageRole           					controllers.Admin.manageRole()
 POST	/Admin/addRole									controllers.Admin.addRole()
 POST	/Admin/removeRole								controllers.Admin.removeRole()
 POST    /Admin/saveUser									controllers.Admin.saveNewUser()
+POST    /Admin/removeUser								controllers.Admin.removeUser()
 
 GET     /graph           								controllers.Graph.index()
 
