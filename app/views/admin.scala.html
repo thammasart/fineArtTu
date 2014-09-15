@@ -22,12 +22,12 @@
             <thead>
                 <tr>
                     <th> CH </th>
-                    <th>สายงาน<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ตำแหน่ง<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>username<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อ<span class="glyphicon glyphicon-sort"></span></th>
                     <th>สกุล<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>สายงาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ตำแหน่ง<span class="glyphicon glyphicon-sort"></span></th>
                     <th>สิทธิ<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>สิทธิการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
                 </tr>
             </thead>
             <tbody>
@@ -35,12 +35,13 @@
                 @for(users<- users){
                     <tr>
                         <th><input type="checkbox"></th>
-                        <th>@users.departure</th>
-                        <th>@users.position</th>
+                        <th>@users.username</th>
                         <th>@users.firstName</th>
                         <th>@users.lastName</th>
+                        <th>@users.departure</th>
+                        <th>@users.position</th>
                         <th>@users.status.name</th>
-                        <th>1<input type="checkbox">2<input type="checkbox">3<input type="checkbox">4<input type="checkbox">5<input type="checkbox"></th>
+                        
                     </tr>
                 }
             </tbody>
