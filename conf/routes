@@ -66,6 +66,8 @@ GET		/import/order/GoodsAdd/Material2				controllers.Import.importsOrderGoodsAdd
 GET     /Admin                      					controllers.Admin.index()
 GET     /Admin/addUser              					controllers.Admin.addUser()
 GET     /Admin/manageRole           					controllers.Admin.manageRole()
+POST	/Admin/addRole									controllers.Admin.addRole()
+POST	/Admin/removeRole								controllers.Admin.removeRole()
 POST    /Admin/saveUser									controllers.Admin.saveNewUser()
 
 GET     /graph           								controllers.Graph.index()

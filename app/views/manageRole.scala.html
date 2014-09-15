@@ -1,55 +1,151 @@
-@(user : User)
+@(user : User ,usersStatus : List[UserStatus]) 
 @header("admin")
 
 <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/home.css")">
 
-@navAdmin(user)
-@headerTag("ระบบจัดการบัญชีผู้ใช้")
-@sideMenu()
+@navAdmin(user) @headerTag("ระบบจัดการบัญชีผู้ใช้") @sideMenu()
 
-<div class ="mainWindow">
-    <form role="form" class="form-horizontal" name="userProfileForm"  method="post">
-        <div class="well wellSize" align="center" > <h3> กำหนดสิทธิ</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>สิทธิ<span class="glyphicon glyphicon-sort"></span></th>
-                            <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
-                            <th>1<span ></span></th>
-                            <th>2<span ></span></th>
-                            <th>3<span ></span></th>
-                            <th>4<span ></span></th>
-                            <th>ลบ<span ></span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-        <!--   loop here -->
-                        <tr>
-                            <th>เจ้าหน้าที่</th>
-                            <th>5</th>
-                            <th><input type="checkbox"></th>
-                            <th><input type="checkbox"></th>
-                            <th><input type="checkbox"></th>
-                            <th><input type="checkbox"></th>
-                            <th><button> ลบ </button></th>
-                    </tbody>
-                </table>
-            <button>เพิ่ม</button>
-        </div>
-    </form>
+<div class="mainWindow">
+	<script>
+	    function add(){
+	    	var result_style = document.getElementById('addRole').style;
+	    	result_style.display = "table-row";
+	    }
+	    
+	    function save(){
+	    	var method = "post";
+	    	console.log(document.getElementById("add1"));
+	    	var data = {
+	    			'name' : document.getElementById("addName").value,
+	    			'module1' : document.getElementById("add1").checked,
+	    			'module2' : document.getElementById("add2").checked,
+	    			'module3' : document.getElementById("add3").checked,
+	    			'module4' : document.getElementById("add4").checked,
+	    			'module5' : document.getElementById("add5").checked
+	    	};
+	    	
+	    	var form = document.createElement("form");
+	        form.setAttribute("method", method);
+	        form.setAttribute("action", "/Admin/addRole");
 
-    <div align="center" style="margin-bottom:1%;">
-        <a href="@routes.Admin.index()">
-            <button class="btn btn-danger btn-lg width125px" style="margin-top:1%;margin-right:1%;">
-                <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-            </button>
-        </a>
-        <a href="@routes.Admin.index()">
-            <button class="btn btn-success btn-lg width125px" style=" margin-top:1%;">
-                ยืนยัน <span class="glyphicon glyphicon-ok"></span>
-            </button>
-        </a>
-    </div>
-</div> 
+	        for(var key in data) {
+	            if(data.hasOwnProperty(key)) {
+	                var hiddenField = document.createElement("input");
+	                hiddenField.setAttribute("type", "hidden");
+	                hiddenField.setAttribute("name", key);
+	                hiddenField.setAttribute("value", data[key]);
+
+	                form.appendChild(hiddenField);
+	             }
+	        }
+
+	        document.body.appendChild(form);
+	        form.submit();
+	    }
+	    
+	    function del(name){
+	    	var method = "post";
+	    	console.log(document.getElementById("add1"));
+	    	var data = {
+	    			'name' : name.textContent
+	    	};
+	    	
+	    	var form = document.createElement("form");
+	        form.setAttribute("method", method);
+	        form.setAttribute("action", "/Admin/removeRole");
+
+	        for(var key in data) {
+	            if(data.hasOwnProperty(key)) {
+	                var hiddenField = document.createElement("input");
+	                hiddenField.setAttribute("type", "hidden");
+	                hiddenField.setAttribute("name", key);
+	                hiddenField.setAttribute("value", data[key]);
+
+	                form.appendChild(hiddenField);
+	             }
+	        }
+
+	        document.body.appendChild(form);
+	        form.submit();
+	    }
+	</script>
+		<div class="well wellSize" align="center">
+			<h3>กำหนดสิทธิ</h3>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>สิทธิ<span class="glyphicon glyphicon-sort"></span></th>
+						<th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
+						<th>1<span></span></th>
+						<th>2<span></span></th>
+						<th>3<span></span></th>
+						<th>4<span></span></th>
+						<th>5<span></span></th>
+						<th>ลบ<span></span></th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--   loop here -->
+					@for(userStatus <- usersStatus){
+						<tr>
+							<th id="@userStatus.name">@userStatus.name</th>
+							<th>5</th>
+							@if(userStatus.module1){
+								<th><input type="checkbox" onclick="return false;" checked></th>
+							}else{
+								<th><input type="checkbox" onclick="return false;"></th>
+							}
+							@if(userStatus.module2){
+								<th><input type="checkbox" onclick="return false;" checked></th>
+							}else{
+								<th><input type="checkbox" onclick="return false;"></th>
+							}
+							@if(userStatus.module3){
+								<th><input type="checkbox" onclick="return false;" checked></th>
+							}else{
+								<th><input type="checkbox" onclick="return false;"></th>
+							}
+							@if(userStatus.module4){
+								<th><input type="checkbox" onclick="return false;" checked></th>
+							}else{
+								<th><input type="checkbox" onclick="return false;"></th>
+							}
+							@if(userStatus.module5){
+								<th><input type="checkbox" onclick="return false;" checked></th>
+							}else{
+								<th><input type="checkbox" onclick="return false;"></th>
+							}
+							<th><button onclick="del(@userStatus.name)">ลบ</button></th>
+						</tr>
+					}
+					<tr id="addRole" style="display: none;">
+						<th><input type="text" id="addName"></th>
+						<th></th>
+						<th><input type="checkbox" id="add1"></th>
+						<th><input type="checkbox" id="add2"></th>
+						<th><input type="checkbox" id="add3"></th>
+						<th><input type="checkbox" id="add4"></th>
+						<th><input type="checkbox" id="add5"></th>
+						<th><button type="button" onclick="save()">บันทึก</button></th>
+					</tr>
+				</tbody>
+			</table>
+			<button onclick="add()">เพิ่ม</button>
+		</div>
+
+	<div align="center" style="margin-bottom: 1%;">
+		<a href="@routes.Admin.index()">
+			<button class="btn btn-danger btn-lg width125px"
+				style="margin-top: 1%; margin-right: 1%;">
+				<span class="glyphicon glyphicon-remove"></span> ยกเลิก
+			</button>
+		</a> <a href="@routes.Admin.index()">
+			<button class="btn btn-success btn-lg width125px"
+				style="margin-top: 1%;">
+				ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+			</button>
+		</a>
+	</div>
+</div>
 
 @footer()

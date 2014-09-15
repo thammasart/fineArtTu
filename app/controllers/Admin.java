@@ -36,7 +36,40 @@ public class Admin extends Controller {
 
     public static Result manageRole() {
         User user = User.find.byId(session().get("username"));
-        return ok(manageRole.render(user));
+        List<UserStatus> usersStatus = UserStatus.find.all();
+        return ok(manageRole.render(user,usersStatus));
+    }
+    
+    public static Result addRole(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	System.out.println(form);
+    	UserStatus userStatus = new UserStatus();
+    	userStatus.name = form.get("name");
+    	if(form.get("module1").equals("true")){
+    		userStatus.module1 = true;
+    	}
+    	if(form.get("module2").equals("true")){
+    		userStatus.module2 = true;
+    	}
+    	if(form.get("module3").equals("true")){
+    		userStatus.module3 = true;
+    	}
+    	if(form.get("module4").equals("true")){
+    		userStatus.module4 = true;
+    	}
+    	if(form.get("module5").equals("true")){
+    		userStatus.module5 = true;
+    	}
+    	userStatus.save();
+    	return redirect(routes.Admin.manageRole());
+    }
+    
+    public static Result removeRole(){
+    	// no handle exception with userStatus that bind with user
+    	DynamicForm form = Form.form().bindFromRequest();
+    	UserStatus userStatus = UserStatus.find.byId(form.get("name"));
+    	userStatus.delete();
+    	return redirect(routes.Admin.manageRole());
     }
 
 
