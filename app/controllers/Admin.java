@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Admin extends Controller {
 
     public static Result index() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        User user = User.find.byId(session().get("username"));
         List<User> users = User.find.all(); 
         return ok(admin.render(users, user));
     }
@@ -29,13 +29,13 @@ public class Admin extends Controller {
     }
 
     public static Result addUser() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        User user = User.find.byId(session().get("username"));
         List<UserStatus> allStatus = UserStatus.find.all();
         return ok(addUser.render(user,allStatus));
     }
 
     public static Result manageRole() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        User user = User.find.byId(session().get("username"));
         return ok(manageRole.render(user));
     }
 
