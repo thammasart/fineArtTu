@@ -1,9 +1,9 @@
-@(user : User)
+@(users:List[User], user : User)
 @header("admin")
     <script src="@routes.Assets.at("javascripts/controllers/adminUser.js")"></script>
 
 @navAdmin(user)
-@headerTag("ระบบระบบจัดการบัญชีผู้ใช้")
+@headerTag("ระบบจัดการบัญชีผู้ใช้")
 @sideMenu()
 
 <div class ="mainWindow" style="margin-top:0; border:none;" ng-app="adminApp" ng-controller="adminCtrl">
@@ -32,15 +32,17 @@
             </thead>
             <tbody>
 <!--   loop here -->
-                <tr>
-                    <th><input type="checkbox"></th>
-                    <th>ภาควิชา</th>
-                    <th>เจ้าหน้าที่</th>
-                    <th>อินทัช</th>
-                    <th>เงินยวง</th>
-                    <th>admin</th>
-                    <th>1<input type="checkbox">2<input type="checkbox">3<input type="checkbox">4<input type="checkbox">5<input type="checkbox"></th>
-
+                @for(users<- users){
+                    <tr>
+                        <th><input type="checkbox"></th>
+                        <th>@users.departure</th>
+                        <th>@users.position</th>
+                        <th>@users.firstName</th>
+                        <th>@users.lastName</th>
+                        <th>@users.status.name</th>
+                        <th>1<input type="checkbox">2<input type="checkbox">3<input type="checkbox">4<input type="checkbox">5<input type="checkbox"></th>
+                    </tr>
+                }
             </tbody>
         </table>
 

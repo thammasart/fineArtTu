@@ -1,56 +1,57 @@
-@(user : User)
+@(user : User, allStatus:List[UserStatus])
 @header("admin")
 
 
 @navAdmin(user)
-@headerTag("ระบบระบบจัดการบัญชีผู้ใช้")
+@headerTag("ระบบจัดการบัญชีผู้ใช้")
 @sideMenu()
 
 <div class ="mainWindow" style="border:none; margin-top:0;">
-    <form role="form" class="form-horizontal" name="userProfileForm"  method="post">
+    <form role="form" class="form-horizontal" name="userProfileForm"  method="post" action="@routes.Admin.saveNewUser()">
         <div class="well " align="center" > <h3>เพิ่มบัญชีผู้ใช้</h3>
 
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">Username</span>
-              <input type="text" class="form-control width300px" >
+              <input type="text" class="form-control width300px" name="username" >
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">Password</span>
-              <input type="password" class="form-control width300px" >
+              <input type="password" class="form-control width300px" name="password">
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">Re-Password</span>
-              <input type="password" class="form-control width300px" >
+              <input type="password" class="form-control width300px" name="username" >
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">สายงาน</span>
-              <input type="text" class="form-control width300px" >
+              <input type="text" class="form-control width300px" name="departure" >
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">ตำแหน่ง</span>
-              <input type="text" class="form-control width300px" >
+              <input type="text" class="form-control width300px" name="position" >
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">ชื่อ</span>
-              <input type="text" class="form-control width300px" >
+              <input type="text" class="form-control width300px" name="firstName" >
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">นามสกุล</span>
-              <input type="text" class="form-control width300px" >
+              <input type="text" class="form-control width300px" name="lastName" >
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">สิทธิ</span>
-                <select class="form-control textAlignCenter width300px">
-                  <option>---เลือก---</option>
-                  <option>Admin</option>
-                  <option>เจ้าหน้าที่</option>
-                  <option>ผู้บริหาร</option>
+                <select class="form-control textAlignCenter width300px" name="statusName">
+                  <option >---เลือก---</option>
+                  @for(status <- allStatus){
+                    <option >@status.name</option>
+                  }
                 </select>
             </div>
             
         </div>
 
-    </form>
+
+
 
 
           <div align="center" style="margin-bottom:1%;">
@@ -60,11 +61,13 @@
                 </button>
             </a>
             <a href="@routes.Admin.index()">
-                <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" type="submit">
                     ยืนยัน <span class="glyphicon glyphicon-ok"></span>
                 </button>
             </a>
           </div>
+
+      </form>
 
 </div> 
 

@@ -11,9 +11,9 @@ public class FSN_Group extends Model{
 
 	@Id
 	@Column(length=2)
-	public String id;
+	public String groupId;
 	@Column(nullable=false)
-	public String description;
+	public String groupDescription;
 
 	@OneToMany(mappedBy="group")
 	public List<FSN_Class> classInGroup = new ArrayList<FSN_Class>();

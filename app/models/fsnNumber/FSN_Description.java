@@ -8,9 +8,9 @@ public class FSN_Description extends Model{
 
 	@Id
 	@Column(length=11)
-	public String id;
+	public String descriptionId;
 	@Column(nullable=false)
-	public String description;
+	public String descriptionDescription;
 
 	@ManyToOne
 	public FSN_Type type;

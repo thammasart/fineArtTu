@@ -1,2529 +1,2529 @@
 - &group10  !!models.fsnNumber.FSN_Group
-  id:          10
-  description:     อาวุธ
+  groupId:          10
+  groupDescription:     อาวุธ
 - &group11  !!models.fsnNumber.FSN_Group
-  id:          11
-  description:     สรรพาวุธนิวเคลียร์
+  groupId:          11
+  groupDescription:     สรรพาวุธนิวเคลียร์
 - &group12  !!models.fsnNumber.FSN_Group
-  id:          12
-  description:     อุปกรณ์ควบคุมการยิง
+  groupId:          12
+  groupDescription:     อุปกรณ์ควบคุมการยิง
 - &group13  !!models.fsnNumber.FSN_Group
-  id:          13
-  description:     กระสุนและวัตถุระเบิด
+  groupId:          13
+  groupDescription:     กระสุนและวัตถุระเบิด
 - &group14  !!models.fsnNumber.FSN_Group
-  id:          14
-  description:     อาวุธนำวิถี
+  groupId:          14
+  groupDescription:     อาวุธนำวิถี
 - &group15  !!models.fsnNumber.FSN_Group
-  id:          15
-  description:     อากาศยานและองค์ประกอบโครงสร้าง
+  groupId:          15
+  groupDescription:     อากาศยานและองค์ประกอบโครงสร้าง
 - &group16  !!models.fsnNumber.FSN_Group
-  id:          16
-  description:     ส่วนประกอบอากาศยานและเครื่องใช้
+  groupId:          16
+  groupDescription:     ส่วนประกอบอากาศยานและเครื่องใช้
 - &group17  !!models.fsnNumber.FSN_Group
-  id:          17
-  description:     อุปกรณ์การยิงส่ง การลงพื้น และการยกขนทางพื้นดิน
+  groupId:          17
+  groupDescription:     อุปกรณ์การยิงส่ง การลงพื้น และการยกขนทางพื้นดิน
 - &group18  !!models.fsnNumber.FSN_Group
-  id:          18
-  description:     ยานอวกาศ
+  groupId:          18
+  groupDescription:     ยานอวกาศ
 - &group19  !!models.fsnNumber.FSN_Group
-  id:          19
-  description:     เรือ เรือเล็ก เรือท้องแบน และอู่ลอย
+  groupId:          19
+  groupDescription:     เรือ เรือเล็ก เรือท้องแบน และอู่ลอย
 - &group20  !!models.fsnNumber.FSN_Group
-  id:          20
-  description:     เรือและอุปกรณ์สำหรับเรือ
+  groupId:          20
+  groupDescription:     เรือและอุปกรณ์สำหรับเรือ
 - &group22  !!models.fsnNumber.FSN_Group
-  id:          22
-  description:     อุปกรณ์รถไฟ
+  groupId:          22
+  groupDescription:     อุปกรณ์รถไฟ
 - &group23  !!models.fsnNumber.FSN_Group
-  id:          23
-  description:     ยานพาหนะพื้นดิน ยานยนต์ รถพ่วง และจักรยาน
+  groupId:          23
+  groupDescription:     ยานพาหนะพื้นดิน ยานยนต์ รถพ่วง และจักรยาน
 - &group24  !!models.fsnNumber.FSN_Group
-  id:          24
-  description:     รถลากจูง
+  groupId:          24
+  groupDescription:     รถลากจูง
 - &group25  !!models.fsnNumber.FSN_Group
-  id:          25
-  description:     ส่วนประกอบของยานพาหนะ
+  groupId:          25
+  groupDescription:     ส่วนประกอบของยานพาหนะ
 - &group26  !!models.fsnNumber.FSN_Group
-  id:          26
-  description:     ยางนอกและยางใน
+  groupId:          26
+  groupDescription:     ยางนอกและยางใน
 - &group28  !!models.fsnNumber.FSN_Group
-  id:          28
-  description:     เครื่องยนต์ เทอร์ไบน์ และส่วนประกอบ
+  groupId:          28
+  groupDescription:     เครื่องยนต์ เทอร์ไบน์ และส่วนประกอบ
 - &group29  !!models.fsnNumber.FSN_Group
-  id:          29
-  description:     ส่วนประกอบของเครื่องยนต์
+  groupId:          29
+  groupDescription:     ส่วนประกอบของเครื่องยนต์
 - &group30  !!models.fsnNumber.FSN_Group
-  id:          30
-  description:     อุปกรณ์การส่งผ่านกำลังงานกล
+  groupId:          30
+  groupDescription:     อุปกรณ์การส่งผ่านกำลังงานกล
 - &group31  !!models.fsnNumber.FSN_Group
-  id:          31
-  description:     รองเพลา
+  groupId:          31
+  groupDescription:     รองเพลา
 - &group32  !!models.fsnNumber.FSN_Group
-  id:          32
-  description:     อุปกรณ์และเครื่องจักรงานไม้
+  groupId:          32
+  groupDescription:     อุปกรณ์และเครื่องจักรงานไม้
 - &group34  !!models.fsnNumber.FSN_Group
-  id:          34
-  description:     เครื่องจักรงานโลหะ
+  groupId:          34
+  groupDescription:     เครื่องจักรงานโลหะ
 - &group35  !!models.fsnNumber.FSN_Group
-  id:          35
-  description:     อุปกรณ์การบริการ
+  groupId:          35
+  groupDescription:     อุปกรณ์การบริการ
 - &group36  !!models.fsnNumber.FSN_Group
-  id:          36
-  description:     เครื่องจักรกล เฉพาะงาน อุตสาหกรรม
+  groupId:          36
+  groupDescription:     เครื่องจักรกล เฉพาะงาน อุตสาหกรรม
 - &group37  !!models.fsnNumber.FSN_Group
-  id:          37
-  description:     เครื่องจักร และอุปกรณ์การเกษตร
+  groupId:          37
+  groupDescription:     เครื่องจักร และอุปกรณ์การเกษตร
 - &group38  !!models.fsnNumber.FSN_Group
-  id:          38
-  description:     อุปกรณ์ก่อสร้าง การเหมืองแร่ การขุดดิน และการซ่อมบำรุงทาง
+  groupId:          38
+  groupDescription:     อุปกรณ์ก่อสร้าง การเหมืองแร่ การขุดดิน และการซ่อมบำรุงทาง
 - &group39  !!models.fsnNumber.FSN_Group
-  id:          39
-  description:     อุปกรณ์การยกขนพัสดุ
+  groupId:          39
+  groupDescription:     อุปกรณ์การยกขนพัสดุ
 - &group40  !!models.fsnNumber.FSN_Group
-  id:          40
-  description:     เชือก เคเบิล โซ่และเครื่องรัด
+  groupId:          40
+  groupDescription:     เชือก เคเบิล โซ่และเครื่องรัด
 - &group41  !!models.fsnNumber.FSN_Group
-  id:          41
-  description:     อุปกรณ์ตู้เย็น เครื่องปรับอากาศ และเครื่องถ่ายเทอากาศ
+  groupId:          41
+  groupDescription:     อุปกรณ์ตู้เย็น เครื่องปรับอากาศ และเครื่องถ่ายเทอากาศ
 - &group42  !!models.fsnNumber.FSN_Group
-  id:          42
-  description:     อุปกรณ์ผจญเพลิง เครื่องช่วยชีวิต และความปลอดภัย
+  groupId:          42
+  groupDescription:     อุปกรณ์ผจญเพลิง เครื่องช่วยชีวิต และความปลอดภัย
 - &group43  !!models.fsnNumber.FSN_Group
-  id:          43
-  description:     สูบ และเครื่องอัด
+  groupId:          43
+  groupDescription:     สูบ และเครื่องอัด
 - &group44  !!models.fsnNumber.FSN_Group
-  id:          44
-  description:     เตาหลอมโรงไอน้ำ และอุปกรณ์ทำให้แห้ง และปฏิกรณ์นิวเคลียร์
+  groupId:          44
+  groupDescription:     เตาหลอมโรงไอน้ำ และอุปกรณ์ทำให้แห้ง และปฏิกรณ์นิวเคลียร์
 - &group45  !!models.fsnNumber.FSN_Group
-  id:          45
-  description:     อุปกรณ์สุขภัณฑ์ เครื่องให้ความร้อน และการสุขาภิบาล
+  groupId:          45
+  groupDescription:     อุปกรณ์สุขภัณฑ์ เครื่องให้ความร้อน และการสุขาภิบาล
 - &group46  !!models.fsnNumber.FSN_Group
-  id:          46
-  description:     เครื่องกรองน้ำ และเครื่องขจัดสิ่งโสโครก
+  groupId:          46
+  groupDescription:     เครื่องกรองน้ำ และเครื่องขจัดสิ่งโสโครก
 - &group47  !!models.fsnNumber.FSN_Group
-  id:          47
-  description:     ท่อหลอด ท่อยาง และจุกอัด
+  groupId:          47
+  groupDescription:     ท่อหลอด ท่อยาง และจุกอัด
 - &group48  !!models.fsnNumber.FSN_Group
-  id:          48
-  description:     วาล์ว (VALVE)
+  groupId:          48
+  groupDescription:     วาล์ว (VALVE)
 - &group49  !!models.fsnNumber.FSN_Group
-  id:          49
-  description:     อุปกรณ์การซ่อมบำรุง และโรงงานซ่อม
+  groupId:          49
+  groupDescription:     อุปกรณ์การซ่อมบำรุง และโรงงานซ่อม
 - &group51  !!models.fsnNumber.FSN_Group
-  id:          51
-  description:     เครื่องมือ
+  groupId:          51
+  groupDescription:     เครื่องมือ
 - &group52  !!models.fsnNumber.FSN_Group
-  id:          52
-  description:     เครื่องวัด
+  groupId:          52
+  groupDescription:     เครื่องวัด
 - &group53  !!models.fsnNumber.FSN_Group
-  id:          53
-  description:     เครื่องใช้ และวัสดุขัด
+  groupId:          53
+  groupDescription:     เครื่องใช้ และวัสดุขัด
 - &group54  !!models.fsnNumber.FSN_Group
-  id:          54
-  description:     โครงสร้างถอดประกอบได้ และนั่งร้าน
+  groupId:          54
+  groupDescription:     โครงสร้างถอดประกอบได้ และนั่งร้าน
 - &group55  !!models.fsnNumber.FSN_Group
-  id:          55
-  description:     กระดาน ไม้อัด ไม้แปรรูป และไม้เคลือบ (วีเนีย)
+  groupId:          55
+  groupDescription:     กระดาน ไม้อัด ไม้แปรรูป และไม้เคลือบ (วีเนีย)
 - &group56  !!models.fsnNumber.FSN_Group
-  id:          56
-  description:     วัสดุการสร้างอาคาร และสิ่งก่อสร้าง
+  groupId:          56
+  groupDescription:     วัสดุการสร้างอาคาร และสิ่งก่อสร้าง
 - &group58  !!models.fsnNumber.FSN_Group
-  id:          58
-  description:     อุปกรณ์คมนาคม การค้นหา และการกระจายคลื่น
+  groupId:          58
+  groupDescription:     อุปกรณ์คมนาคม การค้นหา และการกระจายคลื่น
 - &group59  !!models.fsnNumber.FSN_Group
-  id:          59
-  description:     อุปกรณ์  และส่วนประกอบ เครื่องไฟฟ้า และเครื่องอีเลคโทรนิค
+  groupId:          59
+  groupDescription:     อุปกรณ์  และส่วนประกอบ เครื่องไฟฟ้า และเครื่องอีเลคโทรนิค
 - &group61  !!models.fsnNumber.FSN_Group
-  id:          61
-  description:     สายไฟ เครื่องกำเนิดไฟฟ้า และอุปกรณ์จ่ายไฟฟ้า
+  groupId:          61
+  groupDescription:     สายไฟ เครื่องกำเนิดไฟฟ้า และอุปกรณ์จ่ายไฟฟ้า
 - &group62  !!models.fsnNumber.FSN_Group
-  id:          62
-  description:     หลอดไฟ และอุปกรณ์ติดตั้งเครื่องให้แสงสว่าง
+  groupId:          62
+  groupDescription:     หลอดไฟ และอุปกรณ์ติดตั้งเครื่องให้แสงสว่าง
 - &group63  !!models.fsnNumber.FSN_Group
-  id:          63
-  description:     ระบบ เตือนภัย และสัญญาณ
+  groupId:          63
+  groupDescription:     ระบบ เตือนภัย และสัญญาณ
 - &group65  !!models.fsnNumber.FSN_Group
-  id:          65
-  description:     อุปกรณ์และเครื่องใช้ทางการแพทย์ ทันตแพทย์ และสัตวแพทย์
+  groupId:          65
+  groupDescription:     อุปกรณ์และเครื่องใช้ทางการแพทย์ ทันตแพทย์ และสัตวแพทย์
 - &group66  !!models.fsnNumber.FSN_Group
-  id:          66
-  description:     เครื่องมือ และอุปกรณ์ห้องปฏิบัติการ (ทดลอง)
+  groupId:          66
+  groupDescription:     เครื่องมือ และอุปกรณ์ห้องปฏิบัติการ (ทดลอง)
 - &group67  !!models.fsnNumber.FSN_Group
-  id:          67
-  description:     อุปกรณ์การภาพ
+  groupId:          67
+  groupDescription:     อุปกรณ์การภาพ
 - &group68  !!models.fsnNumber.FSN_Group
-  id:          68
-  description:     วัตถุเคมี และผลิตภัณฑ์เคมี
+  groupId:          68
+  groupDescription:     วัตถุเคมี และผลิตภัณฑ์เคมี
 - &group69  !!models.fsnNumber.FSN_Group
-  id:          69
-  description:     เครื่องช่วยฝึก และอุปกรณ์
+  groupId:          69
+  groupDescription:     เครื่องช่วยฝึก และอุปกรณ์
 - &group71  !!models.fsnNumber.FSN_Group
-  id:          71
-  description:     เครื่องตกแต่ง
+  groupId:          71
+  groupDescription:     เครื่องตกแต่ง
 - &group72  !!models.fsnNumber.FSN_Group
-  id:          72
-  description:     เครื่องใช้ และเครื่องตกแต่งบ้าน และร้านค้า
+  groupId:          72
+  groupDescription:     เครื่องใช้ และเครื่องตกแต่งบ้าน และร้านค้า
 - &group73  !!models.fsnNumber.FSN_Group
-  id:          73
-  description:     อุปกรณ์ประกอบอาหาร และเลี้ยงดู
+  groupId:          73
+  groupDescription:     อุปกรณ์ประกอบอาหาร และเลี้ยงดู
 - &group74  !!models.fsnNumber.FSN_Group
-  id:          74
-  description:     เครื่องกลสำนักงาน และอุปกรณ์กรรมวิธีบันทึก และลงข้อมูล
+  groupId:          74
+  groupDescription:     เครื่องกลสำนักงาน และอุปกรณ์กรรมวิธีบันทึก และลงข้อมูล
 - &group75  !!models.fsnNumber.FSN_Group
-  id:          75
-  description:     พัสดุ และเครื่องใช้สำนักงาน
+  groupId:          75
+  groupDescription:     พัสดุ และเครื่องใช้สำนักงาน
 - &group76  !!models.fsnNumber.FSN_Group
-  id:          76
-  description:     หนังสือแผนที่ และสิ่งพิมพ์
+  groupId:          76
+  groupDescription:     หนังสือแผนที่ และสิ่งพิมพ์
 - &group77  !!models.fsnNumber.FSN_Group
-  id:          77
-  description:     เครื่องดนตรี เครื่องเล่นแผ่นเสียง และวิทยุใช้ในบ้าน
+  groupId:          77
+  groupDescription:     เครื่องดนตรี เครื่องเล่นแผ่นเสียง และวิทยุใช้ในบ้าน
 - &group78  !!models.fsnNumber.FSN_Group
-  id:          78
-  description:     อุปกรณ์สันทนาการ และการกีฬา
+  groupId:          78
+  groupDescription:     อุปกรณ์สันทนาการ และการกีฬา
 - &group79  !!models.fsnNumber.FSN_Group
-  id:          79
-  description:     อุปกรณ์ และอุปกรณ์ทำความสะอาด
+  groupId:          79
+  groupDescription:     อุปกรณ์ และอุปกรณ์ทำความสะอาด
 - &group80  !!models.fsnNumber.FSN_Group
-  id:          80
-  description:     แปรง และพู่กัน สีวัสดุยาอุด และผนึก
+  groupId:          80
+  groupDescription:     แปรง และพู่กัน สีวัสดุยาอุด และผนึก
 - &group81  !!models.fsnNumber.FSN_Group
-  id:          81
-  description:     ภาชนะบรรจุหีบห่อ
+  groupId:          81
+  groupDescription:     ภาชนะบรรจุหีบห่อ
 - &group83  !!models.fsnNumber.FSN_Group
-  id:          83
-  description:     สิ่งถักทอ หนัง ขนสัตว์ เครื่องตกแต่ง อุปกรณ์เย็บรองเท้า กระโจม และธง
+  groupId:          83
+  groupDescription:     สิ่งถักทอ หนัง ขนสัตว์ เครื่องตกแต่ง อุปกรณ์เย็บรองเท้า กระโจม และธง
 - &group84  !!models.fsnNumber.FSN_Group
-  id:          84
-  description:     เสื้อผ้า อุปกรณ์ประจำกาย และเครื่องแบบ
+  groupId:          84
+  groupDescription:     เสื้อผ้า อุปกรณ์ประจำกาย และเครื่องแบบ
 - &group85  !!models.fsnNumber.FSN_Group
-  id:          85
-  description:     เครื่องสุขภัณฑ์ และเครื่องสำอางค์
+  groupId:          85
+  groupDescription:     เครื่องสุขภัณฑ์ และเครื่องสำอางค์
 - &group87  !!models.fsnNumber.FSN_Group
-  id:          87
-  description:     อุปกรณ์การเกษตร
+  groupId:          87
+  groupDescription:     อุปกรณ์การเกษตร
 - &group88  !!models.fsnNumber.FSN_Group
-  id:          88
-  description:     สัตว์เลี้ยง
+  groupId:          88
+  groupDescription:     สัตว์เลี้ยง
 - &group89  !!models.fsnNumber.FSN_Group
-  id:          89
-  description:     อาหาร
+  groupId:          89
+  groupDescription:     อาหาร
 - &group91  !!models.fsnNumber.FSN_Group
-  id:          91
-  description:     เชื้อเพลิง น้ำมันหล่อลื่น น้ำมันเครื่อง และขี้ผึ้ง
+  groupId:          91
+  groupDescription:     เชื้อเพลิง น้ำมันหล่อลื่น น้ำมันเครื่อง และขี้ผึ้ง
 - &group93  !!models.fsnNumber.FSN_Group
-  id:          93
-  description:     สิ่งประดิษฐ์ที่ไม่ใช่โลหะ
+  groupId:          93
+  groupDescription:     สิ่งประดิษฐ์ที่ไม่ใช่โลหะ
 - &group94  !!models.fsnNumber.FSN_Group
-  id:          94
-  description:     วัตถุดิบที่ไม่ใช่โลหะ
+  groupId:          94
+  groupDescription:     วัตถุดิบที่ไม่ใช่โลหะ
 - &group95  !!models.fsnNumber.FSN_Group
-  id:          95
-  description:     โลหะที่เป็นแท่ง แผ่นและมีทรง
+  groupId:          95
+  groupDescription:     โลหะที่เป็นแท่ง แผ่นและมีทรง
 - &group96  !!models.fsnNumber.FSN_Group
-  id:          96
-  description:     สินแร่ แร่ และผลิตภัณฑ์ขั้นต้นจากสินแร่
+  groupId:          96
+  groupDescription:     สินแร่ แร่ และผลิตภัณฑ์ขั้นต้นจากสินแร่
 - &group99  !!models.fsnNumber.FSN_Group
-  id:          99
-  description:     เบ็ดเตล็ด
+  groupId:          99
+  groupDescription:     เบ็ดเตล็ด
 
 - &fsnClass1005  !!models.fsnNumber.FSN_Class
-  id:          1005
-  description:      ปืนที่มีขนาดถึง 30 มม. 
+  classId:          1005
+  classDescription:      ปืนที่มีขนาดถึง 30 มม. 
   group:     *group10
 - &fsnClass1010  !!models.fsnNumber.FSN_Class
-  id:          1010
-  description:      ปืนขนาดเกินกว่า 30 ม.ม. ถึง 75 ม.ม. 
+  classId:          1010
+  classDescription:      ปืนขนาดเกินกว่า 30 ม.ม. ถึง 75 ม.ม. 
   group:     *group10
 - &fsnClass1015  !!models.fsnNumber.FSN_Class
-  id:          1015
-  description:      ปืนขนาด 75 ม.ม. ถึง 125 ม.ม. 
+  classId:          1015
+  classDescription:      ปืนขนาด 75 ม.ม. ถึง 125 ม.ม. 
   group:     *group10
 - &fsnClass1020  !!models.fsnNumber.FSN_Class
-  id:          1020
-  description:      ปืนขนาดเกินกว่า 125 ม.ม. ถึง 150 ม.ม. 
+  classId:          1020
+  classDescription:      ปืนขนาดเกินกว่า 125 ม.ม. ถึง 150 ม.ม. 
   group:     *group10
 - &fsnClass1025  !!models.fsnNumber.FSN_Class
-  id:          1025
-  description:      ปืนขนาดเกินกว่า 150 ม.ม. ถึง 200 ม.ม. 
+  classId:          1025
+  classDescription:      ปืนขนาดเกินกว่า 150 ม.ม. ถึง 200 ม.ม. 
   group:     *group10
 - &fsnClass1030  !!models.fsnNumber.FSN_Class
-  id:          1030
-  description:      ปืนขนาดเกินกว่า 200 ม.ม. ถึง 300 ม.ม. 
+  classId:          1030
+  classDescription:      ปืนขนาดเกินกว่า 200 ม.ม. ถึง 300 ม.ม. 
   group:     *group10
 - &fsnClass1035  !!models.fsnNumber.FSN_Class
-  id:          1035
-  description:      ปืนใหญ่ขนาดเกินกว่า 300 ม.ม. 
+  classId:          1035
+  classDescription:      ปืนใหญ่ขนาดเกินกว่า 300 ม.ม. 
   group:     *group10
 - &fsnClass1040  !!models.fsnNumber.FSN_Class
-  id:          1040
-  description:      อาวุธทางเคมีและอุปกรณ์ 
+  classId:          1040
+  classDescription:      อาวุธทางเคมีและอุปกรณ์ 
   group:     *group10
 - &fsnClass1045  !!models.fsnNumber.FSN_Class
-  id:          1045
-  description:      เครื่องยิงส่ง  ตอร์ปิโด  ระเบิดน้ำลึก 
+  classId:          1045
+  classDescription:      เครื่องยิงส่ง  ตอร์ปิโด  ระเบิดน้ำลึก 
   group:     *group10
 - &fsnClass1055  !!models.fsnNumber.FSN_Class
-  id:          1055
-  description:      เครื่องยิงส่ง  จรวดและพลุ 
+  classId:          1055
+  classDescription:      เครื่องยิงส่ง  จรวดและพลุ 
   group:     *group10
 - &fsnClass1070  !!models.fsnNumber.FSN_Class
-  id:          1070
-  description:      ตาข่ายและมุมสายสรรพาวุธ 
+  classId:          1070
+  classDescription:      ตาข่ายและมุมสายสรรพาวุธ 
   group:     *group10
 - &fsnClass1075  !!models.fsnNumber.FSN_Class
-  id:          1075
-  description:      อุปกรณ์กวาดทุ่นระเบิดและทำลายล้างแก๊สพิษ 
+  classId:          1075
+  classDescription:      อุปกรณ์กวาดทุ่นระเบิดและทำลายล้างแก๊สพิษ 
   group:     *group10
 - &fsnClass1080  !!models.fsnNumber.FSN_Class
-  id:          1080
-  description:      อุปกรณ์ต่อต้าน  และการพลาง 
+  classId:          1080
+  classDescription:      อุปกรณ์ต่อต้าน  และการพลาง 
   group:     *group10
 - &fsnClass1090  !!models.fsnNumber.FSN_Class
-  id:          1090
-  description:       none
+  classId:          1090
+  classDescription:       none
   group:     *group10
 - &fsnClass1095  !!models.fsnNumber.FSN_Class
-  id:          1095
-  description:      อาวุธอื่น ๆ 
+  classId:          1095
+  classDescription:      อาวุธอื่น ๆ 
   group:     *group10
 - &fsnClass1105  !!models.fsnNumber.FSN_Class
-  id:          1105
-  description:      ลูกระเบิดนิวเคลียร์ 
+  classId:          1105
+  classDescription:      ลูกระเบิดนิวเคลียร์ 
   group:     *group11
 - &fsnClass1110  !!models.fsnNumber.FSN_Class
-  id:          1110
-  description:      กระสุนนิวเคลียร์ 
+  classId:          1110
+  classDescription:      กระสุนนิวเคลียร์ 
   group:     *group11
 - &fsnClass1115  !!models.fsnNumber.FSN_Class
-  id:          1115
-  description:      หัวรบนิวเคลียร์และส่วนประกอบ 
+  classId:          1115
+  classDescription:      หัวรบนิวเคลียร์และส่วนประกอบ 
   group:     *group11
 - &fsnClass1125  !!models.fsnNumber.FSN_Class
-  id:          1125
-  description:      ส่วนบรรจุระเบิดนิวเคลียร์ 
+  classId:          1125
+  classDescription:      ส่วนบรรจุระเบิดนิวเคลียร์ 
   group:     *group11
 - &fsnClass1127  !!models.fsnNumber.FSN_Class
-  id:          1127
-  description:      จรวดนิวเคลียร์  
+  classId:          1127
+  classDescription:      จรวดนิวเคลียร์  
   group:     *group11
 - &fsnClass1130  !!models.fsnNumber.FSN_Class
-  id:          1130
-  description:      ชุดดัดแปลงสรรพาวุธนิวเคลียร์ 
+  classId:          1130
+  classDescription:      ชุดดัดแปลงสรรพาวุธนิวเคลียร์ 
   group:     *group11
 - &fsnClass1135  !!models.fsnNumber.FSN_Class
-  id:          1135
-  description:      ชนวนและตัวจุดชนวนสรรพาวุธนิวเคลียร์ 
+  classId:          1135
+  classDescription:      ชนวนและตัวจุดชนวนสรรพาวุธนิวเคลียร์ 
   group:     *group11
 - &fsnClass1140  !!models.fsnNumber.FSN_Class
-  id:          1140
-  description:      องค์ประกอบอาวุธนิวเคลียร์ 
+  classId:          1140
+  classDescription:      องค์ประกอบอาวุธนิวเคลียร์ 
   group:     *group11
 - &fsnClass1145  !!models.fsnNumber.FSN_Class
-  id:          1145
-  description:      ดินระเบิดแสงสูง  ดินขับและเชื้อเพลิงประทุสรรพาวุธนิวเคลียร์ 
+  classId:          1145
+  classDescription:      ดินระเบิดแสงสูง  ดินขับและเชื้อเพลิงประทุสรรพาวุธนิวเคลียร์ 
   group:     *group11
 - &fsnClass1190  !!models.fsnNumber.FSN_Class
-  id:          1190
-  description:      เครื่องทดสอบและอุปกรณ์ยกขนสรรพาวุธนิวเคลียร์ 
+  classId:          1190
+  classDescription:      เครื่องทดสอบและอุปกรณ์ยกขนสรรพาวุธนิวเคลียร์ 
   group:     *group11
 - &fsnClass1195  !!models.fsnNumber.FSN_Class
-  id:          1195
-  description:      สรรพาวุธนิวเคลียร์อื่น ๆ 
+  classId:          1195
+  classDescription:      สรรพาวุธนิวเคลียร์อื่น ๆ 
   group:     *group11
 - &fsnClass1210  !!models.fsnNumber.FSN_Class
-  id:          1210
-  description:      อุปกรณ์ควบคุมการยิง  
+  classId:          1210
+  classDescription:      อุปกรณ์ควบคุมการยิง  
   group:     *group12
 - &fsnClass1220  !!models.fsnNumber.FSN_Class
-  id:          1220
-  description:      เครื่องคำนวณควบคุมการยิง 
+  classId:          1220
+  classDescription:      เครื่องคำนวณควบคุมการยิง 
   group:     *group12
 - &fsnClass1230  !!models.fsnNumber.FSN_Class
-  id:          1230
-  description:      ระบบควบคุมการยิง 
+  classId:          1230
+  classDescription:      ระบบควบคุมการยิง 
   group:     *group12
 - &fsnClass1240  !!models.fsnNumber.FSN_Class
-  id:          1240
-  description:      เครื่องวัดระยะ 
+  classId:          1240
+  classDescription:      เครื่องวัดระยะ 
   group:     *group12
 - &fsnClass1250  !!models.fsnNumber.FSN_Class
-  id:          1250
-  description:      เครื่องรักษาการทรงตัว  
+  classId:          1250
+  classDescription:      เครื่องรักษาการทรงตัว  
   group:     *group12
 - &fsnClass1260  !!models.fsnNumber.FSN_Class
-  id:          1260
-  description:      เครื่องกำหนดทิศทาง 
+  classId:          1260
+  classDescription:      เครื่องกำหนดทิศทาง 
   group:     *group12
 - &fsnClass1265  !!models.fsnNumber.FSN_Class
-  id:          1265
-  description:      เครื่องรับและส่งการควบคุมการยิง 
+  classId:          1265
+  classDescription:      เครื่องรับและส่งการควบคุมการยิง 
   group:     *group12
 - &fsnClass1270  !!models.fsnNumber.FSN_Class
-  id:          1270
-  description:      เครื่องควบคุมการยิงของปืนอากาศยาน 
+  classId:          1270
+  classDescription:      เครื่องควบคุมการยิงของปืนอากาศยาน 
   group:     *group12
 - &fsnClass1280  !!models.fsnNumber.FSN_Class
-  id:          1280
-  description:      เครื่องควบคุมการทิ้งระเบิด 
+  classId:          1280
+  classDescription:      เครื่องควบคุมการทิ้งระเบิด 
   group:     *group12
 - &fsnClass1285  !!models.fsnNumber.FSN_Class
-  id:          1285
-  description:      เรด้าควบคุมการยิง 
+  classId:          1285
+  classDescription:      เรด้าควบคุมการยิง 
   group:     *group12
 - &fsnClass1287  !!models.fsnNumber.FSN_Class
-  id:          1287
-  description:      โซ่น่าเครื่องควบคุมการยิง 
+  classId:          1287
+  classDescription:      โซ่น่าเครื่องควบคุมการยิง 
   group:     *group12
 - &fsnClass1290  !!models.fsnNumber.FSN_Class
-  id:          1290
-  description:      เครื่องควบคุมการยิงอื่น ๆ 
+  classId:          1290
+  classDescription:      เครื่องควบคุมการยิงอื่น ๆ 
   group:     *group12
 - &fsnClass1305  !!models.fsnNumber.FSN_Class
-  id:          1305
-  description:      กระสุนขนาดถึง 30 ม.ม. 
+  classId:          1305
+  classDescription:      กระสุนขนาดถึง 30 ม.ม. 
   group:     *group13
 - &fsnClass1310  !!models.fsnNumber.FSN_Class
-  id:          1310
-  description:      กระสุนขนาดเกินกว่า 30 ม.ม. ถึง 75 ม.ม. 
+  classId:          1310
+  classDescription:      กระสุนขนาดเกินกว่า 30 ม.ม. ถึง 75 ม.ม. 
   group:     *group13
 - &fsnClass1315  !!models.fsnNumber.FSN_Class
-  id:          1315
-  description:      กระสุนขนาด 75 ม.ม. ถึง 125 ม.ม. 
+  classId:          1315
+  classDescription:      กระสุนขนาด 75 ม.ม. ถึง 125 ม.ม. 
   group:     *group13
 - &fsnClass1320  !!models.fsnNumber.FSN_Class
-  id:          1320
-  description:      กระสุนขนาดเกินกว่า 125 ม.ม. 
+  classId:          1320
+  classDescription:      กระสุนขนาดเกินกว่า 125 ม.ม. 
   group:     *group13
 - &fsnClass1325  !!models.fsnNumber.FSN_Class
-  id:          1325
-  description:      ลูกระเบิด 
+  classId:          1325
+  classDescription:      ลูกระเบิด 
   group:     *group13
 - &fsnClass1330  !!models.fsnNumber.FSN_Class
-  id:          1330
-  description:      ลูกระเบิดขว้างและลูกระเบิดยิงจากปืนเล็ก 
+  classId:          1330
+  classDescription:      ลูกระเบิดขว้างและลูกระเบิดยิงจากปืนเล็ก 
   group:     *group13
 - &fsnClass1336  !!models.fsnNumber.FSN_Class
-  id:          1336
-  description:      หัวรบอาวุธนำวิถีและองค์ประกอบที่เป็นวัตถุระเบิด 
+  classId:          1336
+  classDescription:      หัวรบอาวุธนำวิถีและองค์ประกอบที่เป็นวัตถุระเบิด 
   group:     *group13
 - &fsnClass1340  !!models.fsnNumber.FSN_Class
-  id:          1340
-  description:      จรวด  กระสุนจรวดและองค์ประกอบจรวด 
+  classId:          1340
+  classDescription:      จรวด  กระสุนจรวดและองค์ประกอบจรวด 
   group:     *group13
 - &fsnClass1345  !!models.fsnNumber.FSN_Class
-  id:          1345
-  description:      ทุ่นระเบิดบก 
+  classId:          1345
+  classDescription:      ทุ่นระเบิดบก 
   group:     *group13
 - &fsnClass1351  !!models.fsnNumber.FSN_Class
-  id:          1351
-  description:      ส่วนประกอบดินระเบิดทุ่นระเบิดใต้น้ำ 
+  classId:          1351
+  classDescription:      ส่วนประกอบดินระเบิดทุ่นระเบิดใต้น้ำ 
   group:     *group13
 - &fsnClass1355  !!models.fsnNumber.FSN_Class
-  id:          1355
-  description:      ตอร์ปิโด 
+  classId:          1355
+  classDescription:      ตอร์ปิโด 
   group:     *group13
 - &fsnClass1356  !!models.fsnNumber.FSN_Class
-  id:          1356
-  description:      ส่วนประกอบดินระเบิดตอร์ปิโด 
+  classId:          1356
+  classDescription:      ส่วนประกอบดินระเบิดตอร์ปิโด 
   group:     *group13
 - &fsnClass1360  !!models.fsnNumber.FSN_Class
-  id:          1360
-  description:      ระเบิดน้ำลึกชนิดเฉื่อย  
+  classId:          1360
+  classDescription:      ระเบิดน้ำลึกชนิดเฉื่อย  
   group:     *group13
 - &fsnClass1361  !!models.fsnNumber.FSN_Class
-  id:          1361
-  description:      ส่วนประกอบดินระเบิด ระเบิดน้ำลึก 
+  classId:          1361
+  classDescription:      ส่วนประกอบดินระเบิด ระเบิดน้ำลึก 
   group:     *group13
 - &fsnClass1365  !!models.fsnNumber.FSN_Class
-  id:          1365
-  description:      สารเคมีทางทหาร 
+  classId:          1365
+  classDescription:      สารเคมีทางทหาร 
   group:     *group13
 - &fsnClass1370  !!models.fsnNumber.FSN_Class
-  id:          1370
-  description:      พลุ 
+  classId:          1370
+  classDescription:      พลุ 
   group:     *group13
 - &fsnClass1375  !!models.fsnNumber.FSN_Class
-  id:          1375
-  description:      อุปกรณ์ทำลาย 
+  classId:          1375
+  classDescription:      อุปกรณ์ทำลาย 
   group:     *group13
 - &fsnClass1376  !!models.fsnNumber.FSN_Class
-  id:          1376
-  description:      ดินระเบิดจำนวนมาก 
+  classId:          1376
+  classDescription:      ดินระเบิดจำนวนมาก 
   group:     *group13
 - &fsnClass1377  !!models.fsnNumber.FSN_Class
-  id:          1377
-  description:      กระสุนชุดจุดดินส่ง และองค์ประกอบ 
+  classId:          1377
+  classDescription:      กระสุนชุดจุดดินส่ง และองค์ประกอบ 
   group:     *group13
 - &fsnClass1380  !!models.fsnNumber.FSN_Class
-  id:          1380
-  description:      สารชีวะทางทหาร 
+  classId:          1380
+  classDescription:      สารชีวะทางทหาร 
   group:     *group13
 - &fsnClass1385  !!models.fsnNumber.FSN_Class
-  id:          1385
-  description:      เครื่องมือทำลายวัตถุระเบิด 
+  classId:          1385
+  classDescription:      เครื่องมือทำลายวัตถุระเบิด 
   group:     *group13
 - &fsnClass1386  !!models.fsnNumber.FSN_Class
-  id:          1386
-  description:      เครื่องมือชุดทำลายใต้น้ำ 
+  classId:          1386
+  classDescription:      เครื่องมือชุดทำลายใต้น้ำ 
   group:     *group13
 - &fsnClass1390  !!models.fsnNumber.FSN_Class
-  id:          1390
-  description:      ชนวนและดินเริ่ม 
+  classId:          1390
+  classDescription:      ชนวนและดินเริ่ม 
   group:     *group13
 - &fsnClass1395  !!models.fsnNumber.FSN_Class
-  id:          1395
-  description:      กระสุนอื่น ๆ 
+  classId:          1395
+  classDescription:      กระสุนอื่น ๆ 
   group:     *group13
 - &fsnClass1410  !!models.fsnNumber.FSN_Class
-  id:          1410
-  description:      อาวุธนำวิถี 
+  classId:          1410
+  classDescription:      อาวุธนำวิถี 
   group:     *group14
 - &fsnClass1420  !!models.fsnNumber.FSN_Class
-  id:          1420
-  description:      องค์ประกอบอาวุธนำวิถี 
+  classId:          1420
+  classDescription:      องค์ประกอบอาวุธนำวิถี 
   group:     *group14
 - &fsnClass1425  !!models.fsnNumber.FSN_Class
-  id:          1425
-  description:      ระบบอาวุธนำวิถีครบชุด 
+  classId:          1425
+  classDescription:      ระบบอาวุธนำวิถีครบชุด 
   group:     *group14
 - &fsnClass1427  !!models.fsnNumber.FSN_Class
-  id:          1427
-  description:      ระบบย่อยอาวุธนำวิถี 
+  classId:          1427
+  classDescription:      ระบบย่อยอาวุธนำวิถี 
   group:     *group14
 - &fsnClass1430  !!models.fsnNumber.FSN_Class
-  id:          1430
-  description:      ระบบการควบคุมอาวุธนำวิถีระยะห่าง 
+  classId:          1430
+  classDescription:      ระบบการควบคุมอาวุธนำวิถีระยะห่าง 
   group:     *group14
 - &fsnClass1440  !!models.fsnNumber.FSN_Class
-  id:          1440
-  description:      เครื่องยิงส่งอาวุธนำวิถี 
+  classId:          1440
+  classDescription:      เครื่องยิงส่งอาวุธนำวิถี 
   group:     *group14
 - &fsnClass1450  !!models.fsnNumber.FSN_Class
-  id:          1450
-  description:      อุปกรณ์ขนย้ายอาวุธนำวิถียานพาหนะต่าง ๆ 
+  classId:          1450
+  classDescription:      อุปกรณ์ขนย้ายอาวุธนำวิถียานพาหนะต่าง ๆ 
   group:     *group14
 - &fsnClass1510  !!models.fsnNumber.FSN_Class
-  id:          1510
-  description:      อากาศยานปีกติดลำตัว 
+  classId:          1510
+  classDescription:      อากาศยานปีกติดลำตัว 
   group:     *group15
 - &fsnClass1520  !!models.fsnNumber.FSN_Class
-  id:          1520
-  description:      อากาศยานปีกหมุน 
+  classId:          1520
+  classDescription:      อากาศยานปีกหมุน 
   group:     *group15
 - &fsnClass1540  !!models.fsnNumber.FSN_Class
-  id:          1540
-  description:      เครื่องร่อน 
+  classId:          1540
+  classDescription:      เครื่องร่อน 
   group:     *group15
 - &fsnClass1550  !!models.fsnNumber.FSN_Class
-  id:          1550
-  description:      อากาศยานไม่มีนักบินขับขี่ 
+  classId:          1550
+  classDescription:      อากาศยานไม่มีนักบินขับขี่ 
   group:     *group15
 - &fsnClass1560  !!models.fsnNumber.FSN_Class
-  id:          1560
-  description:      องค์ประกอบโครงสร้างอากาศยาน 
+  classId:          1560
+  classDescription:      องค์ประกอบโครงสร้างอากาศยาน 
   group:     *group15
 - &fsnClass1610  !!models.fsnNumber.FSN_Class
-  id:          1610
-  description:      ใบพัดอากาศยาน 
+  classId:          1610
+  classDescription:      ใบพัดอากาศยาน 
   group:     *group16
 - &fsnClass1615  !!models.fsnNumber.FSN_Class
-  id:          1615
-  description:      ใบพัดเครื่องบินปีกหมุนและส่วนขับเคลื่อน 
+  classId:          1615
+  classDescription:      ใบพัดเครื่องบินปีกหมุนและส่วนขับเคลื่อน 
   group:     *group16
 - &fsnClass1620  !!models.fsnNumber.FSN_Class
-  id:          1620
-  description:      องค์ประกอบลงสนาม 
+  classId:          1620
+  classDescription:      องค์ประกอบลงสนาม 
   group:     *group16
 - &fsnClass1630  !!models.fsnNumber.FSN_Class
-  id:          1630
-  description:      ล้ออากาศยานและระบบห้ามล้อ 
+  classId:          1630
+  classDescription:      ล้ออากาศยานและระบบห้ามล้อ 
   group:     *group16
 - &fsnClass1650  !!models.fsnNumber.FSN_Class
-  id:          1650
-  description:      ไฮดรอลิคสูญญากาศและระบบละลาย 
+  classId:          1650
+  classDescription:      ไฮดรอลิคสูญญากาศและระบบละลาย 
   group:     *group16
 - &fsnClass1660  !!models.fsnNumber.FSN_Class
-  id:          1660
-  description:      อุปกรณ์เครื่องให้ความอบอุ่นเครื่องปรับความกดดัน  
+  classId:          1660
+  classDescription:      อุปกรณ์เครื่องให้ความอบอุ่นเครื่องปรับความกดดัน  
   group:     *group16
 - &fsnClass1670  !!models.fsnNumber.FSN_Class
-  id:          1670
-  description:      อุปกรณ์การรัดสินค้า ระบบการกู้ การรับมอบ  การยกขนทางอากาศและร่ม 
+  classId:          1670
+  classDescription:      อุปกรณ์การรัดสินค้า ระบบการกู้ การรับมอบ  การยกขนทางอากาศและร่ม 
   group:     *group16
 - &fsnClass1680  !!models.fsnNumber.FSN_Class
-  id:          1680
-  description:      องค์ประกอบและเครื่องใช้อื่น ๆ 
+  classId:          1680
+  classDescription:      องค์ประกอบและเครื่องใช้อื่น ๆ 
   group:     *group16
 - &fsnClass1710  !!models.fsnNumber.FSN_Class
-  id:          1710
-  description:      เครื่องยึดตรึง  ล้อมและปิดกั้นอากาศยาน 
+  classId:          1710
+  classDescription:      เครื่องยึดตรึง  ล้อมและปิดกั้นอากาศยาน 
   group:     *group17
 - &fsnClass1720  !!models.fsnNumber.FSN_Class
-  id:          1720
-  description:      อุปกรณ์การยิงส่งอากาศยาน 
+  classId:          1720
+  classDescription:      อุปกรณ์การยิงส่งอากาศยาน 
   group:     *group17
 - &fsnClass1730  !!models.fsnNumber.FSN_Class
-  id:          1730
-  description:      อุปกรณ์บริการทางพื้นดินของอากาศยาน 
+  classId:          1730
+  classDescription:      อุปกรณ์บริการทางพื้นดินของอากาศยาน 
   group:     *group17
 - &fsnClass1740  !!models.fsnNumber.FSN_Class
-  id:          1740
-  description:      รถยนต์  รถพ่วง ใช้กับอากาศยานโดยเฉพาะ 
+  classId:          1740
+  classDescription:      รถยนต์  รถพ่วง ใช้กับอากาศยานโดยเฉพาะ 
   group:     *group17
 - &fsnClass1810  !!models.fsnNumber.FSN_Class
-  id:          1810
-  description:      ยานอวกาศ 
+  classId:          1810
+  classDescription:      ยานอวกาศ 
   group:     *group18
 - &fsnClass1820  !!models.fsnNumber.FSN_Class
-  id:          1820
-  description:      องค์ประกอบยานอวกาศ 
+  classId:          1820
+  classDescription:      องค์ประกอบยานอวกาศ 
   group:     *group18
 - &fsnClass1830  !!models.fsnNumber.FSN_Class
-  id:          1830
-  description:      ระบบควบคุมทางไกลของยานอวกาศ 
+  classId:          1830
+  classDescription:      ระบบควบคุมทางไกลของยานอวกาศ 
   group:     *group18
 - &fsnClass1840  !!models.fsnNumber.FSN_Class
-  id:          1840
-  description:      เครื่องส่งยานอวกาศ 
+  classId:          1840
+  classDescription:      เครื่องส่งยานอวกาศ 
   group:     *group18
 - &fsnClass1850  !!models.fsnNumber.FSN_Class
-  id:          1850
-  description:      อุปกรณ์การบริหารและยกขนยานอวกาศ 
+  classId:          1850
+  classDescription:      อุปกรณ์การบริหารและยกขนยานอวกาศ 
   group:     *group18
 - &fsnClass1860  !!models.fsnNumber.FSN_Class
-  id:          1860
-  description:      อุปกรณ์ยังชีพอวกาศ 
+  classId:          1860
+  classDescription:      อุปกรณ์ยังชีพอวกาศ 
   group:     *group18
 - &fsnClass1905  !!models.fsnNumber.FSN_Class
-  id:          1905
-  description:      เรือรบและเรือยกพลขึ้นบก 
+  classId:          1905
+  classDescription:      เรือรบและเรือยกพลขึ้นบก 
   group:     *group19
 - &fsnClass1910  !!models.fsnNumber.FSN_Class
-  id:          1910
-  description:      เรือขนส่งผู้โดยสารและทหาร 
+  classId:          1910
+  classDescription:      เรือขนส่งผู้โดยสารและทหาร 
   group:     *group19
 - &fsnClass1915  !!models.fsnNumber.FSN_Class
-  id:          1915
-  description:      เรือสินค้าและเรือบรรทุกน้ำมัน 
+  classId:          1915
+  classDescription:      เรือสินค้าและเรือบรรทุกน้ำมัน 
   group:     *group19
 - &fsnClass1920  !!models.fsnNumber.FSN_Class
-  id:          1920
-  description:      เรือหาปลา   เรือประมง 
+  classId:          1920
+  classDescription:      เรือหาปลา   เรือประมง 
   group:     *group19
 - &fsnClass1925  !!models.fsnNumber.FSN_Class
-  id:          1925
-  description:      เรือบริการพิเศษ 
+  classId:          1925
+  classDescription:      เรือบริการพิเศษ 
   group:     *group19
 - &fsnClass1930  !!models.fsnNumber.FSN_Class
-  id:          1930
-  description:      เรือบรรทุกสินค้าในลำน้ำและเรือเดินชายฝั่ง 
+  classId:          1930
+  classDescription:      เรือบรรทุกสินค้าในลำน้ำและเรือเดินชายฝั่ง 
   group:     *group19
 - &fsnClass1935  !!models.fsnNumber.FSN_Class
-  id:          1935
-  description:      เรือเดินในลำน้ำและเรือเดินชายฝั่งใช้ความมุ่งหมายพิเศษ 
+  classId:          1935
+  classDescription:      เรือเดินในลำน้ำและเรือเดินชายฝั่งใช้ความมุ่งหมายพิเศษ 
   group:     *group19
 - &fsnClass1940  !!models.fsnNumber.FSN_Class
-  id:          1940
-  description:      เรือเล็ก 
+  classId:          1940
+  classDescription:      เรือเล็ก 
   group:     *group19
 - &fsnClass1945  !!models.fsnNumber.FSN_Class
-  id:          1945
-  description:      เรือทุ่น  และอู่ลอย 
+  classId:          1945
+  classDescription:      เรือทุ่น  และอู่ลอย 
   group:     *group19
 - &fsnClass1950  !!models.fsnNumber.FSN_Class
-  id:          1950
-  description:      อู่ลอยแห้ง 
+  classId:          1950
+  classDescription:      อู่ลอยแห้ง 
   group:     *group19
 - &fsnClass1955  !!models.fsnNumber.FSN_Class
-  id:          1955
-  description:      เรือชุดต่างๆ 
+  classId:          1955
+  classDescription:      เรือชุดต่างๆ 
   group:     *group19
 - &fsnClass1990  !!models.fsnNumber.FSN_Class
-  id:          1990
-  description:      เรืออื่นๆ 
+  classId:          1990
+  classDescription:      เรืออื่นๆ 
   group:     *group19
 - &fsnClass2010  !!models.fsnNumber.FSN_Class
-  id:          2010
-  description:      ส่วนประกอบการขับเคลื่อนของเรือ 
+  classId:          2010
+  classDescription:      ส่วนประกอบการขับเคลื่อนของเรือ 
   group:     *group20
 - &fsnClass2020  !!models.fsnNumber.FSN_Class
-  id:          2020
-  description:      สายโยงและเฟืองสายโยง 
+  classId:          2020
+  classDescription:      สายโยงและเฟืองสายโยง 
   group:     *group20
 - &fsnClass2030  !!models.fsnNumber.FSN_Class
-  id:          2030
-  description:      เครื่องจักรดาดฟ้า 
+  classId:          2030
+  classDescription:      เครื่องจักรดาดฟ้า 
   group:     *group20
 - &fsnClass2040  !!models.fsnNumber.FSN_Class
-  id:          2040
-  description:      เครื่องเหล็กสำหรับเรือและส่วนโครงเรือ 
+  classId:          2040
+  classDescription:      เครื่องเหล็กสำหรับเรือและส่วนโครงเรือ 
   group:     *group20
 - &fsnClass2050  !!models.fsnNumber.FSN_Class
-  id:          2050
-  description:      ท่าเทียบเรือลอยน้ำ 
+  classId:          2050
+  classDescription:      ท่าเทียบเรือลอยน้ำ 
   group:     *group20
 - &fsnClass2060  !!models.fsnNumber.FSN_Class
-  id:          2060
-  description:      เครื่องมือประมงทางพาณิชย์ 
+  classId:          2060
+  classDescription:      เครื่องมือประมงทางพาณิชย์ 
   group:     *group20
 - &fsnClass2090  !!models.fsnNumber.FSN_Class
-  id:          2090
-  description:      อุปกรณ์เรืออื่น ๆ 
+  classId:          2090
+  classDescription:      อุปกรณ์เรืออื่น ๆ 
   group:     *group20
 - &fsnClass2210  !!models.fsnNumber.FSN_Class
-  id:          2210
-  description:      หัวรบจักร 
+  classId:          2210
+  classDescription:      หัวรบจักร 
   group:     *group22
 - &fsnClass2220  !!models.fsnNumber.FSN_Class
-  id:          2220
-  description:      รถพ่วง 
+  classId:          2220
+  classDescription:      รถพ่วง 
   group:     *group22
 - &fsnClass2230  !!models.fsnNumber.FSN_Class
-  id:          2230
-  description:      อุปกรณ์ก่อสร้างเขตทางและซ่อมบำรุงทางรถไฟ 
+  classId:          2230
+  classDescription:      อุปกรณ์ก่อสร้างเขตทางและซ่อมบำรุงทางรถไฟ 
   group:     *group22
 - &fsnClass2240  !!models.fsnNumber.FSN_Class
-  id:          2240
-  description:      ส่วนประกอบของรถจักรและรถพ่วง 
+  classId:          2240
+  classDescription:      ส่วนประกอบของรถจักรและรถพ่วง 
   group:     *group22
 - &fsnClass2250  !!models.fsnNumber.FSN_Class
-  id:          2250
-  description:      วัสดุรางรถไฟ 
+  classId:          2250
+  classDescription:      วัสดุรางรถไฟ 
   group:     *group22
 - &fsnClass2310  !!models.fsnNumber.FSN_Class
-  id:          2310
-  description:      ยานยนต์โดยสาร 
+  classId:          2310
+  classDescription:      ยานยนต์โดยสาร 
   group:     *group23
 - &fsnClass2320  !!models.fsnNumber.FSN_Class
-  id:          2320
-  description:      รถบรรทุกและรถลากจูงใช้ล้อ 
+  classId:          2320
+  classDescription:      รถบรรทุกและรถลากจูงใช้ล้อ 
   group:     *group23
 - &fsnClass2330  !!models.fsnNumber.FSN_Class
-  id:          2330
-  description:      รถพ่วง 
+  classId:          2330
+  classDescription:      รถพ่วง 
   group:     *group23
 - &fsnClass2340  !!models.fsnNumber.FSN_Class
-  id:          2340
-  description:      รถจักรยานยนต์  รถจักรยานยนต์ล้อเล็กและรถจักรยาน 
+  classId:          2340
+  classDescription:      รถจักรยานยนต์  รถจักรยานยนต์ล้อเล็กและรถจักรยาน 
   group:     *group23
 - &fsnClass2350  !!models.fsnNumber.FSN_Class
-  id:          2350
-  description:      รถถังและอาวุธอัตจร 
+  classId:          2350
+  classDescription:      รถถังและอาวุธอัตจร 
   group:     *group23
 - &fsnClass2410  !!models.fsnNumber.FSN_Class
-  id:          2410
-  description:      รถลากจูง  ใช้สายพาน ความเร็วต่ำ 
+  classId:          2410
+  classDescription:      รถลากจูง  ใช้สายพาน ความเร็วต่ำ 
   group:     *group24
 - &fsnClass2420  !!models.fsnNumber.FSN_Class
-  id:          2420
-  description:      รถลากจูง  ใช้ล้อ 
+  classId:          2420
+  classDescription:      รถลากจูง  ใช้ล้อ 
   group:     *group24
 - &fsnClass2430  !!models.fsnNumber.FSN_Class
-  id:          2430
-  description:      รถลากจูง ใช้สายพาน ความเร็วสูง 
+  classId:          2430
+  classDescription:      รถลากจูง ใช้สายพาน ความเร็วสูง 
   group:     *group24
 - &fsnClass2510  !!models.fsnNumber.FSN_Class
-  id:          2510
-  description:      ส่วนประกอบที่เป็นห้องพลขับตัวถัง และโครงรถ 
+  classId:          2510
+  classDescription:      ส่วนประกอบที่เป็นห้องพลขับตัวถัง และโครงรถ 
   group:     *group25
 - &fsnClass2520  !!models.fsnNumber.FSN_Class
-  id:          2520
-  description:      ส่วนถ่ายทอดกำลังของยานพาหนะ 
+  classId:          2520
+  classDescription:      ส่วนถ่ายทอดกำลังของยานพาหนะ 
   group:     *group25
 - &fsnClass2530  !!models.fsnNumber.FSN_Class
-  id:          2530
-  description:      ส่วนสายพาน  ล้อ เพลา 
+  classId:          2530
+  classDescription:      ส่วนสายพาน  ล้อ เพลา 
   group:     *group25
 - &fsnClass2540  !!models.fsnNumber.FSN_Class
-  id:          2540
-  description:      เครื่องใช้และเครื่องตกแต่งยานพาหนะ 
+  classId:          2540
+  classDescription:      เครื่องใช้และเครื่องตกแต่งยานพาหนะ 
   group:     *group25
 - &fsnClass2550  !!models.fsnNumber.FSN_Class
-  id:          2550
-  description:      ส่วนประกอบอื่น ๆ 
+  classId:          2550
+  classDescription:      ส่วนประกอบอื่น ๆ 
   group:     *group25
 - &fsnClass2610  !!models.fsnNumber.FSN_Class
-  id:          2610
-  description:      ยางนอกและยางในใช้ลมยกเว้นของอากาศยาน 
+  classId:          2610
+  classDescription:      ยางนอกและยางในใช้ลมยกเว้นของอากาศยาน 
   group:     *group26
 - &fsnClass2620  !!models.fsnNumber.FSN_Class
-  id:          2620
-  description:      ยางนอกและยางในใช้ลมใช้กับอากาศยาน 
+  classId:          2620
+  classDescription:      ยางนอกและยางในใช้ลมใช้กับอากาศยาน 
   group:     *group26
 - &fsnClass2630  !!models.fsnNumber.FSN_Class
-  id:          2630
-  description:      ยางตัน 
+  classId:          2630
+  classDescription:      ยางตัน 
   group:     *group26
 - &fsnClass2640  !!models.fsnNumber.FSN_Class
-  id:          2640
-  description:      วัสดุที่ใช้ส่องยางนอกและยางใน 
+  classId:          2640
+  classDescription:      วัสดุที่ใช้ส่องยางนอกและยางใน 
   group:     *group26
 - &fsnClass2805  !!models.fsnNumber.FSN_Class
-  id:          2805
-  description:      เครื่องยนต์แก๊สโซลีนเว้นที่ใช้กับอากาศยาน 
+  classId:          2805
+  classDescription:      เครื่องยนต์แก๊สโซลีนเว้นที่ใช้กับอากาศยาน 
   group:     *group28
 - &fsnClass2810  !!models.fsnNumber.FSN_Class
-  id:          2810
-  description:      เครื่องยนต์แก๊สโซลีนใช้กับอากาศยาน 
+  classId:          2810
+  classDescription:      เครื่องยนต์แก๊สโซลีนใช้กับอากาศยาน 
   group:     *group28
 - &fsnClass2815  !!models.fsnNumber.FSN_Class
-  id:          2815
-  description:      เครื่องยนต์ดีเซลและส่วนประกอบ 
+  classId:          2815
+  classDescription:      เครื่องยนต์ดีเซลและส่วนประกอบ 
   group:     *group28
 - &fsnClass2820  !!models.fsnNumber.FSN_Class
-  id:          2820
-  description:      เครื่องยนต์ไอน้ำและส่วนประกอบ 
+  classId:          2820
+  classDescription:      เครื่องยนต์ไอน้ำและส่วนประกอบ 
   group:     *group28
 - &fsnClass2825  !!models.fsnNumber.FSN_Class
-  id:          2825
-  description:      เครื่องเทอร์ไบน์ไอน้ำและส่วนประกอบ 
+  classId:          2825
+  classDescription:      เครื่องเทอร์ไบน์ไอน้ำและส่วนประกอบ 
   group:     *group28
 - &fsnClass2830  !!models.fsnNumber.FSN_Class
-  id:          2830
-  description:      เครื่องเทอร์ไบน์กำลังน้ำและล้อกำลังน้ำ 
+  classId:          2830
+  classDescription:      เครื่องเทอร์ไบน์กำลังน้ำและล้อกำลังน้ำ 
   group:     *group28
 - &fsnClass2835  !!models.fsnNumber.FSN_Class
-  id:          2835
-  description:      เครื่องเทอร์ไบน์ใช้แก๊สและเครื่องยนต์ไอพ่น เว้นใช้กับอากาศยาน 
+  classId:          2835
+  classDescription:      เครื่องเทอร์ไบน์ใช้แก๊สและเครื่องยนต์ไอพ่น เว้นใช้กับอากาศยาน 
   group:     *group28
 - &fsnClass2840  !!models.fsnNumber.FSN_Class
-  id:          2840
-  description:      เครื่องเทอร์ไบน์ใช้แก๊สและเครื่องยนต์ไอพ่นอากาศยาน 
+  classId:          2840
+  classDescription:      เครื่องเทอร์ไบน์ใช้แก๊สและเครื่องยนต์ไอพ่นอากาศยาน 
   group:     *group28
 - &fsnClass2845  !!models.fsnNumber.FSN_Class
-  id:          2845
-  description:      เครื่องยนต์จรวจและส่วนประกอบ 
+  classId:          2845
+  classDescription:      เครื่องยนต์จรวจและส่วนประกอบ 
   group:     *group28
 - &fsnClass2895  !!models.fsnNumber.FSN_Class
-  id:          2895
-  description:      เครื่องยนต์อื่น ๆ 
+  classId:          2895
+  classDescription:      เครื่องยนต์อื่น ๆ 
   group:     *group28
 - &fsnClass2910  !!models.fsnNumber.FSN_Class
-  id:          2910
-  description:      ส่วนประกอบระบบเชื้อเพลิงของเครื่องยนต์ เว้นอากาศยาน 
+  classId:          2910
+  classDescription:      ส่วนประกอบระบบเชื้อเพลิงของเครื่องยนต์ เว้นอากาศยาน 
   group:     *group29
 - &fsnClass2915  !!models.fsnNumber.FSN_Class
-  id:          2915
-  description:      ส่วนประกอบระบบเชื้อเพลิงใช้กับอากาศยาน 
+  classId:          2915
+  classDescription:      ส่วนประกอบระบบเชื้อเพลิงใช้กับอากาศยาน 
   group:     *group29
 - &fsnClass2920  !!models.fsnNumber.FSN_Class
-  id:          2920
-  description:      ส่วนประกอบระบบไฟฟ้าของเครื่องยนต์เว้นใช้กับอากาศยาน 
+  classId:          2920
+  classDescription:      ส่วนประกอบระบบไฟฟ้าของเครื่องยนต์เว้นใช้กับอากาศยาน 
   group:     *group29
 - &fsnClass2925  !!models.fsnNumber.FSN_Class
-  id:          2925
-  description:      ส่วนประกอบระบบไฟฟ้าของอากาศยาน 
+  classId:          2925
+  classDescription:      ส่วนประกอบระบบไฟฟ้าของอากาศยาน 
   group:     *group29
 - &fsnClass2930  !!models.fsnNumber.FSN_Class
-  id:          2930
-  description:      ส่วนประกอบระบบระบายความร้อนเว้นอากาศยาน  
+  classId:          2930
+  classDescription:      ส่วนประกอบระบบระบายความร้อนเว้นอากาศยาน  
   group:     *group29
 - &fsnClass2935  !!models.fsnNumber.FSN_Class
-  id:          2935
-  description:      ส่วนประกอบระบบระบายความร้อนของอากาศยาน 
+  classId:          2935
+  classDescription:      ส่วนประกอบระบบระบายความร้อนของอากาศยาน 
   group:     *group29
 - &fsnClass2940  !!models.fsnNumber.FSN_Class
-  id:          2940
-  description:      เครื่องกรองอากาศและกรองน้ำมันเครื่องเว้นใช้กับอากาศยาน 
+  classId:          2940
+  classDescription:      เครื่องกรองอากาศและกรองน้ำมันเครื่องเว้นใช้กับอากาศยาน 
   group:     *group29
 - &fsnClass2945  !!models.fsnNumber.FSN_Class
-  id:          2945
-  description:      เครื่องกรองอากาศและกรองน้ำมันเครื่องใช้กับอากาศยาน 
+  classId:          2945
+  classDescription:      เครื่องกรองอากาศและกรองน้ำมันเครื่องใช้กับอากาศยาน 
   group:     *group29
 - &fsnClass2950  !!models.fsnNumber.FSN_Class
-  id:          2950
-  description:      เครื่องประจุกำลังเพิ่มเทอร์โบ 
+  classId:          2950
+  classDescription:      เครื่องประจุกำลังเพิ่มเทอร์โบ 
   group:     *group29
 - &fsnClass2990  !!models.fsnNumber.FSN_Class
-  id:          2990
-  description:      เครื่องใช้อื่น ๆ เว้นใช้กับอากาศยาน 
+  classId:          2990
+  classDescription:      เครื่องใช้อื่น ๆ เว้นใช้กับอากาศยาน 
   group:     *group29
 - &fsnClass2995  !!models.fsnNumber.FSN_Class
-  id:          2995
-  description:      เครื่องใช้อื่น ๆ ใช้กับอากาศยาน  
+  classId:          2995
+  classDescription:      เครื่องใช้อื่น ๆ ใช้กับอากาศยาน  
   group:     *group29
 - &fsnClass3010  !!models.fsnNumber.FSN_Class
-  id:          3010
-  description:      เครื่องปรับแรงขับและเปลี่ยนความเร็ว  
+  classId:          3010
+  classDescription:      เครื่องปรับแรงขับและเปลี่ยนความเร็ว  
   group:     *group30
 - &fsnClass3020  !!models.fsnNumber.FSN_Class
-  id:          3020
-  description:      เฟือง  ล้อตุนกำลัง ล้อนำสายพานและโซ่ 
+  classId:          3020
+  classDescription:      เฟือง  ล้อตุนกำลัง ล้อนำสายพานและโซ่ 
   group:     *group30
 - &fsnClass3030  !!models.fsnNumber.FSN_Class
-  id:          3030
-  description:      สายพาน สายพานขับ และสายพานพัดลม 
+  classId:          3030
+  classDescription:      สายพาน สายพานขับ และสายพานพัดลม 
   group:     *group30
 - &fsnClass3040  !!models.fsnNumber.FSN_Class
-  id:          3040
-  description:      อุปกรณ์การส่งผ่านอื่น ๆ 
+  classId:          3040
+  classDescription:      อุปกรณ์การส่งผ่านอื่น ๆ 
   group:     *group30
 - &fsnClass3110  !!models.fsnNumber.FSN_Class
-  id:          3110
-  description:      รองเพลา  ตัวกันความฝืด  ไม่ติดแน่น 
+  classId:          3110
+  classDescription:      รองเพลา  ตัวกันความฝืด  ไม่ติดแน่น 
   group:     *group31
 - &fsnClass3120  !!models.fsnNumber.FSN_Class
-  id:          3120
-  description:      รองเพลาเรียบไม่ติดแน่น 
+  classId:          3120
+  classDescription:      รองเพลาเรียบไม่ติดแน่น 
   group:     *group31
 - &fsnClass3130  !!models.fsnNumber.FSN_Class
-  id:          3130
-  description:      รองเพลาชนิดติดแน่น 
+  classId:          3130
+  classDescription:      รองเพลาชนิดติดแน่น 
   group:     *group31
 - &fsnClass3210  !!models.fsnNumber.FSN_Class
-  id:          3210
-  description:      เครื่องจักรหนักไสไม้และเครื่องจักรเลื่อยไม้ 
+  classId:          3210
+  classDescription:      เครื่องจักรหนักไสไม้และเครื่องจักรเลื่อยไม้ 
   group:     *group32
 - &fsnClass3220  !!models.fsnNumber.FSN_Class
-  id:          3220
-  description:      เครื่องจักรเบางานไม้ 
+  classId:          3220
+  classDescription:      เครื่องจักรเบางานไม้ 
   group:     *group32
 - &fsnClass3230  !!models.fsnNumber.FSN_Class
-  id:          3230
-  description:      เครื่องมือและเครื่องประกอบงานไม้ 
+  classId:          3230
+  classDescription:      เครื่องมือและเครื่องประกอบงานไม้ 
   group:     *group32
 - &fsnClass3405  !!models.fsnNumber.FSN_Class
-  id:          3405
-  description:      เครื่องเลื่อยและเครื่องดูดไฟ 
+  classId:          3405
+  classDescription:      เครื่องเลื่อยและเครื่องดูดไฟ 
   group:     *group34
 - &fsnClass3408  !!models.fsnNumber.FSN_Class
-  id:          3408
-  description:      เครื่องจักรกลมีเขี้ยวและเพลาดุล 
+  classId:          3408
+  classDescription:      เครื่องจักรกลมีเขี้ยวและเพลาดุล 
   group:     *group34
 - &fsnClass3410  !!models.fsnNumber.FSN_Class
-  id:          3410
-  description:      เครื่องกัดกร่อนอุลทราโซนิกและไฟฟ้า 
+  classId:          3410
+  classDescription:      เครื่องกัดกร่อนอุลทราโซนิกและไฟฟ้า 
   group:     *group34
 - &fsnClass3411  !!models.fsnNumber.FSN_Class
-  id:          3411
-  description:      เครื่องคว้าน 
+  classId:          3411
+  classDescription:      เครื่องคว้าน 
   group:     *group34
 - &fsnClass3412  !!models.fsnNumber.FSN_Class
-  id:          3412
-  description:      เครื่องเซาะ 
+  classId:          3412
+  classDescription:      เครื่องเซาะ 
   group:     *group34
 - &fsnClass3413  !!models.fsnNumber.FSN_Class
-  id:          3413
-  description:      เครื่องเจาะและเครื่องทำเกลียว 
+  classId:          3413
+  classDescription:      เครื่องเจาะและเครื่องทำเกลียว 
   group:     *group34
 - &fsnClass3414  !!models.fsnNumber.FSN_Class
-  id:          3414
-  description:      เครื่องกัดเฟืองและแต่งเฟือง 
+  classId:          3414
+  classDescription:      เครื่องกัดเฟืองและแต่งเฟือง 
   group:     *group34
 - &fsnClass3415  !!models.fsnNumber.FSN_Class
-  id:          3415
-  description:      เครื่องเจียรนัย 
+  classId:          3415
+  classDescription:      เครื่องเจียรนัย 
   group:     *group34
 - &fsnClass3416  !!models.fsnNumber.FSN_Class
-  id:          3416
-  description:      เครื่องกลึง 
+  classId:          3416
+  classDescription:      เครื่องกลึง 
   group:     *group34
 - &fsnClass3417  !!models.fsnNumber.FSN_Class
-  id:          3417
-  description:      เครื่องกัด 
+  classId:          3417
+  classDescription:      เครื่องกัด 
   group:     *group34
 - &fsnClass3418  !!models.fsnNumber.FSN_Class
-  id:          3418
-  description:      เครื่องไสใหญ่และเครื่องไสเล็ก  
+  classId:          3418
+  classDescription:      เครื่องไสใหญ่และเครื่องไสเล็ก  
   group:     *group34
 - &fsnClass3419  !!models.fsnNumber.FSN_Class
-  id:          3419
-  description:      เครื่องมือกลอื่น ๆ  
+  classId:          3419
+  classDescription:      เครื่องมือกลอื่น ๆ  
   group:     *group34
 - &fsnClass3422  !!models.fsnNumber.FSN_Class
-  id:          3422
-  description:      เครื่องรีดและเครื่องอัดรีด 
+  classId:          3422
+  classDescription:      เครื่องรีดและเครื่องอัดรีด 
   group:     *group34
 - &fsnClass3424  !!models.fsnNumber.FSN_Class
-  id:          3424
-  description:      เครื่องอบชุบโลหะด้วยความร้อน 
+  classId:          3424
+  classDescription:      เครื่องอบชุบโลหะด้วยความร้อน 
   group:     *group34
 - &fsnClass3426  !!models.fsnNumber.FSN_Class
-  id:          3426
-  description:      เครื่องเคลือบผิวโลหะ 
+  classId:          3426
+  classDescription:      เครื่องเคลือบผิวโลหะ 
   group:     *group34
 - &fsnClass3431  !!models.fsnNumber.FSN_Class
-  id:          3431
-  description:      เครื่องเชื่อมไฟฟ้าด้วยอาร์ต 
+  classId:          3431
+  classDescription:      เครื่องเชื่อมไฟฟ้าด้วยอาร์ต 
   group:     *group34
 - &fsnClass3432  !!models.fsnNumber.FSN_Class
-  id:          3432
-  description:      เครื่องเชื่อมไฟฟ้าด้วยความต้านทาน 
+  classId:          3432
+  classDescription:      เครื่องเชื่อมไฟฟ้าด้วยความต้านทาน 
   group:     *group34
 - &fsnClass3433  !!models.fsnNumber.FSN_Class
-  id:          3433
-  description:      เครื่องเชื่อมด้วยแก็ส เครื่องตัดด้วยความร้อนและเครื่องพอกโลหะ 
+  classId:          3433
+  classDescription:      เครื่องเชื่อมด้วยแก็ส เครื่องตัดด้วยความร้อนและเครื่องพอกโลหะ 
   group:     *group34
 - &fsnClass3436  !!models.fsnNumber.FSN_Class
-  id:          3436
-  description:      เครื่องติดตั้งและปรับการเชื่อม 
+  classId:          3436
+  classDescription:      เครื่องติดตั้งและปรับการเชื่อม 
   group:     *group34
 - &fsnClass3438  !!models.fsnNumber.FSN_Class
-  id:          3438
-  description:      อุปกรณ์การเชื่อมอื่น ๆ 
+  classId:          3438
+  classDescription:      อุปกรณ์การเชื่อมอื่น ๆ 
   group:     *group34
 - &fsnClass3439  !!models.fsnNumber.FSN_Class
-  id:          3439
-  description:      อุปกรณ์การเชื่อมและบัดกรีอื่น ๆ 
+  classId:          3439
+  classDescription:      อุปกรณ์การเชื่อมและบัดกรีอื่น ๆ 
   group:     *group34
 - &fsnClass3441  !!models.fsnNumber.FSN_Class
-  id:          3441
-  description:      เครื่องดัดและขึ้นรูป 
+  classId:          3441
+  classDescription:      เครื่องดัดและขึ้นรูป 
   group:     *group34
 - &fsnClass3442  !!models.fsnNumber.FSN_Class
-  id:          3442
-  description:      เครื่องอัดด้วยของเหลวและลม 
+  classId:          3442
+  classDescription:      เครื่องอัดด้วยของเหลวและลม 
   group:     *group34
 - &fsnClass3443  !!models.fsnNumber.FSN_Class
-  id:          3443
-  description:      เครื่องอัดทางกล 
+  classId:          3443
+  classDescription:      เครื่องอัดทางกล 
   group:     *group34
 - &fsnClass3444  !!models.fsnNumber.FSN_Class
-  id:          3444
-  description:      เครื่องอัดด้วยมือ 
+  classId:          3444
+  classDescription:      เครื่องอัดด้วยมือ 
   group:     *group34
 - &fsnClass3445  !!models.fsnNumber.FSN_Class
-  id:          3445
-  description:      เครื่องเจาะและเครื่องตัด 
+  classId:          3445
+  classDescription:      เครื่องเจาะและเครื่องตัด 
   group:     *group34
 - &fsnClass3446  !!models.fsnNumber.FSN_Class
-  id:          3446
-  description:      เครื่องตีเหล็กและฆ้อน 
+  classId:          3446
+  classDescription:      เครื่องตีเหล็กและฆ้อน 
   group:     *group34
 - &fsnClass3447  !!models.fsnNumber.FSN_Class
-  id:          3447
-  description:      เครื่องทำลวดและเหล็กพืด 
+  classId:          3447
+  classDescription:      เครื่องทำลวดและเหล็กพืด 
   group:     *group34
 - &fsnClass3448  !!models.fsnNumber.FSN_Class
-  id:          3448
-  description:      เครื่องย้ำหมุด 
+  classId:          3448
+  classDescription:      เครื่องย้ำหมุด 
   group:     *group34
 - &fsnClass3449  !!models.fsnNumber.FSN_Class
-  id:          3449
-  description:      เครื่องตัดและขึ้นรูปโลหะอื่น ๆ  
+  classId:          3449
+  classDescription:      เครื่องตัดและขึ้นรูปโลหะอื่น ๆ  
   group:     *group34
 - &fsnClass3450  !!models.fsnNumber.FSN_Class
-  id:          3450
-  description:      ส่วนประกอบเครื่องมือกล 
+  classId:          3450
+  classDescription:      ส่วนประกอบเครื่องมือกล 
   group:     *group34
 - &fsnClass3465  !!models.fsnNumber.FSN_Class
-  id:          3465
-  description:      เครื่องมือแบบเครื่องมือจับและแผ่นแบบ 
+  classId:          3465
+  classDescription:      เครื่องมือแบบเครื่องมือจับและแผ่นแบบ 
   group:     *group34
 - &fsnClass3470  !!models.fsnNumber.FSN_Class
-  id:          3470
-  description:      ชุดเครื่องมือโรงงาน 
+  classId:          3470
+  classDescription:      ชุดเครื่องมือโรงงาน 
   group:     *group34
 - &fsnClass3510  !!models.fsnNumber.FSN_Class
-  id:          3510
-  description:      อุปกรณ์การซักล้างและการซักแห้ง 
+  classId:          3510
+  classDescription:      อุปกรณ์การซักล้างและการซักแห้ง 
   group:     *group35
 - &fsnClass3520  !!models.fsnNumber.FSN_Class
-  id:          3520
-  description:      อุปกรณ์ซ่อมรองเท้า 
+  classId:          3520
+  classDescription:      อุปกรณ์ซ่อมรองเท้า 
   group:     *group35
 - &fsnClass3530  !!models.fsnNumber.FSN_Class
-  id:          3530
-  description:      จักรเย็บผ้าทางอุตสาหกรรมและโรงงานซ่อม 
+  classId:          3530
+  classDescription:      จักรเย็บผ้าทางอุตสาหกรรมและโรงงานซ่อม 
   group:     *group35
 - &fsnClass3540  !!models.fsnNumber.FSN_Class
-  id:          3540
-  description:      เครื่องจักรทำห่อและห่อชั้นใน 
+  classId:          3540
+  classDescription:      เครื่องจักรทำห่อและห่อชั้นใน 
   group:     *group35
 - &fsnClass3550  !!models.fsnNumber.FSN_Class
-  id:          3550
-  description:      เครื่องที่ทำงานด้วยการหย่อนเหรียญ 
+  classId:          3550
+  classDescription:      เครื่องที่ทำงานด้วยการหย่อนเหรียญ 
   group:     *group35
 - &fsnClass3590  !!models.fsnNumber.FSN_Class
-  id:          3590
-  description:      อุปกรณ์บริการอื่น ๆ 
+  classId:          3590
+  classDescription:      อุปกรณ์บริการอื่น ๆ 
   group:     *group35
 - &fsnClass3605  !!models.fsnNumber.FSN_Class
-  id:          3605
-  description:      เครื่องจักรและอุปกรณ์ผลิตอาหาร 
+  classId:          3605
+  classDescription:      เครื่องจักรและอุปกรณ์ผลิตอาหาร 
   group:     *group36
 - &fsnClass3610  !!models.fsnNumber.FSN_Class
-  id:          3610
-  description:      อุปกรณ์การพิมพ์  เข้าเล่มและเย็บเล่ม 
+  classId:          3610
+  classDescription:      อุปกรณ์การพิมพ์  เข้าเล่มและเย็บเล่ม 
   group:     *group36
 - &fsnClass3611  !!models.fsnNumber.FSN_Class
-  id:          3611
-  description:      เครื่องทำเครื่องหมายงานอุตสาหกรรม 
+  classId:          3611
+  classDescription:      เครื่องทำเครื่องหมายงานอุตสาหกรรม 
   group:     *group36
 - &fsnClass3615  !!models.fsnNumber.FSN_Class
-  id:          3615
-  description:      เครื่องจักรทำเยื่อและกระดาษ 
+  classId:          3615
+  classDescription:      เครื่องจักรทำเยื่อและกระดาษ 
   group:     *group36
 - &fsnClass3620  !!models.fsnNumber.FSN_Class
-  id:          3620
-  description:      เครื่องจักรงานยางและพลาสติก 
+  classId:          3620
+  classDescription:      เครื่องจักรงานยางและพลาสติก 
   group:     *group36
 - &fsnClass3625  !!models.fsnNumber.FSN_Class
-  id:          3625
-  description:      เครื่องจักรโรงงานสิ่งทอ 
+  classId:          3625
+  classDescription:      เครื่องจักรโรงงานสิ่งทอ 
   group:     *group36
 - &fsnClass3630  !!models.fsnNumber.FSN_Class
-  id:          3630
-  description:      เครื่องจักรอุตสาหกรรมดินเผาและคอนกรีต 
+  classId:          3630
+  classDescription:      เครื่องจักรอุตสาหกรรมดินเผาและคอนกรีต 
   group:     *group36
 - &fsnClass3635  !!models.fsnNumber.FSN_Class
-  id:          3635
-  description:      เครื่องจักรโรงงานแก้วและผลึก 
+  classId:          3635
+  classDescription:      เครื่องจักรโรงงานแก้วและผลึก 
   group:     *group36
 - &fsnClass3640  !!models.fsnNumber.FSN_Class
-  id:          3640
-  description:      เครื่องจักรโรงงานยาสูบ 
+  classId:          3640
+  classDescription:      เครื่องจักรโรงงานยาสูบ 
   group:     *group36
 - &fsnClass3645  !!models.fsnNumber.FSN_Class
-  id:          3645
-  description:      เครื่องจักรโรงงานฟอกหนัง 
+  classId:          3645
+  classDescription:      เครื่องจักรโรงงานฟอกหนัง 
   group:     *group36
 - &fsnClass3650  !!models.fsnNumber.FSN_Class
-  id:          3650
-  description:      เครื่องจักรโรงงานเภสัชกรรมและเคมี 
+  classId:          3650
+  classDescription:      เครื่องจักรโรงงานเภสัชกรรมและเคมี 
   group:     *group36
 - &fsnClass3655  !!models.fsnNumber.FSN_Class
-  id:          3655
-  description:      ระบบผลิตและจ่ายแก๊สประจำที่หรือเคลื่อนที่ 
+  classId:          3655
+  classDescription:      ระบบผลิตและจ่ายแก๊สประจำที่หรือเคลื่อนที่ 
   group:     *group36
 - &fsnClass3660  !!models.fsnNumber.FSN_Class
-  id:          3660
-  description:      เครื่องจักรลดขนาดทางอุตสาหกรรม 
+  classId:          3660
+  classDescription:      เครื่องจักรลดขนาดทางอุตสาหกรรม 
   group:     *group36
 - &fsnClass3680  !!models.fsnNumber.FSN_Class
-  id:          3680
-  description:      เครื่องจักรและอุปกรณ์โรงหล่อ 
+  classId:          3680
+  classDescription:      เครื่องจักรและอุปกรณ์โรงหล่อ 
   group:     *group36
 - &fsnClass3685  !!models.fsnNumber.FSN_Class
-  id:          3685
-  description:      เครื่องจักผลิตภาชนะโลหะและอุปกรณ์ที่เกี่ยวข้อง 
+  classId:          3685
+  classDescription:      เครื่องจักผลิตภาชนะโลหะและอุปกรณ์ที่เกี่ยวข้อง 
   group:     *group36
 - &fsnClass3690  !!models.fsnNumber.FSN_Class
-  id:          3690
-  description:      เครื่องจักรผลิตกระสุนและอุปกรณ์ที่เกี่ยวข้อง 
+  classId:          3690
+  classDescription:      เครื่องจักรผลิตกระสุนและอุปกรณ์ที่เกี่ยวข้อง 
   group:     *group36
 - &fsnClass3693  !!models.fsnNumber.FSN_Class
-  id:          3693
-  description:      เครื่องจักรใช้การประกอบคุม 
+  classId:          3693
+  classDescription:      เครื่องจักรใช้การประกอบคุม 
   group:     *group36
 - &fsnClass3694  !!models.fsnNumber.FSN_Class
-  id:          3694
-  description:      อุปกรณ์สำหรับสถานที่  ที่สะอาดที่กักกัน  และอุปกรณ์ที่เกี่ยวข้อง 
+  classId:          3694
+  classDescription:      อุปกรณ์สำหรับสถานที่  ที่สะอาดที่กักกัน  และอุปกรณ์ที่เกี่ยวข้อง 
   group:     *group36
 - &fsnClass3695  !!models.fsnNumber.FSN_Class
-  id:          3695
-  description:      เครื่องจักรงานอุตสาหกรรมเฉพาะอื่น ๆ 
+  classId:          3695
+  classDescription:      เครื่องจักรงานอุตสาหกรรมเฉพาะอื่น ๆ 
   group:     *group36
 - &fsnClass3710  !!models.fsnNumber.FSN_Class
-  id:          3710
-  description:      เครื่องมือเตรียมดิน 
+  classId:          3710
+  classDescription:      เครื่องมือเตรียมดิน 
   group:     *group37
 - &fsnClass3720  !!models.fsnNumber.FSN_Class
-  id:          3720
-  description:      เครื่องมือเก็บเกี่ยว 
+  classId:          3720
+  classDescription:      เครื่องมือเก็บเกี่ยว 
   group:     *group37
 - &fsnClass3730  !!models.fsnNumber.FSN_Class
-  id:          3730
-  description:      อุปกรณ์ผลิตนม สัตว์ปีกและปศุสัตว์ 
+  classId:          3730
+  classDescription:      อุปกรณ์ผลิตนม สัตว์ปีกและปศุสัตว์ 
   group:     *group37
 - &fsnClass3740  !!models.fsnNumber.FSN_Class
-  id:          3740
-  description:      อุปกรณ์กำจัดแมลง เชื้อโรคและโรคหิมะ 
+  classId:          3740
+  classDescription:      อุปกรณ์กำจัดแมลง เชื้อโรคและโรคหิมะ 
   group:     *group37
 - &fsnClass3750  !!models.fsnNumber.FSN_Class
-  id:          3750
-  description:      เครื่องมือเครื่องใช้ในการทำสวน 
+  classId:          3750
+  classDescription:      เครื่องมือเครื่องใช้ในการทำสวน 
   group:     *group37
 - &fsnClass3760  !!models.fsnNumber.FSN_Class
-  id:          3760
-  description:      ยานพาหนะเทียมลากและรถพ่วงงานไร่นา 
+  classId:          3760
+  classDescription:      ยานพาหนะเทียมลากและรถพ่วงงานไร่นา 
   group:     *group37
 - &fsnClass3770  !!models.fsnNumber.FSN_Class
-  id:          3770
-  description:      ลานม้า  เครื่องลากจูง  เครื่องเทียมและเครื่องตกแต่งสัตว์ 
+  classId:          3770
+  classDescription:      ลานม้า  เครื่องลากจูง  เครื่องเทียมและเครื่องตกแต่งสัตว์ 
   group:     *group37
 - &fsnClass3805  !!models.fsnNumber.FSN_Class
-  id:          3805
-  description:      อุปกรณ์ขุดและขนดิน 
+  classId:          3805
+  classDescription:      อุปกรณ์ขุดและขนดิน 
   group:     *group38
 - &fsnClass3810  !!models.fsnNumber.FSN_Class
-  id:          3810
-  description:      ปั้นจั่นและปั้นจั่นตักดิน 
+  classId:          3810
+  classDescription:      ปั้นจั่นและปั้นจั่นตักดิน 
   group:     *group38
 - &fsnClass3815  !!models.fsnNumber.FSN_Class
-  id:          3815
-  description:      ส่วนประกอบปั้นจั่นและปั้นจั่นตักดิน 
+  classId:          3815
+  classDescription:      ส่วนประกอบปั้นจั่นและปั้นจั่นตักดิน 
   group:     *group38
 - &fsnClass3820  !!models.fsnNumber.FSN_Class
-  id:          3820
-  description:      อุปกรณ์การเหมือนแร่ การเจาะหินการเจาะดิน และอุปกรณ์อื่นที่เกี่ยวข้อง 
+  classId:          3820
+  classDescription:      อุปกรณ์การเหมือนแร่ การเจาะหินการเจาะดิน และอุปกรณ์อื่นที่เกี่ยวข้อง 
   group:     *group38
 - &fsnClass3825  !!models.fsnNumber.FSN_Class
-  id:          3825
-  description:      อุปกรณ์การถากถางและทำความสะอาดถนน 
+  classId:          3825
+  classDescription:      อุปกรณ์การถากถางและทำความสะอาดถนน 
   group:     *group38
 - &fsnClass3830  !!models.fsnNumber.FSN_Class
-  id:          3830
-  description:      ส่วนประกอบรถบรรทุกและรถแทรกเตอร์ 
+  classId:          3830
+  classDescription:      ส่วนประกอบรถบรรทุกและรถแทรกเตอร์ 
   group:     *group38
 - &fsnClass3835  !!models.fsnNumber.FSN_Class
-  id:          3835
-  description:      อุปกรณ์ผลิตและจ่ายน้ำมัน 
+  classId:          3835
+  classDescription:      อุปกรณ์ผลิตและจ่ายน้ำมัน 
   group:     *group38
 - &fsnClass3895  !!models.fsnNumber.FSN_Class
-  id:          3895
-  description:      อุปกรณ์การก่อสร้างอื่น ๆ 
+  classId:          3895
+  classDescription:      อุปกรณ์การก่อสร้างอื่น ๆ 
   group:     *group38
 - &fsnClass3910  !!models.fsnNumber.FSN_Class
-  id:          3910
-  description:      รางเลื่อน 
+  classId:          3910
+  classDescription:      รางเลื่อน 
   group:     *group39
 - &fsnClass3915  !!models.fsnNumber.FSN_Class
-  id:          3915
-  description:      เครื่องป้อน 
+  classId:          3915
+  classDescription:      เครื่องป้อน 
   group:     *group39
 - &fsnClass3920  !!models.fsnNumber.FSN_Class
-  id:          3920
-  description:      อุปกรณ์ยกขนพัสดุไม่มีการขับเคลื่อนด้วยตัวเอง 
+  classId:          3920
+  classDescription:      อุปกรณ์ยกขนพัสดุไม่มีการขับเคลื่อนด้วยตัวเอง 
   group:     *group39
 - &fsnClass3930  !!models.fsnNumber.FSN_Class
-  id:          3930
-  description:      รถบรรทุกและรถลากจูงใช้ในคลังขับเคลื่อนด้วยตัวเอง 
+  classId:          3930
+  classDescription:      รถบรรทุกและรถลากจูงใช้ในคลังขับเคลื่อนด้วยตัวเอง 
   group:     *group39
 - &fsnClass3940  !!models.fsnNumber.FSN_Class
-  id:          3940
-  description:      รอกขอ เครื่องยกของหนักและสำแหรกรอกขอแบบต่าง ๆ  
+  classId:          3940
+  classDescription:      รอกขอ เครื่องยกของหนักและสำแหรกรอกขอแบบต่าง ๆ  
   group:     *group39
 - &fsnClass3950  !!models.fsnNumber.FSN_Class
-  id:          3950
-  description:      กว้าน รอกชัก ปั้นจั่น และคันปั้นจั่น 
+  classId:          3950
+  classDescription:      กว้าน รอกชัก ปั้นจั่น และคันปั้นจั่น 
   group:     *group39
 - &fsnClass3960  !!models.fsnNumber.FSN_Class
-  id:          3960
-  description:      บันไดไฟฟ้าและลิฟท์ 
+  classId:          3960
+  classDescription:      บันไดไฟฟ้าและลิฟท์ 
   group:     *group39
 - &fsnClass3990  !!models.fsnNumber.FSN_Class
-  id:          3990
-  description:      อุปกรณ์ขนพัสดุอื่น ๆ 
+  classId:          3990
+  classDescription:      อุปกรณ์ขนพัสดุอื่น ๆ 
   group:     *group39
 - &fsnClass4010  !!models.fsnNumber.FSN_Class
-  id:          4010
-  description:      โซ่และเชือกลวด 
+  classId:          4010
+  classDescription:      โซ่และเชือกลวด 
   group:     *group40
 - &fsnClass4020  !!models.fsnNumber.FSN_Class
-  id:          4020
-  description:      เชือก  ด้าย  และเชือกควั่น 
+  classId:          4020
+  classDescription:      เชือก  ด้าย  และเชือกควั่น 
   group:     *group40
 - &fsnClass4030  !!models.fsnNumber.FSN_Class
-  id:          4030
-  description:      ของใช้กับ เชือก เคเบิล และโซ่ 
+  classId:          4030
+  classDescription:      ของใช้กับ เชือก เคเบิล และโซ่ 
   group:     *group40
 - &fsnClass4110  !!models.fsnNumber.FSN_Class
-  id:          4110
-  description:      อุปกรณ์ตู้เย็น 
+  classId:          4110
+  classDescription:      อุปกรณ์ตู้เย็น 
   group:     *group41
 - &fsnClass4120  !!models.fsnNumber.FSN_Class
-  id:          4120
-  description:      อุปกรณ์เครื่องปรับอากาศ 
+  classId:          4120
+  classDescription:      อุปกรณ์เครื่องปรับอากาศ 
   group:     *group41
 - &fsnClass4130  !!models.fsnNumber.FSN_Class
-  id:          4130
-  description:      ส่วนประกอบของตู้เย็นและเครื่องปรับอากาศ 
+  classId:          4130
+  classDescription:      ส่วนประกอบของตู้เย็นและเครื่องปรับอากาศ 
   group:     *group41
 - &fsnClass4140  !!models.fsnNumber.FSN_Class
-  id:          4140
-  description:      พัดลม  เครื่องถ่ายเทอากาศ และเครื่องเป่าลม 
+  classId:          4140
+  classDescription:      พัดลม  เครื่องถ่ายเทอากาศ และเครื่องเป่าลม 
   group:     *group41
 - &fsnClass4210  !!models.fsnNumber.FSN_Class
-  id:          4210
-  description:      อุปกรณ์ผจญเพลิง 
+  classId:          4210
+  classDescription:      อุปกรณ์ผจญเพลิง 
   group:     *group42
 - &fsnClass4220  !!models.fsnNumber.FSN_Class
-  id:          4220
-  description:      อุปกรณ์ดำน้ำ และช่วย ชีวิตทางทะเล 
+  classId:          4220
+  classDescription:      อุปกรณ์ดำน้ำ และช่วย ชีวิตทางทะเล 
   group:     *group42
 - &fsnClass4230  !!models.fsnNumber.FSN_Class
-  id:          4230
-  description:      อุปกรณ์ล้างไอพิษ และอาบน้ำยา 
+  classId:          4230
+  classDescription:      อุปกรณ์ล้างไอพิษ และอาบน้ำยา 
   group:     *group42
 - &fsnClass4240  !!models.fsnNumber.FSN_Class
-  id:          4240
-  description:      อุปกรณ์ความปลอดภัยและช่วยชีวิต 
+  classId:          4240
+  classDescription:      อุปกรณ์ความปลอดภัยและช่วยชีวิต 
   group:     *group42
 - &fsnClass4310  !!models.fsnNumber.FSN_Class
-  id:          4310
-  description:      เครื่องอัดและสูบสูญญากาศ 
+  classId:          4310
+  classDescription:      เครื่องอัดและสูบสูญญากาศ 
   group:     *group43
 - &fsnClass4320  !!models.fsnNumber.FSN_Class
-  id:          4320
-  description:      สูบมือและสูบเครื่อง 
+  classId:          4320
+  classDescription:      สูบมือและสูบเครื่อง 
   group:     *group43
 - &fsnClass4330  !!models.fsnNumber.FSN_Class
-  id:          4330
-  description:      เครื่องสูบหอยโข่ง เครื่องแยกและเครื่องอัด และเครื่องกรองสูญญากาศ 
+  classId:          4330
+  classDescription:      เครื่องสูบหอยโข่ง เครื่องแยกและเครื่องอัด และเครื่องกรองสูญญากาศ 
   group:     *group43
 - &fsnClass4410  !!models.fsnNumber.FSN_Class
-  id:          4410
-  description:      หม้อน้ำโรงงาน 
+  classId:          4410
+  classDescription:      หม้อน้ำโรงงาน 
   group:     *group44
 - &fsnClass4420  !!models.fsnNumber.FSN_Class
-  id:          4420
-  description:      เครื่องเปลี่ยนความร้อน และคอนเคนเซอร์ไอน้ำ 
+  classId:          4420
+  classDescription:      เครื่องเปลี่ยนความร้อน และคอนเคนเซอร์ไอน้ำ 
   group:     *group44
 - &fsnClass4430  !!models.fsnNumber.FSN_Class
-  id:          4430
-  description:      เตาหลอม  เตาเผา และเตาอบ 
+  classId:          4430
+  classDescription:      เตาหลอม  เตาเผา และเตาอบ 
   group:     *group44
 - &fsnClass4440  !!models.fsnNumber.FSN_Class
-  id:          4440
-  description:      เครื่องอบผึ่ง  เครื่องไล่ความชื้นและสารดูดความชื้น 
+  classId:          4440
+  classDescription:      เครื่องอบผึ่ง  เครื่องไล่ความชื้นและสารดูดความชื้น 
   group:     *group44
 - &fsnClass4460  !!models.fsnNumber.FSN_Class
-  id:          4460
-  description:      อุปกรณ์ทำให้อากาศบริสุทธิ์ 
+  classId:          4460
+  classDescription:      อุปกรณ์ทำให้อากาศบริสุทธิ์ 
   group:     *group44
 - &fsnClass4470  !!models.fsnNumber.FSN_Class
-  id:          4470
-  description:      ปฏิกรณ์นิวเคลียร์ 
+  classId:          4470
+  classDescription:      ปฏิกรณ์นิวเคลียร์ 
   group:     *group44
 - &fsnClass4510  !!models.fsnNumber.FSN_Class
-  id:          4510
-  description:      เครื่องสุขภัณฑ์และส่วนประกอบ 
+  classId:          4510
+  classDescription:      เครื่องสุขภัณฑ์และส่วนประกอบ 
   group:     *group45
 - &fsnClass4520  !!models.fsnNumber.FSN_Class
-  id:          4520
-  description:      อุปกรณ์ทำความร้อน และเครื่องทำน้ำร้อน 
+  classId:          4520
+  classDescription:      อุปกรณ์ทำความร้อน และเครื่องทำน้ำร้อน 
   group:     *group45
 - &fsnClass4530  !!models.fsnNumber.FSN_Class
-  id:          4530
-  description:      อุปกรณ์เผาไหม้เชื้อเพลิง 
+  classId:          4530
+  classDescription:      อุปกรณ์เผาไหม้เชื้อเพลิง 
   group:     *group45
 - &fsnClass4540  !!models.fsnNumber.FSN_Class
-  id:          4540
-  description:      อุปกรณ์อื่น ๆ เกี่ยวกับเครื่องสุขภัณฑ์  
+  classId:          4540
+  classDescription:      อุปกรณ์อื่น ๆ เกี่ยวกับเครื่องสุขภัณฑ์  
   group:     *group45
 - &fsnClass4610  !!models.fsnNumber.FSN_Class
-  id:          4610
-  description:      อุปกรณ์เครื่องกรองน้ำ 
+  classId:          4610
+  classDescription:      อุปกรณ์เครื่องกรองน้ำ 
   group:     *group46
 - &fsnClass4620  !!models.fsnNumber.FSN_Class
-  id:          4620
-  description:      อุปกรณ์เครื่องกลั่นน้ำมันสำหรับเรือและงานอุตสาหกรรม 
+  classId:          4620
+  classDescription:      อุปกรณ์เครื่องกลั่นน้ำมันสำหรับเรือและงานอุตสาหกรรม 
   group:     *group46
 - &fsnClass4630  !!models.fsnNumber.FSN_Class
-  id:          4630
-  description:      อุปกรณ์ระบายสิ่งโสโครก 
+  classId:          4630
+  classDescription:      อุปกรณ์ระบายสิ่งโสโครก 
   group:     *group46
 - &fsnClass4710  !!models.fsnNumber.FSN_Class
-  id:          4710
-  description:      ท่อและหลอด 
+  classId:          4710
+  classDescription:      ท่อและหลอด 
   group:     *group47
 - &fsnClass4720  !!models.fsnNumber.FSN_Class
-  id:          4720
-  description:      ท่อยาง   และท่ออ่อน 
+  classId:          4720
+  classDescription:      ท่อยาง   และท่ออ่อน 
   group:     *group47
 - &fsnClass4730  !!models.fsnNumber.FSN_Class
-  id:          4730
-  description:      จุกอัด  และท่อโลหะ ท่อยาง พิเศษ 
+  classId:          4730
+  classDescription:      จุกอัด  และท่อโลหะ ท่อยาง พิเศษ 
   group:     *group47
 - &fsnClass4810  !!models.fsnNumber.FSN_Class
-  id:          4810
-  description:      วาล์วใช้เครื่องให้กำลังงาน 
+  classId:          4810
+  classDescription:      วาล์วใช้เครื่องให้กำลังงาน 
   group:     *group48
 - &fsnClass4820  !!models.fsnNumber.FSN_Class
-  id:          4820
-  description:      วาล์วไม่ใช้เครื่องกำลัง 
+  classId:          4820
+  classDescription:      วาล์วไม่ใช้เครื่องกำลัง 
   group:     *group48
 - &fsnClass4910  !!models.fsnNumber.FSN_Class
-  id:          4910
-  description:      อุปกรณ์ใช้เฉพาะโรงงานซ่อมและการซ่อมบำรุงยานยนต์ 
+  classId:          4910
+  classDescription:      อุปกรณ์ใช้เฉพาะโรงงานซ่อมและการซ่อมบำรุงยานยนต์ 
   group:     *group49
 - &fsnClass4920  !!models.fsnNumber.FSN_Class
-  id:          4920
-  description:      อุปกรณ์เฉพาะโรงงามซ่อมและซ่อมบำรุงอากาศยาน 
+  classId:          4920
+  classDescription:      อุปกรณ์เฉพาะโรงงามซ่อมและซ่อมบำรุงอากาศยาน 
   group:     *group49
 - &fsnClass4925  !!models.fsnNumber.FSN_Class
-  id:          4925
-  description:      อุปกรณ์เฉพาะโรงงานซ่อมและซ่อมบำรุงกระสุน 
+  classId:          4925
+  classDescription:      อุปกรณ์เฉพาะโรงงานซ่อมและซ่อมบำรุงกระสุน 
   group:     *group49
 - &fsnClass4930  !!models.fsnNumber.FSN_Class
-  id:          4930
-  description:      อุปกรณ์การหล่อลื่นและจ่ายน้ำมันเชื้อเพลิง 
+  classId:          4930
+  classDescription:      อุปกรณ์การหล่อลื่นและจ่ายน้ำมันเชื้อเพลิง 
   group:     *group49
 - &fsnClass4931  !!models.fsnNumber.FSN_Class
-  id:          4931
-  description:      อุปกรณ์เฉพาะโรงงานซ่อมและซ่อมบำรุงอาวุธ 
+  classId:          4931
+  classDescription:      อุปกรณ์เฉพาะโรงงานซ่อมและซ่อมบำรุงอาวุธ 
   group:     *group49
 - &fsnClass4935  !!models.fsnNumber.FSN_Class
-  id:          4935
-  description:      อุปกรณ์เฉพาะตรวจสอบ ซ่อม 
+  classId:          4935
+  classDescription:      อุปกรณ์เฉพาะตรวจสอบ ซ่อม 
   group:     *group49
 - &fsnClass4940  !!models.fsnNumber.FSN_Class
-  id:          4940
-  description:      อุปกรณ์โรงงานซ่อมและซ่อมบำรุงอื่น ๆ  
+  classId:          4940
+  classDescription:      อุปกรณ์โรงงานซ่อมและซ่อมบำรุงอื่น ๆ  
   group:     *group49
 - &fsnClass4960  !!models.fsnNumber.FSN_Class
-  id:          4960
-  description:      อุปกรณ์เฉพาะโรงงานซ่อมและซ่อมบำรุงยานอวกาศ 
+  classId:          4960
+  classDescription:      อุปกรณ์เฉพาะโรงงานซ่อมและซ่อมบำรุงยานอวกาศ 
   group:     *group49
 - &fsnClass5110  !!models.fsnNumber.FSN_Class
-  id:          5110
-  description:      เครื่องมือ  มีคม ไม่ใช้กำลังกล 
+  classId:          5110
+  classDescription:      เครื่องมือ  มีคม ไม่ใช้กำลังกล 
   group:     *group51
 - &fsnClass5120  !!models.fsnNumber.FSN_Class
-  id:          5120
-  description:      เครื่องมือไม่มีคมไม่ใช้กำลังกล 
+  classId:          5120
+  classDescription:      เครื่องมือไม่มีคมไม่ใช้กำลังกล 
   group:     *group51
 - &fsnClass5130  !!models.fsnNumber.FSN_Class
-  id:          5130
-  description:      เครื่องมือใช้ขับด้วยแรงงาน 
+  classId:          5130
+  classDescription:      เครื่องมือใช้ขับด้วยแรงงาน 
   group:     *group51
 - &fsnClass5133  !!models.fsnNumber.FSN_Class
-  id:          5133
-  description:      ดอกเจาะ และดอกคว้าน ทั้งใช้มือและแรงงาน 
+  classId:          5133
+  classDescription:      ดอกเจาะ และดอกคว้าน ทั้งใช้มือและแรงงาน 
   group:     *group51
 - &fsnClass5136  !!models.fsnNumber.FSN_Class
-  id:          5136
-  description:      เครื่องมือทำเกลียวนอกและเกลียวในทั้งใช้มือและแรงงาน 
+  classId:          5136
+  classDescription:      เครื่องมือทำเกลียวนอกและเกลียวในทั้งใช้มือและแรงงาน 
   group:     *group51
 - &fsnClass5140  !!models.fsnNumber.FSN_Class
-  id:          5140
-  description:      หีบเก็บเครื่องมือและเครื่องใช้ 
+  classId:          5140
+  classDescription:      หีบเก็บเครื่องมือและเครื่องใช้ 
   group:     *group51
 - &fsnClass5180  !!models.fsnNumber.FSN_Class
-  id:          5180
-  description:      เครื่องมือชุด  ชุดย่อย และชุดเฉพาะ 
+  classId:          5180
+  classDescription:      เครื่องมือชุด  ชุดย่อย และชุดเฉพาะ 
   group:     *group51
 - &fsnClass5210  !!models.fsnNumber.FSN_Class
-  id:          5210
-  description:      เครื่องวัดทั่วไป 
+  classId:          5210
+  classDescription:      เครื่องวัดทั่วไป 
   group:     *group52
 - &fsnClass5220  !!models.fsnNumber.FSN_Class
-  id:          5220
-  description:      แบบวัดตรวจสภาพและเครื่องมือละเอียดกะผัง 
+  classId:          5220
+  classDescription:      แบบวัดตรวจสภาพและเครื่องมือละเอียดกะผัง 
   group:     *group52
 - &fsnClass5280  !!models.fsnNumber.FSN_Class
-  id:          5280
-  description:      เครื่องมือชุดเครื่องวัดต่าง ๆ  
+  classId:          5280
+  classDescription:      เครื่องมือชุดเครื่องวัดต่าง ๆ  
   group:     *group52
 - &fsnClass5305  !!models.fsnNumber.FSN_Class
-  id:          5305
-  description:      ควงเกลียว 
+  classId:          5305
+  classDescription:      ควงเกลียว 
   group:     *group53
 - &fsnClass5306  !!models.fsnNumber.FSN_Class
-  id:          5306
-  description:      สลักเกลียว 
+  classId:          5306
+  classDescription:      สลักเกลียว 
   group:     *group53
 - &fsnClass5307  !!models.fsnNumber.FSN_Class
-  id:          5307
-  description:      สลักเกลียวปล่อย  
+  classId:          5307
+  classDescription:      สลักเกลียวปล่อย  
   group:     *group53
 - &fsnClass5310  !!models.fsnNumber.FSN_Class
-  id:          5310
-  description:      แป้นเกลียวและแหวนรอง 
+  classId:          5310
+  classDescription:      แป้นเกลียวและแหวนรอง 
   group:     *group53
 - &fsnClass5315  !!models.fsnNumber.FSN_Class
-  id:          5315
-  description:      ตะปู  ลิ่ม และสลัก 
+  classId:          5315
+  classDescription:      ตะปู  ลิ่ม และสลัก 
   group:     *group53
 - &fsnClass5320  !!models.fsnNumber.FSN_Class
-  id:          5320
-  description:      หมุดย้ำ 
+  classId:          5320
+  classDescription:      หมุดย้ำ 
   group:     *group53
 - &fsnClass5325  !!models.fsnNumber.FSN_Class
-  id:          5325
-  description:      เครื่องยึดรัด 
+  classId:          5325
+  classDescription:      เครื่องยึดรัด 
   group:     *group53
 - &fsnClass5330  !!models.fsnNumber.FSN_Class
-  id:          5330
-  description:      ตัวอัดและตัวกันรั่ว 
+  classId:          5330
+  classDescription:      ตัวอัดและตัวกันรั่ว 
   group:     *group53
 - &fsnClass5335  !!models.fsnNumber.FSN_Class
-  id:          5335
-  description:      ตัวกรองโลหะ 
+  classId:          5335
+  classDescription:      ตัวกรองโลหะ 
   group:     *group53
 - &fsnClass5340  !!models.fsnNumber.FSN_Class
-  id:          5340
-  description:      เครื่องใช้อื่น ๆ  
+  classId:          5340
+  classDescription:      เครื่องใช้อื่น ๆ  
   group:     *group53
 - &fsnClass5345  !!models.fsnNumber.FSN_Class
-  id:          5345
-  description:      จานลับและหินลับ 
+  classId:          5345
+  classDescription:      จานลับและหินลับ 
   group:     *group53
 - &fsnClass5350  !!models.fsnNumber.FSN_Class
-  id:          5350
-  description:      วัสดุขัด  
+  classId:          5350
+  classDescription:      วัสดุขัด  
   group:     *group53
 - &fsnClass5355  !!models.fsnNumber.FSN_Class
-  id:          5355
-  description:      ควงหมุนและเข็มชี้ 
+  classId:          5355
+  classDescription:      ควงหมุนและเข็มชี้ 
   group:     *group53
 - &fsnClass5360  !!models.fsnNumber.FSN_Class
-  id:          5360
-  description:      ขดลวด  แผ่นรอง และลวงแหนบ 
+  classId:          5360
+  classDescription:      ขดลวด  แผ่นรอง และลวงแหนบ 
   group:     *group53
 - &fsnClass5365  !!models.fsnNumber.FSN_Class
-  id:          5365
-  description:      แหวน  แผ่นรองหนา  และแผ่นกั้นระยะ 
+  classId:          5365
+  classDescription:      แหวน  แผ่นรองหนา  และแผ่นกั้นระยะ 
   group:     *group53
 - &fsnClass5410  !!models.fsnNumber.FSN_Class
-  id:          5410
-  description:      อาคารถอดประกอบและเคลื่อนย้ายได้ 
+  classId:          5410
+  classDescription:      อาคารถอดประกอบและเคลื่อนย้ายได้ 
   group:     *group54
 - &fsnClass5420  !!models.fsnNumber.FSN_Class
-  id:          5420
-  description:      สะพานเครื่องหมุนมั่นและเครื่องหนุนลอย 
+  classId:          5420
+  classDescription:      สะพานเครื่องหมุนมั่นและเครื่องหนุนลอย 
   group:     *group54
 - &fsnClass5430  !!models.fsnNumber.FSN_Class
-  id:          5430
-  description:      ถังเก็บพัสดุ 
+  classId:          5430
+  classDescription:      ถังเก็บพัสดุ 
   group:     *group54
 - &fsnClass5440  !!models.fsnNumber.FSN_Class
-  id:          5440
-  description:      อุปกรณ์นั่งร้านและแบบเทคอนกรีต 
+  classId:          5440
+  classDescription:      อุปกรณ์นั่งร้านและแบบเทคอนกรีต 
   group:     *group54
 - &fsnClass5445  !!models.fsnNumber.FSN_Class
-  id:          5445
-  description:      โครงสร้างหอที่ถอดประกอบได้ 
+  classId:          5445
+  classDescription:      โครงสร้างหอที่ถอดประกอบได้ 
   group:     *group54
 - &fsnClass5450  !!models.fsnNumber.FSN_Class
-  id:          5450
-  description:      เครื่องสร้างถอดประกอบได้อื่น ๆ  
+  classId:          5450
+  classDescription:      เครื่องสร้างถอดประกอบได้อื่น ๆ  
   group:     *group54
 - &fsnClass5510  !!models.fsnNumber.FSN_Class
-  id:          5510
-  description:      กระดานและวัสดุต่าง ๆ ที่เกี่ยวกับไม้ 
+  classId:          5510
+  classDescription:      กระดานและวัสดุต่าง ๆ ที่เกี่ยวกับไม้ 
   group:     *group55
 - &fsnClass5520  !!models.fsnNumber.FSN_Class
-  id:          5520
-  description:      ไม้แปรรูป 
+  classId:          5520
+  classDescription:      ไม้แปรรูป 
   group:     *group55
 - &fsnClass5530  !!models.fsnNumber.FSN_Class
-  id:          5530
-  description:      ไม้อัด และไม้เคลือบ  (วีเนีย) 
+  classId:          5530
+  classDescription:      ไม้อัด และไม้เคลือบ  (วีเนีย) 
   group:     *group55
 - &fsnClass5610  !!models.fsnNumber.FSN_Class
-  id:          5610
-  description:      วัสดุก่อสร้างที่ได้จากธรรมชาติ 
+  classId:          5610
+  classDescription:      วัสดุก่อสร้างที่ได้จากธรรมชาติ 
   group:     *group56
 - &fsnClass5620  !!models.fsnNumber.FSN_Class
-  id:          5620
-  description:      กระจก  กระเบื้อง อิฐ และบล้อกใช้ก่อสร้าง 
+  classId:          5620
+  classDescription:      กระจก  กระเบื้อง อิฐ และบล้อกใช้ก่อสร้าง 
   group:     *group56
 - &fsnClass5630  !!models.fsnNumber.FSN_Class
-  id:          5630
-  description:      ท่อและท่อน้ำไม่ใช่โลหะ 
+  classId:          5630
+  classDescription:      ท่อและท่อน้ำไม่ใช่โลหะ 
   group:     *group56
 - &fsnClass5640  !!models.fsnNumber.FSN_Class
-  id:          5640
-  description:      แผ่นผนังกระดาษฝาห้องและวัสดุกันความร้อน 
+  classId:          5640
+  classDescription:      แผ่นผนังกระดาษฝาห้องและวัสดุกันความร้อน 
   group:     *group56
 - &fsnClass5650  !!models.fsnNumber.FSN_Class
-  id:          5650
-  description:      อุปกรณ์ทำหลังคาและฝาผนัง 
+  classId:          5650
+  classDescription:      อุปกรณ์ทำหลังคาและฝาผนัง 
   group:     *group56
 - &fsnClass5670  !!models.fsnNumber.FSN_Class
-  id:          5670
-  description:      ผลิตภัณฑ์ทางสถาปัตยกรรมและผลิตภัณฑ์โลหะที่เกี่ยวข้อง 
+  classId:          5670
+  classDescription:      ผลิตภัณฑ์ทางสถาปัตยกรรมและผลิตภัณฑ์โลหะที่เกี่ยวข้อง 
   group:     *group56
 - &fsnClass5680  !!models.fsnNumber.FSN_Class
-  id:          5680
-  description:      อุปกรณ์ก่อสร้างอื่น ๆ  
+  classId:          5680
+  classDescription:      อุปกรณ์ก่อสร้างอื่น ๆ  
   group:     *group56
 - &fsnClass5805  !!models.fsnNumber.FSN_Class
-  id:          5805
-  description:      อุปกรณ์เครื่องโทรศัพท์ และโทรเลข 
+  classId:          5805
+  classDescription:      อุปกรณ์เครื่องโทรศัพท์ และโทรเลข 
   group:     *group58
 - &fsnClass5810  !!models.fsnNumber.FSN_Class
-  id:          5810
-  description:      อุปกรณ์และองค์ประกอบเกี่ยวกับความปลอดภัยของคมนาคม 
+  classId:          5810
+  classDescription:      อุปกรณ์และองค์ประกอบเกี่ยวกับความปลอดภัยของคมนาคม 
   group:     *group58
 - &fsnClass5811  !!models.fsnNumber.FSN_Class
-  id:          5811
-  description:      อุปกรณ์และส่วนประกอบเกี่ยวกับข่าวสารอื่น ๆ  
+  classId:          5811
+  classDescription:      อุปกรณ์และส่วนประกอบเกี่ยวกับข่าวสารอื่น ๆ  
   group:     *group58
 - &fsnClass5815  !!models.fsnNumber.FSN_Class
-  id:          5815
-  description:      อุปกรณ์โทรพิมพ์และโทรสำเนา 
+  classId:          5815
+  classDescription:      อุปกรณ์โทรพิมพ์และโทรสำเนา 
   group:     *group58
 - &fsnClass5820  !!models.fsnNumber.FSN_Class
-  id:          5820
-  description:      อุปกรณ์สื่อสารทางโทรศัพท์ และวิทยุยกเว้นหน่วยส่งทางอากาศ 
+  classId:          5820
+  classDescription:      อุปกรณ์สื่อสารทางโทรศัพท์ และวิทยุยกเว้นหน่วยส่งทางอากาศ 
   group:     *group58
 - &fsnClass5821  !!models.fsnNumber.FSN_Class
-  id:          5821
-  description:      อุปกรณ์สื่อสารทางโทรทัศน์ และวิทยุของหน่วยส่งทางอากาศ 
+  classId:          5821
+  classDescription:      อุปกรณ์สื่อสารทางโทรทัศน์ และวิทยุของหน่วยส่งทางอากาศ 
   group:     *group58
 - &fsnClass5825  !!models.fsnNumber.FSN_Class
-  id:          5825
-  description:      อุปกรณ์นำร่องด้วยวิทยุ ยกเว้นหน่วยส่งทางอากาศ 
+  classId:          5825
+  classDescription:      อุปกรณ์นำร่องด้วยวิทยุ ยกเว้นหน่วยส่งทางอากาศ 
   group:     *group58
 - &fsnClass5826  !!models.fsnNumber.FSN_Class
-  id:          5826
-  description:      อุปกรณ์เดินอากาศด้วยวิทยุ 
+  classId:          5826
+  classDescription:      อุปกรณ์เดินอากาศด้วยวิทยุ 
   group:     *group58
 - &fsnClass5830  !!models.fsnNumber.FSN_Class
-  id:          5830
-  description:      อุปกรณ์การติดต่อภายในเว้นหน่วยทางอากาศ 
+  classId:          5830
+  classDescription:      อุปกรณ์การติดต่อภายในเว้นหน่วยทางอากาศ 
   group:     *group58
 - &fsnClass5831  !!models.fsnNumber.FSN_Class
-  id:          5831
-  description:      อุปกรณ์การติดต่อภายในของหน่วยส่งทางอากาศ 
+  classId:          5831
+  classDescription:      อุปกรณ์การติดต่อภายในของหน่วยส่งทางอากาศ 
   group:     *group58
 - &fsnClass5835  !!models.fsnNumber.FSN_Class
-  id:          5835
-  description:      อุปกรณ์การบันทึกเสียง 
+  classId:          5835
+  classDescription:      อุปกรณ์การบันทึกเสียง 
   group:     *group58
 - &fsnClass5840  !!models.fsnNumber.FSN_Class
-  id:          5840
-  description:       อุปกรณ์เรด้า  เว้นหน่วยทางอากาศ 
+  classId:          5840
+  classDescription:       อุปกรณ์เรด้า  เว้นหน่วยทางอากาศ 
   group:     *group58
 - &fsnClass5841  !!models.fsnNumber.FSN_Class
-  id:          5841
-  description:      อุปกรณ์เรด้าหน่วยทางอากาศ 
+  classId:          5841
+  classDescription:      อุปกรณ์เรด้าหน่วยทางอากาศ 
   group:     *group58
 - &fsnClass5845  !!models.fsnNumber.FSN_Class
-  id:          5845
-  description:      อุปกรณ์ฟังเสียงใต้น้ำ 
+  classId:          5845
+  classDescription:      อุปกรณ์ฟังเสียงใต้น้ำ 
   group:     *group58
 - &fsnClass5850  !!models.fsnNumber.FSN_Class
-  id:          5850
-  description:      อุปกรณ์ติดต่อด้วยแสงที่มองเห็นและที่มองไม่เห็น 
+  classId:          5850
+  classDescription:      อุปกรณ์ติดต่อด้วยแสงที่มองเห็นและที่มองไม่เห็น 
   group:     *group58
 - &fsnClass5860  !!models.fsnNumber.FSN_Class
-  id:          5860
-  description:      สิ่งประดิษฐ์ และส่วนประกอบการกระจายคลื่น 
+  classId:          5860
+  classDescription:      สิ่งประดิษฐ์ และส่วนประกอบการกระจายคลื่น 
   group:     *group58
 - &fsnClass5895  !!models.fsnNumber.FSN_Class
-  id:          5895
-  description:      อุปกรณ์การติดต่ออื่น ๆ  
+  classId:          5895
+  classDescription:      อุปกรณ์การติดต่ออื่น ๆ  
   group:     *group58
 - &fsnClass5905  !!models.fsnNumber.FSN_Class
-  id:          5905
-  description:      ตัวความต้านทาน 
+  classId:          5905
+  classDescription:      ตัวความต้านทาน 
   group:     *group59
 - &fsnClass5910  !!models.fsnNumber.FSN_Class
-  id:          5910
-  description:      แคปพาซิเตอร์ 
+  classId:          5910
+  classDescription:      แคปพาซิเตอร์ 
   group:     *group59
 - &fsnClass5915  !!models.fsnNumber.FSN_Class
-  id:          5915
-  description:      เครื่องกรองความถี่และการผสมวงจร 
+  classId:          5915
+  classDescription:      เครื่องกรองความถี่และการผสมวงจร 
   group:     *group59
 - &fsnClass5920  !!models.fsnNumber.FSN_Class
-  id:          5920
-  description:      ฟิวส์และเครื่องกันฟ้าผ่า 
+  classId:          5920
+  classDescription:      ฟิวส์และเครื่องกันฟ้าผ่า 
   group:     *group59
 - &fsnClass5925  !!models.fsnNumber.FSN_Class
-  id:          5925
-  description:      เครื่องตัดวงจร 
+  classId:          5925
+  classDescription:      เครื่องตัดวงจร 
   group:     *group59
 - &fsnClass5930  !!models.fsnNumber.FSN_Class
-  id:          5930
-  description:      สวิทซ์ 
+  classId:          5930
+  classDescription:      สวิทซ์ 
   group:     *group59
 - &fsnClass5935  !!models.fsnNumber.FSN_Class
-  id:          5935
-  description:      ขั้วต่อสายไฟ 
+  classId:          5935
+  classDescription:      ขั้วต่อสายไฟ 
   group:     *group59
 - &fsnClass5940  !!models.fsnNumber.FSN_Class
-  id:          5940
-  description:      แผ่นจับและขั้วปลายสาย  
+  classId:          5940
+  classDescription:      แผ่นจับและขั้วปลายสาย  
   group:     *group59
 - &fsnClass5945  !!models.fsnNumber.FSN_Class
-  id:          5945
-  description:      รีเรย์ตัวต่อทางไฟและขดลวดแม่เหล็กไฟฟ้า 
+  classId:          5945
+  classDescription:      รีเรย์ตัวต่อทางไฟและขดลวดแม่เหล็กไฟฟ้า 
   group:     *group59
 - &fsnClass5950  !!models.fsnNumber.FSN_Class
-  id:          5950
-  description:      ขดลวดและหม้อแปลงไฟ 
+  classId:          5950
+  classDescription:      ขดลวดและหม้อแปลงไฟ 
   group:     *group59
 - &fsnClass5955  !!models.fsnNumber.FSN_Class
-  id:          5955
-  description:      แร่บังคับความถี่วิทยุ 
+  classId:          5955
+  classDescription:      แร่บังคับความถี่วิทยุ 
   group:     *group59
 - &fsnClass5960  !!models.fsnNumber.FSN_Class
-  id:          5960
-  description:      หลอดอีเลคตรอนและเครื่องใช้ที่เกี่ยวข้อง  
+  classId:          5960
+  classDescription:      หลอดอีเลคตรอนและเครื่องใช้ที่เกี่ยวข้อง  
   group:     *group59
 - &fsnClass5961  !!models.fsnNumber.FSN_Class
-  id:          5961
-  description:      อุปกรณ์กึ่งตัวนำไฟฟ้าและเครื่องใช้ที่เกี่ยวข้อง 
+  classId:          5961
+  classDescription:      อุปกรณ์กึ่งตัวนำไฟฟ้าและเครื่องใช้ที่เกี่ยวข้อง 
   group:     *group59
 - &fsnClass5962  !!models.fsnNumber.FSN_Class
-  id:          5962
-  description:      อุปกรณ์วงจรไมโครอีเลคโทรนิค 
+  classId:          5962
+  classDescription:      อุปกรณ์วงจรไมโครอีเลคโทรนิค 
   group:     *group59
 - &fsnClass5965  !!models.fsnNumber.FSN_Class
-  id:          5965
-  description:      ชุดปากพูด  หูฟัง ชนิด สวมศรีษะปากพูดหูฟังไมโครโฟน และลำโพง 
+  classId:          5965
+  classDescription:      ชุดปากพูด  หูฟัง ชนิด สวมศรีษะปากพูดหูฟังไมโครโฟน และลำโพง 
   group:     *group59
 - &fsnClass5970  !!models.fsnNumber.FSN_Class
-  id:          5970
-  description:      ฉนวนและวัสดุที่เป็นฉนวน 
+  classId:          5970
+  classDescription:      ฉนวนและวัสดุที่เป็นฉนวน 
   group:     *group59
 - &fsnClass5975  !!models.fsnNumber.FSN_Class
-  id:          5975
-  description:      เครื่องใช้และครุภัณฑ์ไฟฟ้า 
+  classId:          5975
+  classDescription:      เครื่องใช้และครุภัณฑ์ไฟฟ้า 
   group:     *group59
 - &fsnClass5977  !!models.fsnNumber.FSN_Class
-  id:          5977
-  description:      แปรงไฟและอีเลคโทรด  
+  classId:          5977
+  classDescription:      แปรงไฟและอีเลคโทรด  
   group:     *group59
 - &fsnClass5985  !!models.fsnNumber.FSN_Class
-  id:          5985
-  description:      สายอากาศ เสาอากาศ และสิ่งเกี่ยวข้อง 
+  classId:          5985
+  classDescription:      สายอากาศ เสาอากาศ และสิ่งเกี่ยวข้อง 
   group:     *group59
 - &fsnClass5990  !!models.fsnNumber.FSN_Class
-  id:          5990
-  description:      ชินโครและรีโชลเวอร์ 
+  classId:          5990
+  classDescription:      ชินโครและรีโชลเวอร์ 
   group:     *group59
 - &fsnClass5995  !!models.fsnNumber.FSN_Class
-  id:          5995
-  description:      สายเคเบิล คอร์ดและสายไฟที่ใช้กับเครื่อง สื่อสาร 
+  classId:          5995
+  classDescription:      สายเคเบิล คอร์ดและสายไฟที่ใช้กับเครื่อง สื่อสาร 
   group:     *group59
 - &fsnClass5999  !!models.fsnNumber.FSN_Class
-  id:          5999
-  description:      องค์ประกอบไฟฟ้าและอีเลคโทรนิคอื่น ๆ  
+  classId:          5999
+  classDescription:      องค์ประกอบไฟฟ้าและอีเลคโทรนิคอื่น ๆ  
   group:     *group59
 - &fsnClass6105  !!models.fsnNumber.FSN_Class
-  id:          6105
-  description:      มอเตอร์ไฟฟ้า  
+  classId:          6105
+  classDescription:      มอเตอร์ไฟฟ้า  
   group:     *group61
 - &fsnClass6110  !!models.fsnNumber.FSN_Class
-  id:          6110
-  description:      เครื่องควบคุมไฟฟ้า 
+  classId:          6110
+  classDescription:      เครื่องควบคุมไฟฟ้า 
   group:     *group61
 - &fsnClass6115  !!models.fsnNumber.FSN_Class
-  id:          6115
-  description:      เครื่องกำเนิดไฟฟ้า และชุดเครื่องกำเนิดไฟฟ้า 
+  classId:          6115
+  classDescription:      เครื่องกำเนิดไฟฟ้า และชุดเครื่องกำเนิดไฟฟ้า 
   group:     *group61
 - &fsnClass6116  !!models.fsnNumber.FSN_Class
-  id:          6116
-  description:      องค์ประกอบและส่วนประกอบชุดกำเนิดพลังงานด้วยเชื้อเพลิง 
+  classId:          6116
+  classDescription:      องค์ประกอบและส่วนประกอบชุดกำเนิดพลังงานด้วยเชื้อเพลิง 
   group:     *group61
 - &fsnClass6120  !!models.fsnNumber.FSN_Class
-  id:          6120
-  description:      หม้อแปลงไฟฟ้า และศูนย์จ่ายไฟและโรงไฟฟ้า 
+  classId:          6120
+  classDescription:      หม้อแปลงไฟฟ้า และศูนย์จ่ายไฟและโรงไฟฟ้า 
   group:     *group61
 - &fsnClass6125  !!models.fsnNumber.FSN_Class
-  id:          6125
-  description:      เครื่องเปลี่ยนกระแสไฟฟ้าชนิดหมุน 
+  classId:          6125
+  classDescription:      เครื่องเปลี่ยนกระแสไฟฟ้าชนิดหมุน 
   group:     *group61
 - &fsnClass6130  !!models.fsnNumber.FSN_Class
-  id:          6130
-  description:      เครื่องเปลี่ยนกระแสไฟฟ้าชนิดไม่หมุน 
+  classId:          6130
+  classDescription:      เครื่องเปลี่ยนกระแสไฟฟ้าชนิดไม่หมุน 
   group:     *group61
 - &fsnClass6135  !!models.fsnNumber.FSN_Class
-  id:          6135
-  description:      แบตเตอรี่แบบแรก 
+  classId:          6135
+  classDescription:      แบตเตอรี่แบบแรก 
   group:     *group61
 - &fsnClass6140  !!models.fsnNumber.FSN_Class
-  id:          6140
-  description:      แบตเตอรี่แบบที่ 2 
+  classId:          6140
+  classDescription:      แบตเตอรี่แบบที่ 2 
   group:     *group61
 - &fsnClass6145  !!models.fsnNumber.FSN_Class
-  id:          6145
-  description:      ลวดสายไฟและสายเคเบิล 
+  classId:          6145
+  classDescription:      ลวดสายไฟและสายเคเบิล 
   group:     *group61
 - &fsnClass6150  !!models.fsnNumber.FSN_Class
-  id:          6150
-  description:      อุปกรณ์เครื่องให้กำลังงานและแจกจ่ายไฟฟ้าอื่น ๆ  
+  classId:          6150
+  classDescription:      อุปกรณ์เครื่องให้กำลังงานและแจกจ่ายไฟฟ้าอื่น ๆ  
   group:     *group61
 - &fsnClass6210  !!models.fsnNumber.FSN_Class
-  id:          6210
-  description:      อุปกรณ์ติดตั้งไฟฟ้าภายในและภายนอก 
+  classId:          6210
+  classDescription:      อุปกรณ์ติดตั้งไฟฟ้าภายในและภายนอก 
   group:     *group62
 - &fsnClass6220  !!models.fsnNumber.FSN_Class
-  id:          6220
-  description:      อุปกรณ์ติดตั้งและแสงสว่างในยานพาหนะ 
+  classId:          6220
+  classDescription:      อุปกรณ์ติดตั้งและแสงสว่างในยานพาหนะ 
   group:     *group62
 - &fsnClass6230  !!models.fsnNumber.FSN_Class
-  id:          6230
-  description:      เครื่องให้แสงสว่างชนิดมือถือและนำไปมาได้ 
+  classId:          6230
+  classDescription:      เครื่องให้แสงสว่างชนิดมือถือและนำไปมาได้ 
   group:     *group62
 - &fsnClass6240  !!models.fsnNumber.FSN_Class
-  id:          6240
-  description:      หลอดไฟฟ้า 
+  classId:          6240
+  classDescription:      หลอดไฟฟ้า 
   group:     *group62
 - &fsnClass6250  !!models.fsnNumber.FSN_Class
-  id:          6250
-  description:      บาลาสต์  ที่ยึดหลอด  และสตาร์ทเตอร์ 
+  classId:          6250
+  classDescription:      บาลาสต์  ที่ยึดหลอด  และสตาร์ทเตอร์ 
   group:     *group62
 - &fsnClass6260  !!models.fsnNumber.FSN_Class
-  id:          6260
-  description:      อุปกรณ์แสงสว่างที่ไม่ใช่ไฟฟ้า 
+  classId:          6260
+  classDescription:      อุปกรณ์แสงสว่างที่ไม่ใช่ไฟฟ้า 
   group:     *group62
 - &fsnClass6310  !!models.fsnNumber.FSN_Class
-  id:          6310
-  description:      ระบบสัญญาณจราจร และสัญญาณผ่าน 
+  classId:          6310
+  classDescription:      ระบบสัญญาณจราจร และสัญญาณผ่าน 
   group:     *group63
 - &fsnClass6320  !!models.fsnNumber.FSN_Class
-  id:          6320
-  description:      ระบบสัญญาณ และการเตือนภัยบนเรือ 
+  classId:          6320
+  classDescription:      ระบบสัญญาณ และการเตือนภัยบนเรือ 
   group:     *group63
 - &fsnClass6330  !!models.fsnNumber.FSN_Class
-  id:          6330
-  description:      เครื่องสัญญาณและเตือนใช้กับการรถไฟ 
+  classId:          6330
+  classDescription:      เครื่องสัญญาณและเตือนใช้กับการรถไฟ 
   group:     *group63
 - &fsnClass6340  !!models.fsnNumber.FSN_Class
-  id:          6340
-  description:      ระบบสัญญาณและเตือนภัยบนอากาศยาน 
+  classId:          6340
+  classDescription:      ระบบสัญญาณและเตือนภัยบนอากาศยาน 
   group:     *group63
 - &fsnClass6350  !!models.fsnNumber.FSN_Class
-  id:          6350
-  description:      ระบบสัญญาณและเตือนภัยอื่น ๆ 
+  classId:          6350
+  classDescription:      ระบบสัญญาณและเตือนภัยอื่น ๆ 
   group:     *group63
 - &fsnClass6505  !!models.fsnNumber.FSN_Class
-  id:          6505
-  description:      ยาชีววัตถุ  และรีเอเย่นต์ที่ทางการรับรอง 
+  classId:          6505
+  classDescription:      ยาชีววัตถุ  และรีเอเย่นต์ที่ทางการรับรอง 
   group:     *group65
 - &fsnClass6508  !!models.fsnNumber.FSN_Class
-  id:          6508
-  description:      เครื่องสำอางค์ที่มีตัวยา 
+  classId:          6508
+  classDescription:      เครื่องสำอางค์ที่มีตัวยา 
   group:     *group65
 - &fsnClass6510  !!models.fsnNumber.FSN_Class
-  id:          6510
-  description:      พัสดุที่ใช้ตบแต่งทางศัลยกรรม  
+  classId:          6510
+  classDescription:      พัสดุที่ใช้ตบแต่งทางศัลยกรรม  
   group:     *group65
 - &fsnClass6515  !!models.fsnNumber.FSN_Class
-  id:          6515
-  description:      เครื่องมือและวัสดุทางเวชกรรมและศัลยกรรม 
+  classId:          6515
+  classDescription:      เครื่องมือและวัสดุทางเวชกรรมและศัลยกรรม 
   group:     *group65
 - &fsnClass6520  !!models.fsnNumber.FSN_Class
-  id:          6520
-  description:      เครื่องมืออุปกรณ์และวัสดุทางทันตกรรม 
+  classId:          6520
+  classDescription:      เครื่องมืออุปกรณ์และวัสดุทางทันตกรรม 
   group:     *group65
 - &fsnClass6525  !!models.fsnNumber.FSN_Class
-  id:          6525
-  description:      อุปกรณ์และเครื่องเอ็กชเรย์  วัสดุที่ใช้ทางการแพทย์ ทันตแพทย์  และสัตวแพทย์ 
+  classId:          6525
+  classDescription:      อุปกรณ์และเครื่องเอ็กชเรย์  วัสดุที่ใช้ทางการแพทย์ ทันตแพทย์  และสัตวแพทย์ 
   group:     *group65
 - &fsnClass6530  !!models.fsnNumber.FSN_Class
-  id:          6530
-  description:      เครื่องตกแต่ง อุปกรณ์ เครื่องใช้และวัสดุที่ใช้ในโรงพยาบาล 
+  classId:          6530
+  classDescription:      เครื่องตกแต่ง อุปกรณ์ เครื่องใช้และวัสดุที่ใช้ในโรงพยาบาล 
   group:     *group65
 - &fsnClass6532  !!models.fsnNumber.FSN_Class
-  id:          6532
-  description:      เครื่องแต่งกายและสิ่งทอใช้ในโรงพยาบาลและสำหรับกรณีพิเศษ  
+  classId:          6532
+  classDescription:      เครื่องแต่งกายและสิ่งทอใช้ในโรงพยาบาลและสำหรับกรณีพิเศษ  
   group:     *group65
 - &fsnClass6540  !!models.fsnNumber.FSN_Class
-  id:          6540
-  description:      เครื่องมืออุปกรณ์และวัสดุใช้ในการประกอบแว่น  
+  classId:          6540
+  classDescription:      เครื่องมืออุปกรณ์และวัสดุใช้ในการประกอบแว่น  
   group:     *group65
 - &fsnClass6545  !!models.fsnNumber.FSN_Class
-  id:          6545
-  description:      ชุดเครื่องมือทางการแพทย์ 
+  classId:          6545
+  classDescription:      ชุดเครื่องมือทางการแพทย์ 
   group:     *group65
 - &fsnClass6605  !!models.fsnNumber.FSN_Class
-  id:          6605
-  description:      เครื่องมือนำร่อง 
+  classId:          6605
+  classDescription:      เครื่องมือนำร่อง 
   group:     *group66
 - &fsnClass6610  !!models.fsnNumber.FSN_Class
-  id:          6610
-  description:      เครื่องมือประกอบการบิน  
+  classId:          6610
+  classDescription:      เครื่องมือประกอบการบิน  
   group:     *group66
 - &fsnClass6615  !!models.fsnNumber.FSN_Class
-  id:          6615
-  description:      เครื่องกลนักบินอัตโนมัติและองค์ประกอบไยโรทางอากาศ 
+  classId:          6615
+  classDescription:      เครื่องกลนักบินอัตโนมัติและองค์ประกอบไยโรทางอากาศ 
   group:     *group66
 - &fsnClass6620  !!models.fsnNumber.FSN_Class
-  id:          6620
-  description:      เครื่องวัดใช้กับเครื่องยนต์  
+  classId:          6620
+  classDescription:      เครื่องวัดใช้กับเครื่องยนต์  
   group:     *group66
 - &fsnClass6625  !!models.fsnNumber.FSN_Class
-  id:          6625
-  description:      เครื่องมือทดสอบและเครื่องวัดคุณสมบัติทางไฟฟ้าและทางอีเลคโทรนิค  
+  classId:          6625
+  classDescription:      เครื่องมือทดสอบและเครื่องวัดคุณสมบัติทางไฟฟ้าและทางอีเลคโทรนิค  
   group:     *group66
 - &fsnClass6630  !!models.fsnNumber.FSN_Class
-  id:          6630
-  description:      เครื่องมือวิเคราะห์ทางเคมี 
+  classId:          6630
+  classDescription:      เครื่องมือวิเคราะห์ทางเคมี 
   group:     *group66
 - &fsnClass6635  !!models.fsnNumber.FSN_Class
-  id:          6635
-  description:      อุปกรณ์ทดสอบคุณสมบัติทางฟิสิกส์ 
+  classId:          6635
+  classDescription:      อุปกรณ์ทดสอบคุณสมบัติทางฟิสิกส์ 
   group:     *group66
 - &fsnClass6636  !!models.fsnNumber.FSN_Class
-  id:          6636
-  description:      ห้องทดสอบภาวะแวดล้อมและอุปกรณ์เกี่ยวข้อง 
+  classId:          6636
+  classDescription:      ห้องทดสอบภาวะแวดล้อมและอุปกรณ์เกี่ยวข้อง 
   group:     *group66
 - &fsnClass6640  !!models.fsnNumber.FSN_Class
-  id:          6640
-  description:      อุปกรณ์และสิ่งของในห้องทดลอง 
+  classId:          6640
+  classDescription:      อุปกรณ์และสิ่งของในห้องทดลอง 
   group:     *group66
 - &fsnClass6645  !!models.fsnNumber.FSN_Class
-  id:          6645
-  description:      เครื่องวัดบอกเวลา 
+  classId:          6645
+  classDescription:      เครื่องวัดบอกเวลา 
   group:     *group66
 - &fsnClass6650  !!models.fsnNumber.FSN_Class
-  id:          6650
-  description:      เครื่องมือทางทัศนะ 
+  classId:          6650
+  classDescription:      เครื่องมือทางทัศนะ 
   group:     *group66
 - &fsnClass6655  !!models.fsnNumber.FSN_Class
-  id:          6655
-  description:      เครื่องมือทางยีออฟิชิคส์และดาราศาสตร์ 
+  classId:          6655
+  classDescription:      เครื่องมือทางยีออฟิชิคส์และดาราศาสตร์ 
   group:     *group66
 - &fsnClass6660  !!models.fsnNumber.FSN_Class
-  id:          6660
-  description:      เครื่องมืออุตุนิยม 
+  classId:          6660
+  classDescription:      เครื่องมืออุตุนิยม 
   group:     *group66
 - &fsnClass6665  !!models.fsnNumber.FSN_Class
-  id:          6665
-  description:      เครื่องมือตรวจค้นเกี่ยวกับอันตราย 
+  classId:          6665
+  classDescription:      เครื่องมือตรวจค้นเกี่ยวกับอันตราย 
   group:     *group66
 - &fsnClass6670  !!models.fsnNumber.FSN_Class
-  id:          6670
-  description:      เครื่องวัดและเครื่องชั่ง 
+  classId:          6670
+  classDescription:      เครื่องวัดและเครื่องชั่ง 
   group:     *group66
 - &fsnClass6675  !!models.fsnNumber.FSN_Class
-  id:          6675
-  description:      เครื่องมือเขียนแบบ สำรวจ และทำแผนที่ 
+  classId:          6675
+  classDescription:      เครื่องมือเขียนแบบ สำรวจ และทำแผนที่ 
   group:     *group66
 - &fsnClass6680  !!models.fsnNumber.FSN_Class
-  id:          6680
-  description:      เครื่องมือวัดของเหลว การไหลของแก๊สระดับของเหลว และการเคลื่อนไหวทางกล 
+  classId:          6680
+  classDescription:      เครื่องมือวัดของเหลว การไหลของแก๊สระดับของเหลว และการเคลื่อนไหวทางกล 
   group:     *group66
 - &fsnClass6685  !!models.fsnNumber.FSN_Class
-  id:          6685
-  description:      เครื่องมือวัดและเครื่องควบคุมความดันอุณหภูมิ  และความชื้น 
+  classId:          6685
+  classDescription:      เครื่องมือวัดและเครื่องควบคุมความดันอุณหภูมิ  และความชื้น 
   group:     *group66
 - &fsnClass6695  !!models.fsnNumber.FSN_Class
-  id:          6695
-  description:      เครื่องมืออื่น ๆ  
+  classId:          6695
+  classDescription:      เครื่องมืออื่น ๆ  
   group:     *group66
 - &fsnClass6710  !!models.fsnNumber.FSN_Class
-  id:          6710
-  description:      กล้องฉายภาพยนตร์  
+  classId:          6710
+  classDescription:      กล้องฉายภาพยนตร์  
   group:     *group67
 - &fsnClass6720  !!models.fsnNumber.FSN_Class
-  id:          6720
-  description:      กล้องถ่ายภาพนิ่ง 
+  classId:          6720
+  classDescription:      กล้องถ่ายภาพนิ่ง 
   group:     *group67
 - &fsnClass6730  !!models.fsnNumber.FSN_Class
-  id:          6730
-  description:      อุปกรณ์เครื่อง ฉายภาพ  
+  classId:          6730
+  classDescription:      อุปกรณ์เครื่อง ฉายภาพ  
   group:     *group67
 - &fsnClass6740  !!models.fsnNumber.FSN_Class
-  id:          6740
-  description:      อุปกรณ์การล้าง  และอัดภาพ 
+  classId:          6740
+  classDescription:      อุปกรณ์การล้าง  และอัดภาพ 
   group:     *group67
 - &fsnClass6750  !!models.fsnNumber.FSN_Class
-  id:          6750
-  description:      วัสดุเกี่ยวกับการภาพ  
+  classId:          6750
+  classDescription:      วัสดุเกี่ยวกับการภาพ  
   group:     *group67
 - &fsnClass6760  !!models.fsnNumber.FSN_Class
-  id:          6760
-  description:      อุปกรณ์การภาพและสิ่งอื่น ๆ 
+  classId:          6760
+  classDescription:      อุปกรณ์การภาพและสิ่งอื่น ๆ 
   group:     *group67
 - &fsnClass6770  !!models.fsnNumber.FSN_Class
-  id:          6770
-  description:      ฟิล์มที่ถ่ายและล้างแล้ว 
+  classId:          6770
+  classDescription:      ฟิล์มที่ถ่ายและล้างแล้ว 
   group:     *group67
 - &fsnClass6780  !!models.fsnNumber.FSN_Class
-  id:          6780
-  description:      ชุดถ่ายภาพ 
+  classId:          6780
+  classDescription:      ชุดถ่ายภาพ 
   group:     *group67
 - &fsnClass6810  !!models.fsnNumber.FSN_Class
-  id:          6810
-  description:      วัตถุเคมี 
+  classId:          6810
+  classDescription:      วัตถุเคมี 
   group:     *group68
 - &fsnClass6820  !!models.fsnNumber.FSN_Class
-  id:          6820
-  description:      สีย้อม 
+  classId:          6820
+  classDescription:      สีย้อม 
   group:     *group68
 - &fsnClass6830  !!models.fsnNumber.FSN_Class
-  id:          6830
-  description:      แก๊สที่อัดไว้และแก๊สเหลว 
+  classId:          6830
+  classDescription:      แก๊สที่อัดไว้และแก๊สเหลว 
   group:     *group68
 - &fsnClass6840  !!models.fsnNumber.FSN_Class
-  id:          6840
-  description:      สารกำจัดแมลง และฆ่าเชื้อโรค 
+  classId:          6840
+  classDescription:      สารกำจัดแมลง และฆ่าเชื้อโรค 
   group:     *group68
 - &fsnClass6850  !!models.fsnNumber.FSN_Class
-  id:          6850
-  description:      วัตถุเคมีพิเศษอืน ๆ  
+  classId:          6850
+  classDescription:      วัตถุเคมีพิเศษอืน ๆ  
   group:     *group68
 - &fsnClass6920  !!models.fsnNumber.FSN_Class
-  id:          6920
-  description:      อุปกรณ์การฝึกอาวุธ 
+  classId:          6920
+  classDescription:      อุปกรณ์การฝึกอาวุธ 
   group:     *group69
 - &fsnClass6930  !!models.fsnNumber.FSN_Class
-  id:          6930
-  description:      อุปกรณ์การฝึกปฏิบัติการ 
+  classId:          6930
+  classDescription:      อุปกรณ์การฝึกปฏิบัติการ 
   group:     *group69
 - &fsnClass6940  !!models.fsnNumber.FSN_Class
-  id:          6940
-  description:      อุปกรณ์การฝึกการสื่อสาร 
+  classId:          6940
+  classDescription:      อุปกรณ์การฝึกการสื่อสาร 
   group:     *group69
 - &fsnClass7105  !!models.fsnNumber.FSN_Class
-  id:          7105
-  description:      เครื่องตกแต่งบ้าน 
+  classId:          7105
+  classDescription:      เครื่องตกแต่งบ้าน 
   group:     *group71
 - &fsnClass7110  !!models.fsnNumber.FSN_Class
-  id:          7110
-  description:      เครื่องตกแต่งสำนักงาน 
+  classId:          7110
+  classDescription:      เครื่องตกแต่งสำนักงาน 
   group:     *group71
 - &fsnClass7125  !!models.fsnNumber.FSN_Class
-  id:          7125
-  description:      ตู้ หีบ ช่องเก็บของ หิ้งเก็บของ  
+  classId:          7125
+  classDescription:      ตู้ หีบ ช่องเก็บของ หิ้งเก็บของ  
   group:     *group71
 - &fsnClass7195  !!models.fsnNumber.FSN_Class
-  id:          7195
-  description:      เครื่องประดับและเครื่องตกแต่งอื่น ๆ  
+  classId:          7195
+  classDescription:      เครื่องประดับและเครื่องตกแต่งอื่น ๆ  
   group:     *group71
 - &fsnClass7210  !!models.fsnNumber.FSN_Class
-  id:          7210
-  description:      เครื่องใช้ประจำบ้าน 
+  classId:          7210
+  classDescription:      เครื่องใช้ประจำบ้าน 
   group:     *group72
 - &fsnClass7220  !!models.fsnNumber.FSN_Class
-  id:          7220
-  description:      เครื่องปูพื้น  
+  classId:          7220
+  classDescription:      เครื่องปูพื้น  
   group:     *group72
 - &fsnClass7230  !!models.fsnNumber.FSN_Class
-  id:          7230
-  description:      ฉากกั้น ผ้าม่านและบังตา 
+  classId:          7230
+  classDescription:      ฉากกั้น ผ้าม่านและบังตา 
   group:     *group72
 - &fsnClass7240  !!models.fsnNumber.FSN_Class
-  id:          7240
-  description:      ภาชนะที่ใช้ประโยชน์ในบ้านและร้านค้า 
+  classId:          7240
+  classDescription:      ภาชนะที่ใช้ประโยชน์ในบ้านและร้านค้า 
   group:     *group72
 - &fsnClass7290  !!models.fsnNumber.FSN_Class
-  id:          7290
-  description:      เครื่องใช้ตกแต่งบ้านและร้านค้า 
+  classId:          7290
+  classDescription:      เครื่องใช้ตกแต่งบ้านและร้านค้า 
   group:     *group72
 - &fsnClass7310  !!models.fsnNumber.FSN_Class
-  id:          7310
-  description:      เครื่องครัว เครื่องทำขนมปัง และเครื่องเลี้ยงดู  
+  classId:          7310
+  classDescription:      เครื่องครัว เครื่องทำขนมปัง และเครื่องเลี้ยงดู  
   group:     *group73
 - &fsnClass7320  !!models.fsnNumber.FSN_Class
-  id:          7320
-  description:      อุปกรณ์เครื่องใช้ในครัว 
+  classId:          7320
+  classDescription:      อุปกรณ์เครื่องใช้ในครัว 
   group:     *group73
 - &fsnClass7330  !!models.fsnNumber.FSN_Class
-  id:          7330
-  description:      เครื่องมือและภาชนะในครัว 
+  classId:          7330
+  classDescription:      เครื่องมือและภาชนะในครัว 
   group:     *group73
 - &fsnClass7340  !!models.fsnNumber.FSN_Class
-  id:          7340
-  description:      เครื่องตัดและภาชนะ  
+  classId:          7340
+  classDescription:      เครื่องตัดและภาชนะ  
   group:     *group73
 - &fsnClass7350  !!models.fsnNumber.FSN_Class
-  id:          7350
-  description:      ของใช้สำหรับโต๊ะอาหาร 
+  classId:          7350
+  classDescription:      ของใช้สำหรับโต๊ะอาหาร 
   group:     *group73
 - &fsnClass7360  !!models.fsnNumber.FSN_Class
-  id:          7360
-  description:      ชุดเตรียมอาหารและเลี้ยงดู 
+  classId:          7360
+  classDescription:      ชุดเตรียมอาหารและเลี้ยงดู 
   group:     *group73
 - &fsnClass7410  !!models.fsnNumber.FSN_Class
-  id:          7410
-  description:      เครื่องกลใช้ในการเจาะบัตร 
+  classId:          7410
+  classDescription:      เครื่องกลใช้ในการเจาะบัตร 
   group:     *group74
 - &fsnClass7420  !!models.fsnNumber.FSN_Class
-  id:          7420
-  description:      เครื่องคำนวณและทำบัญชี 
+  classId:          7420
+  classDescription:      เครื่องคำนวณและทำบัญชี 
   group:     *group74
 - &fsnClass7430  !!models.fsnNumber.FSN_Class
-  id:          7430
-  description:      เครื่องพิมพ์ดีดและเครื่องอัดสำเนา 
+  classId:          7430
+  classDescription:      เครื่องพิมพ์ดีดและเครื่องอัดสำเนา 
   group:     *group74
 - &fsnClass7440  !!models.fsnNumber.FSN_Class
-  id:          7440
-  description:      ระบบกรรมวิธีข้อมูลอัตโนมัติสำหรับอุตสาหกรรมวิทยาศาสตร์และสำนักงาน 
+  classId:          7440
+  classDescription:      ระบบกรรมวิธีข้อมูลอัตโนมัติสำหรับอุตสาหกรรมวิทยาศาสตร์และสำนักงาน 
   group:     *group74
 - &fsnClass7450  !!models.fsnNumber.FSN_Class
-  id:          7450
-  description:      เครื่องบันทึกเสียงและอัดเสียงสำนักงาน 
+  classId:          7450
+  classDescription:      เครื่องบันทึกเสียงและอัดเสียงสำนักงาน 
   group:     *group74
 - &fsnClass7460  !!models.fsnNumber.FSN_Class
-  id:          7460
-  description:      อุปกรณ์บันทึกที่เห็นได้ 
+  classId:          7460
+  classDescription:      อุปกรณ์บันทึกที่เห็นได้ 
   group:     *group74
 - &fsnClass7490  !!models.fsnNumber.FSN_Class
-  id:          7490
-  description:      เครื่องกลสำนักงานอื่น ๆ  
+  classId:          7490
+  classDescription:      เครื่องกลสำนักงานอื่น ๆ  
   group:     *group74
 - &fsnClass7510  !!models.fsnNumber.FSN_Class
-  id:          7510
-  description:      พัสดุสำนักงาน 
+  classId:          7510
+  classDescription:      พัสดุสำนักงาน 
   group:     *group75
 - &fsnClass7520  !!models.fsnNumber.FSN_Class
-  id:          7520
-  description:      เครื่องใช้และเครื่องประกอบสำนักงาน 
+  classId:          7520
+  classDescription:      เครื่องใช้และเครื่องประกอบสำนักงาน 
   group:     *group75
 - &fsnClass7530  !!models.fsnNumber.FSN_Class
-  id:          7530
-  description:      แบบพิมพ์ 
+  classId:          7530
+  classDescription:      แบบพิมพ์ 
   group:     *group75
 - &fsnClass7540  !!models.fsnNumber.FSN_Class
-  id:          7540
-  description:      แบบพิมพ์มาตรฐาน 
+  classId:          7540
+  classDescription:      แบบพิมพ์มาตรฐาน 
   group:     *group75
 - &fsnClass7610  !!models.fsnNumber.FSN_Class
-  id:          7610
-  description:      หนังสือและอนุสาร 
+  classId:          7610
+  classDescription:      หนังสือและอนุสาร 
   group:     *group76
 - &fsnClass7630  !!models.fsnNumber.FSN_Class
-  id:          7630
-  description:      หนังสือพิมพ์และวารสาร 
+  classId:          7630
+  classDescription:      หนังสือพิมพ์และวารสาร 
   group:     *group76
 - &fsnClass7640  !!models.fsnNumber.FSN_Class
-  id:          7640
-  description:      แผนที่ สมุดแผนที่ แผนภูมิ และลูกโลก 
+  classId:          7640
+  classDescription:      แผนที่ สมุดแผนที่ แผนภูมิ และลูกโลก 
   group:     *group76
 - &fsnClass7650  !!models.fsnNumber.FSN_Class
-  id:          7650
-  description:      แผนแบบและข้อกำหนด 
+  classId:          7650
+  classDescription:      แผนแบบและข้อกำหนด 
   group:     *group76
 - &fsnClass7660  !!models.fsnNumber.FSN_Class
-  id:          7660
-  description:      แผ่นและสมุดโน๊ตดนตรี 
+  classId:          7660
+  classDescription:      แผ่นและสมุดโน๊ตดนตรี 
   group:     *group76
 - &fsnClass7670  !!models.fsnNumber.FSN_Class
-  id:          7670
-  description:      ไมโครฟิล์ม 
+  classId:          7670
+  classDescription:      ไมโครฟิล์ม 
   group:     *group76
 - &fsnClass7690  !!models.fsnNumber.FSN_Class
-  id:          7690
-  description:      สิ่งพิมพ์อื่น ๆ 
+  classId:          7690
+  classDescription:      สิ่งพิมพ์อื่น ๆ 
   group:     *group76
 - &fsnClass7710  !!models.fsnNumber.FSN_Class
-  id:          7710
-  description:      เครื่องดนตรี 
+  classId:          7710
+  classDescription:      เครื่องดนตรี 
   group:     *group77
 - &fsnClass7720  !!models.fsnNumber.FSN_Class
-  id:          7720
-  description:      ชิ้นส่วนและส่วนประกอบเครื่องดนตรี 
+  classId:          7720
+  classDescription:      ชิ้นส่วนและส่วนประกอบเครื่องดนตรี 
   group:     *group77
 - &fsnClass7730  !!models.fsnNumber.FSN_Class
-  id:          7730
-  description:      เครื่องเล่นแผ่นเสียง วิทยุ และโทรทัศน์ใช้ในบ้าน 
+  classId:          7730
+  classDescription:      เครื่องเล่นแผ่นเสียง วิทยุ และโทรทัศน์ใช้ในบ้าน 
   group:     *group77
 - &fsnClass7740  !!models.fsnNumber.FSN_Class
-  id:          7740
-  description:      แผ่นเสียง 
+  classId:          7740
+  classDescription:      แผ่นเสียง 
   group:     *group77
 - &fsnClass7810  !!models.fsnNumber.FSN_Class
-  id:          7810
-  description:      อุปกรณ์กีฬา 
+  classId:          7810
+  classDescription:      อุปกรณ์กีฬา 
   group:     *group78
 - &fsnClass7820  !!models.fsnNumber.FSN_Class
-  id:          7820
-  description:      เครื่องเล่นเกม เครื่องเล่นและของมีล้อ 
+  classId:          7820
+  classDescription:      เครื่องเล่นเกม เครื่องเล่นและของมีล้อ 
   group:     *group78
 - &fsnClass7830  !!models.fsnNumber.FSN_Class
-  id:          7830
-  description:      อุปกรณ์สันทนาการและยิมแนสติค 
+  classId:          7830
+  classDescription:      อุปกรณ์สันทนาการและยิมแนสติค 
   group:     *group78
 - &fsnClass7910  !!models.fsnNumber.FSN_Class
-  id:          7910
-  description:      เครื่องขัดพื้นและเครื่องดูดฝุ่น 
+  classId:          7910
+  classDescription:      เครื่องขัดพื้นและเครื่องดูดฝุ่น 
   group:     *group79
 - &fsnClass7920  !!models.fsnNumber.FSN_Class
-  id:          7920
-  description:      ไม้กวาด แปรง ที่เช็ดพื้น และฟองน้ำ 
+  classId:          7920
+  classDescription:      ไม้กวาด แปรง ที่เช็ดพื้น และฟองน้ำ 
   group:     *group79
 - &fsnClass7930  !!models.fsnNumber.FSN_Class
-  id:          7930
-  description:      ยาขัดและยาทำความสะอาด 
+  classId:          7930
+  classDescription:      ยาขัดและยาทำความสะอาด 
   group:     *group79
 - &fsnClass8010  !!models.fsnNumber.FSN_Class
-  id:          8010
-  description:      สี กาว วาร์นิช  และผลิตภัณฑ์ที่เกี่ยวข้อง 
+  classId:          8010
+  classDescription:      สี กาว วาร์นิช  และผลิตภัณฑ์ที่เกี่ยวข้อง 
   group:     *group80
 - &fsnClass8020  !!models.fsnNumber.FSN_Class
-  id:          8020
-  description:      แปรงทาสีและพู่กัน 
+  classId:          8020
+  classDescription:      แปรงทาสีและพู่กัน 
   group:     *group80
 - &fsnClass8030  !!models.fsnNumber.FSN_Class
-  id:          8030
-  description:      สารป้องกันรักษา และกันรั่ว 
+  classId:          8030
+  classDescription:      สารป้องกันรักษา และกันรั่ว 
   group:     *group80
 - &fsnClass8040  !!models.fsnNumber.FSN_Class
-  id:          8040
-  description:      สารติดผนึก 
+  classId:          8040
+  classDescription:      สารติดผนึก 
   group:     *group80
 - &fsnClass8105  !!models.fsnNumber.FSN_Class
-  id:          8105
-  description:      ถุงและกระสอบ 
+  classId:          8105
+  classDescription:      ถุงและกระสอบ 
   group:     *group81
 - &fsnClass8110  !!models.fsnNumber.FSN_Class
-  id:          8110
-  description:      ถังและกระป๋อง 
+  classId:          8110
+  classDescription:      ถังและกระป๋อง 
   group:     *group81
 - &fsnClass8115  !!models.fsnNumber.FSN_Class
-  id:          8115
-  description:      หีบ กล่องกระดาษ และถัง 
+  classId:          8115
+  classDescription:      หีบ กล่องกระดาษ และถัง 
   group:     *group81
 - &fsnClass8120  !!models.fsnNumber.FSN_Class
-  id:          8120
-  description:      ท่อบรรจุแก๊ส 
+  classId:          8120
+  classDescription:      ท่อบรรจุแก๊ส 
   group:     *group81
 - &fsnClass8125  !!models.fsnNumber.FSN_Class
-  id:          8125
-  description:      ขวดและเหยือก 
+  classId:          8125
+  classDescription:      ขวดและเหยือก 
   group:     *group81
 - &fsnClass8130  !!models.fsnNumber.FSN_Class
-  id:          8130
-  description:      ล้อม้วนและหลอดม้วน 
+  classId:          8130
+  classDescription:      ล้อม้วนและหลอดม้วน 
   group:     *group81
 - &fsnClass8135  !!models.fsnNumber.FSN_Class
-  id:          8135
-  description:      วัสดุใช้ทำหีบห่อ 
+  classId:          8135
+  classDescription:      วัสดุใช้ทำหีบห่อ 
   group:     *group81
 - &fsnClass8140  !!models.fsnNumber.FSN_Class
-  id:          8140
-  description:      หีบกระสุนและภาชนะพิเศษ 
+  classId:          8140
+  classDescription:      หีบกระสุนและภาชนะพิเศษ 
   group:     *group81
 - &fsnClass8145  !!models.fsnNumber.FSN_Class
-  id:          8145
-  description:      ภาชนะที่ใช้ในการเก็บและขนส่งเป็นพิเศษ 
+  classId:          8145
+  classDescription:      ภาชนะที่ใช้ในการเก็บและขนส่งเป็นพิเศษ 
   group:     *group81
 - &fsnClass8305  !!models.fsnNumber.FSN_Class
-  id:          8305
-  description:      สิ่งถักทอ 
+  classId:          8305
+  classDescription:      สิ่งถักทอ 
   group:     *group83
 - &fsnClass8310  !!models.fsnNumber.FSN_Class
-  id:          8310
-  description:      เส้นใยและเส้นด้าย  
+  classId:          8310
+  classDescription:      เส้นใยและเส้นด้าย  
   group:     *group83
 - &fsnClass8315  !!models.fsnNumber.FSN_Class
-  id:          8315
-  description:       none
+  classId:          8315
+  classDescription:       none
   group:     *group83
 - &fsnClass8320  !!models.fsnNumber.FSN_Class
-  id:          8320
-  description:      วัสดุสำหรับยัดหมอนและเบาะ 
+  classId:          8320
+  classDescription:      วัสดุสำหรับยัดหมอนและเบาะ 
   group:     *group83
 - &fsnClass8325  !!models.fsnNumber.FSN_Class
-  id:          8325
-  description:      วัสดุขนสัตว์ 
+  classId:          8325
+  classDescription:      วัสดุขนสัตว์ 
   group:     *group83
 - &fsnClass8330  !!models.fsnNumber.FSN_Class
-  id:          8330
-  description:      หนังสัตว์ 
+  classId:          8330
+  classDescription:      หนังสัตว์ 
   group:     *group83
 - &fsnClass8335  !!models.fsnNumber.FSN_Class
-  id:          8335
-  description:      วัสดุตกแต่งและเย็บรองเท้า 
+  classId:          8335
+  classDescription:      วัสดุตกแต่งและเย็บรองเท้า 
   group:     *group83
 - &fsnClass8340  !!models.fsnNumber.FSN_Class
-  id:          8340
-  description:      กระโจมและผ้าใบอาบน้ำมัน 
+  classId:          8340
+  classDescription:      กระโจมและผ้าใบอาบน้ำมัน 
   group:     *group83
 - &fsnClass8345  !!models.fsnNumber.FSN_Class
-  id:          8345
-  description:      ธง 
+  classId:          8345
+  classDescription:      ธง 
   group:     *group83
 - &fsnClass8405  !!models.fsnNumber.FSN_Class
-  id:          8405
-  description:      เครื่องแต่งกายชั้นนอกชาย 
+  classId:          8405
+  classDescription:      เครื่องแต่งกายชั้นนอกชาย 
   group:     *group84
 - &fsnClass8410  !!models.fsnNumber.FSN_Class
-  id:          8410
-  description:      เครื่องแต่งกายชั้นนอกหญิง 
+  classId:          8410
+  classDescription:      เครื่องแต่งกายชั้นนอกหญิง 
   group:     *group84
 - &fsnClass8415  !!models.fsnNumber.FSN_Class
-  id:          8415
-  description:      เครื่องแต่งกายสำหรับงานพิเศษ 
+  classId:          8415
+  classDescription:      เครื่องแต่งกายสำหรับงานพิเศษ 
   group:     *group84
 - &fsnClass8420  !!models.fsnNumber.FSN_Class
-  id:          8420
-  description:      เครื่องแต่งกายชั้นในและชุดนอนชาย 
+  classId:          8420
+  classDescription:      เครื่องแต่งกายชั้นในและชุดนอนชาย 
   group:     *group84
 - &fsnClass8425  !!models.fsnNumber.FSN_Class
-  id:          8425
-  description:      เครื่องแต่งกายชั้นในและชุดนอนหญิง 
+  classId:          8425
+  classDescription:      เครื่องแต่งกายชั้นในและชุดนอนหญิง 
   group:     *group84
 - &fsnClass8430  !!models.fsnNumber.FSN_Class
-  id:          8430
-  description:      รองเท้าผู้ชาย 
+  classId:          8430
+  classDescription:      รองเท้าผู้ชาย 
   group:     *group84
 - &fsnClass8435  !!models.fsnNumber.FSN_Class
-  id:          8435
-  description:      รองเท้าผู้หญิง 
+  classId:          8435
+  classDescription:      รองเท้าผู้หญิง 
   group:     *group84
 - &fsnClass8440  !!models.fsnNumber.FSN_Class
-  id:          8440
-  description:      ถุงเท้าถุงมือและอุปกรณ์เครื่องแต่งกายชาย 
+  classId:          8440
+  classDescription:      ถุงเท้าถุงมือและอุปกรณ์เครื่องแต่งกายชาย 
   group:     *group84
 - &fsnClass8445  !!models.fsnNumber.FSN_Class
-  id:          8445
-  description:      ถุงเท้า ถุงมือ และอุปกรณ์เครื่องแต่งกายหญิง 
+  classId:          8445
+  classDescription:      ถุงเท้า ถุงมือ และอุปกรณ์เครื่องแต่งกายหญิง 
   group:     *group84
 - &fsnClass8450  !!models.fsnNumber.FSN_Class
-  id:          8450
-  description:      เครื่องแต่งกาย และส่วนประกอบเครื่องแต่งกายเด็ก 
+  classId:          8450
+  classDescription:      เครื่องแต่งกาย และส่วนประกอบเครื่องแต่งกายเด็ก 
   group:     *group84
 - &fsnClass8455  !!models.fsnNumber.FSN_Class
-  id:          8455
-  description:      เครื่องหมายยศและเหล่า 
+  classId:          8455
+  classDescription:      เครื่องหมายยศและเหล่า 
   group:     *group84
 - &fsnClass8460  !!models.fsnNumber.FSN_Class
-  id:          8460
-  description:      กระเป๋าเอกสาร 
+  classId:          8460
+  classDescription:      กระเป๋าเอกสาร 
   group:     *group84
 - &fsnClass8465  !!models.fsnNumber.FSN_Class
-  id:          8465
-  description:      อุปกรณ์ประจำกาย 
+  classId:          8465
+  classDescription:      อุปกรณ์ประจำกาย 
   group:     *group84
 - &fsnClass8470  !!models.fsnNumber.FSN_Class
-  id:          8470
-  description:      เสื้อเกราะ 
+  classId:          8470
+  classDescription:      เสื้อเกราะ 
   group:     *group84
 - &fsnClass8475  !!models.fsnNumber.FSN_Class
-  id:          8475
-  description:      เครื่องแต่งกายเฉพาะการบิน 
+  classId:          8475
+  classDescription:      เครื่องแต่งกายเฉพาะการบิน 
   group:     *group84
 - &fsnClass8510  !!models.fsnNumber.FSN_Class
-  id:          8510
-  description:      น้ำหอม  เครื่องประทินผิว  และแป้ง 
+  classId:          8510
+  classDescription:      น้ำหอม  เครื่องประทินผิว  และแป้ง 
   group:     *group85
 - &fsnClass8520  !!models.fsnNumber.FSN_Class
-  id:          8520
-  description:      สบู่ฟอกตัวและยาสีฟัน 
+  classId:          8520
+  classDescription:      สบู่ฟอกตัวและยาสีฟัน 
   group:     *group85
 - &fsnClass8530  !!models.fsnNumber.FSN_Class
-  id:          8530
-  description:      สุขภัณฑ์ประจำกาย 
+  classId:          8530
+  classDescription:      สุขภัณฑ์ประจำกาย 
   group:     *group85
 - &fsnClass8540  !!models.fsnNumber.FSN_Class
-  id:          8540
-  description:      ผลิตภัณฑ์กระดาษทำความสะอาด 
+  classId:          8540
+  classDescription:      ผลิตภัณฑ์กระดาษทำความสะอาด 
   group:     *group85
 - &fsnClass8710  !!models.fsnNumber.FSN_Class
-  id:          8710
-  description:      อาหารสัตว์และการเลี้ยง 
+  classId:          8710
+  classDescription:      อาหารสัตว์และการเลี้ยง 
   group:     *group87
 - &fsnClass8720  !!models.fsnNumber.FSN_Class
-  id:          8720
-  description:      ปุ๋ย 
+  classId:          8720
+  classDescription:      ปุ๋ย 
   group:     *group87
 - &fsnClass8730  !!models.fsnNumber.FSN_Class
-  id:          8730
-  description:      เมล็ดพันธุ์พืชและไม้เพาะชำ 
+  classId:          8730
+  classDescription:      เมล็ดพันธุ์พืชและไม้เพาะชำ 
   group:     *group87
 - &fsnClass8905  !!models.fsnNumber.FSN_Class
-  id:          8905
-  description:      เนื้อ สัตว์ปีก และปลา 
+  classId:          8905
+  classDescription:      เนื้อ สัตว์ปีก และปลา 
   group:     *group89
 - &fsnClass8910  !!models.fsnNumber.FSN_Class
-  id:          8910
-  description:      อาหารนมและไข่ 
+  classId:          8910
+  classDescription:      อาหารนมและไข่ 
   group:     *group89
 - &fsnClass8915  !!models.fsnNumber.FSN_Class
-  id:          8915
-  description:      ผักและผลไม้ 
+  classId:          8915
+  classDescription:      ผักและผลไม้ 
   group:     *group89
 - &fsnClass8920  !!models.fsnNumber.FSN_Class
-  id:          8920
-  description:      ขนมปังและผลิตภัณฑ์ทำด้วยแป้ง 
+  classId:          8920
+  classDescription:      ขนมปังและผลิตภัณฑ์ทำด้วยแป้ง 
   group:     *group89
 - &fsnClass8925  !!models.fsnNumber.FSN_Class
-  id:          8925
-  description:      น้ำตาล ผลิตภัณฑ์น้ำตาลและลูกไม้ เปลือกแข็ง 
+  classId:          8925
+  classDescription:      น้ำตาล ผลิตภัณฑ์น้ำตาลและลูกไม้ เปลือกแข็ง 
   group:     *group89
 - &fsnClass8930  !!models.fsnNumber.FSN_Class
-  id:          8930
-  description:      แยม เยลลี่ และอาหารถนอมเก็บไว้นาน ๆ  
+  classId:          8930
+  classDescription:      แยม เยลลี่ และอาหารถนอมเก็บไว้นาน ๆ  
   group:     *group89
 - &fsnClass8935  !!models.fsnNumber.FSN_Class
-  id:          8935
-  description:      ชุปและบูยอง (น้ำชุบ) 
+  classId:          8935
+  classDescription:      ชุปและบูยอง (น้ำชุบ) 
   group:     *group89
 - &fsnClass8940  !!models.fsnNumber.FSN_Class
-  id:          8940
-  description:      อาหารเฉพาะคนไข้และอาหารพิเศษ 
+  classId:          8940
+  classDescription:      อาหารเฉพาะคนไข้และอาหารพิเศษ 
   group:     *group89
 - &fsnClass8945  !!models.fsnNumber.FSN_Class
-  id:          8945
-  description:      ไขมันและน้ำมันปรุงอาหาร 
+  classId:          8945
+  classDescription:      ไขมันและน้ำมันปรุงอาหาร 
   group:     *group89
 - &fsnClass8950  !!models.fsnNumber.FSN_Class
-  id:          8950
-  description:      เครื่องปรุงและผลิตภัณฑ์ที่เกี่ยวข้อง 
+  classId:          8950
+  classDescription:      เครื่องปรุงและผลิตภัณฑ์ที่เกี่ยวข้อง 
   group:     *group89
 - &fsnClass8955  !!models.fsnNumber.FSN_Class
-  id:          8955
-  description:      กาแฟ  ชา  และโกโก้ 
+  classId:          8955
+  classDescription:      กาแฟ  ชา  และโกโก้ 
   group:     *group89
 - &fsnClass8960  !!models.fsnNumber.FSN_Class
-  id:          8960
-  description:      เครื่องดื่มไม่มีแอลกอฮอล์ 
+  classId:          8960
+  classDescription:      เครื่องดื่มไม่มีแอลกอฮอล์ 
   group:     *group89
 - &fsnClass8965  !!models.fsnNumber.FSN_Class
-  id:          8965
-  description:      เครื่องดื่มมีแอลกอฮอล์ 
+  classId:          8965
+  classDescription:      เครื่องดื่มมีแอลกอฮอล์ 
   group:     *group89
 - &fsnClass8970  !!models.fsnNumber.FSN_Class
-  id:          8970
-  description:      อาหารบรรจุกล่อง 
+  classId:          8970
+  classDescription:      อาหารบรรจุกล่อง 
   group:     *group89
 - &fsnClass8975  !!models.fsnNumber.FSN_Class
-  id:          8975
-  description:      ผลิตภัณฑ์ยาสูบ 
+  classId:          8975
+  classDescription:      ผลิตภัณฑ์ยาสูบ 
   group:     *group89
 - &fsnClass9110  !!models.fsnNumber.FSN_Class
-  id:          9110
-  description:      เชื้อเพลิงแข็ง 
+  classId:          9110
+  classDescription:      เชื้อเพลิงแข็ง 
   group:     *group91
 - &fsnClass9130  !!models.fsnNumber.FSN_Class
-  id:          9130
-  description:      เชื้อเพลิงเหลวทำจากปิโตรเลียม 
+  classId:          9130
+  classDescription:      เชื้อเพลิงเหลวทำจากปิโตรเลียม 
   group:     *group91
 - &fsnClass9135  !!models.fsnNumber.FSN_Class
-  id:          9135
-  description:      เชื้อเพลิงเหลวและตัวเติมอ๊อกซิเจนทำจากเคมี 
+  classId:          9135
+  classDescription:      เชื้อเพลิงเหลวและตัวเติมอ๊อกซิเจนทำจากเคมี 
   group:     *group91
 - &fsnClass9140  !!models.fsnNumber.FSN_Class
-  id:          9140
-  description:      น้ำมันเชื้อเพลิง  
+  classId:          9140
+  classDescription:      น้ำมันเชื้อเพลิง  
   group:     *group91
 - &fsnClass9150  !!models.fsnNumber.FSN_Class
-  id:          9150
-  description:      น้ำมันไขข้นวัสดุหล่อลื่นใช้ในการคัดและไฮดรอลิค 
+  classId:          9150
+  classDescription:      น้ำมันไขข้นวัสดุหล่อลื่นใช้ในการคัดและไฮดรอลิค 
   group:     *group91
 - &fsnClass9160  !!models.fsnNumber.FSN_Class
-  id:          9160
-  description:      ขี้ผึ้งน้ำมันและไขมันอื่น ๆ 
+  classId:          9160
+  classDescription:      ขี้ผึ้งน้ำมันและไขมันอื่น ๆ 
   group:     *group91
 - &fsnClass9310  !!models.fsnNumber.FSN_Class
-  id:          9310
-  description:      กระดาษและกระดาษแข็ง 
+  classId:          9310
+  classDescription:      กระดาษและกระดาษแข็ง 
   group:     *group93
 - &fsnClass9320  !!models.fsnNumber.FSN_Class
-  id:          9320
-  description:      วัสดุประดิษฐ์ที่เป็นยาง 
+  classId:          9320
+  classDescription:      วัสดุประดิษฐ์ที่เป็นยาง 
   group:     *group93
 - &fsnClass9330  !!models.fsnNumber.FSN_Class
-  id:          9330
-  description:      วัสดุประดิษฐ์ด้วยพลาสติก 
+  classId:          9330
+  classDescription:      วัสดุประดิษฐ์ด้วยพลาสติก 
   group:     *group93
 - &fsnClass9340  !!models.fsnNumber.FSN_Class
-  id:          9340
-  description:      วัสดุประดิษฐ์ด้วยแก้ว  
+  classId:          9340
+  classDescription:      วัสดุประดิษฐ์ด้วยแก้ว  
   group:     *group93
 - &fsnClass9350  !!models.fsnNumber.FSN_Class
-  id:          9350
-  description:      วัสดุทนความร้อนและทนไฟ 
+  classId:          9350
+  classDescription:      วัสดุทนความร้อนและทนไฟ 
   group:     *group93
 - &fsnClass9390  !!models.fsnNumber.FSN_Class
-  id:          9390
-  description:      สิ่งประดิษฐ์ที่ไม่ใช่โลหะอื่น ๆ  
+  classId:          9390
+  classDescription:      สิ่งประดิษฐ์ที่ไม่ใช่โลหะอื่น ๆ  
   group:     *group93
 - &fsnClass9410  !!models.fsnNumber.FSN_Class
-  id:          9410
-  description:      วัตถุดิบที่ได้จากพฤกษชาติ 
+  classId:          9410
+  classDescription:      วัตถุดิบที่ได้จากพฤกษชาติ 
   group:     *group94
 - &fsnClass9420  !!models.fsnNumber.FSN_Class
-  id:          9420
-  description:      ไฟเบอร์ที่ทำจากพืช สัตว์ และการสังเคราะห์ 
+  classId:          9420
+  classDescription:      ไฟเบอร์ที่ทำจากพืช สัตว์ และการสังเคราะห์ 
   group:     *group94
 - &fsnClass9430  !!models.fsnNumber.FSN_Class
-  id:          9430
-  description:      วัตถุดิบอื่นที่ได้จากส่วนที่กินไม่ได้ของสัตว์ 
+  classId:          9430
+  classDescription:      วัตถุดิบอื่นที่ได้จากส่วนที่กินไม่ได้ของสัตว์ 
   group:     *group94
 - &fsnClass9440  !!models.fsnNumber.FSN_Class
-  id:          9440
-  description:      วัตถุดิบอื่น ๆ ที่ได้จากผลิตผลทางการเกษตร 
+  classId:          9440
+  classDescription:      วัตถุดิบอื่น ๆ ที่ได้จากผลิตผลทางการเกษตร 
   group:     *group94
 - &fsnClass9450  !!models.fsnNumber.FSN_Class
-  id:          9450
-  description:      เศษทรากที่ไม่ใช่โลหะเว้นสิ่งถักทอ 
+  classId:          9450
+  classDescription:      เศษทรากที่ไม่ใช่โลหะเว้นสิ่งถักทอ 
   group:     *group94
 - &fsnClass9505  !!models.fsnNumber.FSN_Class
-  id:          9505
-  description:      เหล็กและเหล็กกล้าที่ไม่ใช่ทำสายไฟฟ้า 
+  classId:          9505
+  classDescription:      เหล็กและเหล็กกล้าที่ไม่ใช่ทำสายไฟฟ้า 
   group:     *group95
 - &fsnClass9510  !!models.fsnNumber.FSN_Class
-  id:          9510
-  description:      เหล็กและเหล็กกล้าที่เป็นท่อนและแท่งกลม 
+  classId:          9510
+  classDescription:      เหล็กและเหล็กกล้าที่เป็นท่อนและแท่งกลม 
   group:     *group95
 - &fsnClass9515  !!models.fsnNumber.FSN_Class
-  id:          9515
-  description:      เหล็กและเหล็กกล้าที่เป็นแผ่น พึดและแถบ 
+  classId:          9515
+  classDescription:      เหล็กและเหล็กกล้าที่เป็นแผ่น พึดและแถบ 
   group:     *group95
 - &fsnClass9520  !!models.fsnNumber.FSN_Class
-  id:          9520
-  description:      เหล็กและเหล็กกล้าที่มีรูปโครง 
+  classId:          9520
+  classDescription:      เหล็กและเหล็กกล้าที่มีรูปโครง 
   group:     *group95
 - &fsnClass9610  !!models.fsnNumber.FSN_Class
-  id:          9610
-  description:      สินแร่ 
+  classId:          9610
+  classDescription:      สินแร่ 
   group:     *group96
 - &fsnClass9620  !!models.fsnNumber.FSN_Class
-  id:          9620
-  description:      แร่ธรรมชาติและสังเคราะห์ 
+  classId:          9620
+  classDescription:      แร่ธรรมชาติและสังเคราะห์ 
   group:     *group96
 - &fsnClass9630  !!models.fsnNumber.FSN_Class
-  id:          9630
-  description:      โลหะผสมเหล็กและรอง 
+  classId:          9630
+  classDescription:      โลหะผสมเหล็กและรอง 
   group:     *group96
 - &fsnClass9640  !!models.fsnNumber.FSN_Class
-  id:          9640
-  description:      ผลิตภัณฑ์เหล็กและเหล็กกล้าขั้นต้นและกึ่งสำเร็จ 
+  classId:          9640
+  classDescription:      ผลิตภัณฑ์เหล็กและเหล็กกล้าขั้นต้นและกึ่งสำเร็จ 
   group:     *group96
 - &fsnClass9650  !!models.fsnNumber.FSN_Class
-  id:          9650
-  description:      โลหะที่ไม่ใช่เหล็ก ยังไม่สำเร็จรูป 
+  classId:          9650
+  classDescription:      โลหะที่ไม่ใช่เหล็ก ยังไม่สำเร็จรูป 
   group:     *group96
 - &fsnClass9660  !!models.fsnNumber.FSN_Class
-  id:          9660
-  description:      โลหะมีค่ามากในรูปขั้นต้น 
+  classId:          9660
+  classDescription:      โลหะมีค่ามากในรูปขั้นต้น 
   group:     *group96
 - &fsnClass9670  !!models.fsnNumber.FSN_Class
-  id:          9670
-  description:      เศษเหล็กและเศษเหล็กกล้า 
+  classId:          9670
+  classDescription:      เศษเหล็กและเศษเหล็กกล้า 
   group:     *group96
 - &fsnClass9525  !!models.fsnNumber.FSN_Class
-  id:          9525
-  description:      ลวดโลหะที่ไม่ใช่เหล็กและไม่ใช่ลวดสายไฟ 
+  classId:          9525
+  classDescription:      ลวดโลหะที่ไม่ใช่เหล็กและไม่ใช่ลวดสายไฟ 
   group:     *group96
 - &fsnClass9530  !!models.fsnNumber.FSN_Class
-  id:          9530
-  description:      โลหะท่อนและแท่งกลมที่ไม่ใช่เหล็ก 
+  classId:          9530
+  classDescription:      โลหะท่อนและแท่งกลมที่ไม่ใช่เหล็ก 
   group:     *group96
 - &fsnClass9535  !!models.fsnNumber.FSN_Class
-  id:          9535
-  description:      โลหะที่เป็นแผ่น พืด แถบ และฝอยที่ไม่ใช่เหล็ก 
+  classId:          9535
+  classDescription:      โลหะที่เป็นแผ่น พืด แถบ และฝอยที่ไม่ใช่เหล็ก 
   group:     *group96
 - &fsnClass9540  !!models.fsnNumber.FSN_Class
-  id:          9540
-  description:      โลหะที่มีรูปโครง แต่ไม่ใช่เหล็ก 
+  classId:          9540
+  classDescription:      โลหะที่มีรูปโครง แต่ไม่ใช่เหล็ก 
   group:     *group96
 - &fsnClass9545  !!models.fsnNumber.FSN_Class
-  id:          9545
-  description:       โลหะมีค่ามากที่เป็น แผ่น ฟืด แถบ ฝอย 
+  classId:          9545
+  classDescription:       โลหะมีค่ามากที่เป็น แผ่น ฟืด แถบ ฝอย 
   group:     *group96
 - &fsnClass9680  !!models.fsnNumber.FSN_Class
-  id:          9680
-  description:      เศษโลหะที่ไม่ใช่เหล็ก 
+  classId:          9680
+  classDescription:      เศษโลหะที่ไม่ใช่เหล็ก 
   group:     *group96
 - &fsnClass9905  !!models.fsnNumber.FSN_Class
-  id:          9905
-  description:      ป้ายเครื่องหมาย ป้ายโฆษณาและป้ายคุณลักษณะ 
+  classId:          9905
+  classDescription:      ป้ายเครื่องหมาย ป้ายโฆษณาและป้ายคุณลักษณะ 
   group:     *group99
 - &fsnClass9910  !!models.fsnNumber.FSN_Class
-  id:          9910
-  description:      เพชรพลอย 
+  classId:          9910
+  classDescription:      เพชรพลอย 
   group:     *group99
 - &fsnClass9915  !!models.fsnNumber.FSN_Class
-  id:          9915
-  description:      พัสดุนักสะสม 
+  classId:          9915
+  classDescription:      พัสดุนักสะสม 
   group:     *group99
 - &fsnClass9920  !!models.fsnNumber.FSN_Class
-  id:          9920
-  description:      ของที่ใช้กับผู้สูบบุหรี่และไม้ขีด 
+  classId:          9920
+  classDescription:      ของที่ใช้กับผู้สูบบุหรี่และไม้ขีด 
   group:     *group99
 - &fsnClass9925  !!models.fsnNumber.FSN_Class
-  id:          9925
-  description:      บริภัณฑ์พิธีทางศาสนา 
+  classId:          9925
+  classDescription:      บริภัณฑ์พิธีทางศาสนา 
   group:     *group99
 - &fsnClass9930  !!models.fsnNumber.FSN_Class
-  id:          9930
-  description:      อุปกรณ์การฌาปนกิจ สุสานและอนุสรณ์ 
+  classId:          9930
+  classDescription:      อุปกรณ์การฌาปนกิจ สุสานและอนุสรณ์ 
   group:     *group99
 - &fsnClass9999  !!models.fsnNumber.FSN_Class
-  id:          9999
-  description:      รายการอื่น ๆ 
+  classId:          9999
+  classDescription:      รายการอื่น ๆ 
   group:     *group99

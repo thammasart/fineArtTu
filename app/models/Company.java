@@ -10,13 +10,17 @@ public class Company extends Model{	// ครุภัณฑ์
 
 	@Id
 	public long id;
-	public String name; // ชื่อ
-	public String dealer; // ผู้ติดต่อ
-	public String telephoneNumber;// เบอร์โทร
-	public int payPeriod; // ระยะเวลาในการชำระเงิน
-	public int sendPeriod; // ระยะเวลาในการจัดส่ง
-	public String durableType; // ประเภทครุภัณฑ์
-	public String consumableType; // ประเภทวัสดุ
+	public String typeEntrepreneur;          	//ประเภทผู้ประกอบการ
+	public String typedealer;           	 	//ประเภทผู้ค้า
+	public String nameEntrepreneur; 		 	//ชื่อสถานประกอบการ
+	public String nameDealer; 				 	//ชื่อผู้ค้า
+	public String payCodition;				 	//เงื่อนไขในการชำระเงิน
+	public int payPeriod; 					 	//ระยะเวลาในการชำระเงิน
+	public int sendPeriod; 					 	//ระยะเวลาในการจัดส่ง
+	public String durableArticlesType; 		 	//ประเภทครุภัณฑ์
+	public String durableGoodsType; 		 	//ประเภทวัสดุคงทนถาวร
+	public String consumableGoodsType;       	//ประเภทวัสดุสิ้นเปลือง
+	public String otherDetail;				//รายละเอียดอื่นๆ
 
 	@ManyToOne
 	public Address address;// ที่อยู่

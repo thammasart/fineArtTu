@@ -11,9 +11,9 @@ public class FSN_Class extends Model{
 
 	@Id
 	@Column(length=4)
-	public String id;
+	public String classId;
 	@Column(nullable=false)
-	public String description;
+	public String classDescription;
 
 	@OneToMany(mappedBy="groupClass")
 	public List<FSN_Type> typeInClass = new ArrayList<FSN_Type>();
