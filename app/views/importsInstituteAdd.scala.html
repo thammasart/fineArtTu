@@ -20,7 +20,7 @@
 				    <div class="form-inline marginBtm1" role="form" align="left">
 	                    <div class="input-group">
 	                      <span class="input-group-addon width250px">ประเภทผู้ค้า</span>
-	                        <select class="form-control textAlignCenter  width300px" name="typedealer">
+	                        <select class="form-control textAlignCenter  width450px" name="typedealer">
 	                          <option>---นิติบุคคล---</option>
 	                          <option>ห้างหุ้นส่วนสามัญนิติบุคคล</option>
 	                          <option>ห้างห้นส่วนจำกัด</option>
@@ -46,7 +46,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >ชื่อสถานประกอบการ</span>
-                                <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" name="nameEntrepreneur">
+                                <input type="text" class="form-control textAlignLeft  width300px" placeholder="ใส่ค่า" name="nameEntrepreneur">
                             </div>
                       </div>
           </div>
@@ -55,7 +55,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >ชื่อผู้ค้า</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="nameDealer">
+                                <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="nameDealer">
                             </div>
                       </div>
           </div>
@@ -68,13 +68,13 @@
 		 <div class="form-group" style="padding-top:10px">
 				  	<div class="input-group">
 					    <span class="input-group-addon width250px">ระยะเวลาในการชำระเงิน:</span>
-					    <input type="number" class="form-control width300px" min="1" max="365" onkeypress="validateNumberKey(event)" name="payPeriod">
+					    <input type="number" class="form-control textAlignLeft width300px" value="0" onkeypress="validateNumberKey(event)" name="payPeriod2">
 					</div>
 				  </div>
 				   <div class="form-group" style="padding-top:10px">
 				  	<div class="input-group" style="margin-left:5%">
 					    <span class="input-group-addon width250px">ระยะเวลาในการจัดส่ง:</span>
-					    <input type="number" class="form-control width300px" min="1" max="365" onkeypress="validateNumberKey(event)" name="sendPeriod">
+					    <input type="number" class="form-control textAlignLeft width300px" value="0" onkeypress="validateNumberKey(event)" name="sendPeriod2">
 					</div>
 				  </div>
 					
@@ -91,7 +91,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >เลขที่</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="buildingNo">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="buildingNo">
                     </div>
               </div>
            </div>
@@ -99,7 +99,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >หมู่</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="village">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="village">
                     </div>
               </div>
            </div>
@@ -107,7 +107,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ซอย</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="alley">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="alley">
                     </div>
               </div>
            </div>
@@ -115,7 +115,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ถนน</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="road">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="road">
                     </div>
               </div>
            </div>
@@ -123,7 +123,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ตำบล</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="parish">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="parish">
                     </div>
               </div>
            </div>
@@ -131,7 +131,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >อำเภอ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="district">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="district">
                     </div>
               </div>
            </div>
@@ -139,7 +139,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >จังหวัด</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="province">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="province">
                     </div>
               </div>
            </div>
@@ -147,7 +147,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >เบอร์โทร</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="telephoneNumber">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="telephoneNumber">
                     </div>
               </div>
            </div>
@@ -155,7 +155,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >Fax</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="fax">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="fax">
                     </div>
               </div>
            </div>
@@ -163,7 +163,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >รหัสไปรษณีย์</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="postCode">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="postCode">
                     </div>
               </div>
            </div>
@@ -171,7 +171,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >e-mail</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="email">
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" name="email">
                     </div>
               </div>
            </div>
@@ -194,27 +194,27 @@
             <table class="table table-striped">
            
                 <tr>
-                    <td ><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์สำนักงาน</td>
-                    <td ><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์ไฟฟ้าและวิทยุ</td>
-                    <td ><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์บ้านงานครัว</td>
-                    <td ><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์คอมพิวเตอร์</td>
-                    <td ><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์ยานพาหนะและขนส่ง</td>
-                    <td ><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์วิทยาศาสตร์และการแพทย์</td>
+                    <td ><input type="checkbox" name="durableArticlesType1" value="ครุภัณฑ์สำนักงาน"> ครุภัณฑ์สำนักงาน</td>
+                    <td ><input type="checkbox" name="durableArticlesType2" value="ไฟฟ้าและวิทยุ"> ครุภัณฑ์ไฟฟ้าและวิทยุ</td>
+                    <td ><input type="checkbox" name="durableArticlesType3" value="บ้านงานครัว"> ครุภัณฑ์บ้านงานครัว</td>
+                    <td ><input type="checkbox" name="durableArticlesType4" value="คอมพิวเตอร์"> ครุภัณฑ์คอมพิวเตอร์</td>
+                    <td ><input type="checkbox" name="durableArticlesType5" value="ยานพาหนะและขนส่ง"> ครุภัณฑ์ยานพาหนะและขนส่ง</td>
+                    <td ><input type="checkbox" name="durableArticlesType6" value="วิทยาศาสตร์และการแพทย์"> ครุภัณฑ์วิทยาศาสตร์และการแพทย์</td>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์โฆษณาและเผยแพร่</td>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์การศึกษา</td>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์สนาม</td>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์การเกษตร</td>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์สำรวจ</td>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์ก่อสร้าง</td>
-                </tr>
+                    <td><input type="checkbox" name="durableArticlesType7" value="โฆษณาและเผยแพร่"> ครุภัณฑ์โฆษณาและเผยแพร่</td>
+                    <td><input type="checkbox" name="durableArticlesType8" value="การศึกษา"> ครุภัณฑ์การศึกษา</td>
+                    <td><input type="checkbox" name="durableArticlesType9" value="สนาม"> ครุภัณฑ์สนาม</td>
+                    <td><input type="checkbox" name="durableArticlesType10" value="การเกษตร"> ครุภัณฑ์การเกษตร</td>
+                    <td><input type="checkbox" name="durableArticlesType11" value="สำรวจ"> ครุภัณฑ์สำรวจ</td>
+                    <td><input type="checkbox" name="durableArticlesType12" value="ก่อสร้าง"> ครุภัณฑ์ก่อสร้าง</td>
+                </tr  >
                 <tr>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์โรงงาน</td>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์ดนตรีและนาฏศิลทป์</td>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์กีฬา</td>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์อาวุธ</td>
-                    <td><input type="checkbox" name="durableArticlesType"> ครุภัณฑ์อื่นๆ</td>
+                    <td><input type="checkbox" name="durableArticlesType13" value="โรงงาน"> ครุภัณฑ์โรงงาน</td>
+                    <td><input type="checkbox" name="durableArticlesType14" value="ดนตรีและนาฏศิลทป์"> ครุภัณฑ์ดนตรีและนาฏศิลทป์</td>
+                    <td><input type="checkbox" name="durableArticlesType15" value="กีฬา"> ครุภัณฑ์กีฬา</td>
+                    <td><input type="checkbox" name="durableArticlesType16" value="อาวุธ"> ครุภัณฑ์อาวุธ</td>
+                    <td><input type="checkbox" name="durableArticlesType17" value="อื่นๆ"> ครุภัณฑ์อื่นๆ</td>
                 </tr>
 
             </table>
@@ -228,29 +228,29 @@
 
 	  	<table  class="table table-striped">
 			<tr>
-				  <td ><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรสำนักงาน</td>
-			  	<td ><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรไฟฟ้าและวิทยุ</td>
-			  	<td ><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรงานบ้านงานครัว</td>
-			  	<td ><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรคอมพิวเตอร์</td>
-			  	<td ><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรยานพาหนะและขนส่ง</td>
-			  	<td ><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรวิทยาศาสตร์และการแพทย์</td>
+				  <td ><input type="checkbox" name="durableGoodsType1" value="วัสดุคงทนถาวรสำนักงาน"> วัสดุคงทนถาวรสำนักงาน</td>
+			  	<td ><input type="checkbox" name="durableGoodsType2" value="ไฟฟ้าและวิทยุ"> วัสดุคงทนถาวรไฟฟ้าและวิทยุ</td>
+			  	<td ><input type="checkbox" name="durableGoodsType3" value="งานบ้านงานครัว"> วัสดุคงทนถาวรงานบ้านงานครัว</td>
+			  	<td ><input type="checkbox" name="durableGoodsType4" value="คอมพิวเตอร์"> วัสดุคงทนถาวรคอมพิวเตอร์</td>
+			  	<td ><input type="checkbox" name="durableGoodsType5" value="ยานพาหนะและขนส่ง"> วัสดุคงทนถาวรยานพาหนะและขนส่ง</td>
+			  	<td ><input type="checkbox" name="durableGoodsType6" value="วิทยาศาสตร์และการแพทย์"> วัสดุคงทนถาวรวิทยาศาสตร์และการแพทย์</td>
 		  	</tr>
 
 		  	<tr>
-				  <td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรโฆษณาและเผยแพร่</td>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรการศึกษา</td>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรสนาม</td>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรการเกษตร</td>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรสำรวจ</td>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรก่อสร้าง</td>
+				  <td><input type="checkbox" name="durableGoodsType7" value="โฆษณาและเผยแพร่"> วัสดุคงทนถาวรโฆษณาและเผยแพร่</td>
+			  	<td><input type="checkbox" name="durableGoodsType8" value="การศึกษา"> วัสดุคงทนถาวรการศึกษา</td>
+			  	<td><input type="checkbox" name="durableGoodsType9" value="สนาม"> วัสดุคงทนถาวรสนาม</td>
+			  	<td><input type="checkbox" name="durableGoodsType10" value="การเกษตร"> วัสดุคงทนถาวรการเกษตร</td>
+			  	<td><input type="checkbox" name="durableGoodsType11" value="สำรวจ"> วัสดุคงทนถาวรสำรวจ</td>
+			  	<td><input type="checkbox" name="durableGoodsType12" value="ก่อสร้าง"> วัสดุคงทนถาวรก่อสร้าง</td>
 		  	</tr>
 
 		  	<tr>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรโรงงาน</td>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรดนตรีและนาฏศิลทป์</td>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรกีฬา</td>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรอาวุธ</td>
-			  	<td><input type="checkbox" name="durableGoodsType"> วัสดุคงทนถาวรอื่นๆ</td>
+			  	<td><input type="checkbox" name="durableGoodsType13" value="โรงงาน"> วัสดุคงทนถาวรโรงงาน</td>
+			  	<td><input type="checkbox" name="durableGoodsType14" value="ดนตรีและนาฏศิลทป์"> วัสดุคงทนถาวรดนตรีและนาฏศิลทป์</td>
+			  	<td><input type="checkbox" name="durableGoodsType15" value="กีฬา"> วัสดุคงทนถาวรกีฬา</td>
+			  	<td><input type="checkbox" name="durableGoodsType16" value="อาวุธ"> วัสดุคงทนถาวรอาวุธ</td>
+			  	<td><input type="checkbox" name="durableGoodsType17" value="อื่นๆ"> วัสดุคงทนถาวรอื่นๆ</td>
 		  	</tr>
 
 	  	</table>
@@ -264,29 +264,29 @@
 
 	  	<table  class="table table-striped">
 			<tr>
-				  <td ><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองสำนักงาน</td>
-			  	<td ><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองไฟฟ้าและวิทยุ</td>
-			  	<td ><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองบ้านงานครัว</td>
-			  	<td ><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองคอมพิวเตอร์</td>
-			  	<td ><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองยานพาหนะและขนส่ง</td>
-			  	<td ><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองวิทยาศาสตร์และการแพทย์</td>
+				  <td ><input type="checkbox" name="consumableGoodsType1" value="วัสดุสิ้นเปลืองสำนักงาน"> วัสดุสิ้นเปลืองสำนักงาน</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType2" value="ไฟฟ้าและวิทยุ"> วัสดุสิ้นเปลืองไฟฟ้าและวิทยุ</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType3" value="งานบ้านงานครัว"> วัสดุสิ้นเปลืองบ้านงานครัว</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType4" value="คอมพิวเตอร์"> วัสดุสิ้นเปลืองคอมพิวเตอร์</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType5" value="ยานพาหนะและขนส่ง"> วัสดุสิ้นเปลืองยานพาหนะและขนส่ง</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType6" value="วิทยาศาสตร์และการแพทย์"> วัสดุสิ้นเปลืองวิทยาศาสตร์และการแพทย์</td>
 		  	</tr>
 
 		  	<tr>
-				  <td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองโฆษณาและเผยแพร่</td>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองการศึกษา</td>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองสนาม</td>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองการเกษตร</td>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองสำรวจ</td>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองก่อสร้าง</td>
+				  <td><input type="checkbox" name="consumableGoodsType7" value="โฆษณาและเผยแพร่"> วัสดุสิ้นเปลืองโฆษณาและเผยแพร่</td>
+			  	<td><input type="checkbox" name="consumableGoodsType8" value="การศึกษา"> วัสดุสิ้นเปลืองการศึกษา</td>
+			  	<td><input type="checkbox" name="consumableGoodsType9" value="สนาม"> วัสดุสิ้นเปลืองสนาม</td>
+			  	<td><input type="checkbox" name="consumableGoodsType10" value="การเกษตร"> วัสดุสิ้นเปลืองการเกษตร</td>
+			  	<td><input type="checkbox" name="consumableGoodsType11" value="สำรวจ"> วัสดุสิ้นเปลืองสำรวจ</td>
+			  	<td><input type="checkbox" name="consumableGoodsType12" value="ก่อสร้าง"> วัสดุสิ้นเปลืองก่อสร้าง</td>
 		  	</tr>
 
 		  	<tr>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองโรงงาน</td>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองดนตรีและนาฏศิลทป์</td>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองกีฬา</td>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองอาวุธ</td>
-			  	<td><input type="checkbox" name="consumableGoodsType"> วัสดุสิ้นเปลืองอื่นๆ</td>
+			  	<td><input type="checkbox" name="consumableGoodsType13" value="โรงงาน"> วัสดุสิ้นเปลืองโรงงาน</td>
+			  	<td><input type="checkbox" name="consumableGoodsType14" value="ดนตรีและนาฏศิลทป์"> วัสดุสิ้นเปลืองดนตรีและนาฏศิลทป์</td>
+			  	<td><input type="checkbox" name="consumableGoodsType15" value="กีฬา"> วัสดุสิ้นเปลืองกีฬา</td>
+			  	<td><input type="checkbox" name="consumableGoodsType16" value="อาวุธ"> วัสดุสิ้นเปลืองอาวุธ</td>
+			  	<td><input type="checkbox" name="consumableGoodsType17" value="อื่นๆ"> วัสดุสิ้นเปลืองอื่นๆ</td>
 		  	</tr>
 
 	  	</table>

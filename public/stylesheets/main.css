@@ -186,6 +186,11 @@ float:right;
 .textAlignCenter{
     text-align:center;
 }
+
+.textAlignLeft{
+    text-align:left;
+}
+
 .addDelBtnContainer{
     margin-left:70%;
     width:30%;
