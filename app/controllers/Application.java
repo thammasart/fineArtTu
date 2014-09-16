@@ -47,47 +47,4 @@ public class Application extends Controller {
             return redirect(routes.Application.home());
         }
     }
-
-   
-
-
-    @Security.Authenticated(Secured.class)
-        public static Result report() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(report.render(user));
-    }
-
-    @Security.Authenticated(Secured.class)
-        public static Result reportRemainingMaterial() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportRemainingMaterial.render(user));
-    }
-    
-    @Security.Authenticated(Secured.class)
-        public static Result reportDurableArticles() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportDurableArticles.render(user));
-    }
-
-    @Security.Authenticated(Secured.class)
-        public static Result reportRemainingMaterialConclusion() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportRemainingMaterialConclusion.render(user));
-    }
-    
-    @Security.Authenticated(Secured.class)
-        public static Result reportImportDurableArticles() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportImportDurableArticle.render(user));
-    }
-    @Security.Authenticated(Secured.class)
-        public static Result reportExportDurableArticles() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportExportDurableArticle.render(user));
-    }
-    @Security.Authenticated(Secured.class)
-        public static Result reportExchangeDurableArticles() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok( reportExchangeDurableArticle.render(user));
-    }
 }
