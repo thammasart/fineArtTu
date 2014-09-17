@@ -76,12 +76,17 @@ public class Admin extends Controller {
 
     public static Result removeUser(){
     	DynamicForm form = Form.form().bindFromRequest();
-    	
+    	User user;
+        if(!form.get("data").equals("")){
     	String[] usernames = form.get("data").split(",");
-    	for(int i=0;i<usernames.length;i++){
-    		User user = User.find.byId(usernames[i]);
-    		user.delete();
-    	}
+    
+        
+            for(int i=0;i<usernames.length;i++){
+                    user = User.find.byId(usernames[i]);
+                    user.delete();
+            }
+            flash("delete","delete " + usernames.length +" account " );
+        } else flash("notSelect","please select at least one account");
     	return redirect(routes.Admin.index());
     }
 }
