@@ -1,4 +1,4 @@
-@(user : User)
+@(user : User, requisitionList:List[models.consumable.Requisition])
 @header("exportOrder")
 
 @nav(user)
@@ -35,17 +35,20 @@
             <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
             <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
             <th>รายละเอียด</th>
+            <th>ststus</th>
         </tr>
     </thead>
     <tbody>
-
-        <tr>
-            <th> <input type="checkbox"/> </th>
-            <th>รายการส่งเสริมการศึกษา1</th>
-            <th>1/57</th>
-            <th>20/5/57</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-        </tr>
+        @for(requisition <- requisitionList){
+          <tr>
+              <th> <input type="checkbox"/> </th>
+              <th>@requisition.title</th>
+              <th>@requisition.number</th>
+              <th>20/5/57</th>
+              <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+              <th>@requisition.status</th>
+          </tr>
+        }
     </tbody>
   </table>
 

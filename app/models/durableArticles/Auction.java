@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import models.Company;
+import models.type.ExportStatus;
 
 @Entity
 @Table (name = "durable_articles_auction")
@@ -15,8 +16,11 @@ public class Auction extends Model{ // จำหน่าย หรือ กา
 
 	@Id
 	public long id;
+	public String title; // ชื่อ เรื่อง
+	public String contractNo; // สัญญาเลขที่
 	public double totalPrice; // ราคารวม
 	public Date approveDate; // วันที่ทำการอนุมัติ
+	public ExportStatus status; //สถานะใบโอน
 
 	@ManyToOne
 	public Company company; // ร้านค้าที่รับจำหน่าย

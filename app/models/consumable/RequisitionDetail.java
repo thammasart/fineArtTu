@@ -6,7 +6,7 @@ import javax.persistence.*;
 import models.User;
 import models.MaterialCode;
 
-import models.*;
+import models.User;
 
 @Entity
 @Table (name = "consumable_requisition_detail")
