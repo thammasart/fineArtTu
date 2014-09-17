@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import models.Company;
+import models.type.ExportStatus;
 
 @Entity
 @Table (name = "durable_articles_donation")
@@ -15,7 +16,10 @@ public class Donation extends Model{ // บริจาค
 
 	@Id
 	public long id;
+	public String title; // ชื่อ เรื่อง
+	public String contractNo; // สัญญาเลขที่
 	public Date approveDate; // วันที่ทำการอนุมัติ
+	public ExportStatus status; //สถานะใบโอน
 
 	@ManyToOne
 	public Company company; // หน่ายงานที่รับจำหน่าย

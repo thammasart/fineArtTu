@@ -5,7 +5,8 @@ import javax.persistence.*;
 
 import java.util.Date;
 
-import models.*;
+import models.User;
+import models.type.ExportStatus;
 
 @Entity
 @Table (name = "durable_goods_requisition")
@@ -13,7 +14,10 @@ public class Requisition extends Model{
 
 	@Id
 	public long id;
+	public String title; // ชื่อ เรื่อง
+	public String number; // เลขที่
 	public Date approveDate; // วันที่ทำการอนุมัติ
+	public ExportStatus ststue; // สถานะใบเบิก
 
 	@ManyToOne
 	public User user; // ผู้จ่าย

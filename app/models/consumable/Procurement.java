@@ -15,7 +15,7 @@ public class Procurement extends Model{
 
 	@Id
 	public long id;
-	public String name; // ชื่อ เรื่อง
+	public String title; // ชื่อ เรื่อง
 	public String contractNo; // สัญญาเลขที่
 	public Date dateOfApproval; // วันที่อนุมัติในสัญญา
 	public Date addDate; // วันที่นำเข้า

@@ -1,0 +1,26 @@
+- &Address001 !!models.Address
+  buildingNo:          "99"
+  village:             ม.18
+  alley:               N/A
+  road:                N/A
+  parish:              ต.คลองหนึ่ง
+  district:            อ.คลองหลวง
+  province:            จ.ปทุมธานี
+  telephoneNumber:     0-2564-4440-59
+  fax:                 0-2564-4493
+  postCode:            "12121"
+  email:               tu@tu.ac.th
+
+- &Company001 !!models.Company
+  typeEntrepreneur:        N/A
+  typedealer:              N/A
+  nameEntrepreneur:        N/A
+  nameDealer:              มหาวอทยาลัยธรรมศาสตร์
+  payCodition:             N/A
+  payPeriod:               0
+  sendPeriod:              0
+  durableArticlesType:     N/A
+  durableGoodsType:        N/A
+  consumableGoodsType:     N/A
+  otherDetail:             N/A
+  address:                 *Address001

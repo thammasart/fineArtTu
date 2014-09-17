@@ -6,7 +6,6 @@ import javax.persistence.*;
 import models.MaterialCode;
 import models.Company;
 
-
 @Entity
 @Table (name = "consumable")
 public class Consumable extends Model{ // วัสดุสิ้นเปลือง
