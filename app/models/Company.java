@@ -20,7 +20,7 @@ public class Company extends Model{	// ครุภัณฑ์
 	public String durableArticlesType; 		 	//ประเภทครุภัณฑ์
 	public String durableGoodsType; 		 	//ประเภทวัสดุคงทนถาวร
 	public String consumableGoodsType;       	//ประเภทวัสดุสิ้นเปลือง
-	public String otherDetail;				//รายละเอียดอื่นๆ
+	public String otherDetail;					//รายละเอียดอื่นๆ
 
 	@ManyToOne
 	public Address address;// ที่อยู่
