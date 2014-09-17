@@ -1,4 +1,4 @@
-@(fsns:List[models.fsnNumber.FSN_Description],user : User)
+@(fsns:List[models.fsnNumber.FSN_Description],    goodsCode:List[MaterialCode]    ,user : User)
 @header("importsMaterial")
 
 
@@ -121,60 +121,39 @@
                 <tr>
                     <th></th>
                     <th>หมายเลขวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ประเภทวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รหัสนำหน้า1<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>xxx<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>xxx<span class="glyphicon glyphicon-sort"></span></th>
                     <th>รูปภาพ</th>
                     <th>รายละเอียด</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th> <input type="checkbox"/> </th>
-                    <th>01001</th>
-                    <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
-                    <th>75</th>
-                    <th>1</th>
-                    <th><img src=""></th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-                </tr>
-                <tr>
-                    <th> <input type="checkbox"/> </th>
-                    <th>01002</th>
-                    <th>ดินสอกดล็อตติ้งสีcแดง</th>
-                    <th>75</th>
-                    <th>1</th>
-                    <th><img src=""></th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-                </tr>
+                @for(goodCode<- goodsCode){
+
+                  @if(goodCode.typeOfGood=="วัสดุคงทนถาวร"){
+                  <tr>
+                  <th><input type="checkbox"></th>
+                  <th>@goodCode.code</th>
+                  <th>@goodCode.description</th>
+                  <th>@goodCode.typeOfGood</th>
+                  <th>@goodCode.classifier</th>
+                  <th>@goodCode.materialType.preCodeId</th>
+                  <th>@goodCode.materialType.typeName</th>
+                  <th>@goodCode.materialType.acronym</th>
+                  <th><img src=""></th>
+                  <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
+                  </tr>
+                  }
+
+                }
+
              </tbody>
            </table>
 
-            <table class="table table-striped overlayTable">
-            <legend>วัสดุคงทนถาวรไฟฟ้าและวิทยุ</legend>
-             <thead>
-                <tr>
-                    <th></th>
-                    <th>หมายเลขวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รูปภาพ</th>
-                    <th>รายละเอียด</th>  
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th> <input type="checkbox"/> </th>
-                    <th>02002</th>
-                    <th>มอนิเตอร์</th>
-                    <th>4999</th>
-                    <th>1</th>
-                    <th><img src=""></th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-                </tr>
-              </tbody>
-           </table>
 
             <div class="pagingContainer" align="center">
                 <ul class="pagination" style="margin:0;">
@@ -223,35 +202,34 @@
                 <tr>
                     <th></th>
                     <th>หมายเลขวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ชื่อวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>ประเภทวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>รหัสนำหน้า1<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>xxx<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>xxx<span class="glyphicon glyphicon-sort"></span></th>
                     <th>รูปภาพ</th>
-                    <th>รายละเอียด</th>  
-                    
+                    <th>รายละเอียด</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th> <input type="checkbox"/> </th>
-                    <th>01011</th>
-                    <th>หมึกดำ</th>
-                    <th>75</th>
-                    <th>1</th>
-                    <th><img src=""></th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-
-                </tr>
-                <tr>
-                    <th> <input type="checkbox"/> </th>
-                    <th>01013</th>
-                    <th>หมึกแดง</th>
-                    <th>75</th>
-                    <th>1</th>
-                    <th><img src=""></th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-
-                </tr>
+              @for(goodCode<- goodsCode){
+                                            
+                  @if(goodCode.typeOfGood=="วัสดุสิ้นเปลือง"){
+                  <tr>
+                  <th><input type="checkbox"></th>
+                  <th>@goodCode.code</th>
+                  <th>@goodCode.description</th>
+                  <th>@goodCode.typeOfGood</th>
+                  <th>@goodCode.classifier</th>
+                  <th>@goodCode.materialType.preCodeId</th>
+                  <th>@goodCode.materialType.typeName</th>
+                  <th>@goodCode.materialType.acronym</th>
+                  <th><img src=""></th>
+                  <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
+                  </tr>
+                  }
+                }
              </tbody>
            </table>
 

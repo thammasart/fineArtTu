@@ -107,8 +107,9 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsMaterial() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<FSN_Description> fsns = FSN_Description.find.all(); 
-        return ok(importsMaterial.render(fsns,user));
+        List<FSN_Description> fsns = FSN_Description.find.all();                    //ครุภัณฑ์
+        List<MaterialCode> goodsCode = MaterialCode.find.all();                            //วัสดุ
+        return ok(importsMaterial.render(fsns,goodsCode,user));
     }
 
     @Security.Authenticated(Secured.class)
@@ -158,10 +159,6 @@ public class Import extends Controller {
 
         newFsn.typ = type;
 
-        System.out.println(gC) ;
-        System.out.println(gCT) ;
-        System.out.println(newFsn.descriptionId) ;
-
         newFsn.save();
 
         return redirect(routes.Import.importsMaterial());
@@ -181,8 +178,27 @@ public class Import extends Controller {
         return ok(importsMaterialConsumableGoodsAdd.render(user));
     }
 
+    public static Result saveNewMaterialDurableGoods(){
+
+        DynamicForm form = Form.form().bindFromRequest();
+
+        Form<MaterialCode> newCodeForm = Form.form(MaterialCode.class).bindFromRequest();
+        MaterialCode newCode = newCodeForm.get();
 
 
+        if(form.get("chosenType").equals("1"))
+        {
+        newCode.typeOfGood = "วัสดุคงทนถาวร";
+        }
+
+        newCode.materialType = MaterialType.find.byId(form.get("chosen"));   //connect link
+
+        newCode.save();
+
+        return redirect(routes.Import.importsMaterial());
+    }
+
+    //----------------------------------------------------------------------------------------------------
     @Security.Authenticated(Secured.class)
         public static Result importsOrder() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();

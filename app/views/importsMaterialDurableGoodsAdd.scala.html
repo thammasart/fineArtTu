@@ -14,43 +14,41 @@
 <body onload="init()">
 <div class="detailWindow" >
 
-    <form name="addDurableArticles">
+    <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableGoods()">
         <div class="well" >
             <h3 > เพิ่มวัสดุคงทนถาวร </h3>
 
-
-
-
+            <input type="radio" name="chosenType" value="1" hidden="true" checked>   <!--parse value-->
 
                 <div class="well">
                   <fieldset>
                     <legend style="width:auto">เลือกประเภทวัสดุคงทนถาวร</legend>
 
                     <table  class="table table-striped">
-                    <tr>
-                      <td ><input type="radio"> วัสดุคงทนถาวรสำนักงาน(01)</td>
-                        <td ><input type="radio"> วัสดุคงทนถาวรไฟฟ้าและวิทยุ(02)</td>
-                        <td ><input type="radio"> วัสดุคงทนถาวรงานบ้านงานครัว(03)</td>
-                        <td ><input type="radio"> วัสดุคงทนถาวรคอมพิวเตอร์(04)</td>
-                        <td ><input type="radio"> วัสดุคงทนถาวรยานพาหนะและขนส่ง(05)</td>
-                        <td ><input type="radio"> วัสดุคงทนถาวรวิทยาศาสตร์และการแพทย์(06)</td>
+                      <tr>
+                        <td ><input type="radio" name="chosen" value="01"> วัสดุคงทนถาวรสำนักงาน(01)</td>
+                        <td ><input type="radio" name="chosen" value="02"> วัสดุคงทนถาวรไฟฟ้าและวิทยุ(02)</td>
+                        <td ><input type="radio" name="chosen" value="03"> วัสดุคงทนถาวรงานบ้านงานครัว(03)</td>
+                        <td ><input type="radio" name="chosen" value="04"> วัสดุคงทนถาวรคอมพิวเตอร์(04)</td>
+                        <td ><input type="radio" name="chosen" value="05"> วัสดุคงทนถาวรยานพาหนะและขนส่ง(05)</td>
+                        <td ><input type="radio" name="chosen" value="06"> วัสดุคงทนถาวรวิทยาศาสตร์และการแพทย์(06)</td>
                       </tr>
 
                       <tr>
-                      <td><input type="radio"> วัสดุคงทนถาวรโฆษณาและเผยแพร่(07)</td>
-                        <td><input type="radio"> วัสดุคงทนถาวรการศึกษา(08)</td>
-                        <td><input type="radio"> วัสดุคงทนถาวรสนาม(09)</td>
-                        <td><input type="radio"> วัสดุคงทนถาวรการเกษตร(10)</td>
-                        <td><input type="radio"> วัสดุคงทนถาวรสำรวจ(11)</td>
-                        <td><input type="radio"> วัสดุคงทนถาวรก่อสร้าง(12)</td>
+                        <td><input type="radio" name="chosen" value="07"> วัสดุคงทนถาวรโฆษณาและเผยแพร่(07)</td>
+                        <td><input type="radio" name="chosen" value="08"> วัสดุคงทนถาวรการศึกษา(08)</td>
+                        <td><input type="radio" name="chosen" value="09"> วัสดุคงทนถาวรสนาม(09)</td>
+                        <td><input type="radio" name="chosen" value="10"> วัสดุคงทนถาวรการเกษตร(10)</td>
+                        <td><input type="radio" name="chosen" value="11"> วัสดุคงทนถาวรสำรวจ(11)</td>
+                        <td><input type="radio" name="chosen" value="12"> วัสดุคงทนถาวรก่อสร้าง(12)</td>
                       </tr>
 
                       <tr>
-                        <td><input type="radio"> วัสดุคงทนถาวรโรงงาน(13)</td>
-                        <td><input type="radio"> วัสดุคงทนถาวรดนตรีและนาฏศิลทป์(14)</td>
-                        <td><input type="radio"> วัสดุคงทนถาวรกีฬา(15)</td>
-                        <td><input type="radio"> วัสดุคงทนถาวรอาวุธ(16)</td>
-                        <td><input type="radio"> วัสดุคงทนถาวรอื่นๆ(17)</td>
+                        <td><input type="radio" name="chosen" value="13"> วัสดุคงทนถาวรโรงงาน(13)</td>
+                        <td><input type="radio" name="chosen" value="14"> วัสดุคงทนถาวรดนตรีและนาฏศิลทป์(14)</td>
+                        <td><input type="radio" name="chosen" value="15"> วัสดุคงทนถาวรกีฬา(15)</td>
+                        <td><input type="radio" name="chosen" value="16"> วัสดุคงทนถาวรอาวุธ(16)</td>
+                        <td><input type="radio" name="chosen" value="17"> วัสดุคงทนถาวรอื่นๆ(17)</td>
                       </tr>
 
                     </table>
@@ -58,40 +56,40 @@
                   </fieldset>
               </div>
 
-    <div class="form-inline marginBtm1" role="form" align="center">
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width250px" >รหัสวัสดุ</span>
-                                <input type="text" class="form-control  textAlignCenter width300px"placeholder="ตัวอย่าง 01001 สองตัวแรกมาจากradioสามตัวหลังรันไล่เลข" onkeypress="validateNumberKey(event)">
-                            </div>
-                      </div>
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width250px" >  ชื่อวัสดุ</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
-                            </div>
-                      </div>
-                </div>
+              <div class="form-inline marginBtm1" role="form" align="center">
+                    <div class="form-group" >
+                          <div class="input-group" >
+                              <span class="input-group-addon width250px" >รหัสวัสดุ</span>
+                              <input type="text" class="form-control  textAlignCenter width300px"placeholder="ตัวอย่าง 01001 สองตัวแรกมาจากradioสามตัวหลังรันไล่เลข" onkeypress="validateNumberKey(event)" name="code">
+                          </div>
+                    </div>
+                    <div class="form-group" >
+                          <div class="input-group" >
+                              <span class="input-group-addon width250px" >  ชื่อวัสดุ</span>
+                              <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description">
+                          </div>
+                    </div>
+              </div>
 
 		
                 <div class="form-inline" role="form" align="center">
                     <div class="input-group marginBtm1">
                       <span class="input-group-addon width250px">หน่วย</span>
-                        <select class="form-control textAlignCenter  width300px">
+                        <select class="form-control textAlignCenter  width300px" name="classifier">
                           <option>---เลือก---</option>
                           <option>อัน</option>
                           <option>ชิ้น</option>
                           <option>เครื่อง</option>
                         </select>
                     </div>
-                
+                </div>
 
 	
 		
 
 		
 
-		<div class="form-inline marginBtm1" role="form" align="center">
+		            <div class="form-inline marginBtm1" role="form" align="center">
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รูปภาพ</span>
@@ -99,15 +97,10 @@
                             </div>
                       </div>
                 </div>
-        </div>
+
 
     <legend style="width:auto">รายละเอียดเพิ่มเติม</legend>
-    <textarea class="form-control" rows="3"></textarea>
-
-
-    </form>
-    </div>
-        
+    <textarea class="form-control" rows="3" name="otherDetail"></textarea>
 
             <div align="center" style="margin-bottom:1%;">
               <a href="@routes.Import.importsMaterial()">
@@ -116,12 +109,16 @@
                   </button>
               </a>
               <a href="@routes.Import.importsMaterial()">
-                  <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                  <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" type="submit">
                       ยืนยัน <span class="glyphicon glyphicon-ok"></span>
                   </button>
               </a>
 
             </div>
+
+    </form>
+    </div>
+        
 
     </div>
 </div>
