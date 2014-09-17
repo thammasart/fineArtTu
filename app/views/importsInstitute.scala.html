@@ -49,19 +49,17 @@
                 </thead>
                 <tbody>
 
+                  @for(institute<- institutes){
                     <tr>
-
-                        @for(institute<- institutes){
-                        <tr>
-                        <th><input type="checkbox"></th>
-                        <th>@institute.nameEntrepreneur</th>
-                        <th>@institute.nameDealer</th>
-                        <th>@institute.address.telephoneNumber</th>
-                        <th>@institute.payPeriod</th>
-                        <th>@institute.sendPeriod</th>
-                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
-                        </tr>
-                        }
+                    <th><input type="checkbox"></th>
+                    <th>@institute.nameEntrepreneur</th>
+                    <th>@institute.nameDealer</th>
+                    <th>@institute.address.telephoneNumber</th>
+                    <th>@institute.payPeriod</th>
+                    <th>@institute.sendPeriod</th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
+                    </tr>
+                  }
                 </tbody>
 
 

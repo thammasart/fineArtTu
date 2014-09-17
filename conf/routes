@@ -39,7 +39,7 @@ GET		/export/other/add/detail                        controllers.Export.exportOt
 GET		/import											controllers.Import.imports()
 GET		/import/institute								controllers.Import.importsInstitute()
 GET		/import/instituteAdd							controllers.Import.importsInstituteAdd()
-POST	/import/saveinstitute							controllers.Import.saveNewInstitute()
+POST	/import/saveInstitute							controllers.Import.saveNewInstitute()
 
 
 GET             /report                                                         controllers.Report.report()
@@ -49,9 +49,29 @@ GET             /report/DurableArticles                                         
 GET             /report/ImportDurableArticles                                   controllers.Report.reportImportDurableArticles()
 GET             /report/exportDurableArticles                                   controllers.Report.reportExportDurableArticles()
 GET             /report/exchangeDurableArticles                                 controllers.Report.reportExchangeDurableArticles()
+
 GET		/import/material								controllers.Import.importsMaterial()
 
+
+
+
+
+
+
+
+
 GET		/import/materialDurableArticlesAdd				controllers.Import.importsMaterialDurableArticlesAdd()
+POST	/import/saveMaterialDurableArticles				controllers.Import.saveNewMaterialDurableArticles()
+
+
+
+
+
+
+
+
+
+
 GET		/import/materialDurableGoodsAdd					controllers.Import.importsMaterialDurableGoodsAdd()
 GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
 

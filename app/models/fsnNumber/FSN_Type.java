@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class FSN_Type extends Model{
 
 	@Id
-	@Column(length=7)
+	@Column(length=8)
 	public String typeId;
 	@Column(nullable=false)
 	public String typeDescription;
 
-	@OneToMany(mappedBy="type")
+	@OneToMany(mappedBy="typ")
 	public List<FSN_Description> desInType = new ArrayList<FSN_Description>();
 	@ManyToOne
 	public FSN_Class groupClass;

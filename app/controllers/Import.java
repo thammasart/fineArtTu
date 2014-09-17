@@ -9,6 +9,7 @@ import models.*;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import models.fsnNumber.*;
 
 public class Import extends Controller {
 
@@ -37,20 +38,20 @@ public class Import extends Controller {
     public static Result saveNewInstitute(){
         DynamicForm form = Form.form().bindFromRequest();
 
-        String typeDurableArticles="";
+        String typeDurableArticles="";                                  //save all list
         String typeDurableGoods="";
         String typeConsumableGoods="";
 
             for(int i=1;i<=17;i++)
             {
-                String dA = form.get("durableArticlesType"+i);
+                String dA = form.get("durableArticlesType"+i);          //save 1 list
                 String dG = form.get("durableGoodsType"+i);
                 String cG = form.get("consumableGoodsType"+i);
 
 
                 if(dA!=null)
                 {
-                    typeDurableArticles=typeDurableArticles+dA+",";
+                    typeDurableArticles=typeDurableArticles+dA+",";    //process to save all list
                 }
                 if(dG!=null)
                 {
@@ -106,14 +107,68 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsMaterial() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsMaterial.render(user));
+        List<FSN_Description> fsns = FSN_Description.find.all(); 
+        return ok(importsMaterial.render(fsns,user));
     }
 
     @Security.Authenticated(Secured.class)
         public static Result importsMaterialDurableArticlesAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsMaterialDurableArticlesAdd.render(user));
+        List<FSN_Type> groupType = FSN_Type.find.all(); 
+        return ok(importsMaterialDurableArticlesAdd.render(groupType,user));
     }
+
+    public static Result saveNewMaterialDurableArticles(){
+
+        DynamicForm form = Form.form().bindFromRequest();
+
+        String gId = form.get("groupId");
+        String gD = form.get("groupDescription");
+
+        String cId = form.get("classId");
+        String cD = form.get("classDescription");
+
+        String tId = form.get("typeId");
+        String tD = form.get("typeDescription"); 
+
+        String fsn = "";
+
+        fsn=fsn+gId;
+        fsn=fsn+cId+"-";
+        fsn=fsn+tId+"-";  
+
+
+
+        Form<FSN_Description> newFsnForm = Form.form(FSN_Description.class).bindFromRequest();
+        FSN_Description newFsn = newFsnForm.get();
+
+        newFsn.descriptionId = fsn+newFsn.descriptionId;
+
+        String gCT =newFsn.descriptionId.substring(0,newFsn.descriptionId.length()-5);
+        String gC = gCT.substring(0,gCT.length()-4);
+        FSN_Type type = FSN_Type.find.byId(gCT);
+
+        if(type == null){
+            type = new FSN_Type();
+            type.typeId = gCT;
+            type.typeDescription = tD;
+            type.groupClass = FSN_Class.find.byId(gC);
+            type.save();
+        }
+
+        newFsn.typ = type;
+
+        System.out.println(gC) ;
+        System.out.println(gCT) ;
+        System.out.println(newFsn.descriptionId) ;
+
+        newFsn.save();
+
+        return redirect(routes.Import.importsMaterial());
+    }   
+
+
+    //----------------------------------------------------------------------------------------------------
 
     @Security.Authenticated(Secured.class)
         public static Result importsMaterialDurableGoodsAdd() {

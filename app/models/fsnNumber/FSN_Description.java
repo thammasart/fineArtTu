@@ -7,13 +7,16 @@ import javax.persistence.*;
 public class FSN_Description extends Model{
 
 	@Id
-	@Column(length=11)
+	@Column(length=13)
 	public String descriptionId;
 	@Column(nullable=false)
 	public String descriptionDescription;
 
+	public String classifier; 									//หน่วย
+	public String otherDetail;									//รายละเอียดอื่นๆ 
+
 	@ManyToOne
-	public FSN_Type type;
+	public FSN_Type typ;
 
 	@SuppressWarnings("unchecked")
 	public static Finder<String,FSN_Description> find = new Finder(String.class,FSN_Description.class);
