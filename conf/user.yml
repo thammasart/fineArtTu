@@ -1,10 +1,10 @@
 - &UserStatus01 !!models.UserStatus
     name:     ผู้ดูแลระบบ
-    module1:    false
+    module1:    true
     module2:    true
     module3:    true
     module4:    true
-    module5:    false
+    module5:    true
 - &UserStatus02 !!models.UserStatus
     name:     เจ้าหน้าที่
     module1:    false
