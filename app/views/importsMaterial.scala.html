@@ -1,4 +1,4 @@
-@(user : User)
+@(fsns:List[models.fsnNumber.FSN_Description],user : User)
 @header("importsMaterial")
 
 
@@ -46,23 +46,34 @@
                         <th></th>
                         <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>xxxxx<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>xxxxx<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>xxxxx<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>xxxxx<span class="glyphicon glyphicon-sort"></span></th>
                         <th>รูปภาพ</th>
                         <th>รายละเอียด</th>
                     </tr>
                 </thead>
                 <tbody>
 
+
+                  @for(fsn<- fsns){
                     <tr>
-                        <th> <input type="checkbox"/> </th>
-                        <th>7510-003-0001</th>
-                        <th>ดินสอกดล็อตติ้งสีน้ำเงิน</th>
-                        <th>75</th>
-                        <th>1</th>
-                        <th><img src=""></th>
-                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
+                    <th><input type="checkbox"></th>
+                    <th>@fsn.descriptionId</th>
+                    <th>@fsn.descriptionDescription</th>
+                    <th>@fsn.classifier</th>
+                    <th>@fsn.typ.typeId</th>
+                    <th>@fsn.typ.typeDescription</th>
+                    <th>@fsn.typ.groupClass.classId</th>
+                    <th>@fsn.typ.groupClass.classDescription</th>
+                    <th><img src=""></th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
                     </tr>
+                  }
+
+
                 </tbody>
            </table>
 
