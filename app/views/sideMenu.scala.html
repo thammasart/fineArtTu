@@ -1,3 +1,4 @@
+@(user : User)
 <div class ="sideMenu">
     <a href="@routes.Application.home()">
         <!--<img src="@routes.Assets.at("images/fineArtLogo.png") "style="width:100%;" alt="โลโก้คณะศิลปกรรมศาสตร์">-->
@@ -6,10 +7,18 @@
     <div class="panel panel-default" style="border-color:white;">
       <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
-                <li class="lineShadow"><a href="@routes.Import.imports()">ระบบจัดซื้อและนำเข้าพัสดุ </a></li>
-                <li class="lineShadow"><a href="@routes.Export.export()">ระบบเบิกจ่ายและโอนย้าย </a></li>
-                <li class="lineShadow"><a href="@routes.Report.report()">ระบบรายงาน </a></li>
-                <li class="lineShadow"><a href="@routes.Graph.index()">ระบบติดตามและตรวจสอบ </a></li>
+                @if(user.status.module2){
+                    <li class="lineShadow"><a href="@routes.Import.imports()">ระบบจัดซื้อและนำเข้าพัสดุ </a></li>
+                }
+                @if(user.status.module3){
+                    <li class="lineShadow"><a href="@routes.Export.export()">ระบบเบิกจ่ายและโอนย้าย </a></li>
+                }
+                @if(user.status.module4){
+                    <li class="lineShadow"><a href="@routes.Report.report()">ระบบรายงาน </a></li>
+                }
+                @if(user.status.module5){
+                    <li class="lineShadow"><a href="@routes.Graph.index()">ระบบติดตามและตรวจสอบ </a></li>
+                }
                 <!--
                     <li>
                         <div >

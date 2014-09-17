@@ -1,16 +1,15 @@
 import java.io.*;
 
 public class ReplaceInFile {
-	public static String PATH = "./app/views/";
+	public static String PATH = "./app/views/export/";
 
 	public void listFilesForFolder(final File folder) {
 		for (final File fileEntry : folder.listFiles()) {
 			if (!fileEntry.isDirectory()) {
-				replaceFileNoContain(fileEntry,"sideMenu","headerTag\\(","headerTagFull\\(");
-				replaceFileNoContain(fileEntry,"sideMenu","footer\\(","footerFull\\(");
-				replaceFile(fileEntry, "--!>", "-->");
-				/*System.out.println(fileEntry.getName());
-				replaceFile(fileEntry, "=\"//", "=\"http:/");
+				replaceFile(fileEntry, "@sideMenu\\(\\)", "@sideMenu\\(user\\)");
+				System.out.println(fileEntry.getName());
+				/*replaceFile(fileEntry, "=\"//", "=\"http:/");
+				replaceFile(fileEntry, "\\)\\(\\)", "\\)");
 				replaceFile(fileEntry, "//", "/");
 				replaceFile(fileEntry, "/assets", "./assets");
 				replaceFile(

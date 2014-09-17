@@ -1,50 +1,65 @@
 @(user : User, allStatus:List[UserStatus])
 @header("admin")
 
-
+<body onload="initFocusPoniter()">
 @navAdmin(user)
 @headerTag("ระบบจัดการบัญชีผู้ใช้")
-@sideMenu()
+@sideMenu(user)
+<script src="@routes.Assets.at("javascripts/addUser.js")"></script>
+<script>
 
-<div class ="mainWindow" style="border:none; margin-top:0;">
-    <form role="form" class="form-horizontal" method="post" action="@routes.Admin.saveNewUser()">
+    function initFocusPoniter(){
+        document.addUserForm.username.focus();
+    }
+</script>
+
+<div class ="mainWindow" style="border:none; margin-top:0;" >
+    <form role="form" class="form-horizontal" method="post" action="@routes.Admin.saveNewUser()" name="addUserForm"  onsubmit="return submitButtonClick()">
         <div class="well " align="center" > <h3>เพิ่มบัญชีผู้ใช้</h3>
 
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">Username</span>
-              <input type="text" class="form-control width300px" name="username" >
+              <input type="text" class="form-control width300px textAlignCenter" name="username"autocomplete="off" id="username" >
+              <label class="alertText" id="usernameAlert"  > <i> *  Please enter Username</i></label>
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">Password</span>
-              <input type="password" class="form-control width300px" name="password">
+              <input type="password" class="form-control width300px textAlignCenter" name="password"autocomplete="off"  id="password">
+              <label class="alertText" id="passwordAlert"  > <i> *  Please enter Password</i></label>
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">Re-Password</span>
-              <input type="password" class="form-control width300px" name="username" >
+              <input type="password" class="form-control width300px textAlignCenter" name="rePassword" autocomplete="off"  id="rePassword">
+              <label class="alertText" id="rePasswordAlert"  > <i> *  Please enter Password</i></label>
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">สายงาน</span>
-              <input type="text" class="form-control width300px" name="departure" >
+              <input type="text" class="form-control width300px textAlignCenter" name="departure" autocomplete="off"  id="departure">
+              <label class="alertText" id="departureAlert"  > <i> *  Please enter Departure</i></label>
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">ตำแหน่ง</span>
-              <input type="text" class="form-control width300px" name="position" >
+              <input type="text" class="form-control width300px textAlignCenter" name="position" autocomplete="off"  id="position">
+              <label class="alertText" id="positionAlert"  > <i> *  Please enter Position</i></label>
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">ชื่อ</span>
-              <input type="text" class="form-control width300px" name="firstName" >
+              <input type="text" class="form-control width300px textAlignCenter" name="firstName" autocomplete="off"  id="firstname">
+              <label class="alertText" id="firstnameAlert"  > <i> *  Please enter Firstname</i></label>
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">นามสกุล</span>
-              <input type="text" class="form-control width300px" name="lastName" >
+              <input type="text" class="form-control width300px textAlignCenter" name="lastName" autocomplete="off"  id="lastname">
+              <label class="alertText" id="lastnameAlert"  > <i> *  Please enter Lastname</i></label>
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">สิทธิ</span>
-                <select class="form-control textAlignCenter width300px" name="statusName">
-                  <option >---เลือก---</option>
+                <select class="form-control width300px textAlignCenter" name="statusName" id="status">
+                  <option>---เลือก---</option>
                   @for(status <- allStatus){
                     <option >@status.name</option>
                   }
+                  <label class="alertText" id="statusAlert"  > <i> *  Please select Status</i></label>
                 </select>
             </div>
             

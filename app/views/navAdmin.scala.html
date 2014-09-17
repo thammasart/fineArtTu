@@ -3,7 +3,9 @@
     <div>
         <div class="user-status-bar" >
             <button class="btn btn-sm btn-primary" style="float:left"><span class="glyphicon glyphicon-chevron-left"></span>ย้อนกลับ</button>
-            <a href="@routes.Admin.index()">&#91;admin&#93;</a>
+            @if(user.status.module1){
+                <a href="@routes.Admin.index()">&#91;admin&#93;</a>
+            }
           <img src="@routes.Assets.at("images/user13.png")" style="width:1.5%;"</img> 
           <span>@request().username()  </span>
           <a href="@routes.Application.logout()"><button type="button" class="btn btn-danger btn-xs" style="margin-right:5px;"><b>Log Out</button></b></a>

@@ -5,13 +5,23 @@
 
 @navAdmin(user)
 @headerTag("ระบบจัดการบัญชีผู้ใช้")
-@sideMenu()
+@sideMenu(user)
 
 <div class ="mainWindow" style="margin-top:0; border:none;">
 
 
     <div class ="tableHeaderBtnContainer">
         
+          @if(flash().containsKey("notSelect")){
+            <div class="alert alert-danger adminAddDelUserAlert">
+                <p>@flash().get("notSelect")</p>
+            </div>
+          }
+          @if(flash().containsKey("delete")){
+            <div class="alert alert-success adminAddDelUserAlert">
+                <p>@flash().get("delete")</p>
+            </div>
+          }
         <a href="@routes.Admin.addUser()"><button class="btn btn-success btnFloatRight width200px">เพิ่มบัญชีผู้ใช้</button></a>
         <button class="btn btn-danger btnFloatRight width200px" style="margin-right:1%;" onclick="removeUser()">ลบบัญชีผู้ใช้</button>
         <a href="@routes.Admin.manageRole()"><button class="btn btn-primary btnFloatRight width200px" style="margin-right:1%">กำหนดสิทธิ</button></a>

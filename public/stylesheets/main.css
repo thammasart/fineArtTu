@@ -196,3 +196,18 @@ float:right;
     width:30%;
     height:50px;
 }
+.alertText{
+    padding-left: 2%;
+    vertical-align: -webkit-baseline-middle;
+    vertical-align: -baseline;
+    color: darkred;
+    display: none;
+}
+.adminAddDelUserAlert{
+    width: 30%;
+    text-align: center;
+    margin-left: 5%;
+    margin-top: -2.5%;
+    font-size: 18px;
+    display: inline-block;
+}

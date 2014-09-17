@@ -2,7 +2,9 @@
 <!-- Page Header -->
     <div>
         <div class="user-status-bar" >
-            <a href="@routes.Admin.index()">&#91;admin&#93;</a>
+            @if(user.status.module1){
+                <a href="@routes.Admin.index()">&#91;admin&#93;</a>
+            }
           <img src="@routes.Assets.at("images/user13.png")" style="width:1.5%;"</img> 
           <span>@user.username  </span>
           <a href="@routes.Application.logout()"><button type="button" class="btn btn-danger btn-xs" style="margin-right:5px;"><b>Log Out</button></b></a>
