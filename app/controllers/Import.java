@@ -188,7 +188,12 @@ public class Import extends Controller {
 
         if(form.get("chosenType").equals("1"))
         {
-        newCode.typeOfGood = "วัสดุคงทนถาวร";
+            newCode.typeOfGood = "วัสดุคงทนถาวร";
+            newCode.minNumberToAlert =0;
+        }
+        else
+        {
+            newCode.typeOfGood = "วัสดุสิ้นเปลือง";
         }
 
         newCode.materialType = MaterialType.find.byId(form.get("chosen"));   //connect link
