@@ -6,9 +6,14 @@ import play.data.*;
 import play.libs.Json;
 import views.html.*;
 import models.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import models.fsnNumber.*;
 
 public class Import extends Controller {
@@ -207,7 +212,8 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsOrder() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrder.render(user));
+        List<models.durableArticles.Procurement> procurement = models.durableArticles.Procurement.find.all();
+        return ok(importsOrder.render(procurement,user));
     }
     @Security.Authenticated(Secured.class)
         public static Result importsOrderDurableArticlesAdd() {
@@ -224,6 +230,34 @@ public class Import extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsOrderDurableArticlesAddMaterial2.render(user));
     }
+
+    public static Result saveNewArticlesOrder(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	System.out.println(Form.form(models.durableArticles.Procurement.class).bindFromRequest());
+    	models.durableArticles.Procurement articlesOrder = Form.form(models.durableArticles.Procurement.class).bindFromRequest().get();
+    	try {
+    		Date date;
+	        if(!form.get("addDate_p").equals("")) {
+				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
+				articlesOrder.addDate = date;
+	        }
+	        if(!form.get("checkDate_p").equals("")){
+	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
+	        	articlesOrder.checkDate = date;
+	        }
+    	} catch (ParseException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	System.out.println(articlesOrder.checkDate.toLocaleString());
+        articlesOrder.save();
+        return redirect(routes.Import.importsOrder());
+    }
+    
+
+
+
+
 
     @Security.Authenticated(Secured.class)
         public static Result importsOrderGoodsAdd() {
