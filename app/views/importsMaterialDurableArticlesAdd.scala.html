@@ -1,12 +1,15 @@
 @(groupTypes:List[models.fsnNumber.FSN_Type],user : User)
 @header("importsMaterialDurableArticlesAdd")
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script src="@routes.Assets.at("javascripts/import/materialDurableArticles.js")"></script>
 @nav(user)
 @headerTagFull("เพิ่มรายละเอียดครุภัณฑ์")
 <script>
 
     function init(){
-        document.addDurableArticles.groupCode.focus();
+        document.addDurableArticles.groupId.focus();
     }
 </script>
 <body onload="init()">
@@ -17,9 +20,9 @@
             <h3 > เพิ่มครุภัณฑ์ </h3>
 		<div class="form-inline marginBtm1" role="form" align="center">
                       <div class="form-group" >
-                            <div class="input-group" >
+                            <div class="input-group ui-widget" >
                                 <span class="input-group-addon width250px" >รหัสกลุ่ม</span>
-                                <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="groupId">
+                                <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="groupId" id="groupId">
                             </div>
                       </div>
                       <div class="form-group" >
