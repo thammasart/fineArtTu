@@ -28,9 +28,9 @@ public class Procurement extends Model{
 	public Company company; 			// บริษัทที่ทำการซื้อ
 
 	@OneToMany
-	public List<EO_Committee> eoCommittee = new ArrayList<EO_Committee>(); // คณะกรรมการตรวจรับ
+	public List<EO_Committee> eoCommittee = new ArrayList<EO_Committee>(); // คณะกรรมการเปิดซองสอบราคา
 	@OneToMany
-	public List<AI_Committee> aiCommittee = new ArrayList<AI_Committee>(); // คณะกรรมการเปิดซองสอบราคา
+	public List<AI_Committee> aiCommittee = new ArrayList<AI_Committee>(); // คณะกรรมการตรวจรับ
 	
 	public String getAddDate(){
 		return  addDate != null ? addDate.getDate() + "/" + (addDate.getMonth()+1) + "/" + (addDate.getYear()+1900):"";

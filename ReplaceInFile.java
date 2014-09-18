@@ -1,7 +1,8 @@
 import java.io.*;
 
 public class ReplaceInFile {
-	public static String PATH = "./app/views/export/";
+	//public static String PATH = "./app/views/";
+	public static String PATH = "./temp";
 
 	public void listFilesForFolder(final File folder) {
 		for (final File fileEntry : folder.listFiles()) {
@@ -169,11 +170,40 @@ public class ReplaceInFile {
 			ioe.printStackTrace();
 		}
 	}
+	public static void replaceDivJavascript(File inFile) {
+		try {
+
+			File file = inFile;
+			BufferedReader reader = new BufferedReader(new InputStreamReader(
+					new FileInputStream(file), "UTF-8"));
+			String line = "", oldtext = "";
+			while ((line = reader.readLine()) != null) {
+				oldtext += "'" + line + "'+\n";
+			}
+			reader.close();
+			// replace a word in a file
+			// String newtext = oldtext.replaceAll("drink", "Love");
+
+			// To replace a line in a file
+
+			String outFile = inFile.getName();
+			Writer out = new BufferedWriter(new OutputStreamWriter(
+					new FileOutputStream(outFile), "UTF-8"));
+			try {
+				out.write(oldtext);
+			} finally {
+				out.close();
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 
 	public static void main(String args[]) {
 		ReplaceInFile x = new ReplaceInFile();
 		File file = new File(ReplaceInFile.PATH);
-		x.listFilesForFolder(file);
+		replaceDivJavascript(file);
+		//x.listFilesForFolder(file);
 		
 		System.out.println("finish");
 	}
