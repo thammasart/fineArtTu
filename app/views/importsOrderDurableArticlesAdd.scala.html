@@ -1,6 +1,8 @@
 @(user : User)
 @header("importsOrderDurableArticlesAdd")
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
+    <script src="@routes.Assets.at("javascripts/controllers/importOrder.js")"></script>
+
 
 @nav(user)
 @headerTagFull("เพิ่มรายการครุภัณฑ์จัดซื้อและนำเข้า")
@@ -82,12 +84,12 @@
 
 
 
-      <legend>คณะกรรมการตรวจรับ <button>เพิ่ม</button> </legend>
-        <div class="form-inline marginBtm1" role="form">
+      <legend>คณะกรรมการตรวจรับ <button type="button" onclick="createCommittee()">เพิ่ม</button> </legend>
+        <div class="form-inline marginBtm1" role="form" id="ai_committee" >
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon">คำนำหน้าชื่อ</span>
-                        <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">
+                        <input  type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">
                     </div>
               </div>
               <div class="form-group" >
@@ -177,7 +179,6 @@
           <button>ลบ</button>
       </div> <!--คณะกรรมการ-->
                   
-
 
 
 
