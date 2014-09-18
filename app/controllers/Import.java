@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.ArrayList;
 import models.fsnNumber.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;                                                                              
+import com.fasterxml.jackson.core.type.TypeReference;                                                                                   
+import com.fasterxml.jackson.databind.JsonNode;                                                                                         
+import com.fasterxml.jackson.databind.ObjectMapper;                                                                                     
+import com.fasterxml.jackson.databind.node.ObjectNode;  
+
 public class Import extends Controller {
 
  	@Security.Authenticated(Secured.class)
@@ -241,5 +247,30 @@ public class Import extends Controller {
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
+    @Security.Authenticated(Secured.class)
+    public static Result findFsn(){
+        List<FSN_Class> fsnClass;
+        Lsit<FSN_Group> fsnGroup;
+        List<String> groupId = new ArrayList<String>;
+        List<String> groupDes = new ArrayList<String>;
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+
+        try{
+            fsnClass = FSN_Class.find.all();
+            fsnGroup = FSN_Group.find.all();
+
+            for(FSN_Group fsnG : fsnGroup){ 
+                groupId.add(fsnG.groupId);               
+                groupDes.add(fsnG.groupDescription);
+            } 
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+
+        return ok(result);
+    }
 
 }
