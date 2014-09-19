@@ -88,6 +88,7 @@ POST 	/import/saveNewArticlesOrder					controllers.Import.saveNewArticlesOrder()
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()
 GET		/import/order/GoodsAdd/Material1				controllers.Import.importsOrderGoodsAddMaterial1()
 GET		/import/order/GoodsAdd/Material2				controllers.Import.importsOrderGoodsAddMaterial2()
+POST 	/import/saveNewGoodsOrder						controllers.Import.saveNewGoodsOrder()
 
 GET     /Admin                      					controllers.Admin.index()
 GET     /Admin/addUser              					controllers.Admin.addUser()

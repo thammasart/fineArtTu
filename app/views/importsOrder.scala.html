@@ -1,4 +1,4 @@
-@(orders : List[models.durableArticles.Procurement],user : User)
+@(articleOrders : List[models.durableArticles.Procurement],goodOrders : List[models.durableGoods.Procurement],user : User)
 @header("importsOrder")
 
 
@@ -48,12 +48,12 @@
                     </tr>
                 </thead>
                 <tbody>
-					@for(order <- orders){
+					@for(articleOrder <- articleOrders){
 	                    <tr>
 	                        <th> <input type="checkbox"/> </th>
-	                        <th>@order.title</th>
-	                        <th>@order.contractNo</th>
-	                        <th>@order.getAddDate()</th>
+	                        <th>@articleOrder.title</th>
+	                        <th>@articleOrder.contractNo</th>
+	                        <th>@articleOrder.getAddDate()</th>
 	                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
 	                    </tr>
                     }
@@ -106,15 +106,18 @@
                           <th>รายละเอียด</th>
                       </tr>
                   </thead>
-                  <tbody>
 
-                      <tr>
-                          <th> <input type="checkbox"/> </th>
-                          <th>รายการส่งเสริมการละคอน1</th>
-                          <th>1/57</th>
-                          <th>20/5/57</th>
-                           <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-                      </tr>
+                  <tbody>
+                   @for(goodOrder <- goodOrders){
+	                    <tr>
+	                        <th> <input type="checkbox"/> </th>
+	                        <th>@goodOrder.title</th>
+	                        <th>@goodOrder.contractNo</th>
+	                        <th>@goodOrder.getAddDate()</th>
+	                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
+	                    </tr>
+                    }
+
                   </tbody>
               </table>
 
