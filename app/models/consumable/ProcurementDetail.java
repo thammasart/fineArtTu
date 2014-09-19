@@ -5,6 +5,9 @@ import javax.persistence.*;
 
 import models.MaterialCode;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table (name = "consumable_procurement_detail")
 public class ProcurementDetail extends Model{
@@ -19,8 +22,10 @@ public class ProcurementDetail extends Model{
 	public String serialNumber; //หมายเลขเครื่อง
 	public String partOfPic; // รูปภาพ
 
+	@JsonBackReference
 	@ManyToOne
 	public MaterialCode code; // หมายเลขวัสดุ
+	@JsonBackReference
 	@ManyToOne
 	public Procurement procurement; // การจัดซื้อ
 

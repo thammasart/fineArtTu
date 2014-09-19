@@ -14,10 +14,11 @@ public class RequisitionDetail extends Model{
 
 	@Id
 	public long id;
-	public MaterialCode code; //รหัส
 	public int quantity; // จำนวน
 	public String description; // หมายเหตุการเบิก
 
+	@ManyToOne
+	public MaterialCode code; //รหัสัสด
 	@ManyToOne
 	public User withdrawer; // ผู้เบิก
 	@ManyToOne
