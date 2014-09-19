@@ -3,10 +3,38 @@ var j =1;
 var aiLists = [];
 var eoLists = [];
 $('document').ready(function(){
-	openPage1();
+	showPage('1');
 	createAICommittee();
 	createEOCommittee();
 }); 
+function clearPage(){
+	var fields2 = $('#page2 :input[type="text"]');
+	var fields3 = $('#page3 :input[type="text"]');
+	var fields4 = $('#page2 :input[type="number"]');
+	var fields5 = $('#page3 :input[type="number"]');
+	var fields6 = $('#page2 :input[type="radio"]');
+	$.each(fields2, function(i, field) {
+	    var dom = $(field);
+	    dom.val("");
+	});
+	$.each(fields3, function(i, field) {
+	    var dom = $(field);
+	    dom.val("");
+	});
+	$.each(fields4, function(i, field) {
+		var dom = $(field);
+		dom.val(0);
+	});
+	$.each(fields5, function(i, field) {
+		var dom = $(field);
+		dom.val(0);
+	});
+	$.each(fields6, function(i, field) {
+		var dom = $(field);
+		dom.prop('checked', false);
+	});
+	
+}
 function getCommitteeTemplate(name){
 	name == 'ai' ? aiLists.push(i):eoLists.push(j);
 	var num = name == 'ai' ? i:j;
@@ -87,11 +115,10 @@ function removeDivCommittee(name,num){
 }
 
 function showPage(num){
-	console.log(num);
-	console.log(num == '1' ?  "block" : "none");
-	console.log(num == '2' ?  "block" : "none");
-	console.log(num == '3' ?  "block" : "none");
 	document.getElementById("page1").style.display = num == '1' ?  "block" : "none";
 	document.getElementById("page2").style.display = num == '2' ?  "block" : "none";
 	document.getElementById("page3").style.display = num == '3' ?  "block" : "none";
+	if(num == '1'){
+		clearPage();
+	}
 }
