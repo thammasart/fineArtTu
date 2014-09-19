@@ -82,105 +82,16 @@
 
 
 
+		<input id="aiLists" type="hidden" name="aiLists" >
+		<input id="eoLists" type="hidden" name="eoLists" >
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
+		<legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
+		<div class="form-inline marginBtm1" role="form" id="ai_committee" ></div> 
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-
-      <legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
-        <div class="form-inline marginBtm1" role="form" id="ai_committee" >
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon">คำนำหน้าชื่อ</span>
-                        <input  type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">
-                    </div>
-              </div>
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon">ชื่อ/สกุล</span>
-                        <input type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า">
-                    </div>
-              </div>
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon" >ตำแหน่ง</span>
-                        <input type="text" class="form-control textAlignCenter  width150px"placeholder="ตามข้อมูลuser">
-                    </div>
-              </div>
-
-
-        <div class="form-group" role="form">
-            <div class="input-group">
-              <span class="input-group-addon">ประเภทกรรมการ</span>
-                <select class="form-control textAlignCenter  width150px">
-                  <option>---เลือก---</option>
-                  <option>ข้าราชการ</option>
-                  <option>พนักงานมหาลัย</option>
-                </select>
-            </div>
-        </div>
-
-         <div class="form-group" role="form">
-            <div class="input-group">
-              <span class="input-group-addon">ตำแหน่งในคณะกรรมการ</span>
-                <select class="form-control textAlignCenter  width200px">
-                  <option>---เลือก---</option>
-                  <option>ประธารกรรมการ</option>
-                  <option>กรรมการ</option>
-                  <option>กรรมการและเรขานุการ</option>
-                </select>
-            </div>
-          </div>
-          <button>ลบ</button>
-      </div> <!--คณะกรรมการ-->
-
-
-      <legend>คณะกรรมการเปิดซอง <button type="button" onclick="createEOCommittee()">เพิ่ม</button> </legend>
-        <div class="form-inline marginBtm1" role="form" id="eo_committee">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon">คำนำหน้าชื่อ</span>
-                        <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">
-                    </div>
-              </div>
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon" >ชื่อ/สกุล</span>
-                        <input type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า">
-                    </div>
-              </div>
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon" >ตำแหน่ง</span>
-                        <input type="text" class="form-control textAlignCenter  width150px"placeholder="ตามข้อมูลuser">
-                    </div>
-              </div>
-
-
-        <div class="form-group" role="form">
-            <div class="input-group">
-              <span class="input-group-addon">ประเภทกรรมการ</span>
-                <select class="form-control textAlignCenter  width150px">
-                  <option>---เลือก---</option>
-                  <option>ข้าราชการ</option>
-                  <option>พนักงานมหาลัย</option>
-                </select>
-            </div>
-        </div>
-
-         <div class="form-group" role="form">
-            <div class="input-group">
-              <span class="input-group-addon">ตำแหน่งในคณะกรรมการ</span>
-                <select class="form-control textAlignCenter  width200px">
-                  <option>---เลือก---</option>
-                  <option>ประธารกรรมการ</option>
-                  <option>กรรมการ</option>
-                  <option>กรรมการและเรขานุการ</option>
-                </select>
-            </div>
-          </div>
-          <button>ลบ</button>
-      </div> <!--คณะกรรมการ-->
-                  
-
-
+		<legend>คณะกรรมการเปิดซอง <button type="button" onclick="createEOCommittee()">เพิ่ม</button> </legend>
+        <div class="form-inline marginBtm1" role="form" id="eo_committee"></div> <!--คณะกรรมการ-->
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
         <div class="well" >
         <h2 style ="text-align:center;">รายละเอียดครุภัณฑ์</h2>

@@ -284,9 +284,9 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result findFsn(){
         List<FSN_Class> fsnClass;
-        Lsit<FSN_Group> fsnGroup;
-        List<String> groupId = new ArrayList<String>;
-        List<String> groupDes = new ArrayList<String>;
+        List<FSN_Group> fsnGroup;
+        List<String> groupId = new ArrayList<String>();
+        List<String> groupDes = new ArrayList<String>();
         ObjectNode result = Json.newObject();
         JsonNode json;
 
@@ -299,7 +299,7 @@ public class Import extends Controller {
                 groupDes.add(fsnG.groupDescription);
             } 
         }
-        catch(JsonProcessingException e){
+        catch(Exception e){
             result.put("message", e.getMessage());
             result.put("stats","error1");
         }
