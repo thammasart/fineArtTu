@@ -78,6 +78,7 @@ function matchClassIdToDes(){
             if(document.getElementById("classId").value == availableClassId[j]){
                 document.getElementById("classDescription").value = availableClassDes[j];
                 temp = document.getElementById("classId").value;
+                document.getElementById("typeId").value = temp + "-";
                 temp = temp[0] + temp[1];
                 document.getElementById("groupId").value = temp;
                 findGroupDesByid(temp);
@@ -93,6 +94,7 @@ function matchClassDesToId(){
             if(document.getElementById("classDescription").value == availableClassDes[j]){
                 document.getElementById("classId").value = availableClassId[j];
                 temp = document.getElementById("classId").value;
+                document.getElementById("typeId").value = temp + "-";
                 temp  = temp[0] + temp[1];
                 findGroupDesByid(temp);
                 document.getElementById("groupId").value = temp;
