@@ -3,6 +3,7 @@ var j =1;
 var aiLists = [];
 var eoLists = [];
 $('document').ready(function(){
+	openPage1();
 	createAICommittee();
 	createEOCommittee();
 }); 
@@ -83,4 +84,14 @@ function removeDivCommittee(name,num){
 		document.getElementById("eo"+num).remove();
 		document.getElementById("eoLists").value = eoLists.join();
 	}
+}
+
+function showPage(num){
+	console.log(num);
+	console.log(num == '1' ?  "block" : "none");
+	console.log(num == '2' ?  "block" : "none");
+	console.log(num == '3' ?  "block" : "none");
+	document.getElementById("page1").style.display = num == '1' ?  "block" : "none";
+	document.getElementById("page2").style.display = num == '2' ?  "block" : "none";
+	document.getElementById("page3").style.display = num == '3' ?  "block" : "none";
 }
