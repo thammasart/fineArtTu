@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-<script src="@routes.Assets.at("javascripts/import/materialDurableArticles.js")"></script>
+<script src="@routes.Assets.at("javascripts/import/importMaterialDurableArticlesAdd.js")"></script>
 @nav(user)
 @headerTagFull("เพิ่มรายละเอียดครุภัณฑ์")
 <script>
@@ -13,22 +13,22 @@
     }
 </script>
 <body onload="init()">
-<div class="detailWindow" >
+<div class="detailWindow" ng-app="materialConsumableGoodsAddFsn" ng-controller="autoCompleteController" >
 
     <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableArticles()">
-        <div class="well">
+        <div class="well" ng-init="findFsn()">
             <h3 > เพิ่มครุภัณฑ์ </h3>
 		<div class="form-inline marginBtm1" role="form" align="center">
                       <div class="form-group" >
                             <div class="input-group ui-widget" >
                                 <span class="input-group-addon width250px" >รหัสกลุ่ม</span>
-                                <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="groupId" id="groupId">
+                                <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchIDToDes()" name="groupId" id="groupId">
                             </div>
                       </div>
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >ชื่อกลุ่ม</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="groupDescription">
+                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="groupDescription" id="groupDes" onkeyup="matchDesToID()" >
                             </div>
                       </div>
                 </div>
@@ -36,13 +36,13 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสประเภท</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="classId">
+                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchClassIdToDes()" name="classId" id="classId">
                             </div>
                       </div>
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" > ชื่อประเภท</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="classDescription">
+                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="classDescription" id="classDescription" onkeyup="matchClassDesToId()"> 
                             </div>
                       </div>
                 </div>

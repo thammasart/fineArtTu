@@ -58,26 +58,13 @@ GET             /report/ImportDurableArticles                                   
 GET             /report/exportDurableArticles                                   controllers.Report.reportExportDurableArticles()
 GET             /report/exchangeDurableArticles                                 controllers.Report.reportExchangeDurableArticles()
 
-GET		/import/material								controllers.Import.importsMaterial()
+GET		/import/material						controllers.Import.importsMaterial()
 
-
-
-
-
-
-
+GET             /import/findFsn                                                 controllers.Import.findFsn()
 
 
 GET		/import/materialDurableArticlesAdd				controllers.Import.importsMaterialDurableArticlesAdd()
 POST	/import/saveMaterialDurableArticles				controllers.Import.saveNewMaterialDurableArticles()
-
-
-
-
-
-
-
-
 
 
 GET		/import/materialDurableGoodsAdd					controllers.Import.importsMaterialDurableGoodsAdd()
