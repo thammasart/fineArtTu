@@ -3,7 +3,7 @@ var j =1;
 var aiLists = [];
 var eoLists = [];
 $('document').ready(function(){
-	openPage1();
+	showPage('1');
 	createAICommittee();
 	createEOCommittee();
 }); 
