@@ -285,8 +285,11 @@ public class Import extends Controller {
     public static Result findFsn(){
         List<FSN_Class> fsnClass;
         List<FSN_Group> fsnGroup;
+
         List<String> groupId = new ArrayList<String>();
         List<String> groupDes = new ArrayList<String>();
+        List<String> classId = new ArrayList<String>();
+        List<String> classDes = new ArrayList<String>();
         ObjectNode result = Json.newObject();
         JsonNode json;
 
@@ -297,11 +300,43 @@ public class Import extends Controller {
             for(FSN_Group fsnG : fsnGroup){ 
                 groupId.add(fsnG.groupId);               
                 groupDes.add(fsnG.groupDescription);
+                
             } 
+            for(FSN_Class fsnC : fsnClass){
+                classId.add(fsnC.classId);
+                classDes.add(fsnC.classDescription);
+            }
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            String jsonArray = mapper.writeValueAsString(groupId);
+            json = Json.parse(jsonArray);
+            result.put("groupId",json);
+
+            jsonArray = mapper.writeValueAsString(groupDes);
+            json = Json.parse(jsonArray);
+            result.put("groupDes",json);
+
+            jsonArray = mapper.writeValueAsString(classDes);
+            json = Json.parse(jsonArray);
+            result.put("classDes",json);
+
+            jsonArray = mapper.writeValueAsString(classId);
+            json = Json.parse(jsonArray);
+            result.put("classId",json);
+
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("stats","error1");
+            result.put("stats","error3");
         }
 
         return ok(result);
