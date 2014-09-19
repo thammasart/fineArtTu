@@ -1,13 +1,14 @@
-@(user : User)
+@(user : User, requisition:models.consumable.Requisition)
 @header("exportOrderAddDetail")
 
 @nav(user)
 @headerTagFull("เลือกวัสดุที่ต้องการเบิกจ่าย")
 
 <div class="detailWindow">
-    <div class="well" >
 
-        <form>
+    <form method="post" action="@routes.Export.saveRequisitionDetail(requisition.id)">
+
+    <div class="well" >
         
         <div class="form-inline marginBtm1" role="form" align="left">
                 <div class="form-group" >
@@ -94,27 +95,26 @@
   
 
 
-        </form>
+
 
     </div> <!--well-->
 
 
         <div align="center" style="margin-bottom:1%;">
 
-
-            <a href="@routes.Export.exportOrderAdd()">
-                <button class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+            <a href="@routes.Export.exportOrderAdd(requisition.id)">
+                <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
                     <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                 </button>
             </a>
-            <a href="@routes.Export.exportOrderAdd()">
-                <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
                     ยืนยัน <span class="glyphicon glyphicon-ok"></span>
                 </button>
-            </a>
 
         </div>
+    </div>
 
+    </form>
 
 
 </div> <!--detailWindow-->

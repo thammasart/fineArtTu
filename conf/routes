@@ -10,15 +10,23 @@ POST    /                          						controllers.Application.authentication(
 GET		/home	        	    						controllers.Application.home()
 
 
-GET		/export                                         controllers.Export.export()
+GET		/export                                 controllers.Export.export()
 
-GET		/export/order                             		controllers.Export.exportOrder()
-GET		/export/order/add                         		controllers.Export.exportOrderAdd()
-GET		/export/order/add/Detail                        controllers.Export.exportOrderAddDetail()
+GET		/export/order                           controllers.Export.exportOrder()
+GET		/export/order/add                       controllers.Export.exportOrderAdd(requisitionId:Long)
+GET		/export/order/add/new                   controllers.Export.exportNewOrder()
+GET		/export/order/add/Detail                controllers.Export.exportOrderAddDetail(detail:Long)
+POST	/export/order/saveRequisition			controllers.Export.saveRequisition(requisitionId:Long)
+POST	/export/order/saveRequisitionDetail		controllers.Export.saveRequisitionDetail(requisitionId:Long)
 
-GET		/export/transferInside                          controllers.Export.exportTransferInside()
-GET		/export/transferInside/add                      controllers.Export.exportTransferInsideAdd()
-GET		/export/transferInside/add/Detail               controllers.Export.exportTransferInsideAddDetail()
+POST	/export/order/saveDetail				controllers.Export.saveOrderDetail()
+GET	/export/order/lodeDetail				controllers.Export.loadOrderDetail(id:Long)
+
+
+
+GET		/export/transferInside                  		controllers.Export.exportTransferInside()
+GET		/export/transferInside/add              		controllers.Export.exportTransferInsideAdd()
+GET		/export/transferInside/add/Detail       		controllers.Export.exportTransferInsideAddDetail()
 
 GET		/export/transferOutSide                         controllers.Export.exportTransferOutSide()
 GET		/export/transferOutSide/add                     controllers.Export.exportTransferOutSideAdd()
@@ -75,6 +83,7 @@ POST 	/import/saveNewArticlesOrder					controllers.Import.saveNewArticlesOrder()
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()
 GET		/import/order/GoodsAdd/Material1				controllers.Import.importsOrderGoodsAddMaterial1()
 GET		/import/order/GoodsAdd/Material2				controllers.Import.importsOrderGoodsAddMaterial2()
+POST 	/import/saveNewGoodsOrder						controllers.Import.saveNewGoodsOrder()
 
 GET     /Admin                      					controllers.Admin.index()
 GET     /Admin/addUser              					controllers.Admin.addUser()
@@ -85,6 +94,7 @@ POST    /Admin/saveUser									controllers.Admin.saveNewUser()
 POST    /Admin/removeUser								controllers.Admin.removeUser()
 
 GET     /graph           								controllers.Graph.index()
+POST     /graph           								controllers.Graph.getData()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               					controllers.Assets.at(path="/public", file)

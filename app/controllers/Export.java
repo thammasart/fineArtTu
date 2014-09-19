@@ -4,16 +4,27 @@ import play.*;
 import play.mvc.*;
 import play.data.*;
 import play.libs.Json;
+import play.mvc.Http.RequestBody;
 
 import views.html.*;
 import views.html.export.*;
 
 import models.*;
 import models.consumable.*;
+import models.type.ExportStatus;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+
+//import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class Export extends Controller {
 
@@ -31,16 +42,127 @@ public class Export extends Controller {
         List<Requisition> requisitionList = models.consumable.Requisition.find.all();
         return ok(exportOrder.render(user,requisitionList));
     }
+
     @Security.Authenticated(Secured.class)
-    public static Result exportOrderAdd() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportOrderAdd.render(user));
+    public static Result exportNewOrder() {
+        Requisition temp =  new Requisition();
+        temp.status = ExportStatus.INIT;
+        temp.save();
+        return redirect(routes.Export.exportOrderAdd(temp.id));
     }
+
     @Security.Authenticated(Secured.class)
-    public static Result exportOrderAddDetail() {
+    public static Result exportOrderAdd(long requisitionId) {
         User user = User.find.byId(session().get("username"));
-        return ok(exportOrderAddDetail.render(user));
+        return ok(exportOrderAdd.render(user,Requisition.find.byId(requisitionId)));
     }
+
+
+    @Security.Authenticated(Secured.class)
+    public static Result exportOrderAddDetail(long requisitionId) {
+        User user = User.find.byId(session().get("username"));
+        DynamicForm f = Form.form().bindFromRequest();
+        System.out.println(f.get("title"));
+        return ok(exportOrderAddDetail.render(user, Requisition.find.byId(requisitionId)));
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result saveRequisition(long requisitionId){
+        User user = User.find.byId(session().get("username"));
+        Requisition req = Requisition.find.byId(requisitionId);
+
+        DynamicForm f = Form.form().bindFromRequest();
+
+        req.title = f.get("title");
+        //System.out.println("title : "+req.title);
+        req.number = f.get("number");
+        //System.out.println("number : "+req.number);
+        req.update();
+
+        return redirect(routes.Export.exportOrder());
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result saveRequisitionDetail(long requisitionId){
+        User user = User.find.byId(session().get("username"));
+        Requisition req = Requisition.find.byId(requisitionId);
+
+        RequisitionDetail newDetail = Form.form(RequisitionDetail.class).bindFromRequest().get();
+        DynamicForm f = Form.form().bindFromRequest();
+
+        newDetail.requisition = req;
+        newDetail.save();
+
+        return redirect(routes.Export.exportOrderAdd(requisitionId));
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result saveOrderDetail() {
+        RequestBody body = request().body();
+        JsonNode json = body.asJson();
+
+        System.out.println("saveOrderDetail/n");
+        System.out.println(json);
+        System.out.println(json.get("code"));
+        System.out.println(json.get("quantity"));
+        System.out.println(json.get("requisitionId"));
+
+         RequisitionDetail newDetail = new RequisitionDetail();
+         newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
+         newDetail.save();
+
+        //List<RequisitionDetail> detail = Requisition.find.byId(id).requisition;
+
+        //  result.put("name","Untitled");
+        //  result.put("last","Titled");
+
+        return ok(body.asJson());
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result loadOrderDetail(long id) {
+//        RequestBody body = request().body();
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+     // System.out.println(body.asJson());
+        System.out.println("loadOrderDetail/n id: " + id + "\n\t-------\n");
+
+        //List<RequisitionDetail> detail = Requisition.find.byId(id).requisition;
+
+        //  result.put("name","Untitled");
+        //  result.put("last","Titled");
+        try { 
+
+            System.out.println("11111");
+
+            List<RequisitionDetail> detail = RequisitionDetail.find.where().eq("requisition", Requisition.find.byId(id)).findList();
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonArray = mapper.writeValueAsString(detail);
+            json = Json.parse(jsonArray);
+
+            System.out.println("22222");
+
+
+
+            result.put("details",json);
+        }catch (JsonProcessingException e) {
+            result.put("message", e.getMessage());
+            result.put("status", "error1");
+        }catch(RuntimeException e){
+            e.printStackTrace();
+            result.put("message", e.getMessage());
+            result.put("status", "error2");
+        }catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error3");
+        }
+
+        return ok(result);
+    }
+
+
+
+
 
 
     // โอนย้ายภายใน

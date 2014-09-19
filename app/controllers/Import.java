@@ -218,8 +218,9 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsOrder() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<models.durableArticles.Procurement> procurement = models.durableArticles.Procurement.find.all();
-        return ok(importsOrder.render(procurement,user));
+        List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
+        List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.all();
+        return ok(importsOrder.render(aProcurement,gProcurement,user));
     }
     @Security.Authenticated(Secured.class)
         public static Result importsOrderDurableArticlesAdd() {
@@ -260,6 +261,29 @@ public class Import extends Controller {
         return redirect(routes.Import.importsOrder());
     }
     
+    
+    public static Result saveNewGoodsOrder(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	models.durableGoods.Procurement goodsOrder = Form.form(models.durableGoods.Procurement.class).bindFromRequest().get();
+    	
+    	try {
+    		Date date;
+	        if(!form.get("addDate_p").equals("")) {
+				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
+				goodsOrder.addDate = date;
+	        }
+	        if(!form.get("checkDate_p").equals("")){
+	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
+	        	goodsOrder.checkDate = date;
+	        }
+    	} catch (ParseException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	
+    	goodsOrder.save();
+    	return redirect(routes.Import.importsOrder());
+    }
 
 
 

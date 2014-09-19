@@ -20,3 +20,7 @@ min-height: 700px;
 	float:left;
         width:350px;
 }
+
+.orderAddDetailWindows{
+	display: none;
+}
