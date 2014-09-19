@@ -6,10 +6,21 @@ import play.data.*;
 import play.libs.Json;
 import views.html.*;
 import models.*;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import models.fsnNumber.*;
+
+import com.fasterxml.jackson.core.JsonProcessingException;                                                                              
+import com.fasterxml.jackson.core.type.TypeReference;                                                                                   
+import com.fasterxml.jackson.databind.JsonNode;                                                                                         
+import com.fasterxml.jackson.databind.ObjectMapper;                                                                                     
+import com.fasterxml.jackson.databind.node.ObjectNode;  
 
 public class Import extends Controller {
 
@@ -107,8 +118,9 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsMaterial() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<FSN_Description> fsns = FSN_Description.find.all(); 
-        return ok(importsMaterial.render(fsns,user));
+        List<FSN_Description> fsns = FSN_Description.find.all();                    //ครุภัณฑ์
+        List<MaterialCode> goodsCode = MaterialCode.find.all();                            //วัสดุ
+        return ok(importsMaterial.render(fsns,goodsCode,user));
     }
 
     @Security.Authenticated(Secured.class)
@@ -158,10 +170,6 @@ public class Import extends Controller {
 
         newFsn.typ = type;
 
-        System.out.println(gC) ;
-        System.out.println(gCT) ;
-        System.out.println(newFsn.descriptionId) ;
-
         newFsn.save();
 
         return redirect(routes.Import.importsMaterial());
@@ -181,12 +189,38 @@ public class Import extends Controller {
         return ok(importsMaterialConsumableGoodsAdd.render(user));
     }
 
+    public static Result saveNewMaterialDurableGoods(){
+
+        DynamicForm form = Form.form().bindFromRequest();
+
+        Form<MaterialCode> newCodeForm = Form.form(MaterialCode.class).bindFromRequest();
+        MaterialCode newCode = newCodeForm.get();
 
 
+        if(form.get("chosenType").equals("1"))
+        {
+            newCode.typeOfGood = "วัสดุคงทนถาวร";
+            newCode.minNumberToAlert =0;
+        }
+        else
+        {
+            newCode.typeOfGood = "วัสดุสิ้นเปลือง";
+        }
+
+        newCode.materialType = MaterialType.find.byId(form.get("chosen"));   //connect link
+
+        newCode.save();
+
+        return redirect(routes.Import.importsMaterial());
+    }
+
+    //----------------------------------------------------------------------------------------------------
     @Security.Authenticated(Secured.class)
         public static Result importsOrder() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrder.render(user));
+        List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
+        List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.all();
+        return ok(importsOrder.render(aProcurement,gProcurement,user));
     }
     @Security.Authenticated(Secured.class)
         public static Result importsOrderDurableArticlesAdd() {
@@ -204,6 +238,57 @@ public class Import extends Controller {
         return ok(importsOrderDurableArticlesAddMaterial2.render(user));
     }
 
+    public static Result saveNewArticlesOrder(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	System.out.println(Form.form(models.durableArticles.Procurement.class).bindFromRequest());
+    	models.durableArticles.Procurement articlesOrder = Form.form(models.durableArticles.Procurement.class).bindFromRequest().get();
+    	try {
+    		Date date;
+	        if(!form.get("addDate_p").equals("")) {
+				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
+				articlesOrder.addDate = date;
+	        }
+	        if(!form.get("checkDate_p").equals("")){
+	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
+	        	articlesOrder.checkDate = date;
+	        }
+    	} catch (ParseException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	System.out.println(articlesOrder.checkDate.toLocaleString());
+        articlesOrder.save();
+        return redirect(routes.Import.importsOrder());
+    }
+    
+    
+    public static Result saveNewGoodsOrder(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	models.durableGoods.Procurement goodsOrder = Form.form(models.durableGoods.Procurement.class).bindFromRequest().get();
+    	
+    	try {
+    		Date date;
+	        if(!form.get("addDate_p").equals("")) {
+				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
+				goodsOrder.addDate = date;
+	        }
+	        if(!form.get("checkDate_p").equals("")){
+	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
+	        	goodsOrder.checkDate = date;
+	        }
+    	} catch (ParseException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	
+    	goodsOrder.save();
+    	return redirect(routes.Import.importsOrder());
+    }
+
+
+
+
+
     @Security.Authenticated(Secured.class)
         public static Result importsOrderGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -220,5 +305,30 @@ public class Import extends Controller {
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
+    @Security.Authenticated(Secured.class)
+    public static Result findFsn(){
+        List<FSN_Class> fsnClass;
+        List<FSN_Group> fsnGroup;
+        List<String> groupId = new ArrayList<String>();
+        List<String> groupDes = new ArrayList<String>();
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+
+        try{
+            fsnClass = FSN_Class.find.all();
+            fsnGroup = FSN_Group.find.all();
+
+            for(FSN_Group fsnG : fsnGroup){ 
+                groupId.add(fsnG.groupId);               
+                groupDes.add(fsnG.groupDescription);
+            } 
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+
+        return ok(result);
+    }
 
 }

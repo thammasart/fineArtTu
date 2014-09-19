@@ -26,3 +26,26 @@ function submitButtonClick(){
 
     return submitStatus;
 }
+
+
+ function optionElement(name) { 
+    var ni = document.getElementsByName("niti");
+    var pe = document.getElementsByName("personal");
+    var i;
+    var j;
+    if(name == 1){ 
+        for(i = 0; i < ni.length;i++){ 
+            ni[i].style.display = "block";
+        } 
+        for(j = 0; j < ni.length;j++){ 
+            pe[j].style.display = "none";
+        } 
+    }else if(name == 2){ 
+        for(i = 0; i < ni.length;i++){ 
+            ni[i].style.display = "none";
+        } 
+        for(j = 0; j < ni.length;j++){ 
+            pe[j].style.display = "block";
+        } 
+    }
+ } 

@@ -16,7 +16,7 @@ public class FSN_Group extends Model{
 	public String groupDescription;
 
 	@OneToMany(mappedBy="group")
-	public List<FSN_Class> classInGroup = new ArrayList<FSN_Class>();
+	private List<FSN_Class> classInGroup = new ArrayList<FSN_Class>();
 
 	@SuppressWarnings("unchecked")
 	public static Finder<String,FSN_Group> find = new Finder(String.class,FSN_Group.class);

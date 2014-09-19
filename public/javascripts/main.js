@@ -3,7 +3,7 @@ function validateNumberKey(evt) {
   var theEvent = evt || window.event;
   var key = theEvent.keyCode || theEvent.which;
 
-    if(key == 37 || key == 38 || key == 39 || key == 40 || key == 8 || key == 46) { // Left / Up / Right / Down Arrow, Backspace, Delete keys
+    if(key==9 || key == 37 || key == 38 || key == 39 || key == 40 || key == 8 || key == 46) { // Left / Up / Right / Down Arrow, Backspace, Delete keys
          return;
      }
     key = String.fromCharCode( key );
@@ -38,4 +38,15 @@ if(!Array.prototype.indexOf) {
         }
         return -1;
     };
+}
+
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
+}
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = 0, len = this.length; i < len; i++) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
 }

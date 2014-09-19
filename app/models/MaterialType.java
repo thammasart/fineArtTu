@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class MaterialType extends Model{
 
 	@Id
-	public long id;
+	public String preCodeId;
 	@Column(nullable=false)
 	public String typeName;
 	@Column(nullable=false)
@@ -20,5 +20,5 @@ public class MaterialType extends Model{
 	public List<MaterialCode> codeInType = new ArrayList<MaterialCode>();
 
 	@SuppressWarnings("unchecked")
-	public static Finder<Long,MaterialType> find = new Finder(Long.class,MaterialType.class);
+	public static Finder<String,MaterialType> find = new Finder(String.class,MaterialType.class);
 }

@@ -1,627 +1,787 @@
 - &cType001 !!models.MaterialType
+  preCodeId: '01'
   typeName: วัสดุสำนักงาน
   acronym: ว.สนง.
 - &cType002 !!models.MaterialType
+  preCodeId: '02'
   typeName: วัสดุไฟฟ้าและวิทยุ
   acronym: ว.ฟฟ.
 - &cType003 !!models.MaterialType
+  preCodeId: '03'
   typeName: วัสดุงานบ้านงานครัว
   acronym: ว.งบ.
 - &cType004 !!models.MaterialType
+  preCodeId: '04'
   typeName: วัสดุคอมพิวเตอร์
   acronym: ว.คต.
 - &cType005 !!models.MaterialType
+  preCodeId: '05'
   typeName: วัสดุยานพาหนะและขนส่ง
   acronym: ว.ยพ.
 - &cType006 !!models.MaterialType
+  preCodeId: '06'
   typeName: วัสดุวิทยาศาสตร์และการแพทย์
   acronym: ว.วพ.
 - &cType007 !!models.MaterialType
+  preCodeId: '07'
   typeName: วัสดุโฆษณาและเผยแพร่
   acronym: ว.ฆผ.
 - &cType008 !!models.MaterialType
+  preCodeId: '08'
   typeName: วัสดุการศึกษา
   acronym: ว.ศษ.
 - &cType009 !!models.MaterialType
+  preCodeId: '09'
   typeName: วัสดุสนาม
   acronym: ว.ส.
 - &cType010 !!models.MaterialType
+  preCodeId: '10'
   typeName: วัสดุการเกษตร
   acronym: ว.กษ.
 - &cType011 !!models.MaterialType
+  preCodeId: '11'
   typeName: วัสดุสำรวจ
   acronym: ว.สร.
 - &cType012 !!models.MaterialType
+  preCodeId: '12'
   typeName: วัสดุก่อสร้าง
   acronym: ว.กส.
 - &cType013 !!models.MaterialType
+  preCodeId: '13'
   typeName: วัสดุโรงงาน
   acronym: ว.รง.
 - &cType014 !!models.MaterialType
+  preCodeId: '14'
   typeName: วัสดุดนตรีและนาฏศิลป์
   acronym: ว.ดต.
 - &cType015 !!models.MaterialType
+  preCodeId: '15'
   typeName: วัสดุกีฬา
   acronym: ว.กฬ.
 - &cType016 !!models.MaterialType
+  preCodeId: '16'
   typeName: วัสดุอาวุธ
   acronym: ว.อว.
 - &cType017 !!models.MaterialType
+  preCodeId: '17'
   typeName: วัสดุอื่น
   acronym: ว.อ.
 - &cCode001 !!models.MaterialCode
   code: '1001'
   description: กรรไกร 6"
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode002 !!models.MaterialCode
   code: '1002'
   description: กระดาษกาว 2 หน้า-บาง- 1" ครึ่ง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode003 !!models.MaterialCode
   code: '1003'
   description: กระดาษกาว 2 หน้า-บาง-1"
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode004 !!models.MaterialCode
   code: '1004'
   description: กระดาษกาวย่น - 1"
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode005 !!models.MaterialCode
   code: '1005'
   description: กระดาษกาวย่น - 2"
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode006 !!models.MaterialCode
   code: '1006'
   description: กระดาษคาร์บอน
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode007 !!models.MaterialCode
   code: '1007'
   description: กระดาษถ่ายเอกสาร A4 - 80 G.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode008 !!models.MaterialCode
   code: '1008'
   description: กระดาษปอนด์สี เอ4 80 G.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode009 !!models.MaterialCode
   code: '1009'
   description: กระดาษฟลิปชาร์ท
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode010 !!models.MaterialCode
   code: '1010'
   description: กระดาษสีชมพู - 80 G
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode011 !!models.MaterialCode
   code: '1011'
   description: กระดาษสีฟ้า - 80 G
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode012 !!models.MaterialCode
   code: '1012'
   description: กระดาษสีเหลือง - 80 G.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode013 !!models.MaterialCode
   code: '1013'
   description: กระดาษสีเหลือง - 120 G
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode014 !!models.MaterialCode
   code: '1014'
   description: กระดาษสีเหลือง - 150 G
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode015 !!models.MaterialCode
   code: '1015'
   description: กระดาษสีเหลือง - 180 G
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode016 !!models.MaterialCode
   code: '1016'
   description: คลิบดำ -108
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode017 !!models.MaterialCode
   code: '1017'
   description: คลิบดำ -109
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode018 !!models.MaterialCode
   code: '1018'
   description: คลิบดำ -110
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode019 !!models.MaterialCode
   code: '1019'
   description: คลิบดำ -111
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode020 !!models.MaterialCode
   code: '1020'
   description: คลิบดำ -112 (1/12)
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode021 !!models.MaterialCode
   code: '1021'
   description: คลิปดำ 113 (1/12)
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode022 !!models.MaterialCode
   code: '1022'
   description: เครื่องเหลาดินสอ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode023 !!models.MaterialCode
   code: '1023'
   description: เชือกขาวมัดข้อสอบ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode024 !!models.MaterialCode
   code: '1024'
   description: เชือกฟาง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode025 !!models.MaterialCode
   code: '1025'
   description: ซองขาว
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode026 !!models.MaterialCode
   code: '1026'
   description: ซองขาว - ครุฑ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode027 !!models.MaterialCode
   code: '1027'
   description: ซองน้ำตาล - ครุฑ - C5
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode028 !!models.MaterialCode
   code: '1028'
   description: ซองน้ำตาล - ครุฑ - A4 - ขยายข้าง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode029 !!models.MaterialCode
   code: '1029'
   description: ซองน้ำตาล - ครุฑ - ใหญ่ 1/50
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode030 !!models.MaterialCode
   code: '1030'
   description: ซองน้ำตาล - 4A - ขยายข้าง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode031 !!models.MaterialCode
   code: '1031'
   description: ซองน้ำตาล - ใหญ่ - ขยายข้าง 1/50
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode032 !!models.MaterialCode
   code: '1032'
   description: ซองอเนกประสงค์ A4
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode033 !!models.MaterialCode
   code: '1033'
   description: ดินสอ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode034 !!models.MaterialCode
   code: '1034'
   description: ที่คั่นหนังสือ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode035 !!models.MaterialCode
   code: '1035'
   description: ที่เจาะกระดาษ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode036 !!models.MaterialCode
   code: '1036'
   description: ที่ถอดลวด
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode037 !!models.MaterialCode
   code: '1037'
   description: ที่เย็บกระดาษ HD-10
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode038 !!models.MaterialCode
   code: '1038'
   description: ที่เย็บกระดาษ HD-50
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode039 !!models.MaterialCode
   code: '1039'
   description: เทปกระดาษ 3" - แพ็คกล่อง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode040 !!models.MaterialCode
   code: '1040'
   description: เทปกาวน้ำตาล - 2"
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode041 !!models.MaterialCode
   code: '1041'
   description: เทปติดสันปก - 3" - ดำ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode042 !!models.MaterialCode
   code: '1042'
   description: เทปติดสันปก - 3" - แดง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode043 !!models.MaterialCode
   code: '1043'
   description: เทปปั๊มตัวอักษร
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode044 !!models.MaterialCode
   code: '1044'
   description: เทปโฟม 2 หน้า 3M ยาว 3 ม.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode045 !!models.MaterialCode
   code: '1045'
   description: เทปลบคำผิดพิมพ์ดีดไฟฟ้า (IBM 1337765)
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode046 !!models.MaterialCode
   code: '1046'
   description: แท่นตัดเทปใส
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode047 !!models.MaterialCode
   code: '1047'
   description: แท่นประทับตรา - แดง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode048 !!models.MaterialCode
   code: '1048'
   description: แท่นประทับตรา - น้ำเงิน
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode049 !!models.MaterialCode
   code: '1049'
   description: แท่นเสียบป้ายชื่อ 2 หน้า - ยาว
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode050 !!models.MaterialCode
   code: '1050'
   description: น้ำยาลบคำผิด - ( PENTEL )
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode051 !!models.MaterialCode
   code: '1051'
   description: น้ำยาลบคำผิด - ขวดคู่
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode052 !!models.MaterialCode
   code: '1052'
   description: ใบมีดคัตเตอร์ - 9 ม.ม.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode053 !!models.MaterialCode
   code: '1053'
   description: ใบมีดคัตเตอร์ 18 ม.ม.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode054 !!models.MaterialCode
   code: '1054'
   description: ปากกา - แดง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode055 !!models.MaterialCode
   code: '1055'
   description: ปากกา - ลูกลื่น
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode056 !!models.MaterialCode
   code: '1056'
   description: ปากกาเขียน - ครุภัณฑ์ - ขาว
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode057 !!models.MaterialCode
   code: '1057'
   description: ปากกาเขียน - ครุภัณฑ์ - ดำ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode058 !!models.MaterialCode
   code: '1058'
   description: ปากกาเขียน - ซีดี
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode059 !!models.MaterialCode
   code: '1059'
   description: ปากกาเขียน - แผ่นใส - 1/4
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode060 !!models.MaterialCode
   code: '1060'
   description: ปากกาเขียน - แผ่นใส-ลบไม่ได้ -1/4
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode061 !!models.MaterialCode
   code: '1061'
   description: ปากกาเน้นข้อความ - เหลือง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode062 !!models.MaterialCode
   code: '1062'
   description: ปากกาไวท์บอร์ด - Arrow - ดำ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode063 !!models.MaterialCode
   code: '1063'
   description: ปากกาไวท์บอร์ด - Arrow - แดง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode064 !!models.MaterialCode
   code: '1064'
   description: ปากกาไวท์บอร์ด - Arrow - น้ำเงิน
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode065 !!models.MaterialCode
   code: '1065'
   description: ปากกาไวท์บอร์ด - Pilot - แดง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode066 !!models.MaterialCode
   code: '1066'
   description: ผงหมึกเครื่องโทรสาร Panasonic KX-FA136A
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode067 !!models.MaterialCode
   code: '1067'
   description: ผ้าหมึกเครื่องคิดเลข-ดำ/แดง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode068 !!models.MaterialCode
   code: '1068'
   description: แผ่นใสชนิดเขียน
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode069 !!models.MaterialCode
   code: '1069'
   description: แผ่นใสชนิดถ่าย
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode070 !!models.MaterialCode
   code: '1070'
   description: แฟ้ม 2" - 125 F
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode071 !!models.MaterialCode
   code: '1071'
   description: แฟ้มกระดาษ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode072 !!models.MaterialCode
   code: '1072'
   description: แฟ้มแขวน
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode073 !!models.MaterialCode
   code: '1073'
   description: แฟ้มพลาสติก - ตรามธ.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode074 !!models.MaterialCode
   code: '1074'
   description: แฟ้มพลาสติก - A4 - ชั้นเดียว
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode075 !!models.MaterialCode
   code: '1075'
   description: แฟ้มพลาสติก - A4 - 3 ชั้น
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode076 !!models.MaterialCode
   code: '1076'
   description: แฟ้มเสนอเซ็น - ปกกระดาษ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode077 !!models.MaterialCode
   code: '1077'
   description: แฟ้มห่วง 2 ห่วง - ปกสอด
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode078 !!models.MaterialCode
   code: '1078'
   description: ไม้บรรทัด
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode079 !!models.MaterialCode
   code: '1079'
   description: ยางลบ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode080 !!models.MaterialCode
   code: '1080'
   description: ลวดเย็บกระดาษ No.10 - 1M
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode081 !!models.MaterialCode
   code: '1081'
   description: ลวดเย็บกระดาษ No.35 - 1M
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode082 !!models.MaterialCode
   code: '1082'
   description: ลวดเย็บกระดาษ 3 - 1M
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode083 !!models.MaterialCode
   code: '1083'
   description: ลวดเย็บกระดาษ 1213FA-H
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode084 !!models.MaterialCode
   code: '1084'
   description: ลวดเสียบกระดาษ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode085 !!models.MaterialCode
   code: '1085'
   description: สมุดบัญชี 4 ช่อง หน้าคู่
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode086 !!models.MaterialCode
   code: '1086'
   description: สมุดปกแข็งเบอร์ 1 ใหญ่
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode087 !!models.MaterialCode
   code: '1087'
   description: หนังสือรับ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode088 !!models.MaterialCode
   code: '1088'
   description: หนังสือส่ง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode089 !!models.MaterialCode
   code: '1089'
   description: หมึกเติมแท่นประทับตรา-แดง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode090 !!models.MaterialCode
   code: '1090'
   description: หมึกเติมแท่นประทับตรา-น้ำเงิน
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode091 !!models.MaterialCode
   code: '1091'
   description: หมึกพิมพ์ดีดไฟฟ้า-IBM 1380999
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode092 !!models.MaterialCode
   code: '1092'
   description: เหล็กเสียบกระดาษ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode093 !!models.MaterialCode
   code: '1093'
   description: กระดาษบวกเลข 2"
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode094 !!models.MaterialCode
   code: '1094'
   description: กาวแท่ง 21ml.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode095 !!models.MaterialCode
   code: '1095'
   description: กาวน้ำ 50ml.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode096 !!models.MaterialCode
   code: '1096'
   description: ซองน้ำตาล - A4
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode097 !!models.MaterialCode
   code: '1097'
   description: ซองน้ำตาล - A4 - ครุฑ
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode098 !!models.MaterialCode
   code: '1098'
   description: เทปกาวโฟม 21mm. - 5m.
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode099 !!models.MaterialCode
   code: '1099'
   description: เทปใส 3/4 แกนเล็ก 1"
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode100 !!models.MaterialCode
   code: '1100'
   description: ปากกาเคมี
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode101 !!models.MaterialCode
   code: '1101'
   description: แฟ้มห่วง 2 ห่วง
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode102 !!models.MaterialCode
   code: '1102'
   description: แฟ้ม 3" - 125F
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode103 !!models.MaterialCode
   code: '1103'
   description: ลิ้นแฟ้มพลาสติก
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode104 !!models.MaterialCode
   code: '1104'
   description: สมุดปกน้ำเงิน เบอร์ 2/80
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode105 !!models.MaterialCode
   code: '1105'
   description: หมุดปักหัวกลม (50)
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode106 !!models.MaterialCode
   code: '1106'
   description: ตรายาง จ่ายแล้วพร้อมวันที่
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode107 !!models.MaterialCode
   code: '1107'
   description: ตรายาง วันที่
   materialType: *cType001
+  typeOfGood: วัสดุสิ้นเปลือง
 ###########################################################################
 - &cCodecc2001 !!models.MaterialCode
   code: '2001'
   description: แผ่นดิสเก็ต 3.5 (1/10 แผ่น)
   materialType: *cType004
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2002 !!models.MaterialCode
   code: '2002'
   description: แผ่น CD-R 700MB
   materialType: *cType004
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2003 !!models.MaterialCode
   code: '2003'
   description: HP TONER (ORG) รุ่น Q7516A
   materialType: *cType004
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2004 !!models.MaterialCode
   code: '2004'
   description: ซองกระดาษใส่ CD
   materialType: *cType004
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2005 !!models.MaterialCode
   code: '2005'
   description: แผ่น DVD
   materialType: *cType004
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2006 !!models.MaterialCode
   code: '2006'
   description: กล่องใส่ DVD 2 หน้า
   materialType: *cType004
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2007 !!models.MaterialCode
   code: '2007'
   description: เมาส์
   materialType: *cType004
+  typeOfGood: วัสดุสิ้นเปลือง
 ###########################################################################
 - &cCodec3001 !!models.MaterialCode
   code: '3001'
   description: ไม้กวาดดอกหญ้า
   materialType: *cType003
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3002 !!models.MaterialCode
   code: '3002'
   description: กระดาษทิชชู (ม้วน)
   materialType: *cType003
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3003 !!models.MaterialCode
   code: '3003'
   description: ผงซักฟอก - 450 g.
   materialType: *cType003
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3004 !!models.MaterialCode
   code: '3004'
   description: ผงซักฟอก - 900 g.
   materialType: *cType003
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3005 !!models.MaterialCode
   code: '3005'
   description: กระดาษทิชชู (แผ่น)
   materialType: *cType003
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3006 !!models.MaterialCode
   code: '3006'
   description: ถุงขยะ ขนาด 24*28
   materialType: *cType003
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3007 !!models.MaterialCode
   code: '3007'
   description: ผ้าเอนกประสงค์
   materialType: *cType003
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3008 !!models.MaterialCode
   code: '3008'
   description: น้ำยาล้างจาน
   materialType: *cType003
+  typeOfGood: วัสดุสิ้นเปลือง
 ###########################################################################
 - &cCodec4001 !!models.MaterialCode
   code: '4001'
   description: ถ่านไฟฉาย 1.5V.
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4002 !!models.MaterialCode
   code: '4002'
   description: ถ่านไฟ - Panasonic Alkaline (AAA)
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4003 !!models.MaterialCode
   code: '4003'
   description: ถ่านอัลคาไลน์ แม็กเซล 9V.
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4004 !!models.MaterialCode
   code: '4004'
   description: ถ่านแม็กเซล 3VCR2032 (ชนิดกลม)
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4005 !!models.MaterialCode
   code: '4005'
   description: ปลั๊กไฟ 5 เต้า 1 สวิทซ์ ยาว 5 เมตร
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4006 !!models.MaterialCode
   code: '4006'
   description: ถ่านไฟ - Panasonic Alkaline (AA)
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4007 !!models.MaterialCode
   code: '4007'
   description: ถ่าน AA2500mA
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4008 !!models.MaterialCode
   code: '4008'
   description: สายไมโครโฟน ยาว 10 ม. พร้อมขั้วต่อ
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4009 !!models.MaterialCode
   code: '4009'
   description: ถ่านไมโครโฟนเคลื่อนที่ 9V.
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4010 !!models.MaterialCode
   code: '4010'
   description: ถ่าน AA
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4011 !!models.MaterialCode
   code: '4011'
   description: ถ่าน AAA
   materialType: *cType002
+  typeOfGood: วัสดุสิ้นเปลือง
 ###########################################################################
 - &cCode5001 !!models.MaterialCode
   code: '5001'
   description: เนสกาแฟเรดคัพ - ซอง - 3กรัม (1/50)
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5002 !!models.MaterialCode
   code: '5002'
   description: น้ำตาลชนิด - ซอง - 6กรัม (1/50)
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5003 !!models.MaterialCode
   code: '5003'
   description: ครีมเทียมคอฟฟี่เมต - ซอง - 3กรัม (1/50)
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5004 !!models.MaterialCode
   code: '5004'
   description: โอวัลติน 3 in 1
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5005 !!models.MaterialCode
   code: '5005'
   description: ขิงผงจินเจน (กล่อง)
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5006 !!models.MaterialCode
   code: '5006'
   description: ชาเขียวญี่ปุ่น (1/10)
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5007 !!models.MaterialCode
   code: '5007'
   description: ไมโล 3 in 1
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5008 !!models.MaterialCode
   code: '5008'
   description: กาแฟ 360g.
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5009 !!models.MaterialCode
   code: '5009'
   description: ครีมเทียม 450g.
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5010 !!models.MaterialCode
   code: '5010'
   description: ชา 2g.
   materialType: *cType017
+  typeOfGood: วัสดุสิ้นเปลือง

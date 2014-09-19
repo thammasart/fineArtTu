@@ -81,6 +81,8 @@ POST	/import/saveMaterialDurableArticles				controllers.Import.saveNewMaterialDu
 
 
 GET		/import/materialDurableGoodsAdd					controllers.Import.importsMaterialDurableGoodsAdd()
+POST	/import/saveMaterialDurableGoods				controllers.Import.saveNewMaterialDurableGoods()
+
 GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
 
 GET		/import/order									controllers.Import.importsOrder()
@@ -88,10 +90,13 @@ GET		/import/order									controllers.Import.importsOrder()
 GET		/import/order/DurableArticlesAdd	    		controllers.Import.importsOrderDurableArticlesAdd()
 GET		/import/order/DurableArticlesAdd/Material1		controllers.Import.importsOrderDurableArticlesAddMaterial1()
 GET		/import/order/DurableArticlesAdd/Material2		controllers.Import.importsOrderDurableArticlesAddMaterial2()
+POST 	/import/saveNewArticlesOrder					controllers.Import.saveNewArticlesOrder()
+
 
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()
 GET		/import/order/GoodsAdd/Material1				controllers.Import.importsOrderGoodsAddMaterial1()
 GET		/import/order/GoodsAdd/Material2				controllers.Import.importsOrderGoodsAddMaterial2()
+POST 	/import/saveNewGoodsOrder						controllers.Import.saveNewGoodsOrder()
 
 GET     /Admin                      					controllers.Admin.index()
 GET     /Admin/addUser              					controllers.Admin.addUser()
