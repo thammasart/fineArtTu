@@ -7,6 +7,22 @@ $('document').ready(function(){
 	createAICommittee();
 	createEOCommittee();
 }); 
+function cancelStatus(id,typeOfOrder){
+	var data = {
+			"id" : id,
+			"typeOfOrder" : typeOfOrder
+	}
+	$.ajax({
+		url:'/import/order/cancel',
+	    type: 'post',
+	    data: JSON.stringify(data),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		alert(result);
+    	}
+	});
+}
 function clearPage(){
 	var fields2 = $('#page2 :input[type="text"]');
 	var fields3 = $('#page3 :input[type="text"]');
