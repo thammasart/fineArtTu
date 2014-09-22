@@ -74,13 +74,24 @@ public class Export extends Controller {
         DynamicForm f = Form.form().bindFromRequest();
 
         req.title = f.get("title");
-        //System.out.println("title : "+req.title);
         req.number = f.get("number");
-        //System.out.println("number : "+req.number);
+        req.status = ExportStatus.SUCCESS;
         req.update();
 
         return redirect(routes.Export.exportOrder());
     }
+
+    @Security.Authenticated(Secured.class)
+    public static Result cancelRequisition(long requisitionId){
+        User user = User.find.byId(session().get("username"));
+        Requisition req = Requisition.find.byId(requisitionId);
+
+        req.status = ExportStatus.CANCEL;
+        req.update();
+
+        return redirect(routes.Export.exportOrder());
+    }
+
 
     @Security.Authenticated(Secured.class)
     public static Result saveRequisitionDetail(long requisitionId){

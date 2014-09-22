@@ -17,10 +17,12 @@ GET		/export/order/add                       controllers.Export.exportOrderAdd(r
 GET		/export/order/add/new                   controllers.Export.exportNewOrder()
 GET		/export/order/add/Detail                controllers.Export.exportOrderAddDetail(detail:Long)
 POST	/export/order/saveRequisition			controllers.Export.saveRequisition(requisitionId:Long)
-POST	/export/order/saveRequisitionDetail		controllers.Export.saveRequisitionDetail(requisitionId:Long)
+
+POST 	/export/order/saveRequisitionDetail		controllers.Export.saveRequisitionDetail(requisitionId:Long)
+GET 	/export/order/cancelRequisition			controllers.Export.cancelRequisition(requisitionId:Long)
 
 POST	/export/order/saveDetail				controllers.Export.saveOrderDetail()
-GET	/export/order/lodeDetail				controllers.Export.loadOrderDetail(id:Long)
+GET		/export/order/lodeDetail				controllers.Export.loadOrderDetail(id:Long)
 
 
 

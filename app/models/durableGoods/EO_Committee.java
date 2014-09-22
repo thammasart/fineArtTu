@@ -15,7 +15,6 @@ public class EO_Committee extends Model{
 	public String employeesType; // ประเภทกรรมการ - ประเภทบุคลากร
 	public String committeePosition; // ตำแหน่งในคณกรรมการ
 
-
 	@ManyToOne
 	public Committee committee;	// กรรมการ
 	@ManyToOne
