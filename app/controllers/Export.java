@@ -103,13 +103,16 @@ public class Export extends Controller {
 
         System.out.println("saveOrderDetail/n");
         System.out.println(json);
-        System.out.println(json.get("code"));
-        System.out.println(json.get("quantity"));
-        System.out.println(json.get("requisitionId"));
+        System.out.println("code : " + json.get("code").asText());
+        System.out.println("quantity : " + json.get("quantity").asText());
+        System.out.println("requisitionId : " + json.get("requisitionId"));
 
          RequisitionDetail newDetail = new RequisitionDetail();
-         newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
-         newDetail.save();
+
+        newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
+        if(json.get("quantity").asText() != "")
+            newDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+        newDetail.save();
 
         //List<RequisitionDetail> detail = Requisition.find.byId(id).requisition;
 
