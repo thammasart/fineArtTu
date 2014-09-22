@@ -179,7 +179,6 @@ public class Import extends Controller {
 
 
     //----------------------------------------------------------------------------------------------------
-
     @Security.Authenticated(Secured.class)
         public static Result importsMaterialDurableGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
