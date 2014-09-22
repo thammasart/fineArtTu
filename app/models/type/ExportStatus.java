@@ -1,5 +1,5 @@
 package models.type;
 
-public enum ExportStatus {
+public enum ExportStatus{
 	INIT, CANCEL, SUCCESS, DELETE	
 }

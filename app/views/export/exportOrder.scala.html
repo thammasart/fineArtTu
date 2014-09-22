@@ -1,4 +1,4 @@
-@(user : User, requisitionList:List[models.consumable.Requisition])
+@(user : User, initList:List[models.consumable.Requisition], successList:List[models.consumable.Requisition])
 @header("exportOrder")
 
 @nav(user)
@@ -8,62 +8,90 @@
 
 <div class="listWindowMaterial">
 
-   <div class="tableHeaderBtnContainer">
-                <div class="searchS">
-                        <form>
-                            <div class="form-group">
-                                <div class="input-group">
-                                  <span class="input-group-addon">ค้นหา</span>
-                                  <input type="text" class="form-control" style="width:300px">
-                                </div>
-                              </div>
-                        </form>
-                </div>
-            <div>
-                <a style="float:right;margin-left:1%;"href="@routes.Export.exportNewOrder()">
-                <button class="btn btn-success width200px">เพิ่มรายการเบิกจ่าย</button>
-                </a>
-                <button class="btn btn-danger width200px" style="float:right;">ลบรายการเบิกจ่าย</button>
-            </div>
-   </div>
+  <div class="tableHeaderBtnContainer">
 
-   <table class="table table-striped overlayTable">
+    <div class="searchS">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">ค้นหา</span>
+            <input type="text" class="form-control" style="width:300px">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <a style="float:right;margin-left:1%;"href="@routes.Export.exportNewOrder()">
+        <button class="btn btn-success width200px">เพิ่มรายการเบิกจ่าย</button>
+      </a>
+      <button class="btn btn-danger width200px" style="float:right;">ลบรายการเบิกจ่าย</button>
+    </div>
+
+  </div>
+
+  <table class="table table-striped overlayTable">
     <thead>
+      <tr>
+        <th></th>
+        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>รายละเอียด</th>
+        <th>ststus</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for(requisition <- initList){
         <tr>
-            <th></th>
-            <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-            <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-            <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-            <th>รายละเอียด</th>
-            <th>ststus</th>
+          <th> <input type="checkbox"/> </th>
+          <th>@requisition.title</th>
+          <th>@requisition.number</th>
+          <th>@requisition.approveDate</th>
+          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>@requisition.status</th>
         </tr>
+      }
+    </tbody>
+  </table>
+
+  <table class="table table-striped overlayTable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>รายละเอียด</th>
+        <th>ststus</th>
+      </tr>
     </thead>
     <tbody>
-        @for(requisition <- requisitionList){
-          <tr>
-              <th> <input type="checkbox"/> </th>
-              <th>@requisition.title</th>
-              <th>@requisition.number</th>
-              <th>@requisition.approveDate</th>
-              <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
-              <th>@requisition.status</th>
-          </tr>
-        }
+      @for(requisition <- successList){
+        <tr>
+          <th> <input type="checkbox"/> </th>
+          <th>@requisition.title</th>
+          <th>@requisition.number</th>
+          <th>@requisition.approveDate.getDay()</th>
+          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>@requisition.status</th>
+        </tr>
+      }
     </tbody>
   </table>
 
   <div class="pagingContainer" align="center">
-      <ul class="pagination" style="margin:0;">
-        <li class="disabled"><a href="#">&laquo;</a></li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
-      </ul>
+    <ul class="pagination" style="margin:0;">
+      <li class="disabled"><a href="#">&laquo;</a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">&raquo;</a></li>
+    </ul>
   </div>
-
 </div>
 
 @footer()
