@@ -14,7 +14,9 @@ public class MaterialCode extends Model{
 	public String typeOfGood;
 	public String classifier; 									//หน่วย
 	public int minNumberToAlert;								//จำนวนขั้นต่ำสำหรับแจ้งเตือน
+	public int lifeOfGood;
 	public String otherDetail;									//รายละเอียดอื่นๆ 
+	
 
 	@ManyToOne
 	public MaterialType materialType;

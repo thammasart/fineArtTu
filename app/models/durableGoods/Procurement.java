@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import models.*;
+import models.type.ImportStatus;
 
 @Entity
 @Table (name = "durable_goods_procurement")
@@ -15,15 +16,16 @@ public class Procurement extends Model{
 
 	@Id
 	public long id;
-	public String title; 					// ชื่อรายการ
-	public String contractNo; 				// เลขที่
-	//public Date dateOfApproval; 			// วันที่อนุมัติในสัญญา
-	public Date addDate = new Date();; 					// วันที่นำเข้า
-	public Date checkDate = new Date();; 					// วันทีตรวจสอบ
-	public String budgetType; 				// ประเภทงบประมาณ
-	public int budgetYear; 					// ปีงบประมาณ
-	//public String dealer; 					// ผู้ติดต่อ พนักงานขาย
-	//public String telephoneNumber;			// เบอร์โทร พนักงานขาย
+	public String title; 				// ชื่อรายการ
+	public String contractNo; 			// เลขที่
+	//public Date dateOfApproval; 		// วันที่อนุมัติในสัญญา
+	public Date addDate = new Date(); 				// วันที่นำเข้า
+	public Date checkDate = new Date(); 				// วันทีตรวจสอบ
+	public String budgetType; 			// ประเภทงบประมาณ
+	public int budgetYear; 				// ปีงบประมาณ
+	//public String dealer; 			// ผู้ติดต่อ พนักงานขาย
+	//public String telephoneNumber;	// เบอร์โทร พนักงานขาย
+	public ImportStatus status;			//สถานะใบเบิก
 
 	@ManyToOne
 	public Company company; 				// บริษัทที่ทำการซื้อ

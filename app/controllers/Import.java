@@ -221,7 +221,9 @@ public class Import extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
         //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
-        List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.all();
+        List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+        
+        
         return ok(importsOrder.render(aProcurement,gProcurement,user));
     }
     @Security.Authenticated(Secured.class)
@@ -272,40 +274,12 @@ public class Import extends Controller {
         return redirect(routes.Import.importsOrder());
     }
     
-    @BodyParser.Of(BodyParser.Json.class)
-    public static Result saveNewArticlesOrderDetail(){
-    	// TODO : save detail
-    	RequestBody body = request().body();
-    	JsonNode json = body.asJson();
-    	System.out.println(body);
-    	User user = User.find.where().eq("username", session().get("username")).findUnique();
-    	models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
-    	return ok(body.asJson());
-    }
-    
-    @BodyParser.Of(BodyParser.Json.class)
-    public static Result importsCancelOrder(){
-    	RequestBody body = request().body();
-    	JsonNode json = body.asJson();
-    	
-    	System.out.println(json.get("id").toString());
-    	String s = json.get("typeOfOrder").asText();
-    	System.out.println(s);
-    	models.durableArticles.Procurement articlesOrder = null;
-    	if(s.equals("article")){
-    		articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
-    	}else{
-    		
-    	}
-    	articlesOrder.status = ImportStatus.CANCEL;
-    	articlesOrder.save();
-        return redirect(routes.Import.importsOrder());
-    }
-    
-    
     public static Result saveNewGoodsOrder(){
     	DynamicForm form = Form.form().bindFromRequest();
-    	models.durableGoods.Procurement goodsOrder = Form.form(models.durableGoods.Procurement.class).bindFromRequest().get();
+    	System.out.println(Form.form(models.durableGoods.Procurement.class).bindFromRequest());
+    	
+    	System.out.println(Long.parseLong(form.get("id")));
+    	models.durableGoods.Procurement goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(form.get("id")));
     	
     	try {
     		Date date;
@@ -321,20 +295,60 @@ public class Import extends Controller {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
-    	
+    	System.out.println(goodsOrder.checkDate.toLocaleString());
+        
+    	goodsOrder.status = ImportStatus.SUCCESS;        
     	goodsOrder.save();
-    	return redirect(routes.Import.importsOrder());
+        return redirect(routes.Import.importsOrder());
     }
-
-
-
-
+    
+    
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result saveNewArticlesOrderDetail(){
+    	// TODO : save detail
+    	RequestBody body = request().body();
+    	JsonNode json = body.asJson();
+    	System.out.println(body);
+    	User user = User.find.where().eq("username", session().get("username")).findUnique();
+    	models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
+    	return ok(body.asJson());
+    }
+    
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result importsCancelOrder(){
+    	RequestBody body = request().body();
+    	JsonNode json = body.asJson();
+    	System.out.println(json.get("id").toString());
+    	String s = json.get("typeOfOrder").asText();
+    	System.out.println(s);
+    	models.durableArticles.Procurement articlesOrder = null;
+    	models.durableGoods.Procurement goodsOrder = null;
+    	
+    	if(s.equals("article")){
+    		System.out.println("in articles");
+    		articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
+        	articlesOrder.status = ImportStatus.CANCEL;
+        	articlesOrder.update();
+    	}else{
+    		System.out.println("in good");
+    		goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
+    		goodsOrder.status = ImportStatus.CANCEL;
+    		goodsOrder.update();
+    	}
+        return redirect(routes.Import.importsOrder());
+    }
+    
+    
 
     @Security.Authenticated(Secured.class)
         public static Result importsOrderGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderGoodsAdd.render(user));
+        models.durableGoods.Procurement order= new models.durableGoods.Procurement();
+        order.status = ImportStatus.INIT;
+        order.save();
+        return ok(importsOrderGoodsAdd.render(order,user));
     }
+    
     @Security.Authenticated(Secured.class)
         public static Result importsOrderGoodsAddMaterial1() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();

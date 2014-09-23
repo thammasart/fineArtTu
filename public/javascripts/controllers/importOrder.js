@@ -64,7 +64,7 @@ function clearPage(){
 	
 }
 
-function submitArticleDetail(){
+function submitDetail(path){
 	var data = {}
 	var fields1 = $('#page2 :input');
 	var fields2 = $('#page3 :input');
@@ -78,7 +78,7 @@ function submitArticleDetail(){
 	});
 	
 	$.ajax({
-		url:'/import/saveNewArticlesOrderDetail',
+		url: path,
 	    type: 'post',
 	    data: JSON.stringify(data),
 	    contentType: 'application/json',
@@ -194,10 +194,16 @@ function preSpread(name){
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ชื่อ/สกุล</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า" name="'+name+'Name'+k+'">'+
-		'	                     <button>ตกลง</button>'+
 		'	                </div>'+
 		'	            </div>'+
 		''+
+		'		        	<div class="form-group" >'+
+		'			            <div class="input-group" >'+
+		'			                <span class="input-group-addon" >รหัสจากคลัง</span>'+
+		'			                <input type="text" class="form-control textAlignCenter  width100px" placeholder="ใส่ค่า" name="'+name+'Stock'+k+'">'+
+		'	                     <button>ตกลง</button>'+
+		'			            </div>'+
+		'		            </div>'+
 		''+
 		'	        </div>  '
 		
