@@ -1,0 +1,15 @@
+- &Auction01 !!models.durableArticles.Donation
+  title:            ขายทอดตลาด เครืองปรับอากาศหมดอายุการใช้งาน
+  contractNo:       1/57
+  approveDate:      2014-01-30
+  status:           SUCCESS
+- &Auction02 !!models.durableArticles.Donation
+  title:            ขายทอดตลาด เครื่องคอมพิวเตอร์หมดอายุการใช้งาน
+  contractNo:       2/57
+  approveDate:      2014-05-30
+  status:           SUCCESS
+- &Auction03 !!models.durableArticles.Donation
+  title:            ขายทอดตลาด ตู้เก็บเอกสาร
+  contractNo:       3/57
+  approveDate:      2014-09-30
+  status:           INIT

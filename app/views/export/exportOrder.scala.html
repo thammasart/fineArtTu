@@ -30,31 +30,33 @@
 
   </div>
 
-  <table class="table table-striped overlayTable">
-    <thead>
-      <tr>
-        <th></th>
-        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-        <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-        <th>รายละเอียด</th>
-        <th>ststus</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      @for(requisition <- initList){
+  @if(!initList.isEmpty()) {
+    <table class="table table-striped overlayTable">
+      <thead>
         <tr>
-          <th> <input type="checkbox"/> </th>
-          <th>@requisition.title</th>
-          <th>@requisition.number</th>
-          <th>@requisition.getApproveDate()</th>
-          <th>@requisition.status</th>
-          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th></th>
+          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ผู้อนุมัติ</th>
+          <th>รายละเอียด</th>
         </tr>
-      }
-    </tbody>
-  </table>
+      </thead>
+
+      <tbody>
+        @for(requisition <- initList){
+          <tr>
+            <th> <input type="checkbox"/> </th>
+            <th>@requisition.title</th>
+            <th>@requisition.number</th>
+            <th>@requisition.getApproveDate()</th>
+            <th>@requisition.status</th>
+            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
 
   <table class="table table-striped overlayTable">
     <thead>
@@ -63,8 +65,8 @@
         <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
         <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
         <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>ผู้อนุมัติ</th>
         <th>รายละเอียด</th>
-        <th>ststus</th>
       </tr>
     </thead>
     <tbody>

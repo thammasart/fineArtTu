@@ -61,7 +61,6 @@ public class Import extends Controller {
                 String dG = form.get("durableGoodsType"+i);
                 String cG = form.get("consumableGoodsType"+i);
 
-
                 if(dA!=null)
                 {
                     typeDurableArticles=typeDurableArticles+dA+",";    //process to save all list
@@ -74,7 +73,6 @@ public class Import extends Controller {
                 {
                     typeConsumableGoods=typeConsumableGoods+cG+",";
                 }
-
             }
 
         

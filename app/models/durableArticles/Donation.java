@@ -32,8 +32,29 @@ public class Donation extends Model{ // บริจาค
 	public List<Donation_D_Committee> dCommittee = new ArrayList<Donation_D_Committee>(); // คณะกรรมการจำหน่าย
 
 	public String getApproveDate(){
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		return df.format(approveDate);
+		if(approveDate == null){
+			return " -- ไม่ระบุ -- ";
+		}
+		else{
+			String result = ""+approveDate.getDate();
+			switch (approveDate.getMonth()) {
+	            case 0:  result += " มกราคม ";break;
+	            case 1:  result += " กุมภาพันธ์ ";break;
+	            case 2:  result += " มีนาคม ";break;
+	            case 3:  result += " เมษายน ";break;
+	            case 4:  result += " พฤษภาคม ";break;
+	            case 5:  result += " มิถุนายน ";break;
+	            case 6:  result += " กรกฎาคม ";break;
+	            case 7:  result += " สิงหาคม ";break;
+	            case 8:  result += " กันยายน ";break;
+	            case 9:  result += " ตุลาคม ";break;
+	            case 10: result += " พฤษจิกายน ";break;
+	            case 11: result += " ธันวาคม ";break;
+	            default: result += "Invalid month";break;
+	        }
+        	result += (approveDate.getYear() + 2443);
+			return result;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
