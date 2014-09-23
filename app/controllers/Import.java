@@ -61,7 +61,6 @@ public class Import extends Controller {
                 String dG = form.get("durableGoodsType"+i);
                 String cG = form.get("consumableGoodsType"+i);
 
-
                 if(dA!=null)
                 {
                     typeDurableArticles=typeDurableArticles+dA+",";    //process to save all list
@@ -74,7 +73,6 @@ public class Import extends Controller {
                 {
                     typeConsumableGoods=typeConsumableGoods+cG+",";
                 }
-
             }
 
         
@@ -145,28 +143,23 @@ public class Import extends Controller {
         String tId = form.get("typeId");
         String tD = form.get("typeDescription"); 
 
-        String fsn = "";
+        String fsnId = form.get("descriptionId");
+        String fsnDes = form.get("descriptionDescription");
 
-        fsn=fsn+gId;
-        fsn=fsn+cId+"-";
-        fsn=fsn+tId+"-";  
-
-
+        System.out.println( gId +"\n"+ gD +"\n"+ cId +"\n"+ cD +"\n"+ tId +"\n"+ tD +"\n"+ fsnId +"\n"+ fsnDes );
 
         Form<FSN_Description> newFsnForm = Form.form(FSN_Description.class).bindFromRequest();
         FSN_Description newFsn = newFsnForm.get();
 
-        newFsn.descriptionId = fsn+newFsn.descriptionId;
+        newFsn.descriptionId = fsnId;
 
-        String gCT =newFsn.descriptionId.substring(0,newFsn.descriptionId.length()-5);
-        String gC = gCT.substring(0,gCT.length()-4);
-        FSN_Type type = FSN_Type.find.byId(gCT);
+        FSN_Type type = FSN_Type.find.byId(tId);
 
         if(type == null){
             type = new FSN_Type();
-            type.typeId = gCT;
+            type.typeId = tId;
             type.typeDescription = tD;
-            type.groupClass = FSN_Class.find.byId(gC);
+            type.groupClass = FSN_Class.find.byId(cId);
             type.save();
         }
 
@@ -360,6 +353,25 @@ public class Import extends Controller {
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
+    
+    @Security.Authenticated(Secured.class)
+    public static Result findNextFsnNumber(){
+//        String desIdInput = "";
+//        String desIdOutput = "";
+//        FSN_Description lastDes = FSN_Description.find.where().ilike("descriptionId",desIdInput+"%").orderBy("descriptionId desc").findList().get(0);
+//        
+//        ObjectNode result = Json.newObject();
+//        JsonNode json;
+//        
+//            ObjectMapper mapper = new ObjectMapper();
+//
+//            String jsonArray = mapper.writeValueAsString(groupId);
+//            json = Json.parse(jsonArray);
+//            result.put("groupId",json);
+//
+        return TODO;
+//        
+    }
     @Security.Authenticated(Secured.class)
     public static Result findFsn(){
         List<FSN_Class> fsnClass;

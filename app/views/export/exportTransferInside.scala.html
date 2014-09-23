@@ -1,4 +1,4 @@
-@(user : User)
+@(user : User, initList:List[models.durableArticles.InternalTransfer], successList:List[models.durableArticles.InternalTransfer])
 @header("exportTransferInside")
 
 @nav(user)
@@ -6,57 +6,94 @@
 @sideMenu(user)
 
 <div class ="listWindowMaterial">
-     <div class="tableHeaderBtnContainer">
-                <div class="searchS">
-                        <form>
-                            <div class="form-group">
-                                <div class="input-group">
-                                  <span class="input-group-addon">ค้นหา</span>
-                                  <input type="text" class="form-control" style="width:300px">
-                                </div>
-                              </div>
-                        </form>
-                </div>
-             <div>
-                <a style="float:right;margin-left:1%;"href="@routes.Export.exportTransferInsideAdd()">
-                <button class="btn btn-success width200px">เพิ่มรายการโอนย้ายภายใน</button>
-                </a>
-                <button class="btn btn-danger width200px" style="float:right;">ลบรายการโอนย้ายภายใน</button>
-            </div>
-   </div>
+  
+  <div class="tableHeaderBtnContainer">
 
-   <table class="table table-striped overlayTable">
-    <thead>
+    <div class="searchS">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">ค้นหา</span>
+            <input type="text" class="form-control" style="width:300px">
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <div>
+      <a style="float:right;margin-left:1%;"href="@routes.Export.exportTransferInsideAdd()">
+        <button class="btn btn-success width200px">เพิ่มรายการโอนย้ายภายใน</button>
+      </a>
+      <button class="btn btn-danger width200px" style="float:right;">ลบรายการโอนย้ายภายใน</button>
+    </div>
+
+  </div>
+
+  @if(!initList.isEmpty()) {
+    <table class="table table-striped overlayTable">
+      <thead>
         <tr>
-            <th></th>
-            <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-            <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-            <th>วันอนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-            <th>รายละเอียด</th>
+          <th></th>
+          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันอนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>รายละเอียด</th>
+          <th></th>
         </tr>
-    </thead>
-    <tbody>
-
-        <tr>
+      </thead>
+      
+      <tbody>
+        @for(TransferInside <- successList){
+          <tr>
             <th> <input type="checkbox"/> </th>
-            <th>รายการส่งเสริมการศึกษา1</th>
-            <th>1/57</th>
-            <th>20/5/57</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
+            <th>@TransferInside.title</th>
+            <th>@TransferInside.number</th>
+            <th>@TransferInside.getApproveDate()</th>
+            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+            <th>@TransferInside.status</th>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <table class="table table-striped overlayTable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันอนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>รายละเอียด</th>
+        <th></th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      @for(TransferInside <- initList){
+        <tr>
+          <th> <input type="checkbox"/> </th>
+          <th>@TransferInside.title</th>
+          <th>@TransferInside.number</th>
+          <th>@TransferInside.getApproveDate()</th>
+          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>@TransferInside.status</th>
         </tr>
+      }
     </tbody>
   </table>
 
+
   <div class="pagingContainer" align="center">
-      <ul class="pagination" style="margin:0;">
-        <li class="disabled"><a href="#">&laquo;</a></li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&raquo;</a></li>
-      </ul>
+    <ul class="pagination" style="margin:0;">
+      <li class="disabled"><a href="#">&laquo;</a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">&raquo;</a></li>
+    </ul>
   </div>
   
 </div> 

@@ -15,20 +15,22 @@
 <body onload="init()">
 <div class="detailWindow" ng-app="materialConsumableGoodsAddFsn" ng-controller="autoCompleteController" >
 
-    <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableArticles()">
+    <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableArticles()"onsubmit="return submitButtonClick()">
         <div class="well" ng-init="findFsn()">
             <h3 > เพิ่มครุภัณฑ์ </h3>
 		<div class="form-inline marginBtm1" role="form" align="center">
                       <div class="form-group" >
                             <div class="input-group ui-widget" >
                                 <span class="input-group-addon width250px" >รหัสกลุ่ม</span>
-                                <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchIDToDes()" name="groupId" id="groupId">
+                                <input type="text" size="2" maxlength="2" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchIDToDes()" name="groupId" id="groupId">
+                                <span class="alertText" id="groupIdAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >ชื่อกลุ่ม</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="groupDescription" id="groupDes" onkeyup="matchDesToID()" >
+                                <input type="text"  class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="groupDescription" id="groupDes" onkeyup="matchDesToID()" >
+                                <span class="alertText" id="groupDesAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                 </div>
@@ -36,13 +38,15 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสประเภท</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchClassIdToDes()" name="classId" id="classId">
+                                <input type="text" size="4" maxlength="4"class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchClassIdToDes()" name="classId" id="classId">
+                                <span class="alertText" id="classIdAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" > ชื่อประเภท</span>
                                 <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="classDescription" id="classDescription" onkeyup="matchClassDesToId()"> 
+                                <span class="alertText" id="classDescriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                 </div>
@@ -50,13 +54,15 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสชนิด</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="typeId" id="typeId">
+                                <input type="text" size="8" maxlength="8"class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="typeId" id="typeId"onkeyup="matchTypeToDes()">
+                                <span class="alertText" id="typeIdAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" > ชื่อชนิด</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="typeDescription">
+                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="typeDescription" id="typeDescription">
+                                <span class="alertText" id="typeDescriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                 </div>
@@ -64,13 +70,15 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสรายละเอียด</span>
-                                <input type="text" class="form-control  textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="descriptionId">
+                                <input type="text" size="13" maxlength="13"class="form-control  textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="descriptionId" id="descriptionId" autocomplete="off">
+                                <span class="alertText" id="descriptionIdAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >  ชื่อครุภัณฑ์</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="descriptionDescription">
+                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="descriptionDescription" id="descriptionDescription" autocomplete="off">
+                                <span class="alertText" id="descriptionDescriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                 </div>
@@ -80,7 +88,7 @@
                       <span class="input-group-addon width250px">หน่วย</span>
                         <select class="form-control textAlignCenter  width300px" name="classifier">
                           <option>---เลือก---</option>
-                          <option>อัน</option>
+                          <option selected="selected">อัน</option>
                           <option>ชิ้น</option>
                           <option>เครื่อง</option>
                         </select>

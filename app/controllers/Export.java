@@ -39,14 +39,15 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportOrder() {
         User user = User.find.byId(session().get("username"));
-        List<Requisition> initList = Requisition.find.where().eq("status", ExportStatus.INIT).findList();
-        List<Requisition> successList = Requisition.find.where().eq("status", ExportStatus.SUCCESS).findList();
+        List<Requisition> initList = Requisition.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
+        List<Requisition> successList = Requisition.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
         return ok(exportOrder.render(user, initList, successList));
     }
 
     @Security.Authenticated(Secured.class)
     public static Result exportNewOrder() {
         Requisition temp =  new Requisition();
+        temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
         temp.save();
         return redirect(routes.Export.exportOrderAdd(temp.id));
@@ -118,7 +119,7 @@ public class Export extends Controller {
         RequestBody body = request().body();
         JsonNode json = body.asJson();
 
-        System.out.println("saveOrderDetail/n");
+        System.out.println("saveOrderDetail\n");
         System.out.println(json);
         System.out.println("code : " + json.get("code").asText());
         System.out.println("quantity : " + json.get("quantity").asText());
@@ -127,8 +128,9 @@ public class Export extends Controller {
         RequisitionDetail newDetail = new RequisitionDetail();
 
         newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
-        if(json.get("quantity").asText() != "")
+        if(json.get("quantity").asText() != ""){
             newDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+        }
         newDetail.save();
 
         //List<RequisitionDetail> detail = Requisition.find.byId(id).requisition;
@@ -142,6 +144,7 @@ public class Export extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result loadOrderDetail(long id) {
         ObjectNode result = Json.newObject();
+        System.out.println("loadOrderDetail");
         JsonNode json;
         try { 
             Requisition  requisition = Requisition.find.byId(id);
@@ -150,20 +153,26 @@ public class Export extends Controller {
             String jsonArray = mapper.writeValueAsString(detail);
             json = Json.parse(jsonArray);
             result.put("details",json);
+            System.out.println("SUCCESS");
+
         }
         catch (JsonProcessingException e) {
             result.put("message", e.getMessage());
             result.put("status", "error1");
+            System.out.println("ERROR 1" + e.getMessage());
         }
         catch(RuntimeException e){
             e.printStackTrace();
             result.put("message", e.getMessage());
             result.put("status", "error2");
+            System.out.println("ERROR 2");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
             result.put("status", "error3");
+            System.out.println("ERROR 3");
         }
+
         return ok(result);
     }
 
@@ -173,7 +182,9 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportTransferInside() {
         User user = User.find.byId(session().get("username"));
-        return ok(exportTransferInside.render(user));
+        List<InternalTransfer> initList = InternalTransfer.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
+        List<InternalTransfer> successList = InternalTransfer.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
+        return ok(exportTransferInside.render(user, initList , successList));
     }
     @Security.Authenticated(Secured.class)
     public static Result exportTransferInsideAdd() {
@@ -209,8 +220,8 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportDonate() {
         User user = User.find.byId(session().get("username"));
-        List<Donation> initList = Donation.find.where().eq("status", ExportStatus.INIT).findList();
-        List<Donation> successList = Donation.find.where().eq("status", ExportStatus.SUCCESS).findList();
+        List<Donation> initList = Donation.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
+        List<Donation> successList = Donation.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
         return ok(exportDonate.render(user,initList, successList));
     }
     @Security.Authenticated(Secured.class)
@@ -229,8 +240,8 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportSold() {
         User user = User.find.byId(session().get("username"));
-        List<Auction> initList = Auction.find.where().eq("status", ExportStatus.INIT).findList();
-        List<Auction> successList = Auction.find.where().eq("status", ExportStatus.SUCCESS).findList();
+        List<Auction> initList = Auction.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
+        List<Auction> successList = Auction.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
         return ok(exportSold.render(user,initList, successList));
     }
     @Security.Authenticated(Secured.class)
