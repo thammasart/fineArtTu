@@ -1,3 +1,4 @@
+var submitStatus = true;
 var availableId = [];
 var availableDes = [];
 var availableClassDes = [];
@@ -111,4 +112,51 @@ function findGroupDesByid(id){
                 break;
         }  
     }
+}
+function matchTypeToDes(){
+    document.getElementById("descriptionId").value = document.getElementById("typeId").value +"-"
+}
+function submitButtonClick(){
+    
+    submitStatus = true;
+    if(document.getElementById("groupId").value.length !=2){
+        document.getElementById("groupIdAlert").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("groupIdAlert").style.display= "none";
+
+    if(document.getElementById("groupDes").value ==""){
+        document.getElementById("groupDesAlert").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("groupDesAlert").style.display= "none";
+
+    if(document.getElementById("classId").value.length != 4){
+        document.getElementById("classIdAlert").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("classIdAlert").style.display= "none";
+
+    if(document.getElementById("classDescription").value ==""){
+        document.getElementById("classDescriptionAlert").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("classDescriptionAlert").style.display= "none";
+
+    if(document.getElementById("typeId").value.length !=8){
+        document.getElementById("typeIdAlert").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("typeIdAlert").style.display= "none";
+
+    if(document.getElementById("typeDescription").value ==""){
+        document.getElementById("typeDescriptionAlert").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("typeDescriptionAlert").style.display= "none";
+
+    if(document.getElementById("descriptionId").value.length != 13){
+        document.getElementById("descriptionIdAlert").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("descriptionIdAlert").style.display= "none";
+
+    if(document.getElementById("descriptionDescription").value ==""){
+        document.getElementById("descriptionDescriptionAlert").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("descriptionDescriptionAlert").style.display= "none";
+    return submitStatus;
 }

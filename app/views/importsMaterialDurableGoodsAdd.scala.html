@@ -6,13 +6,7 @@
 @nav(user)
 @headerTagFull("เพิ่มรายละเอียดวัสดุคงทนถาวร")
 
-<script>
-
-    function init(){
-        document.addDurableArticles.groupCode.focus();
-    }
-</script>
-<body onload="init()">
+<body >
 <div class="detailWindow" >
 
     <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableGoods()" onsubmit="return submitButtonClick()">
@@ -59,6 +53,7 @@
                 <script>
                     function radioClick(){
                         document.getElementById("materialCode").value = document.querySelector('input[name="chosen"]:checked').value;
+                        document.addDurableArticles.code.focus();
                     }
                 </script>
               <div class="form-inline marginBtm1" role="form" align="center">
@@ -72,7 +67,7 @@
                     <div class="form-group" >
                           <div class="input-group" >
                               <span class="input-group-addon width250px" >  ชื่อวัสดุ</span>
-                              <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="descriptionInput" autocomplete="off" id="description">
+                              <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description" autocomplete="off" id="description">
                               <span class="alertText" id="descriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                           </div>
                     </div>
@@ -116,7 +111,7 @@
                   </button>
               </a>
               <a href="@routes.Import.importsMaterial()">
-                  <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                  <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
                       ยืนยัน <span class="glyphicon glyphicon-ok"></span>
                   </button>
               </a>
