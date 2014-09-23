@@ -17,10 +17,12 @@ GET		/export/order/add                       controllers.Export.exportOrderAdd(r
 GET		/export/order/add/new                   controllers.Export.exportNewOrder()
 GET		/export/order/add/Detail                controllers.Export.exportOrderAddDetail(detail:Long)
 POST	/export/order/saveRequisition			controllers.Export.saveRequisition(requisitionId:Long)
-POST	/export/order/saveRequisitionDetail		controllers.Export.saveRequisitionDetail(requisitionId:Long)
+
+# POST 	/export/order/saveRequisitionDetail		controllers.Export.saveRequisitionDetail(requisitionId:Long)
+GET 	/export/order/cancelRequisition			controllers.Export.cancelRequisition(requisitionId:Long)
 
 POST	/export/order/saveDetail				controllers.Export.saveOrderDetail()
-GET	/export/order/lodeDetail				controllers.Export.loadOrderDetail(id:Long)
+GET		/export/order/lodeDetail				controllers.Export.loadOrderDetail(id:Long)
 
 
 
@@ -73,11 +75,12 @@ POST	/import/saveMaterialDurableGoods				controllers.Import.saveNewMaterialDurab
 GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
 
 GET		/import/order									controllers.Import.importsOrder()
-
+POST	/import/order/cancel							controllers.Import.importsCancelOrder()
 GET		/import/order/DurableArticlesAdd	    		controllers.Import.importsOrderDurableArticlesAdd()
 GET		/import/order/DurableArticlesAdd/Material1		controllers.Import.importsOrderDurableArticlesAddMaterial1()
 GET		/import/order/DurableArticlesAdd/Material2		controllers.Import.importsOrderDurableArticlesAddMaterial2()
 POST 	/import/saveNewArticlesOrder					controllers.Import.saveNewArticlesOrder()
+POST 	/import/saveNewArticlesOrderDetail				controllers.Import.saveNewArticlesOrderDetail()
 
 
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()

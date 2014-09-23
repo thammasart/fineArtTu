@@ -13,6 +13,9 @@ import java.util.ArrayList;
 public class Application extends Controller {
 
     public static Result index() {
+        if(session().toString() != "{}"){
+            return redirect(routes.Application.home());
+        }
         return ok(login.render());
     }
 

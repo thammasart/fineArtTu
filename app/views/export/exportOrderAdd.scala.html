@@ -7,8 +7,6 @@
 @nav(user)
 @headerTagFull("เพิ่มรายการเบิกจ่าย")
 
-
-
 <div class ="detailWindow" id="addWindows">
   <form name="addOrder" method="post" action="@routes.Export.saveRequisition(requisition.id)">
     <div>
@@ -42,7 +40,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width250px">ผู้จ่าย</span>
-              <input type="text" class="form-control width300px">
+              <input type="text" class="form-control width300px" name="user">
           </div>
         </div>
         <div class="form-group">
@@ -57,7 +55,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width250px">ผู้อนุมัติ</span>
-              <input type="text" class="form-control width300px">
+              <input type="text" class="form-control width300px" name="approver">
           </div>
         </div>
         <div class="form-group">
@@ -108,11 +106,11 @@
     </div>
 
     <div align="center" style="margin-bottom:1%;">
-<!--  <a href="@routes.Export.exportOrder()"> -->
-      <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="saveOrder()">
-        <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-      </button>
-<!--  </a>   -->
+      <a href="@routes.Export.cancelRequisition(requisition.id)">
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+        </button>
+      </a>
       <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
         ยืนยัน <span class="glyphicon glyphicon-ok"></span>
       </button>
@@ -123,7 +121,7 @@
 </div> 
 
 <div class="detailWindow orderAddDetailWindows" id="addDetailWindows">
-  <form name="addDetail"> <!--method="post" action="@routes.Export.saveRequisitionDetail(requisition.id)"-->
+  <form name="addDetail">
     <div class="well" >
 
       <div class="form-inline marginBtm1" role="form" align="left">
@@ -210,18 +208,15 @@
       <div align="center" style="margin-bottom:1%;">
         
         <button type="button" class="btn btn-danger btn-lg width250px" onclick="addOrderButton()" style="margin-top:1%;margin-right:1%;">
-                    <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-                </button>
-                <button type="button" class="btn btn-success btn-lg width250px" onclick="saveDetail()" style=" margin-top:1%;">
-                    ยืนยัน <span class="glyphicon glyphicon-ok"></span>
-                </button>
+          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+        </button>
+        <button type="button" class="btn btn-success btn-lg width250px" onclick="saveDetail()" style=" margin-top:1%;">
+          ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+        </button>
 
-        </div>
+      </div>
     </div>
-
-    </form>
-
-
+  </form>
 </div> <!--detailWindow-->
 
 @footerFull()

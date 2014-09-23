@@ -10,7 +10,3 @@
   title:  เบิกวัสดุประจำเดือนกันยายน
   number: 3/57
   status: INIT
-- &Requisition04 !!models.consumable.Requisition
-  title:  เบิกวัสดุประจำเดือนกันยายน
-  number: 3/57
-  status: CANCEL

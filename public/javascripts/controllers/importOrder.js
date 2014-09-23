@@ -2,11 +2,39 @@ var i =1;
 var j =1;
 var aiLists = [];
 var eoLists = [];
+var supplyList=[];
+
 $('document').ready(function(){
 	showPage('1');
 	createAICommittee();
-	createEOCommittee();
-}); 
+	if(document.getElementById('eo_committee')!=null)createEOCommittee();
+});
+$(function () {
+    $('#addDate').datetimepicker({
+  	  language:'th'
+    })
+});
+$(function () {
+    $('#checkDate').datetimepicker({
+  	  language:'th'
+    })
+});
+function cancelStatus(id,typeOfOrder){
+	var data = {
+			"id" : id,
+			"typeOfOrder" : typeOfOrder
+	}
+	$.ajax({
+		url:'/import/order/cancel',
+	    type: 'post',
+	    data: JSON.stringify(data),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		alert(result);
+    	}
+	});
+}
 function clearPage(){
 	var fields2 = $('#page2 :input[type="text"]');
 	var fields3 = $('#page3 :input[type="text"]');
@@ -89,6 +117,69 @@ function getCommitteeTemplate(name){
 
 	return s;
 }
+
+function preSpread(name){
+	var num = document.getElementById("number").value;
+	var ss= document.getElementById("spreadSupply").innerHTML;
+	for(var k=1;k<=num;k++)
+	{
+		supplyList.push(k);
+		var v='  <div class="form-inline marginBtm1" role="form" align="left">'+
+		''+
+		'	        	<div class="form-group" >'+
+		'	        		<div class="input-group"> '+
+		'		                <span class="input-group-addon">สาขา</span>'+
+		'		                    <select class="form-control textAlignCenter  width300px" name="'+name+'Department'+k+'">'+
+		'		                        <option>สาขาวิชาการละคอน</option>'+
+		'		                        <option>สาขาวิชาศิลปะการออกแบบพัสตราภรณ์</option>'+
+		'		                        <option>สาขาวิชาศิลปะการออกแบบอุตสาหกรรม</option>'+
+		'		                        <option>สำนักงานเลขานุการ</option>'+
+		'		                        <option>ห้องพัสดุ</option>'+
+		'		                    </select>'+
+		'		            </div>'+
+		'	        	</div>'+
+		''+
+		'	        	<div class="form-group" >'+
+		'	                <div class="input-group" >'+
+		'	                    <span class="input-group-addon" >ห้อง</span>'+
+		'	                    <input type="text" class="form-control textAlignCenter  width75px" name="'+name+'Room'+k+'">'+
+		'	                </div>'+
+		'	            </div>'+
+		'	        	<div class="form-group" >'+
+		'	                <div class="input-group" >'+
+		'	                    <span class="input-group-addon" >ชั้น</span>'+
+		'	                    <input type="text" class="form-control textAlignCenter  width50px" name="'+name+'Level'+k+'">'+
+		'	                </div>'+
+		'	            </div>'+
+		'	        	<div class="form-group" >'+
+		'	                <div class="input-group" >'+
+		'	                    <span class="input-group-addon" >รหัสFSN</span>'+
+		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)" name="'+name+'FSNCode'+k+'">'+
+		'	                </div>'+
+		'	            </div>'+
+		'	            <div class="form-group" >'+
+		'	                <div class="input-group" >'+
+		'	                    <span class="input-group-addon" >คำนำหน้าชื่อ</span>'+
+		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'PrefixName'+k+'">'+
+		'	                </div>'+
+		'	            </div>'+
+		'	            <div class="form-group" >'+
+		'	                <div class="input-group" >'+
+		'	                    <span class="input-group-addon" >ชื่อ/สกุล</span>'+
+		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า" name="'+name+'Name'+k+'">'+
+		'	                     <button>ตกลง</button>'+
+		'	                </div>'+
+		'	            </div>'+
+		''+
+		''+
+		'	        </div>  '
+		
+		ss=ss+v;
+	}
+	document.getElementById("spreadSupply").innerHTML=ss;
+	document.getElementById("supplyList").value = supplyList.join();
+}
+
 function createAICommittee() {
     var s= document.getElementById("ai_committee").innerHTML;
     s+=getCommitteeTemplate('ai');

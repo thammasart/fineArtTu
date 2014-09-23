@@ -11,6 +11,7 @@ import views.html.export.*;
 
 import models.*;
 import models.consumable.*;
+import models.durableArticles.*;
 import models.type.ExportStatus;
 
 import java.util.Date;
@@ -34,13 +35,13 @@ public class Export extends Controller {
         return ok(export.render(user));
     }
 
-
     // เยิกจ่าย
     @Security.Authenticated(Secured.class)
     public static Result exportOrder() {
         User user = User.find.byId(session().get("username"));
-        List<Requisition> requisitionList = models.consumable.Requisition.find.all();
-        return ok(exportOrder.render(user,requisitionList));
+        List<Requisition> initList = Requisition.find.where().eq("status", ExportStatus.INIT).findList();
+        List<Requisition> successList = Requisition.find.where().eq("status", ExportStatus.SUCCESS).findList();
+        return ok(exportOrder.render(user, initList, successList));
     }
 
     @Security.Authenticated(Secured.class)
@@ -74,14 +75,30 @@ public class Export extends Controller {
         DynamicForm f = Form.form().bindFromRequest();
 
         req.title = f.get("title");
-        //System.out.println("title : "+req.title);
         req.number = f.get("number");
-        //System.out.println("number : "+req.number);
+        req.user = User.find.byId(f.get("user"));
+        req.approver = User.find.byId(f.get("approver"));
+        req.status = ExportStatus.SUCCESS;
+        req.update();
+
+        //System.out.println(req.user.username);
+        //System.out.println(req.approver.username);
+
+        return redirect(routes.Export.exportOrder());
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result cancelRequisition(long requisitionId){
+        User user = User.find.byId(session().get("username"));
+        Requisition req = Requisition.find.byId(requisitionId);
+
+        req.status = ExportStatus.CANCEL;
         req.update();
 
         return redirect(routes.Export.exportOrder());
     }
 
+/*
     @Security.Authenticated(Secured.class)
     public static Result saveRequisitionDetail(long requisitionId){
         User user = User.find.byId(session().get("username"));
@@ -94,7 +111,7 @@ public class Export extends Controller {
         newDetail.save();
 
         return redirect(routes.Export.exportOrderAdd(requisitionId));
-    }
+    }*/
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveOrderDetail() {
@@ -103,13 +120,16 @@ public class Export extends Controller {
 
         System.out.println("saveOrderDetail/n");
         System.out.println(json);
-        System.out.println(json.get("code"));
-        System.out.println(json.get("quantity"));
-        System.out.println(json.get("requisitionId"));
+        System.out.println("code : " + json.get("code").asText());
+        System.out.println("quantity : " + json.get("quantity").asText());
+        System.out.println("requisitionId : " + json.get("requisitionId"));
 
-         RequisitionDetail newDetail = new RequisitionDetail();
-         newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
-         newDetail.save();
+        RequisitionDetail newDetail = new RequisitionDetail();
+
+        newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
+        if(json.get("quantity").asText() != "")
+            newDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+        newDetail.save();
 
         //List<RequisitionDetail> detail = Requisition.find.byId(id).requisition;
 
@@ -121,47 +141,31 @@ public class Export extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result loadOrderDetail(long id) {
-//        RequestBody body = request().body();
         ObjectNode result = Json.newObject();
         JsonNode json;
-     // System.out.println(body.asJson());
-        System.out.println("loadOrderDetail/n id: " + id + "\n\t-------\n");
-
-        //List<RequisitionDetail> detail = Requisition.find.byId(id).requisition;
-
-        //  result.put("name","Untitled");
-        //  result.put("last","Titled");
         try { 
-
-            System.out.println("11111");
-
-            List<RequisitionDetail> detail = RequisitionDetail.find.where().eq("requisition", Requisition.find.byId(id)).findList();
+            Requisition  requisition = Requisition.find.byId(id);
+            List<RequisitionDetail> detail = RequisitionDetail.find.where().eq("requisition", requisition).findList();
             ObjectMapper mapper = new ObjectMapper();
             String jsonArray = mapper.writeValueAsString(detail);
             json = Json.parse(jsonArray);
-
-            System.out.println("22222");
-
-
-
             result.put("details",json);
-        }catch (JsonProcessingException e) {
+        }
+        catch (JsonProcessingException e) {
             result.put("message", e.getMessage());
             result.put("status", "error1");
-        }catch(RuntimeException e){
+        }
+        catch(RuntimeException e){
             e.printStackTrace();
             result.put("message", e.getMessage());
             result.put("status", "error2");
-        }catch(Exception e){
+        }
+        catch(Exception e){
             result.put("message", e.getMessage());
             result.put("status", "error3");
         }
-
         return ok(result);
     }
-
-
-
 
 
 
@@ -205,7 +209,9 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportDonate() {
         User user = User.find.byId(session().get("username"));
-        return ok(exportDonate.render(user));
+        List<Donation> initList = Donation.find.where().eq("status", ExportStatus.INIT).findList();
+        List<Donation> successList = Donation.find.where().eq("status", ExportStatus.SUCCESS).findList();
+        return ok(exportDonate.render(user,initList, successList));
     }
     @Security.Authenticated(Secured.class)
     public static Result exportDonateAdd() {
@@ -223,7 +229,9 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportSold() {
         User user = User.find.byId(session().get("username"));
-        return ok(exportSold.render(user));
+        List<Auction> initList = Auction.find.where().eq("status", ExportStatus.INIT).findList();
+        List<Auction> successList = Auction.find.where().eq("status", ExportStatus.SUCCESS).findList();
+        return ok(exportSold.render(user,initList, successList));
     }
     @Security.Authenticated(Secured.class)
     public static Result exportSoldAdd() {

@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import models.Company;
 import models.type.ExportStatus;
 
@@ -30,6 +33,13 @@ public class Auction extends Model{ // จำหน่าย หรือ กา
 	public List<Auction_D_Committee> dCommittee = new ArrayList<Auction_D_Committee>(); // คณะกรรมการจำหน่าย
 	@OneToMany
 	public List<Auction_E_Committee> eCommittee = new ArrayList<Auction_E_Committee>(); // คณะกรรมการประเมิณราคากลาง
+
+
+	public String getSpproveDate(){
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		return df.format(approveDate);
+	}
+
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Auction> find = new Finder(Long.class,Auction.class);
