@@ -67,20 +67,6 @@
             </div>
       </div>
 
-      <script type="text/javascript">
-          $(function () {
-              $('#addDate').datetimepicker({
-            	  language:'th'
-              })
-          });
-          $(function () {
-              $('#checkDate').datetimepicker({
-            	  language:'th'
-              })
-          });
-      </script>
-
-
 
 		<input id="aiLists" type="hidden" name="aiLists" >
 		<input id="eoLists" type="hidden" name="eoLists" >
@@ -190,22 +176,23 @@
       <!-- ------------------------------------------------------------------------------------------------------------------------ -->
       
     
+<form action="@routes.Import.saveNewArticlesOrderDetail()" method="post">
 <div class="detailWindow" id="page2">
     <div class="well" >
 
-        <form>
         
+        <input type="hidden" name="procurementId" value="@order.id">
         <div class="form-inline marginBtm1" role="form" align="left">
                 <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
-                        <input type="number" name="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
+                        <input type="number" name="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="description" id="description">
                     </div>
                 </div>
                 <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >รหัสFSN</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+                        <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" name="fsnCode" id="fsnCode">
                     </div>
                 </div>
         </div>
@@ -214,13 +201,13 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคา</span>
-                        <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
+                        <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat">
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคารวมภาษี</span>
-                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
+                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price">
                     </div>
                 </div>
         </div>
@@ -229,7 +216,7 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >จำนวน</span>
-                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)" name="number" id="number">
+                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)" name="quantity" id="number">
                 </div>
             </div>
         </div>
@@ -239,7 +226,7 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >รหัสจากคลัง</span>
-                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)">
+                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)" name="stockId" id="stockId">
                 </div>
             </div>
         </div>
@@ -247,7 +234,7 @@
         <div class="form-inline" role="form" align="left">
             <div class="input-group marginBtm1">
                 <span class="input-group-addon width250px">หน่วยงาน</span>
-                    <select class="form-control textAlignCenter  width300px">
+                    <select class="form-control textAlignCenter  width300px" name="institute" id="institute">
                         <option>---เลือก---</option>
                         <option>Asissoft</option>
                         <option>Lotus</option>
@@ -260,13 +247,13 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >อายุการใช้งาน</span>
-                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
+                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)"  name="llifeTime" id="llifeTime">
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >เวลาแจ้งเตือนก่อนหมดอายุใช้งาน</span>
-                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)">
+                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="alertTime" id="alertTime">
                 </div>
             </div>
         </div>
@@ -275,13 +262,13 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >พนักงานขาย</span>
-                    <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+                    <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" >
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >เบอร์โทรศัพท์</span>
-                    <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+                    <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" >
                 </div>
             </div>
         </div>       
@@ -290,31 +277,26 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ยี่ห้อ</span>
-                    <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+                    <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="brand" id="brand">
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >หมายเลขเครื่อง</span>
-                    <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+                    <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="serialNumber" id="serialNumber">
                 </div>
             </div>
         </div> 
 
 
-    
-
-
-        </form>
-
     </div> <!--well-->
 
 
         <div align="center" style="margin-bottom:1%;">
-            <button class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="showPage('1')">
+            <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="showPage('1')">
                 <span class="glyphicon glyphicon-remove"></span> ยกเลิก
             </button>
-            <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('3');preSpread()">
+            <button type="button" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('3');preSpread('article')">
                 ถัดไป <span class="glyphicon glyphicon-chevron-right"></span>
             </button>
         </div>
@@ -323,7 +305,6 @@
 <div class="detailWindow" id="page3">
 	<div class="well" >
 
-		<form>
 
 			<div class="form-inline marginBtm1" role="form" align="left">
 	            <div class="form-group" >
@@ -335,7 +316,7 @@
 	        </div>
 		
 		
-			<input id="aiLists" type="hidden" name="aiLists" >
+			<input id="supplyList" type="hidden" name="supplyList" >
 		<fieldset>
 		<legend>แยกย่อย</legend>
 
@@ -349,18 +330,18 @@
 
 
         <div align="center" style="margin-bottom:1%;">
-	        <button class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="showPage('2')" type="button">
+	        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="showPage('2')">
 	            <span class="glyphicon glyphicon-chevron-left"></span> ย้อนกลับ
 	        </button>
-	        <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('1')" type="button">
+	        <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('1')" >
 	            ยืนยัน <span class="glyphicon glyphicon-ok"></span>
 	        </button>
         </div>
 
-	</form>
 
 
 </div>
+</form>
 
  
 @footerFull()
