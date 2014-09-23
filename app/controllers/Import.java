@@ -67,7 +67,6 @@ public class Import extends Controller {
                 String dG = form.get("durableGoodsType"+i);
                 String cG = form.get("consumableGoodsType"+i);
 
-
                 if(dA!=null)
                 {
                     typeDurableArticles=typeDurableArticles+dA+",";    //process to save all list
@@ -80,7 +79,6 @@ public class Import extends Controller {
                 {
                     typeConsumableGoods=typeConsumableGoods+cG+",";
                 }
-
             }
 
         
@@ -151,28 +149,23 @@ public class Import extends Controller {
         String tId = form.get("typeId");
         String tD = form.get("typeDescription"); 
 
-        String fsn = "";
+        String fsnId = form.get("descriptionId");
+        String fsnDes = form.get("descriptionDescription");
 
-        fsn=fsn+gId;
-        fsn=fsn+cId+"-";
-        fsn=fsn+tId+"-";  
-
-
+        System.out.println( gId +"\n"+ gD +"\n"+ cId +"\n"+ cD +"\n"+ tId +"\n"+ tD +"\n"+ fsnId +"\n"+ fsnDes );
 
         Form<FSN_Description> newFsnForm = Form.form(FSN_Description.class).bindFromRequest();
         FSN_Description newFsn = newFsnForm.get();
 
-        newFsn.descriptionId = fsn+newFsn.descriptionId;
+        newFsn.descriptionId = fsnId;
 
-        String gCT =newFsn.descriptionId.substring(0,newFsn.descriptionId.length()-5);
-        String gC = gCT.substring(0,gCT.length()-4);
-        FSN_Type type = FSN_Type.find.byId(gCT);
+        FSN_Type type = FSN_Type.find.byId(tId);
 
         if(type == null){
             type = new FSN_Type();
-            type.typeId = gCT;
+            type.typeId = tId;
             type.typeDescription = tD;
-            type.groupClass = FSN_Class.find.byId(gC);
+            type.groupClass = FSN_Class.find.byId(cId);
             type.save();
         }
 
@@ -227,7 +220,9 @@ public class Import extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
         //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
-        List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.all();
+        List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+        
+        
         return ok(importsOrder.render(aProcurement,gProcurement,user));
     }
     @Security.Authenticated(Secured.class)
@@ -277,6 +272,35 @@ public class Import extends Controller {
         articlesOrder.save();
         return redirect(routes.Import.importsOrder());
     }
+    
+    public static Result saveNewGoodsOrder(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	System.out.println(Form.form(models.durableGoods.Procurement.class).bindFromRequest());
+    	
+    	System.out.println(Long.parseLong(form.get("id")));
+    	models.durableGoods.Procurement goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(form.get("id")));
+    	
+    	try {
+    		Date date;
+	        if(!form.get("addDate_p").equals("")) {
+				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
+				goodsOrder.addDate = date;
+	        }
+	        if(!form.get("checkDate_p").equals("")){
+	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
+	        	goodsOrder.checkDate = date;
+	        }
+    	} catch (ParseException e) {
+    		// TODO Auto-generated catch block
+    		e.printStackTrace();
+    	}
+    	System.out.println(goodsOrder.checkDate.toLocaleString());
+        
+    	goodsOrder.status = ImportStatus.SUCCESS;        
+    	goodsOrder.save();
+        return redirect(routes.Import.importsOrder());
+    }
+    
     
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveNewArticlesOrderDetail(){
@@ -332,54 +356,37 @@ public class Import extends Controller {
     public static Result importsCancelOrder(){
     	RequestBody body = request().body();
     	JsonNode json = body.asJson();
-    	
     	System.out.println(json.get("id").toString());
     	String s = json.get("typeOfOrder").asText();
     	System.out.println(s);
     	models.durableArticles.Procurement articlesOrder = null;
+    	models.durableGoods.Procurement goodsOrder = null;
+    	
     	if(s.equals("article")){
+    		System.out.println("in articles");
     		articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
+        	articlesOrder.status = ImportStatus.CANCEL;
+        	articlesOrder.update();
     	}else{
-    		
+    		System.out.println("in good");
+    		goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
+    		goodsOrder.status = ImportStatus.CANCEL;
+    		goodsOrder.update();
     	}
-    	articlesOrder.status = ImportStatus.CANCEL;
-    	articlesOrder.save();
         return redirect(routes.Import.importsOrder());
     }
     
     
-    public static Result saveNewGoodsOrder(){
-    	DynamicForm form = Form.form().bindFromRequest();
-    	models.durableGoods.Procurement goodsOrder = Form.form(models.durableGoods.Procurement.class).bindFromRequest().get();
-    	
-    	try {
-    		Date date;
-	        if(!form.get("addDate_p").equals("")) {
-				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
-				goodsOrder.addDate = date;
-	        }
-	        if(!form.get("checkDate_p").equals("")){
-	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
-	        	goodsOrder.checkDate = date;
-	        }
-    	} catch (ParseException e) {
-    		// TODO Auto-generated catch block
-    		e.printStackTrace();
-    	}
-    	
-    	goodsOrder.save();
-    	return redirect(routes.Import.importsOrder());
-    }
-
-
-
-
 
     @Security.Authenticated(Secured.class)
         public static Result importsOrderGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderGoodsAdd.render(user));
+        models.durableGoods.Procurement order= new models.durableGoods.Procurement();
+        order.status = ImportStatus.INIT;
+        order.save();
+        return ok(importsOrderGoodsAdd.render(order,user));
     }
+    
     @Security.Authenticated(Secured.class)
         public static Result importsOrderGoodsAddMaterial1() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -391,6 +398,25 @@ public class Import extends Controller {
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
+    
+    @Security.Authenticated(Secured.class)
+    public static Result findNextFsnNumber(){
+//        String desIdInput = "";
+//        String desIdOutput = "";
+//        FSN_Description lastDes = FSN_Description.find.where().ilike("descriptionId",desIdInput+"%").orderBy("descriptionId desc").findList().get(0);
+//        
+//        ObjectNode result = Json.newObject();
+//        JsonNode json;
+//        
+//            ObjectMapper mapper = new ObjectMapper();
+//
+//            String jsonArray = mapper.writeValueAsString(groupId);
+//            json = Json.parse(jsonArray);
+//            result.put("groupId",json);
+//
+        return TODO;
+//        
+    }
     @Security.Authenticated(Secured.class)
     public static Result findFsn(){
         List<FSN_Class> fsnClass;

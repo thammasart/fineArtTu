@@ -34,12 +34,31 @@ public class Auction extends Model{ // จำหน่าย หรือ กา
 	@OneToMany
 	public List<Auction_E_Committee> eCommittee = new ArrayList<Auction_E_Committee>(); // คณะกรรมการประเมิณราคากลาง
 
-
-	public String getSpproveDate(){
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-		return df.format(approveDate);
+	public String getApproveDate(){
+		if(approveDate == null){
+			return " -- ไม่ระบุ -- ";
+		}
+		else{
+			String result = ""+approveDate.getDate();
+			switch (approveDate.getMonth()) {
+	            case 0:  result += " มกราคม ";break;
+	            case 1:  result += " กุมภาพันธ์ ";break;
+	            case 2:  result += " มีนาคม ";break;
+	            case 3:  result += " เมษายน ";break;
+	            case 4:  result += " พฤษภาคม ";break;
+	            case 5:  result += " มิถุนายน ";break;
+	            case 6:  result += " กรกฎาคม ";break;
+	            case 7:  result += " สิงหาคม ";break;
+	            case 8:  result += " กันยายน ";break;
+	            case 9:  result += " ตุลาคม ";break;
+	            case 10: result += " พฤษจิกายน ";break;
+	            case 11: result += " ธันวาคม ";break;
+	            default: result += "Invalid month";break;
+	        }
+        	result += (approveDate.getYear() + 2443);
+			return result;
+		}
 	}
-
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Auction> find = new Finder(Long.class,Auction.class);

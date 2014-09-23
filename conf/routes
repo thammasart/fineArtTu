@@ -63,6 +63,7 @@ GET             /report/exchangeDurableArticles                                 
 GET		/import/material						controllers.Import.importsMaterial()
 
 GET             /import/findFsn                                                 controllers.Import.findFsn()
+GET             /import/findNextFsnNumber                                       controllers.Import.findNextFsnNumber()
 
 
 GET		/import/materialDurableArticlesAdd				controllers.Import.importsMaterialDurableArticlesAdd()

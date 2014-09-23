@@ -34,6 +34,7 @@ function submitButtonClick(){
     var i;
     var j;
     if(name == 1){ 
+        document.getElementById("typedealerId").options[0].selected = 'selected';
         for(i = 0; i < ni.length;i++){ 
             ni[i].style.display = "block";
         } 
@@ -41,6 +42,7 @@ function submitButtonClick(){
             pe[j].style.display = "none";
         } 
     }else if(name == 2){ 
+        document.getElementById("typedealerId").options[12].selected = 'selected';
         for(i = 0; i < ni.length;i++){ 
             ni[i].style.display = "none";
         } 
