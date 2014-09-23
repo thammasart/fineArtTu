@@ -3,6 +3,8 @@ var availableId = [];
 var availableDes = [];
 var availableClassDes = [];
 var availableClassId = [];
+
+var desID;
 angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
     .controller('autoCompleteController',function($scope,$http){
         
@@ -10,6 +12,10 @@ angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
         $scope.groupDes= [];
         $scope.classId= [];
         $scope.classDes= [];
+
+        $scope.findNextFsnNumber = function(){
+            
+        }
 
         $scope.findFsn =function(){
             $http({method : 'GET',url : 'findFsn' })

@@ -343,6 +343,25 @@ public class Import extends Controller {
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
+    
+    @Security.Authenticated(Secured.class)
+    public static Result findNextFsnNumber(){
+//        String desIdInput = "";
+//        String desIdOutput = "";
+//        FSN_Description lastDes = FSN_Description.find.where().ilike("descriptionId",desIdInput+"%").orderBy("descriptionId desc").findList().get(0);
+//        
+//        ObjectNode result = Json.newObject();
+//        JsonNode json;
+//        
+//            ObjectMapper mapper = new ObjectMapper();
+//
+//            String jsonArray = mapper.writeValueAsString(groupId);
+//            json = Json.parse(jsonArray);
+//            result.put("groupId",json);
+//
+        return TODO;
+//        
+    }
     @Security.Authenticated(Secured.class)
     public static Result findFsn(){
         List<FSN_Class> fsnClass;
