@@ -272,24 +272,22 @@ public class Import extends Controller {
         return redirect(routes.Import.importsOrder());
     }
     
+    @BodyParser.Of(BodyParser.Json.class)
     public static Result saveNewArticlesOrderDetail(){
     	// TODO : save detail
-    	
-    	DynamicForm form = Form.form().bindFromRequest();
-    	System.out.println(Form.form(models.durableArticles.Procurement.class).bindFromRequest());
-    	
-    	//models.durableArticles.Procurement articlesOrder = Form.form(models.durableArticles.Procurement.class).bindFromRequest().get();
+    	RequestBody body = request().body();
+    	JsonNode json = body.asJson();
+    	System.out.println(body);
     	User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
-        //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
-        List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.all();
-        return ok(importsOrder.render(aProcurement,gProcurement,user));
+    	models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
+    	return ok(body.asJson());
     }
     
     @BodyParser.Of(BodyParser.Json.class)
     public static Result importsCancelOrder(){
     	RequestBody body = request().body();
     	JsonNode json = body.asJson();
+    	
     	System.out.println(json.get("id").toString());
     	String s = json.get("typeOfOrder").asText();
     	System.out.println(s);

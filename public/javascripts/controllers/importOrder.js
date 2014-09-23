@@ -63,6 +63,32 @@ function clearPage(){
 	});
 	
 }
+
+function submitArticleDetail(){
+	var data = {}
+	var fields1 = $('#page2 :input');
+	var fields2 = $('#page3 :input');
+	$.each(fields1,function(i,field){
+		var dom = $(field);
+		data[dom.attr('name')] = dom.val();
+	});
+	$.each(fields2,function(i,field){
+		var dom = $(field);
+		data[dom.attr('name')] = dom.val();
+	});
+	
+	$.ajax({
+		url:'/import/saveNewArticlesOrderDetail',
+	    type: 'post',
+	    data: JSON.stringify(data),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		alert(JSON.stringify(result));
+    	}
+	});
+}
+
 function getCommitteeTemplate(name){
 	name == 'ai' ? aiLists.push(i):eoLists.push(j);
 	var num = name == 'ai' ? i:j;
@@ -121,6 +147,7 @@ function getCommitteeTemplate(name){
 function preSpread(name){
 	var num = document.getElementById("number").value;
 	var ss= document.getElementById("spreadSupply").innerHTML;
+	ss = ""
 	for(var k=1;k<=num;k++)
 	{
 		supplyList.push(k);
@@ -209,7 +236,4 @@ function showPage(num){
 	document.getElementById("page1").style.display = num == '1' ?  "block" : "none";
 	document.getElementById("page2").style.display = num == '2' ?  "block" : "none";
 	document.getElementById("page3").style.display = num == '3' ?  "block" : "none";
-	if(num == '1'){
-		clearPage();
-	}
 }
