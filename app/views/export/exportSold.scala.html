@@ -39,17 +39,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                @for(acution <- initList){
-                    <tr>
-                        <th> <input type="checkbox"/> </th>
-                        <th>@acution.title</th>
-                        <th>@acution.contractNo</th>
-                        <th>@acution.approveDate</th>
-                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
-                        <th>@acution.status</th>
-                    </tr>
-                }
+            @for(acution <- initList){
+                <tr>
+                    <th> <input type="checkbox"/> </th>
+                    <th>@acution.title</th>
+                    <th>@acution.contractNo</th>
+                    <th>@acution.getApproveDate()</th>
+                    <th>@acution.status</th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+                </tr>
+            }
             </tr>
         </tbody>
     </table>
@@ -66,18 +65,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                @for(acution <- successList){
-                    <tr>
-                        <th> <input type="checkbox"/> </th>
-                        <th>@acution.title</th>
-                        <th>@acution.contractNo</th>
-                        <th>@acution.getSpproveDate()</th>
-                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
-                        <th>@acution.status</th>
-                    </tr>
-                }
-            </tr>
+            @for(acution <- successList){
+                <tr>
+                    <th> <input type="checkbox"/> </th>
+                    <th>@acution.title</th>
+                    <th>@acution.contractNo</th>
+                    <th>@acution.getApproveDate()</th>
+                    <th>@acution.status</th>
+                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+                </tr>
+            }
         </tbody>
     </table>
 

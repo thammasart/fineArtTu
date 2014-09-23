@@ -1,12 +1,15 @@
 - &Requisition01 !!models.consumable.Requisition
   title:  เบิกวัสดุประจำเดือนกรกฎาคม
   number: 1/57
+  approveDate: 2014-07-30
   status: SUCCESS
 - &Requisition02 !!models.consumable.Requisition
   title:  เบิกวัสดุประจำเดือนสิงหาคม
   number: 2/57
+  approveDate: 2014-08-30
   status: SUCCESS
 - &Requisition03 !!models.consumable.Requisition
   title:  เบิกวัสดุประจำเดือนกันยายน
   number: 3/57
+  approveDate: 2014-09-30
   status: INIT

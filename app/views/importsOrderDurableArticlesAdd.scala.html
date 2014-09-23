@@ -2,6 +2,7 @@
 @header("importsOrderDurableArticlesAdd")
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
     <script src="@routes.Assets.at("javascripts/controllers/importOrder.js")"></script>
+    <script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
 
 
 @nav(user)
@@ -94,7 +95,7 @@
               
             </div>
              <div>
-                <button style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2')">เพิ่มครุภัณฑ์</button>
+                <button style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage()">เพิ่มครุภัณฑ์</button>
                 <button class="btn btn-danger width200px" style="float:right;" type="button">ลบครุภัณฑ์</button>
             </div>
 
@@ -176,7 +177,6 @@
       <!-- ------------------------------------------------------------------------------------------------------------------------ -->
       
     
-<form action="@routes.Import.saveNewArticlesOrderDetail()" method="post">
 <div class="detailWindow" id="page2">
     <div class="well" >
 
@@ -333,7 +333,7 @@
 	        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="showPage('2')">
 	            <span class="glyphicon glyphicon-chevron-left"></span> ย้อนกลับ
 	        </button>
-	        <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('1')" >
+	        <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('1');submitArticleDetail()" >
 	            ยืนยัน <span class="glyphicon glyphicon-ok"></span>
 	        </button>
         </div>
@@ -341,7 +341,6 @@
 
 
 </div>
-</form>
 
  
 @footerFull()
