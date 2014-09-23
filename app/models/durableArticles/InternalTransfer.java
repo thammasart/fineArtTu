@@ -5,6 +5,9 @@ import javax.persistence.*;
 
 import java.util.Date;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import models.User;
 import models.type.ExportStatus;
 
@@ -18,8 +21,13 @@ public class InternalTransfer extends Model{
 	public ExportStatus status; //สถานะใบโอน
 
 	@ManyToOne
-	public User approver; // ผู้อนุมัติ
-	
+	public User approver; // ผู้อนุมัต
+
+	public String getApproveDate(){
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		return df.format(approveDate);
+	}
+		
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,InternalTransfer> find = new Finder(Long.class,InternalTransfer.class);
 }

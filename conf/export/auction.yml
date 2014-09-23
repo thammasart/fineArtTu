@@ -11,5 +11,5 @@
 - &Auction03 !!models.durableArticles.Auction
   title:            ขายทอดตลาด ตู้เก็บเอกสาร
   contractNo:       3/57
-  approveDate:      2014-01-30
+  approveDate:      2014-09-30
   status:           INIT

@@ -34,12 +34,10 @@ public class Auction extends Model{ // จำหน่าย หรือ กา
 	@OneToMany
 	public List<Auction_E_Committee> eCommittee = new ArrayList<Auction_E_Committee>(); // คณะกรรมการประเมิณราคากลาง
 
-
-	public String getSpproveDate(){
-		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	public String getApproveDate(){
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		return df.format(approveDate);
 	}
-
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Auction> find = new Finder(Long.class,Auction.class);

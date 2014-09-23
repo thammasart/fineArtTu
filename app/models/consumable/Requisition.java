@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import models.User;
 import models.type.ExportStatus;
 
@@ -31,6 +34,11 @@ public class Requisition extends Model{
 	public User user; // ผู้จ่าย
 	@ManyToOne
 	public User approver; // ผู้อนุมัติ
+
+	public String getApproveDate(){
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		return df.format(approveDate);
+	}
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Requisition> find = new Finder(Long.class,Requisition.class);

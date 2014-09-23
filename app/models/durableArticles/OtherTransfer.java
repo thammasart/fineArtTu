@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import models.Company;
 import models.type.ExportStatus;
 
@@ -24,6 +27,11 @@ public class OtherTransfer extends Model{
 	public List<OtherTransfer_FF_Committee> ffCommittee = new ArrayList<OtherTransfer_FF_Committee>(); // คณะกรรมการสอบข้อเท็จจริง
 	@OneToMany
 	public List<OtherTransfer_D_Committee> dCommittee = new ArrayList<OtherTransfer_D_Committee>(); // คณะกรรมการจำหน่าย
+
+	public String getApproveDate(){
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		return df.format(approveDate);
+	}
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,OtherTransfer> find = new Finder(Long.class,OtherTransfer.class);

@@ -48,9 +48,9 @@
           <th> <input type="checkbox"/> </th>
           <th>@requisition.title</th>
           <th>@requisition.number</th>
-          <th>@requisition.approveDate</th>
-          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>@requisition.getApproveDate()</th>
           <th>@requisition.status</th>
+          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
         </tr>
       }
     </tbody>
@@ -73,9 +73,9 @@
           <th> <input type="checkbox"/> </th>
           <th>@requisition.title</th>
           <th>@requisition.number</th>
-          <th>@requisition.approveDate.getDay()</th>
-          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>@requisition.getApproveDate()</th>
           <th>@requisition.status</th>
+          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
         </tr>
       }
     </tbody>
