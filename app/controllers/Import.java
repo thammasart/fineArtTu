@@ -15,13 +15,19 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import javax.persistence.ManyToOne;
+
+import models.durableArticles.DurableArticles;
+import models.durableArticles.ProcurementDetail;
 import models.fsnNumber.*;
 import models.type.ImportStatus;
+import models.type.SuppliesStatus;
 
-import com.fasterxml.jackson.core.JsonProcessingException;                                                                              
-import com.fasterxml.jackson.core.type.TypeReference;                                                                                   
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;                                                                                         
-import com.fasterxml.jackson.databind.ObjectMapper;                                                                                     
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;  
 
 public class Import extends Controller {
@@ -276,11 +282,50 @@ public class Import extends Controller {
     public static Result saveNewArticlesOrderDetail(){
     	// TODO : save detail
     	RequestBody body = request().body();
-    	JsonNode json = body.asJson();
     	System.out.println(body);
-    	User user = User.find.where().eq("username", session().get("username")).findUnique();
-    	models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
-    	return ok(body.asJson());
+    	JsonNode json = body.asJson();
+    	models.durableArticles.Procurement procurement = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
+    	models.durableArticles.ProcurementDetail procurementDetail = new models.durableArticles.ProcurementDetail();
+    	DurableArticles durableArticles = new DurableArticles();
+    	
+    	procurementDetail.description = json.get("description").asText();
+    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
+    	procurementDetail.price = Double.parseDouble(json.get("price").asText());
+    	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+    	//procurementDetail.classifier = json.get("classifier").asText();
+    	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
+    	procurementDetail.alertTime = Double.parseDouble(json.get("alertTime").asText());
+    	procurementDetail.brand = json.get("brand").asText();
+    	procurementDetail.serialNumber = json.get("serialNumber").asText();
+    	//procurementDetail.partOfPic = json.get("serialNumber").asText();
+    	procurementDetail.procurement = procurement;
+    	procurementDetail.save();
+    	
+    	
+    	/*durableArticles.code = json.get("code").asText();
+    	durableArticles.codeFromStock = json.get("codeFromStock").asText();
+    	durableArticles.status = SuppliesStatus.NORMAL;
+    	durableArticles.detail = procurementDetail;*/
+    	
+    	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
+    	ObjectNode result = Json.newObject();
+    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+    	int i=0;
+    	for(models.durableArticles.ProcurementDetail p : procurementDetails){
+    		ObjectNode item = Json.newObject();
+    		item.put("fsn", "fsnCode");
+    		item.put("description", p.description);
+    		item.put("quantity", p.quantity);
+    		item.put("classifier", "อัน");
+    		item.put("price", p.price);
+    		item.put("priceNoVat", p.priceNoVat);
+    		item.put("lifeTime", p.llifeTime);
+    		jsonArray.insert(i++, item);
+    	}
+    	
+    	result.put("length",procurementDetails.size());
+	    result.put("data",jsonArray);
+    	return ok(result);
     }
     
     @BodyParser.Of(BodyParser.Json.class)
@@ -406,5 +451,5 @@ public class Import extends Controller {
 
         return ok(result);
     }
-
+    
 }

@@ -117,27 +117,8 @@
                     <th>รายละเอียด</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <th> <input type="checkbox"/> </th>
-                    <th>ศก.พ.57-7400-100-0005</th>
-                    <th>กระดานดำ</th>
-                    <th>2</th>
-                    <th>อัน</th>
-                    <th>5500</th>
-                    <th>8</th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
-                </tr>
-                <tr>
-                    <th> <input type="checkbox"/> </th>
-                    <th>ศก.พ.57-7400-100-0006</th>
-                    <th>บอร์ด</th>
-                    <th>3</th>
-                    <th>อัน</th>
-                    <th>6500</th>
-                    <th>10</th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
-                </tr>
+            <tbody id="durableArticleList">
+ 
              </tbody>
            </table>
 
@@ -186,7 +167,7 @@
                 <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
-                        <input type="number" name="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="description" id="description">
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description" id="description">
                     </div>
                 </div>
                 <div class="form-group" >

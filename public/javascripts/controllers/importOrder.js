@@ -84,7 +84,7 @@ function submitArticleDetail(){
 	    contentType: 'application/json',
 	    dataType: 'json',
     	success: function(result){
-    		alert(JSON.stringify(result));
+    		loadOrderArticle(result);
     	}
 	});
 }
@@ -207,17 +207,34 @@ function preSpread(name){
 	document.getElementById("supplyList").value = supplyList.join();
 }
 
+function loadOrderArticle(data){
+	var divTable = '';
+	for(var i = 0; i<data["length"]; i++){
+		divTable += '				<tr>'+
+		'                    <th> <input type="checkbox"/> </th>'+
+		'                    <th>'+ data['data'][i].fsn +'</th>'+
+		'                    <th>'+ data['data'][i].description +'</th>'+
+		'                    <th>'+ data['data'][i].quantity +'</th>'+
+		'                    <th>'+ data['data'][i].classifier +'</th>'+
+		'                    <th>'+ data['data'][i].price +'</th>'+
+		'                    <th>'+ data['data'][i].lifeTime +'</th>'+
+		'                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>'+
+		'                </tr>'
+	}
+	document.getElementById("durableArticleList").innerHTML = divTable
+}
+
 function createAICommittee() {
-    var s= document.getElementById("ai_committee").innerHTML;
-    s+=getCommitteeTemplate('ai');
-    document.getElementById("ai_committee").innerHTML=s;
+	var dv = document.createElement("div")
+	dv.innerHTML=getCommitteeTemplate('ai');
+    document.getElementById("ai_committee").appendChild(dv);
     document.getElementById("aiLists").value = aiLists.join();
 }
 
 function createEOCommittee(){
-	var s= document.getElementById("eo_committee").innerHTML;
-	s+=getCommitteeTemplate('eo');
-    document.getElementById("eo_committee").innerHTML=s;
+	var dv = document.createElement("div")
+	dv.innerHTML=getCommitteeTemplate('eo');
+    document.getElementById("eo_committee").appendChild(dv);
     document.getElementById("eoLists").value = eoLists.join();
 }
 function removeDivCommittee(name,num){
