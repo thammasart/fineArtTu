@@ -17,6 +17,8 @@ public class InternalTransfer extends Model{
 
 	@Id
 	public long id;
+	public String title; // ชื่อ เรื่อง
+	public String number; //เลขที่
 	public Date approveDate; // วันที่ทำการอนุมัติ
 	public ExportStatus status; //สถานะใบโอน
 
