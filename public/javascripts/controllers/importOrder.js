@@ -75,7 +75,11 @@ function submitDetail(path){
 	    contentType: 'application/json',
 	    dataType: 'json',
     	success: function(result){
-    		loadOrderArticle(result);
+    		if(result["type"] == "article"){
+    			loadOrderArticle(result);
+    		}else{
+    			loadOrderGood(result);
+    		}
     	}
 	});
 }
@@ -240,6 +244,23 @@ function loadOrderArticle(data){
 	}
 	document.getElementById("durableArticleList").innerHTML = divTable;
 }
+
+function loadOrderGood(data){
+	var divTable = '';
+	for(var i = 0; i<data["length"]; i++){
+		divTable += '				<tr id='+i+'>'+
+		'                    <th> <input type="checkbox"/> </th>'+
+		'                    <th>'+ data['data'][i].code +'</th>'+
+		'                    <th>'+ data['data'][i].description +'</th>'+
+		'                    <th>'+ data['data'][i].quantity +'</th>'+
+		'                    <th>'+ data['data'][i].classifier +'</th>'+
+		'                    <th>'+ data['data'][i].price +'</th>'+
+		'                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>'+
+		'                </tr>';
+	}
+	document.getElementById("goodList").innerHTML = divTable;
+}
+
 
 function createAICommittee() {
 	var dv = document.createElement("div")
