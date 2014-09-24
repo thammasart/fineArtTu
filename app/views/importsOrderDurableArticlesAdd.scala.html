@@ -35,7 +35,7 @@
                   <div class="input-group date" id="addDate">
                       <span class="input-group-addon width250px" >วันที่นำเข้า</span>
                       <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p">
-                      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        			   <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
                   </div>
             </div>
       </div>
@@ -45,7 +45,7 @@
                   <div class="input-group date" id="checkDate">
                       <span class="input-group-addon width250px" >วันที่ตรวจรับ</span>
                       <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p">
-                      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
                   </div>
             </div>
       </div>
@@ -112,12 +112,11 @@
                             </div>
                           </div>
               
-            </div>
+       </div>
              <div>
                 <button style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage()">เพิ่มครุภัณฑ์</button>
                 <button class="btn btn-danger width200px" style="float:right;" type="button">ลบครุภัณฑ์</button>
             </div>
-
         </div>
 
 
@@ -141,7 +140,7 @@
              </tbody>
            </table>
 
-           </div>
+           </div> <!-- well -->
 
 
 
@@ -216,7 +215,7 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >จำนวน</span>
-                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)" name="quantity" id="number">
+                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)" name="quantity" id="quantity">
                 </div>
             </div>
         </div>
@@ -289,13 +288,13 @@
 	            <div class="form-group" >
 	                <div class="input-group" >
 	                    <span class="input-group-addon width250px" >จำนวน</span>
-	                    <input type="number" class="form-control textAlignCenter  width300px"placeholder="5"onkeypress="validateNumberKey(event)">
+	                    <input type="number" class="form-control textAlignCenter  width300px"  disabled id="fixNumber" onkeypress="validateNumberKey(event)">
 	                </div>
 	            </div>
 	        </div>
 		
 		
-			<input id="supplyList" type="hidden" name="supplyList" >
+			
 		<fieldset>
 		<legend>แยกย่อย</legend>
 

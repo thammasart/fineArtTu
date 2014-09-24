@@ -135,12 +135,14 @@ function getCommitteeTemplate(name){
 }
 
 function preSpread(name){
-	var num = document.getElementById("number").value;
+	var num = document.getElementById("quantity").value;
+	
+	document.getElementById("fixNumber").value=num;
+	
 	var ss= document.getElementById("spreadSupply").innerHTML;
 	ss = ""
 	for(k=1;k<=num;k++)
 	{
-		supplyList.push(k);
 		var v='  <div class="form-inline marginBtm1" role="form" align="left">'+
 		''+
 		'	        	<div class="form-group" >'+
@@ -200,7 +202,6 @@ function preSpread(name){
 		ss=ss+v;
 	}
 	document.getElementById("spreadSupply").innerHTML=ss;
-	document.getElementById("supplyList").value = supplyList.join();
 }
 
 function setValueBelow(name,num){

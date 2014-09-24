@@ -168,6 +168,10 @@ float:right;
     width:50px !important;
     text-align:right;
 }
+.width25px{
+    width:25px !important;
+    text-align:right;
+}
 
 .wellSize{
     width:60%;
