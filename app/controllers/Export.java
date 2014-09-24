@@ -27,6 +27,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;                                                                                         
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;  
+
 public class Export extends Controller {
 
 	@Security.Authenticated(Secured.class)
@@ -271,6 +278,53 @@ public class Export extends Controller {
     public static Result exportOtherAddDetail() {
         User user = User.find.byId(session().get("username"));
         return ok( exportOtherAddDetail.render(user));
+    }
+    @Security.Authenticated(Secured.class)
+    public static Result autocompleteExportCommitee (){
+        List<User> allUser = User.find.all();
+        List<String> name = new ArrayList<String>();        
+        List<String> lastname = new ArrayList<String>();
+        List<String> position = new ArrayList<String>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+
+        try{
+
+            for(User us : allUser){ 
+                name.add(us.firstName);               
+                lastname.add(us.lastName);
+                position.add(us.position);
+            } 
+
+
+            String jsonArray = mapper.writeValueAsString(name);
+            json = Json.parse(jsonArray);
+            result.put("name",json);
+
+            jsonArray = mapper.writeValueAsString(lastname);
+            json = Json.parse(jsonArray);
+            result.put("lastname",json);
+
+            jsonArray = mapper.writeValueAsString(position);
+            json = Json.parse(jsonArray);
+            result.put("position",json);
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error3");
+        }
+        return ok(result);
+        
     }
 
 }
