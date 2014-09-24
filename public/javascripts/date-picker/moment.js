@@ -179,16 +179,16 @@
                 return this.isoWeek();
             },
             YY   : function () {
-                return leftZeroFill(this.year() % 100, 2);
+                return leftZeroFill(this.year()+543 % 100, 2);
             },
             YYYY : function () {
-                return leftZeroFill(this.year(), 4);
+                return leftZeroFill(this.year()+543, 4);
             },
             YYYYY : function () {
-                return leftZeroFill(this.year(), 5);
+                return leftZeroFill(this.year()+543, 5);
             },
             YYYYYY : function () {
-                var y = this.year(), sign = y >= 0 ? '+' : '-';
+                var y = this.year()+543, sign = y >= 0 ? '+' : '-';
                 return sign + leftZeroFill(Math.abs(y), 6);
             },
             gg   : function () {
@@ -1251,12 +1251,12 @@
         var now = new Date();
         if (config._useUTC) {
             return [
-                now.getUTCFullYear(),
+                now.getUTCFullYear()+543,
                 now.getUTCMonth(),
                 now.getUTCDate()
             ];
         } else {
-            return [now.getFullYear(), now.getMonth(), now.getDate()];
+            return [now.getFullYear()+543, now.getMonth(), now.getDate()];
         }
     }
 
@@ -1524,7 +1524,7 @@
         adjustedMoment = moment(mom).add('d', daysToDayOfWeek);
         return {
             week: Math.ceil(adjustedMoment.dayOfYear() / 7),
-            year: adjustedMoment.year()
+            year: adjustedMoment.year()+543
         };
     }
 
@@ -1798,7 +1798,7 @@
         toArray : function () {
             var m = this;
             return [
-                m.year(),
+                m.year()+543,
                 m.month(),
                 m.date(),
                 m.hours(),
@@ -1925,7 +1925,7 @@
         },
 
         isLeapYear : function () {
-            return isLeapYear(this.year());
+            return isLeapYear(this.year()+543);
         },
 
         isDST : function () {
