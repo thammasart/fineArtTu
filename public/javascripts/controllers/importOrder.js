@@ -187,17 +187,26 @@ function preSpread(name){
 		'	                    <span class="input-group-addon" >ชื่อ/สกุล</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า" name="'+name+'Name'+k+'" id="'+name+'Name'+k+'">'+
 		'	                </div>'+
-		'	            </div>'+
-		''+
-		'		        <div class="form-group" >'+
+		'	            </div>'
+	
+if(name=='article')
+{
+var v2=	'		        <div class="form-group" >'+
 		'			        <div class="input-group" >'+
 		'			            <span class="input-group-addon" >รหัสจากคลัง</span>'+
 		'			            <input type="text" class="form-control textAlignCenter  width100px" placeholder="ใส่ค่า" name="'+name+'Stock'+k+'" id="'+name+'Stock'+k+'">'+
 		'			        </div>'+
-		'		        </div>'+
-		'	            <button onclick="setValueBelow(\''+name+'\','+ k +')">ตกลง</button>'+
-		''+
+		'		        </div>'
+}
+		
+var v3 ='	            <button onclick="setValueBelow(\''+name+'\','+ k +')">ตกลง</button>'+
 		'	        </div>  '
+if(name=='article')
+	v=v+v2+v3;
+else
+	v=v+v3;
+
+		
 		
 		ss=ss+v;
 	}
