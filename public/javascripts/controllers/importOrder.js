@@ -1,5 +1,6 @@
 var i =1;
 var j =1;
+var k =1;
 var aiLists = [];
 var eoLists = [];
 var supplyList=[];
@@ -37,23 +38,13 @@ function cancelStatus(id,typeOfOrder){
 }
 function clearPage(){
 	var fields2 = $('#page2 :input[type="text"]');
-	var fields3 = $('#page3 :input[type="text"]');
 	var fields4 = $('#page2 :input[type="number"]');
-	var fields5 = $('#page3 :input[type="number"]');
 	var fields6 = $('#page2 :input[type="radio"]');
 	$.each(fields2, function(i, field) {
 	    var dom = $(field);
 	    dom.val("");
 	});
-	$.each(fields3, function(i, field) {
-	    var dom = $(field);
-	    dom.val("");
-	});
 	$.each(fields4, function(i, field) {
-		var dom = $(field);
-		dom.val(0);
-	});
-	$.each(fields5, function(i, field) {
 		var dom = $(field);
 		dom.val(0);
 	});
@@ -94,7 +85,6 @@ function getCommitteeTemplate(name){
 	var num = name == 'ai' ? i:j;
 	console.log(name == 'ai' ? 'i':'j');
 	var s = '<div id="'+name + num +'">'+
-	'				<input type="text" hidden="true" name="aiLists">'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon">คำนำหน้าชื่อ</span>'+
@@ -148,7 +138,7 @@ function preSpread(name){
 	var num = document.getElementById("number").value;
 	var ss= document.getElementById("spreadSupply").innerHTML;
 	ss = ""
-	for(var k=1;k<=num;k++)
+	for(k=1;k<=num;k++)
 	{
 		supplyList.push(k);
 		var v='  <div class="form-inline marginBtm1" role="form" align="left">'+
@@ -156,7 +146,7 @@ function preSpread(name){
 		'	        	<div class="form-group" >'+
 		'	        		<div class="input-group"> '+
 		'		                <span class="input-group-addon">สาขา</span>'+
-		'		                    <select class="form-control textAlignCenter  width300px" name="'+name+'Department'+k+'">'+
+		'		                    <select class="form-control textAlignCenter  width300px" name="'+name+'Department'+k+'" id="'+name+'Department'+k+'">'+
 		'		                        <option>สาขาวิชาการละคอน</option>'+
 		'		                        <option>สาขาวิชาศิลปะการออกแบบพัสตราภรณ์</option>'+
 		'		                        <option>สาขาวิชาศิลปะการออกแบบอุตสาหกรรม</option>'+
@@ -169,41 +159,41 @@ function preSpread(name){
 		'	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ห้อง</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width75px" name="'+name+'Room'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width75px" name="'+name+'Room'+k+'" id="'+name+'Room'+k+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ชั้น</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width50px" name="'+name+'Level'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width50px" name="'+name+'Level'+k+'" id="'+name+'Level'+k+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >รหัสFSN</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)" name="'+name+'FSNCode'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)" name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >คำนำหน้าชื่อ</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'PrefixName'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'PrefixName'+k+'" id="'+name+'PrefixName'+k+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ชื่อ/สกุล</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า" name="'+name+'Name'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า" name="'+name+'Name'+k+'" id="'+name+'Name'+k+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		''+
-		'		        	<div class="form-group" >'+
-		'			            <div class="input-group" >'+
-		'			                <span class="input-group-addon" >รหัสจากคลัง</span>'+
-		'			                <input type="text" class="form-control textAlignCenter  width100px" placeholder="ใส่ค่า" name="'+name+'Stock'+k+'">'+
-		'	                     <button>ตกลง</button>'+
-		'			            </div>'+
-		'		            </div>'+
+		'		        <div class="form-group" >'+
+		'			        <div class="input-group" >'+
+		'			            <span class="input-group-addon" >รหัสจากคลัง</span>'+
+		'			            <input type="text" class="form-control textAlignCenter  width100px" placeholder="ใส่ค่า" name="'+name+'Stock'+k+'" id="'+name+'Stock'+k+'">'+
+		'			        </div>'+
+		'		        </div>'+
+		'	            <button onclick="setValueBelow(\''+name+'\','+ k +')">ตกลง</button>'+
 		''+
 		'	        </div>  '
 		
@@ -213,10 +203,21 @@ function preSpread(name){
 	document.getElementById("supplyList").value = supplyList.join();
 }
 
+function setValueBelow(name,num){
+	for(var tmp=num+1; tmp<k; tmp++){
+		document.getElementById(name+'Department'+tmp).value = document.getElementById(name+'Department'+num).value;
+		document.getElementById(name+'Room'+tmp).value = document.getElementById(name+'Room'+num).value;
+		document.getElementById(name+'Level'+tmp).value = document.getElementById(name+'Level'+num).value;
+		document.getElementById(name+'PrefixName'+tmp).value = document.getElementById(name+'PrefixName'+num).value;
+		document.getElementById(name+'Name'+tmp).value = document.getElementById(name+'Name'+num).value;
+		document.getElementById(name+'Stock'+tmp).value = document.getElementById(name+'Stock'+num).value;
+	}
+}
+
 function loadOrderArticle(data){
 	var divTable = '';
 	for(var i = 0; i<data["length"]; i++){
-		divTable += '				<tr>'+
+		divTable += '				<tr id='+i+'>'+
 		'                    <th> <input type="checkbox"/> </th>'+
 		'                    <th>'+ data['data'][i].fsn +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
@@ -225,9 +226,9 @@ function loadOrderArticle(data){
 		'                    <th>'+ data['data'][i].price +'</th>'+
 		'                    <th>'+ data['data'][i].lifeTime +'</th>'+
 		'                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>'+
-		'                </tr>'
+		'                </tr>';
 	}
-	document.getElementById("durableArticleList").innerHTML = divTable
+	document.getElementById("durableArticleList").innerHTML = divTable;
 }
 
 function createAICommittee() {
