@@ -19,6 +19,11 @@ import javax.persistence.ManyToOne;
 
 import models.durableArticles.DurableArticles;
 import models.durableArticles.ProcurementDetail;
+
+import models.durableGoods.DurableGoods;
+
+
+
 import models.fsnNumber.*;
 import models.type.ImportStatus;
 import models.type.SuppliesStatus;
@@ -303,6 +308,47 @@ public class Import extends Controller {
     
     
     @BodyParser.Of(BodyParser.Json.class)
+    public static Result saveNewGoodsOrderDetail(){
+    	RequestBody body = request().body();
+    	System.out.println(body);
+    	JsonNode json = body.asJson();
+    	models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
+    	models.durableGoods.ProcurementDetail procurementDetail = new models.durableGoods.ProcurementDetail();
+    	DurableGoods durableGoods = new DurableGoods();
+    	
+    	procurementDetail.description = json.get("description").asText();
+    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
+    	procurementDetail.price = Double.parseDouble(json.get("price").asText());
+    	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+    	//procurementDetail.classifier = json.get("classifier").asText();
+    	procurementDetail.brand = json.get("brand").asText();
+    	procurementDetail.serialNumber = json.get("serialNumber").asText();
+    	//procurementDetail.partOfPic = json.get("serialNumber").asText();
+    	procurementDetail.procurement = procurement;
+    	procurementDetail.save();
+    	
+    	List<models.durableGoods.ProcurementDetail> procurementDetails = models.durableGoods.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
+    	ObjectNode result = Json.newObject();
+    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+    	int i=0;
+    	
+    	for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    		ObjectNode item = Json.newObject();
+    		item.put("fsn", "fsnCode");
+    		item.put("description", p.description);
+    		item.put("quantity", p.quantity);
+    		item.put("classifier", "อัน");
+    		item.put("price", p.price);
+    		item.put("priceNoVat", p.priceNoVat);
+    		jsonArray.insert(i++, item);
+    	}
+    	result.put("type", "goods");
+    	result.put("length",procurementDetails.size());
+	    result.put("data",jsonArray);
+    
+    	return ok(result);
+    }
+    @BodyParser.Of(BodyParser.Json.class)
     public static Result saveNewArticlesOrderDetail(){
     	// TODO : save detail
     	RequestBody body = request().body();
@@ -346,7 +392,7 @@ public class Import extends Controller {
     		item.put("lifeTime", p.llifeTime);
     		jsonArray.insert(i++, item);
     	}
-    	
+    	result.put("type", "article");
     	result.put("length",procurementDetails.size());
 	    result.put("data",jsonArray);
     	return ok(result);

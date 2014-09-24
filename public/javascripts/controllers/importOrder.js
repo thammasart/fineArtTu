@@ -75,7 +75,11 @@ function submitDetail(path){
 	    contentType: 'application/json',
 	    dataType: 'json',
     	success: function(result){
-    		loadOrderArticle(result);
+    		if(result["type"] == "article"){
+    			loadOrderArticle(result);
+    		}else{
+    			loadOrderGood(result);
+    		}
     	}
 	});
 }
@@ -135,12 +139,14 @@ function getCommitteeTemplate(name){
 }
 
 function preSpread(name){
-	var num = document.getElementById("number").value;
+	var num = document.getElementById("quantity").value;
+	
+	document.getElementById("fixNumber").value=num;
+	
 	var ss= document.getElementById("spreadSupply").innerHTML;
 	ss = ""
 	for(k=1;k<=num;k++)
 	{
-		supplyList.push(k);
 		var v='  <div class="form-inline marginBtm1" role="form" align="left">'+
 		''+
 		'	        	<div class="form-group" >'+
@@ -185,22 +191,30 @@ function preSpread(name){
 		'	                    <span class="input-group-addon" >ชื่อ/สกุล</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า" name="'+name+'Name'+k+'" id="'+name+'Name'+k+'">'+
 		'	                </div>'+
-		'	            </div>'+
-		''+
-		'		        <div class="form-group" >'+
+		'	            </div>'
+	
+if(name=='article')
+{
+var v2=	'		        <div class="form-group" >'+
 		'			        <div class="input-group" >'+
 		'			            <span class="input-group-addon" >รหัสจากคลัง</span>'+
 		'			            <input type="text" class="form-control textAlignCenter  width100px" placeholder="ใส่ค่า" name="'+name+'Stock'+k+'" id="'+name+'Stock'+k+'">'+
 		'			        </div>'+
-		'		        </div>'+
-		'	            <button onclick="setValueBelow(\''+name+'\','+ k +')">ตกลง</button>'+
-		''+
+		'		        </div>'
+}
+		
+var v3 ='	            <button onclick="setValueBelow(\''+name+'\','+ k +')">ตกลง</button>'+
 		'	        </div>  '
+if(name=='article')
+	v=v+v2+v3;
+else
+	v=v+v3;
+
+		
 		
 		ss=ss+v;
 	}
 	document.getElementById("spreadSupply").innerHTML=ss;
-	document.getElementById("supplyList").value = supplyList.join();
 }
 
 function setValueBelow(name,num){
@@ -230,6 +244,23 @@ function loadOrderArticle(data){
 	}
 	document.getElementById("durableArticleList").innerHTML = divTable;
 }
+
+function loadOrderGood(data){
+	var divTable = '';
+	for(var i = 0; i<data["length"]; i++){
+		divTable += '				<tr id='+i+'>'+
+		'                    <th> <input type="checkbox"/> </th>'+
+		'                    <th>'+ data['data'][i].code +'</th>'+
+		'                    <th>'+ data['data'][i].description +'</th>'+
+		'                    <th>'+ data['data'][i].quantity +'</th>'+
+		'                    <th>'+ data['data'][i].classifier +'</th>'+
+		'                    <th>'+ data['data'][i].price +'</th>'+
+		'                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>'+
+		'                </tr>';
+	}
+	document.getElementById("goodList").innerHTML = divTable;
+}
+
 
 function createAICommittee() {
 	var dv = document.createElement("div")
