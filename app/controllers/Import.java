@@ -446,22 +446,39 @@ public class Import extends Controller {
 
     
     @Security.Authenticated(Secured.class)
-    public static Result findNextFsnNumber(){
-//        String desIdInput = "";
-//        String desIdOutput = "";
-//        FSN_Description lastDes = FSN_Description.find.where().ilike("descriptionId",desIdInput+"%").orderBy("descriptionId desc").findList().get(0);
-//        
-//        ObjectNode result = Json.newObject();
-//        JsonNode json;
-//        
-//            ObjectMapper mapper = new ObjectMapper();
-//
-//            String jsonArray = mapper.writeValueAsString(groupId);
-//            json = Json.parse(jsonArray);
-//            result.put("groupId",json);
-//
-        return TODO;
-//        
+    public static Result findNextFsnNumber(String fsnKey){
+        String desIdInput = fsnKey;
+        System.out.println(fsnKey);
+        List<FSN_Description> allDes= FSN_Description.find.where().ilike("descriptionId",desIdInput+"%").orderBy("descriptionId desc").findList();
+        String lastDes = fsnKey + "-0000";
+        if(allDes.size() > 0){
+           lastDes = allDes.get(0).descriptionId; 
+        }
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+        
+            ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            String jsonArray = mapper.writeValueAsString(lastDes);
+            json = Json.parse(jsonArray);
+            result.put("lastDes",json);
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error3");
+        }
+
+      return ok(result);
+        
     }
     @Security.Authenticated(Secured.class)
     public static Result findFsn(){

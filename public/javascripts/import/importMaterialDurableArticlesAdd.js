@@ -4,7 +4,7 @@ var availableDes = [];
 var availableClassDes = [];
 var availableClassId = [];
 
-var desID;
+var desId;
 angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
     .controller('autoCompleteController',function($scope,$http){
         
@@ -12,11 +12,41 @@ angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
         $scope.groupDes= [];
         $scope.classId= [];
         $scope.classDes= [];
+        $scope.lastDes;
+        $scope.typeId = document.getElementById("typeId").value.length;
+        $scope.descriptionId;
 
-        $scope.findNextFsnNumber = function(){
-            
+        function findNextFsnNumber(key){
+            $http({method : 'GET',url : 'findNextFsnNumber' ,params : { fsnKey: key}})
+            .success(function(result){
+                $scope.lastDes= result;
+                console.log($scope.lastDes);
+                desId = $scope.lastDes.lastDes;
+                plusOne(desId);
+            });
         }
 
+        function plusOne(desId) { 
+            var number = desId[9]+desId[10]+desId[11]+desId[12];
+            var number = parseInt(number)+1;
+            if(number<10){
+                number = "-"+"0"+"0"+"0"+number;
+            }else  if(number<100){
+                number = "-"+"0"+"0"+number;
+            }else  if(number<1000){
+                number = "-"+"0"+number;
+            }else  if(number<10000){
+                number = "-"+number;
+            }
+
+
+            $scope.descriptionId = $scope.typeId + (number);
+        } 
+        $scope.matchTypeToDes = function(){
+            if(document.getElementById("typeId").value.length == 8){
+                findNextFsnNumber(document.getElementById("typeId").value);
+            }else document.getElementById("descriptionId").value = document.getElementById("typeId").value +"-";
+        };
         $scope.findFsn =function(){
             $http({method : 'GET',url : 'findFsn' })
             .success(function(result){
@@ -118,9 +148,6 @@ function findGroupDesByid(id){
                 break;
         }  
     }
-}
-function matchTypeToDes(){
-    document.getElementById("descriptionId").value = document.getElementById("typeId").value +"-"
 }
 function submitButtonClick(){
     

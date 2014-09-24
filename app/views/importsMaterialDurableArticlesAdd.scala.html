@@ -54,7 +54,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสชนิด</span>
-                                <input type="text" size="8" maxlength="8"class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="typeId" id="typeId"onkeyup="matchTypeToDes()">
+                                <input type="text" size="8" maxlength="8"class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="typeId" id="typeId" ng-model="typeId" ng-change="matchTypeToDes()">
                                 <span class="alertText" id="typeIdAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
@@ -70,7 +70,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสรายละเอียด</span>
-                                <input type="text" size="13" maxlength="13"class="form-control  textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="descriptionId" id="descriptionId" autocomplete="off">
+                                <input type="text" size="13" maxlength="13"class="form-control  textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="descriptionId" ng-model="descriptionId" id="descriptionId" autocomplete="off">
                                 <span class="alertText" id="descriptionIdAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>

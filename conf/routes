@@ -46,6 +46,8 @@ GET		/export/other                             		controllers.Export.exportOther(
 GET		/export/other/add                             	controllers.Export.exportOtherAdd()
 GET		/export/other/add/detail                        controllers.Export.exportOtherAddDetail()
 
+GET             /export/autocompleteExportCommitee              controllers.Export.autocompleteExportCommitee()
+
 GET		/import											controllers.Import.imports()
 GET		/import/institute								controllers.Import.importsInstitute()
 GET		/import/instituteAdd							controllers.Import.importsInstituteAdd()
@@ -63,7 +65,7 @@ GET             /report/exchangeDurableArticles                                 
 GET		/import/material						controllers.Import.importsMaterial()
 
 GET             /import/findFsn                                                 controllers.Import.findFsn()
-GET             /import/findNextFsnNumber                                       controllers.Import.findNextFsnNumber()
+GET             /import/findNextFsnNumber                                       controllers.Import.findNextFsnNumber(fsnKey : String)
 
 
 GET		/import/materialDurableArticlesAdd				controllers.Import.importsMaterialDurableArticlesAdd()
