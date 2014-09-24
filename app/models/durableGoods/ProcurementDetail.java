@@ -11,6 +11,7 @@ public class ProcurementDetail extends Model{
 
 	@Id
 	public long id;
+	public String description; // ชื่อ - รายละเอียด
 	public double price; // ราคราต่อหน่วย
 	public double priceNoVat; // ราคาต่อหน่วยไม่รวมภาษี
 	public int quantity; // จำนวน

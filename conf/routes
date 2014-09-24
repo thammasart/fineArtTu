@@ -82,6 +82,7 @@ GET		/import/order/DurableArticlesAdd/Material1		controllers.Import.importsOrder
 GET		/import/order/DurableArticlesAdd/Material2		controllers.Import.importsOrderDurableArticlesAddMaterial2()
 POST 	/import/saveNewArticlesOrder					controllers.Import.saveNewArticlesOrder()
 POST 	/import/saveNewArticlesOrderDetail				controllers.Import.saveNewArticlesOrderDetail()
+POST 	/import/saveNewGoodsOrderDetail					controllers.Import.saveNewGoodsOrderDetail()
 
 
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()

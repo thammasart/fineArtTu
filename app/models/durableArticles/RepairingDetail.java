@@ -23,7 +23,7 @@ public class RepairingDetail extends Model{
 	@ManyToOne
 	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการโอนย่าย
 	@ManyToOne
-	public Repairing พepairing; // การส่งซ่อม
+	public Repairing epairing; // การส่งซ่อม
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,RepairingDetail> find = new Finder(Long.class,RepairingDetail.class);
