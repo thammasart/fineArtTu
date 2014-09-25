@@ -45,6 +45,20 @@ function updateDetail(){
 
 }
 
+function validateSaveDetail(){
+    var submit = true;
+    alert(submit);
+    if(document.getElementById("groupCode").value ==""){
+        document.getElementById("groupCodeAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("groupCodeAlert").style.display= "none";
+
+    alert(submit);
+    if(submit){
+        saveDetail();
+    }
+}
+
 function saveDetail(){
 	updateDetail();
 	$.ajax({

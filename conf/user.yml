@@ -31,34 +31,66 @@
 - &test01 !!models.User
     username:              test01
     password:              test01
+    firstName:   dark
+    lastName:    vader
+    position:    admiral
+    departure:   deathStar
     status:                *UserStatus01 
 - &test02 !!models.User
     username:              test02
     password:              test02
+    firstName:   hello
+    lastName:    world
+    position:    dev
+    departure:   c++
     status:                *UserStatus01
 - &test03 !!models.User
     username:              test03
     password:              test03
+    firstName:   dargon
+    lastName:    knight
+    position:    solo mid
+    departure:   dota2
     status:                *UserStatus02
 - &test04 !!models.User
     username:              test04
     password:              test04
+    firstName:   lanaya
+    lastName:    dondo
+    position:    solo mid
+    departure:   dota3
     status:                *UserStatus02
 - &test05 !!models.User
     username:              test05
     password:              test05
+    firstName:   strike
+    lastName:    freedom
+    position:    gardian
+    departure:   seed
     status:                *UserStatus03 
 - &test06 !!models.User
     username:              test06
     password:              test06
+    firstName:   hello1
+    lastName:    world1
+    position:    dev
+    departure:   c++
     status:                *UserStatus03
 - &test07 !!models.User
     username:              test07
     password:              test07
+    firstName:   hello3
+    lastName:    world3
+    position:    dev
+    departure:   c++
     status:                *UserStatus04
 - &test08 !!models.User
     username:              test08
     password:              test08
+    firstName:   hello2
+    lastName:    world2
+    position:    dev
+    departure:   c++
     status:                *UserStatus04
 - &user01    !!models.User
   username:    user01
