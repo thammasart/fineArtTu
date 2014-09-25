@@ -46,7 +46,7 @@ GET		/export/other                             		controllers.Export.exportOther(
 GET		/export/other/add                             	controllers.Export.exportOtherAdd()
 GET		/export/other/add/detail                        controllers.Export.exportOtherAddDetail()
 
-GET             /export/autocompleteExportCommitee              controllers.Export.autocompleteExportCommitee()
+GET             /export/order/autocompleteExportCommitee              controllers.Export.autocompleteExportCommitee()
 
 GET		/import											controllers.Import.imports()
 GET		/import/institute								controllers.Import.importsInstitute()

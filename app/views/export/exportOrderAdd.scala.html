@@ -1,14 +1,17 @@
 @(user : User, requisition:models.consumable.Requisition)
 @header("exportOrderAdd")
 
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/export/order.js")"></script>
+  <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameAutoComplete.js")"></script>
   <body onload="init(@requisition.id)"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการเบิกจ่าย")
 
-<div class ="detailWindow" id="addWindows">
-  <form name="addOrder" method="post" action="@routes.Export.saveRequisition(requisition.id)">
+<div class ="detailWindow" id="addWindows" ng-app="userAccountModule" ng-controller="autoCompleteUserController">
+  <form name="addOrder" method="post" action="@routes.Export.saveRequisition(requisition.id)" ng-init="findUser()">
     <div>
 
       <div class="form-inline marginBtm1" role="form">
@@ -40,19 +43,19 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้จ่าย:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="user">
+              <input type="text" class="form-control width190px textAlignCenter" name="firstName" id="firstName">
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="user">
+              <input type="text" class="form-control width190px textAlignCenter" name="lastname" id="lastName">
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width125px">ตำแหน่ง</span>
-            <input type="text" class="form-control width190px textAlignCenter">
+            <input type="text" class="form-control width190px textAlignCenter" name="position" id="position">
           </div>
         </div>
       </div>
@@ -61,19 +64,19 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="approver">
+              <input type="text" class="form-control width190px textAlignCenter" name="approverName" id="approverName">
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="approver">
+              <input type="text" class="form-control width190px textAlignCenter" name="approverLastName" id="approverLastName">
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ตำแหน่ง</span>
-              <input type="text" class="form-control width190px textAlignCenter">
+              <input type="text" class="form-control width190px textAlignCenter" name="approverPosition" id="approverPosition">
           </div>
         </div>
       </div>
