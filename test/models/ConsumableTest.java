@@ -1,3 +1,5 @@
+package models;
+
 import org.junit.*;
 import java.util.Date;
 import java.util.Calendar;
@@ -75,7 +77,7 @@ public class ConsumableTest extends WithApplication {
 	@Test
 	public void createProcurementWithParameter() {
 		Procurement procurement = new Procurement();
-		procurement.name = "จัดซื้อเครื่องปรับอากาศ";
+		procurement.title = "จัดซื้อเครื่องปรับอากาศ";
 		procurement.contractNo = "1/57";
 		procurement.dateOfApproval = new Date();
 		procurement.addDate  = new Date();
@@ -85,7 +87,7 @@ public class ConsumableTest extends WithApplication {
 		procurement.dealer = "test" ;
 		procurement.telephoneNumber = "0999999999";
 
-		assertEquals("จัดซื้อเครื่องปรับอากาศ", procurement.name);
+		assertEquals("จัดซื้อเครื่องปรับอากาศ", procurement.title);
 		assertEquals("1/57", procurement.contractNo);
 		assertEquals(new Date(), procurement.dateOfApproval);
 		assertEquals(new Date(), procurement.addDate);
@@ -99,7 +101,7 @@ public class ConsumableTest extends WithApplication {
 	@Test
 	public void createProcurementAndSaveComplete() {
 		Procurement procurement = new Procurement();
-		procurement.name = "จัดซื้อเครื่องปรับอากาศ"; // ชื่อ เรื่อง
+		procurement.title = "จัดซื้อเครื่องปรับอากาศ"; // ชื่อ เรื่อง
 		procurement.contractNo = "1/57"; // สัญญาเลขที่
 		procurement.dateOfApproval = new Date(); // วันที่อนุมัติในสัญญา
 		procurement.addDate  = new Date(); // วันที่นำเข้า

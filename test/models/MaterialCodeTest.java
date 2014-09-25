@@ -1,3 +1,5 @@
+package models;
+
 import org.junit.*;
 import java.util.Date;
 import java.util.Calendar;

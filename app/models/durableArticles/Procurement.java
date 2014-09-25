@@ -38,6 +38,16 @@ public class Procurement extends Model{
 	public String getAddDate(){
 		return  addDate != null ? addDate.getDate() + "/" + (addDate.getMonth()+1) + "/" + (addDate.getYear()+1900):"";
 	}
+	
+	public String toString(){
+		String s = "";
+		for(AI_Committee a : aiCommittee){
+			s += "id = " + a.id + "\n";
+			s += "firstName = " + a.committee.firstName + "\n";
+			s += "lastName = " + a.committee.lastName + "\n";
+		}
+		return s;
+	}
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Procurement> find = new Finder(Long.class,Procurement.class);
