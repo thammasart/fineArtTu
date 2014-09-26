@@ -19,6 +19,8 @@ import javax.persistence.ManyToOne;
 
 import models.durableArticles.DurableArticles;
 import models.durableArticles.ProcurementDetail;
+import models.durableArticles.AI_Committee;
+import models.durableArticles.EO_Committee;
 
 import models.durableGoods.DurableGoods;
 
@@ -255,8 +257,83 @@ public class Import extends Controller {
     	System.out.println(Form.form(models.durableArticles.Procurement.class).bindFromRequest());
     	
     	//models.durableArticles.Procurement articlesOrder = Form.form(models.durableArticles.Procurement.class).bindFromRequest().get();
-    	
     	models.durableArticles.Procurement articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(form.get("id")));
+    	
+    	articlesOrder.title = form.get("title");
+    	articlesOrder.contractNo = form.get("contractNo	");
+    	articlesOrder.budgetType = form.get("budgetType");
+    	articlesOrder.institute = form.get("institute");
+    	articlesOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
+    	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   AI 
+    	
+    	String[] temp = form.get("aiLists").split(",");
+    	String a=form.get("aiLists");
+    	if(a != "")
+    	{
+	    	for(int i=0;i<temp.length;i++)
+	    	{
+	    		System.out.println("inlist is: "+temp[i]);
+	    		String pId=form.get("aiPersonalID"+temp[i]);
+	    		Committee cmt = Committee.find.byId(pId);
+	    		
+	    		if(cmt==null)
+	    		{
+	    			System.out.println("innnnn");
+			        cmt = new Committee();
+			        cmt.title = form.get("aiPrefixName"+temp[i]);		
+			        cmt.firstName = form.get("aiFirstName"+temp[i]);
+			        cmt.lastName = form.get("aiLastName"+temp[i]);
+			        cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
+			        cmt.position = form.get("aiPosition"+temp[i]);			
+		
+			        cmt.save();
+	    		}
+		        AI_Committee ai_cmt = new AI_Committee();
+		        ai_cmt.employeesType = form.get("aiCommitteeType"+temp[i]); 
+		        ai_cmt.committeePosition = form.get("aiCommitteePosition"+temp[i]);     
+		        ai_cmt.procurement = articlesOrder;
+		        ai_cmt.committee = cmt;
+		        
+		        ai_cmt.save();
+	    	}
+    	}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   endAI 	
+    	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   EO 	
+    	temp = form.get("eoLists").split(",");
+    	a=form.get("eoLists");
+    	if(a != "")
+    	{
+	    	for(int i=0;i<temp.length;i++)
+	    	{
+	    		System.out.println("inlist is: "+temp[i]);
+	    		String pId=form.get("eoPersonalID"+temp[i]);
+	    		Committee cmt = Committee.find.byId(pId);
+	    		
+	    		if(cmt==null)
+	    		{
+	    			System.out.println("innnnn");
+			        cmt = new Committee();
+			        cmt.title = form.get("eoPrefixName"+temp[i]);		
+			        cmt.firstName = form.get("eoFirstName"+temp[i]);
+			        cmt.lastName = form.get("eoLastName"+temp[i]);
+			        cmt.identificationNo = form.get("eoPersonalID"+temp[i]);
+			        cmt.position = form.get("eoPosition"+temp[i]);			
+		
+			        cmt.save();
+	    		}
+		        EO_Committee eo_cmt = new EO_Committee();
+		        eo_cmt.employeesType = form.get("eoCommitteeType"+temp[i]); 
+		        eo_cmt.committeePosition = form.get("eoCommitteePosition"+temp[i]);     
+		        eo_cmt.procurement = articlesOrder;
+		        eo_cmt.committee = cmt;
+		        
+		        eo_cmt.save();
+	    	}
+    	}
+    	
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   endEO 	   	
     	try {
     		Date date;
 	        if(!form.get("addDate_p").equals("")) {
@@ -273,8 +350,14 @@ public class Import extends Controller {
     	}
     	System.out.println(articlesOrder.checkDate.toLocaleString());
         
+    	
+    	
+    	
+    	
         articlesOrder.status = ImportStatus.SUCCESS;        
         articlesOrder.save();
+        System.out.println(articlesOrder);
+        
         return redirect(routes.Import.importsOrder());
     }
     
@@ -303,6 +386,8 @@ public class Import extends Controller {
         
     	goodsOrder.status = ImportStatus.SUCCESS;        
     	goodsOrder.save();
+    	
+
         return redirect(routes.Import.importsOrder());
     }
     
@@ -315,6 +400,7 @@ public class Import extends Controller {
     	models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
     	models.durableGoods.ProcurementDetail procurementDetail = new models.durableGoods.ProcurementDetail();
     	DurableGoods durableGoods = new DurableGoods();
+    	
     	
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
@@ -356,8 +442,8 @@ public class Import extends Controller {
     	JsonNode json = body.asJson();
     	models.durableArticles.Procurement procurement = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
     	models.durableArticles.ProcurementDetail procurementDetail = new models.durableArticles.ProcurementDetail();
-    	DurableArticles durableArticles = new DurableArticles();
     	
+
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
     	procurementDetail.price = Double.parseDouble(json.get("price").asText());
@@ -365,6 +451,8 @@ public class Import extends Controller {
     	//procurementDetail.classifier = json.get("classifier").asText();
     	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
     	procurementDetail.alertTime = Double.parseDouble(json.get("alertTime").asText());
+    	procurementDetail.seller =json.get("seller").asText();
+    	procurementDetail.phone =json.get("phone").asText();
     	procurementDetail.brand = json.get("brand").asText();
     	procurementDetail.serialNumber = json.get("serialNumber").asText();
     	//procurementDetail.partOfPic = json.get("serialNumber").asText();
@@ -377,12 +465,35 @@ public class Import extends Controller {
     	durableArticles.status = SuppliesStatus.NORMAL;
     	durableArticles.detail = procurementDetail;*/
     	
+    	for(int i=1;i<=Integer.parseInt(json.get("quantity").asText());i++)
+    	{
+    	DurableArticles dA = new DurableArticles();
+    	
+    	dA.department = json.get("articleDepartment"+i).asText();
+    	dA.room = json.get("articleRoom"+i).asText();
+    	dA.floorLevel = json.get("articleLevel"+i).asText();
+    	dA.code = json.get("articleFSNCode"+i).asText();
+    	dA.title = json.get("articlePrefixName"+i).asText();			
+    	dA.firstName = json.get("articleFirstName"+i).asText();		
+    	dA.lastName = json.get("articleLastName"+i).asText();			
+    	dA.codeFromStock = json.get("articleStock"+i).asText(); 
+    	
+    	dA.detail = procurementDetail;
+    	
+    	dA.save();
+    	}
+    	
+    	
+    	
+    	
+    	
     	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
     	ObjectNode result = Json.newObject();
     	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
     	int i=0;
     	for(models.durableArticles.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
+    		item.put("id", p.id);
     		item.put("fsn", "fsnCode");
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
