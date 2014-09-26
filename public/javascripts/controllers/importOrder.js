@@ -97,8 +97,20 @@ function getCommitteeTemplate(name){
 	'				</div>'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
-	'					    <span class="input-group-addon">ชื่อ/สกุล</span>'+
-	'					    <input name="'+name+'Name'+ num +'" type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า">'+
+	'					    <span class="input-group-addon">ชื่อ</span>'+
+	'					    <input name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
+	'					</div>'+
+	'				</div>'+
+	'				<div class="form-group" >'+
+	'					<div class="input-group" >'+
+	'					    <span class="input-group-addon">สกุล</span>'+
+	'					    <input name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า">'+
+	'					</div>'+
+	'				</div>'+
+	'				<div class="form-group" >'+
+	'					<div class="input-group" >'+
+	'					    <span class="input-group-addon">หมายเลขบัตรประจำตัวประชาชน</span>'+
+	'					    <input name="'+name+'PersonalID'+ num +'" type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
 	'					</div>'+
 	'				</div>'+
 	'				<div class="form-group" >'+
@@ -125,7 +137,7 @@ function getCommitteeTemplate(name){
 	'						<span class="input-group-addon">ตำแหน่งในคณะกรรมการ</span>'+
 	'						<select name="'+name+'CommitteePosition'+ num +'" class="form-control textAlignCenter  width200px">'+
 	'						  <option>---เลือก---</option>'+
-	'						  <option>ประธารกรรมการ</option>'+
+	'						  <option>ประธานกรรมการ</option>'+
 	'						  <option>กรรมการ</option>'+
 	'						  <option>กรรมการและเรขานุการ</option>'+
 	'						</select>'+
@@ -188,8 +200,14 @@ function preSpread(name){
 		'	            </div>'+
 		'	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
-		'	                    <span class="input-group-addon" >ชื่อ/สกุล</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ใส่ค่า" name="'+name+'Name'+k+'" id="'+name+'Name'+k+'">'+
+		'	                    <span class="input-group-addon" >ชื่อ</span>'+
+		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'FirstName'+k+'" id="'+name+'Name'+k+'">'+
+		'	                </div>'+
+		'	            </div>'+
+		'	            <div class="form-group" >'+
+		'	                <div class="input-group" >'+
+		'	                    <span class="input-group-addon" >สกุล</span>'+
+		'	                    <input type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า" name="'+name+'LastName'+k+'" id="'+name+'Name'+k+'">'+
 		'	                </div>'+
 		'	            </div>'
 	
@@ -233,6 +251,7 @@ function loadOrderArticle(data){
 	for(var i = 0; i<data["length"]; i++){
 		divTable += '				<tr id='+i+'>'+
 		'                    <th> <input type="checkbox"/> </th>'+
+		'                    <th>'+ data['data'][i].id +'</th>'+
 		'                    <th>'+ data['data'][i].fsn +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+

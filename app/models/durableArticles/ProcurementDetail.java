@@ -1,7 +1,12 @@
 package models.durableArticles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import play.db.ebean.*;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import models.fsnNumber.FSN_Description;
 
@@ -15,12 +20,18 @@ public class ProcurementDetail extends Model{
 	public double price; // ราคราต่อหน่วย
 	public double priceNoVat; // ราคาไม่รวมภาษี
 	public int quantity; // จำนวน
-	public String classifier; // หน่วย, ลักษณนาม
+	//public String classifier; // หน่วย, ลักษณนาม
 	public double llifeTime;// อายุการใช้งาน
 	public double alertTime;// เวลาแจ้งเตือน
+	public String seller; // ยี่ห้อ
+	public String phone; // ยี่ห้อ
 	public String brand; // ยี่ห้อ
 	public String serialNumber; //หมายเลขเครื่อง
 	public String partOfPic; // รูปภาพ
+	
+	@JsonBackReference
+	@OneToMany(mappedBy="detail")
+	public List<DurableArticles> subDetails = new ArrayList<DurableArticles>();
 
 	@ManyToOne
 	public FSN_Description fsn; // หมายเลขครุภัณฑ์

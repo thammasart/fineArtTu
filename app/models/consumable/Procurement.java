@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import models.Company;
 
+
+
 @Entity
 @Table (name = "consumable_procurement")
 public class Procurement extends Model{

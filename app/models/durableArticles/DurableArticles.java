@@ -1,7 +1,12 @@
 package models.durableArticles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import play.db.ebean.*;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import models.type.*;
 import models.fsnNumber.FSN_Description;
@@ -12,9 +17,16 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 
 	@Id
 	public long id;
-	public String code; // รหัส
-	public String codeFromStock; //รหัสจากคลัง
-	public SuppliesStatus status; // สถานะ
+	public String department;		//สาขา
+	public String room;				//ห้อง
+	public String floorLevel;		//ชั้น
+	public String code; 			//รหัส
+	public String title;			//คำนำหน้าชื่อ
+	public String firstName;		//ชื่อ
+	public String lastName;			//สกุล
+	public String codeFromStock; 	//รหัสจากคลัง
+	public SuppliesStatus status; 	// สถานะ
+
 
 	@ManyToOne
 	public ProcurementDetail detail;
