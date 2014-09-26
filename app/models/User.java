@@ -38,6 +38,14 @@ public class User extends Model{
 		System.out.println("จำนวน รหัสวัสดุ :" + MaterialCode.find.findRowCount());
 		System.out.println("จำนวน fsn group :" + FSN_Group.find.findRowCount());
 		System.out.println("จำนวน fsn class :" + FSN_Class.find.findRowCount());
+		System.out.println("จำนวน fsn type :" + FSN_Type.find.findRowCount());
+		System.out.println("จำนวน fsn Description :" + FSN_Description.find.findRowCount());
+		System.out.println("จำนวน article procurement :" + models.durableArticles.Procurement.find.findRowCount());
+		System.out.println("จำนวน article procurement detail :" + models.durableArticles.ProcurementDetail.find.findRowCount());
+		System.out.println("จำนวน goods procurement :" + models.durableGoods.Procurement.find.findRowCount());
+		System.out.println("จำนวน goods procurement detail :" + models.durableGoods.ProcurementDetail.find.findRowCount());
+		System.out.println("จำนวน durable article :" + models.durableArticles.DurableArticles.find.findRowCount());
+		System.out.println("จำนวน goods article :" + models.durableGoods.DurableGoods.find.findRowCount());
 
         User user = find.byId(username);
 		if(user == null){
