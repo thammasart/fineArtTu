@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 import models.*;
+import models.durableGoods.DurableGoods;
+import models.durableGoods.ProcurementDetail;
 import models.durableGoods.AI_Committee;
 import models.type.ImportStatus;
 
@@ -36,7 +38,12 @@ public class Procurement extends Model{
 	@ManyToOne
 	public Company company; 				// บริษัทที่ทำการซื้อ
 
-	@OneToMany
+	
+	@JsonBackReference
+	@OneToMany(mappedBy="procurement")
+	public List<ProcurementDetail> details = new ArrayList<ProcurementDetail>();
+	
+	@OneToMany(mappedBy="procurement")
 	public List<AI_Committee> aiCommittee = new ArrayList<AI_Committee>(); // คณะกรรมการตรวจรับ
 
 	public String getAddDate(){
@@ -49,37 +56,54 @@ public class Procurement extends Model{
 	public String toString()
 	{
 		String s="";
+		
 		for(AI_Committee a: aiCommittee)
 		{
-			s+="title:";
-			s+=a.committee.title;
-			s+="\n";
+			System.out.println("AIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII_COMITTTEEE");
+			System.out.println(a.committee.title);
+			System.out.println(a.committee.firstName);
+			System.out.println(a.committee.lastName);
 			
-			s+="firstName:";
-			s+=a.committee.firstName;
-			s+="\n";
-			
-			s+="lastName:";
-			s+=a.committee.lastName;
-			s+="\n";
-			
-			s+="id:";
-			s+=a.committee.identificationNo;
-			s+="\n";
-			
-			s+="position:";
-			s+=a.committee.position;
-			s+="\n";
-			
-			s+="employeesType:";
-			s+=a.employeesType;
-			s+="\n";
-			
-			s+="committeePosition:";
-			s+=a.committeePosition;
-			s+="\n";
+			System.out.println(a.committee.identificationNo);
+			System.out.println(a.committee.position);
+			System.out.println(a.employeesType);
+			System.out.println(a.committeePosition);
+
 			
 		}
+		
+		
+		for(ProcurementDetail detail:this.details)
+		{
+			System.out.println("----------------------------------------ProcumentDetail-----------------------------------------------");
+			System.out.println(detail.id);
+			System.out.println(detail.description);
+			System.out.println(detail.price);
+			System.out.println(detail.priceNoVat);
+			System.out.println(detail.quantity);
+			System.out.println(detail.seller);
+			System.out.println(detail.phone);
+			System.out.println(detail.brand);
+			System.out.println(detail.serialNumber);
+			
+		
+			for(DurableGoods subDetail:detail.subDetails)
+			{
+				System.out.println("----------------------------------------SubDetail-------------------------------------------------");
+				System.out.println(subDetail.id);
+				System.out.println(subDetail.department);
+				System.out.println(subDetail.room);
+				System.out.println(subDetail.floorLevel);
+				System.out.println(subDetail.code);
+				System.out.println(subDetail.title);
+				System.out.println(subDetail.firstName);
+				System.out.println(subDetail.lastName);
+				System.out.println("----------------------------------------End------------------------------------------------------");
+			}
+	
+		}
+		
+		
 		return s;
 	}
 	
