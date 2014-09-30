@@ -367,6 +367,46 @@ public class Import extends Controller {
     	
     	System.out.println(Long.parseLong(form.get("id")));
     	models.durableGoods.Procurement goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(form.get("id")));
+    	goodsOrder.title = form.get("title");
+    	goodsOrder.contractNo = form.get("contractNo");
+    	goodsOrder.budgetType = form.get("budgetType");
+    	goodsOrder.institute = form.get("institute");
+    	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));	
+    	
+    	String[] temp = form.get("aiLists").split(",");
+    	String a=form.get("aiLists");
+    	
+    	if(a != "")
+    	{
+		    	for(int i=0;i<temp.length;i++)
+		    	{
+		    	System.out.println("inlist is: "+temp[i]);
+		    	String pId=form.get("aiPersonalID"+temp[i]);
+		    	Committee cmt = Committee.find.byId(pId);
+		    	
+		    	if(cmt==null)
+		    	{
+		    	System.out.println("innnnn");
+		    	cmt = new Committee();
+		    	cmt.title = form.get("aiPrefixName"+temp[i]);
+		    	cmt.firstName = form.get("aiFirstName"+temp[i]);
+		    	cmt.lastName = form.get("aiLastName"+temp[i]);
+		    	cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
+		    	cmt.position = form.get("aiPosition"+temp[i]);
+		    	
+		    	cmt.save();
+		    	}
+		    	
+		    models.durableGoods.AI_Committee ai_cmt = new models.durableGoods.AI_Committee();
+	    	ai_cmt.employeesType = form.get("aiCommitteeType"+temp[i]);
+	    	ai_cmt.committeePosition = form.get("aiCommitteePosition"+temp[i]);
+	    	ai_cmt.procurement = goodsOrder;
+	    	ai_cmt.committee = cmt;
+	    	
+	    	ai_cmt.save();
+	    	}
+    	}
+    	
     	
     	try {
     		Date date;
@@ -386,7 +426,7 @@ public class Import extends Controller {
         
     	goodsOrder.status = ImportStatus.SUCCESS;        
     	goodsOrder.save();
-    	
+    	System.out.println(goodsOrder);
 
         return redirect(routes.Import.importsOrder());
     }
@@ -398,20 +438,40 @@ public class Import extends Controller {
     	System.out.println(body);
     	JsonNode json = body.asJson();
     	models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
+
     	models.durableGoods.ProcurementDetail procurementDetail = new models.durableGoods.ProcurementDetail();
-    	DurableGoods durableGoods = new DurableGoods();
-    	
     	
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
     	procurementDetail.price = Double.parseDouble(json.get("price").asText());
     	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
     	//procurementDetail.classifier = json.get("classifier").asText();
+    	procurementDetail.seller =json.get("seller").asText();
+    	procurementDetail.phone =json.get("phone").asText();
     	procurementDetail.brand = json.get("brand").asText();
     	procurementDetail.serialNumber = json.get("serialNumber").asText();
     	//procurementDetail.partOfPic = json.get("serialNumber").asText();
     	procurementDetail.procurement = procurement;
     	procurementDetail.save();
+    
+
+    	for(int i=1;i<=Integer.parseInt(json.get("quantity").asText());i++)
+    	{
+	    	DurableGoods goods = new DurableGoods();
+	    	
+	    	goods.department = json.get("goodDepartment"+i).asText();
+	    	goods.room = json.get("goodRoom"+i).asText();
+	    	goods.floorLevel = json.get("goodLevel"+i).asText();
+	    	goods.codes = json.get("goodFSNCode"+i).asText();
+	    	goods.title = json.get("goodPrefixName"+i).asText();			
+	    	goods.firstName = json.get("goodFirstName"+i).asText();		
+	    	goods.lastName = json.get("goodLastName"+i).asText();			 
+	    	
+	    	goods.detail = procurementDetail;
+	    	
+	    	goods.save();
+    	}
+
     	
     	List<models.durableGoods.ProcurementDetail> procurementDetails = models.durableGoods.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
     	ObjectNode result = Json.newObject();
@@ -420,7 +480,8 @@ public class Import extends Controller {
     	
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
-    		item.put("fsn", "fsnCode");
+    		item.put("id", p.id);
+    		item.put("fsn", "Codes");
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
     		item.put("classifier", "อัน");

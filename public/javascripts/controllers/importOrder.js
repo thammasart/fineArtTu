@@ -139,7 +139,7 @@ function getCommitteeTemplate(name){
 	'						  <option>---เลือก---</option>'+
 	'						  <option>ประธานกรรมการ</option>'+
 	'						  <option>กรรมการ</option>'+
-	'						  <option>กรรมการและเรขานุการ</option>'+
+	'						  <option>กรรมการและเลขานุการ</option>'+
 	'						</select>'+
 	'					</div>'+
 	'				 </div>'+
@@ -188,8 +188,10 @@ function preSpread(name){
 		'	            </div>'+
 		'	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
-		'	                    <span class="input-group-addon" >รหัสFSN</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)" name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'">'+
+		'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
+		'	                    <input type="text" class="form-control textAlignCenter  '+
+						(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width150px"placeholder="ศก.พ.57-01000(02/05)"')+
+						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	            <div class="form-group" >'+

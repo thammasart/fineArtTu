@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import models.Company;
+import models.durableArticles.*;
 import models.fsnNumber.FSN_Description;
 import models.type.ImportStatus;
 import models.type.SuppliesStatus;
@@ -62,33 +63,31 @@ public class Procurement extends Model{
 		String s="";
 		for(AI_Committee a: aiCommittee)
 		{
-			s+="title:";
-			s+=a.committee.title;
-			s+="\n";
+			System.out.println("AIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII_COMITTTEEE");
+			System.out.println(a.committee.title);
+			System.out.println(a.committee.firstName);
+			System.out.println(a.committee.lastName);
 			
-			s+="firstName:";
-			s+=a.committee.firstName;
-			s+="\n";
+			System.out.println(a.committee.identificationNo);
+			System.out.println(a.committee.position);
+			System.out.println(a.employeesType);
+			System.out.println(a.committeePosition);
+
+		}
+		
+		
+		for(EO_Committee a: eoCommittee)
+		{
+			System.out.println("EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO_COMITTTEEE");
+			System.out.println(a.committee.title);
+			System.out.println(a.committee.firstName);
+			System.out.println(a.committee.lastName);
 			
-			s+="lastName:";
-			s+=a.committee.lastName;
-			s+="\n";
-			
-			s+="id:";
-			s+=a.committee.identificationNo;
-			s+="\n";
-			
-			s+="position:";
-			s+=a.committee.position;
-			s+="\n";
-			
-			s+="employeesType:";
-			s+=a.employeesType;
-			s+="\n";
-			
-			s+="committeePosition:";
-			s+=a.committeePosition;
-			s+="\n";
+			System.out.println(a.committee.identificationNo);
+			System.out.println(a.committee.position);
+			System.out.println(a.employeesType);
+			System.out.println(a.committeePosition);
+
 			
 		}
 		
@@ -112,7 +111,6 @@ public class Procurement extends Model{
 			System.out.println(detail.quantity);
 			System.out.println(detail.llifeTime);
 			System.out.println(detail.alertTime);
-			System.out.println(detail.llifeTime);
 			System.out.println(detail.seller);
 			System.out.println(detail.phone);
 			System.out.println(detail.brand);
