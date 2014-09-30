@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class MaterialType extends Model{
 
@@ -16,6 +18,7 @@ public class MaterialType extends Model{
 	@Column(nullable=false)
 	public String acronym;
 
+	@JsonBackReference
 	@OneToMany(mappedBy="materialType")
 	public List<MaterialCode> codeInType = new ArrayList<MaterialCode>();
 

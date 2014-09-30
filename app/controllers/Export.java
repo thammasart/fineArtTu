@@ -126,24 +126,32 @@ public class Export extends Controller {
         RequestBody body = request().body();
         JsonNode json = body.asJson();
 
-        System.out.println("saveOrderDetail\n");
+        System.out.println("saveOrderDetail\n ");
         System.out.println(json);
+        /*
         System.out.println("code : " + json.get("code").asText());
         System.out.println("quantity : " + json.get("quantity").asText());
         System.out.println("requisitionId : " + json.get("requisitionId"));
-
+        */
         RequisitionDetail newDetail = new RequisitionDetail();
 
         newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
-        if(json.get("quantity").asText() != ""){
-            newDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+        MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
+        if(code != null){
+            newDetail.code = code;
+        }
+        int quantity = Integer.parseInt(json.get("quantity").asText());
+        if(quantity > 0){
+            newDetail.quantity = quantity;
+        }
+        String firstName = json.get("withdrawerNmae").asText();
+        String lastName = json.get("withdrawerLastname").asText();
+        String position = json.get("withdrawerPosition").asText();
+        List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+        if(withdrawers.size() == 1){
+            newDetail.withdrawer = withdrawers.get(0);
         }
         newDetail.save();
-
-        //List<RequisitionDetail> detail = Requisition.find.byId(id).requisition;
-
-        //  result.put("name","Untitled");
-        //  result.put("last","Titled");
 
         return ok(body.asJson());
     }

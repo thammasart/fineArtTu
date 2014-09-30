@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class UserStatus extends Model{
 
@@ -17,6 +19,7 @@ public class UserStatus extends Model{
 	public boolean module4;
 	public boolean module5;
 
+	@JsonBackReference
 	@OneToMany(mappedBy="status")
 	public List<User> numberOfUser = new ArrayList<User>();
 
