@@ -24,7 +24,8 @@ var years = [ '2010', '2011', '2012', '2013', '2014' ];
 var state = {
 	'relation' : 'month',
 	'mode' : 'balance',
-	'item' : 'durableArticle'
+	'item' : 'durableArticle',
+	'previousMode' : 'balance'
 }
 var modeBtn = null;
 var mode = {
@@ -101,8 +102,14 @@ function load() {
                          Math.floor(Math.random() * 1000)]]);
 			}else{
 				$('#graph-tab a[href="#tracking"]').tab('show');
+				myRandom();
 			}
-			state['mode'] = 'detail';
+			if(state['mode'] != 'detail'){
+				state['mode'] = state['previousMode'];
+			}else{
+				state['previousMode'] = state['mode'];
+				state['mode'] = 'detail';
+			}
 			chart2.draw(data, options);
 		});
 	}
