@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import models.*;
+import models.durableGoods.AI_Committee;
 import models.type.ImportStatus;
 
 import models.Committee;
@@ -36,13 +37,50 @@ public class Procurement extends Model{
 	public Company company; 				// บริษัทที่ทำการซื้อ
 
 	@OneToMany
-	public List<EO_Committee> eoCommittee = new ArrayList<EO_Committee>(); // คณะกรรมการตรวจรับ
+	public List<AI_Committee> aiCommittee = new ArrayList<AI_Committee>(); // คณะกรรมการตรวจรับ
 
 	public String getAddDate(){
 		return  addDate != null ? addDate.getDate() + "/" + (addDate.getMonth()+1) + "/" + (addDate.getYear()+1900):"";
 	}
 	public String getCheckDate(){
 		return  checkDate != null ? checkDate.getDate() + "/" + (checkDate.getMonth()+1) + "/" + (checkDate.getYear()+1900):"";
+	}
+	
+	public String toString()
+	{
+		String s="";
+		for(AI_Committee a: aiCommittee)
+		{
+			s+="title:";
+			s+=a.committee.title;
+			s+="\n";
+			
+			s+="firstName:";
+			s+=a.committee.firstName;
+			s+="\n";
+			
+			s+="lastName:";
+			s+=a.committee.lastName;
+			s+="\n";
+			
+			s+="id:";
+			s+=a.committee.identificationNo;
+			s+="\n";
+			
+			s+="position:";
+			s+=a.committee.position;
+			s+="\n";
+			
+			s+="employeesType:";
+			s+=a.employeesType;
+			s+="\n";
+			
+			s+="committeePosition:";
+			s+=a.committeePosition;
+			s+="\n";
+			
+		}
+		return s;
 	}
 	
 	@SuppressWarnings("unchecked")

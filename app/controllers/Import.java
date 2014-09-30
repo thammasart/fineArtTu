@@ -373,6 +373,40 @@ public class Import extends Controller {
     	goodsOrder.institute = form.get("institute");
     	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));	
     	
+    	String[] temp = form.get("aiLists").split(",");
+    	String a=form.get("aiLists");
+    	
+    	if(a != "")
+    	{
+		    	for(int i=0;i<temp.length;i++)
+		    	{
+		    	System.out.println("inlist is: "+temp[i]);
+		    	String pId=form.get("aiPersonalID"+temp[i]);
+		    	Committee cmt = Committee.find.byId(pId);
+		    	
+		    	if(cmt==null)
+		    	{
+		    	System.out.println("innnnn");
+		    	cmt = new Committee();
+		    	cmt.title = form.get("aiPrefixName"+temp[i]);
+		    	cmt.firstName = form.get("aiFirstName"+temp[i]);
+		    	cmt.lastName = form.get("aiLastName"+temp[i]);
+		    	cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
+		    	cmt.position = form.get("aiPosition"+temp[i]);
+		    	
+		    	cmt.save();
+		    	}
+		    	
+		    models.durableGoods.AI_Committee ai_cmt = new models.durableGoods.AI_Committee();
+	    	ai_cmt.employeesType = form.get("aiCommitteeType"+temp[i]);
+	    	ai_cmt.committeePosition = form.get("aiCommitteePosition"+temp[i]);
+	    	ai_cmt.procurement = goodsOrder;
+	    	ai_cmt.committee = cmt;
+	    	
+	    	ai_cmt.save();
+	    	}
+    	}
+    	
     	
     	try {
     		Date date;
@@ -392,7 +426,7 @@ public class Import extends Controller {
         
     	goodsOrder.status = ImportStatus.SUCCESS;        
     	goodsOrder.save();
-    	
+    	System.out.println(goodsOrder);
 
         return redirect(routes.Import.importsOrder());
     }

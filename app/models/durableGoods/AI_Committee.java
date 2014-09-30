@@ -8,7 +8,7 @@ import models.Committee;
 
 @Entity
 @Table (name = "durable__goods_eo_committee")
-public class EO_Committee extends Model{
+public class AI_Committee extends Model{
 
 	@Id
 	public long id;
@@ -21,5 +21,5 @@ public class EO_Committee extends Model{
 	public Procurement procurement;	// การจัดซื้อ
 	
 	@SuppressWarnings("unchecked")
-	public static Finder<Long,EO_Committee> find = new Finder(Long.class,EO_Committee.class);
+	public static Finder<Long,AI_Committee> find = new Finder(Long.class,AI_Committee.class);
 }
