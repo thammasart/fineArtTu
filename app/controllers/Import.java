@@ -367,6 +367,12 @@ public class Import extends Controller {
     	
     	System.out.println(Long.parseLong(form.get("id")));
     	models.durableGoods.Procurement goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(form.get("id")));
+    	goodsOrder.title = form.get("title");
+    	goodsOrder.contractNo = form.get("contractNo");
+    	goodsOrder.budgetType = form.get("budgetType");
+    	goodsOrder.institute = form.get("institute");
+    	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));	
+    	
     	
     	try {
     		Date date;

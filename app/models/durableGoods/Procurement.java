@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import models.*;
 import models.type.ImportStatus;
 
+import models.Committee;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table (name = "durable_goods_procurement")
 public class Procurement extends Model{
@@ -22,6 +26,7 @@ public class Procurement extends Model{
 	public Date addDate = new Date(); 				// วันที่นำเข้า
 	public Date checkDate = new Date(); 				// วันทีตรวจสอบ
 	public String budgetType; 			// ประเภทงบประมาณ
+	public String institute;
 	public int budgetYear; 				// ปีงบประมาณ
 	//public String dealer; 			// ผู้ติดต่อ พนักงานขาย
 	//public String telephoneNumber;	// เบอร์โทร พนักงานขาย
@@ -35,6 +40,9 @@ public class Procurement extends Model{
 
 	public String getAddDate(){
 		return  addDate != null ? addDate.getDate() + "/" + (addDate.getMonth()+1) + "/" + (addDate.getYear()+1900):"";
+	}
+	public String getCheckDate(){
+		return  checkDate != null ? checkDate.getDate() + "/" + (checkDate.getMonth()+1) + "/" + (checkDate.getYear()+1900):"";
 	}
 	
 	@SuppressWarnings("unchecked")
