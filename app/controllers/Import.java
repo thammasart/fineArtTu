@@ -51,6 +51,8 @@ public class Import extends Controller {
     public static Result importsInstitute() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<Company> institutes = Company.find.all(); 
+        for(Company a:institutes)
+        System.out.println(a.id);
         return ok(importsInstitute.render(institutes,user));
     }
 
@@ -122,6 +124,27 @@ public class Import extends Controller {
 
 
         return redirect(routes.Import.importsInstitute());
+    }
+    
+    public static Result removeInstitute(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	Company company;
+    	
+    	System.out.println("fuckkkkkkkkkkk");
+    	
+        if(!form.get("institutesTickList").equals("")){
+    	String[] institutes = form.get("institutesTickList").split(",");
+    
+        
+            for(int i=0;i<institutes.length;i++){
+            		company = Company.find.byId(Long.parseLong(institutes[i]));
+            		company.delete();
+            }
+
+           // flash("delete","delete " + institutes.length +" account " );    
+        } //else flash("notSelect","please select at least one account");
+
+    	return redirect(routes.Import.importsInstitute());
     }
     
 
@@ -458,7 +481,6 @@ public class Import extends Controller {
     	for(int i=1;i<=Integer.parseInt(json.get("quantity").asText());i++)
     	{
 	    	DurableGoods goods = new DurableGoods();
-	    	
 	    	goods.department = json.get("goodDepartment"+i).asText();
 	    	goods.room = json.get("goodRoom"+i).asText();
 	    	goods.floorLevel = json.get("goodLevel"+i).asText();
@@ -529,7 +551,7 @@ public class Import extends Controller {
     	for(int i=1;i<=Integer.parseInt(json.get("quantity").asText());i++)
     	{
     	DurableArticles dA = new DurableArticles();
-    	
+    	dA.status = SuppliesStatus.NORMAL;
     	dA.department = json.get("articleDepartment"+i).asText();
     	dA.room = json.get("articleRoom"+i).asText();
     	dA.floorLevel = json.get("articleLevel"+i).asText();

@@ -1,6 +1,7 @@
 @(institutes:List[Company],user : User)
 @header("importsInstitute")
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
+    <script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
 
 @nav(user)
 @headerTag("ระบบลงทะเบียนสถานประกอบการ")
@@ -26,7 +27,7 @@
                     <a style="float:right;margin-left:1%;"href="@routes.Import.importsInstituteAdd()">
                     <button class="btn btn-success width200px">เพิ่มสถานประกอบการ</button>
                     </a>
-                    <button class="btn btn-danger width200px" style="float:right;">ลบสถานประกอบการ</button>
+                    <button class="btn btn-danger width200px" style="float:right;" onclick="removeInstitute()">ลบสถานประกอบการ</button>
                 </div>
 
 
@@ -51,7 +52,7 @@
 
                   @for(institute<- institutes){
                     <tr>
-                    <th><input type="checkbox"></th>
+                    <th><input id="@institute.id" type="checkbox" onclick="addTick(@institute.id)"></th>
                     <th>@institute.nameEntrepreneur</th>
                     <th>@institute.nameDealer</th>
                     <th>@institute.address.telephoneNumber</th>
