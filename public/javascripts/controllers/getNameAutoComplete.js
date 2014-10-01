@@ -3,6 +3,8 @@ var nameList= [];
 var lastnameList= [];
 var positionList= [];
 var userAll= [] ;
+var code = [];
+var codeName = [];
 
 var desId;
 angular.module('userAccountModule', ['ui.bootstrap'])
@@ -23,12 +25,27 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                 $scope.name= result.name;
                 $scope.lastname= result.lastname;
                 $scope.position= result.position;
+
+                code= result.code;
+                codeName= result.codeName;
                 nameList = $scope.name ;
                 lastnameList= $scope.lastname;
                 positionList= $scope.position;
             
                 combine();
 
+                $(function() {
+                    $( "#code" ).autocomplete({
+                      minLength:2,
+                      source: code
+                    });
+                });
+                $(function() {
+                    $( "#groupCode" ).autocomplete({
+                      minLength:3,
+                      source: codeName
+                    });
+                });
                 $(function() {
                     $( "#firstName" ).autocomplete({
                       source: userAll
@@ -43,7 +60,25 @@ angular.module('userAccountModule', ['ui.bootstrap'])
         };
     }
 );
-
+function radioClick(rValue){
+    document.getElementById("code").value = rValue;
+}
+function mapCodeNameToCode(){
+    var id = document.getElementById("groupCode").value ;
+    for(var j = 0; j <code.length;j++){
+        if(id == codeName[j]){
+            document.getElementById("code").value = code[j];            
+        }
+    }
+}
+function mapCodeToCodeName(){
+    var id = document.getElementById("code").value ;
+    for(var j = 0; j <code.length;j++){
+        if(id ==code[j]){
+            document.getElementById("groupCode").value = codeName[j];            
+        }
+    }
+}
 function mapInput(){
     var id = document.getElementById("firstName").value ;
     for(var j = 0; j < userAll.length;j++){

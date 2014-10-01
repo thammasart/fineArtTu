@@ -46,6 +46,7 @@ public class User extends Model{
 		System.out.println("จำนวน goods procurement detail :" + models.durableGoods.ProcurementDetail.find.findRowCount());
 		System.out.println("จำนวน durable article :" + models.durableArticles.DurableArticles.find.findRowCount());
 		System.out.println("จำนวน goods article :" + models.durableGoods.DurableGoods.find.findRowCount());
+		
 
         User user = find.byId(username);
 		if(user == null){

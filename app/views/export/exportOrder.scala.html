@@ -38,7 +38,7 @@
           <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
           <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
           <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>ผู้อนุมัติ</th>
+          <th>สถานะ</th>
           <th>รายละเอียด</th>
         </tr>
       </thead>
@@ -49,7 +49,7 @@
             <th> <input type="checkbox"/> </th>
             <th>@requisition.title</th>
             <th>@requisition.number</th>
-            <th>@requisition.getApproveDate()</th>
+            <th>@requisition.approveDateToString()</th>
             <th>@requisition.status</th>
             <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
           </tr>
@@ -75,8 +75,8 @@
           <th> <input type="checkbox"/> </th>
           <th>@requisition.title</th>
           <th>@requisition.number</th>
-          <th>@requisition.getApproveDate()</th>
-          <th>@requisition.status</th>
+          <th>@requisition.approveDateToString()</th>
+          <th>@requisition.approverToString()</th>
           <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
         </tr>
       }
