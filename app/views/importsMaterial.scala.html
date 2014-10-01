@@ -1,6 +1,8 @@
-@(fsns:List[models.fsnNumber.FSN_Description],    goodsCode:List[MaterialCode]    ,user : User)
+@(fsns:List[models.fsnNumber.FSN_Description],    goodsCode:List[MaterialCode]    ,user : User,tab : String)
 @header("importsMaterial")
 
+	<script src="@routes.Assets.at("javascripts/controllers/importMaterial.js")"></script>
+	<script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
 
 @nav(user)
 @headerTag("ระบบออกหมายเลขพัสดุ")
@@ -14,6 +16,7 @@
       <li><a href="#3" role="tab" data-toggle="tab">วัสดุสิ้นเปลือง</a></li>
     </ul>
 
+	
     <div class="tab-content">
 
 
@@ -33,12 +36,20 @@
                   <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialDurableArticlesAdd()">
                   <button class="btn btn-success width200px">เพิ่มครุภัณฑ์</button>
                   </a>
-                  <button class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
+                  <button class="btn btn-danger width200px" style="float:right;" onclick="removeMaterialCode('durableArticles')">ลบครุภัณฑ์</button>
               </div>
-
-
         </div>
-
+        @if(flash().containsKey("delete1")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("delete1")</font> 
+		</div>
+		}
+		@if(flash().containsKey("cantdelete1")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantdelete1")</font> 
+		</div>
+		}
+		
          <table class="table table-striped overlayTable">
             <legend>ครุภัณฑ์สำนักงาน 7510</legend>
                 <thead>
@@ -60,7 +71,7 @@
 
                   @for(fsn<- fsns){
                     <tr>
-                    <th><input type="checkbox"></th>
+                    <th><input id="fsn.descriptionId" type="checkbox" onclick="addTick('@fsn.descriptionId','durableArticles')"></th>
                     <th>@fsn.descriptionId</th>
                     <th>@fsn.descriptionDescription</th>
                     <th>@fsn.classifier</th>
@@ -109,10 +120,21 @@
                   <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialDurableGoodsAdd()">
                   <button class="btn btn-success width200px">เพิ่มวัสดุคงทนถาวร</button>
                   </a>
-                  <button class="btn btn-danger width200px" style="float:right;">ลบวัสดุคงทนถาวร</button>
+                  <button class="btn btn-danger width200px" style="float:right;" onclick="removeMaterialCode('durableGoods')">ลบวัสดุคงทนถาวร</button>
             </div>
 
         </div>
+        
+        @if(flash().containsKey("delete2")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("delete2")</font> 
+		</div>
+		}
+		@if(flash().containsKey("cantdelete2")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantdelete2")</font> 
+		</div>
+		}
 
 
            <table class="table table-striped overlayTable">
@@ -137,7 +159,7 @@
 
                   @if(goodCode.typeOfGood=="วัสดุคงทนถาวร"){
                   <tr>
-                  <th><input type="checkbox"></th>
+                  <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','durableGoods')"></th>
                   <th>@goodCode.code</th>
                   <th>@goodCode.description</th>
                   <th>@goodCode.typeOfGood</th>
@@ -192,11 +214,21 @@
                     <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialConsumableGoodsAdd()">
                     <button class="btn btn-success width200px">เพิ่มวัสดุสิ้นเปลือง</button>
                     </a>
-                    <button class="btn btn-danger width200px" style="float:right;">ลบวัสดุสิ้นเปลือง</button>
+                    <button class="btn btn-danger width200px" style="float:right;"  onclick="removeMaterialCode('consumableGoods')">ลบวัสดุสิ้นเปลือง</button>
               </div>
 
           </div>
 
+		@if(flash().containsKey("delete3")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("delete3")</font> 
+		</div>
+		}
+		@if(flash().containsKey("cantdelete3")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantdelete3")</font> 
+		</div>
+		}
 
            <table class="table table-striped overlayTable">
             <legend>วัสดุสิ้นเปลืองสำนักงาน</legend>
@@ -220,7 +252,7 @@
                                             
                   @if(goodCode.typeOfGood=="วัสดุสิ้นเปลือง"){
                   <tr>
-                  <th><input type="checkbox"></th>
+                  <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','consumableGoods')"></th>
                   <th>@goodCode.code</th>
                   <th>@goodCode.description</th>
                   <th>@goodCode.typeOfGood</th>
@@ -257,7 +289,7 @@
 
 <script>
   $(function () {
-    $('#imdTabs a:1').tab('show')
+    $('#imdTabs a[href="#@tab"]').tab('show')
   })
 </script>
 @footer()

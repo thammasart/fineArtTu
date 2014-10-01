@@ -64,6 +64,7 @@ GET             /report/exportDurableArticles                                   
 GET             /report/exchangeDurableArticles                                 controllers.Report.reportExchangeDurableArticles()
 
 GET		/import/material						controllers.Import.importsMaterial()
+GET		/import/material2						controllers.Import.importsMaterial2(tab :String)
 
 GET             /import/findFsn                                                 controllers.Import.findFsn()
 GET             /import/findNextFsnNumber                                       controllers.Import.findNextFsnNumber(fsnKey : String)
@@ -75,7 +76,8 @@ POST	/import/saveMaterialDurableArticles				controllers.Import.saveNewMaterialDu
 
 GET		/import/materialDurableGoodsAdd					controllers.Import.importsMaterialDurableGoodsAdd()
 POST	/import/saveMaterialDurableGoods				controllers.Import.saveNewMaterialDurableGoods()
-
+POST	/import/removeFSNCode							controllers.Import.removeFSNCode()
+POST 	/import/removeCode								controllers.Import.removeCode()
 GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
 
 GET		/import/order									controllers.Import.importsOrder()
