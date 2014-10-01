@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import javax.persistence.ManyToOne;
+import javax.swing.JOptionPane;
 
 import models.durableArticles.DurableArticles;
 import models.durableArticles.ProcurementDetail;
@@ -242,6 +243,34 @@ public class Import extends Controller {
         newCode.save();
 
         return redirect(routes.Import.importsMaterial());
+    }
+    
+    
+    @Security.Authenticated(Secured.class)
+	public static Result removeFSNCode(){
+	DynamicForm form = Form.form().bindFromRequest();
+	FSN_Description fsnCode;
+	
+	 if(!form.get("materialCodeTickList").equals("")){
+		 String[] fsn = form.get("materialCodeTickList").split(",");
+		 
+		
+		 List<ProcurementDetail> details = ProcurementDetail.find.all();
+		 
+         for(int i=0;i<fsn.length;i++){
+        	 fsnCode = FSN_Description.find.byId(fsn[i]);
+        	 int x = ProcurementDetail.find.where().eq("fsn", fsnCode).findRowCount();
+        	 
+        	 if(x==0)
+        		 fsnCode.delete();
+        	 else
+        		 JOptionPane.showMessageDialog(null, "ไม่สามารถลบรหัส"+fsn[i]+"เนื่องจากรหัสนี้ได้ถูกใช้งานอยู่ในระบบ", "alert", JOptionPane.ERROR_MESSAGE); 
+        	
+         }
+         JOptionPane.showMessageDialog(null, "ลบรหัสเสร็จสิ้น", "success", JOptionPane.INFORMATION_MESSAGE); 
+	 }
+	
+	return redirect(routes.Import.importsMaterial());
     }
 
     //----------------------------------------------------------------------------------------------------

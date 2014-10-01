@@ -48,7 +48,7 @@ function removeMaterialCode(type){
 	if(type=='durableArticles')
 	{
 		materialCodeTickList={'materialCodeTickList':durableArticlesTick};
-		postData('/import/materialRemove',materialCodeTickList);
+		postData('/import/removeFSNCode',materialCodeTickList);
 	}
 	else if(type=='durableGoods')
 	{

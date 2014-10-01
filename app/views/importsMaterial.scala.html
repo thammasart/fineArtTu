@@ -35,7 +35,7 @@
                   <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialDurableArticlesAdd()">
                   <button class="btn btn-success width200px">เพิ่มครุภัณฑ์</button>
                   </a>
-                  <button class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
+                  <button class="btn btn-danger width200px" style="float:right;" onclick="removeMaterialCode('durableArticles')">ลบครุภัณฑ์</button>
               </div>
 
 
@@ -259,7 +259,7 @@
 
 <script>
   $(function () {
-    $('#imdTabs a:1').tab('show')
+    $('#imdTabs a:first').tab('show')
   })
 </script>
 @footer()

@@ -75,7 +75,7 @@ POST	/import/saveMaterialDurableArticles				controllers.Import.saveNewMaterialDu
 
 GET		/import/materialDurableGoodsAdd					controllers.Import.importsMaterialDurableGoodsAdd()
 POST	/import/saveMaterialDurableGoods				controllers.Import.saveNewMaterialDurableGoods()
-
+POST	/import/removeFSNCode							controllers.Import.removeFSNCode()
 GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
 
 GET		/import/order									controllers.Import.importsOrder()
