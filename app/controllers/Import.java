@@ -256,18 +256,27 @@ public class Import extends Controller {
 		 
 		
 		 List<ProcurementDetail> details = ProcurementDetail.find.all();
-		 
+		 int del=0;
+		 int cantDel=0;
          for(int i=0;i<fsn.length;i++){
         	 fsnCode = FSN_Description.find.byId(fsn[i]);
         	 int x = ProcurementDetail.find.where().eq("fsn", fsnCode).findRowCount();
         	 
         	 if(x==0)
+        	 {
         		 fsnCode.delete();
+        		 del++;
+        	 }
         	 else
-        		 JOptionPane.showMessageDialog(null, "ไม่สามารถลบรหัส"+fsn[i]+"เนื่องจากรหัสนี้ได้ถูกใช้งานอยู่ในระบบ", "alert", JOptionPane.ERROR_MESSAGE); 
-        	
+        	 {
+        		 cantDel++;
+        	 }
+
          }
-         JOptionPane.showMessageDialog(null, "ลบรหัสเสร็จสิ้น", "success", JOptionPane.INFORMATION_MESSAGE); 
+         if(del!=0)
+         flash("delete","ลบรหัส FSN ทั้งหมด " + del +" รายการ ");
+         if(cantDel!=0)
+         flash("cantdelete","ไม่สามารถลบรหัส FSN ได้ " + cantDel +" รายการ เนื่องจากรายการเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");
 	 }
 	
 	return redirect(routes.Import.importsMaterial());

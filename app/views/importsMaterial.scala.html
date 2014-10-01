@@ -16,6 +16,7 @@
       <li><a href="#3" role="tab" data-toggle="tab">วัสดุสิ้นเปลือง</a></li>
     </ul>
 
+	
     <div class="tab-content">
 
 
@@ -37,10 +38,18 @@
                   </a>
                   <button class="btn btn-danger width200px" style="float:right;" onclick="removeMaterialCode('durableArticles')">ลบครุภัณฑ์</button>
               </div>
-
-
         </div>
-
+        @if(flash().containsKey("delete")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("delete")</font> 
+		</div>
+		}
+		@if(flash().containsKey("cantdelete")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantdelete")</font> 
+		</div>
+		}
+		
          <table class="table table-striped overlayTable">
             <legend>ครุภัณฑ์สำนักงาน 7510</legend>
                 <thead>
