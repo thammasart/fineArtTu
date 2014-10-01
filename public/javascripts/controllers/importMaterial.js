@@ -52,11 +52,13 @@ function removeMaterialCode(type){
 	}
 	else if(type=='durableGoods')
 	{
-	
+		materialCodeTickList={'materialCodeTickList':durableGoodsTick};
+		postData('/import/removeCode',materialCodeTickList);
 	}
 	else
 	{
-	
+		materialCodeTickList={'materialCodeTickList':consumableGoodsTick};
+		postData('/import/removeCode',materialCodeTickList);
 	}
 	
 	
