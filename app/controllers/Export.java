@@ -82,12 +82,31 @@ public class Export extends Controller {
 
         DynamicForm f = Form.form().bindFromRequest();
 
+        Requisition reqForm = Form.form(Requisition.class).bindFromRequest().get();
+
         req.title = f.get("title");
         req.number = f.get("number");
-        req.user = User.find.byId(f.get("user"));
-        req.approver = User.find.byId(f.get("approver"));
+        req.approveDate = reqForm.approveDate;
+
+        System.out.println("date :" + f.get("approveDate"));
+
+        String firstName = f.get("firstName");
+        String lastName = f.get("lastName");
+        String position = f.get("position");
+        List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+        if(employees.size() == 1){
+            req.user = employees.get(0);
+        }
+        firstName = f.get("approverFirstName");
+        lastName = f.get("approverLastName");
+        position = f.get("approverPosition");
+        employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+        if(employees.size() == 1){
+            req.approver = employees.get(0);
+        }
         req.status = ExportStatus.SUCCESS;
         req.update();
+
 
         //System.out.println(req.user.username);
         //System.out.println(req.approver.username);
@@ -100,7 +119,9 @@ public class Export extends Controller {
         User user = User.find.byId(session().get("username"));
         Requisition req = Requisition.find.byId(requisitionId);
 
-        req.status = ExportStatus.CANCEL;
+        if(req.status == ExportStatus.INIT){
+            req.status = ExportStatus.CANCEL;
+        }
         req.update();
 
         return redirect(routes.Export.exportOrder());
