@@ -735,4 +735,85 @@ public class Import extends Controller {
         return ok(result);
     }
     
+    @Security.Authenticated(Secured.class)
+    public static Result autoCompleteFsn(){
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+
+        List<String> fsnName = new ArrayList<String>();
+        List<String> fsnCode = new ArrayList<String>();
+
+        List<FSN_Description> fsnDes = FSN_Description.find.all();
+
+        try{
+            for(FSN_Description fd : fsnDes){
+                fsnName.add(fd.descriptionDescription);
+                fsnCode.add(fd.descriptionId);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+
+            String jsonArray = mapper.writeValueAsString(fsnName);
+            json = Json.parse(jsonArray);
+            result.put("fsnName",json);
+
+            jsonArray = mapper.writeValueAsString(fsnCode);
+            json = Json.parse(jsonArray);
+            result.put("fsnCode",json);
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error3");
+        }
+
+        return ok(result);
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result autoCompleteGood(){
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+
+        List<String> goodsCode = new ArrayList<String>();
+        List<String> goodsName = new ArrayList<String>();
+
+        List<MaterialCode> materialCode = MaterialCode.find.all();
+
+        try{
+            for(MaterialCode mc : materialCode){
+                goodsCode.add(mc.code);
+                goodsName.add(mc.description);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+
+            String jsonArray = mapper.writeValueAsString(goodsCode);
+            json = Json.parse(jsonArray);
+            result.put("goodsCode",json);
+
+            jsonArray = mapper.writeValueAsString(goodsName);
+            json = Json.parse(jsonArray);
+            result.put("goodsName",json);
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error3");
+        }
+
+        return ok(result);
+    }
 }

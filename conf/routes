@@ -66,6 +66,7 @@ GET             /report/exchangeDurableArticles                                 
 GET		/import/material						controllers.Import.importsMaterial()
 
 GET             /import/findFsn                                                 controllers.Import.findFsn()
+GET             /import/order/autoCompleteFsn                                         controllers.Import.autoCompleteFsn()
 GET             /import/findNextFsnNumber                                       controllers.Import.findNextFsnNumber(fsnKey : String)
 
 
