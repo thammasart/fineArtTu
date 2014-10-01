@@ -82,13 +82,9 @@ public class Export extends Controller {
 
         DynamicForm f = Form.form().bindFromRequest();
 
-        Requisition reqForm = Form.form(Requisition.class).bindFromRequest().get();
-
         req.title = f.get("title");
         req.number = f.get("number");
-        req.approveDate = reqForm.approveDate;
-
-        System.out.println("date :" + f.get("approveDate"));
+        req.setApproveDate(f.get("approveDate"));
 
         String firstName = f.get("firstName");
         String lastName = f.get("lastName");
@@ -96,6 +92,7 @@ public class Export extends Controller {
         List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
         if(employees.size() == 1){
             req.user = employees.get(0);
+            System.out.println("user :" + req.user.username);
         }
         firstName = f.get("approverFirstName");
         lastName = f.get("approverLastName");
@@ -103,6 +100,7 @@ public class Export extends Controller {
         employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
         if(employees.size() == 1){
             req.approver = employees.get(0);
+            System.out.println("appover :" + req.approver.username);
         }
         req.status = ExportStatus.SUCCESS;
         req.update();
