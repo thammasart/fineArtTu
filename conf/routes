@@ -14,7 +14,7 @@ GET		/export                                 controllers.Export.export()
 
 GET		/export/order                           controllers.Export.exportOrder()
 GET		/export/order/add                       controllers.Export.exportOrderAdd(requisitionId:Long)
-GET		/export/order/add/new                   controllers.Export.exportNewOrder()
+GET		/export/order/add/new                   controllers.Export.exportCreateOrder()
 GET		/export/order/add/Detail                controllers.Export.exportOrderAddDetail(detail:Long)
 POST	/export/order/saveRequisition			controllers.Export.saveRequisition(requisitionId:Long)
 

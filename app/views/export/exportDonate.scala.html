@@ -37,7 +37,7 @@
           <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
           <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
           <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>หน่ายงาน<span class="glyphicon glyphicon-sort"></span></th>
+          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
           <th>รายละเอียด</th>
           </tr>
       </thead>
@@ -75,7 +75,7 @@
           <th>@acution.title</th>
           <th>@acution.contractNo</th>
           <th>@acution.getApproveDate()</th>
-          <th>@acution.status</th>
+          <th>@acution.approverToString</th>
           <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
         </tr>
       }

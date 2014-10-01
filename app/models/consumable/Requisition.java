@@ -26,18 +26,17 @@ public class Requisition extends Model{
 	public Date approveDate; //วันที่ทำการอนุมัติ
 	public ExportStatus status; //สถานะใบเบิก
 
-	@JsonBackReference
-	@OneToMany(mappedBy="requisition")
-	public List<RequisitionDetail> detils = new ArrayList<RequisitionDetail>();
-
 	@ManyToOne
 	public User user; // ผู้จ่าย
 	@ManyToOne
 	public User approver; // ผู้อนุมัติ
 
+	@JsonBackReference
+	@OneToMany(mappedBy="requisition")
+	public List<RequisitionDetail> detils = new ArrayList<RequisitionDetail>();
+
 	public String approverToString(){
 		if(this.approver != null){
-			
 			return approver.firstName + ' ' + approver.lastName ;
 		}
 		return " null ";
@@ -61,7 +60,6 @@ public class Requisition extends Model{
 			return " -- ไม่ระบุ -- ";
 		}
 		else{
-
 			String result = ""+approveDate.getDate();
 			if(result.length() == 1){
 				result = "0" + result;
