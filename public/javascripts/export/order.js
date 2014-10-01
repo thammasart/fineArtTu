@@ -51,13 +51,36 @@ function updateDetail(){
 
 function validateSaveDetail(){
     var submit = true;
-    alert(submit);
     if(document.getElementById("groupCode").value ==""){
         document.getElementById("groupCodeAlert").style.display = "table-row";
         submit= false;
     }else  document.getElementById("groupCodeAlert").style.display= "none";
 
-    alert(submit);
+    if(document.getElementById("code").value ==""){
+        document.getElementById("codeAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("codeAlert").style.display= "none";
+
+    if(document.getElementById("quantity").value ==""){
+        document.getElementById("quantityAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("quantityAlert").style.display= "none";
+
+    if(document.getElementById("withdrawer").value ==""){
+        document.getElementById("withdrawerAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("withdrawerAlert").style.display= "none";
+
+    if(document.getElementById("withdrawerLastname").value ==""){
+        document.getElementById("withdrawerLastnameAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("withdrawerLastnameAlert").style.display= "none";
+
+    if(document.getElementById("withdrawerPosition").value ==""){
+        document.getElementById("withdrawerPositionAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("withdrawerPositionAlert").style.display= "none";
+
     if(submit){
         saveDetail();
     }

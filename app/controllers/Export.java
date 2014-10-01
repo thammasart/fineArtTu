@@ -311,9 +311,12 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result autocompleteExportCommitee (){
         List<User> allUser = User.find.all();
+        List<MaterialCode> allMaterial = MaterialCode.find.all();
         List<String> name = new ArrayList<String>();        
         List<String> lastname = new ArrayList<String>();
         List<String> position = new ArrayList<String>();
+        List<String> code = new ArrayList<String>();
+        List<String> codeName = new ArrayList<String>();
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode result = Json.newObject();
@@ -327,6 +330,10 @@ public class Export extends Controller {
                 position.add(us.position);
             } 
 
+            for(MaterialCode mat : allMaterial){
+                code.add(mat.code);
+                codeName.add(mat.description);               
+            }
 
             String jsonArray = mapper.writeValueAsString(name);
             json = Json.parse(jsonArray);
@@ -339,6 +346,14 @@ public class Export extends Controller {
             jsonArray = mapper.writeValueAsString(position);
             json = Json.parse(jsonArray);
             result.put("position",json);
+
+            jsonArray = mapper.writeValueAsString(code);
+            json = Json.parse(jsonArray);
+            result.put("code",json);
+
+            jsonArray = mapper.writeValueAsString(codeName);
+            json = Json.parse(jsonArray);
+            result.put("codeName",json);
         }
         catch(RuntimeException e){
             result.put("message", e.getMessage());
