@@ -84,10 +84,27 @@ public class Export extends Controller {
 
         req.title = f.get("title");
         req.number = f.get("number");
-        req.user = User.find.byId(f.get("user"));
-        req.approver = User.find.byId(f.get("approver"));
+        req.setApproveDate(f.get("approveDate"));
+
+        String firstName = f.get("firstName");
+        String lastName = f.get("lastName");
+        String position = f.get("position");
+        List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+        if(employees.size() == 1){
+            req.user = employees.get(0);
+            System.out.println("user :" + req.user.username);
+        }
+        firstName = f.get("approverFirstName");
+        lastName = f.get("approverLastName");
+        position = f.get("approverPosition");
+        employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+        if(employees.size() == 1){
+            req.approver = employees.get(0);
+            System.out.println("appover :" + req.approver.username);
+        }
         req.status = ExportStatus.SUCCESS;
         req.update();
+
 
         //System.out.println(req.user.username);
         //System.out.println(req.approver.username);
@@ -100,7 +117,9 @@ public class Export extends Controller {
         User user = User.find.byId(session().get("username"));
         Requisition req = Requisition.find.byId(requisitionId);
 
-        req.status = ExportStatus.CANCEL;
+        if(req.status == ExportStatus.INIT){
+            req.status = ExportStatus.CANCEL;
+        }
         req.update();
 
         return redirect(routes.Export.exportOrder());
@@ -126,24 +145,32 @@ public class Export extends Controller {
         RequestBody body = request().body();
         JsonNode json = body.asJson();
 
-        System.out.println("saveOrderDetail\n");
+        System.out.println("saveOrderDetail\n ");
         System.out.println(json);
+        /*
         System.out.println("code : " + json.get("code").asText());
         System.out.println("quantity : " + json.get("quantity").asText());
         System.out.println("requisitionId : " + json.get("requisitionId"));
-
+        */
         RequisitionDetail newDetail = new RequisitionDetail();
 
         newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
-        if(json.get("quantity").asText() != ""){
-            newDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+        MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
+        if(code != null){
+            newDetail.code = code;
+        }
+        int quantity = Integer.parseInt(json.get("quantity").asText());
+        if(quantity > 0){
+            newDetail.quantity = quantity;
+        }
+        String firstName = json.get("withdrawerNmae").asText();
+        String lastName = json.get("withdrawerLastname").asText();
+        String position = json.get("withdrawerPosition").asText();
+        List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+        if(withdrawers.size() == 1){
+            newDetail.withdrawer = withdrawers.get(0);
         }
         newDetail.save();
-
-        //List<RequisitionDetail> detail = Requisition.find.byId(id).requisition;
-
-        //  result.put("name","Untitled");
-        //  result.put("last","Titled");
 
         return ok(body.asJson());
     }
@@ -282,9 +309,12 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result autocompleteExportCommitee (){
         List<User> allUser = User.find.all();
+        List<MaterialCode> allMaterial = MaterialCode.find.all();
         List<String> name = new ArrayList<String>();        
         List<String> lastname = new ArrayList<String>();
         List<String> position = new ArrayList<String>();
+        List<String> code = new ArrayList<String>();
+        List<String> codeName = new ArrayList<String>();
         ObjectMapper mapper = new ObjectMapper();
 
         ObjectNode result = Json.newObject();
@@ -298,6 +328,10 @@ public class Export extends Controller {
                 position.add(us.position);
             } 
 
+            for(MaterialCode mat : allMaterial){
+                code.add(mat.code);
+                codeName.add(mat.description);               
+            }
 
             String jsonArray = mapper.writeValueAsString(name);
             json = Json.parse(jsonArray);
@@ -310,6 +344,14 @@ public class Export extends Controller {
             jsonArray = mapper.writeValueAsString(position);
             json = Json.parse(jsonArray);
             result.put("position",json);
+
+            jsonArray = mapper.writeValueAsString(code);
+            json = Json.parse(jsonArray);
+            result.put("code",json);
+
+            jsonArray = mapper.writeValueAsString(codeName);
+            json = Json.parse(jsonArray);
+            result.put("codeName",json);
         }
         catch(RuntimeException e){
             result.put("message", e.getMessage());

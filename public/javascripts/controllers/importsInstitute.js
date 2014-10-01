@@ -1,3 +1,24 @@
+var institutesTick = [];
+
+function addTick(name){
+	var instituteName = name;
+	console.log(institutesTick);
+	if(institutesTick.indexOf(instituteName) > -1){
+		institutesTick.remove(instituteName);
+	}else{
+		institutesTick.push(instituteName);
+	}
+}
+
+
+function removeInstitute(){
+	var institutesTickList = {
+			'institutesTickList'	: institutesTick
+	};
+	console.log('aaaaaaaaaaaaaaaa');
+	postData('/import/removeInstitute',institutesTickList);
+}
+
 angular.module('importsInstituteApp', ['ui.bootstrap'])
     .controller('importsInstituteCtrl',function($scope,$modal){
         
@@ -17,6 +38,9 @@ angular.module('importsInstituteApp', ['ui.bootstrap'])
         };
     }
 );
+
+	
+	
     var resultModalInstanceCtrl= function($scope, $modalInstance){
         
         $scope.ok = function () {

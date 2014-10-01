@@ -18,7 +18,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width250px">ใบเบิกวัสดุประจำเดือน</span>
-              <input type="text" class="form-control width300px textAlignCenter" autocomplete="off" name="title" id="title">
+              <input type="text" class="form-control width300px textAlignCenter" autocomplete="off" value="@requisition.title" name="title" id="title">
               <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width250px">วัน/เดือน/ปี ที่ทำการเบิกจ่าย</span>
-              <input type="text" class="form-control width300px textAlignCenter" id="date">
+              <input type="text" class="form-control width300px textAlignCenter" name="approveDate" id="date">
               <span class="alertText" id="dateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="lastname" id="lastName">
+              <input type="text" class="form-control width190px textAlignCenter" name="lastName" id="lastName">
               <span class="alertText" id="lastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="approverName" id="approverName" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" name="approverFirstName" id="approverName" onkeyup="mapInput2()">
               <span class="alertText" id="approverNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -145,21 +145,22 @@
 </div> 
 
 <div class="detailWindow orderAddDetailWindows" id="addDetailWindows">
-  <form name="addDetail" onsubmit="alert("A")">
+  <form name="addDetail" >
     <div class="well" >
 
       <div class="form-inline marginBtm1" role="form" align="left">
         <div class="form-group" >
           <div class="input-group" >
-              <span class="input-group-addon width250px" >ชื่อวัสดุ</span>
-              <input type="text" name="groupCode" id="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" >
-              <span class="alertText" id="groupCodeAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+              <span class="input-group-addon width250px" >รหัสวัสดุ</span>
+              <input type="text" name="code" id="code" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeyup="mapCodeToCodeName()">
+              <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group" >
           <div class="input-group" >
-              <span class="input-group-addon width250px" >รหัสวัสดุ</span>
-              <input type="text" name="code" id="code" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+              <span class="input-group-addon width250px" >ชื่อวัสดุ</span>
+              <input type="text" name="groupCode" id="groupCode" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeyup="mapCodeNameToCode()" >
+              <span class="alertText" id="groupCodeAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
@@ -169,6 +170,7 @@
           <div class="input-group" >
               <span class="input-group-addon width250px" >จำนวน</span>
               <input type="number" name="quantity" id="quantity" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)">
+              <span class="alertText" id="quantityAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
@@ -177,19 +179,22 @@
         <div class="form-group" >
           <div class="input-group" >
               <span class="input-group-addon width200px" >ผู้เบิก:ชื่อ</span>
-              <input type="text" name="withdrawer" id="withdrawer" class="form-control textAlignCenter  width200px"placeholder="ใส่ค่า" onkeyup="mapInput3()">
+              <input type="text" name="withdrawerNmae" id="withdrawer" class="form-control textAlignCenter  width200px"placeholder="ใส่ค่า" onkeyup="mapInput3()">
+              <span class="alertText" id="withdrawerAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group" >
           <div class="input-group" >
               <span class="input-group-addon width200px" >นามสกุล</span>
-              <input type="text" name="withdrawer" id="withdrawerLastname" class="form-control textAlignCenter  width200px"placeholder="ใส่ค่า">
+              <input type="text" name="withdrawerLastname" id="withdrawerLastname" class="form-control textAlignCenter  width200px"placeholder="ใส่ค่า">
+              <span class="alertText" id="withdrawerLastnameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group" >
           <div class="input-group" >
               <span class="input-group-addon width200px" >ตำแหน่ง</span>
-              <input type="text" name="withdrawer" id="withdrawerPosition" class="form-control textAlignCenter  width200px"placeholder="ใส่ค่า">
+              <input type="text" name="withdrawerPosition" id="withdrawerPosition" class="form-control textAlignCenter  width200px"placeholder="ใส่ค่า">
+              <span class="alertText" id="withdrawerPositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
@@ -202,29 +207,29 @@
 
             <table  class="table table-striped">
               <tr>
-                <td ><input type="radio"> วัสดุสำนักงาน(01)</td>
-                <td ><input type="radio"> วัสดุไฟฟ้าและวิทยุ(02)</td>
-                <td ><input type="radio"> วัสดุงานบ้านงานครัว(03)</td>
-                <td ><input type="radio"> วัสดุคอมพิวเตอร์(04)</td>
-                <td ><input type="radio"> วัสดุยานพาหนะและขนส่ง(05)</td>
-                <td ><input type="radio"> วัสดุวิทยาศาสตร์และการแพทย์(06)</td>
+                <td><input type="radio" name="radioNumber" value="01" onclick="radioClick(this.value)"> วัสดุสำนักงาน(01)</td>
+                <td><input type="radio" name="radioNumber" value="02" onclick="radioClick(this.value)"> วัสดุไฟฟ้าและวิทยุ(02)</td>
+                <td><input type="radio" name="radioNumber" value="03" onclick="radioClick(this.value)"> วัสดุงานบ้านงานครัว(03)</td>
+                <td><input type="radio" name="radioNumber" value="04" onclick="radioClick(this.value)"> วัสดุคอมพิวเตอร์(04)</td>
+                <td><input type="radio" name="radioNumber" value="05" onclick="radioClick(this.value)"> วัสดุยานพาหนะและขนส่ง(05)</td>
+                <td><input type="radio" name="radioNumber" value="06" onclick="radioClick(this.value)"> วัสดุวิทยาศาสตร์และการแพทย์(06)</td>
               </tr>
 
               <tr>
-              <td><input type="radio"> วัสดุโฆษณาและเผยแพร่(07)</td>
-                <td><input type="radio"> วัสดุการศึกษา(08)</td>
-                <td><input type="radio"> วัสดุสนาม(09)</td>
-                <td><input type="radio"> วัสดุการเกษตร(10)</td>
-                <td><input type="radio"> วัสดุสำรวจ(11)</td>
-                <td><input type="radio"> วัสดุก่อสร้าง(12)</td>
+                <td><input type="radio" name="radioNumber" value="07" onclick="radioClick(this.value)"> วัสดุโฆษณาและเผยแพร่(07)</td>
+                <td><input type="radio" name="radioNumber" value="08" onclick="radioClick(this.value)"> วัสดุการศึกษา(08)</td>
+                <td><input type="radio" name="radioNumber" value="09" onclick="radioClick(this.value)"> วัสดุสนาม(09)</td>
+                <td><input type="radio" name="radioNumber" value="10" onclick="radioClick(this.value)"> วัสดุการเกษตร(10)</td>
+                <td><input type="radio" name="radioNumber" value="11" onclick="radioClick(this.value)"> วัสดุสำรวจ(11)</td>
+                <td><input type="radio" name="radioNumber" value="12" onclick="radioClick(this.value)"> วัสดุก่อสร้าง(12)</td>
               </tr>
 
               <tr>
-                <td><input type="radio"> วัสดุโรงงาน(13)</td>
-                <td><input type="radio"> วัสดุดนตรีและนาฏศิลทป์(14)</td>
-                <td><input type="radio"> วัสดุกีฬา(15)</td>
-                <td><input type="radio"> วัสดุอาวุธ(16)</td>
-                <td><input type="radio"> วัสดุอื่นๆ(17)</td>
+                <td><input type="radio" name="radioNumber" value="13" onclick="radioClick(this.value)"> วัสดุโรงงาน(13)</td>
+                <td><input type="radio" name="radioNumber" value="14" onclick="radioClick(this.value)"> วัสดุดนตรีและนาฏศิลทป์(14)</td>
+                <td><input type="radio" name="radioNumber" value="15" onclick="radioClick(this.value)"> วัสดุกีฬา(15)</td>
+                <td><input type="radio" name="radioNumber" value="16" onclick="radioClick(this.value)"> วัสดุอาวุธ(16)</td>
+                <td><input type="radio" name="radioNumber" value="17" onclick="radioClick(this.value)"> วัสดุอื่นๆ(17)</td>
               </tr>
             </table>
 

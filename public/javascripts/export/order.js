@@ -5,10 +5,12 @@ var requisition = {
 };
 
 var detail = {
+	'code' : "00000",
 	'quantity' : 0,
 	'description' : "des",
-	'code' : "00000",
-  	'withdrawer' : "test01",
+  	'withdrawerNmae' : "",
+  	'withdrawerLastname' : "",
+  	'withdrawerPosition' : "",
   	'requisitionId': -1
 };
 
@@ -40,20 +42,45 @@ function updateDetail(){
 	detail.quantity = document.getElementById("quantity").value;
 	//detail.description = document.getElementById("description").value;
 	detail.code = document.getElementById("code").value;
-  	detail.withdrawer = document.getElementById("withdrawer").value;
+  	detail.withdrawerNmae = document.getElementById("withdrawer").value;
+  	detail.withdrawerLastname = document.getElementById("withdrawerLastname").value;
+  	detail.withdrawerPosition = document.getElementById("withdrawerPosition").value;
   	detail.requisitionId = requisition.id;
 
 }
 
 function validateSaveDetail(){
     var submit = true;
-    alert(submit);
     if(document.getElementById("groupCode").value ==""){
         document.getElementById("groupCodeAlert").style.display = "table-row";
         submit= false;
     }else  document.getElementById("groupCodeAlert").style.display= "none";
 
-    alert(submit);
+    if(document.getElementById("code").value ==""){
+        document.getElementById("codeAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("codeAlert").style.display= "none";
+
+    if(document.getElementById("quantity").value ==""){
+        document.getElementById("quantityAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("quantityAlert").style.display= "none";
+
+    if(document.getElementById("withdrawer").value ==""){
+        document.getElementById("withdrawerAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("withdrawerAlert").style.display= "none";
+
+    if(document.getElementById("withdrawerLastname").value ==""){
+        document.getElementById("withdrawerLastnameAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("withdrawerLastnameAlert").style.display= "none";
+
+    if(document.getElementById("withdrawerPosition").value ==""){
+        document.getElementById("withdrawerPositionAlert").style.display = "table-row";
+        submit= false;
+    }else  document.getElementById("withdrawerPositionAlert").style.display= "none";
+
     if(submit){
         saveDetail();
     }
@@ -81,28 +108,37 @@ function getDetail(id){
 		type: "GET",
 		url: "/export/order/lodeDetail",
 		data: {'id': id},
-//		cache: false,
 		success: function(data){
-			//alert(JSON.stringify(data));
 		   	details = JSON.stringify(data);
 		   	var tr = data["details"];
 
 		   	var arrayLength = tr.length;
 		   	var s = "";
 			for (var i = 0; i < arrayLength; i++) {
-				s += '<tr>' +
-					 '				<th>'+(i+1)+'</th>' +
-					 '				<th>'+tr[i].code+'</th>' +
-					 '				<th>'+tr[i].code+'</th>' +
-					 '				<th>'+tr[i].quantity+'</th>' +
-					 '				<th>'+tr[i].code+'</th>' +
-					 '				<th>'+tr[i].withdrawer+'</th>' +
-					 '</tr>';
+				s += '<tr>';
+				s += '				<th>'+(i+1)+'</th>';
+				if(tr[i].code){
+					s += '				<th>'+ tr[i].code.code +'</th>';
+					s += '				<th>'+ tr[i].code.description +'</th>';
+					s += '				<th>'+ tr[i].quantity+'</th>';
+					s += '				<th>'+ tr[i].code.classifier +'</th>';
+				}
+				else{
+					s += '				<th> null </th>';
+					s += '				<th> null </th>';
+					s += '				<th>'+tr[i].quantity+'</th>';
+					s += '				<th> null </th>';
+				}
+				if(tr[i].withdrawer){
+					s += '				<th>'+ tr[i].withdrawer.firstName + ' ' + tr[i].withdrawer.lastName +'</th>';
+				}
+				else{
+					s += '				<th> null </th>';
+				}
+				s += '				<th> </th>';
+				s += '</tr>';
 		   	}
-		   	//alert(s);
 		   	document.getElementById("detailInTable").innerHTML = s;
-
-
 		}
 	});
 }

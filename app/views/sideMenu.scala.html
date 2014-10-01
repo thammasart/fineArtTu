@@ -7,6 +7,7 @@
     <div class="panel panel-default" style="border-color:white;">
       <div class="panel-body">
             <ul class="nav nav-pills nav-stacked">
+            <!--
                 @if(user.status.module2){
                     <li class="lineShadow"><a href="@routes.Import.imports()">ระบบจัดซื้อและนำเข้าพัสดุ </a></li>
                 }
@@ -19,6 +20,8 @@
                 @if(user.status.module5){
                     <li class="lineShadow"><a href="@routes.Graph.index()">ระบบติดตามและตรวจสอบ </a></li>
                 }
+            -->
+                @if(user.status.module2){
                     <li>
                         <div >
                             <div class="dropdown">
@@ -33,6 +36,8 @@
                             </div>
                         </div>
                     </li>
+                }
+                @if(user.status.module3){
                     <li>
                         <div >
                             <div class="dropdown">
@@ -50,6 +55,8 @@
                             </div>
                         </div>
                     </li>
+                }
+                @if(user.status.module4){
                     <li>
                         <div >
                             <div class="dropdown">
@@ -67,6 +74,18 @@
                             </div>
                         </div>
                     </li>
+               }
+                @if(user.status.module5){
+                    <li>
+                            <div class="dropdown">
+                                <a href="@routes.Graph.index()">
+                                    <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" >
+                                        ระบบติดตามและตรวจสอบ
+                                    </button>
+                                </a>
+                            </div>
+                    </li>
+               }
 
             </ul>
       </div>
