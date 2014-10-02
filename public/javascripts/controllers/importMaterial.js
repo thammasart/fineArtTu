@@ -43,22 +43,31 @@ function addTick(name,type)
 }//end func
 
 function removeMaterialCode(type){
-	var materialCodeTickList;
+	var sendData;
 	
 	if(type=='durableArticles')
 	{
-		materialCodeTickList={'materialCodeTickList':durableArticlesTick};
-		postData('/import/removeFSNCode',materialCodeTickList);
+		sendData={
+			'materialCodeTickList':durableArticlesTick,
+			'type' : 'durableArticles'
+		};
+		postData('/import/removeFSNCode',sendData);
 	}
 	else if(type=='durableGoods')
 	{
-		materialCodeTickList={'materialCodeTickList':durableGoodsTick};
-		postData('/import/removeCode',materialCodeTickList);
+		sendData={
+				'materialCodeTickList':durableGoodsTick,
+				'type' : 'durableGoods'
+		};
+		postData('/import/removeCode',sendData);
 	}
 	else
 	{
-		materialCodeTickList={'materialCodeTickList':consumableGoodsTick};
-		postData('/import/removeCode',materialCodeTickList);
+		sendData={
+				'materialCodeTickList':consumableGoodsTick,
+				'type' : 'consumableGoods'
+				};
+		postData('/import/removeCode',sendData);
 	}
 	
 	

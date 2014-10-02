@@ -52,8 +52,6 @@ public class Import extends Controller {
     public static Result importsInstitute() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<Company> institutes = Company.find.all(); 
-        for(Company a:institutes)
-        System.out.println(a.id);
         return ok(importsInstitute.render(institutes,user));
     }
 
@@ -131,19 +129,40 @@ public class Import extends Controller {
     	DynamicForm form = Form.form().bindFromRequest();
     	Company company;
     	
-    	System.out.println("fuckkkkkkkkkkk");
-    	
         if(!form.get("institutesTickList").equals("")){
     	String[] institutes = form.get("institutesTickList").split(",");
-    
+    		
+    	int del=0;
+    	int cantDel=0;
+    	
         
             for(int i=0;i<institutes.length;i++){
             		company = Company.find.byId(Long.parseLong(institutes[i]));
-            		company.delete();
+            		int x=0;
+            		
+            		x+= models.durableArticles.Procurement.find.where().eq("company",company).findRowCount();
+            		x+= models.durableGoods.Procurement.find.where().eq("company",company).findRowCount();
+            		
+            		
+            		if(x==0)
+            		{
+            			del++;
+            			company.delete();
+            		}
+            		else
+            		{
+            			cantDel++;
+            		}
             }
-
-           // flash("delete","delete " + institutes.length +" account " );    
-        } //else flash("notSelect","please select at least one account");
+            if(del!=0)
+            {
+            	flash("delete1","ลบสถานประกอบการทั้งหมด " + del +" รายการ ");
+            }
+            if(cantDel!=0)
+            {
+            	flash("cantdelete1","ไม่สามารถลบสถานประกอบการได้ " + cantDel +" รายการ เนื่องจากสถานประกอบการเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");	
+            }
+        } else flash("notSelect","เลือกสถานประกอบการที่ต้องการจะลบ");
 
     	return redirect(routes.Import.importsInstitute());
     }
@@ -285,7 +304,7 @@ public class Import extends Controller {
         	 flash("delete1","ลบรหัส FSN ทั้งหมด " + del +" รายการ ");
          if(cantDel!=0)
         	 flash("cantdelete1","ไม่สามารถลบรหัส FSN ได้ " + cantDel +" รายการ เนื่องจากรหัส FSN เหล่านี้ได้ถูกใช้งานอยู่ในระบบ");
-	 }
+	 }else flash("notSelect1","เลือกรหัส FSN ที่ต้องการจะลบ");
 	
 	return redirect(routes.Import.importsMaterial2("1"));
     }
@@ -295,6 +314,8 @@ public class Import extends Controller {
     DynamicForm form = Form.form().bindFromRequest();
     	MaterialCode code=null;
     	String tab = "";
+    	
+    	String type = form.get("type");
     	
     	if(!form.get("materialCodeTickList").equals("")){
     		String[] codeInList = form.get("materialCodeTickList").split(",");
@@ -335,6 +356,19 @@ public class Import extends Controller {
 	   		}
 	   		
 	   		 
+    	}
+    	else{
+    		System.out.println(type);
+    		if(type.equals("durableGoods"))
+    		{
+	    		tab="2";
+	    		flash("notSelect2","เลือกรหัสวัสดุที่ต้องการจะลบ");
+    		}
+    		else if(type.equals("consumableGoods"))
+    		{
+        		tab="3";
+        		flash("notSelect3","เลือกรหัสวัสดุที่ต้องการจะลบ");
+    		}
     	}
     	
     	return redirect(routes.Import.importsMaterial2(tab));
