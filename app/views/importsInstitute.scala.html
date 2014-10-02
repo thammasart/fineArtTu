@@ -29,10 +29,25 @@
                     </a>
                     <button class="btn btn-danger width200px" style="float:right;" onclick="removeInstitute()">ลบสถานประกอบการ</button>
                 </div>
-
-
-
         </div>
+        
+        
+         @if(flash().containsKey("delete1")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("delete1")</font> 
+		</div>
+		}
+		@if(flash().containsKey("cantdelete1")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantdelete1")</font> 
+		</div>
+		}
+		@if(flash().containsKey("notSelect")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("notSelect")</font> 
+		</div>
+		}
+        
         <div class="adminUserinfoTableContainer">
             <table class="table table-striped overlayTable">
                 

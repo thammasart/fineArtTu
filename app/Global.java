@@ -14,6 +14,7 @@ public class Global extends GlobalSettings {
 			Ebean.save((List) Yaml.load("company.yml"));
 			Ebean.save((List) Yaml.load("export/requisition.yml"));
 			Ebean.save((List) Yaml.load("export/auction.yml"));
+			Ebean.save((List) Yaml.load("export/donation.yml"));
 		}
 	}
 }

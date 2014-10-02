@@ -52,7 +52,7 @@ public class Export extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportNewOrder() {
+    public static Result exportCreateOrder() {
         Requisition temp =  new Requisition();
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
@@ -63,9 +63,14 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportOrderAdd(long requisitionId) {
         User user = User.find.byId(session().get("username"));
-        return ok(exportOrderAdd.render(user,Requisition.find.byId(requisitionId)));
+        Requisition req = Requisition.find.byId(requisitionId);
+        if(req != null && req.status == ExportStatus.SUCCESS){
+            return redirect(routes.Export.exportOrder());
+        }
+        else{
+            return ok(exportOrderAdd.render(user,req));
+        }
     }
-
 
     @Security.Authenticated(Secured.class)
     public static Result exportOrderAddDetail(long requisitionId) {
@@ -259,9 +264,17 @@ public class Export extends Controller {
         return ok(exportDonate.render(user,initList, successList));
     }
     @Security.Authenticated(Secured.class)
+    public static Result exportCreateDonate() {
+        Donation temp =  new Donation();
+        temp.approveDate = new Date();
+        temp.status = ExportStatus.INIT;
+        temp.save();
+        return redirect(routes.Export.exportDonateAdd());
+    }
+    @Security.Authenticated(Secured.class)
     public static Result exportDonateAdd() {
         User user = User.find.byId(session().get("username"));
-        return ok(exportDonateAdd.render(user));
+        return ok(exportDonateAdd.render(user,null));
     }
     @Security.Authenticated(Secured.class)
     public static Result exportDonateAddDetail() {
@@ -368,5 +381,4 @@ public class Export extends Controller {
         return ok(result);
         
     }
-
 }
