@@ -771,6 +771,46 @@ public class Import extends Controller {
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
+    public static Result removeProcurementDetail(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	ProcurementDetail pc;
+    	
+    	
+        if(!form.get("parseData").equals("")){
+    	String[] procumentDetails = form.get("parseData").split(",");
+    		
+    	
+    	//int del=0;
+    	//int cantDel=0;
+    	
+        
+            for(int i=0;i<procumentDetails.length;i++){
+            		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
+            		
+            		for(DurableArticles subDetail:pc.subDetails)
+            		{
+            			System.out.println("innnnn");
+            			
+            			subDetail.delete();
+            		}
+
+            		pc.delete();
+            }
+            /*
+            if(del!=0)
+            {
+            	flash("delete1","ลบสถานประกอบการทั้งหมด " + del +" รายการ ");
+            }
+            if(cantDel!=0)
+            {
+            	flash("cantdelete1","ไม่สามารถลบสถานประกอบการได้ " + cantDel +" รายการ เนื่องจากสถานประกอบการเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");	
+            }
+            */
+        } //else flash("notSelect","เลือกสถานประกอบการที่ต้องการจะลบ");
+
+    	return redirect(routes.Import.importsOrderDurableArticlesAdd());
+    }
+    
     
     @Security.Authenticated(Secured.class)
     public static Result findNextFsnNumber(String fsnKey){

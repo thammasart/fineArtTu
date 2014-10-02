@@ -264,6 +264,13 @@ function addTick(name){
 	}
 }
 
+function removeProcurementDetail(){
+	var parseData = {
+			'parseData'	: procumentDetailsTick
+	};
+	console.log('aaaaaaaaaaaaaaaa');
+	postData('/import/removeProcurementDetail',parseData);
+}
 
 function loadOrderArticle(data){
 	var divTable = '';
