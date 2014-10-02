@@ -348,7 +348,6 @@ public class Import extends Controller {
         //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
         List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
         
-        
         return ok(importsOrder.render(aProcurement,gProcurement,user));
     }
     @Security.Authenticated(Secured.class)

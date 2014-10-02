@@ -88,7 +88,7 @@ function getCommitteeTemplate(name){
 	name == 'ai' ? aiLists.push(i):eoLists.push(j);
 	var num = name == 'ai' ? i:j;
 	console.log(name == 'ai' ? 'i':'j');
-	var s = '<div id="'+name + num +'" style="margin-bottom:1%">'+
+	var s = '<div id="'+name + num +'" style="margin-bottom:1%;display:inline-table">'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon">คำนำหน้าชื่อ</span>'+
@@ -191,8 +191,8 @@ function preSpread(name){
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  '+
-						(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width150px"placeholder="ศก.พ.57-01000(02/05)"')+
-						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+years+"-"+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
+						(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
+						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="ศก.'+years+"-"+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	            <div class="form-group" >'+

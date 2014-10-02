@@ -1,7 +1,10 @@
 @(order:models.durableGoods.Procurement,user : User)
 @header("importsOrderDurableGoodsAdd")
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
     <script src="@routes.Assets.at("javascripts/controllers/importsInstitute.js")"></script>
     <script src="@routes.Assets.at("javascripts/controllers/importOrder.js")"></script>
+    <script src="@routes.Assets.at("javascripts/controllers/importOrderGoodsAdd.js")"></script>
     <script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
 
 @nav(user)
@@ -10,13 +13,14 @@
 
     <div class="detailWindow" id="page1">
 	
-        <form id="saveOrderGood" method="post" action="@routes.Import.saveNewGoodsOrder()">
+        <form name="saveOrderGood" method="post" action="@routes.Import.saveNewGoodsOrder()" onsubmit="return submitButtonClicks()">
 	<input type="hidden" name="id" value="@order.id">
         <div class="form-inline marginBtm1" role="form" align="left">
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ชื่อรายการ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="title">
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="title" id="title">
+                        <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
         </div>
@@ -25,7 +29,8 @@
               <div class="form-group" >
                     <div class="input-group">
                         <span class="input-group-addon width250px" >เลขที่</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="contractNo">
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="contractNo" id="contractNo">
+                        <span class="alertText" id="contractNoAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
         </div>
@@ -34,8 +39,9 @@
               <div class="form-group" >
                     <div class="input-group date" id="addDate">
                         <span class="input-group-addon width250px" >วันที่นำเข้า</span>
-                        <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p">
+                        <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p" id="addDate_p">
                         <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <span class="alertText" id="addDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
         </div>
@@ -44,8 +50,9 @@
               <div class="form-group" >
                     <div class="input-group date" id="checkDate">
                         <span class="input-group-addon width250px" >วันที่ตรวจสอบ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p">
+                        <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p" id="checkDate_p">
                         <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <span class="alertText" id="checkDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
         </div>
@@ -79,6 +86,7 @@
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ปีงบประมาณ</span>
                         <input type=number class="form-control textAlignCenter  width300px" onkeypress="validateNumberKey(event)" placeholder="ใส่ค่า" name="budgetYear" id="years">
+                        <span class="alertText" id="yearsAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
         </div>
@@ -143,7 +151,7 @@
                 </button>
             </a>
             <a href="@routes.Import.importsOrder()">
-                <button form="saveOrderGood" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                <button form="saveOrderGood" type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
                     ยืนยัน <span class="glyphicon glyphicon-ok"></span>
                 </button>
             </a>
@@ -156,25 +164,27 @@
     <!-- ------------------------------------------------------------------------------------------------------------------------ -->
      <!-- ------------------------------------------------------------------------------------------------------------------------ -->
       <!-- ------------------------------------------------------------------------------------------------------------------------ -->
-<div class="detailWindow" id="page2">
-    <div class="well" >
+<div class="detailWindow" id="page2"ng-app="goodsCodeModule" ng-controller="autoCompleteGoods">
+    <div class="well" ng-init="findGoods()">
 		
 		
 		<input type="hidden" name="procurementId" value="@order.id">  <!-- id kong procument -->
 		
  
         
-        <div class="form-inline marginBtm1" role="form" align="left">
+        <div class="form-inline marginBtm1" role="form" align="left" >
                 <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ชื่อวัสดุ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description" id="description">
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description" id="description"onkeyup="mapDescriptionToCode()">
+                        <span class="alertText" id="descriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
                 <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >รหัสวัสดุ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="code" id="code">
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="code" id="code" onkeyup="mapCodeToDescription()">
+                        <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
         </div>
@@ -184,12 +194,14 @@
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคา</span>
                         <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat">
+                        <span class="alertText" id="priceNoVatAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคารวมภาษี</span>
                         <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price">
+                        <span class="alertText" id="priceAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
         </div>
@@ -199,6 +211,7 @@
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >จำนวน</span>
                     <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)" name="quantity" id="quantity">
+                        <span class="alertText" id="quantityAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
         </div>
@@ -208,12 +221,14 @@
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >พนักงานขาย</span>
                     <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="seller" id="seller">
+                    <span class="alertText" id="sellerAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >เบอร์โทรศัพท์</span>
                     <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="phone" id="phone">
+                    <span class="alertText" id="phoneAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
         </div>       

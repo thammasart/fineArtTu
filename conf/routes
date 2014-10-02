@@ -67,7 +67,8 @@ GET		/import/material						controllers.Import.importsMaterial()
 GET		/import/material2						controllers.Import.importsMaterial2(tab :String)
 
 GET             /import/findFsn                                                 controllers.Import.findFsn()
-GET             /import/order/autoCompleteFsn                                         controllers.Import.autoCompleteFsn()
+GET             /import/order/autoCompleteFsn                                   controllers.Import.autoCompleteFsn()
+GET             /import/order/autoCompleteGood                                  controllers.Import.autoCompleteGood()
 GET             /import/findNextFsnNumber                                       controllers.Import.findNextFsnNumber(fsnKey : String)
 
 
