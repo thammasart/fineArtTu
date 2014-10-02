@@ -49,6 +49,11 @@
         	 <font size="5">@flash().get("cantdelete1")</font> 
 		</div>
 		}
+		@if(flash().containsKey("notSelect1")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("notSelect1")</font> 
+		</div>
+		}
 		
          <table class="table table-striped overlayTable">
             <legend>ครุภัณฑ์สำนักงาน 7510</legend>
@@ -133,6 +138,11 @@
 		@if(flash().containsKey("cantdelete2")){
         <div class="alert alert-danger">
         	 <font size="5">@flash().get("cantdelete2")</font> 
+		</div>
+		}
+		@if(flash().containsKey("notSelect2")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("notSelect2")</font> 
 		</div>
 		}
 
@@ -227,6 +237,11 @@
 		@if(flash().containsKey("cantdelete3")){
         <div class="alert alert-danger">
         	 <font size="5">@flash().get("cantdelete3")</font> 
+		</div>
+		}
+		@if(flash().containsKey("notSelect3")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("notSelect3")</font> 
 		</div>
 		}
 

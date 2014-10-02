@@ -50,3 +50,39 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
         }
     }
 }
+$(document).ready( function () {
+	var searchBox = $('.searchS :input');
+	var tableContent = $('.table.table-striped.overlayTable');
+	var table;
+	var array = [];
+	for(var i=0; i<tableContent.length; i++){
+		table = $(tableContent.get(i)).DataTable({
+			info : false,
+			"iDisplayLength": 15,   // records per page
+			"sPaginationType": "bootstrap",
+			"sDom": "t <'pagingContainer'p> ",
+		});
+		array[i]= table;
+	}
+	for(var i=0; i<searchBox.length; i++){
+		if(searchBox.length < tableContent.length){
+			$(searchBox.get(i)).on( 'keyup change', function () {
+				var list = $(this).parent().parent().parent().parent().parent().parent().get(0);
+				var x = $(list).find(".table.table-striped.overlayTable");
+				for(var tmp=0; tmp < x.length; tmp++){
+					var id = x.get(tmp).id.slice(-1);
+					array[id].search( this.value ).draw();
+				}
+			});
+		}else{
+			$(searchBox.get(i)).on( 'keyup change', function () {
+				var id = $(this).parent().parent().parent().parent().parent().parent().attr('id');
+				if(id != undefined && !isNaN(id)){
+					array[id-1].search( this.value ).draw();
+				}else{
+					table.search(this.value).draw();
+				}
+			});
+		}
+	}
+} );
