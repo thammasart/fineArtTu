@@ -52,7 +52,7 @@ public class Export extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportNewOrder() {
+    public static Result exportCreateOrder() {
         Requisition temp =  new Requisition();
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
@@ -63,9 +63,14 @@ public class Export extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportOrderAdd(long requisitionId) {
         User user = User.find.byId(session().get("username"));
-        return ok(exportOrderAdd.render(user,Requisition.find.byId(requisitionId)));
+        Requisition req = Requisition.find.byId(requisitionId);
+        if(req != null && req.status == ExportStatus.SUCCESS){
+            return redirect(routes.Export.exportOrder());
+        }
+        else{
+            return ok(exportOrderAdd.render(user,req));
+        }
     }
-
 
     @Security.Authenticated(Secured.class)
     public static Result exportOrderAddDetail(long requisitionId) {
@@ -84,10 +89,27 @@ public class Export extends Controller {
 
         req.title = f.get("title");
         req.number = f.get("number");
-        req.user = User.find.byId(f.get("user"));
-        req.approver = User.find.byId(f.get("approver"));
+        req.setApproveDate(f.get("approveDate"));
+
+        String firstName = f.get("firstName");
+        String lastName = f.get("lastName");
+        String position = f.get("position");
+        List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+        if(employees.size() == 1){
+            req.user = employees.get(0);
+            System.out.println("user :" + req.user.username);
+        }
+        firstName = f.get("approverFirstName");
+        lastName = f.get("approverLastName");
+        position = f.get("approverPosition");
+        employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+        if(employees.size() == 1){
+            req.approver = employees.get(0);
+            System.out.println("appover :" + req.approver.username);
+        }
         req.status = ExportStatus.SUCCESS;
         req.update();
+
 
         //System.out.println(req.user.username);
         //System.out.println(req.approver.username);
@@ -100,7 +122,9 @@ public class Export extends Controller {
         User user = User.find.byId(session().get("username"));
         Requisition req = Requisition.find.byId(requisitionId);
 
-        req.status = ExportStatus.CANCEL;
+        if(req.status == ExportStatus.INIT){
+            req.status = ExportStatus.CANCEL;
+        }
         req.update();
 
         return redirect(routes.Export.exportOrder());
@@ -240,9 +264,17 @@ public class Export extends Controller {
         return ok(exportDonate.render(user,initList, successList));
     }
     @Security.Authenticated(Secured.class)
+    public static Result exportCreateDonate() {
+        Donation temp =  new Donation();
+        temp.approveDate = new Date();
+        temp.status = ExportStatus.INIT;
+        temp.save();
+        return redirect(routes.Export.exportDonateAdd());
+    }
+    @Security.Authenticated(Secured.class)
     public static Result exportDonateAdd() {
         User user = User.find.byId(session().get("username"));
-        return ok(exportDonateAdd.render(user));
+        return ok(exportDonateAdd.render(user,null));
     }
     @Security.Authenticated(Secured.class)
     public static Result exportDonateAddDetail() {
@@ -349,5 +381,4 @@ public class Export extends Controller {
         return ok(result);
         
     }
-
 }

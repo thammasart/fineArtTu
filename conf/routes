@@ -14,7 +14,7 @@ GET		/export                                 controllers.Export.export()
 
 GET		/export/order                           controllers.Export.exportOrder()
 GET		/export/order/add                       controllers.Export.exportOrderAdd(requisitionId:Long)
-GET		/export/order/add/new                   controllers.Export.exportNewOrder()
+GET		/export/order/add/new                   controllers.Export.exportCreateOrder()
 GET		/export/order/add/Detail                controllers.Export.exportOrderAddDetail(detail:Long)
 POST	/export/order/saveRequisition			controllers.Export.saveRequisition(requisitionId:Long)
 
@@ -64,6 +64,7 @@ GET             /report/exportDurableArticles                                   
 GET             /report/exchangeDurableArticles                                 controllers.Report.reportExchangeDurableArticles()
 
 GET		/import/material						controllers.Import.importsMaterial()
+GET		/import/material2						controllers.Import.importsMaterial2(tab :String)
 
 GET             /import/findFsn                                                 controllers.Import.findFsn()
 GET             /import/order/autoCompleteFsn                                         controllers.Import.autoCompleteFsn()
@@ -76,7 +77,8 @@ POST	/import/saveMaterialDurableArticles				controllers.Import.saveNewMaterialDu
 
 GET		/import/materialDurableGoodsAdd					controllers.Import.importsMaterialDurableGoodsAdd()
 POST	/import/saveMaterialDurableGoods				controllers.Import.saveNewMaterialDurableGoods()
-
+POST	/import/removeFSNCode							controllers.Import.removeFSNCode()
+POST 	/import/removeCode								controllers.Import.removeCode()
 GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
 
 GET		/import/order									controllers.Import.importsOrder()

@@ -18,7 +18,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width250px">ใบเบิกวัสดุประจำเดือน</span>
-              <input type="text" class="form-control width300px textAlignCenter" autocomplete="off" name="title" id="title">
+              <input type="text" class="form-control width300px textAlignCenter" autocomplete="off" value="@requisition.title" name="title" id="title">
               <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width250px">วัน/เดือน/ปี ที่ทำการเบิกจ่าย</span>
-              <input type="text" class="form-control width300px textAlignCenter" id="date">
+              <input type="text" class="form-control width300px textAlignCenter" name="approveDate" id="date">
               <span class="alertText" id="dateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -53,7 +53,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="lastname" id="lastName">
+              <input type="text" class="form-control width190px textAlignCenter" name="lastName" id="lastName">
               <span class="alertText" id="lastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="approverName" id="approverName" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" name="approverFirstName" id="approverName" onkeyup="mapInput2()">
               <span class="alertText" id="approverNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
