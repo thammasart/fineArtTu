@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;  
+
 public class ExportDonate extends Controller {
 	// บริจาค
     @Security.Authenticated(Secured.class)
@@ -58,4 +59,5 @@ public class ExportDonate extends Controller {
         User user = User.find.byId(session().get("username"));
         return ok(exportDonateAddDetail.render(user));
     }
+
 }

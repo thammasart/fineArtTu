@@ -136,9 +136,10 @@
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription">
         </div>
       </div>
+      <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
     </div>
   </form>  
 
@@ -157,7 +158,8 @@
         </tr>
       </thead>
       
-      <tbody>
+      <tbody id="searchResultTable">
+      <!--
         <tr>
             <th> <input type="checkbox"/> </th>
             <th>ศก.พ.57-7400-100-0005(01/02)</th>
@@ -173,7 +175,7 @@
             <th>5500</th>
             <th>5</th>
             <th> <button type="button" class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
-        </tr>
+        </tr>-->
       </tbody>
     </table>
 
