@@ -5,6 +5,10 @@ var aiLists = [];
 var eoLists = [];
 var supplyList=[];
 
+
+var procumentDetailsTick = [];
+
+
 $('document').ready(function(){
 	showPage('1');
 	createAICommittee();
@@ -37,6 +41,7 @@ function cancelStatus(id,typeOfOrder){
 	});
 }
 function clearPage(){
+	procumentDetailsTick = [];
 	var fields2 = $('#page2 :input[type="text"]');
 	var fields4 = $('#page2 :input[type="number"]');
 	var fields6 = $('#page2 :input[type="radio"]');
@@ -248,11 +253,23 @@ function setValueBelow(name,num){
 	}
 }
 
+
+function addTick(name){
+	var procumentDetailName = name;
+	console.log(procumentDetailsTick);
+	if(procumentDetailsTick.indexOf(procumentDetailName) > -1){
+		procumentDetailsTick.remove(procumentDetailName);
+	}else{
+		procumentDetailsTick.push(procumentDetailName);
+	}
+}
+
+
 function loadOrderArticle(data){
 	var divTable = '';
 	for(var i = 0; i<data["length"]; i++){
 		divTable += '				<tr id='+i+'>'+
-		'                    <th> <input type="checkbox"/> </th>'+
+		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
 		'                    <th>'+ data['data'][i].id +'</th>'+
 		'                    <th>'+ data['data'][i].fsn +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
