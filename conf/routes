@@ -106,6 +106,8 @@ GET		/import/order/GoodsAdd/Material1				controllers.Import.importsOrderGoodsAdd
 GET		/import/order/GoodsAdd/Material2				controllers.Import.importsOrderGoodsAddMaterial2()
 POST 	/import/saveNewGoodsOrder						controllers.Import.saveNewGoodsOrder()
 
+GET     /editUser                                                       controllers.Application.editUser()
+
 GET     /Admin                      					controllers.Admin.index()
 GET     /Admin/addUser              					controllers.Admin.addUser()
 GET     /Admin/manageRole           					controllers.Admin.manageRole()
@@ -113,6 +115,8 @@ POST	/Admin/addRole									controllers.Admin.addRole()
 POST	/Admin/removeRole								controllers.Admin.removeRole()
 POST    /Admin/saveUser									controllers.Admin.saveNewUser()
 POST    /Admin/removeUser								controllers.Admin.removeUser()
+
+POST    /Admin/saveEditUser								controllers.Application.saveEditUser()
 
 GET     /graph           								controllers.Graph.index()
 POST     /graph           								controllers.Graph.getData()

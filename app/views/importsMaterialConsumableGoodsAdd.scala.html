@@ -2,7 +2,12 @@
 @header("importsMaterialConsumableGoodsAdd")
 
     <script src="@routes.Assets.at("javascripts/import/materialConsumableGoodAdd.js")"></script>
-
+    <script>
+        function initFocusPoniter(){
+            document.addDurableArticles.code.focus();
+        }
+    </script>
+<body onload="initFocusPoniter()">
 @nav(user)
 @headerTagFull("เพิ่มรายละเอียดวัสดุสิ้นเปลือง")
 
@@ -61,7 +66,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสวัสดุ</span>
-                                <input type="text" class="form-control  textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="code" id="code">
+                                <input type="text" class="form-control  textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="code" id="code" size="5" maxlength="5">
                                 <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>

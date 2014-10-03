@@ -2,12 +2,15 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Http.RequestBody;
 import play.data.*;
 import play.libs.Json;
 import views.html.*;
 import models.*;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -97,6 +100,21 @@ public class Import extends Controller {
 
 
     public static Result saveNewInstitute(){
+    	MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+    	if (filePart != null) {
+			String fileName = filePart.getFilename();
+			String contentType = filePart.getContentType(); 
+			File file = filePart.getFile();
+			
+			
+			//save file to new path
+			
+			
+		} else {
+			flash("error", "Missing file");
+		}
+    	
         DynamicForm form = Form.form().bindFromRequest();
 
         String typeDurableArticles="";                                  //save all list
@@ -283,6 +301,7 @@ public class Import extends Controller {
 
     public static Result saveNewMaterialDurableGoods(){
     	String tab = "";
+        String code = "";
         DynamicForm form = Form.form().bindFromRequest();
 
         Form<MaterialCode> newCodeForm = Form.form(MaterialCode.class).bindFromRequest();
@@ -300,8 +319,11 @@ public class Import extends Controller {
             newCode.typeOfGood = "วัสดุสิ้นเปลือง";
             tab = "3";
         }
-
-        newCode.materialType = MaterialType.find.byId(form.get("chosen"));   //connect link
+        code = newCode.code;
+        code = Character.toString(code.charAt(0))+Character.toString(code.charAt(1));
+        System.out.println(code);
+        newCode.materialType = MaterialType.find.byId(code);   //connect link
+        //newCode.materialType = code[0]+code[1];
 
         newCode.save();
 

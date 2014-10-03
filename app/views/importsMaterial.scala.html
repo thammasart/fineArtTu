@@ -174,9 +174,9 @@
                   <th>@goodCode.typeOfGood</th>
                   <th>@goodCode.classifier</th>
                   <th>@goodCode.minNumberToAlert</th>
-                  <th>@goodCode.materialType.preCodeId</th>
-                  <th>@goodCode.materialType.typeName</th>
-                  <th>@goodCode.materialType.acronym</th>
+                  <th>goodCode.materialType.preCodeId</th>
+                  <th>goodCode.materialType.typeName</th>
+                  <th>goodCode.materialType.acronym</th>
                   <th><img src=""></th>
                   <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
                   </tr>
@@ -283,17 +283,6 @@
              </tbody>
            </table>
 
-            <div class="pagingContainer" align="center">
-                <ul class="pagination" style="margin:0;">
-                  <li class="disabled"><a href="#">&laquo;</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-            </div>
         </div>  <!--end id=3-->
 
       </div> <!-- end tab content-->
@@ -308,4 +297,4 @@
     $('#imdTabs a[href="#@tab"]').tab('show')
   })
 </script>
-@footer()
+@footerFull()
