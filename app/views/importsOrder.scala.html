@@ -1,4 +1,4 @@
-@(articleOrders : List[models.durableArticles.Procurement],goodOrders : List[models.durableGoods.Procurement],user : User)
+@(articleOrders : List[models.durableArticles.Procurement],goodOrders : List[models.durableGoods.Procurement],user : User,tab : String)
 @header("importsOrder")
 
 	<script src="@routes.Assets.at("javascripts/controllers/importOrderForDeleteProcurement.js")"></script>
@@ -30,7 +30,6 @@
                           </div>
                     </form>
             </div>
-            
             <div>
                 <a style="float:right;margin-left:1%;"href="@routes.Import.importsOrderDurableArticlesAdd()">
                 <button class="btn btn-success width200px">เพิ่มรายการครุภัณฑ์</button>
@@ -39,6 +38,17 @@
             </div>
 
         </div>
+        
+        @if(flash().containsKey("delete1")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("delete1")</font> 
+		</div>
+		}
+		@if(flash().containsKey("notSelect1")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("notSelect1")</font> 
+		</div>
+		}
 
             <table class="table table-striped overlayTable">
                 <thead>
@@ -113,6 +123,17 @@
               </div>
 
         </div>
+        
+        @if(flash().containsKey("delete2")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("delete2")</font> 
+		</div>
+		}
+		@if(flash().containsKey("notSelect2")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("notSelect2")</font> 
+		</div>
+		}
               <table class="table table-striped overlayTable">
                   <thead>
                       <tr>
@@ -170,7 +191,7 @@
 </div>
 <script>
   $(function () {
-    $('#imdTabs a:1').tab('show')
+    $('#imdTabs a[href="#@tab"]').tab('show')
   })
 </script>
 @footer()

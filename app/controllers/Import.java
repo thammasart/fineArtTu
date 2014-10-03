@@ -383,8 +383,19 @@ public class Import extends Controller {
         //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
         List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
         
-        return ok(importsOrder.render(aProcurement,gProcurement,user));
+        return ok(importsOrder.render(aProcurement,gProcurement,user,"1"));
     }
+    
+    @Security.Authenticated(Secured.class)
+    public static Result importsOrder2(String tab) {
+    User user = User.find.where().eq("username", session().get("username")).findUnique();
+    List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+    //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
+    List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+    
+    return ok(importsOrder.render(aProcurement,gProcurement,user,tab));
+}
+    
     @Security.Authenticated(Secured.class)
         public static Result importsOrderDurableArticlesAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -511,7 +522,7 @@ public class Import extends Controller {
         articlesOrder.save();
         System.out.println(articlesOrder);
         
-        return redirect(routes.Import.importsOrder());
+        return redirect(routes.Import.importsOrder2("1"));
     }
     
     public static Result saveNewGoodsOrder(){
@@ -581,7 +592,7 @@ public class Import extends Controller {
     	goodsOrder.save();
     	System.out.println(goodsOrder);
 
-        return redirect(routes.Import.importsOrder());
+        return redirect(routes.Import.importsOrder2("2"));
     }
     
     
@@ -733,18 +744,21 @@ public class Import extends Controller {
     	models.durableArticles.Procurement articlesOrder = null;
     	models.durableGoods.Procurement goodsOrder = null;
     	
+    	String tab="";
     	if(s.equals("article")){
     		System.out.println("in articles");
     		articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
         	articlesOrder.status = ImportStatus.CANCEL;
         	articlesOrder.update();
+        	tab="1";
     	}else{
     		System.out.println("in good");
     		goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
     		goodsOrder.status = ImportStatus.CANCEL;
     		goodsOrder.update();
+    		tab="2";
     	}
-        return redirect(routes.Import.importsOrder());
+        return redirect(routes.Import.importsOrder2(tab));
     }
     
     
@@ -773,6 +787,7 @@ public class Import extends Controller {
     public static Result removeProcurement(){
     	DynamicForm form = Form.form().bindFromRequest();
     	String type = form.get("type");
+    	String tab="";
 
     	if(type.equals("durableArticles"))
     	{
@@ -780,12 +795,18 @@ public class Import extends Controller {
     		{
     			String[] durableArticlesProcurementInList = form.get("durableArticlesProcurementTickList").split(",");
     			
+    			
     			for(int i=0;i<durableArticlesProcurementInList.length;i++)
     			{
     				models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(durableArticlesProcurementInList[i]));
     				p.status = ImportStatus.DELETE;
     				p.update();
     			}
+    			flash("delete1","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + durableArticlesProcurementInList.length +" รายการ ");
+    		}
+    		else
+    		{
+    			flash("notSelect1","เลือกรายการจัดซื้อและนำเข้าที่ต้องการจะลบ");
     		}
     	}
     	else if(type.equals("goods"))
@@ -793,6 +814,7 @@ public class Import extends Controller {
     		if(!form.get("goodsProcurementTickList").equals(""))
     		{
     			String[] goodsProcurementInList = form.get("goodsProcurementTickList").split(",");
+
     			
     			for(int i=0;i<goodsProcurementInList.length;i++)
     			{
@@ -800,10 +822,24 @@ public class Import extends Controller {
     				p.status = ImportStatus.DELETE;
     				p.update();
     			}
+    			flash("delete2","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + goodsProcurementInList.length +" รายการ ");
+    		}
+    		else
+    		{
+    			flash("notSelect2","เลือกรายการจัดซื้อและนำเข้าที่ต้องการจะลบ");
     		}
     	}
     	
-    	return redirect(routes.Import.importsOrder());
+		if(type.equals("durableGoods"))
+		{
+			tab="1";
+		}
+		else if(type.equals("goods"))
+		{
+			tab="2";
+		}
+    	
+    	return redirect(routes.Import.importsOrder2(tab));
     }
     
 
