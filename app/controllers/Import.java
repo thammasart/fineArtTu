@@ -2,12 +2,15 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Http.RequestBody;
 import play.data.*;
 import play.libs.Json;
 import views.html.*;
 import models.*;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +21,7 @@ import java.util.Locale;
 import javax.persistence.ManyToOne;
 import javax.swing.JOptionPane;
 
+import models.consumable.Procurement;
 import models.durableArticles.DurableArticles;
 import models.durableArticles.ProcurementDetail;
 import models.durableArticles.AI_Committee;
@@ -96,6 +100,21 @@ public class Import extends Controller {
 
 
     public static Result saveNewInstitute(){
+    	MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+    	if (filePart != null) {
+			String fileName = filePart.getFilename();
+			String contentType = filePart.getContentType(); 
+			File file = filePart.getFile();
+			
+			
+			//save file to new path
+			
+			
+		} else {
+			flash("error", "Missing file");
+		}
+    	
         DynamicForm form = Form.form().bindFromRequest();
 
         String typeDurableArticles="";                                  //save all list
@@ -419,8 +438,19 @@ public class Import extends Controller {
         //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
         List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
         
-        return ok(importsOrder.render(aProcurement,gProcurement,user));
+        return ok(importsOrder.render(aProcurement,gProcurement,user,"1"));
     }
+    
+    @Security.Authenticated(Secured.class)
+    public static Result importsOrder2(String tab) {
+    User user = User.find.where().eq("username", session().get("username")).findUnique();
+    List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+    //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
+    List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+    
+    return ok(importsOrder.render(aProcurement,gProcurement,user,tab));
+}
+    
     @Security.Authenticated(Secured.class)
         public static Result importsOrderDurableArticlesAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -547,7 +577,7 @@ public class Import extends Controller {
         articlesOrder.save();
         System.out.println(articlesOrder);
         
-        return redirect(routes.Import.importsOrder());
+        return redirect(routes.Import.importsOrder2("1"));
     }
     
     public static Result saveNewGoodsOrder(){
@@ -617,7 +647,7 @@ public class Import extends Controller {
     	goodsOrder.save();
     	System.out.println(goodsOrder);
 
-        return redirect(routes.Import.importsOrder());
+        return redirect(routes.Import.importsOrder2("2"));
     }
     
     
@@ -769,18 +799,21 @@ public class Import extends Controller {
     	models.durableArticles.Procurement articlesOrder = null;
     	models.durableGoods.Procurement goodsOrder = null;
     	
+    	String tab="";
     	if(s.equals("article")){
     		System.out.println("in articles");
     		articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
         	articlesOrder.status = ImportStatus.CANCEL;
         	articlesOrder.update();
+        	tab="1";
     	}else{
     		System.out.println("in good");
     		goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
     		goodsOrder.status = ImportStatus.CANCEL;
     		goodsOrder.update();
+    		tab="2";
     	}
-        return redirect(routes.Import.importsOrder());
+        return redirect(routes.Import.importsOrder2(tab));
     }
     
     
@@ -804,19 +837,74 @@ public class Import extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
+    
+    @Security.Authenticated(Secured.class)
+    public static Result removeProcurement(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	String type = form.get("type");
+    	String tab="";
 
-    @BodyParser.Of(BodyParser.Json.class)
-    public static Result removeProcurementDetail(){
+    	if(type.equals("durableArticles"))
+    	{
+    		if(!form.get("durableArticlesProcurementTickList").equals(""))
+    		{
+    			String[] durableArticlesProcurementInList = form.get("durableArticlesProcurementTickList").split(",");
+    			
+    			
+    			for(int i=0;i<durableArticlesProcurementInList.length;i++)
+    			{
+    				models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(durableArticlesProcurementInList[i]));
+    				p.status = ImportStatus.DELETE;
+    				p.update();
+    			}
+    			flash("delete1","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + durableArticlesProcurementInList.length +" รายการ ");
+    		}
+    		else
+    		{
+    			flash("notSelect1","เลือกรายการจัดซื้อและนำเข้าที่ต้องการจะลบ");
+    		}
+    	}
+    	else if(type.equals("goods"))
+    	{
+    		if(!form.get("goodsProcurementTickList").equals(""))
+    		{
+    			String[] goodsProcurementInList = form.get("goodsProcurementTickList").split(",");
+
+    			
+    			for(int i=0;i<goodsProcurementInList.length;i++)
+    			{
+    				models.durableGoods.Procurement p = models.durableGoods.Procurement.find.byId(Long.parseLong(goodsProcurementInList[i]));
+    				p.status = ImportStatus.DELETE;
+    				p.update();
+    			}
+    			flash("delete2","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + goodsProcurementInList.length +" รายการ ");
+    		}
+    		else
+    		{
+    			flash("notSelect2","เลือกรายการจัดซื้อและนำเข้าที่ต้องการจะลบ");
+    		}
+    	}
     	
-    	RequestBody body = request().body();
-    	//System.out.println("du value");
-    	//System.out.println(body);
-    	JsonNode json = body.asJson();
+		if(type.equals("durableGoods"))
+		{
+			tab="1";
+		}
+		else if(type.equals("goods"))
+		{
+			tab="2";
+		}
+    	
+    	return redirect(routes.Import.importsOrder2(tab));
+    }
     
 
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result removeProcurementDetail(){ //article
     	
-  
-    	
+    	RequestBody body = request().body();
+
+    	JsonNode json = body.asJson();
+    
     	ProcurementDetail pc;
     	models.durableArticles.Procurement procurement=null;
     	
@@ -858,44 +946,55 @@ public class Import extends Controller {
     	result.put("length",procurementDetails.size());
 	    result.put("data",jsonArray);
     	return ok(result);
+    }
+    
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result removeProcurementDetail2(){ //good
     	
-    	/*
-    	DynamicForm form = Form.form().bindFromRequest();
-    	ProcurementDetail pc;
-    	
-    	
-        if(!form.get("parseData").equals("")){
-    	String[] procumentDetails = form.get("parseData").split(",");
-    		
-    	
-    	//int del=0;
-    	//int cantDel=0;
-    	
-        
-            for(int i=0;i<procumentDetails.length;i++){
-            		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
-            		
-            		for(DurableArticles subDetail:pc.subDetails)
-            		{
-            			System.out.println("innnnn");
-            			
-            			subDetail.delete();
-            		}
+    	RequestBody body = request().body();
 
-            		pc.delete();
-            }
-            /*
-            if(del!=0)
-            {
-            	flash("delete1","ลบสถานประกอบการทั้งหมด " + del +" รายการ ");
-            }
-            if(cantDel!=0)
-            {
-            	flash("cantdelete1","ไม่สามารถลบสถานประกอบการได้ " + cantDel +" รายการ เนื่องจากสถานประกอบการเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");	
-            }
-            */
-       // } //else flash("notSelect","เลือกสถานประกอบการที่ต้องการจะลบ");
-   
+    	JsonNode json = body.asJson();
+    
+    	models.durableGoods.ProcurementDetail pc;
+    	models.durableGoods.Procurement procurement=null;
+    	
+    	
+    	if(!json.get("parseData").asText().equals(""))
+    	{
+        	String[] procumentDetails=json.get("parseData").asText().split(",");    		
+        	
+        	for(int i=0;i<procumentDetails.length;i++)
+        	{
+        		pc = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
+        		procurement = models.durableGoods.Procurement.find.byId(pc.procurement.id);
+        		for(DurableGoods subDetail:pc.subDetails)
+        		{
+        			subDetail.delete();
+        		}
+        		pc.delete();
+        	}
+    	}
+    	/////////////////
+    	
+    	List<models.durableGoods.ProcurementDetail> procurementDetails = models.durableGoods.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
+    	ObjectNode result = Json.newObject();
+    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+    	int i=0;
+    	for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    		ObjectNode item = Json.newObject();
+    		item.put("id", p.id);
+    		item.put("fsn", "Codes");
+    		item.put("description", p.description);
+    		item.put("quantity", p.quantity);
+    		item.put("classifier", "อัน");
+    		item.put("price", p.price);
+    		item.put("priceNoVat", p.priceNoVat);
+    		jsonArray.insert(i++, item);
+    	}
+    	result.put("type", "goods");
+    	result.put("length",procurementDetails.size());
+	    result.put("data",jsonArray);
+    	return ok(result);
     }
     
     

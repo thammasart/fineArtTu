@@ -45,23 +45,55 @@ public class Export extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result searchFSN (String code,String description) {
-        System.out.println("code :|"+code+"|");
-        System.out.println("description :|"+description+"|");
         ObjectNode result = Json.newObject();
         JsonNode json;
-        try { 
-            //List<DurableArticles> searchResult = DurableArticles.find.all();
-            List<DurableArticles> searchResult = DurableArticles.find.where().like("code", '%'+code+'%').findList();
-            if(searchResult.isEmpty()){
-                List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription", '%'+description+'%').findList();
+        try{
+            List<DurableArticles> searchResult;
+            if(!code.isEmpty() && description.isEmpty()){
+
+                code = '%'+code+'%';
+
+                searchResult = DurableArticles.find.where().ilike("code",code).findList();
+            }
+            else if(code.isEmpty() && !description.isEmpty()){
+
+                description = '%'+description+'%';
+
+                searchResult = new ArrayList<DurableArticles>();
+                List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription",description).findList();
                 for(FSN_Description fsn : fanList){
-                    searchResult.addAll(DurableArticles.find.where().eq("code", '%'+fsn.descriptionId+'%').findList());
+                    List<DurableArticles> searchDetail = DurableArticles.find.where().like("code", '%'+fsn.descriptionId+'%').findList();
+                    for(DurableArticles durableArticle : searchDetail){
+                        searchResult.add(durableArticle);
+                    }
+                }
+
+            }
+            else if(!code.isEmpty() && !description.isEmpty()){
+                code = '%'+code+'%';
+                description = '%'+description+'%';
+
+                searchResult = new ArrayList<DurableArticles>();
+                List<DurableArticles> searchCode = DurableArticles.find.where().ilike("code",code).findList();
+                List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription",description).findList();
+                for(FSN_Description fsn : fanList){
+                    List<DurableArticles> searchDetail = DurableArticles.find.where().like("code", '%'+fsn.descriptionId+'%').findList();
+                    for(DurableArticles durableArticle : searchDetail){
+                        if(searchCode.contains(durableArticle) && !searchResult.contains(durableArticle)){
+                            searchResult.add(durableArticle);
+                        }
+                    }
                 }
             }
+            else{
+                searchResult = DurableArticles.find.all();
+            }
+            
             ObjectMapper mapper = new ObjectMapper();
             String jsonArray = mapper.writeValueAsString(searchResult);
             json = Json.parse(jsonArray);
             result.put("result",json);
+
             System.out.println("SUCCESS");
 
         }
