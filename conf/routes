@@ -86,6 +86,7 @@ POST 	/import/removeCode								controllers.Import.removeCode()
 GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
 
 GET		/import/order									controllers.Import.importsOrder()
+GET		/import/order2									controllers.Import.importsOrder2(tab :String)
 POST	/import/order/cancel							controllers.Import.importsCancelOrder()
 GET		/import/order/DurableArticlesAdd	    		controllers.Import.importsOrderDurableArticlesAdd()
 GET		/import/order/DurableArticlesAdd/Material1		controllers.Import.importsOrderDurableArticlesAddMaterial1()
@@ -95,6 +96,9 @@ POST 	/import/saveNewArticlesOrderDetail				controllers.Import.saveNewArticlesOr
 POST 	/import/saveNewGoodsOrderDetail					controllers.Import.saveNewGoodsOrderDetail()
 
 POST	/import/removeProcurementDetail					controllers.Import.removeProcurementDetail()
+POST	/import/removeProcurementDetail2				controllers.Import.removeProcurementDetail2()
+
+POST	/import/removeProcurement						controllers.Import.removeProcurement()
 
 
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()

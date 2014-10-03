@@ -1,5 +1,8 @@
-@(articleOrders : List[models.durableArticles.Procurement],goodOrders : List[models.durableGoods.Procurement],user : User)
+@(articleOrders : List[models.durableArticles.Procurement],goodOrders : List[models.durableGoods.Procurement],user : User,tab : String)
 @header("importsOrder")
+
+	<script src="@routes.Assets.at("javascripts/controllers/importOrderForDeleteProcurement.js")"></script>
+	<script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
 
 
 @nav(user)
@@ -27,15 +30,25 @@
                           </div>
                     </form>
             </div>
-            
             <div>
                 <a style="float:right;margin-left:1%;"href="@routes.Import.importsOrderDurableArticlesAdd()">
                 <button class="btn btn-success width200px">เพิ่มรายการครุภัณฑ์</button>
                 </a>
-                <button class="btn btn-danger width200px" style="float:right;">ลบรายการครุภัณฑ์</button>
+                <button class="btn btn-danger width200px" style="float:right;" onclick="removeProcurement('durableArticles')">ลบรายการครุภัณฑ์</button>
             </div>
 
         </div>
+        
+        @if(flash().containsKey("delete1")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("delete1")</font> 
+		</div>
+		}
+		@if(flash().containsKey("notSelect1")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("notSelect1")</font> 
+		</div>
+		}
 
             <table class="table table-striped overlayTable">
                 <thead>
@@ -58,7 +71,7 @@
                 
 					@for(articleOrder <- articleOrders){
 	                    <tr>
-	                        <th> <input type="checkbox"/> </th>
+	                        <th><input id="articleOrder.id" type="checkbox" onclick="addTick('@articleOrder.id','durableArticles')"></th>
 	                        <th>@articleOrder.id</th>
 	                        <th>@articleOrder.title</th>
 	                        <th>@articleOrder.contractNo</th>
@@ -106,10 +119,21 @@
                   <a style="float:right;margin-left:1%;"href="@routes.Import.importsOrderGoodsAdd()">
                   <button class="btn btn-success width200px">เพิ่มรายการวัสดุ</button>
                   </a>
-                  <button class="btn btn-danger width200px" style="float:right;">ลบรายการวัสดุ</button>
+                  <button class="btn btn-danger width200px" style="float:right;" onclick="removeProcurement('goods')">ลบรายการวัสดุ</button>
               </div>
 
         </div>
+        
+        @if(flash().containsKey("delete2")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("delete2")</font> 
+		</div>
+		}
+		@if(flash().containsKey("notSelect2")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("notSelect2")</font> 
+		</div>
+		}
               <table class="table table-striped overlayTable">
                   <thead>
                       <tr>
@@ -130,7 +154,7 @@
                     
                     @for(goodOrder <- goodOrders){
 	                    <tr>
-	                        <th> <input type="checkbox"/> </th>
+	                        <th><input id="goodOrder.id" type="checkbox" onclick="addTick('@goodOrder.id','goods')"></th>
 	                        <th>@goodOrder.id</th>
 	                        <th>@goodOrder.title</th>
 	                        <th>@goodOrder.contractNo</th>
@@ -167,7 +191,7 @@
 </div>
 <script>
   $(function () {
-    $('#imdTabs a:1').tab('show')
+    $('#imdTabs a[href="#@tab"]').tab('show')
   })
 </script>
 @footer()
