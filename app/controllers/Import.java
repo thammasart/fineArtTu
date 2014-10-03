@@ -55,7 +55,40 @@ public class Import extends Controller {
         return ok(importsInstitute.render(institutes,user));
     }
 
-    @Security.Authenticated(Secured.class)
+    @BodyParser.Of(BodyParser.Json.class)
+	public static Result retriveInstituteDescription(){
+    	RequestBody body = request().body();
+    	JsonNode json = body.asJson();
+    	ObjectNode result = Json.newObject();
+    	
+    	Company c = Company.find.byId(Long.parseLong(json.get("id").asText()));
+    	
+    	result.put("typeEntrepreneur", c.typeEntrepreneur);
+    	result.put("typedealer", c.typedealer);
+    	result.put("nameEntrepreneur", c.nameEntrepreneur);
+    	result.put("nameDealer", c.nameDealer);
+    	result.put("payCodition", c.payCodition);
+    	result.put("payPeriod", c.payPeriod);
+    	result.put("sendPeriod", c.sendPeriod);
+    	result.put("durableArticlesType", c.durableArticlesType);
+    	result.put("durableGoodsType", c.durableGoodsType);
+    	result.put("buildingNo", c.address.buildingNo);
+    	result.put("village", c.address.village);
+    	result.put("alley", c.address.alley);
+    	result.put("road", c.address.road);
+    	result.put("parish", c.address.parish);
+    	result.put("district", c.address.district);
+    	result.put("province", c.address.province);
+    	result.put("telephoneNumber", c.address.telephoneNumber);
+    	result.put("fax", c.address.fax);
+    	result.put("postCode", c.address.postCode);
+    	result.put("email", c.address.email);
+    	return ok(result);
+	}
+
+
+
+	@Security.Authenticated(Secured.class)
     public static Result importsInstituteAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsInstituteAdd.render(user));
@@ -897,6 +930,7 @@ public class Import extends Controller {
       return ok(result);
         
     }
+    
     @Security.Authenticated(Secured.class)
     public static Result findFsn(){
         List<FSN_Class> fsnClass;
@@ -998,7 +1032,7 @@ public class Import extends Controller {
 
         return ok(result);
     }
-
+    
     @Security.Authenticated(Secured.class)
     public static Result autoCompleteGood(){
         ObjectNode result = Json.newObject();
