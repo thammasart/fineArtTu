@@ -265,11 +265,29 @@ function addTick(name){
 }
 
 function removeProcurementDetail(){
+	console.log(procumentDetailsTick.toString());
 	var parseData = {
-			'parseData'	: procumentDetailsTick
+			'parseData'	: procumentDetailsTick.toString() 	
 	};
-	console.log('aaaaaaaaaaaaaaaa');
-	postData('/import/removeProcurementDetail',parseData);
+	console.log(parseData);
+	
+	$.ajax({
+		url: '/import/removeProcurementDetail',
+	    type: 'post',
+	    data: JSON.stringify(parseData), ////
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		if(result["type"] == "article"){
+    			procumentDetailsTick = []
+    			loadOrderArticle(result);
+    		}else{
+    			procumentDetailsTick = []
+    			loadOrderGood(result);
+    		}
+    	}
+	});
+	
 }
 
 function loadOrderArticle(data){

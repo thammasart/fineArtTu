@@ -654,7 +654,8 @@ public class Import extends Controller {
     public static Result saveNewArticlesOrderDetail(){
     	// TODO : save detail
     	RequestBody body = request().body();
-    	System.out.println(body);
+    	//System.out.println("du value");
+    	///////////////////System.out.println(body);
     	JsonNode json = body.asJson();
     	models.durableArticles.Procurement procurement = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
     	models.durableArticles.ProcurementDetail procurementDetail = new models.durableArticles.ProcurementDetail();
@@ -771,7 +772,61 @@ public class Import extends Controller {
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     public static Result removeProcurementDetail(){
+    	
+    	RequestBody body = request().body();
+    	//System.out.println("du value");
+    	//System.out.println(body);
+    	JsonNode json = body.asJson();
+    
+
+    	
+  
+    	
+    	ProcurementDetail pc;
+    	models.durableArticles.Procurement procurement=null;
+    	
+    	
+    	if(!json.get("parseData").asText().equals(""))
+    	{
+        	String[] procumentDetails=json.get("parseData").asText().split(",");    		
+        	
+        	for(int i=0;i<procumentDetails.length;i++)
+        	{
+        		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
+        		procurement = models.durableArticles.Procurement.find.byId(pc.procurement.id);
+        		for(DurableArticles subDetail:pc.subDetails)
+        		{
+        			subDetail.delete();
+        		}
+        		pc.delete();
+        	}
+    	}
+    	/////////////////
+    	
+    	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
+    	ObjectNode result = Json.newObject();
+    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+    	int i=0;
+    	for(models.durableArticles.ProcurementDetail p : procurementDetails){
+    		ObjectNode item = Json.newObject();
+    		item.put("id", p.id);
+    		item.put("fsn", "fsnCode");
+    		item.put("description", p.description);
+    		item.put("quantity", p.quantity);
+    		item.put("classifier", "อัน");
+    		item.put("price", p.price);
+    		item.put("priceNoVat", p.priceNoVat);
+    		item.put("lifeTime", p.llifeTime);
+    		jsonArray.insert(i++, item);
+    	}
+    	result.put("type", "article");
+    	result.put("length",procurementDetails.size());
+	    result.put("data",jsonArray);
+    	return ok(result);
+    	
+    	/*
     	DynamicForm form = Form.form().bindFromRequest();
     	ProcurementDetail pc;
     	
@@ -806,9 +861,8 @@ public class Import extends Controller {
             	flash("cantdelete1","ไม่สามารถลบสถานประกอบการได้ " + cantDel +" รายการ เนื่องจากสถานประกอบการเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");	
             }
             */
-        } //else flash("notSelect","เลือกสถานประกอบการที่ต้องการจะลบ");
-
-    	return redirect(routes.Import.importsOrderDurableArticlesAdd());
+       // } //else flash("notSelect","เลือกสถานประกอบการที่ต้องการจะลบ");
+   
     }
     
     
