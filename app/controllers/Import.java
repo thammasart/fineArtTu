@@ -2,12 +2,15 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import play.mvc.Http.MultipartFormData;
+import play.mvc.Http.MultipartFormData.FilePart;
 import play.mvc.Http.RequestBody;
 import play.data.*;
 import play.libs.Json;
 import views.html.*;
 import models.*;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -96,6 +99,21 @@ public class Import extends Controller {
 
 
     public static Result saveNewInstitute(){
+    	MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+    	if (filePart != null) {
+			String fileName = filePart.getFilename();
+			String contentType = filePart.getContentType(); 
+			File file = filePart.getFile();
+			
+			
+			//save file to new path
+			
+			
+		} else {
+			flash("error", "Missing file");
+		}
+    	
         DynamicForm form = Form.form().bindFromRequest();
 
         String typeDurableArticles="";                                  //save all list

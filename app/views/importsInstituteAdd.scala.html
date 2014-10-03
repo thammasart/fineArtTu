@@ -9,7 +9,7 @@
 
 <div class="detailWindow">
 
-<form method="post" name="addInstituteForm" onsubmit="return submitButtonClick()" action="@routes.Import.saveNewInstitute()">
+<form method="post" name="addInstituteForm" enctype="multipart/form-data" onsubmit="return submitButtonClick()" action="@routes.Import.saveNewInstitute()">
 
 
 
@@ -299,7 +299,9 @@
 
   	</fieldset>
     </div>
-
+	<div>
+		<input type="file" name="attachFile"> 
+	</div>
  
   	<legend style="width:auto">รายละเอียดเพิ่มเติม</legend>
   	<textarea class="form-control" rows="3" name="otherDetail"></textarea>
