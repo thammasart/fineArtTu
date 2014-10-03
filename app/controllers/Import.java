@@ -249,6 +249,7 @@ public class Import extends Controller {
 
     public static Result saveNewMaterialDurableGoods(){
     	String tab = "";
+        String code = "";
         DynamicForm form = Form.form().bindFromRequest();
 
         Form<MaterialCode> newCodeForm = Form.form(MaterialCode.class).bindFromRequest();
@@ -266,8 +267,11 @@ public class Import extends Controller {
             newCode.typeOfGood = "วัสดุสิ้นเปลือง";
             tab = "3";
         }
-
-        newCode.materialType = MaterialType.find.byId(form.get("chosen"));   //connect link
+        code = newCode.code;
+        code = Character.toString(code.charAt(0))+Character.toString(code.charAt(1));
+        System.out.println(code);
+        newCode.materialType = MaterialType.find.byId(code);   //connect link
+        //newCode.materialType = code[0]+code[1];
 
         newCode.save();
 

@@ -71,4 +71,35 @@ public class Application extends Controller {
             return redirect(routes.Application.home());
         }
     }
+
+    @Security.Authenticated(Secured.class)
+    public static Result editUser() {
+        User user = User.find.byId(request().username());
+          return ok(editUser.render(user));
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result saveEditUser() {
+        DynamicForm f = Form.form().bindFromRequest();
+        User user = User.find.byId(request().username());
+        Form<User> editUserForm = Form.form(User.class).bindFromRequest();
+        User newUser = editUserForm.get();
+
+        String rePassword = f.get("password");
+        String rePassword2 = f.get("rePassword");
+        String oldPassword = f.get("oldPassword");
+
+        if(rePassword2.equals(rePassword) && oldPassword.equals(user.password)){
+            System.out.println("hello");
+            user.firstName = newUser.firstName;
+            user.lastName = newUser.lastName;
+            user.password = newUser.password;
+            user.update();
+            flash("success","Edit User Profile Complete!!!");
+        }else{
+            flash("fail"," กรุณาตรวจสอบข้อมูลให้ถูกต้อง ");
+        }
+
+        return ok(editUser.render(user));
+    }
 }
