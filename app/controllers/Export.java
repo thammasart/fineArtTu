@@ -45,17 +45,27 @@ public class Export extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result searchFSN (String code,String description) {
+
         System.out.println("code :|"+code+"|");
         System.out.println("description :|"+description+"|");
+
         ObjectNode result = Json.newObject();
         JsonNode json;
         try { 
+            if(!code.isEmpty()){
+                code = '%'+code+'%';
+            }
+            if(!description.isEmpty()){
+                description = '%'+description+'%';
+            }
+
             //List<DurableArticles> searchResult = DurableArticles.find.all();
-            List<DurableArticles> searchResult = DurableArticles.find.where().like("code", '%'+code+'%').findList();
+            List<DurableArticles> searchResult = DurableArticles.find.where().like("code",code).findList();
             if(searchResult.isEmpty()){
-                List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription", '%'+description+'%').findList();
+                List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription",description).findList();
                 for(FSN_Description fsn : fanList){
-                    searchResult.addAll(DurableArticles.find.where().eq("code", '%'+fsn.descriptionId+'%').findList());
+                    System.out.println('%'+fsn.descriptionId+'%');
+                    searchResult.addAll(DurableArticles.find.where().like("code", '%'+fsn.descriptionId+'%').findList());
                 }
             }
             ObjectMapper mapper = new ObjectMapper();

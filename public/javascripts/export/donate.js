@@ -40,7 +40,7 @@ function findFSN(){
 				s += '				<th>'+ "<input type=\"checkbox\"/>" +'</th>';
 				s += '				<th>'+ allArticles[i].code +'</th>';
 				if(allArticles[i].detail){
-					s += '				<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
+					s += '				<th>'+ allArticles[i].detail.fsn.descriptionId +'</th>';//descriptionDescription +'</th>';
 				}
 				else{
 					s += '				<th>'+ 'ไม่มี' +'</th>';
