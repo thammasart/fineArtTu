@@ -60,6 +60,34 @@ public class Procurement extends Model{
 	public String toString()
 	{
 		String s="";
+		/*
+		List<models.durableArticles.ProcurementDetail> details = models.durableArticles.ProcurementDetail.find.where().eq("procurement", this).findList();
+		for(ProcurementDetail detail :details)
+		{
+			System.out.println(detail.quantity); 
+			for(DurableArticles subDetail:detail.subDetails)
+			{
+				System.out.println(subDetail.id);
+			}
+			
+		}
+		*/
+		
+		List<DurableArticles> dList = DurableArticles.find.all();
+		System.out.println("testStatus");
+		for(DurableArticles d:dList)
+		{
+			if(d.detail.procurement.status==ImportStatus.SUCCESS)
+			{
+				System.out.print(d.detail.procurement.id+": ");
+				System.out.print(d.detail.id+": ");
+				System.out.println(d.detail.procurement.status);
+			}
+
+		}
+		
+		
+		/*
 		for(AI_Committee a: aiCommittee)
 		{
 			System.out.println("AIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII_COMITTTEEE");
@@ -100,6 +128,7 @@ public class Procurement extends Model{
 		}
 		*/
 		
+		/*
 		for(ProcurementDetail detail:this.details)
 		{
 			System.out.println("----------------------------------------ProcumentDetail-----------------------------------------------");
@@ -130,7 +159,7 @@ public class Procurement extends Model{
 				System.out.println("----------------------------------------End------------------------------------------------------");
 			}
 		}
-		
+		*/
 		return s;
 	}
 

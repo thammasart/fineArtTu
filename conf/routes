@@ -93,6 +93,8 @@ POST 	/import/saveNewArticlesOrder					controllers.Import.saveNewArticlesOrder()
 POST 	/import/saveNewArticlesOrderDetail				controllers.Import.saveNewArticlesOrderDetail()
 POST 	/import/saveNewGoodsOrderDetail					controllers.Import.saveNewGoodsOrderDetail()
 
+POST	/import/removeProcurementDetail					controllers.Import.removeProcurementDetail()
+
 
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()
 GET		/import/order/GoodsAdd/Material1				controllers.Import.importsOrderGoodsAddMaterial1()
