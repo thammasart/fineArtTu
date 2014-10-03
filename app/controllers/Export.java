@@ -10,6 +10,7 @@ import views.html.*;
 import views.html.export.*;
 
 import models.*;
+import models.fsnNumber.FSN_Description;
 import models.consumable.*;
 import models.durableArticles.*;
 import models.type.ExportStatus;
@@ -42,6 +43,48 @@ public class Export extends Controller {
         return ok(export.render(user));
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result searchFSN (String code,String description) {
+        System.out.println("code :|"+code+"|");
+        System.out.println("description :|"+description+"|");
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+        try { 
+            //List<DurableArticles> searchResult = DurableArticles.find.all();
+            List<DurableArticles> searchResult = DurableArticles.find.where().like("code", '%'+code+'%').findList();
+            if(searchResult.isEmpty()){
+                List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription", '%'+description+'%').findList();
+                for(FSN_Description fsn : fanList){
+                    searchResult.addAll(DurableArticles.find.where().eq("code", '%'+fsn.descriptionId+'%').findList());
+                }
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonArray = mapper.writeValueAsString(searchResult);
+            json = Json.parse(jsonArray);
+            result.put("result",json);
+            System.out.println("SUCCESS");
+
+        }
+        catch (JsonProcessingException e) {
+            result.put("message", e.getMessage());
+            result.put("status", "error1");
+            System.out.println("ERROR 1" + e.getMessage());
+        }
+        catch(RuntimeException e){
+            e.printStackTrace();
+            result.put("message", e.getMessage());
+            result.put("status", "error2");
+            System.out.println("ERROR 2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error3");
+            System.out.println("ERROR 3");
+        }
+
+        return ok(result);
+    }
+/*
     // เยิกจ่าย
     @Security.Authenticated(Secured.class)
     public static Result exportOrder() {
@@ -143,7 +186,8 @@ public class Export extends Controller {
         newDetail.save();
 
         return redirect(routes.Export.exportOrderAdd(requisitionId));
-    }*/
+    }*///
+    /*
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveOrderDetail() {
@@ -156,7 +200,7 @@ public class Export extends Controller {
         System.out.println("code : " + json.get("code").asText());
         System.out.println("quantity : " + json.get("quantity").asText());
         System.out.println("requisitionId : " + json.get("requisitionId"));
-        */
+        *//*
         RequisitionDetail newDetail = new RequisitionDetail();
 
         newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
@@ -215,7 +259,7 @@ public class Export extends Controller {
         return ok(result);
     }
 
-
+//*/
 
     // โอนย้ายภายใน
     @Security.Authenticated(Secured.class)
@@ -255,35 +299,7 @@ public class Export extends Controller {
     }
 
 
-    // บริจาค
-    @Security.Authenticated(Secured.class)
-    public static Result exportDonate() {
-        User user = User.find.byId(session().get("username"));
-        List<Donation> initList = Donation.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
-        List<Donation> successList = Donation.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
-        return ok(exportDonate.render(user,initList, successList));
-    }
-    @Security.Authenticated(Secured.class)
-    public static Result exportCreateDonate() {
-        Donation temp =  new Donation();
-        temp.approveDate = new Date();
-        temp.status = ExportStatus.INIT;
-        temp.save();
-        return redirect(routes.Export.exportDonateAdd());
-    }
-    @Security.Authenticated(Secured.class)
-    public static Result exportDonateAdd() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportDonateAdd.render(user,null));
-    }
-    @Security.Authenticated(Secured.class)
-    public static Result exportDonateAddDetail() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportDonateAddDetail.render(user));
-    }
-
-
-    // จำหน่าย
+   // จำหน่าย
     @Security.Authenticated(Secured.class)
     public static Result exportSold() {
         User user = User.find.byId(session().get("username"));

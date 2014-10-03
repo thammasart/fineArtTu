@@ -19,3 +19,39 @@ function addDonateButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
 }
+
+function findFSN(){
+	var fsnCode = document.getElementById("fsnCode").value;
+	var des = document.getElementById("fsnDescription").value;
+
+	$.ajax({
+		type: "GET",
+		url: "/export/searchFSN",
+		data: {'code': fsnCode, 'description' : des},
+		success: function(data){
+		   	details = JSON.stringify(data);
+		   	var allArticles = data["result"];
+
+		   	var length = allArticles.length;
+		   	var s = "";
+			for (var i = 0; i < length; i++) {
+//				s += '<tr>';
+//				s += '				<th>'+(i+1)+'</th>';
+				s += '				<th>'+ "<input type=\"checkbox\"/>" +'</th>';
+				s += '				<th>'+ allArticles[i].code +'</th>';
+				if(allArticles[i].detail){
+					s += '				<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
+				}
+				else{
+					s += '				<th>'+ 'ไม่มี' +'</th>';
+				}
+				s += '				<th>'+ 'ยังไม่ได้ทำ' +'</th>';
+				s += '				<th>'+ 'ยังไม่ได้ทำ' +'</th>';
+				s += '				<th>'+'</th>';
+				s += '</tr>';
+		   	}
+		   	document.getElementById("searchResultTable").innerHTML = s;
+		}
+	});
+
+}

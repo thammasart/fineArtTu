@@ -6,6 +6,8 @@ import javax.persistence.*;
 import models.type.CommitteeType;
 import models.Committee;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table (name = "durable_articles_ai_committee")
 public class AI_Committee extends Model{
@@ -15,9 +17,10 @@ public class AI_Committee extends Model{
 	public String employeesType; // ประเภทกรรมการ - ประเภทบุคลากร
 	public String committeePosition; // ตำแหน่งในคณกรรมการ
 
-
+	@JsonBackReference
 	@ManyToOne
 	public Committee committee;	// กรรมการ
+	@JsonBackReference
 	@ManyToOne
 	public Procurement procurement;	// การจัดซื้อ
 	
