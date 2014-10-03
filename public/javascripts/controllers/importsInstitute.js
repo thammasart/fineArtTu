@@ -22,9 +22,11 @@ function removeInstitute(){
 angular.module('importsInstituteApp', ['ui.bootstrap'])
     .controller('importsInstituteCtrl',function($scope,$modal){
         
-        $scope.name="hello";
-        
         $scope.open = function(){
+//            $http({method : 'GET',url : 'autoCompleteGood' })
+//            .success(function(result){
+//
+//            });
             var modalInstance = $modal.open({
                 templateUrl: 'imp.html',
                 controller: resultModalInstanceCtrl,
