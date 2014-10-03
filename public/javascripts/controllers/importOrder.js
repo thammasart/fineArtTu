@@ -208,13 +208,13 @@ function preSpread(name){
 		'	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ชื่อ</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'FirstName'+k+'" id="'+name+'Name'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'FirstName'+k+'" id="'+name+'FirstName'+k+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >สกุล</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า" name="'+name+'LastName'+k+'" id="'+name+'Name'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า" name="'+name+'LastName'+k+'" id="'+name+'LastName'+k+'">'+
 		'	                </div>'+
 		'	            </div>'
 	
@@ -244,11 +244,13 @@ else
 
 function setValueBelow(name,num){
 	for(var tmp=num+1; tmp<k; tmp++){
-		document.getElementById(name+'Department'+tmp).value = document.getElementById(name+'Department'+num).value;
+		document.getElementById(name+'Department'+tmp).value = document.getElementById(name+'Department'+num).value;  //use id
 		document.getElementById(name+'Room'+tmp).value = document.getElementById(name+'Room'+num).value;
 		document.getElementById(name+'Level'+tmp).value = document.getElementById(name+'Level'+num).value;
 		document.getElementById(name+'PrefixName'+tmp).value = document.getElementById(name+'PrefixName'+num).value;
-		document.getElementById(name+'Name'+tmp).value = document.getElementById(name+'Name'+num).value;
+		document.getElementById(name+'FirstName'+tmp).value = document.getElementById(name+'FirstName'+num).value;
+		document.getElementById(name+'LastName'+tmp).value = document.getElementById(name+'LastName'+num).value;
+		if(name=='article')
 		document.getElementById(name+'Stock'+tmp).value = document.getElementById(name+'Stock'+num).value;
 	}
 }

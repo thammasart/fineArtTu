@@ -74,6 +74,18 @@ public class Procurement extends Model{
 		}
 		*/
 		
+		List<DurableArticles> dList = DurableArticles.find.all();
+		System.out.println("testStatus");
+		for(DurableArticles d:dList)
+		{
+			if(d.detail.procurement.status==ImportStatus.SUCCESS)
+			{
+				System.out.print(d.detail.procurement.id+": ");
+				System.out.print(d.detail.id+": ");
+				System.out.println(d.detail.procurement.status);
+			}
+
+		}
 		
 		
 		/*
