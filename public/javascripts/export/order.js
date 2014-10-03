@@ -111,7 +111,6 @@ function getDetail(id){
 		success: function(data){
 		   	details = JSON.stringify(data);
 		   	var tr = data["details"];
-
 		   	var arrayLength = tr.length;
 		   	var s = "";
 			for (var i = 0; i < arrayLength; i++) {
