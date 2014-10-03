@@ -5,6 +5,10 @@ var aiLists = [];
 var eoLists = [];
 var supplyList=[];
 
+
+var procumentDetailsTick = [];
+
+
 $('document').ready(function(){
 	showPage('1');
 	createAICommittee();
@@ -37,6 +41,7 @@ function cancelStatus(id,typeOfOrder){
 	});
 }
 function clearPage(){
+	procumentDetailsTick = [];
 	var fields2 = $('#page2 :input[type="text"]');
 	var fields4 = $('#page2 :input[type="number"]');
 	var fields6 = $('#page2 :input[type="radio"]');
@@ -203,13 +208,13 @@ function preSpread(name){
 		'	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ชื่อ</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'FirstName'+k+'" id="'+name+'Name'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'FirstName'+k+'" id="'+name+'FirstName'+k+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >สกุล</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า" name="'+name+'LastName'+k+'" id="'+name+'Name'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า" name="'+name+'LastName'+k+'" id="'+name+'LastName'+k+'">'+
 		'	                </div>'+
 		'	            </div>'
 	
@@ -239,20 +244,59 @@ else
 
 function setValueBelow(name,num){
 	for(var tmp=num+1; tmp<k; tmp++){
-		document.getElementById(name+'Department'+tmp).value = document.getElementById(name+'Department'+num).value;
+		document.getElementById(name+'Department'+tmp).value = document.getElementById(name+'Department'+num).value;  //use id
 		document.getElementById(name+'Room'+tmp).value = document.getElementById(name+'Room'+num).value;
 		document.getElementById(name+'Level'+tmp).value = document.getElementById(name+'Level'+num).value;
 		document.getElementById(name+'PrefixName'+tmp).value = document.getElementById(name+'PrefixName'+num).value;
-		document.getElementById(name+'Name'+tmp).value = document.getElementById(name+'Name'+num).value;
+		document.getElementById(name+'FirstName'+tmp).value = document.getElementById(name+'FirstName'+num).value;
+		document.getElementById(name+'LastName'+tmp).value = document.getElementById(name+'LastName'+num).value;
+		if(name=='article')
 		document.getElementById(name+'Stock'+tmp).value = document.getElementById(name+'Stock'+num).value;
 	}
+}
+
+
+function addTick(name){
+	var procumentDetailName = name;
+	console.log(procumentDetailsTick);
+	if(procumentDetailsTick.indexOf(procumentDetailName) > -1){
+		procumentDetailsTick.remove(procumentDetailName);
+	}else{
+		procumentDetailsTick.push(procumentDetailName);
+	}
+}
+
+function removeProcurementDetail(){
+	console.log(procumentDetailsTick.toString());
+	var parseData = {
+			'parseData'	: procumentDetailsTick.toString() 	
+	};
+	console.log(parseData);
+	
+	$.ajax({
+		url: '/import/removeProcurementDetail',
+	    type: 'post',
+	    data: JSON.stringify(parseData), ////
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		if(result["type"] == "article"){
+    			procumentDetailsTick = []
+    			loadOrderArticle(result);
+    		}else{
+    			procumentDetailsTick = []
+    			loadOrderGood(result);
+    		}
+    	}
+	});
+	
 }
 
 function loadOrderArticle(data){
 	var divTable = '';
 	for(var i = 0; i<data["length"]; i++){
 		divTable += '				<tr id='+i+'>'+
-		'                    <th> <input type="checkbox"/> </th>'+
+		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
 		'                    <th>'+ data['data'][i].id +'</th>'+
 		'                    <th>'+ data['data'][i].fsn +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
