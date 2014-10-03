@@ -769,17 +769,12 @@ public class Import extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result removeProcurementDetail(){
+    public static Result removeProcurementDetail(){ //article
     	
     	RequestBody body = request().body();
-    	//System.out.println("du value");
-    	//System.out.println(body);
+
     	JsonNode json = body.asJson();
     
-
-    	
-  
-    	
     	ProcurementDetail pc;
     	models.durableArticles.Procurement procurement=null;
     	
@@ -821,44 +816,55 @@ public class Import extends Controller {
     	result.put("length",procurementDetails.size());
 	    result.put("data",jsonArray);
     	return ok(result);
+    }
+    
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result removeProcurementDetail2(){ //good
     	
-    	/*
-    	DynamicForm form = Form.form().bindFromRequest();
-    	ProcurementDetail pc;
-    	
-    	
-        if(!form.get("parseData").equals("")){
-    	String[] procumentDetails = form.get("parseData").split(",");
-    		
-    	
-    	//int del=0;
-    	//int cantDel=0;
-    	
-        
-            for(int i=0;i<procumentDetails.length;i++){
-            		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
-            		
-            		for(DurableArticles subDetail:pc.subDetails)
-            		{
-            			System.out.println("innnnn");
-            			
-            			subDetail.delete();
-            		}
+    	RequestBody body = request().body();
 
-            		pc.delete();
-            }
-            /*
-            if(del!=0)
-            {
-            	flash("delete1","ลบสถานประกอบการทั้งหมด " + del +" รายการ ");
-            }
-            if(cantDel!=0)
-            {
-            	flash("cantdelete1","ไม่สามารถลบสถานประกอบการได้ " + cantDel +" รายการ เนื่องจากสถานประกอบการเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");	
-            }
-            */
-       // } //else flash("notSelect","เลือกสถานประกอบการที่ต้องการจะลบ");
-   
+    	JsonNode json = body.asJson();
+    
+    	models.durableGoods.ProcurementDetail pc;
+    	models.durableGoods.Procurement procurement=null;
+    	
+    	
+    	if(!json.get("parseData").asText().equals(""))
+    	{
+        	String[] procumentDetails=json.get("parseData").asText().split(",");    		
+        	
+        	for(int i=0;i<procumentDetails.length;i++)
+        	{
+        		pc = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
+        		procurement = models.durableGoods.Procurement.find.byId(pc.procurement.id);
+        		for(DurableGoods subDetail:pc.subDetails)
+        		{
+        			subDetail.delete();
+        		}
+        		pc.delete();
+        	}
+    	}
+    	/////////////////
+    	
+    	List<models.durableGoods.ProcurementDetail> procurementDetails = models.durableGoods.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
+    	ObjectNode result = Json.newObject();
+    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+    	int i=0;
+    	for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    		ObjectNode item = Json.newObject();
+    		item.put("id", p.id);
+    		item.put("fsn", "Codes");
+    		item.put("description", p.description);
+    		item.put("quantity", p.quantity);
+    		item.put("classifier", "อัน");
+    		item.put("price", p.price);
+    		item.put("priceNoVat", p.priceNoVat);
+    		jsonArray.insert(i++, item);
+    	}
+    	result.put("type", "goods");
+    	result.put("length",procurementDetails.size());
+	    result.put("data",jsonArray);
+    	return ok(result);
     }
     
     

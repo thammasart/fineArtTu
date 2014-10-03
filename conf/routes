@@ -94,6 +94,7 @@ POST 	/import/saveNewArticlesOrderDetail				controllers.Import.saveNewArticlesOr
 POST 	/import/saveNewGoodsOrderDetail					controllers.Import.saveNewGoodsOrderDetail()
 
 POST	/import/removeProcurementDetail					controllers.Import.removeProcurementDetail()
+POST	/import/removeProcurementDetail2				controllers.Import.removeProcurementDetail2()
 
 
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()

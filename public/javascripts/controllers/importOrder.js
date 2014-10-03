@@ -267,7 +267,7 @@ function addTick(name){
 	}
 }
 
-function removeProcurementDetail(){
+function removeProcurementDetail(path){
 	console.log(procumentDetailsTick.toString());
 	var parseData = {
 			'parseData'	: procumentDetailsTick.toString() 	
@@ -275,7 +275,7 @@ function removeProcurementDetail(){
 	console.log(parseData);
 	
 	$.ajax({
-		url: '/import/removeProcurementDetail',
+		url: path,
 	    type: 'post',
 	    data: JSON.stringify(parseData), ////
 	    contentType: 'application/json',
@@ -308,14 +308,17 @@ function loadOrderArticle(data){
 		'                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>'+
 		'                </tr>';
 	}
+	destroyTable();
 	document.getElementById("durableArticleList").innerHTML = divTable;
+	updateTable();
 }
 
 function loadOrderGood(data){
 	var divTable = '';
 	for(var i = 0; i<data["length"]; i++){
 		divTable += '				<tr id='+i+'>'+
-		'                    <th> <input type="checkbox"/> </th>'+
+		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
+		'                    <th>'+ data['data'][i].id +'</th>'+
 		'                    <th>'+ data['data'][i].code +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
@@ -324,7 +327,9 @@ function loadOrderGood(data){
 		'                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>'+
 		'                </tr>';
 	}
+	destroyTable();
 	document.getElementById("goodList").innerHTML = divTable;
+	updateTable();
 }
 
 
