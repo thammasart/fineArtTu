@@ -1,6 +1,6 @@
 <script type="text/ng-template" id="imp.html" >
   <div class="modal-header">
-            <h3 class="modal-title"> MSI computer
+            <h3 class="modal-title"> {{name}}
             <button class="btn btn-danger" ng-click="cancel()" style="float:right; margin-left:5%;">ย้อนกลับ</button>
             <button class="btn btn-warning" ng-click="ok()" style="float:right">แก้ไข</button>
             </h3>
@@ -14,7 +14,7 @@
                             <div class="form-group marginLeft2">
                                 <div class="input-group width300px">
                                   <span class="input-group-addon width100px">บ้านเลขที่</span>
-                                  <input type="text" class="form-control"disabled >
+                                  <input type="text" class="form-control"disabled value="{{buildingNo}}">
                                 </div>
                               </div>
 
@@ -22,21 +22,21 @@
                                <div class="form-group marginLeft2">
                                 <div class="input-group width300px">
                                   <span class="input-group-addon width100px">หมู่</span>
-                                  <input type="text" class="form-control" disabled>
+                                  <input type="text" class="form-control" disabled value="{{village}}">
                                 </div>
                               </div>
 
                                     <div class="form-group marginLeft2">
                                 <div class="input-group width300px">
                                   <span class="input-group-addon width100px">ซอย</span>
-                                  <input type="text" class="form-control" disabled>
+                                  <input type="text" class="form-control" disabled value="{{alley}}">
                                 </div>
                               </div>
 
                             <div class="form-group marginLeft2">
                                 <div class="input-group width300px">
                                   <span class="input-group-addon width100px">ถนน</span>
-                                  <input type="text" class="form-control" disabled>
+                                  <input type="text" class="form-control" disabled value="{{road}}">
                                 </div>
                               </div>
                         </div>
@@ -46,28 +46,28 @@
                                <div class="form-group marginLeft2">
                                 <div class="input-group width300px">
                                   <span class="input-group-addon width100px">ตำบล</span>
-                                  <input type="text" class="form-control" disabled>
+                                  <input type="text" class="form-control" disabled value="{{parish}}">
                                 </div>
                               </div>
 
                               <div class="form-group marginLeft2">
                                 <div class="input-group width300px">
                                   <span class="input-group-addon width100px">อำเภอ</span>
-                                  <input type="text" class="form-control" disabled>
+                                  <input type="text" class="form-control" disabled value="{{district}}">
                                 </div>
                               </div>
 
                               <div class="form-group marginLeft2">
                                 <div class="input-group width300px">
                                   <span class="input-group-addon width100px">จังหวัด</span>
-                                  <input type="text" class="form-control" disabled>
+                                  <input type="text" class="form-control" disabled value="{{province}}">
                                 </div>
                               </div>
 
                               <div class="form-group marginLeft2">
                                 <div class="input-group width300px">
                                   <span class="input-group-addon width100px">เบอร์โทรศัพท์</span>
-                                  <input type="text" class="form-control" disabled>
+                                  <input type="text" class="form-control" disabled value="{{telephoneNumber}}">
                                 </div>
                               </div>
                         </div>
@@ -76,18 +76,12 @@
 
 
                 <div class="well">
-                        <legend style="width:auto">ประเถทครุภัณฑ์</legend>
+                        <legend style="width:auto">ประเภทครุภัณฑ์</legend>
                         <table class="table table-striped">
                         <tbody>
-                            <tr>
-                                <td > ครุภัณฑ์สำนักงาน</td>
-                            </tr>
-                            <tr>
-                                <td> ครุภัณฑ์การศึกษา</td>
-                            </tr>
-                            <tr>
-                                <td> ครุภัณฑ์อื่นๆ</td>
-                            </tr>
+                            <tr ng-repeat="type in durableArticlesType">
+							  <td>{{type}}</td>
+							</tr>
                         </tbody>
                         </table>
                     
@@ -96,15 +90,12 @@
 
                 <div class="well">
                     <fieldset>
-                    <legend style="width:auto">ประเถทวัสดุ</legend>
+                    <legend style="width:auto">ประเภทวัสดุ</legend>
 
                     <table  class="table table-striped">
-                    <tr>
-                    <td > วัสดุสำนักงาน</td>
-                    </tr>
-                    <tr>
-                    <td> วัสดุอื่นๆ</td>
-                    </tr>
+                    	<tr ng-repeat="type in durableGoodsType">
+							<td>{{type}}</td>
+						</tr>
                     </table>
 
                     </fieldset>
