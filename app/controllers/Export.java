@@ -88,30 +88,28 @@ public class Export extends Controller {
             else{
                 searchResult = DurableArticles.find.all();
             }
-            
             ObjectMapper mapper = new ObjectMapper();
             String jsonArray = mapper.writeValueAsString(searchResult);
             json = Json.parse(jsonArray);
             result.put("result",json);
-
-            System.out.println("SUCCESS");
+            System.out.println("searchFSN SUCCESS");
 
         }
         catch (JsonProcessingException e) {
             result.put("message", e.getMessage());
             result.put("status", "error1");
-            System.out.println("ERROR 1" + e.getMessage());
+            System.out.println("searchFSN ERROR 1" + e.getMessage());
         }
         catch(RuntimeException e){
             e.printStackTrace();
             result.put("message", e.getMessage());
             result.put("status", "error2");
-            System.out.println("ERROR 2");
+            System.out.println("searchFSN ERROR 2");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
             result.put("status", "error3");
-            System.out.println("ERROR 3");
+            System.out.println("searchFSN ERROR 3");
         }
 
         return ok(result);

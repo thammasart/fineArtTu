@@ -40,14 +40,17 @@ function findFSN(){
 				s += '				<th>'+ "<input type=\"checkbox\"/>" +'</th>';
 				s += '				<th>'+ allArticles[i].code +'</th>';
 				if(allArticles[i].detail){
-					s += '				<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';//descriptionDescription +'</th>';
+					s += '				<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
+					s += '				<th>'+ allArticles[i].detail.llifeTime + ' ปี / ' + allArticles[i].remainLifetimeToString +'</th>';
+					s += '				<th>'+ allArticles[i].detail.price + ' / ' + allArticles[i].remainingPriceToString +'</th>';
+					s += '				<th>'+ 'in : ' +  allArticles[i].detail.procurement.checkDate + '</th>';
 				}
 				else{
 					s += '				<th>'+ 'ไม่มี' +'</th>';
+					s += '				<th>'+ 'ไม่มี' +'</th>';
+					s += '				<th>'+ 'ไม่มี' +'</th>';
+					s += '				<th>'+ 'ไม่มี' +'</th>';
 				}
-				s += '				<th>'+ allArticles[i].remainingLifetime +'</th>';
-				s += '				<th>'+ allArticles[i].remainingPrice +'</th>';
-				s += '				<th>'+'</th>';
 				s += '</tr>';
 		   	}
 		   	document.getElementById("searchResultTable").innerHTML = s;

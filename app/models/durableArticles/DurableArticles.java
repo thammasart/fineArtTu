@@ -32,27 +32,49 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 	@ManyToOne
 	public ProcurementDetail detail;
 
-	public double getRemainingLifetime(){
-
+	public int getRemainMonthLifetime(){
 		Date now = new Date();
-		double lifeTime = detail.llifeTime;
-		Date addDate = detail.procurement.addDate;
-		double y  = addDate.getYear() - addDate.getYear();
-		double m  = addDate.getMonth() - addDate.getMonth();
+		Date addDate = new Date();
+		int lifeTime = 0;
+		if(detail != null){
+			lifeTime = (int)detail.llifeTime;
+			addDate = detail.procurement.addDate;
+		}
+		int m  = (addDate.getYear() + lifeTime) - now.getYear();
+		m = m*12;
+		m = m + (addDate.getMonth() - now.getMonth());
 		if(addDate.getDate() > 15){
 			m++;
 		}
-		if(addDate.getDate() > 15){
+		else if(addDate.getDate() < 15){
 			m--;
 		}
-		double result = lifeTime - (y + (m/12));
+		return m;
+	}
 
-		System.out.println("code : "+ code + "\t\tadd date :"+ addDate + "\t\tlifeTime :" + lifeTime + "\t\tresult :" + result);
-
+	public String getRemainLifetimeToString(){
+		int m = this.getRemainMonthLifetime();
+		int y = m/12;
+		m = m%12;
+		String result = "" + y +" ปี " + m + " เดือน";
 		return result;
 	}
-	public double getRemainingPrice(){
-		return 1.23456789;	
+
+	public double getRemaining(){
+		int lifeTime = 1;
+		double price = 0;
+		if(detail != null){
+			lifeTime = (int)detail.llifeTime;
+			price = (int)detail.price;
+		}
+		int m = (lifeTime*12) - this.getRemainMonthLifetime();
+		double result = price - ((price/(lifeTime*12)) * m ); 
+		return result;	
+	}
+
+	public String getRemainingPriceToString(){
+		double result = this.getRemaining(); 
+		return String.format("%1$,.2f", result);	
 	}
 
 	@SuppressWarnings("unchecked")

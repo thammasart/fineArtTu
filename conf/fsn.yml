@@ -2555,24 +2555,24 @@
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    1/57
   status:    SUCCESS
-  addDate:       2014-09-17
-  checkDate:     2014-09-21
+  addDate:       2014-01-17
+  checkDate:     2014-01-21
   budgetType:    พิเศษ
   budgetYear:    57 
 - &procurement02    !!models.durableArticles.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    2/57
   status:    SUCCESS
-  addDate:       2014-09-19
-  checkDate:     2014-09-21
+  addDate:       2014-02-19
+  checkDate:     2014-02-21
   budgetType:    พิเศษ
   budgetYear:    57
 - &procurement03    !!models.durableArticles.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    3/57
   status:    SUCCESS
-  addDate:       2014-09-20
-  checkDate:     2014-09-21
+  addDate:       2014-03-20
+  checkDate:     2014-03-21
   budgetType:    พิเศษ
   budgetYear:    57
 - &procurementDetail01    !!models.durableArticles.ProcurementDetail
@@ -2590,7 +2590,7 @@
   price:          1000
   priceNoVat:     930
   quantity:    4
-  llifeTime:   1
+  llifeTime:   5
 - &procurementDetail03    !!models.durableArticles.ProcurementDetail
   description:    ตู้หมายเลข3
   fsn:    *fsnDescription71250010002
@@ -2598,7 +2598,7 @@
   price:          1000
   priceNoVat:     930
   quantity:    4
-  llifeTime:   2 
+  llifeTime:   5 
 - &procurementDetail04    !!models.durableArticles.ProcurementDetail
   description:    ตู้หมายเลข4
   fsn:    *fsnDescription71250010003
@@ -2606,7 +2606,7 @@
   price:          1000
   priceNoVat:     930
   quantity:    4
-  llifeTime:   3
+  llifeTime:   4
 - &procurementDetail05    !!models.durableArticles.ProcurementDetail
   description:    ตู้หมายเลข5
   fsn:    *fsnDescription71250010002
@@ -2622,7 +2622,7 @@
   price:          1000
   priceNoVat:     930
   quantity:    3 
-  llifeTime:   5
+  llifeTime:   4
 - &durableArticle001    !!models.durableArticles.DurableArticles
   code:    ศก.พ.57.7125-001-0001-01
   codeFromStock:    codeFromStock1
