@@ -69,6 +69,8 @@ GET		/import/material						controllers.Import.importsMaterial()
 GET		/import/material2						controllers.Import.importsMaterial2(tab :String)
 
 GET             /import/findFsn                                                 controllers.Import.findFsn()
+GET             /import/order/autoCompleteFsn                                   controllers.Import.autoCompleteFsn()
+GET             /import/order/autoCompleteGood                                  controllers.Import.autoCompleteGood()
 GET             /import/findNextFsnNumber                                       controllers.Import.findNextFsnNumber(fsnKey : String)
 
 
@@ -90,6 +92,8 @@ GET		/import/order/DurableArticlesAdd/Material2		controllers.Import.importsOrder
 POST 	/import/saveNewArticlesOrder					controllers.Import.saveNewArticlesOrder()
 POST 	/import/saveNewArticlesOrderDetail				controllers.Import.saveNewArticlesOrderDetail()
 POST 	/import/saveNewGoodsOrderDetail					controllers.Import.saveNewGoodsOrderDetail()
+
+POST	/import/removeProcurementDetail					controllers.Import.removeProcurementDetail()
 
 
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()

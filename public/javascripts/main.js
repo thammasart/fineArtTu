@@ -1,3 +1,4 @@
+var array = [];
 function validateNumberKey(evt) {
 
   var theEvent = evt || window.event;
@@ -50,11 +51,28 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
         }
     }
 }
+function destroyTable(){
+	for(var i=0; i<array.length; i++){
+		array[i].destroy();
+	}
+}
+function updateTable(){
+	var tableContent = $('.table.table-striped.overlayTable');
+	var table;
+	for(var i=0; i<tableContent.length; i++){
+		table = $(tableContent.get(i)).DataTable({
+			info : false,
+			"iDisplayLength": 15,   // records per page
+			"sPaginationType": "bootstrap",
+			"sDom": "t <'pagingContainer'p> ",
+		});
+		array[i]= table;
+	}
+}
 $(document).ready( function () {
 	var searchBox = $('.searchS :input');
 	var tableContent = $('.table.table-striped.overlayTable');
 	var table;
-	var array = [];
 	for(var i=0; i<tableContent.length; i++){
 		table = $(tableContent.get(i)).DataTable({
 			info : false,

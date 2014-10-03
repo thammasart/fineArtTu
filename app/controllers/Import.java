@@ -382,7 +382,6 @@ public class Import extends Controller {
         //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
         List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
         
-        
         return ok(importsOrder.render(aProcurement,gProcurement,user));
     }
     @Security.Authenticated(Secured.class)
@@ -651,7 +650,8 @@ public class Import extends Controller {
     public static Result saveNewArticlesOrderDetail(){
     	// TODO : save detail
     	RequestBody body = request().body();
-    	System.out.println(body);
+    	//System.out.println("du value");
+    	///////////////////System.out.println(body);
     	JsonNode json = body.asJson();
     	models.durableArticles.Procurement procurement = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
     	models.durableArticles.ProcurementDetail procurementDetail = new models.durableArticles.ProcurementDetail();
@@ -768,6 +768,99 @@ public class Import extends Controller {
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result removeProcurementDetail(){
+    	
+    	RequestBody body = request().body();
+    	//System.out.println("du value");
+    	//System.out.println(body);
+    	JsonNode json = body.asJson();
+    
+
+    	
+  
+    	
+    	ProcurementDetail pc;
+    	models.durableArticles.Procurement procurement=null;
+    	
+    	
+    	if(!json.get("parseData").asText().equals(""))
+    	{
+        	String[] procumentDetails=json.get("parseData").asText().split(",");    		
+        	
+        	for(int i=0;i<procumentDetails.length;i++)
+        	{
+        		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
+        		procurement = models.durableArticles.Procurement.find.byId(pc.procurement.id);
+        		for(DurableArticles subDetail:pc.subDetails)
+        		{
+        			subDetail.delete();
+        		}
+        		pc.delete();
+        	}
+    	}
+    	/////////////////
+    	
+    	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
+    	ObjectNode result = Json.newObject();
+    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+    	int i=0;
+    	for(models.durableArticles.ProcurementDetail p : procurementDetails){
+    		ObjectNode item = Json.newObject();
+    		item.put("id", p.id);
+    		item.put("fsn", "fsnCode");
+    		item.put("description", p.description);
+    		item.put("quantity", p.quantity);
+    		item.put("classifier", "อัน");
+    		item.put("price", p.price);
+    		item.put("priceNoVat", p.priceNoVat);
+    		item.put("lifeTime", p.llifeTime);
+    		jsonArray.insert(i++, item);
+    	}
+    	result.put("type", "article");
+    	result.put("length",procurementDetails.size());
+	    result.put("data",jsonArray);
+    	return ok(result);
+    	
+    	/*
+    	DynamicForm form = Form.form().bindFromRequest();
+    	ProcurementDetail pc;
+    	
+    	
+        if(!form.get("parseData").equals("")){
+    	String[] procumentDetails = form.get("parseData").split(",");
+    		
+    	
+    	//int del=0;
+    	//int cantDel=0;
+    	
+        
+            for(int i=0;i<procumentDetails.length;i++){
+            		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
+            		
+            		for(DurableArticles subDetail:pc.subDetails)
+            		{
+            			System.out.println("innnnn");
+            			
+            			subDetail.delete();
+            		}
+
+            		pc.delete();
+            }
+            /*
+            if(del!=0)
+            {
+            	flash("delete1","ลบสถานประกอบการทั้งหมด " + del +" รายการ ");
+            }
+            if(cantDel!=0)
+            {
+            	flash("cantdelete1","ไม่สามารถลบสถานประกอบการได้ " + cantDel +" รายการ เนื่องจากสถานประกอบการเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");	
+            }
+            */
+       // } //else flash("notSelect","เลือกสถานประกอบการที่ต้องการจะลบ");
+   
+    }
+    
     
     @Security.Authenticated(Secured.class)
     public static Result findNextFsnNumber(String fsnKey){
@@ -865,4 +958,85 @@ public class Import extends Controller {
         return ok(result);
     }
     
+    @Security.Authenticated(Secured.class)
+    public static Result autoCompleteFsn(){
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+
+        List<String> fsnName = new ArrayList<String>();
+        List<String> fsnCode = new ArrayList<String>();
+
+        List<FSN_Description> fsnDes = FSN_Description.find.all();
+
+        try{
+            for(FSN_Description fd : fsnDes){
+                fsnName.add(fd.descriptionDescription);
+                fsnCode.add(fd.descriptionId);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+
+            String jsonArray = mapper.writeValueAsString(fsnName);
+            json = Json.parse(jsonArray);
+            result.put("fsnName",json);
+
+            jsonArray = mapper.writeValueAsString(fsnCode);
+            json = Json.parse(jsonArray);
+            result.put("fsnCode",json);
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error3");
+        }
+
+        return ok(result);
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result autoCompleteGood(){
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+
+        List<String> goodsCode = new ArrayList<String>();
+        List<String> goodsName = new ArrayList<String>();
+
+        List<MaterialCode> materialCode = MaterialCode.find.all();
+
+        try{
+            for(MaterialCode mc : materialCode){
+                goodsCode.add(mc.code);
+                goodsName.add(mc.description);
+            }
+            ObjectMapper mapper = new ObjectMapper();
+
+            String jsonArray = mapper.writeValueAsString(goodsCode);
+            json = Json.parse(jsonArray);
+            result.put("goodsCode",json);
+
+            jsonArray = mapper.writeValueAsString(goodsName);
+            json = Json.parse(jsonArray);
+            result.put("goodsName",json);
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error3");
+        }
+
+        return ok(result);
+    }
 }

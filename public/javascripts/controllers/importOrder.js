@@ -5,6 +5,10 @@ var aiLists = [];
 var eoLists = [];
 var supplyList=[];
 
+
+var procumentDetailsTick = [];
+
+
 $('document').ready(function(){
 	showPage('1');
 	createAICommittee();
@@ -37,6 +41,7 @@ function cancelStatus(id,typeOfOrder){
 	});
 }
 function clearPage(){
+	procumentDetailsTick = [];
 	var fields2 = $('#page2 :input[type="text"]');
 	var fields4 = $('#page2 :input[type="number"]');
 	var fields6 = $('#page2 :input[type="radio"]');
@@ -88,7 +93,7 @@ function getCommitteeTemplate(name){
 	name == 'ai' ? aiLists.push(i):eoLists.push(j);
 	var num = name == 'ai' ? i:j;
 	console.log(name == 'ai' ? 'i':'j');
-	var s = '<div id="'+name + num +'">'+
+	var s = '<div id="'+name + num +'" style="margin-bottom:1%;display:inline-table">'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon">คำนำหน้าชื่อ</span>'+
@@ -152,14 +157,15 @@ function getCommitteeTemplate(name){
 
 function preSpread(name){
 	var num = document.getElementById("quantity").value;
-	
+        var val = document.getElementById("code").value;
+        var years = document.getElementById("years").value;
 	document.getElementById("fixNumber").value=num;
 	
 	var ss= document.getElementById("spreadSupply").innerHTML;
 	ss = ""
 	for(k=1;k<=num;k++)
 	{
-		var v='  <div class="form-inline marginBtm1" role="form" align="left">'+
+		var v='  <div class="form-inline marginBtm1" role="form" align="left" style="display:inline-table">'+
 		''+
 		'	        	<div class="form-group" >'+
 		'	        		<div class="input-group"> '+
@@ -190,8 +196,8 @@ function preSpread(name){
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  '+
-						(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width150px"placeholder="ศก.พ.57-01000(02/05)"')+
-						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'">'+
+						(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
+						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="ศก.'+years+"-"+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	            <div class="form-group" >'+
@@ -203,13 +209,13 @@ function preSpread(name){
 		'	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ชื่อ</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'FirstName'+k+'" id="'+name+'Name'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'FirstName'+k+'" id="'+name+'FirstName'+k+'">'+
 		'	                </div>'+
 		'	            </div>'+
 		'	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >สกุล</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า" name="'+name+'LastName'+k+'" id="'+name+'Name'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า" name="'+name+'LastName'+k+'" id="'+name+'LastName'+k+'">'+
 		'	                </div>'+
 		'	            </div>'
 	
@@ -239,20 +245,59 @@ else
 
 function setValueBelow(name,num){
 	for(var tmp=num+1; tmp<k; tmp++){
-		document.getElementById(name+'Department'+tmp).value = document.getElementById(name+'Department'+num).value;
+		document.getElementById(name+'Department'+tmp).value = document.getElementById(name+'Department'+num).value;  //use id
 		document.getElementById(name+'Room'+tmp).value = document.getElementById(name+'Room'+num).value;
 		document.getElementById(name+'Level'+tmp).value = document.getElementById(name+'Level'+num).value;
 		document.getElementById(name+'PrefixName'+tmp).value = document.getElementById(name+'PrefixName'+num).value;
-		document.getElementById(name+'Name'+tmp).value = document.getElementById(name+'Name'+num).value;
+		document.getElementById(name+'FirstName'+tmp).value = document.getElementById(name+'FirstName'+num).value;
+		document.getElementById(name+'LastName'+tmp).value = document.getElementById(name+'LastName'+num).value;
+		if(name=='article')
 		document.getElementById(name+'Stock'+tmp).value = document.getElementById(name+'Stock'+num).value;
 	}
+}
+
+
+function addTick(name){
+	var procumentDetailName = name;
+	console.log(procumentDetailsTick);
+	if(procumentDetailsTick.indexOf(procumentDetailName) > -1){
+		procumentDetailsTick.remove(procumentDetailName);
+	}else{
+		procumentDetailsTick.push(procumentDetailName);
+	}
+}
+
+function removeProcurementDetail(){
+	console.log(procumentDetailsTick.toString());
+	var parseData = {
+			'parseData'	: procumentDetailsTick.toString() 	
+	};
+	console.log(parseData);
+	
+	$.ajax({
+		url: '/import/removeProcurementDetail',
+	    type: 'post',
+	    data: JSON.stringify(parseData), ////
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		if(result["type"] == "article"){
+    			procumentDetailsTick = []
+    			loadOrderArticle(result);
+    		}else{
+    			procumentDetailsTick = []
+    			loadOrderGood(result);
+    		}
+    	}
+	});
+	
 }
 
 function loadOrderArticle(data){
 	var divTable = '';
 	for(var i = 0; i<data["length"]; i++){
 		divTable += '				<tr id='+i+'>'+
-		'                    <th> <input type="checkbox"/> </th>'+
+		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
 		'                    <th>'+ data['data'][i].id +'</th>'+
 		'                    <th>'+ data['data'][i].fsn +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+

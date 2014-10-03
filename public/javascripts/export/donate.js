@@ -34,6 +34,8 @@ function findFSN(){
 
 		   	var length = allArticles.length;
 		   	var s = "";
+		   	
+		   	destroyTable();
 			for (var i = 0; i < length; i++) {
 //				s += '<tr>';
 //				s += '				<th>'+(i+1)+'</th>';
@@ -51,6 +53,7 @@ function findFSN(){
 				s += '</tr>';
 		   	}
 		   	document.getElementById("searchResultTable").innerHTML = s;
+		   	updateTable();
 		}
 	});
 
