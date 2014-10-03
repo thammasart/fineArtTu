@@ -37,18 +37,16 @@ function findFSN(){
 		   	
 		   	destroyTable();
 			for (var i = 0; i < length; i++) {
-//				s += '<tr>';
-//				s += '				<th>'+(i+1)+'</th>';
 				s += '				<th>'+ "<input type=\"checkbox\"/>" +'</th>';
 				s += '				<th>'+ allArticles[i].code +'</th>';
 				if(allArticles[i].detail){
-					s += '				<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
+					s += '				<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';//descriptionDescription +'</th>';
 				}
 				else{
 					s += '				<th>'+ 'ไม่มี' +'</th>';
 				}
-				s += '				<th>'+ 'ยังไม่ได้ทำ' +'</th>';
-				s += '				<th>'+ 'ยังไม่ได้ทำ' +'</th>';
+				s += '				<th>'+ allArticles[i].remainingLifetime +'</th>';
+				s += '				<th>'+ allArticles[i].remainingPrice +'</th>';
 				s += '				<th>'+'</th>';
 				s += '</tr>';
 		   	}
