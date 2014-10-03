@@ -43,7 +43,6 @@ public class Procurement extends Model{
 	@OneToMany(mappedBy="procurement")
 	public List<ProcurementDetail> details = new ArrayList<ProcurementDetail>();
 	
-
 	@OneToMany(mappedBy="procurement")
 	public List<EO_Committee> eoCommittee = new ArrayList<EO_Committee>(); // คณะกรรมการเปิดซองสอบราคา
 	@OneToMany(mappedBy="procurement")

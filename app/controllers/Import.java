@@ -52,8 +52,6 @@ public class Import extends Controller {
     public static Result importsInstitute() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<Company> institutes = Company.find.all(); 
-        for(Company a:institutes)
-        System.out.println(a.id);
         return ok(importsInstitute.render(institutes,user));
     }
 
@@ -130,7 +128,6 @@ public class Import extends Controller {
     public static Result removeInstitute(){
     	DynamicForm form = Form.form().bindFromRequest();
     	Company company;
-    	
     	
         if(!form.get("institutesTickList").equals("")){
     	String[] institutes = form.get("institutesTickList").split(",");

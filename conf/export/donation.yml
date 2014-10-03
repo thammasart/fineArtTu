@@ -9,7 +9,7 @@
   approveDate:      2014-05-30
   status:           SUCCESS
 - &Auction03 !!models.durableArticles.Donation
-  title:            ขายทอดตลาด ตู้เก็บเอกสาร
+  title:            ขายทอดตลาด ตู้เก็บเอกสาร หมดอายุการใช้งาน
   contractNo:       3/57
   approveDate:      2014-09-30
   status:           INIT

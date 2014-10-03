@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class FSN_Group extends Model{
 
@@ -15,6 +17,7 @@ public class FSN_Group extends Model{
 	@Column(nullable=false)
 	public String groupDescription;
 
+	@JsonBackReference
 	@OneToMany(mappedBy="group")
 	public List<FSN_Class> classInGroup = new ArrayList<FSN_Class>();
 
