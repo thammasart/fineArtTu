@@ -18,6 +18,7 @@ import java.util.Locale;
 import javax.persistence.ManyToOne;
 import javax.swing.JOptionPane;
 
+import models.consumable.Procurement;
 import models.durableArticles.DurableArticles;
 import models.durableArticles.ProcurementDetail;
 import models.durableArticles.AI_Committee;
@@ -767,6 +768,44 @@ public class Import extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(importsOrderGoodsAddMaterial2.render(user));
     }
+    
+    @Security.Authenticated(Secured.class)
+    public static Result removeProcurement(){
+    	DynamicForm form = Form.form().bindFromRequest();
+    	String type = form.get("type");
+
+    	if(type.equals("durableArticles"))
+    	{
+    		if(!form.get("durableArticlesProcurementTickList").equals(""))
+    		{
+    			String[] durableArticlesProcurementInList = form.get("durableArticlesProcurementTickList").split(",");
+    			
+    			for(int i=0;i<durableArticlesProcurementInList.length;i++)
+    			{
+    				models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(durableArticlesProcurementInList[i]));
+    				p.status = ImportStatus.DELETE;
+    				p.update();
+    			}
+    		}
+    	}
+    	else if(type.equals("goods"))
+    	{
+    		if(!form.get("goodsProcurementTickList").equals(""))
+    		{
+    			String[] goodsProcurementInList = form.get("goodsProcurementTickList").split(",");
+    			
+    			for(int i=0;i<goodsProcurementInList.length;i++)
+    			{
+    				models.durableGoods.Procurement p = models.durableGoods.Procurement.find.byId(Long.parseLong(goodsProcurementInList[i]));
+    				p.status = ImportStatus.DELETE;
+    				p.update();
+    			}
+    		}
+    	}
+    	
+    	return redirect(routes.Import.importsOrder());
+    }
+    
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result removeProcurementDetail(){ //article
