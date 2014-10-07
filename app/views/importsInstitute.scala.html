@@ -11,6 +11,7 @@
 <div class="listWindow" ng-app="importsInstituteApp"  ng-controller="importsInstituteCtrl">
 
 @importsInstituteOverlay()
+@delInsititute()
 
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
@@ -27,7 +28,7 @@
                     <a style="float:right;margin-left:1%;"href="@routes.Import.importsInstituteAdd()">
                     <button class="btn btn-success width200px">เพิ่มสถานประกอบการ</button>
                     </a>
-                    <button class="btn btn-danger width200px" style="float:right;" onclick="removeInstitute()">ลบสถานประกอบการ</button>
+                    <button class="btn btn-danger width200px" style="float:right;" ng-click="openDelModal()">ลบสถานประกอบการ</button>
                 </div>
         </div>
         
@@ -67,7 +68,7 @@
 
                   @for(institute<- institutes){
                     <tr>
-                    <th><input id="@institute.id" type="checkbox" onclick="addTick(@institute.id)"></th>
+                    <th><input id="@institute.id" type="checkbox" onclick="addTick(@institute.id,'@institute.nameEntrepreneur')"></th>
                     <th>@institute.nameEntrepreneur</th>
                     <th>@institute.nameDealer</th>
                     <th>@institute.address.telephoneNumber</th>

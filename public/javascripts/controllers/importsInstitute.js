@@ -1,12 +1,14 @@
 var institutesTick = [];
+var institutesNameTick =[];
 
-function addTick(name){
+function addTick(name,nameEntrepreneur){
 	var instituteName = name;
 	console.log(institutesTick);
 	if(institutesTick.indexOf(instituteName) > -1){
 		institutesTick.remove(instituteName);
 	}else{
 		institutesTick.push(instituteName);
+                institutesNameTick.push(nameEntrepreneur);
 	}
 }
 
@@ -22,11 +24,22 @@ function removeInstitute(){
 angular.module('importsInstituteApp', ['ui.bootstrap'])
     .controller('importsInstituteCtrl',function($scope,$modal){
     	$scope.name = "asd";
+        $scope.openDelModal= function(){
+
+            var delModalInstance = $modal.open({
+                templateUrl: 'delInsititute.html',
+                controller: deleteModalInstanceCtrl,
+                size: 'lg',
+                resolve: {
+                    name : function(){
+                        return $scope.name;
+                    }
+                }
+            });
+        };
+
         $scope.open = function(id){
-//            $http({method : 'GET',url : 'autoCompleteGood' })
-//            .success(function(result){
-//
-//            });
+
             var modalInstance = $modal.open({
                 templateUrl: 'imp.html',
                 controller: resultModalInstanceCtrl,
@@ -42,6 +55,18 @@ angular.module('importsInstituteApp', ['ui.bootstrap'])
     }
 );
 
+    var deleteModalInstanceCtrl = function($scope, $modalInstance){
+        $scope.nameEntrepreneur= institutesNameTick;
+        $scope.ok = function () {
+            removeInstitute();
+            $modalInstance.close();
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
+        };
+
+    }
 	
 	
     var resultModalInstanceCtrl= function($scope, $modalInstance){

@@ -2,6 +2,40 @@ var durableArticlesTick = [];
 var durableGoodsTick = [];
 var consumableGoodsTick = [];
 
+angular.module('insituteApp', ['ui.bootstrap'])
+    .controller('delInsitute',function($scope,$modal){
+
+
+        $scope.open = function(){
+
+            var modalInstance = $modal.open({
+                templateUrl: 'delInsitute.html',
+                controller: resultModalInstanceCtrl,
+                size: 'lg',
+                resolve: {
+                    name : function(){
+                        return $scope.name;
+                    }
+                }
+            });
+        };
+    }
+);
+
+var resultModalInstanceCtrl= function($scope, $modalInstance){
+    $scope.name = "Delete User(s).";
+    $scope.userT= usersTick;
+    $scope.ok = function () {
+        removeUser();
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
+
+
 function addTick(name,type)
 {
 	
