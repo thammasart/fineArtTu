@@ -2,6 +2,7 @@ var durableArticlesTick = [];
 var durableGoodsTick = [];
 var consumableGoodsTick = [];
 
+
 angular.module('insituteApp', ['ui.bootstrap'])
     .controller('delInsitute',function($scope,$modal){
 
