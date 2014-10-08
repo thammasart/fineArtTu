@@ -15,7 +15,7 @@ GET		/export/searchFSN                       controllers.Export.searchFSN(code:S
 
 GET		/export/order                           controllers.ExportOrder.exportOrder()
 GET		/export/order/add                       controllers.ExportOrder.exportOrderAdd(requisitionId:Long)
-GET		/export/order/add/new                   controllers.ExportOrder.exportCreateOrder()
+GET		/export/order/new                   	controllers.ExportOrder.exportCreateOrder()
 GET		/export/order/add/Detail                controllers.ExportOrder.exportOrderAddDetail(detail:Long)
 POST	/export/order/saveRequisition			controllers.ExportOrder.saveRequisition(requisitionId:Long)
 
@@ -37,16 +37,19 @@ GET		/export/transferOutSide/add/detail              controllers.Export.exportTr
 
 GET		/export/donate                          controllers.ExportDonate.exportDonate()
 GET		/export/donate/add                      controllers.ExportDonate.exportDonateAdd(donationId:Long)
-GET		/export/donate/add/new                  controllers.ExportDonate.exportCreateDonate()
+GET		/export/donate/new                  	controllers.ExportDonate.exportCreateDonate()
 GET		/export/donate/add/Detail               controllers.ExportDonate.exportDonateAddDetail()
 POST	/export/donate/saveDonation				controllers.ExportDonate.saveDonation(donationId:Long)
-
 POST	/export/donate/saveDetail				controllers.ExportDonate.saveDonateDetail()
 GET		/export/donate/lodeDetail               controllers.ExportDonate.loadDonateDetail(id:Long)
 
-GET		/export/sold                              		controllers.ExportSold.exportSold()
-GET		/export/sold/add                              	controllers.ExportSold.exportSoldAdd()
-GET		/export/sold/add/detail                         controllers.ExportSold.exportSoldAddDetail()
+GET		/export/sold                            controllers.ExportSold.exportSold()
+GET		/export/sold/add                        controllers.ExportSold.exportSoldAdd(auctionId:Long)
+GET		/export/sold/new                  		controllers.ExportSold.exportCreateSold()
+GET		/export/sold/add/detail                 controllers.ExportSold.exportSoldAddDetail()
+POST	/export/sold/saveSold					controllers.ExportSold.saveAuction(auctionId:Long)
+POST	/export/sold/saveDetail					controllers.ExportSold.saveAuctionDetail()
+GET		/export/sold/lodeDetail					controllers.ExportSold.loadAuctionDetail(id:Long)
 
 GET		/export/other                             		controllers.ExportOther.exportOther()
 GET		/export/other/add                             	controllers.ExportOther.exportOtherAdd()

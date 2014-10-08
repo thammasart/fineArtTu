@@ -13,6 +13,7 @@ import models.*;
 import models.consumable.*;
 import models.durableArticles.*;
 import models.type.ExportStatus;
+import models.type.SuppliesStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -55,7 +56,6 @@ public class ExportDonate extends Controller {
         if(donate == null){
             return redirect(routes.ExportDonate.exportDonate());
         }
-        System.out.println("export aonate add id : " + donate.id);
         return ok(exportDonateAdd.render(user, donate));
     }
     
@@ -82,7 +82,7 @@ public class ExportDonate extends Controller {
 
         System.out.println(donate.id + " " + donate.title);
 
-        return redirect(routes.ExportOrder.exportOrder());
+        return redirect(routes.ExportDonate.exportDonate());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -93,14 +93,12 @@ public class ExportDonate extends Controller {
             JsonNode json = body.asJson();
             long id = Long.parseLong(json.get("id").asText());
             Donation donate = Donation.find.byId(id);
-            System.out.println("Donation id : " + donate.id);
             for (final JsonNode objNode : json.get("detail")) {
                 DonationDetail newDetail = new DonationDetail();
                 id = Long.parseLong(objNode.toString());
-                newDetail.durableArticles = DurableArticles.find.byId(id);
+                newDetail.durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
                 newDetail.donation = donate;
                 newDetail.save();
-                System.out.println("DurableArticles id : " + id);
             }
             result.put("status", "SUCCESS");
         }
@@ -114,7 +112,6 @@ public class ExportDonate extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result loadDonateDetail(long id) {
         ObjectNode result = Json.newObject();
-        System.out.println("loadOrderDetail");
         JsonNode json;
         try { 
             Donation donate = Donation.find.byId(id);
@@ -123,24 +120,13 @@ public class ExportDonate extends Controller {
             json = Json.parse(jsonArray);
             result.put("details",json);
             result.put("status", "SUCCESS");
-            System.out.println("SUCCESS");
+            System.out.println("load detail SUCCESS");
 
-        }
-        catch (JsonProcessingException e) {
-            result.put("message", e.getMessage());
-            result.put("status", "error1");
-            System.out.println("ERROR 1" + e.getMessage());
-        }
-        catch(RuntimeException e){
-            e.printStackTrace();
-            result.put("message", e.getMessage());
-            result.put("status", "error2");
-            System.out.println("ERROR 2");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
             result.put("status", "error3");
-            System.out.println("ERROR 3");
+            System.out.println("load detail ERROR");
         }
         return ok(result);
     }
