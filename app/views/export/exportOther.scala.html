@@ -1,4 +1,4 @@
-@(user : User)
+@(user : User, initList:List[models.durableArticles.OtherTransfer], successList:List[models.durableArticles.OtherTransfer])
 @header("exportOther")
 
 @nav(user)
@@ -8,25 +8,52 @@
 <div class="listWindowMaterial">
 
    <div class="tableHeaderBtnContainer">
-            <div class="searchS">
-                    <form>
-                        <div class="form-group">
-                            <div class="input-group">
-                              <span class="input-group-addon">ค้นหา</span>
-                              <input type="text" class="form-control" style="width:300px">
-                            </div>
-                          </div>
-                    </form>
-            </div>
-            <div>
-                <a style="float:right;margin-left:1%;"href="@routes.ExportOther.exportOtherAdd()">
-                <button class="btn btn-success width200px">เพิ่มรายการ</button>
-                </a>
-                <button class="btn btn-danger width200px" style="float:right;">ลบรายการ</button>
-            </div>
+        <div class="searchS">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon">ค้นหา</span>
+                          <input type="text" class="form-control" style="width:300px">
+                        </div>
+                      </div>
+                </form>
+        </div>
+        <div>
+            <a style="float:right;margin-left:1%;"href="@routes.ExportOther.exportOtherAdd()">
+            <button class="btn btn-success width200px">เพิ่มรายการ</button>
+            </a>
+            <button class="btn btn-danger width200px" style="float:right;">ลบรายการ</button>
+        </div>
    </div>
 
-   <table class="table table-striped overlayTable">
+  @if(!initList.isEmpty()) {
+    <table class="table table-striped overlayTable">
+      <thead>
+          <tr>
+              <th></th>
+              <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+              <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+              <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+              <th>สาเหตุโอนย้าย<span class="glyphicon glyphicon-sort"></span></th>
+              <th>รายละเอียด</th>
+          </tr>
+      </thead>
+      <tbody>
+        @for(other <- initList){
+          <tr>
+            <th> <input type="checkbox"/> </th>
+            <th>@other.title</th>
+            <th>@other.number</th>
+            <th>@other.getApproveDate()</th>
+            <th>@other.status</th>
+            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <table class="table table-striped overlayTable">
     <thead>
         <tr>
             <th></th>
@@ -38,15 +65,16 @@
         </tr>
     </thead>
     <tbody>
-
+      @for(other <- successList){
         <tr>
-            <th> <input type="checkbox"/> </th>
-            <th>รายการส่งเสริมการศึกษา1</th>
-            <th>1/57</th>
-            <th>20/5/57</th>
-            <th>ได้รับความเสียหายจากน้ำท่วม</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
+          <th> <input type="checkbox"/> </th>
+          <th>@other.title</th>
+          <th>@other.number</th>
+          <th>@other.getApproveDate()</th>
+          <th>@other.status</th>
+          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
         </tr>
+      }
     </tbody>
   </table>
 

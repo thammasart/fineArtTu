@@ -19,7 +19,6 @@ GET		/export/order/new                   	controllers.ExportOrder.exportCreateOr
 GET		/export/order/add/Detail                controllers.ExportOrder.exportOrderAddDetail(detail:Long)
 POST	/export/order/saveRequisition			controllers.ExportOrder.saveRequisition(requisitionId:Long)
 
-# POST 	/export/order/saveRequisitionDetail		controllers.ExportOrder.saveRequisitionDetail(requisitionId:Long)
 GET 	/export/order/cancelRequisition			controllers.ExportOrder.cancelRequisition(requisitionId:Long)
 
 POST	/export/order/saveDetail				controllers.ExportOrder.saveOrderDetail()
@@ -54,6 +53,8 @@ GET		/export/sold/lodeDetail					controllers.ExportSold.loadAuctionDetail(id:Lon
 GET		/export/other                             		controllers.ExportOther.exportOther()
 GET		/export/other/add                             	controllers.ExportOther.exportOtherAdd()
 GET		/export/other/add/detail                        controllers.ExportOther.exportOtherAddDetail()
+
+POST	/export/other/saveOther							controllers.ExportOther.saveOther(id:Long)
 
 GET     /export/order/autocompleteExportCommitee              controllers.Export.autocompleteExportCommitee()
 

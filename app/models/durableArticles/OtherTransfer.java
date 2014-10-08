@@ -21,6 +21,8 @@ public class OtherTransfer extends Model{
 
 	@Id
 	public long id;
+	public String title; // ชื่อ เรื่อง
+	public String number; //เลขที่
 	public Date approveDate; // วันที่ทำการอนุมัติ
 	public String description; // สาเหตุ-รายละเอียดการโอน การโอน
 	public ExportStatus status; //สถานะใบโอน
