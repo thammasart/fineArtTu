@@ -1,11 +1,10 @@
 var institutesTick = [];
 var institutesNameTick =[];
-
 function addTick(name,nameEntrepreneur){
 	var instituteName = name;
-	console.log(institutesTick);
 	if(institutesTick.indexOf(instituteName) > -1){
 		institutesTick.remove(instituteName);
+                institutesNameTick.remove(nameEntrepreneur);
 	}else{
 		institutesTick.push(instituteName);
                 institutesNameTick.push(nameEntrepreneur);
@@ -25,14 +24,14 @@ angular.module('importsInstituteApp', ['ui.bootstrap'])
     .controller('importsInstituteCtrl',function($scope,$modal){
     	$scope.name = "asd";
         $scope.openDelModal= function(){
-
+                $scope.nameEntrepreneur = "";
             var delModalInstance = $modal.open({
                 templateUrl: 'delInsititute.html',
                 controller: deleteModalInstanceCtrl,
                 size: 'lg',
                 resolve: {
-                    name : function(){
-                        return $scope.name;
+                    institutesNameTick : function(){
+                        return $scope.institutesNameTick ;
                     }
                 }
             });
