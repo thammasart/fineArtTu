@@ -91,9 +91,9 @@ GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialCon
 GET		/import/order									controllers.Import.importsOrder()
 GET		/import/order2									controllers.Import.importsOrder2(tab :String)
 POST	/import/order/cancel							controllers.Import.importsCancelOrder()
-GET		/import/order/DurableArticlesAdd	    		controllers.Import.importsOrderDurableArticlesAdd()
-GET		/import/order/DurableArticlesAdd/Material1		controllers.Import.importsOrderDurableArticlesAddMaterial1()
-GET		/import/order/DurableArticlesAdd/Material2		controllers.Import.importsOrderDurableArticlesAddMaterial2()
+GET		/import/order/createDurableArticlesAdd	    	controllers.Import.createImportsOrderDurableArticlesAdd()
+GET		/import/order/DurableArticlesAdd	    		controllers.Import.importsOrderDurableArticlesAdd(id : Long)
+POST 	/import/order/retriveProcurement				controllers.Import.retriveProcurement()
 POST 	/import/saveNewArticlesOrder					controllers.Import.saveNewArticlesOrder()
 POST 	/import/saveNewArticlesOrderDetail				controllers.Import.saveNewArticlesOrderDetail()
 POST 	/import/saveNewGoodsOrderDetail					controllers.Import.saveNewGoodsOrderDetail()
@@ -103,10 +103,8 @@ POST	/import/removeProcurementDetail2				controllers.Import.removeProcurementDet
 
 POST	/import/removeProcurement						controllers.Import.removeProcurement()
 
-
-GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()
-GET		/import/order/GoodsAdd/Material1				controllers.Import.importsOrderGoodsAddMaterial1()
-GET		/import/order/GoodsAdd/Material2				controllers.Import.importsOrderGoodsAddMaterial2()
+GET		/import/order/createGoodsAdd	    			controllers.Import.createImportsOrderGoodsAdd()
+GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd(id : Long)
 POST 	/import/saveNewGoodsOrder						controllers.Import.saveNewGoodsOrder()
 
 GET     /editUser                                                       controllers.Application.editUser()

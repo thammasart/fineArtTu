@@ -31,7 +31,7 @@
                     </form>
             </div>
             <div>
-                <a style="float:right;margin-left:1%;"href="@routes.Import.importsOrderDurableArticlesAdd()">
+                <a style="float:right;margin-left:1%;"href="@routes.Import.createImportsOrderDurableArticlesAdd()">
                 <button class="btn btn-success width200px">เพิ่มรายการครุภัณฑ์</button>
                 </a>
                 <button class="btn btn-danger width200px" style="float:right;" onclick="removeProcurement('durableArticles')">ลบรายการครุภัณฑ์</button>
@@ -49,6 +49,44 @@
         	 <font size="5">@flash().get("notSelect1")</font> 
 		</div>
 		}
+			<table class="table table-striped overlayTable">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>ID<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>วันนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>วันตรวจสอบ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ประเภทงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>สถานประกอบการ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ปีงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รายละเอียด</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                
+                
+					@for(articleOrder <- articleOrders){
+	                    @if(articleOrder.status.name() == "INIT"){
+	                    	<tr>
+		                        <th><input id="articleOrder.id" type="checkbox" onclick="addTick('@articleOrder.id','durableArticles')"></th>
+		                        <th>@articleOrder.id</th>
+		                        <th>@articleOrder.title</th>
+		                        <th>@articleOrder.contractNo</th>
+		                        <th>@articleOrder.getAddDate()</th>
+		                        <th>@articleOrder.getCheckDate()</th>
+		                        <th>@articleOrder.budgetType</th>
+		                        <th>@articleOrder.institute</th>
+		                        <th>@articleOrder.budgetYear</th>
+		                        <th> <button class="btn btn-xs btn-info" onclick="edit(@articleOrder.id,1)" > รายละเอียด</button>
+	                    	</tr>
+		                }
+                    }
+                    
+                </tbody>
+            </table>
 
             <table class="table table-striped overlayTable">
                 <thead>
@@ -70,34 +108,24 @@
                 
                 
 					@for(articleOrder <- articleOrders){
-	                    <tr>
-	                        <th><input id="articleOrder.id" type="checkbox" onclick="addTick('@articleOrder.id','durableArticles')"></th>
-	                        <th>@articleOrder.id</th>
-	                        <th>@articleOrder.title</th>
-	                        <th>@articleOrder.contractNo</th>
-	                        <th>@articleOrder.getAddDate()</th>
-	                        <th>@articleOrder.getCheckDate()</th>
-	                        <th>@articleOrder.budgetType</th>
-	                        <th>@articleOrder.institute</th>
-	                        <th>@articleOrder.budgetYear</th>
-	                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-	                    </tr>
+						@if(articleOrder.status.name() == "SUCCESS"){
+		                    <tr>
+		                        <th><input id="articleOrder.id" type="checkbox" onclick="addTick('@articleOrder.id','durableArticles')"></th>
+		                        <th>@articleOrder.id</th>
+		                        <th>@articleOrder.title</th>
+		                        <th>@articleOrder.contractNo</th>
+		                        <th>@articleOrder.getAddDate()</th>
+		                        <th>@articleOrder.getCheckDate()</th>
+		                        <th>@articleOrder.budgetType</th>
+		                        <th>@articleOrder.institute</th>
+		                        <th>@articleOrder.budgetYear</th>
+		                        <th> <button class="btn btn-xs btn-info" onclick="edit(@articleOrder.id,1)" > รายละเอียด</button>
+		                    </tr>
+		                }
                     }
                     
                 </tbody>
             </table>
-
-            <div class="pagingContainer" align="center">
-                <ul class="pagination" style="margin:0;">
-                  <li class="disabled"><a href="#">&laquo;</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-            </div>
     </div>
 <!-- ========================================== tab2 ============================================ -->
       <div class="tab-pane fade" id="2">
@@ -116,7 +144,7 @@
               
 
               <div>
-                  <a style="float:right;margin-left:1%;"href="@routes.Import.importsOrderGoodsAdd()">
+                  <a style="float:right;margin-left:1%;"href="@routes.Import.createImportsOrderGoodsAdd()">
                   <button class="btn btn-success width200px">เพิ่มรายการวัสดุ</button>
                   </a>
                   <button class="btn btn-danger width200px" style="float:right;" onclick="removeProcurement('goods')">ลบรายการวัสดุ</button>
@@ -134,7 +162,45 @@
         	 <font size="5">@flash().get("notSelect2")</font> 
 		</div>
 		}
-              <table class="table table-striped overlayTable">
+			<table class="table table-striped overlayTable">
+				<thead>
+					<tr>
+					<th></th>
+					<th>ID<span class="glyphicon glyphicon-sort"></span></th>
+					<th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+					<th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+					<th>วันนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
+					<th>วันตรวจสอบ<span class="glyphicon glyphicon-sort"></span></th>
+					<th>ประเภทงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
+					<th>สถานประกอบการ<span class="glyphicon glyphicon-sort"></span></th>
+					<th>ปีงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
+					<th>รายละเอียด</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+				
+				@for(goodOrder <- goodOrders){
+					@goodOrder.status.name()
+					@if(goodOrder.status.name() == "INIT"){
+						<tr>
+							<th><input id="goodOrder.id" type="checkbox" onclick="addTick('@goodOrder.id','goods')"></th>
+							<th>@goodOrder.id</th>
+							<th>@goodOrder.title</th>
+							<th>@goodOrder.contractNo</th>
+							<th>@goodOrder.getAddDate()</th>
+							<th>@goodOrder.getCheckDate()</th>
+							<th>@goodOrder.budgetType</th>
+							<th>@goodOrder.institute</th>
+							<th>@goodOrder.budgetYear</th>
+							<th> <button class="btn btn-xs btn-info" onclick="edit(@goodOrder.id,2)" > รายละเอียด</button>
+						</tr>
+					}
+				}
+				
+				</tbody>
+			</table>
+			<table class="table table-striped overlayTable">
                   <thead>
                       <tr>
 						<th></th>
@@ -153,34 +219,25 @@
                   <tbody>
                     
                     @for(goodOrder <- goodOrders){
-	                    <tr>
-	                        <th><input id="goodOrder.id" type="checkbox" onclick="addTick('@goodOrder.id','goods')"></th>
-	                        <th>@goodOrder.id</th>
-	                        <th>@goodOrder.title</th>
-	                        <th>@goodOrder.contractNo</th>
-	                        <th>@goodOrder.getAddDate()</th>
-	                        <th>@goodOrder.getCheckDate()</th>
-	                        <th>@goodOrder.budgetType</th>
-	                        <th>@goodOrder.institute</th>
-	                        <th>@goodOrder.budgetYear</th>
-	                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
-	                    </tr>
+	                    @if(goodOrder.status.name() == "SUCCESS"){
+							<tr>
+								<th><input id="goodOrder.id" type="checkbox" onclick="addTick('@goodOrder.id','goods')"></th>
+								<th>@goodOrder.id</th>
+								<th>@goodOrder.title</th>
+								<th>@goodOrder.contractNo</th>
+								<th>@goodOrder.getAddDate()</th>
+								<th>@goodOrder.getCheckDate()</th>
+								<th>@goodOrder.budgetType</th>
+								<th>@goodOrder.institute</th>
+								<th>@goodOrder.budgetYear</th>
+								<th> <button class="btn btn-xs btn-info" onclick="edit(@goodOrder.id,2)" > รายละเอียด</button>
+							</tr>
+						}
                     }
 
                   </tbody>
               </table>
-
-          <div class="pagingContainer" align="center">
-              <ul class="pagination" style="margin:0;">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-              </ul>
-          </div>
+			
       </div>
 
 <!-- ========================================== tab3 ============================================ -->
@@ -190,9 +247,17 @@
 
 </div>
 <script>
-  $(function () {
-    $('#imdTabs a[href="#@tab"]').tab('show')
-  })
+	$(function () {
+		$('#imdTabs a[href="#@tab"]').tab('show')
+	})
+	
+	function edit(id , tab){
+		if(tab == 1){
+			window.location = "/import/order/DurableArticlesAdd?id=" + id;
+		}else if(tab == 2){
+			window.location = "/import/order/GoodsAdd?id=" + id;
+		}
+	}
 </script>
 @footer()
 

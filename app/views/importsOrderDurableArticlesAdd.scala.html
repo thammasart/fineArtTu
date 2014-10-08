@@ -19,7 +19,7 @@
             <div class="form-group" >
                   <div class="input-group" >
                       <span class="input-group-addon width250px" >ชื่อรายการ</span>
-                      <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="title">
+                      <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="title" value="@order.title">
                   </div>
             </div>
       </div>
@@ -28,7 +28,7 @@
             <div class="form-group" >
                   <div class="input-group" >
                       <span class="input-group-addon width250px" >เลขที่</span>
-                      <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="contractNo">
+                      <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="contractNo" value="@order.contractNo">
                   </div>
             </div>
       </div>
@@ -81,7 +81,7 @@
             <div class="form-group" >
                   <div class="input-group" >
                       <span class="input-group-addon width250px" >ปีงบประมาณ</span>
-                      <input type="number" class="form-control textAlignCenter  width300px" onkeypress="validateNumberKey(event)" placeholder="ใส่ค่า" name="budgetYear"  id="years">
+                      <input type="number" class="form-control textAlignCenter  width300px" onkeypress="validateNumberKey(event)" placeholder="ใส่ค่า" name="budgetYear"  id="years" value="@order.budgetYear">
                   </div>
             </div>
       </div>
@@ -329,6 +329,8 @@
 
 
 </div>
-
+<script>
+	retriveProcurement(@order.id,1);
+</script>
  
 @footerFull()

@@ -59,6 +59,7 @@ public class Import extends Controller {
         return ok(importsInstitute.render(institutes,user));
     }
 
+    @Security.Authenticated(Secured.class)
     @BodyParser.Of(BodyParser.Json.class)
 	public static Result retriveInstituteDescription(){
     	RequestBody body = request().body();
@@ -98,7 +99,7 @@ public class Import extends Controller {
         return ok(importsInstituteAdd.render(user));
     }
 
-
+	@Security.Authenticated(Secured.class)
     public static Result saveNewInstitute(){
     	MultipartFormData body = request().body().asMultipartFormData();
     	FilePart filePart = body.getFile("attachFile");
@@ -176,7 +177,7 @@ public class Import extends Controller {
 
         return redirect(routes.Import.importsInstitute());
     }
-    
+	@Security.Authenticated(Secured.class)
     public static Result removeInstitute(){
     	DynamicForm form = Form.form().bindFromRequest();
     	Company company;
@@ -246,6 +247,7 @@ public class Import extends Controller {
         return ok(importsMaterialDurableArticlesAdd.render(groupType,user));
     }
 
+    @Security.Authenticated(Secured.class)
     public static Result saveNewMaterialDurableArticles(){
 
         DynamicForm form = Form.form().bindFromRequest();
@@ -299,6 +301,7 @@ public class Import extends Controller {
         return ok(importsMaterialConsumableGoodsAdd.render(user));
     }
 
+    @Security.Authenticated(Secured.class)
     public static Result saveNewMaterialDurableGoods(){
     	String tab = "";
         String code = "";
@@ -434,43 +437,86 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsOrder() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
-        //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
-        List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+        //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+        List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
+        //List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+        List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.all();
         
         return ok(importsOrder.render(aProcurement,gProcurement,user,"1"));
     }
     
     @Security.Authenticated(Secured.class)
     public static Result importsOrder2(String tab) {
-    User user = User.find.where().eq("username", session().get("username")).findUnique();
-    List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
-    //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
-    List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+	    User user = User.find.where().eq("username", session().get("username")).findUnique();
+	    //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+	    List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
+	    //List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+	    List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.all();
     
-    return ok(importsOrder.render(aProcurement,gProcurement,user,tab));
-}
+	    return ok(importsOrder.render(aProcurement,gProcurement,user,tab));
+    }
     
     @Security.Authenticated(Secured.class)
-        public static Result importsOrderDurableArticlesAdd() {
+	public static Result createImportsOrderDurableArticlesAdd() {
+	    User user = User.find.where().eq("username", session().get("username")).findUnique();
+	    models.durableArticles.Procurement order= new models.durableArticles.Procurement();
+	    order.status = ImportStatus.INIT;
+	    order.save();
+	    return redirect(routes.Import.importsOrderDurableArticlesAdd(order.id));
+	}
+    
+    @Security.Authenticated(Secured.class)
+    public static Result importsOrderDurableArticlesAdd(Long id) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        models.durableArticles.Procurement order= new models.durableArticles.Procurement();
-        order.status = ImportStatus.INIT;
-        order.save();
+        models.durableArticles.Procurement order = models.durableArticles.Procurement.find.byId(id);
         return ok(importsOrderDurableArticlesAdd.render(order,user));
     }
-    @Security.Authenticated(Secured.class)
-        public static Result importsOrderDurableArticlesAddMaterial1() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderDurableArticlesAddMaterial1.render(user));
-    }
-    @Security.Authenticated(Secured.class)
-        public static Result importsOrderDurableArticlesAddMaterial2() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderDurableArticlesAddMaterial2.render(user));
-    }
     
-
+    @Security.Authenticated(Secured.class)
+    @BodyParser.Of(BodyParser.Json.class)
+	public static Result retriveProcurement(){
+    	RequestBody body = request().body();
+    	JsonNode json = body.asJson();
+    	ArrayNode aiArray = JsonNodeFactory.instance.arrayNode();
+    	ArrayNode eoArray = JsonNodeFactory.instance.arrayNode();
+    	ObjectNode result = Json.newObject();
+    	if(json.get("tab").asText().equals("1")){
+    		models.durableArticles.Procurement pa = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").asText()));
+    		for(models.durableArticles.AI_Committee ai : pa.aiCommittee){
+    			ArrayNode aiItem = JsonNodeFactory.instance.arrayNode();
+    			aiItem.add(ai.committee.title);
+    			aiItem.add(ai.committee.firstName);
+    			aiItem.add(ai.committee.lastName);
+    			aiItem.add(ai.committee.identificationNo);
+    			aiItem.add(ai.committee.position);
+    			aiItem.add(ai.employeesType);
+    			aiItem.add(ai.committeePosition);
+    			aiArray.add(aiItem);
+    		}
+    		result.put("ai", aiArray);
+    		
+    		for(models.durableArticles.EO_Committee eo : pa.eoCommittee){
+    			ArrayNode eoItem = JsonNodeFactory.instance.arrayNode();
+    			eoItem.add(eo.committee.title);
+    			eoItem.add(eo.committee.firstName);
+    			eoItem.add(eo.committee.lastName);
+    			eoItem.add(eo.committee.identificationNo);
+    			eoItem.add(eo.committee.position);
+    			eoItem.add(eo.employeesType);
+    			System.out.println(eo.employeesType);
+    			System.out.println(eo.committeePosition);
+    			eoItem.add(eo.committeePosition);
+    			eoArray.add(eoItem);
+    		}
+    		result.put("eo", eoArray);
+    	}else if(json.get("page").asText().equals("1")){
+    		
+    	}
+    	
+    	return ok(result);
+	}
+    
+    @Security.Authenticated(Secured.class)
     public static Result saveNewArticlesOrder(){
     	DynamicForm form = Form.form().bindFromRequest();
     	System.out.println(Form.form(models.durableArticles.Procurement.class).bindFromRequest());
@@ -580,6 +626,7 @@ public class Import extends Controller {
         return redirect(routes.Import.importsOrder2("1"));
     }
     
+    @Security.Authenticated(Secured.class)
     public static Result saveNewGoodsOrder(){
     	DynamicForm form = Form.form().bindFromRequest();
     	System.out.println(Form.form(models.durableGoods.Procurement.class).bindFromRequest());
@@ -650,7 +697,7 @@ public class Import extends Controller {
         return redirect(routes.Import.importsOrder2("2"));
     }
     
-    
+    @Security.Authenticated(Secured.class)
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveNewGoodsOrderDetail(){
     	RequestBody body = request().body();
@@ -713,6 +760,8 @@ public class Import extends Controller {
     
     	return ok(result);
     }
+    
+    @Security.Authenticated(Secured.class)
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveNewArticlesOrderDetail(){
     	// TODO : save detail
@@ -789,6 +838,7 @@ public class Import extends Controller {
     	return ok(result);
     }
     
+    @Security.Authenticated(Secured.class)
     @BodyParser.Of(BodyParser.Json.class)
     public static Result importsCancelOrder(){
     	RequestBody body = request().body();
@@ -803,39 +853,31 @@ public class Import extends Controller {
     	if(s.equals("article")){
     		System.out.println("in articles");
     		articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
-        	articlesOrder.status = ImportStatus.CANCEL;
         	articlesOrder.update();
         	tab="1";
     	}else{
     		System.out.println("in good");
     		goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
-    		goodsOrder.status = ImportStatus.CANCEL;
     		goodsOrder.update();
     		tab="2";
     	}
         return redirect(routes.Import.importsOrder2(tab));
     }
     
-    
+    @Security.Authenticated(Secured.class)
+    public static Result createImportsOrderGoodsAdd() {
+	    User user = User.find.where().eq("username", session().get("username")).findUnique();
+	    models.durableGoods.Procurement order= new models.durableGoods.Procurement();
+	    order.status = ImportStatus.INIT;
+	    order.save();
+	    return redirect(routes.Import.importsOrderGoodsAdd(order.id));
+	} 
 
     @Security.Authenticated(Secured.class)
-        public static Result importsOrderGoodsAdd() {
+    public static Result importsOrderGoodsAdd(Long id) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        models.durableGoods.Procurement order= new models.durableGoods.Procurement();
-        order.status = ImportStatus.INIT;
-        order.save();
+        models.durableGoods.Procurement order = models.durableGoods.Procurement.find.byId(id); 
         return ok(importsOrderGoodsAdd.render(order,user));
-    }
-    
-    @Security.Authenticated(Secured.class)
-        public static Result importsOrderGoodsAddMaterial1() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderGoodsAddMaterial1.render(user));
-    }
-    @Security.Authenticated(Secured.class)
-        public static Result importsOrderGoodsAddMaterial2() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsOrderGoodsAddMaterial2.render(user));
     }
     
     @Security.Authenticated(Secured.class)
@@ -897,7 +939,7 @@ public class Import extends Controller {
     	return redirect(routes.Import.importsOrder2(tab));
     }
     
-
+    @Security.Authenticated(Secured.class)
     @BodyParser.Of(BodyParser.Json.class)
     public static Result removeProcurementDetail(){ //article
     	
@@ -948,6 +990,7 @@ public class Import extends Controller {
     	return ok(result);
     }
     
+    @Security.Authenticated(Secured.class)
     @BodyParser.Of(BodyParser.Json.class)
     public static Result removeProcurementDetail2(){ //good
     	
@@ -996,7 +1039,6 @@ public class Import extends Controller {
 	    result.put("data",jsonArray);
     	return ok(result);
     }
-    
     
     @Security.Authenticated(Secured.class)
     public static Result findNextFsnNumber(String fsnKey){
