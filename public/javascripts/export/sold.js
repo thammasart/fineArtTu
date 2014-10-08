@@ -4,9 +4,12 @@ var auction = {
 	'contractNo': ""
 };
 
-var detail = [];
+var newDetail = [];	
+var oldDetail = [];
 
 function addDetailButton(){
+	document.getElementById("searchResultTable").innerHTML = "";
+
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
 	document.addDetail.fsnCode.focus();
@@ -17,12 +20,12 @@ function addSoldButton(){
 	document.getElementById("addDetailWindows").style.display = "none";
 }
 
-function addDetailToArray(code){
-	if(detail.indexOf(code) > -1){
-		detail.remove(code);
+function addNewDetai(code){
+	if(newDetail.indexOf(code) > -1){
+		newDetail.remove(code);
 	}
 	else{
-		detail.push(code);
+		newDetail.push(code);
 	}
 }
 
@@ -39,7 +42,9 @@ function getDetail(id){
 			   	var detailLength = details.length;
 			   	var s = "";
 			   	destroyTable();
+			   	oldDetail = [];
 				for (var i = 0; i < detailLength; i++) {
+					oldDetail.push(details[i].durableArticles.id);
 					s += '<tr>';
 					s += '	<th>'+(i+1)+'</th>';
 					s += '	<th>'+ details[i].durableArticles.code +'</th>';
@@ -79,25 +84,27 @@ function findFSN(){
 			   	var s = "";
 			   	destroyTable();
 				for (var i = 0; i < length; i++) {
-					s += '				<th> <input type=\"checkbox\" ';
-					if(detail.indexOf(allArticles[i].id) > -1){
-						s += ' checked';
+					if((oldDetail.indexOf(allArticles[i].id) < 0)){
+						s += '				<th> <input type=\"checkbox\" ';
+						if(newDetail.indexOf(allArticles[i].id) > -1){
+							s += ' checked';
+						}
+						s += ' onclick=\"addNewDetai(' + allArticles[i].id + ')\"> </th>';
+						s += '				<th>'+ allArticles[i].code +'</th>';
+						if(allArticles[i].detail){
+							s += '	<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
+							s += '	<th>'+ allArticles[i].detail.llifeTime + ' ปี / ' + allArticles[i].remainLifetimeToString +'</th>';
+							s += '	<th>'+ allArticles[i].detail.price + ' / ' + allArticles[i].remainingPriceToString +'</th>';
+							s += '	<th>'+ allArticles[i].id + ' : ' + allArticles[i].detail.procurement.checkDate + '</th>';
+						}
+						else{
+							s += '	<th>'+ 'ไม่มี' +'</th>';
+							s += '	<th>'+ 'ไม่มี' +'</th>';
+							s += '	<th>'+ 'ไม่มี' +'</th>';
+							s += '	<th>'+ allArticles[i].id + ' : ' + 'ไม่มี' +'</th>';
+						}
+						s += '</tr>';
 					}
-					s += ' onclick=\"addDetailToArray(' + allArticles[i].id + ')\"> </th>';
-					s += '				<th>'+ allArticles[i].code +'</th>';
-					if(allArticles[i].detail){
-						s += '	<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
-						s += '	<th>'+ allArticles[i].detail.llifeTime + ' ปี / ' + allArticles[i].remainLifetimeToString +'</th>';
-						s += '	<th>'+ allArticles[i].detail.price + ' / ' + allArticles[i].remainingPriceToString +'</th>';
-						s += '	<th>'+ allArticles[i].id + ' : ' + allArticles[i].detail.procurement.checkDate + '</th>';
-					}
-					else{
-						s += '	<th>'+ 'ไม่มี' +'</th>';
-						s += '	<th>'+ 'ไม่มี' +'</th>';
-						s += '	<th>'+ 'ไม่มี' +'</th>';
-						s += '	<th>'+ allArticles[i].id + ' : ' + 'ไม่มี' +'</th>';
-					}
-					s += '</tr>';
 			   	}
 			   	document.getElementById("searchResultTable").innerHTML = s;
 			   	updateTable();
@@ -111,10 +118,9 @@ function findFSN(){
 }
 
 function saveDetail(){
-	findFSN();
 	var dataDetail = {};
 	dataDetail.id = auction.id;
-	dataDetail.detail = detail;
+	dataDetail.detail = newDetail;
 	$.ajax({
 		url:'/export/sold/saveDetail',
 	    type: 'post',
@@ -126,7 +132,7 @@ function saveDetail(){
     		document.getElementById("fsnCode").value = "";
 			document.getElementById("fsnDescription").value = "";
 			addSoldButton();
-			detail = [];
+			newDetail = [];
 			getDetail(auction.id);
     	}
 	});
@@ -134,6 +140,6 @@ function saveDetail(){
 
 function init(id){
 	auction.id = id;
-	getDetail(id)
+	getDetail(id);
 	addSoldButton();
 }
