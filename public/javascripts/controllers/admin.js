@@ -1,4 +1,39 @@
 var usersTick = [];
+var data;
+
+angular.module('adminApp', ['ui.bootstrap'])
+    .controller('delUser',function($scope,$modal){
+
+
+        $scope.open = function(){
+
+            var modalInstance = $modal.open({
+                templateUrl: 'adminDelUser.html',
+                controller: resultModalInstanceCtrl,
+                size: 'lg',
+                resolve: {
+                    name : function(){
+                        return $scope.name;
+                    }
+                }
+            });
+        };
+    }
+);
+
+var resultModalInstanceCtrl= function($scope, $modalInstance){
+    $scope.name = "Delete User(s).";
+    $scope.userT= usersTick;
+    $scope.ok = function () {
+        removeUser();
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
+
 
 function addTick(name){
 	var username = name.id;
@@ -11,9 +46,9 @@ function addTick(name){
 }
 
 function removeUser(){
-	var data = {
-			'data'	: usersTick
-	};
+            data = {
+                            'data'	: usersTick
+            };
 	postData('/Admin/removeUser',data);
 }
 

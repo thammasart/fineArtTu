@@ -64,8 +64,9 @@
                       </div>
           </div>
       
-            เงื่อนไขในการชำระเงิน<input type="radio" name="payCodition"> เงินสด
-            <input type="radio" name="payCodition"> เครดิต
+            เงื่อนไขในการชำระเงิน
+            <input class="form-inline marginBtm1" type="radio" name="payCodition" value="เงินสด"  onclick="optionElement(1)"> เงินสด
+			<input type="radio" name="payCodition" value="เครดิต"  onclick="optionElement(2)" > เครดิต
 
 		<div class="form-inline marginBtm1" role="form">
 
@@ -200,7 +201,7 @@
             <table class="table table-striped">
            
                 <tr>
-                    <td ><input type="checkbox" name="durableArticlesType1" value="ครุภัณฑ์สำนักงาน"> ครุภัณฑ์สำนักงาน</td>
+                    <td ><input type="checkbox" name="durableArticlesType1" value="สำนักงาน"> ครุภัณฑ์สำนักงาน</td>
                     <td ><input type="checkbox" name="durableArticlesType2" value="ไฟฟ้าและวิทยุ"> ครุภัณฑ์ไฟฟ้าและวิทยุ</td>
                     <td ><input type="checkbox" name="durableArticlesType3" value="บ้านงานครัว"> ครุภัณฑ์บ้านงานครัว</td>
                     <td ><input type="checkbox" name="durableArticlesType4" value="คอมพิวเตอร์"> ครุภัณฑ์คอมพิวเตอร์</td>
@@ -315,7 +316,7 @@
                 </button>
             </a>
             
-            <a href="@routes.Import.importsInstitute()">
+            <a>    <!-- send data from form! -->
                 <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
                     ยืนยัน <span class="glyphicon glyphicon-ok"></span>
                 </button>

@@ -7,8 +7,9 @@
 @headerTag("ระบบจัดการบัญชีผู้ใช้")
 @sideMenu(user)
 
-<div class ="mainWindow" style="margin-top:0; border:none;">
+<div class ="mainWindow" style="margin-top:0; border:none;" ng-app="adminApp" ng-controller="delUser">
 
+        @adminDelUser()
 
     <div class ="tableHeaderBtnContainer">
         
@@ -23,7 +24,7 @@
             </div>
           }
         <a href="@routes.Admin.addUser()"><button class="btn btn-success btnFloatRight width200px">เพิ่มบัญชีผู้ใช้</button></a>
-        <button class="btn btn-danger btnFloatRight width200px" style="margin-right:1%;" onclick="removeUser()">ลบบัญชีผู้ใช้</button>
+        <button class="btn btn-danger btnFloatRight width200px" style="margin-right:1%;" ng-click="open()">ลบบัญชีผู้ใช้</button>
         <a href="@routes.Admin.manageRole()"><button class="btn btn-primary btnFloatRight width200px" style="margin-right:1%">กำหนดสิทธิ</button></a>
 
     </div>

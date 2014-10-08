@@ -10,7 +10,8 @@
 
 @sideMenu(user)
 
-<div class="listWindowMaterial">
+<div class="listWindowMaterial" ng-app="importOrderApp" ng-controller="delOrder">
+@delImportOrder()
     <ul class="nav nav-tabs" role="tablist" id="imdTabs" style="height:42px; margin-bottom:10px;">
       <li class="active"><a href="#1" role="tab" data-toggle="tab">ครุภัณฑ์</a></li>
       <li><a href="#2" role="tab" data-toggle="tab">วัสดุ</a></li>
@@ -34,7 +35,7 @@
                 <a style="float:right;margin-left:1%;"href="@routes.Import.importsOrderDurableArticlesAdd()">
                 <button class="btn btn-success width200px">เพิ่มรายการครุภัณฑ์</button>
                 </a>
-                <button class="btn btn-danger width200px" style="float:right;" onclick="removeProcurement('durableArticles')">ลบรายการครุภัณฑ์</button>
+                <button class="btn btn-danger width200px" style="float:right;" ng-click="open('durableArticles')">ลบรายการครุภัณฑ์</button>
             </div>
 
         </div>
@@ -71,7 +72,7 @@
                 
 					@for(articleOrder <- articleOrders){
 	                    <tr>
-	                        <th><input id="articleOrder.id" type="checkbox" onclick="addTick('@articleOrder.id','durableArticles')"></th>
+	                        <th><input id="articleOrder.id" type="checkbox" onclick="addTick('@articleOrder.id','durableArticles','@articleOrder.title')"></th>
 	                        <th>@articleOrder.id</th>
 	                        <th>@articleOrder.title</th>
 	                        <th>@articleOrder.contractNo</th>
@@ -80,24 +81,13 @@
 	                        <th>@articleOrder.budgetType</th>
 	                        <th>@articleOrder.institute</th>
 	                        <th>@articleOrder.budgetYear</th>
-	                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
+	                        <th> <button class="btn btn-xs btn-info" > รายละเอียด</button>
 	                    </tr>
                     }
                     
                 </tbody>
             </table>
 
-            <div class="pagingContainer" align="center">
-                <ul class="pagination" style="margin:0;">
-                  <li class="disabled"><a href="#">&laquo;</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-            </div>
     </div>
 <!-- ========================================== tab2 ============================================ -->
       <div class="tab-pane fade" id="2">
@@ -119,7 +109,7 @@
                   <a style="float:right;margin-left:1%;"href="@routes.Import.importsOrderGoodsAdd()">
                   <button class="btn btn-success width200px">เพิ่มรายการวัสดุ</button>
                   </a>
-                  <button class="btn btn-danger width200px" style="float:right;" onclick="removeProcurement('goods')">ลบรายการวัสดุ</button>
+                  <button class="btn btn-danger width200px" style="float:right;" ng-click="open('goods')">ลบรายการวัสดุ</button>
               </div>
 
         </div>
@@ -154,7 +144,7 @@
                     
                     @for(goodOrder <- goodOrders){
 	                    <tr>
-	                        <th><input id="goodOrder.id" type="checkbox" onclick="addTick('@goodOrder.id','goods')"></th>
+	                        <th><input id="goodOrder.id" type="checkbox" onclick="addTick('@goodOrder.id','goods','@goodOrder.title')"></th>
 	                        <th>@goodOrder.id</th>
 	                        <th>@goodOrder.title</th>
 	                        <th>@goodOrder.contractNo</th>
@@ -163,24 +153,13 @@
 	                        <th>@goodOrder.budgetType</th>
 	                        <th>@goodOrder.institute</th>
 	                        <th>@goodOrder.budgetYear</th>
-	                        <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button>
+	                        <th> <button class="btn btn-xs btn-info" > รายละเอียด</button>
 	                    </tr>
                     }
 
                   </tbody>
               </table>
 
-          <div class="pagingContainer" align="center">
-              <ul class="pagination" style="margin:0;">
-                <li class="disabled"><a href="#">&laquo;</a></li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&raquo;</a></li>
-              </ul>
-          </div>
       </div>
 
 <!-- ========================================== tab3 ============================================ -->
