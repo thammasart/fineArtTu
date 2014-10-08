@@ -58,8 +58,14 @@ GET		/import/institute								controllers.Import.importsInstitute()
 POST	/import/institute/retriveInstituteDescription	controllers.Import.retriveInstituteDescription()
 GET		/import/instituteAdd							controllers.Import.importsInstituteAdd()
 
+
+
 GET		/import/instituteDetail							controllers.ImportDetail.importsInstituteDetail(id : Long)
 POST	/import/saveInstituteDetail						controllers.ImportDetail.saveNewInstitute()
+
+GET		/import/materialDurableArticlesDetail			controllers.ImportDetail.importsMaterialDurableArticlesDetail(id : String)
+POST	/import/saveMaterialDurableArticlesDetail		controllers.ImportDetail.saveNewMaterialDurableArticles()
+
 
 
 POST	/import/saveInstitute							controllers.Import.saveNewInstitute()
