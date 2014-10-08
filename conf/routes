@@ -36,9 +36,12 @@ GET		/export/transferOutSide/add                     controllers.Export.exportTr
 GET		/export/transferOutSide/add/detail              controllers.Export.exportTransferOutSideAddDetail()
 
 GET		/export/donate                                  controllers.ExportDonate.exportDonate()
-GET		/export/donate/add                              controllers.ExportDonate.exportDonateAdd()
+GET		/export/donate/add                              controllers.ExportDonate.exportDonateAdd(donationId:Long)
 GET		/export/donate/add/new                          controllers.ExportDonate.exportCreateDonate()
 GET		/export/donate/add/Detail                       controllers.ExportDonate.exportDonateAddDetail()
+
+POST	/export/donate/saveDetail				controllers.ExportDonate.saveDonateDetail()
+GET		/export/donate/lodeDetail               controllers.ExportDonate.loadDonateDetail(id:Long)
 
 GET		/export/sold                              		controllers.Export.exportSold()
 GET		/export/sold/add                              	controllers.Export.exportSoldAdd()

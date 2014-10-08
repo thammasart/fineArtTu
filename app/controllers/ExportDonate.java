@@ -45,19 +45,84 @@ public class ExportDonate extends Controller {
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
         temp.save();
-        return redirect(routes.ExportDonate.exportDonateAdd());
+        return redirect(routes.ExportDonate.exportDonateAdd(temp.id));
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportDonateAdd() {
+    public static Result exportDonateAdd(long donationId) {
         User user = User.find.byId(session().get("username"));
-        return ok(exportDonateAdd.render(user,null));
+        Donation donate = Donation.find.byId(donationId);
+        if(donate == null){
+            return redirect(routes.ExportDonate.exportDonate());
+        }
+        System.out.println("export aonate add id : " + donate.id);
+        return ok(exportDonateAdd.render(user, donate));
     }
     
     @Security.Authenticated(Secured.class)
     public static Result exportDonateAddDetail() {
         User user = User.find.byId(session().get("username"));
         return ok(exportDonateAddDetail.render(user));
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result saveDonateDetail() {
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            long id = Long.parseLong(json.get("id").asText());
+            Donation donate = Donation.find.byId(id);
+            System.out.println("Donation id : " + donate.id);
+            for (final JsonNode objNode : json.get("detail")) {
+                DonationDetail newDetail = new DonationDetail();
+                id = Long.parseLong(objNode.toString());
+                newDetail.durableArticles = DurableArticles.find.byId(id);
+                newDetail.donation = donate;
+                newDetail.save();
+                System.out.println("DurableArticles id : " + id);
+            }
+            result.put("status", "SUCCESS");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error3");
+        }
+        return ok(result);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    public static Result loadDonateDetail(long id) {
+        ObjectNode result = Json.newObject();
+        System.out.println("loadOrderDetail");
+        JsonNode json;
+        try { 
+            Donation donate = Donation.find.byId(id);
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonArray = mapper.writeValueAsString(donate.detail);
+            json = Json.parse(jsonArray);
+            result.put("details",json);
+            result.put("status", "SUCCESS");
+            System.out.println("SUCCESS");
+
+        }
+        catch (JsonProcessingException e) {
+            result.put("message", e.getMessage());
+            result.put("status", "error1");
+            System.out.println("ERROR 1" + e.getMessage());
+        }
+        catch(RuntimeException e){
+            e.printStackTrace();
+            result.put("message", e.getMessage());
+            result.put("status", "error2");
+            System.out.println("ERROR 2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error3");
+            System.out.println("ERROR 3");
+        }
+        return ok(result);
     }
 
 }

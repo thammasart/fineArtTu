@@ -92,6 +92,7 @@ public class Export extends Controller {
             String jsonArray = mapper.writeValueAsString(searchResult);
             json = Json.parse(jsonArray);
             result.put("result",json);
+            result.put("status", "SUCCESS");
             System.out.println("searchFSN SUCCESS");
 
         }

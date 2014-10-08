@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import models.Company;
 import models.type.ExportStatus;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table (name = "durable_articles_donation")
 public class Donation extends Model{ // บริจาค
@@ -27,9 +29,14 @@ public class Donation extends Model{ // บริจาค
 	@ManyToOne
 	public Company company; // หน่ายงานที่รับจำหน่าย
 
-	@OneToMany
+	@JsonBackReference
+	@OneToMany(mappedBy="donation")
+	public List<DonationDetail> detail = new ArrayList<DonationDetail>();
+	@JsonBackReference
+	@OneToMany(mappedBy="donation")
 	public List<Donation_FF_Committee> ffCommittee = new ArrayList<Donation_FF_Committee>(); // คณะกรรมการสอบข้อเท็จจริง
-	@OneToMany
+	@JsonBackReference
+	@OneToMany(mappedBy="donation")
 	public List<Donation_D_Committee> dCommittee = new ArrayList<Donation_D_Committee>(); // คณะกรรมการจำหน่าย
 
 	public String approverToString(){

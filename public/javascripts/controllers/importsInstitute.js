@@ -1,12 +1,13 @@
 var institutesTick = [];
-
-function addTick(name){
+var institutesNameTick =[];
+function addTick(name,nameEntrepreneur){
 	var instituteName = name;
-	console.log(institutesTick);
 	if(institutesTick.indexOf(instituteName) > -1){
 		institutesTick.remove(instituteName);
+                institutesNameTick.remove(nameEntrepreneur);
 	}else{
 		institutesTick.push(instituteName);
+                institutesNameTick.push(nameEntrepreneur);
 	}
 }
 
@@ -22,15 +23,25 @@ function removeInstitute(){
 angular.module('importsInstituteApp', ['ui.bootstrap'])
     .controller('importsInstituteCtrl',function($scope,$modal){
     	$scope.name = "asd";
-    	
+        $scope.openDelModal= function(){
+        	$scope.nameEntrepreneur = "";
+            var delModalInstance = $modal.open({
+                templateUrl: 'delInsititute.html',
+                controller: deleteModalInstanceCtrl,
+                size: 'lg',
+                resolve: {
+                    institutesNameTick : function(){
+                        return $scope.institutesNameTick ;
+                    }
+                }
+            });
+        };
+
         $scope.open = function(id){
-//            $http({method : 'GET',url : 'autoCompleteGood' })
-//            .success(function(result){
-//
-//            });
-            var modalInstance = $modal.open({			//ดึงโครงกับแจกไอดี
-                templateUrl: 'imp.html',				//
-                controller: resultModalInstanceCtrl,	//func 
+
+            var modalInstance = $modal.open({
+                templateUrl: 'imp.html',
+                controller: resultModalInstanceCtrl,
                 size: 'lg',
                 resolve: {
                     name : function(){
@@ -38,14 +49,27 @@ angular.module('importsInstituteApp', ['ui.bootstrap'])
                     }
                 }
             });
-            modalInstance.id = id;	//send data to controller
+            modalInstance.id = id;	// send data to controller
         };
     }
 );
 
+    var deleteModalInstanceCtrl = function($scope, $modalInstance){
+        $scope.nameEntrepreneur= institutesNameTick;
+        $scope.ok = function () {
+            removeInstitute();
+            $modalInstance.close();
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss();
+        };
+
+    }
 	
 	
-    var resultModalInstanceCtrl= function($scope, $modalInstance){ //func ดึงข้อมูลมาโชว์
+    var resultModalInstanceCtrl= function($scope, $modalInstance){ // func
+																	// ดึงข้อมูลมาโชว์
     	var obj = {
     			id : $modalInstance.id
     	}

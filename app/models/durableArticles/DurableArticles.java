@@ -28,7 +28,6 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 	public String codeFromStock; 	//รหัสจากคลัง
 	public SuppliesStatus status; 	// สถานะ
 
-
 	@ManyToOne
 	public ProcurementDetail detail;
 
