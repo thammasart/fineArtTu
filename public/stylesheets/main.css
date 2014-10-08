@@ -1,5 +1,5 @@
 .marginTopSpace{
-    margin-top:8%;
+    margin-top:9%;
 }
 .headerText{
     background-color:lightgrey;
@@ -189,6 +189,10 @@ float:right;
 }
 .textAlignCenter{
     text-align:center;
+}
+
+.paddingLeft0{
+    padding-left:0;
 }
 
 .textAlignLeft{

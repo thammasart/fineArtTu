@@ -5,7 +5,7 @@
         <img src="@routes.Assets.at("images/logo.png") "style="width:100%;" alt="โลโก้คณะศิลปกรรมศาสตร์">
     </a>
     <div class="panel panel-default" style="border-color:white;">
-      <div class="panel-body">
+      <div class="">
             <ul class="nav nav-pills nav-stacked">
             <!--
                 @if(user.status.module2){
@@ -26,7 +26,7 @@
                         <div >
                             <div class="dropdown">
                               <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                ระบบจัดซื้อและนำเข้าวัสดุครุภัณฑ์
+                                จัดซื้อและนำเข้า
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsInstitute()">ระบบโครงสร้างสถานประกอบการจัดซื้อและนำเข้า </a></li>
@@ -42,7 +42,7 @@
                         <div >
                             <div class="dropdown">
                               <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
-                                ระบบเบิกจ่ายและโอนย้าย
+                                เบิกจ่ายและโอนย้าย
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu2">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportOrder.exportOrder()">ระบบจัดเบิกจ่าย </a></li>
@@ -61,7 +61,7 @@
                         <div >
                             <div class="dropdown">
                               <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown">
-                                ระบบบริหารจัดการรายงาน
+                                รายงาน
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu3">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Report.reportRemainingMaterial()">รายงานวัสดุคงเหลือ</a></li>
@@ -80,7 +80,7 @@
                             <div class="dropdown">
                                 <a href="@routes.Graph.index()">
                                     <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" >
-                                        ระบบติดตามและตรวจสอบ
+                                        ติดตามและตรวจสอบ
                                     </button>
                                 </a>
                             </div>
