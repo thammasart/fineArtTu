@@ -22,14 +22,15 @@ function removeInstitute(){
 angular.module('importsInstituteApp', ['ui.bootstrap'])
     .controller('importsInstituteCtrl',function($scope,$modal){
     	$scope.name = "asd";
+    	
         $scope.open = function(id){
 //            $http({method : 'GET',url : 'autoCompleteGood' })
 //            .success(function(result){
 //
 //            });
-            var modalInstance = $modal.open({
-                templateUrl: 'imp.html',
-                controller: resultModalInstanceCtrl,
+            var modalInstance = $modal.open({			//ดึงโครงกับแจกไอดี
+                templateUrl: 'imp.html',				//
+                controller: resultModalInstanceCtrl,	//func 
                 size: 'lg',
                 resolve: {
                     name : function(){
@@ -37,14 +38,14 @@ angular.module('importsInstituteApp', ['ui.bootstrap'])
                     }
                 }
             });
-            modalInstance.id = id;
+            modalInstance.id = id;	//send data to controller
         };
     }
 );
 
 	
 	
-    var resultModalInstanceCtrl= function($scope, $modalInstance){
+    var resultModalInstanceCtrl= function($scope, $modalInstance){ //func ดึงข้อมูลมาโชว์
     	var obj = {
     			id : $modalInstance.id
     	}

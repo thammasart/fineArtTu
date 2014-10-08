@@ -14,6 +14,7 @@ $('document').ready(function(){
 	createAICommittee();
 	if(document.getElementById('eo_committee')!=null)createEOCommittee();
 });
+
 $(function () {
     $('#addDate').datetimepicker({
   	  language:'th'
