@@ -131,16 +131,17 @@ public class DataRandom {
 	public static models.durableArticles.ProcurementDetail getRandomArticleProcurementDetail(models.durableArticles.Procurement p){
 		models.durableArticles.ProcurementDetail pd = new models.durableArticles.ProcurementDetail();
 		pd.description = randomString();
-		pd.price = rand.nextDouble();
 		pd.quantity = rand.nextInt(100);
-		pd.priceNoVat = rand.nextDouble();
-		pd.alertTime = rand.nextDouble();
-		pd.llifeTime = rand.nextDouble();
+		pd.price = rand.nextDouble() * 1000;
+		pd.priceNoVat = rand.nextDouble()- (pd.price*0.07);
+		pd.alertTime = Math.abs(rand.nextDouble()*10);
+		pd.llifeTime = Math.abs(rand.nextDouble()*10);
 		pd.seller = randomString();
 		pd.phone = String.format("%010d",rand.nextLong());
 		pd.brand = randomString();
 		pd.serialNumber = randomString(10);
 		pd.fsn = FSN_Description.find.all().get(rand.nextInt(FSN_Description.find.findRowCount()));
+		pd.procurement = p;
 		return pd;
 	}
 	
@@ -157,7 +158,7 @@ public class DataRandom {
 		d.status = SuppliesStatus.NORMAL;
 		d.detail = pd;
 		
-		return new DurableArticles();
+		return d;
 	}
 	
 	public static models.durableGoods.Procurement getRandomGoodsProcurement(){
@@ -175,9 +176,9 @@ public class DataRandom {
 	public static models.durableGoods.ProcurementDetail getRandomGoodsProcurementDetail(models.durableGoods.Procurement p){
 		models.durableGoods.ProcurementDetail pd = new ProcurementDetail();
 		pd.description = randomString(20);
-		pd.price = rand.nextFloat();
-		pd.priceNoVat = rand.nextFloat();
-		pd.quantity = rand.nextInt();
+		pd.price = rand.nextDouble() * 1000;
+		pd.priceNoVat = rand.nextDouble() - (pd.price*0.07);
+		pd.quantity = rand.nextInt(100);
 		pd.seller = randomString(12);
 		pd.phone = randomString(10);
 		pd.brand = randomString(5);

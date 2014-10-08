@@ -30,93 +30,95 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;  
 
-public class ExportDonate extends Controller {
-	// บริจาค
+public class ExportSold extends Controller {
+
     @Security.Authenticated(Secured.class)
-    public static Result exportDonate() {
+    public static Result exportSold() {
         User user = User.find.byId(session().get("username"));
-        List<Donation> initList = Donation.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
-        List<Donation> successList = Donation.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
-        return ok(exportDonate.render(user,initList, successList));
+        List<Auction> initList = Auction.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
+        List<Auction> successList = Auction.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
+        return ok(exportSold.render(user,initList, successList));
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportCreateDonate() {
-        Donation temp =  new Donation();
+    public static Result exportCreateSold() {
+        Auction temp =  new Auction ();
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
         temp.save();
-        return redirect(routes.ExportDonate.exportDonateAdd(temp.id));
+        return redirect(routes.ExportSold.exportSoldAdd(temp.id));
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportDonateAdd(long donationId) {
+    public static Result exportSoldAdd(long auctionId) {
         User user = User.find.byId(session().get("username"));
-        Donation donate = Donation.find.byId(donationId);
-        if(donate == null){
-            return redirect(routes.ExportDonate.exportDonate());
+        Auction sold = Auction.find.byId(auctionId);
+        if(sold == null){
+            return redirect(routes.ExportSold.exportSold());
         }
-        return ok(exportDonateAdd.render(user, donate));
-    }
-    
-    @Security.Authenticated(Secured.class)
-    public static Result exportDonateAddDetail() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportDonateAddDetail.render(user));
+        return ok(exportSoldAdd.render(user, sold));
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result saveDonation(long donationId){
+    public static Result exportSoldAddDetail() {
+        User user = User.find.byId(session().get("username"));
+        return ok(exportSoldAddDetail.render(user));
+    }
 
-        System.out.println(" save donate");
+    @Security.Authenticated(Secured.class)
+    public static Result saveAuction(long auctionId){
+
+        System.out.println("save Auction");
 
         User user = User.find.byId(session().get("username"));
-        Donation donate = Donation.find.byId(donationId);
+        Auction auction = Auction.find.byId(auctionId);
 
         DynamicForm f = Form.form().bindFromRequest();
-        donate.title = f.get("title");
-        donate.contractNo = f.get("contractNo");
-        donate.setApproveDate(f.get("approveDate"));
-        donate.status = ExportStatus.SUCCESS;
-        donate.update();
+        auction.title = f.get("title");
+        auction.contractNo = f.get("contractNo");
+        auction.setApproveDate(f.get("approveDate"));
+        auction.status = ExportStatus.SUCCESS;
+        auction.update();
 
-        System.out.println(donate.id + " " + donate.title);
+        System.out.println(auction.id + " " + auction.title);
 
-        return redirect(routes.ExportDonate.exportDonate());
+        return redirect(routes.ExportSold.exportSold());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result saveDonateDetail() {
+    public static Result saveAuctionDetail() {
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
             JsonNode json = body.asJson();
             long id = Long.parseLong(json.get("id").asText());
-            Donation donate = Donation.find.byId(id);
+            Auction auction = Auction.find.byId(id);
             for (final JsonNode objNode : json.get("detail")) {
-                DonationDetail newDetail = new DonationDetail();
+                AuctionDetail newDetail = new AuctionDetail();
                 id = Long.parseLong(objNode.toString());
                 newDetail.durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
-                newDetail.donation = donate;
+                newDetail.auction = auction;
                 newDetail.save();
             }
             result.put("status", "SUCCESS");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("status", "error3");
+            result.put("status", "error");
         }
+        System.out.println("saveAuctionDetail");
+
         return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result loadDonateDetail(long id) {
+    public static Result loadAuctionDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;
         try { 
-            Donation donate = Donation.find.byId(id);
+            Auction auction = Auction.find.byId(id);
             ObjectMapper mapper = new ObjectMapper();
-            String jsonArray = mapper.writeValueAsString(donate.detail);
+            String jsonArray = mapper.writeValueAsString(auction.detail);
             json = Json.parse(jsonArray);
             result.put("details",json);
             result.put("status", "SUCCESS");
@@ -125,8 +127,7 @@ public class ExportDonate extends Controller {
         }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("status", "error3");
-            System.out.println("load detail ERROR");
+            result.put("status", "error");
         }
         return ok(result);
     }

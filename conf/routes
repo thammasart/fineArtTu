@@ -15,7 +15,7 @@ GET		/export/searchFSN                       controllers.Export.searchFSN(code:S
 
 GET		/export/order                           controllers.ExportOrder.exportOrder()
 GET		/export/order/add                       controllers.ExportOrder.exportOrderAdd(requisitionId:Long)
-GET		/export/order/add/new                   controllers.ExportOrder.exportCreateOrder()
+GET		/export/order/new                   	controllers.ExportOrder.exportCreateOrder()
 GET		/export/order/add/Detail                controllers.ExportOrder.exportOrderAddDetail(detail:Long)
 POST	/export/order/saveRequisition			controllers.ExportOrder.saveRequisition(requisitionId:Long)
 
@@ -35,21 +35,25 @@ GET		/export/transferOutSide                         controllers.Export.exportTr
 GET		/export/transferOutSide/add                     controllers.Export.exportTransferOutSideAdd()
 GET		/export/transferOutSide/add/detail              controllers.Export.exportTransferOutSideAddDetail()
 
-GET		/export/donate                                  controllers.ExportDonate.exportDonate()
-GET		/export/donate/add                              controllers.ExportDonate.exportDonateAdd(donationId:Long)
-GET		/export/donate/add/new                          controllers.ExportDonate.exportCreateDonate()
-GET		/export/donate/add/Detail                       controllers.ExportDonate.exportDonateAddDetail()
-
+GET		/export/donate                          controllers.ExportDonate.exportDonate()
+GET		/export/donate/add                      controllers.ExportDonate.exportDonateAdd(donationId:Long)
+GET		/export/donate/new                  	controllers.ExportDonate.exportCreateDonate()
+GET		/export/donate/add/Detail               controllers.ExportDonate.exportDonateAddDetail()
+POST	/export/donate/saveDonation				controllers.ExportDonate.saveDonation(donationId:Long)
 POST	/export/donate/saveDetail				controllers.ExportDonate.saveDonateDetail()
 GET		/export/donate/lodeDetail               controllers.ExportDonate.loadDonateDetail(id:Long)
 
-GET		/export/sold                              		controllers.Export.exportSold()
-GET		/export/sold/add                              	controllers.Export.exportSoldAdd()
-GET		/export/sold/add/detail                         controllers.Export.exportSoldAddDetail()
+GET		/export/sold                            controllers.ExportSold.exportSold()
+GET		/export/sold/add                        controllers.ExportSold.exportSoldAdd(auctionId:Long)
+GET		/export/sold/new                  		controllers.ExportSold.exportCreateSold()
+GET		/export/sold/add/detail                 controllers.ExportSold.exportSoldAddDetail()
+POST	/export/sold/saveSold					controllers.ExportSold.saveAuction(auctionId:Long)
+POST	/export/sold/saveDetail					controllers.ExportSold.saveAuctionDetail()
+GET		/export/sold/lodeDetail					controllers.ExportSold.loadAuctionDetail(id:Long)
 
-GET		/export/other                             		controllers.Export.exportOther()
-GET		/export/other/add                             	controllers.Export.exportOtherAdd()
-GET		/export/other/add/detail                        controllers.Export.exportOtherAddDetail()
+GET		/export/other                             		controllers.ExportOther.exportOther()
+GET		/export/other/add                             	controllers.ExportOther.exportOtherAdd()
+GET		/export/other/add/detail                        controllers.ExportOther.exportOtherAddDetail()
 
 GET     /export/order/autocompleteExportCommitee              controllers.Export.autocompleteExportCommitee()
 
@@ -102,9 +106,9 @@ GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialCon
 GET		/import/order									controllers.Import.importsOrder()
 GET		/import/order2									controllers.Import.importsOrder2(tab :String)
 POST	/import/order/cancel							controllers.Import.importsCancelOrder()
-GET		/import/order/DurableArticlesAdd	    		controllers.Import.importsOrderDurableArticlesAdd()
-GET		/import/order/DurableArticlesAdd/Material1		controllers.Import.importsOrderDurableArticlesAddMaterial1()
-GET		/import/order/DurableArticlesAdd/Material2		controllers.Import.importsOrderDurableArticlesAddMaterial2()
+GET		/import/order/createDurableArticlesAdd	    	controllers.Import.createImportsOrderDurableArticlesAdd()
+GET		/import/order/DurableArticlesAdd	    		controllers.Import.importsOrderDurableArticlesAdd(id : Long)
+POST 	/import/order/retriveProcurement				controllers.Import.retriveProcurement()
 POST 	/import/saveNewArticlesOrder					controllers.Import.saveNewArticlesOrder()
 POST 	/import/saveNewArticlesOrderDetail				controllers.Import.saveNewArticlesOrderDetail()
 POST 	/import/saveNewGoodsOrderDetail					controllers.Import.saveNewGoodsOrderDetail()
@@ -114,10 +118,8 @@ POST	/import/removeProcurementDetail2				controllers.Import.removeProcurementDet
 
 POST	/import/removeProcurement						controllers.Import.removeProcurement()
 
-
-GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd()
-GET		/import/order/GoodsAdd/Material1				controllers.Import.importsOrderGoodsAddMaterial1()
-GET		/import/order/GoodsAdd/Material2				controllers.Import.importsOrderGoodsAddMaterial2()
+GET		/import/order/createGoodsAdd	    			controllers.Import.createImportsOrderGoodsAdd()
+GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd(id : Long)
 POST 	/import/saveNewGoodsOrder						controllers.Import.saveNewGoodsOrder()
 
 GET     /editUser                                                       controllers.Application.editUser()
