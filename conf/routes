@@ -56,6 +56,8 @@ POST	/import/institute/retriveInstituteDescription	controllers.Import.retriveIns
 GET		/import/instituteAdd							controllers.Import.importsInstituteAdd()
 
 GET		/import/instituteDetail							controllers.ImportDetail.importsInstituteDetail(id : Long)
+POST	/import/saveInstituteDetail						controllers.ImportDetail.saveNewInstitute()
+
 
 POST	/import/saveInstitute							controllers.Import.saveNewInstitute()
 POST	/import/removeInstitute							controllers.Import.removeInstitute()
