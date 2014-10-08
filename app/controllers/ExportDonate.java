@@ -65,6 +65,26 @@ public class ExportDonate extends Controller {
         return ok(exportDonateAddDetail.render(user));
     }
 
+    @Security.Authenticated(Secured.class)
+    public static Result saveDonation(long donationId){
+
+        System.out.println(" save donate");
+
+        User user = User.find.byId(session().get("username"));
+        Donation donate = Donation.find.byId(donationId);
+
+        DynamicForm f = Form.form().bindFromRequest();
+        donate.title = f.get("title");
+        donate.contractNo = f.get("contractNo");
+        donate.setApproveDate(f.get("approveDate"));
+        donate.status = ExportStatus.SUCCESS;
+        donate.update();
+
+        System.out.println(donate.id + " " + donate.title);
+
+        return redirect(routes.ExportOrder.exportOrder());
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveDonateDetail() {
         ObjectNode result = Json.newObject();
