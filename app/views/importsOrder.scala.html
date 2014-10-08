@@ -10,7 +10,8 @@
 
 @sideMenu(user)
 
-<div class="listWindowMaterial">
+<div class="listWindowMaterial" ng-app="importOrderApp" ng-controller="delOrder">
+@delImportOrder()
     <ul class="nav nav-tabs" role="tablist" id="imdTabs" style="height:42px; margin-bottom:10px;">
       <li class="active"><a href="#1" role="tab" data-toggle="tab">ครุภัณฑ์</a></li>
       <li><a href="#2" role="tab" data-toggle="tab">วัสดุ</a></li>
@@ -34,7 +35,7 @@
                 <a style="float:right;margin-left:1%;"href="@routes.Import.createImportsOrderDurableArticlesAdd()">
                 <button class="btn btn-success width200px">เพิ่มรายการครุภัณฑ์</button>
                 </a>
-                <button class="btn btn-danger width200px" style="float:right;" onclick="removeProcurement('durableArticles')">ลบรายการครุภัณฑ์</button>
+                <button class="btn btn-danger width200px" style="float:right;" ng-click="open('durableArticles')">ลบรายการครุภัณฑ์</button>
             </div>
 
         </div>
@@ -147,7 +148,7 @@
                   <a style="float:right;margin-left:1%;"href="@routes.Import.createImportsOrderGoodsAdd()">
                   <button class="btn btn-success width200px">เพิ่มรายการวัสดุ</button>
                   </a>
-                  <button class="btn btn-danger width200px" style="float:right;" onclick="removeProcurement('goods')">ลบรายการวัสดุ</button>
+                  <button class="btn btn-danger width200px" style="float:right;" ng-click="open('goods')">ลบรายการวัสดุ</button>
               </div>
 
         </div>
@@ -237,7 +238,6 @@
 
                   </tbody>
               </table>
-			
       </div>
 
 <!-- ========================================== tab3 ============================================ -->

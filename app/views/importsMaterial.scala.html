@@ -8,7 +8,9 @@
 @headerTag("ระบบออกหมายเลขพัสดุ")
 
 @sideMenu(user)
-<div class="listWindowMaterial">
+<div class="listWindowMaterial" ng-app="materialApp" ng-controller="delMaterial">
+
+@delMaterial()
     <ul class="nav nav-tabs" role="tablist" id="imdTabs" style="height:42px; margin-bottom:10px;">
       <li class="active"><a href="#1" role="tab" data-toggle="tab">ครุภัณฑ์</a></li>
       <li><a href="#2" role="tab" data-toggle="tab">วัสดุคงทนถาวร</a></li>
@@ -35,7 +37,7 @@
                   <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialDurableArticlesAdd()">
                   <button class="btn btn-success width200px">เพิ่มครุภัณฑ์</button>
                   </a>
-                  <button class="btn btn-danger width200px" style="float:right;" onclick="removeMaterialCode('durableArticles')">ลบครุภัณฑ์</button>
+                  <button class="btn btn-danger width200px" style="float:right;" ng-click="open('durableArticles')">ลบครุภัณฑ์</button>
               </div>
         </div>
         @if(flash().containsKey("delete1")){
@@ -75,7 +77,7 @@
 
                   @for(fsn<- fsns){
                     <tr>
-                    <th><input id="fsn.descriptionId" type="checkbox" onclick="addTick('@fsn.descriptionId','durableArticles')"></th>
+                    <th><input id="fsn.descriptionId" type="checkbox" onclick="addTick('@fsn.descriptionId','durableArticles','@fsn.descriptionDescription')"></th>
                     <th>@fsn.descriptionId</th>
                     <th>@fsn.descriptionDescription</th>
                     <th>@fsn.classifier</th>
@@ -84,27 +86,13 @@
                     <th>@fsn.typ.groupClass.classId</th>
                     <th>@fsn.typ.groupClass.classDescription</th>
                     <th><img src=""></th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
+                    <th> <button class="btn btn-xs btn-info" > รายละเอียด</button></th>
                     </tr>
                   }
 
 
                 </tbody>
            </table>
-
-
-
-            <div class="pagingContainer" align="center" style="float:left; width:100%;">
-                <ul class="pagination" style="margin:0;">
-                  <li class="disabled"><a href="#">&laquo;</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-            </div>
     </div>  <!--end id =1-->
 <!-- ========================================== tab2 ============================================ -->
       <div class="tab-pane fade" id="2">
@@ -124,7 +112,7 @@
                   <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialDurableGoodsAdd()">
                   <button class="btn btn-success width200px">เพิ่มวัสดุคงทนถาวร</button>
                   </a>
-                  <button class="btn btn-danger width200px" style="float:right;" onclick="removeMaterialCode('durableGoods')">ลบวัสดุคงทนถาวร</button>
+                  <button class="btn btn-danger width200px" style="float:right;" ng-click="open('durableGoods')">ลบวัสดุคงทนถาวร</button>
             </div>
 
         </div>
@@ -168,17 +156,17 @@
 
                   @if(goodCode.typeOfGood=="วัสดุคงทนถาวร"){
                   <tr>
-                  <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','durableGoods')"></th>
+                  <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','durableGoods','@goodCode.description')"></th>
                   <th>@goodCode.code</th>
                   <th>@goodCode.description</th>
                   <th>@goodCode.typeOfGood</th>
                   <th>@goodCode.classifier</th>
                   <th>@goodCode.minNumberToAlert</th>
-                  <th>goodCode.materialType.preCodeId</th>
-                  <th>goodCode.materialType.typeName</th>
-                  <th>goodCode.materialType.acronym</th>
+                  <th>@goodCode.materialType.preCodeId</th>
+                  <th>@goodCode.materialType.typeName</th>
+                  <th>@goodCode.materialType.acronym</th>
                   <th><img src=""></th>
-                  <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
+                  <th> <button class="btn btn-xs btn-info" > รายละเอียด</button></th>
                   </tr>
                   }
 
@@ -186,20 +174,6 @@
 
              </tbody>
            </table>
-
-
-            <div class="pagingContainer" align="center">
-                <ul class="pagination" style="margin:0;">
-                  <li class="disabled"><a href="#">&laquo;</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-            </div>
-
 
         </div> <!--end id =2-->
 
@@ -223,7 +197,7 @@
                     <a style="float:right;margin-left:1%;"href="@routes.Import.importsMaterialConsumableGoodsAdd()">
                     <button class="btn btn-success width200px">เพิ่มวัสดุสิ้นเปลือง</button>
                     </a>
-                    <button class="btn btn-danger width200px" style="float:right;"  onclick="removeMaterialCode('consumableGoods')">ลบวัสดุสิ้นเปลือง</button>
+                    <button class="btn btn-danger width200px" style="float:right;"  ng-click="open('consumableGoods')">ลบวัสดุสิ้นเปลือง</button>
               </div>
 
           </div>
@@ -266,7 +240,7 @@
                                             
                   @if(goodCode.typeOfGood=="วัสดุสิ้นเปลือง"){
                   <tr>
-                  <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','consumableGoods')"></th>
+                  <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','consumableGoods','@goodCode.description')"></th>
                   <th>@goodCode.code</th>
                   <th>@goodCode.description</th>
                   <th>@goodCode.typeOfGood</th>
@@ -276,7 +250,7 @@
                   <th>@goodCode.materialType.typeName</th>
                   <th>@goodCode.materialType.acronym</th>
                   <th><img src=""></th>
-                  <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>
+                  <th> <button class="btn btn-xs btn-info" > รายละเอียด</button></th>
                   </tr>
                   }
                 }

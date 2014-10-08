@@ -1,0 +1,402 @@
+@(user : User, com:Company)
+@header("importsInstituteDetail")
+
+
+@nav(user)
+@headerTagFull("รายละเอียดสถานประกอบการ")
+
+<script src="@routes.Assets.at("javascripts/addInstitute.js")"></script>
+
+
+
+<div class="detailWindow">
+
+	    <button onclick="changeValue();" class="btn btn-danger btn-lg width250px" style="margin-bottom:1%;">
+	    	แก้ไขรายละเอียด
+	    </button>
+
+
+<input id="activate" type="hidden" value=0>
+
+
+
+<script type="text/javascript">
+
+	$('document').ready(function()							//ทำก่อนเริ่มสร้างpage-
+	{
+		
+		var value = $('#activate').val();					//get ค่า value-
+		
+		$('#fixButton').hide();								//ซ่อนปุ่ม (ด้านล่าง)-
+		
+		var inputs = $('input');							//ดึงค่าinput fieldทั้งหมดที่ไม่ใช่selected-
+		$('select').prop('disabled',true);					//ปิดปุ่มselected-
+		$('textarea').prop('disabled',true);				//ปิดปุ่มรายละเอียดอื่นๆ-
+		$.each(inputs, function(i, input) {					//loopinput fieldทั้งหมด-
+		    var chosenField = $(input);						//ดึงมาค่า-
+		    chosenField.prop('disabled',true);				//ปิดค่าปุ่มที่ดึงมา-
+		});
+		$('#activate').val(1);
+	});
+
+    function changeValue()
+    {
+    	var value = $('#activate').val();
+    	
+
+    	if(value==0){
+    		$('select').prop('disabled',true);
+    		$('textarea').prop('disabled',true);	
+    		
+    		$('#fixButton').hide();
+    		
+    		var inputs = $('input');
+    		$.each(inputs, function(i, input) {
+    		    var chosenField = $(input);
+    		    chosenField.prop('disabled',true);
+    		});
+    		$('#activate').val(1);
+    	}
+    	else
+    	{
+    		var inputs = $('input');
+    		
+    		$('#fixButton').show();
+    		
+    		$('select').prop('disabled',false);
+    		$('textarea').prop('disabled',false);	
+    		$.each(inputs, function(i, input) {
+    		    var chosenField = $(input);
+    		    chosenField.prop('disabled',false);
+    		});
+    		$('#activate').val(0);
+    	}
+    }
+</script>
+
+
+<form method="post" name="addInstituteForm" enctype="multipart/form-data" onsubmit="return submitButtonClick()" action="@routes.ImportDetail.saveNewInstitute()">
+
+					
+					<input name="id" type="hidden" value=@com.id>
+
+ 					ประเภทผู้ประกอบการ
+                  <input class="form-inline marginBtm1" type="radio" name="typeEntrepreneur" value="นิติบุคคล"  onclick="optionElement(1)" @if(com.typeEntrepreneur == "นิติบุคคล"){checked}> นิติบุคคล
+				  <input type="radio" name="typeEntrepreneur" value="บุคคลธรรมดา"  onclick="optionElement(2)" @if(com.typeEntrepreneur == "บุคคลธรรมดา"){checked}> บุคคลธรรมดา
+
+
+				    <div class="form-inline marginBtm1" role="form" align="left">
+	                    <div class="input-group">
+	                      <span class="input-group-addon width250px">ประเภทผู้ค้า</span>
+	                        <select class="form-control textAlignCenter  width450px"  name="typedealer" id="typedealerId">
+	                          <option>---ประเภทผู้ค้า---</option>
+	                          <option name="niti" value="ห้างหุ้นส่วนสามัญนิติบุคคล" @if(com.typedealer == "ห้างหุ้นส่วนสามัญนิติบุคคล"){selected}>ห้างหุ้นส่วนสามัญนิติบุคคล</option>
+	                          <option name="niti" value="ห้างห้นส่วนจำกัด" @if(com.typedealer == "ห้างห้นส่วนจำกัด"){selected}>ห้างห้นส่วนจำกัด</option>
+	                          <option name="niti" value="บริษัทจำกัด" @if(com.typedealer == "บริษัทจำกัด"){selected}>บริษัทจำกัด</option>
+	                          <option name="niti" value="บริษัทมหาชนจำกัด" @if(com.typedealer == "บริษัทมหาชนจำกัด"){selected}>บริษัทมหาชนจำกัด</option>
+	                          <option name="niti" value="กิจการร่วมค้า" @if(com.typedealer == "กิจการร่วมค้า"){selected}>กิจการร่วมค้า</option>
+	                          <option name="niti" value="มูลนิธิ" @if(com.typedealer == "มูลนิธิ"){selected}>มูลนิธิ</option>
+	                          <option name="niti" value="สหกรณ์" @if(com.typedealer == "สหกรณ์"){selected}>สหกรณ์</option>
+	                          <option name="niti" value="องค์กรธุรกิจจัดตั้งหรือจดทะเบียนภายใต้กฎหมายเฉพาะ" @if(com.typedealer == "องค์กรธุรกิจจัดตั้งหรือจดทะเบียนภายใต้กฎหมายเฉพาะ"){selected}>องค์กรธุรกิจจัดตั้งหรือจดทะเบียนภายใต้กฎหมายเฉพาะ</option>
+	                          <option name="niti" value="กิจการค้าร่วม" @if(com.typedealer == "กิจการค้าร่วม"){selected}>กิจการค้าร่วม</option>
+	                          <option name="niti" value="หน่วยงานภาครัฐที่เบิกเงินผ่านระบบ" @if(com.typedealer == "หน่วยงานภาครัฐที่เบิกเงินผ่านระบบ"){selected}>หน่วยงานภาครัฐที่เบิกเงินผ่านระบบ GFMIS</option>
+	                          <option name="personal" value="คณะบุคคล" @if(com.typedealer == "คณะบุคคล"){selected}>คณะบุคคล</option>
+	                          <option name="personal" value="กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา" @if(com.typedealer == "กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา"){selected}>กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา</option>
+	                          <option name="personal" value="ห้างหุ้นส่วนสามัญ" @if(com.typedealer == "ห้างหุ้นส่วนสามัญ"){selected}>ห้างหุ้นส่วนสามัญ</option>
+	                        </select>
+	                    </div>
+            </div>
+	
+
+
+				   <div class="form-inline marginBtm1" role="form">
+                      <div class="form-group" >
+                            <div class="input-group" >
+                                <span class="input-group-addon width250px" >ชื่อสถานประกอบการ</span>
+                                <input type="text" class="form-control textAlignLeft  width300px" placeholder="ใส่ค่า" value="@com.nameEntrepreneur" id="nameEntrepreneur" name="nameEntrepreneur">
+                                <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+                            </div>
+                      </div>
+          </div>
+
+          <div class="form-inline marginBtm1" role="form">
+                      <div class="form-group" >
+                            <div class="input-group" >
+                                <span class="input-group-addon width250px" >ชื่อผู้ค้า</span>
+                                <input type="text" class="form-control textAlignLeft  width300px" placeholder="ใส่ค่า" value="@com.nameDealer" id="nameDealer"name="nameDealer">
+                                <span class="alertText" id="nameDealerAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+                            </div>
+                      </div>
+          </div>
+      
+            เงื่อนไขในการชำระเงิน
+            <input class="form-inline marginBtm1" type="radio" name="payCodition" value="เงินสด"  onclick="optionElement(1)" @if(com.payCodition == "เงินสด"){checked}> เงินสด
+			<input type="radio" name="payCodition" value="เครดิต"  onclick="optionElement(2)" @if(com.payCodition == "เครดิต"){checked}> เครดิต
+            
+            
+
+		<div class="form-inline marginBtm1" role="form">
+
+		 <div class="form-group" style="padding-top:10px">
+				  	<div class="input-group">
+					    <span class="input-group-addon width250px">ระยะเวลาในการชำระเงิน:</span>
+					    <input type="number" class="form-control textAlignLeft width300px" onkeypress="validateNumberKey(event)" value="@com.payPeriod" id="payPeriod2" name="payPeriod2">
+                                            <span class="alertText" id="payPeriod2Alert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+					</div>
+				  </div>
+				   <div class="form-group" style="padding-top:10px">
+				  	<div class="input-group" style="margin-left:5%">
+					    <span class="input-group-addon width250px">ระยะเวลาในการจัดส่ง:</span>
+					    <input type="number" class="form-control textAlignLeft width300px" onkeypress="validateNumberKey(event)" value="@com.sendPeriod" name="sendPeriod2" id="sendPeriod2">
+                                            <span class="alertText" id="sendPeriod2Alert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+					</div>
+				  </div>
+					
+		</div>
+
+<!--
+    <div class="well" style="margin-top:1.5%;">
+	<fieldset>
+		<legend style="width:auto">ที่อยู่</legend>
+
+-->
+
+			<div class="form-inline" role="form" >
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >เลขที่</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" placeholder="ใส่ค่า" value="@com.address.buildingNo" name="buildingNo">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >หมู่</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.village" name="village">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >ซอย</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.alley" name="alley">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >ถนน</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.road" name="road">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >ตำบล</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.parish" name="parish">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >อำเภอ</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.district" name="district">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >จังหวัด</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.province" name="province">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >เบอร์โทร</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.telephoneNumber" name="telephoneNumber">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >Fax</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.fax" name="fax">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >รหัสไปรษณีย์</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.postCode" name="postCode">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline marginBtm1" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >e-mail</span>
+                        <input type="text" class="form-control textAlignLeft  width300px"placeholder="ใส่ค่า" value="@com.address.email" name="email">
+                    </div>
+              </div>
+           </div>
+	
+<!--	
+	</fieldset>
+    </div>
+-->
+  
+
+  <br>
+  <br>
+
+
+
+    <div class="well">
+
+	<fieldset>
+            <legend style="width:auto">ประเภทครุภัณฑ์ของสถานประกอบการ</legend>
+            <table class="table table-striped">
+           
+                <tr>
+                    <td ><input type="checkbox" name="durableArticlesType1" value="สำนักงาน" @if(com.durableArticlesType.contains("สำนักงาน")){ checked }> ครุภัณฑ์สำนักงาน</td>
+                    <td ><input type="checkbox" name="durableArticlesType2" value="ไฟฟ้าและวิทยุ" @if(com.durableArticlesType.contains("ไฟฟ้าและวิทยุ")){ checked }> ครุภัณฑ์ไฟฟ้าและวิทยุ</td>
+                    <td ><input type="checkbox" name="durableArticlesType3" value="บ้านงานครัว" @if(com.durableArticlesType.contains("บ้านงานครัว")){ checked }> ครุภัณฑ์บ้านงานครัว</td>
+                    <td ><input type="checkbox" name="durableArticlesType4" value="คอมพิวเตอร์" @if(com.durableArticlesType.contains("คอมพิวเตอร์")){ checked }> ครุภัณฑ์คอมพิวเตอร์</td>
+                    <td ><input type="checkbox" name="durableArticlesType5" value="ยานพาหนะและขนส่ง" @if(com.durableArticlesType.contains("ยานพาหนะและขนส่ง")){ checked }> ครุภัณฑ์ยานพาหนะและขนส่ง</td>
+                    <td ><input type="checkbox" name="durableArticlesType6" value="วิทยาศาสตร์และการแพทย์" @if(com.durableArticlesType.contains("วิทยาศาสตร์และการแพทย์")){ checked }> ครุภัณฑ์วิทยาศาสตร์และการแพทย์</td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="durableArticlesType7" value="โฆษณาและเผยแพร่" @if(com.durableArticlesType.contains("โฆษณาและเผยแพร่")){ checked }> ครุภัณฑ์โฆษณาและเผยแพร่</td>
+                    <td><input type="checkbox" name="durableArticlesType8" value="การศึกษา" @if(com.durableArticlesType.contains("การศึกษา")){ checked }> ครุภัณฑ์การศึกษา</td>
+                    <td><input type="checkbox" name="durableArticlesType9" value="สนาม" @if(com.durableArticlesType.contains("สนาม")){ checked }> ครุภัณฑ์สนาม</td>
+                    <td><input type="checkbox" name="durableArticlesType10" value="การเกษตร" @if(com.durableArticlesType.contains("การเกษตร")){ checked }> ครุภัณฑ์การเกษตร</td>
+                    <td><input type="checkbox" name="durableArticlesType11" value="สำรวจ" @if(com.durableArticlesType.contains("สำรวจ")){ checked }> ครุภัณฑ์สำรวจ</td>
+                    <td><input type="checkbox" name="durableArticlesType12" value="ก่อสร้าง" @if(com.durableArticlesType.contains("ก่อสร้าง")){ checked }> ครุภัณฑ์ก่อสร้าง</td>
+                </tr  >
+                <tr>
+                    <td><input type="checkbox" name="durableArticlesType13" value="โรงงาน" @if(com.durableArticlesType.contains("โรงงาน")){ checked }> ครุภัณฑ์โรงงาน</td>
+                    <td><input type="checkbox" name="durableArticlesType14" value="ดนตรีและนาฏศิลทป์" @if(com.durableArticlesType.contains("ดนตรีและนาฏศิลทป์")){ checked }> ครุภัณฑ์ดนตรีและนาฏศิลทป์</td>
+                    <td><input type="checkbox" name="durableArticlesType15" value="กีฬา" @if(com.durableArticlesType.contains("กีฬา")){ checked }> ครุภัณฑ์กีฬา</td>
+                    <td><input type="checkbox" name="durableArticlesType16" value="อาวุธ" @if(com.durableArticlesType.contains("อาวุธ")){ checked }> ครุภัณฑ์อาวุธ</td>
+                    <td><input type="checkbox" name="durableArticlesType17" value="อื่นๆ" @if(com.durableArticlesType.contains("อื่นๆ")){ checked }> ครุภัณฑ์อื่นๆ</td>
+                </tr>
+
+            </table>
+  	
+  	</fieldset>
+    </div>
+
+    <div class="well">
+  	<fieldset>
+	  	<legend style="width:auto">ประเภทวัสดุคงทนถาวรของสถานประกอบการ</legend>
+
+	  	<table  class="table table-striped">
+			<tr>
+				  <td ><input type="checkbox" name="durableGoodsType1" value="สำนักงาน" @if(com.durableGoodsType.contains("สำนักงาน")){ checked }> วัสดุคงทนถาวรสำนักงาน</td>
+			  	<td ><input type="checkbox" name="durableGoodsType2" value="ไฟฟ้าและวิทยุ" @if(com.durableGoodsType.contains("ไฟฟ้าและวิทยุ")){ checked }> วัสดุคงทนถาวรไฟฟ้าและวิทยุ</td>
+			  	<td ><input type="checkbox" name="durableGoodsType3" value="งานบ้านงานครัว" @if(com.durableGoodsType.contains("งานบ้านงานครัว")){ checked }> วัสดุคงทนถาวรงานบ้านงานครัว</td>
+			  	<td ><input type="checkbox" name="durableGoodsType4" value="คอมพิวเตอร์" @if(com.durableGoodsType.contains("คอมพิวเตอร์")){ checked }> วัสดุคงทนถาวรคอมพิวเตอร์</td>
+			  	<td ><input type="checkbox" name="durableGoodsType5" value="ยานพาหนะและขนส่ง" @if(com.durableGoodsType.contains("ยานพาหนะและขนส่ง")){ checked }> วัสดุคงทนถาวรยานพาหนะและขนส่ง</td>
+			  	<td ><input type="checkbox" name="durableGoodsType6" value="วิทยาศาสตร์และการแพทย์" @if(com.durableGoodsType.contains("วิทยาศาสตร์และการแพทย์")){ checked }> วัสดุคงทนถาวรวิทยาศาสตร์และการแพทย์</td>
+		  	</tr>
+
+		  	<tr>
+				  <td><input type="checkbox" name="durableGoodsType7" value="โฆษณาและเผยแพร่" @if(com.durableGoodsType.contains("โฆษณาและเผยแพร่")){ checked }> วัสดุคงทนถาวรโฆษณาและเผยแพร่</td>
+			  	<td><input type="checkbox" name="durableGoodsType8" value="การศึกษา" @if(com.durableGoodsType.contains("การศึกษา")){ checked }> วัสดุคงทนถาวรการศึกษา</td>
+			  	<td><input type="checkbox" name="durableGoodsType9" value="สนาม" @if(com.durableGoodsType.contains("สนาม")){ checked }> วัสดุคงทนถาวรสนาม</td>
+			  	<td><input type="checkbox" name="durableGoodsType10" value="การเกษตร" @if(com.durableGoodsType.contains("การเกษตร")){ checked }> วัสดุคงทนถาวรการเกษตร</td>
+			  	<td><input type="checkbox" name="durableGoodsType11" value="สำรวจ" @if(com.durableGoodsType.contains("สำรวจ")){ checked }> วัสดุคงทนถาวรสำรวจ</td>
+			  	<td><input type="checkbox" name="durableGoodsType12" value="ก่อสร้าง" @if(com.durableGoodsType.contains("ก่อสร้าง")){ checked }> วัสดุคงทนถาวรก่อสร้าง</td>
+		  	</tr>
+
+		  	<tr>
+			  	<td><input type="checkbox" name="durableGoodsType13" value="โรงงาน" @if(com.durableGoodsType.contains("โรงงาน")){ checked }> วัสดุคงทนถาวรโรงงาน</td>
+			  	<td><input type="checkbox" name="durableGoodsType14" value="ดนตรีและนาฏศิลทป์" @if(com.durableGoodsType.contains("ดนตรีและนาฏศิลทป์")){ checked }> วัสดุคงทนถาวรดนตรีและนาฏศิลทป์</td>
+			  	<td><input type="checkbox" name="durableGoodsType15" value="กีฬา" @if(com.durableGoodsType.contains("กีฬา")){ checked }> วัสดุคงทนถาวรกีฬา</td>
+			  	<td><input type="checkbox" name="durableGoodsType16" value="อาวุธ" @if(com.durableGoodsType.contains("อาวุธ")){ checked }> วัสดุคงทนถาวรอาวุธ</td>
+			  	<td><input type="checkbox" name="durableGoodsType17" value="อื่นๆ" @if(com.durableGoodsType.contains("อื่นๆ")){ checked }> วัสดุคงทนถาวรอื่นๆ</td>
+		  	</tr>
+
+	  	</table>
+
+  	</fieldset>
+    </div>
+
+    <div class="well">
+  	<fieldset>
+	  	<legend style="width:auto">ประเภทวัสดุสิ้นเปลืองของสถานประกอบการ</legend>
+
+		
+	  	<table  class="table table-striped">
+			<tr>
+				  <td ><input type="checkbox" name="consumableGoodsType1" value="สำนักงาน" @if(com.consumableGoodsType.contains("สำนักงาน")){ checked }> วัสดุสิ้นเปลืองสำนักงาน</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType2" value="ไฟฟ้าและวิทยุ" @if(com.consumableGoodsType.contains("ไฟฟ้าและวิทยุ")){ checked }> วัสดุสิ้นเปลืองไฟฟ้าและวิทยุ</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType3" value="งานบ้านงานครัว" @if(com.consumableGoodsType.contains("งานบ้านงานครัว")){ checked }> วัสดุสิ้นเปลืองบ้านงานครัว</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType4" value="คอมพิวเตอร์" @if(com.consumableGoodsType.contains("คอมพิวเตอร์")){ checked }> วัสดุสิ้นเปลืองคอมพิวเตอร์</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType5" value="ยานพาหนะและขนส่ง" @if(com.consumableGoodsType.contains("ยานพาหนะและขนส่ง")){ checked }> วัสดุสิ้นเปลืองยานพาหนะและขนส่ง</td>
+			  	<td ><input type="checkbox" name="consumableGoodsType6" value="วิทยาศาสตร์และการแพทย์" @if(com.consumableGoodsType.contains("วิทยาศาสตร์และการแพทย์")){ checked }> วัสดุสิ้นเปลืองวิทยาศาสตร์และการแพทย์</td>
+		  	</tr>
+
+		  	<tr>
+				  <td><input type="checkbox" name="consumableGoodsType7" value="โฆษณาและเผยแพร่" @if(com.consumableGoodsType.contains("โฆษณาและเผยแพร่")){ checked }> วัสดุสิ้นเปลืองโฆษณาและเผยแพร่</td>
+			  	<td><input type="checkbox" name="consumableGoodsType8" value="การศึกษา" @if(com.consumableGoodsType.contains("การศึกษา")){ checked }> วัสดุสิ้นเปลืองการศึกษา</td>
+			  	<td><input type="checkbox" name="consumableGoodsType9" value="สนาม" @if(com.consumableGoodsType.contains("สนาม")){ checked }> วัสดุสิ้นเปลืองสนาม</td>
+			  	<td><input type="checkbox" name="consumableGoodsType10" value="การเกษตร" @if(com.consumableGoodsType.contains("การเกษตร")){ checked }> วัสดุสิ้นเปลืองการเกษตร</td>
+			  	<td><input type="checkbox" name="consumableGoodsType11" value="สำรวจ" @if(com.consumableGoodsType.contains("สำรวจ")){ checked }> วัสดุสิ้นเปลืองสำรวจ</td>
+			  	<td><input type="checkbox" name="consumableGoodsType12" value="ก่อสร้าง" @if(com.consumableGoodsType.contains("ก่อสร้าง")){ checked }> วัสดุสิ้นเปลืองก่อสร้าง</td>
+		  	</tr>
+
+		  	<tr>
+			  	<td><input type="checkbox" name="consumableGoodsType13" value="โรงงาน" @if(com.consumableGoodsType.contains("โรงงาน")){ checked }> วัสดุสิ้นเปลืองโรงงาน</td>
+			  	<td><input type="checkbox" name="consumableGoodsType14" value="ดนตรีและนาฏศิลทป์" @if(com.consumableGoodsType.contains("ดนตรีและนาฏศิลทป์")){ checked }> วัสดุสิ้นเปลืองดนตรีและนาฏศิลทป์</td>
+			  	<td><input type="checkbox" name="consumableGoodsType15" value="กีฬา" @if(com.consumableGoodsType.contains("กีฬา")){ checked }> วัสดุสิ้นเปลืองกีฬา</td>
+			  	<td><input type="checkbox" name="consumableGoodsType16" value="อาวุธ" @if(com.consumableGoodsType.contains("อาวุธ")){ checked }> วัสดุสิ้นเปลืองอาวุธ</td>
+			  	<td><input type="checkbox" name="consumableGoodsType17" value="อื่นๆ" @if(com.consumableGoodsType.contains("อื่นๆ")){ checked }> วัสดุสิ้นเปลืองอื่นๆ</td>
+		  	</tr>
+
+	  	</table>
+
+  	</fieldset>
+    </div>
+	<div>
+		<input type="file" name="attachFile"> 
+	</div>
+ 
+  	<legend style="width:auto">รายละเอียดเพิ่มเติม</legend>
+  	<textarea class="form-control" rows="3" name="otherDetail">@com.otherDetail</textarea>
+
+
+
+    		<div align="center" style="margin-bottom:1%;">
+            <a href="@routes.Import.importsInstitute()">
+                <button class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" type="button">
+                    <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+                </button>
+            </a>
+            
+
+            <a id="fixButton">
+                <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                    แก้ไข <span class="glyphicon glyphicon-ok"></span>
+                </button>
+            </a>
+
+
+    </div>
+
+     </form>
+</div>
+
+
+
+@footerFull()

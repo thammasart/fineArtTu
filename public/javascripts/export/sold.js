@@ -1,14 +1,13 @@
-var donation = {
+var auction = {
 	'id': 0,
 	'title': "",
-	'number': ""
+	'contractNo': ""
 };
 
-var newDetail = [];
+var newDetail = [];	
 var oldDetail = [];
 
 function addDetailButton(){
-
 	document.getElementById("searchResultTable").innerHTML = "";
 
 	document.getElementById("addWindows").style.display = "none";
@@ -16,7 +15,7 @@ function addDetailButton(){
 	document.addDetail.fsnCode.focus();
 }
 
-function addDonateButton(){
+function addSoldButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
 }
@@ -33,7 +32,7 @@ function addNewDetai(code){
 function getDetail(id){
 	$.ajax({
 		type: "GET",
-		url: "/export/donate/lodeDetail",
+		url: "/export/sold/lodeDetail",
 		data: {'id': id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
@@ -55,7 +54,8 @@ function getDetail(id){
 					else{
 						s += '	<th>'+ 'ไม่มี' +'</th>';
 					}
-					s += '	<th> </th>';
+					s += '	<th>'+ details[i].durableArticles.detail.procurement.budgetType +'</th>';
+					s += '	<th>'+ details[i].durableArticles.remainingPriceToString +'</th>';
 					s += '</tr>';
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
@@ -119,10 +119,10 @@ function findFSN(){
 
 function saveDetail(){
 	var dataDetail = {};
-	dataDetail.id = donation.id;
+	dataDetail.id = auction.id;
 	dataDetail.detail = newDetail;
 	$.ajax({
-		url:'/export/donate/saveDetail',
+		url:'/export/sold/saveDetail',
 	    type: 'post',
 	    data: JSON.stringify(dataDetail),
 	    contentType: 'application/json',
@@ -131,15 +131,15 @@ function saveDetail(){
     		//alert(JSON.stringify(result));
     		document.getElementById("fsnCode").value = "";
 			document.getElementById("fsnDescription").value = "";
-			addDonateButton();
+			addSoldButton();
 			newDetail = [];
-			getDetail(donation.id);
+			getDetail(auction.id);
     	}
 	});
 }
 
 function init(id){
-	donation.id = id;
+	auction.id = id;
 	getDetail(id);
-	addDonateButton();
+	addSoldButton();
 }
