@@ -24,7 +24,7 @@ angular.module('importsInstituteApp', ['ui.bootstrap'])
     .controller('importsInstituteCtrl',function($scope,$modal){
     	$scope.name = "asd";
         $scope.openDelModal= function(){
-                $scope.nameEntrepreneur = "";
+        	$scope.nameEntrepreneur = "";
             var delModalInstance = $modal.open({
                 templateUrl: 'delInsititute.html',
                 controller: deleteModalInstanceCtrl,
@@ -49,7 +49,7 @@ angular.module('importsInstituteApp', ['ui.bootstrap'])
                     }
                 }
             });
-            modalInstance.id = id;
+            modalInstance.id = id;	// send data to controller
         };
     }
 );
@@ -68,7 +68,8 @@ angular.module('importsInstituteApp', ['ui.bootstrap'])
     }
 	
 	
-    var resultModalInstanceCtrl= function($scope, $modalInstance){
+    var resultModalInstanceCtrl= function($scope, $modalInstance){ // func
+																	// ดึงข้อมูลมาโชว์
     	var obj = {
     			id : $modalInstance.id
     	}

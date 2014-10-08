@@ -10,7 +10,7 @@
 
 <div class="listWindow" ng-app="importsInstituteApp"  ng-controller="importsInstituteCtrl">
 
-@importsInstituteOverlay()
+@importsInstituteOverlay()   <!--draw รายละเอียด -->
 @delInsititute()
 
         <div class="tableHeaderBtnContainer">
@@ -74,7 +74,8 @@
                     <th>@institute.address.telephoneNumber</th>
                     <th>@institute.payPeriod</th>
                     <th>@institute.sendPeriod</th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open(@institute.id)" > รายละเอียด</button></th>
+                    <th> <a href="@routes.ImportDetail.importsInstituteDetail(institute.id)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
+                    
                     </tr>
                   }
                 </tbody>
