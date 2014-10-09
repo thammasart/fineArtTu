@@ -132,8 +132,8 @@ public class DataRandom {
 		models.durableArticles.ProcurementDetail pd = new models.durableArticles.ProcurementDetail();
 		pd.description = randomString();
 		pd.quantity = rand.nextInt(100);
-		pd.price = rand.nextDouble() * 1000;
-		pd.priceNoVat = rand.nextDouble()- (pd.price*0.07);
+		pd.price = Math.abs(rand.nextDouble() * 1000);
+		pd.priceNoVat = Math.abs(rand.nextDouble()- (pd.price*0.07));
 		pd.alertTime = Math.abs(rand.nextDouble()*10);
 		pd.llifeTime = Math.abs(rand.nextDouble()*10);
 		pd.seller = randomString();
@@ -152,6 +152,7 @@ public class DataRandom {
 		d.floorLevel = randomString(2);
 		int i = DurableArticles.find.where().eq("detail.fsn", pd.fsn).findRowCount() + 1;
 		d.code = pd.fsn.descriptionId + String.format("-%03d", i);
+		d.codeFromStock = String.format("%05d",rand.nextInt(99999));
 		d.title = randomString();
 		d.firstName = randomString();
 		d.lastName = randomString();
@@ -176,8 +177,8 @@ public class DataRandom {
 	public static models.durableGoods.ProcurementDetail getRandomGoodsProcurementDetail(models.durableGoods.Procurement p){
 		models.durableGoods.ProcurementDetail pd = new ProcurementDetail();
 		pd.description = randomString(20);
-		pd.price = rand.nextDouble() * 1000;
-		pd.priceNoVat = rand.nextDouble() - (pd.price*0.07);
+		pd.price = Math.abs(rand.nextDouble() * 1000);
+		pd.priceNoVat = Math.abs(rand.nextDouble()- (pd.price*0.07));
 		pd.quantity = rand.nextInt(100);
 		pd.seller = randomString(12);
 		pd.phone = randomString(10);
@@ -195,6 +196,7 @@ public class DataRandom {
 		d.room = randomString(4);
 		d.floorLevel = randomString(2);
 		d.code = pd.code;
+		d.codes = pd.code.code;
 		d.title = randomString();
 		d.firstName = randomString();
 		d.lastName = randomString();
