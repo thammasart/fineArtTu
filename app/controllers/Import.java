@@ -509,9 +509,119 @@ public class Import extends Controller {
     			eoArray.add(eoItem);
     		}
     		result.put("eo", eoArray);
-    	}else if(json.get("page").asText().equals("1")){
+    		List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", pa).findList(); 
+    		ArrayNode jsonProcurementDetails = JsonNodeFactory.instance.arrayNode();
+    		for(models.durableArticles.ProcurementDetail p : procurementDetails){
+    			ObjectNode item = Json.newObject();
+    			item.put("id", p.id);
+    			item.put("fsn", p.fsn.descriptionId);
+    			item.put("description", p.description);
+    			item.put("quantity", p.quantity);
+    			item.put("classifier", "อัน");
+    			item.put("price", p.price);
+    			item.put("priceNoVat", p.priceNoVat);
+    			item.put("lifeTime", p.llifeTime);
+    			jsonProcurementDetails.add(item);
+    		}
+    		result.put("data",jsonProcurementDetails);
+    	}else if(json.get("tab").asText().equals("2")){
+    		models.durableGoods.Procurement pg = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").asText()));
+    		for(models.durableGoods.AI_Committee ai : pg.aiCommittee){
+    			ArrayNode aiItem = JsonNodeFactory.instance.arrayNode();
+    			aiItem.add(ai.committee.title);
+    			aiItem.add(ai.committee.firstName);
+    			aiItem.add(ai.committee.lastName);
+    			aiItem.add(ai.committee.identificationNo);
+    			aiItem.add(ai.committee.position);
+    			aiItem.add(ai.employeesType);
+    			aiItem.add(ai.committeePosition);
+    			aiArray.add(aiItem);
+    		}
+    		result.put("ai", aiArray);
     		
+    		List<models.durableGoods.ProcurementDetail> procurementDetails = models.durableGoods.ProcurementDetail.find.where().eq("procurement", pg).findList(); 
+    		ArrayNode jsonProcurementDetails = JsonNodeFactory.instance.arrayNode();
+    		for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    			ObjectNode item = Json.newObject();
+        		item.put("id", p.id);
+        		item.put("code", p.code.code);
+        		item.put("description", p.description);
+        		item.put("quantity", p.quantity);
+        		item.put("classifier", "อัน");
+        		item.put("price", p.price);
+        		item.put("priceNoVat", p.priceNoVat);
+    			jsonProcurementDetails.add(item);
+    		}
+    		result.put("data",jsonProcurementDetails);
+
     	}
+    	
+    	
+    	return ok(result);
+	}
+    
+    @Security.Authenticated(Secured.class)
+    @BodyParser.Of(BodyParser.Json.class)
+	public static Result retriveProcurementDetail(){
+    	RequestBody body = request().body();
+    	JsonNode json = body.asJson();
+    	ObjectNode result = Json.newObject();
+    	if(json.get("tab").asText().equals("1")){
+    		ArrayNode subDetail = JsonNodeFactory.instance.arrayNode();
+    		models.durableArticles.ProcurementDetail pad = models.durableArticles.ProcurementDetail.find.byId(Long.parseLong(json.get("id").asText()));
+    		for(models.durableArticles.DurableArticles d : pad.subDetails){
+    			ArrayNode subDetailItem = JsonNodeFactory.instance.arrayNode();
+    			subDetailItem.add(d.department);
+    			subDetailItem.add(d.room);
+    			subDetailItem.add(d.floorLevel);
+    			subDetailItem.add(d.code);
+    			subDetailItem.add(d.title);
+    			subDetailItem.add(d.firstName);
+    			subDetailItem.add(d.lastName);
+    			subDetailItem.add(d.codeFromStock);
+    			subDetail.add(subDetailItem);
+    		}
+    		result.put("id", pad.id);
+    		result.put("description", pad.description);
+    		result.put("code", pad.fsn.descriptionId);
+    		result.put("price", pad.price);
+    		result.put("priceNoVat", pad.priceNoVat);
+    		result.put("quantity", pad.quantity);
+    		result.put("llifeTime", pad.llifeTime);
+    		result.put("alertTime", pad.alertTime);
+    		result.put("seller", pad.seller);
+    		result.put("phone", pad.phone);
+    		result.put("brand", pad.brand);
+    		result.put("serialNumber", pad.serialNumber);
+    		result.put("subDetails", subDetail);
+    	}else if(json.get("tab").asText().equals("2")){
+    		ArrayNode subDetail = JsonNodeFactory.instance.arrayNode();
+    		models.durableGoods.ProcurementDetail pgd = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(json.get("id").asText()));
+    		for(models.durableGoods.DurableGoods g : pgd.subDetails){
+    			ArrayNode subDetailItem = JsonNodeFactory.instance.arrayNode();
+    			subDetailItem.add(g.department);
+    			subDetailItem.add(g.room);
+    			subDetailItem.add(g.floorLevel);
+    			subDetailItem.add(g.codes);
+    			subDetailItem.add(g.title);
+    			subDetailItem.add(g.firstName);
+    			subDetailItem.add(g.lastName);
+    			subDetail.add(subDetailItem);
+    		}
+    		result.put("id", pgd.id);
+    		result.put("description", pgd.description);
+    		result.put("code", pgd.code.code);
+    		result.put("price", pgd.price);
+    		result.put("priceNoVat", pgd.priceNoVat);
+    		result.put("quantity", pgd.quantity);
+    		result.put("seller", pgd.seller);
+    		result.put("phone", pgd.phone);
+    		result.put("brand", pgd.brand);
+    		result.put("serialNumber", pgd.serialNumber);
+    		result.put("partOfPic", pgd.partOfPic);
+    		result.put("subDetails", subDetail);
+    	}
+    	
     	
     	return ok(result);
 	}
