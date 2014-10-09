@@ -55,9 +55,7 @@ public class ExportOrder extends Controller {
         if(req != null && req.status == ExportStatus.SUCCESS){
             return redirect(routes.ExportOrder.exportOrder());
         }
-        else{
-            return ok(exportOrderAdd.render(user,req));
-        }
+        return ok(exportOrderAdd.render(user,req));
     }
 
     @Security.Authenticated(Secured.class)

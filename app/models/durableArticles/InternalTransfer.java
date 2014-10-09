@@ -4,12 +4,16 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import models.User;
 import models.type.ExportStatus;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table (name = "internal_transfer")
@@ -24,6 +28,24 @@ public class InternalTransfer extends Model{
 
 	@ManyToOne
 	public User approver; // ผู้อนุมัต
+
+	@JsonBackReference
+	@OneToMany(mappedBy="internalTransfer")
+	public List<InternalTransferDetail> detail = new ArrayList<InternalTransferDetail>();
+
+
+	public void setApproveDate(String date){
+		String[] sList = date.split("/");
+		if(sList.length == 3){
+			int d = Integer.parseInt(sList[0]);
+			int m = Integer.parseInt(sList[1]);
+			int y = Integer.parseInt(sList[2]);
+			this.approveDate = new Date(y-2443,m-1,d);
+		}
+		else{
+			this.approveDate = null;
+		}
+	}
 
 	public String getApproveDate(){
 		if(approveDate == null){

@@ -16,12 +16,6 @@ var detail = {
 
 var details = [];
 
-function init(id){
-	requisition.id = id;
-	getDetail(id);
-	document.addOrder.title.focus();
-}
-
 function addDetailButton(){
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
@@ -140,6 +134,12 @@ function getDetail(id){
 		   	document.getElementById("detailInTable").innerHTML = s;
 		}
 	});
+}
+
+function init(id){
+	requisition.id = id;
+	getDetail(id);
+	document.addOrder.title.focus();
 }
 
 

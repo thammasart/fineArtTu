@@ -10,10 +10,9 @@ public class InternalTransferDetail extends Model{
 	@Id
 	public long id;
 	public String code; // รหัส
-	public String oldBranch; // สาขาวิชาเก่า
-	public String oldRoom; // ห้องเก่า
-	public String oldFloor; // ชั้น เก่า
-	public String oldBuilding; // อาคารเก่า
+	public String department; //สาขา
+	public String room;	//ห้อง
+	public String floorLevel; //ชั้น
 
 	@ManyToOne
 	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการโอนย่าย
