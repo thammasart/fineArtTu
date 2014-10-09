@@ -21,10 +21,10 @@
     </div>
     
     <div>
-      <a style="float:right;margin-left:1%;"href="@routes.ExportDonate.exportCreateDonate()">
-        <button class="btn btn-success width200px">เพิ่มรายการบริจาค</button>
+      <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportDonate.exportCreateDonate()">
+        <button class="btn btn-success" style="width:100%">เพิ่มรายการบริจาค</button>
       </a>
-      <button class="btn btn-danger width200px" style="float:right;">ลบรายการบริจาค</button>
+      <button class="btn btn-danger width20p" style="float:right;">ลบรายการบริจาค</button>
     </div>
 
   </div>
@@ -82,18 +82,6 @@
     </tbody>
   </table>
 
-  <div class="pagingContainer" align="center">
-    <ul class="pagination" style="margin:0;">
-      <li class="disabled"><a href="#">&laquo;</a></li>
-      <li class="active"><a href="#">1</a></li>
-      <li><a href="#">2</a></li>
-      <li><a href="#">3</a></li>
-      <li><a href="#">4</a></li>
-      <li><a href="#">5</a></li>
-      <li><a href="#">&raquo;</a></li>
-    </ul>
-  </div>
-
 </div>
 
-@footer()
+@footerFull()

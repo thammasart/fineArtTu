@@ -61,7 +61,12 @@ angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
 
                 $(function() {
                     $( "#groupId" ).autocomplete({
-                      source: availableId
+                              source: function( request, response ) {
+                                      var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                                      response( $.grep( availableId, function( item ){
+                                          return matcher.test( item );
+                                      }) );
+                              }
                     });
                 });
                 $(function() {
@@ -74,7 +79,12 @@ angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
                 $(function() {
                         $( "#classId" ).autocomplete({
                               minLength:2,
-                              source: availableClassId
+                              source: function( request, response ) {
+                                      var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                                      response( $.grep( availableClassId, function( item ){
+                                          return matcher.test( item );
+                                      }) );
+                              }
                         });
                 });
 

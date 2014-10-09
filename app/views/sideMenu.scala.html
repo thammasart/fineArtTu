@@ -1,6 +1,6 @@
 @(user : User)
 <div class ="sideMenu">
-    <a href="@routes.Application.home()">
+    <a href="@routes.Application.home()" tabindex="1">
         <!--<img src="@routes.Assets.at("images/fineArtLogo.png") "style="width:100%;" alt="โลโก้คณะศิลปกรรมศาสตร์">-->
         <img src="@routes.Assets.at("images/logo.png") "style="width:100%;" alt="โลโก้คณะศิลปกรรมศาสตร์">
     </a>
@@ -25,7 +25,7 @@
                     <li>
                         <div >
                             <div class="dropdown">
-                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" tabindex="2">
                                 จัดซื้อและนำเข้า
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu1">
@@ -41,7 +41,7 @@
                     <li>
                         <div >
                             <div class="dropdown">
-                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" tabindex="3">
                                 เบิกจ่ายและโอนย้าย
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu2">
@@ -60,7 +60,7 @@
                     <li>
                         <div >
                             <div class="dropdown">
-                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown">
+                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" tabindex="4">
                                 รายงาน
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu3">
@@ -79,7 +79,7 @@
                     <li>
                             <div class="dropdown">
                                 <a href="@routes.Graph.index()">
-                                    <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" >
+                                    <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" tabindex="5">
                                         ติดตามและตรวจสอบ
                                     </button>
                                 </a>
