@@ -182,7 +182,6 @@
 				<tbody>
 				
 				@for(goodOrder <- goodOrders){
-					@goodOrder.status.name()
 					@if(goodOrder.status.name() == "INIT"){
 						<tr>
 							<th><input id="goodOrder.id" type="checkbox" onclick="addTick('@goodOrder.id','goods')"></th>

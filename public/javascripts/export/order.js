@@ -1,3 +1,8 @@
+$(function () {
+    $('#dateP').datetimepicker({
+  	  language:'th'
+    })
+});
 var requisition = {
 	'id': 0,
 	'title': "",

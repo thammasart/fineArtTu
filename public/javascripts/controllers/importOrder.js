@@ -60,9 +60,67 @@ function retriveProcurement(id,tab){
     					}
     				});
     			}
+    			loadOrderArticle(result);
+    		}else{
+    			loadOrderGood(result);
     		}
     	}
 	});
+}
+function setDetail(id,tab,page){
+	var obj = {
+			"id" : id,
+			"tab" : tab
+	};
+	page = page||2;
+	showPage(page);
+	
+	$.ajax({
+		url:'/import/order/retriveProcurementDetail',
+	    type: 'post',
+	    data: JSON.stringify(obj), 
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		if(page == 2){
+    			$('#procurementDetailId').val(result["id"]);
+    			$('#description').val(result["description"]);
+    			$('#code').val(result["code"]);
+    			$('#price').val(result["price"]);
+    			$('#priceNoVat').val(result["priceNoVat"]);
+    			$('#quantity').val(result["quantity"]);
+    			$('#llifeTime').val(result["llifeTime"]);
+    			$('#alertTime').val(result["alertTime"]);
+    			$('#seller').val(result["seller"]);
+    			$('#phone').val(result["phone"]);
+    			$('#brand').val(result["brand"]);
+    			$('#serialNumber').val(result["serialNumber"]);
+    			$('#code').val(result["code"]);
+    		}else if(page == 3){
+    			if(tab == 1){
+    				for(var i = 0; i < result.subDetails.length; i++){
+    					var subDetails = $('#sub'+(i+1)+' :input');
+    					$.each(subDetails, function(j, field) {
+        					if(j<8){
+        						$(field).val(result.subDetails[i][j]);
+        						console.log(result.subDetails[i][j]);
+        					}
+        				});
+    				}
+    			}else if(tab == 2){
+    				for(var i = 0; i < result.subDetails.length; i++){
+    					var subDetails = $('#sub'+(i+1)+' :input');
+    					$.each(subDetails, function(j, field) {
+        					if(j<8){
+        						$(field).val(result.subDetails[i][j]);
+        					}
+        				});
+    				}
+    			}
+    		}
+    	}
+	});
+	
 }
 function cancelStatus(id,typeOfOrder){
 	var data = {
@@ -201,11 +259,11 @@ function preSpread(name){
         var years = document.getElementById("years").value;
 	document.getElementById("fixNumber").value=num;
 	
-	var ss= document.getElementById("spreadSupply").innerHTML;
-	ss = ""
+	var ss = "";
 	for(k=1;k<=num;k++)
 	{
-		var v='  <div class="form-inline marginBtm1" role="form" align="left" style="display:inline-table">'+
+		var v='<div id="sub'+k+'">'+
+		'  <div class="form-inline marginBtm1" role="form" align="left" style="display:inline-table">'+
 		''+
 		'	        	<div class="form-group" >'+
 		'	        		<div class="input-group"> '+
@@ -270,7 +328,8 @@ var v2=	'		        <div class="form-group" >'+
 }
 		
 var v3 ='	            <button onclick="setValueBelow(\''+name+'\','+ k +')">ตกลง</button>'+
-		'	        </div>  '
+		'	        </div>  '+
+		'		</div>'
 if(name=='article')
 	v=v+v2+v3;
 else
@@ -281,6 +340,14 @@ else
 		ss=ss+v;
 	}
 	document.getElementById("spreadSupply").innerHTML=ss;
+	var id = $('#procurementDetailId').val();
+	if(id != ""){
+		if(name == 'article'){
+			setDetail(id, 1, 3);
+		}else{
+			setDetail(id, 2, 3);
+		}
+	}
 }
 
 function setValueBelow(name,num){
@@ -335,7 +402,7 @@ function removeProcurementDetail(path){
 
 function loadOrderArticle(data){
 	var divTable = '';
-	for(var i = 0; i<data["length"]; i++){
+	for(var i = 0; i<data["data"].length; i++){
 		divTable += '				<tr id='+i+'>'+
 		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
 		'                    <th>'+ data['data'][i].id +'</th>'+
@@ -345,7 +412,7 @@ function loadOrderArticle(data){
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
 		'                    <th>'+ data['data'][i].price +'</th>'+
 		'                    <th>'+ data['data'][i].lifeTime +'</th>'+
-		'                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>'+
+		'                    <th> <button type="button" class="btn btn-xs btn-info" onclick="setDetail('+data['data'][i].id + ',1)" > รายละเอียด</button></th>'+
 		'                </tr>';
 	}
 	destroyTable();
@@ -355,16 +422,15 @@ function loadOrderArticle(data){
 
 function loadOrderGood(data){
 	var divTable = '';
-	for(var i = 0; i<data["length"]; i++){
+	for(var i = 0; i<data["data"].length; i++){
 		divTable += '				<tr id='+i+'>'+
 		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
-		'                    <th>'+ data['data'][i].id +'</th>'+
 		'                    <th>'+ data['data'][i].code +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
 		'                    <th>'+ data['data'][i].price +'</th>'+
-		'                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button></th>'+
+		'                    <th> <button type="button" class="btn btn-xs btn-info" onclick="setDetail('+data['data'][i].id + ',2)" > รายละเอียด</button></th>'+
 		'                </tr>';
 	}
 	destroyTable();

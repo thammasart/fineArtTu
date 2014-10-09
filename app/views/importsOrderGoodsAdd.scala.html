@@ -19,7 +19,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ชื่อรายการ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="title" id="title">
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="title" id="title" value="@order.title">
                         <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
@@ -29,7 +29,7 @@
               <div class="form-group" >
                     <div class="input-group">
                         <span class="input-group-addon width250px" >เลขที่</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="contractNo" id="contractNo">
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="contractNo" id="contractNo" value="@order.contractNo">
                         <span class="alertText" id="contractNoAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
@@ -60,7 +60,7 @@
        <div class="form-inline" role="form" align="left">
             <div class="input-group marginBtm1">
                 <span class="input-group-addon width250px">ประเภทงบประมาณ</span>
-                    <select class="form-control textAlignCenter  width300px" name="budgetType">
+                    <select class="form-control textAlignCenter  width300px" name="budgetType" value="@order.budgetType">
                         <option>งบคลัง</option>
                         <option>งบพิเศษ</option>
                         <option>งบกองทุนค่าธรรมเนียม</option>
@@ -72,7 +72,7 @@
         <div class="form-inline" role="form" align="left">
             <div class="input-group marginBtm1">
                 <span class="input-group-addon width250px">สถานประกอบการ</span>
-                    <select class="form-control textAlignCenter  width300px" name="institute">
+                    <select class="form-control textAlignCenter  width300px" name="institute" value="@order.institute">
                         <option>---เลือก---</option>
                         <option>Asissoft</option>
                         <option>Lotus</option>
@@ -85,7 +85,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ปีงบประมาณ</span>
-                        <input type=number class="form-control textAlignCenter  width300px" onkeypress="validateNumberKey(event)" placeholder="ใส่ค่า" name="budgetYear" id="years">
+                        <input type=number class="form-control textAlignCenter  width300px" onkeypress="validateNumberKey(event)" placeholder="ใส่ค่า" name="budgetYear" id="years" value="@order.budgetYear">
                         <span class="alertText" id="yearsAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
@@ -169,7 +169,7 @@
 		
 		
 		<input type="hidden" name="procurementId" value="@order.id">  <!-- id kong procument -->
-		
+		<input type="hidden" id="procurementDetailId" name="procurementDetailId">
  
         
         <div class="form-inline marginBtm1" role="form" align="left" >
@@ -355,5 +355,9 @@
 
 
 </div>
+
+<script>
+	retriveProcurement(@order.id,2);
+</script>
     
  @footerFull()

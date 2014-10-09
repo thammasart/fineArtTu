@@ -38,7 +38,7 @@
                   <div class="input-group date" id="addDate">
                       <span class="input-group-addon width250px" >วันที่นำเข้า</span>
                       <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p">
-        			   <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
+                      <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
                   </div>
             </div>
       </div>
@@ -48,7 +48,7 @@
                   <div class="input-group date" id="checkDate">
                       <span class="input-group-addon width250px" >วันที่ตรวจรับ</span>
                       <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p">
-                      <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
+                      <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
                   </div>
             </div>
       </div>
@@ -185,6 +185,7 @@
 
         
         <input type="hidden" name="procurementId" value="@order.id">
+        <input type="hidden" id="procurementDetailId" name="procurementDetailId">
         <div class="form-inline marginBtm1" role="form" align="left">
                 <div class="form-group" >
                     <div class="input-group" >
@@ -278,7 +279,7 @@
             <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="showPage('1')">
                 <span class="glyphicon glyphicon-remove"></span> ยกเลิก
             </button>
-            <button type="button" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('3');preSpread('article')">
+            <button type="button" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('3');preSpread('article');">
                 ถัดไป <span class="glyphicon glyphicon-chevron-right"></span>
             </button>
         </div>

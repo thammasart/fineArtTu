@@ -34,9 +34,10 @@
 
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
-          <div class="input-group">
+          <div class="input-group" id="dateP">
               <span class="input-group-addon width250px">วัน/เดือน/ปี ที่ทำการเบิกจ่าย</span>
-              <input type="text" class="form-control width300px textAlignCenter" name="approveDate" id="date">
+              <input type="text" class="form-control width300px textAlignCenter" data-format="DD/MM/YYYY" name="approveDate" id="date">
+              <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
               <span class="alertText" id="dateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>

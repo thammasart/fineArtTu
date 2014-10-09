@@ -1,5 +1,7 @@
 package models;
 
+import java.awt.image.BufferedImage;
+
 import play.db.ebean.*;
 import javax.persistence.*;
 
@@ -21,6 +23,8 @@ public class Company extends Model{	// ครุภัณฑ์
 	public String durableGoodsType; 		 	//ประเภทวัสดุคงทนถาวร
 	public String consumableGoodsType;       	//ประเภทวัสดุสิ้นเปลือง
 	public String otherDetail;					//รายละเอียดอื่นๆ
+	
+	public BufferedImage img = null;
 
 	@ManyToOne
 	public Address address;// ที่อยู่
