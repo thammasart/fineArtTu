@@ -34,17 +34,42 @@ public class ExportOther extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportOther() {
         User user = User.find.byId(session().get("username"));
-        return ok( exportOther.render(user));
+        List<OtherTransfer> initList = OtherTransfer.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
+        List<OtherTransfer> successList = OtherTransfer.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
+        return ok( exportOther.render(user, initList, successList));
     }
+
     @Security.Authenticated(Secured.class)
     public static Result exportOtherAdd() {
         User user = User.find.byId(session().get("username"));
         return ok( exportOtherAdd.render(user));
     }
+
     @Security.Authenticated(Secured.class)
     public static Result exportOtherAddDetail() {
         User user = User.find.byId(session().get("username"));
         return ok( exportOtherAddDetail.render(user));
     }
+
+    @Security.Authenticated(Secured.class)
+    public static Result saveOther(long id){
+        /*
+        System.out.println(" save donate");
+
+        User user = User.find.byId(session().get("username"));
+        Donation donate = Donation.find.byId(donationId);
+
+        DynamicForm f = Form.form().bindFromRequest();
+        donate.title = f.get("title");
+        donate.contractNo = f.get("contractNo");
+        donate.setApproveDate(f.get("approveDate"));
+        donate.status = ExportStatus.SUCCESS;
+        donate.update();
+
+        System.out.println(donate.id + " " + donate.title);*/
+
+        return redirect(routes.ExportDonate.exportDonate());
+    }
+
 
 }

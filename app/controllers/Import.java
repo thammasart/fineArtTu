@@ -243,8 +243,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsMaterialDurableArticlesAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<FSN_Type> groupType = FSN_Type.find.all(); 
-        return ok(importsMaterialDurableArticlesAdd.render(groupType,user));
+        return ok(importsMaterialDurableArticlesAdd.render(user));
     }
 
     @Security.Authenticated(Secured.class)

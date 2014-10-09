@@ -19,7 +19,6 @@ GET		/export/order/new                   	controllers.ExportOrder.exportCreateOr
 GET		/export/order/add/Detail                controllers.ExportOrder.exportOrderAddDetail(detail:Long)
 POST	/export/order/saveRequisition			controllers.ExportOrder.saveRequisition(requisitionId:Long)
 
-# POST 	/export/order/saveRequisitionDetail		controllers.ExportOrder.saveRequisitionDetail(requisitionId:Long)
 GET 	/export/order/cancelRequisition			controllers.ExportOrder.cancelRequisition(requisitionId:Long)
 
 POST	/export/order/saveDetail				controllers.ExportOrder.saveOrderDetail()
@@ -55,6 +54,8 @@ GET		/export/other                             		controllers.ExportOther.exportO
 GET		/export/other/add                             	controllers.ExportOther.exportOtherAdd()
 GET		/export/other/add/detail                        controllers.ExportOther.exportOtherAddDetail()
 
+POST	/export/other/saveOther							controllers.ExportOther.saveOther(id:Long)
+
 GET     /export/order/autocompleteExportCommitee              controllers.Export.autocompleteExportCommitee()
 
 GET		/import											controllers.Import.imports()
@@ -62,9 +63,19 @@ GET		/import/institute								controllers.Import.importsInstitute()
 POST	/import/institute/retriveInstituteDescription	controllers.Import.retriveInstituteDescription()
 GET		/import/instituteAdd							controllers.Import.importsInstituteAdd()
 
+
+
 GET		/import/instituteDetail							controllers.ImportDetail.importsInstituteDetail(id : Long)
 POST	/import/saveInstituteDetail						controllers.ImportDetail.saveNewInstitute()
 
+GET		/import/materialDurableArticlesDetail			controllers.ImportDetail.importsMaterialDurableArticlesDetail(id : String)
+POST	/import/saveMaterialDurableArticlesDetail		controllers.ImportDetail.saveNewMaterialDurableArticles()
+
+GET		/import/materialDurableGoodsDetail				controllers.ImportDetail.importsMaterialDurableGoodsDetail(id : String)
+POST	/import/saveMaterialDurableGoodsDetail			controllers.ImportDetail.saveNewMaterialDurableGoods()
+
+GET		/import/materialConsumableGoodsDetail			controllers.ImportDetail.importsMaterialConsumableGoodsDetail(id : String)
+POST	/import/saveMaterialConsumableGoodsDetail			controllers.ImportDetail.saveNewMaterialConsumableGoods()
 
 POST	/import/saveInstitute							controllers.Import.saveNewInstitute()
 POST	/import/removeInstitute							controllers.Import.removeInstitute()
