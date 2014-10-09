@@ -201,4 +201,30 @@ public class ImportDetail extends Controller {
 	 }
 	 ////////////////////////////////////////////////////////////////////////////////
 	 
+	 @Security.Authenticated(Secured.class)
+	 public static Result importsMaterialConsumableGoodsDetail(String id)
+	 {
+		User user = User.find.where().eq("username", session().get("username")).findUnique();
+		MaterialCode code = MaterialCode.find.byId(id);
+		
+		System.out.println(code.code);
+		
+		
+		return ok(importsMaterialConsumableGoodsDetail.render(user,code));
+	 }
+	 
+	 public static Result saveNewMaterialConsumableGoods(){
+		 DynamicForm form = Form.form().bindFromRequest();
+		 System.out.println("inside!!!!!");
+		 MaterialCode mc = MaterialCode.find.byId(form.get("code"));
+		 mc.otherDetail = form.get("otherDetail");
+		 
+		 mc.update();
+		 
+		 return redirect(routes.Import.importsMaterial2("3"));
+		 
+	 }
+	 
+	 ////////////////////////////////////////////////////////////////////////////////
+	 
 }

@@ -74,6 +74,8 @@ POST	/import/saveMaterialDurableArticlesDetail		controllers.ImportDetail.saveNew
 GET		/import/materialDurableGoodsDetail				controllers.ImportDetail.importsMaterialDurableGoodsDetail(id : String)
 POST	/import/saveMaterialDurableGoodsDetail			controllers.ImportDetail.saveNewMaterialDurableGoods()
 
+GET		/import/materialConsumableGoodsDetail			controllers.ImportDetail.importsMaterialConsumableGoodsDetail(id : String)
+POST	/import/saveMaterialConsumableGoodsDetail			controllers.ImportDetail.saveNewMaterialConsumableGoods()
 
 POST	/import/saveInstitute							controllers.Import.saveNewInstitute()
 POST	/import/removeInstitute							controllers.Import.removeInstitute()
