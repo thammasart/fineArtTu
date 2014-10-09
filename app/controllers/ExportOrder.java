@@ -49,9 +49,9 @@ public class ExportOrder extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportOrderAdd(long requisitionId) {
+    public static Result exportOrderAdd(long id) {
         User user = User.find.byId(session().get("username"));
-        Requisition req = Requisition.find.byId(requisitionId);
+        Requisition req = Requisition.find.byId(id);
         if(req != null && req.status == ExportStatus.SUCCESS){
             return redirect(routes.ExportOrder.exportOrder());
         }
@@ -61,17 +61,17 @@ public class ExportOrder extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportOrderAddDetail(long requisitionId) {
+    public static Result exportOrderAddDetail(long id) {
         User user = User.find.byId(session().get("username"));
         DynamicForm f = Form.form().bindFromRequest();
         System.out.println(f.get("title"));
-        return ok(exportOrderAddDetail.render(user, Requisition.find.byId(requisitionId)));
+        return ok(exportOrderAddDetail.render(user, Requisition.find.byId(id)));
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result saveRequisition(long requisitionId){
+    public static Result saveRequisition(long id){
         User user = User.find.byId(session().get("username"));
-        Requisition req = Requisition.find.byId(requisitionId);
+        Requisition req = Requisition.find.byId(id);
 
         DynamicForm f = Form.form().bindFromRequest();
 
@@ -102,15 +102,13 @@ public class ExportOrder extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result cancelRequisition(long requisitionId){
+    public static Result cancelRequisition(long id){
         User user = User.find.byId(session().get("username"));
-        Requisition req = Requisition.find.byId(requisitionId);
-
-        if(req.status == ExportStatus.INIT){
+        Requisition req = Requisition.find.byId(id);
+        if(req != null && req.status == ExportStatus.INIT){
             req.status = ExportStatus.CANCEL;
+            req.update();
         }
-        req.update();
-
         return redirect(routes.ExportOrder.exportOrder());
     }
 
