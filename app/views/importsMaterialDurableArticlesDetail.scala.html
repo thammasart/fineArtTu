@@ -1,4 +1,4 @@
-@(groupTypes:List[models.fsnNumber.FSN_Type],user : User,fsn : models.fsnNumber.FSN_Description)
+@(user : User,fsn : models.fsnNumber.FSN_Description)
 @header("importsMaterialDurableArticlesAdd")
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
@@ -14,9 +14,6 @@
 </script>
 <body onload="init()">
 <div class="detailWindow" ng-app="materialConsumableGoodsAddFsn" ng-controller="autoCompleteController" >
-
-
-
 
 
 		<button onclick="changeValue();" class="btn btn-danger btn-lg width250px" style="margin-bottom:1%;">
@@ -82,11 +79,6 @@
     	}
     }
 </script>
-	    
-	    
-	    
-	    
-	    
 	    
 
     <form name="addDurableArticles" method="post" action="@routes.ImportDetail.saveNewMaterialDurableArticles()"onsubmit="return submitButtonClick()">

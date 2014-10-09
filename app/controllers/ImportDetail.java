@@ -153,13 +153,13 @@ public class ImportDetail extends Controller {
 	 public static Result importsMaterialDurableArticlesDetail(String id)
 	 {
 		User user = User.find.where().eq("username", session().get("username")).findUnique();
-		List<FSN_Type> groupType = FSN_Type.find.all(); 
+
 		FSN_Description fsn = FSN_Description.find.byId(id);
 		
 		System.out.println(fsn.descriptionId);
 		System.out.println(fsn.typ.typeId);
 		
-		return ok(importsMaterialDurableArticlesDetail.render(groupType,user,fsn));
+		return ok(importsMaterialDurableArticlesDetail.render(user,fsn));
 	 }
 	 
 	 
@@ -171,7 +171,34 @@ public class ImportDetail extends Controller {
 		 
 		 fd.update();
 		 
-		 return redirect(routes.Import.importsMaterial());
+		 return redirect(routes.Import.importsMaterial2("1"));
 		 
 	 }
+	 ////////////////////////////////////////////////////////////////////////////////
+	 @Security.Authenticated(Secured.class)
+	 public static Result importsMaterialDurableGoodsDetail(String id)
+	 {
+		User user = User.find.where().eq("username", session().get("username")).findUnique();
+		MaterialCode code = MaterialCode.find.byId(id);
+		
+		System.out.println(code.code);
+		
+		
+		return ok(importsMaterialDurableGoodsDetail.render(user,code));
+	 }
+	 
+	 
+	 public static Result saveNewMaterialDurableGoods(){
+		 DynamicForm form = Form.form().bindFromRequest();
+		 
+		 MaterialCode mc = MaterialCode.find.byId(form.get("code"));
+		 mc.otherDetail = form.get("otherDetail");
+		 
+		 mc.update();
+		 
+		 return redirect(routes.Import.importsMaterial2("2"));
+		 
+	 }
+	 ////////////////////////////////////////////////////////////////////////////////
+	 
 }
