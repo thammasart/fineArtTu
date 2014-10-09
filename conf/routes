@@ -22,9 +22,9 @@ GET 	/export/order/cancelRequisition 		controllers.ExportOrder.cancelRequisition
 POST 	/export/order/saveDetail 				controllers.ExportOrder.saveOrderDetail()
 GET 	/export/order/lodeDetail 				controllers.ExportOrder.loadOrderDetail(id:Long)
 
-GET		/export/transferInside                  		controllers.Export.exportTransferInside()
-GET		/export/transferInside/add              		controllers.Export.exportTransferInsideAdd()
-GET		/export/transferInside/add/Detail       		controllers.Export.exportTransferInsideAddDetail()
+GET 	/export/transferInside 					controllers.ExportTransferIndide.exportTransferInside()
+GET 	/export/transferInside/add 				controllers.ExportTransferIndide.exportTransferInsideAdd()
+GET 	/export/transferInside/add/Detail 		controllers.ExportTransferIndide.exportTransferInsideAddDetail()
 
 GET		/export/transferOutSide                         controllers.Export.exportTransferOutSide()
 GET		/export/transferOutSide/add                     controllers.Export.exportTransferOutSideAdd()
