@@ -116,26 +116,6 @@ public class Export extends Controller {
         return ok(result);
     }
 
-    // โอนย้ายภายใน
-    @Security.Authenticated(Secured.class)
-    public static Result exportTransferInside() {
-        User user = User.find.byId(session().get("username"));
-        List<InternalTransfer> initList = InternalTransfer.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
-        List<InternalTransfer> successList = InternalTransfer.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
-        return ok(exportTransferInside.render(user, initList , successList));
-    }
-    @Security.Authenticated(Secured.class)
-    public static Result exportTransferInsideAdd() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportTransferInsideAdd.render(user));
-    }
-    @Security.Authenticated(Secured.class)
-    public static Result exportTransferInsideAddDetail() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportTransferInsideAddDetail.render(user));
-    }
-
-
     // โอนย่ายภานนอก
     @Security.Authenticated(Secured.class)
     public static Result exportTransferOutSide() {

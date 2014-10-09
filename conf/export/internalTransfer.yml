@@ -1,0 +1,15 @@
+- &InternalTransfer01 !!models.durableArticles.InternalTransfer
+  title:  โอนย้าย ตู้่ใสเอกสาร ข้ามหน่วยงาน
+  number: 1/57
+  approveDate: 2014-07-30
+  status: SUCCESS
+- &InternalTransfer02 !!models.durableArticles.InternalTransfer
+  title:  โอนย้าย โต๊ะคอมพิวเตอร์ ข้ามหน่วยงาน
+  number: 2/57
+  approveDate: 2014-08-30
+  status: SUCCESS
+- &InternalTransfer03 !!models.durableArticles.InternalTransfer
+  title:  โอนย้าย สื่อการเรียนการสอน ข้ามหน่วยงาน
+  number: 3/57
+  approveDate: 2014-09-30
+  status: INIT

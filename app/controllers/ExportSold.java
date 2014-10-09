@@ -50,9 +50,9 @@ public class ExportSold extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportSoldAdd(long auctionId) {
+    public static Result exportSoldAdd(long id) {
         User user = User.find.byId(session().get("username"));
-        Auction sold = Auction.find.byId(auctionId);
+        Auction sold = Auction.find.byId(id);
         if(sold == null){
             return redirect(routes.ExportSold.exportSold());
         }
@@ -66,12 +66,12 @@ public class ExportSold extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result saveAuction(long auctionId){
+    public static Result saveAuction(long id){
 
         System.out.println("save Auction");
 
         User user = User.find.byId(session().get("username"));
-        Auction auction = Auction.find.byId(auctionId);
+        Auction auction = Auction.find.byId(id);
 
         DynamicForm f = Form.form().bindFromRequest();
         auction.title = f.get("title");
@@ -85,6 +85,17 @@ public class ExportSold extends Controller {
         return redirect(routes.ExportSold.exportSold());
     }
 
+    @Security.Authenticated(Secured.class)
+    public static Result cancelAuction(long id){
+        User user = User.find.byId(session().get("username"));
+        Auction sold = Auction.find.byId(id);
+        if(sold != null && sold.status == ExportStatus.INIT){
+            sold.status = ExportStatus.CANCEL;
+            sold.update();
+        }
+        return redirect(routes.ExportSold.exportSold());
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveAuctionDetail() {
         ObjectNode result = Json.newObject();
@@ -94,11 +105,14 @@ public class ExportSold extends Controller {
             long id = Long.parseLong(json.get("id").asText());
             Auction auction = Auction.find.byId(id);
             for (final JsonNode objNode : json.get("detail")) {
-                AuctionDetail newDetail = new AuctionDetail();
                 id = Long.parseLong(objNode.toString());
-                newDetail.durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
-                newDetail.auction = auction;
-                newDetail.save();
+                DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
+                if(durableArticles != null){
+                    AuctionDetail newDetail = new AuctionDetail();
+                    newDetail.durableArticles = durableArticles;
+                    newDetail.auction = auction;
+                    newDetail.save();
+                }
             }
             result.put("status", "SUCCESS");
         }
@@ -117,12 +131,17 @@ public class ExportSold extends Controller {
         JsonNode json;
         try { 
             Auction auction = Auction.find.byId(id);
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonArray = mapper.writeValueAsString(auction.detail);
-            json = Json.parse(jsonArray);
-            result.put("details",json);
-            result.put("status", "SUCCESS");
-            System.out.println("load detail SUCCESS");
+            if(auction != null){
+                ObjectMapper mapper = new ObjectMapper();
+                String jsonArray = mapper.writeValueAsString(auction.detail);
+                json = Json.parse(jsonArray);
+                result.put("details",json);
+                result.put("status", "SUCCESS");
+            }
+            else{
+                result.put("message","not Found action id:" + id);
+                result.put("status", "error3");
+            }
 
         }
         catch(Exception e){

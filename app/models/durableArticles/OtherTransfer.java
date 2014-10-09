@@ -36,6 +36,19 @@ public class OtherTransfer extends Model{
 	@OneToMany
 	public List<OtherTransfer_D_Committee> dCommittee = new ArrayList<OtherTransfer_D_Committee>(); // คณะกรรมการจำหน่าย
 
+	public void setApproveDate(String date){
+        String[] sList = date.split("/");
+        if(sList.length == 3){
+            int d = Integer.parseInt(sList[0]);
+            int m = Integer.parseInt(sList[1]);
+            int y = Integer.parseInt(sList[2]);
+            this.approveDate = new Date(y-2443,m-1,d);
+        }
+        else{
+        	this.approveDate = null;
+        }
+	}
+
 	public String getApproveDate(){
 		if(approveDate == null){
 			return " -- ไม่ระบุ -- ";
