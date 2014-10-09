@@ -653,7 +653,7 @@ public class Import extends Controller {
     	models.durableArticles.Procurement articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(form.get("id")));
     	
     	articlesOrder.title = form.get("title");
-    	articlesOrder.contractNo = form.get("contractNo	");
+    	articlesOrder.contractNo = form.get("contractNo");
     	articlesOrder.budgetType = form.get("budgetType");
     	articlesOrder.institute = form.get("institute");
     	articlesOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
