@@ -46,10 +46,7 @@ public class ImportDetail extends Controller {
 	
 	@Security.Authenticated(Secured.class)
     public static Result importsInstituteDetail(long id) {
-		System.out.println(id);
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        
-        
         
         Company c = Company.find.byId(id);
         
@@ -152,4 +149,82 @@ public class ImportDetail extends Controller {
 	        return redirect(routes.Import.importsInstitute());
 	    }
 
+	 @Security.Authenticated(Secured.class)
+	 public static Result importsMaterialDurableArticlesDetail(String id)
+	 {
+		User user = User.find.where().eq("username", session().get("username")).findUnique();
+
+		FSN_Description fsn = FSN_Description.find.byId(id);
+		
+		System.out.println(fsn.descriptionId);
+		System.out.println(fsn.typ.typeId);
+		
+		return ok(importsMaterialDurableArticlesDetail.render(user,fsn));
+	 }
+	 
+	 
+	 public static Result saveNewMaterialDurableArticles(){
+		 DynamicForm form = Form.form().bindFromRequest();
+		 
+		 FSN_Description fd = FSN_Description.find.byId(form.get("descriptionId"));
+		 fd.otherDetail = form.get("otherDetail");
+		 
+		 fd.update();
+		 
+		 return redirect(routes.Import.importsMaterial2("1"));
+		 
+	 }
+	 ////////////////////////////////////////////////////////////////////////////////
+	 @Security.Authenticated(Secured.class)
+	 public static Result importsMaterialDurableGoodsDetail(String id)
+	 {
+		User user = User.find.where().eq("username", session().get("username")).findUnique();
+		MaterialCode code = MaterialCode.find.byId(id);
+		
+		System.out.println(code.code);
+		
+		
+		return ok(importsMaterialDurableGoodsDetail.render(user,code));
+	 }
+	 
+	 
+	 public static Result saveNewMaterialDurableGoods(){
+		 DynamicForm form = Form.form().bindFromRequest();
+		 
+		 MaterialCode mc = MaterialCode.find.byId(form.get("code"));
+		 mc.otherDetail = form.get("otherDetail");
+		 
+		 mc.update();
+		 
+		 return redirect(routes.Import.importsMaterial2("2"));
+		 
+	 }
+	 ////////////////////////////////////////////////////////////////////////////////
+	 
+	 @Security.Authenticated(Secured.class)
+	 public static Result importsMaterialConsumableGoodsDetail(String id)
+	 {
+		User user = User.find.where().eq("username", session().get("username")).findUnique();
+		MaterialCode code = MaterialCode.find.byId(id);
+		
+		System.out.println(code.code);
+		
+		
+		return ok(importsMaterialConsumableGoodsDetail.render(user,code));
+	 }
+	 
+	 public static Result saveNewMaterialConsumableGoods(){
+		 DynamicForm form = Form.form().bindFromRequest();
+		 System.out.println("inside!!!!!");
+		 MaterialCode mc = MaterialCode.find.byId(form.get("code"));
+		 mc.otherDetail = form.get("otherDetail");
+		 
+		 mc.update();
+		 
+		 return redirect(routes.Import.importsMaterial2("3"));
+		 
+	 }
+	 
+	 ////////////////////////////////////////////////////////////////////////////////
+	 
 }

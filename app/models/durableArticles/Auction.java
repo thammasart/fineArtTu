@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import models.Company;
 import models.type.ExportStatus;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table (name = "durable_articles_auction")
 public class Auction extends Model{ // จำหน่าย หรือ การขายทอดตลาด
@@ -27,12 +29,30 @@ public class Auction extends Model{ // จำหน่าย หรือ กา
 
 	@ManyToOne
 	public Company company; // ร้านค้าที่รับจำหน่าย
+
+	@JsonBackReference
+	@OneToMany(mappedBy="auction")
+	public List<AuctionDetail> detail = new ArrayList<AuctionDetail>();
+
 	@OneToMany
 	public List<Auction_FF_Committee> ffCommittee = new ArrayList<Auction_FF_Committee>(); // คณะกรรมการสอบข้อเท็จจริง
 	@OneToMany
 	public List<Auction_D_Committee> dCommittee = new ArrayList<Auction_D_Committee>(); // คณะกรรมการจำหน่าย
 	@OneToMany
 	public List<Auction_E_Committee> eCommittee = new ArrayList<Auction_E_Committee>(); // คณะกรรมการประเมิณราคากลาง
+
+	public void setApproveDate(String date){
+        String[] sList = date.split("/");
+        if(sList.length == 3){
+            int d = Integer.parseInt(sList[0]);
+            int m = Integer.parseInt(sList[1]);
+            int y = Integer.parseInt(sList[2]);
+            this.approveDate = new Date(y-2443,m-1,d);
+        }
+        else{
+        	this.approveDate = null;
+        }
+	}
 
 	public String getApproveDate(){
 		if(approveDate == null){

@@ -1,0 +1,15 @@
+- &Other01 !!models.durableArticles.OtherTransfer
+  title:            ไฟไหม้ 
+  number:           1/57
+  approveDate:      2014-01-30
+  status:           SUCCESS
+- &Other02 !!models.durableArticles.OtherTransfer
+  title:            น้ำท่วม
+  number:           2/57
+  approveDate:      2014-05-30
+  status:           SUCCESS
+- &Other03 !!models.durableArticles.OtherTransfer
+  title:            ตึกถล่ม
+  number:           3/57
+  approveDate:      2014-09-30
+  status:           INIT

@@ -4,8 +4,6 @@ var k =1;
 var aiLists = [];
 var eoLists = [];
 var supplyList=[];
-
-
 var procumentDetailsTick = [];
 
 
@@ -19,12 +17,53 @@ $(function () {
     $('#addDate').datetimepicker({
   	  language:'th'
     })
-});
-$(function () {
     $('#checkDate').datetimepicker({
   	  language:'th'
     })
 });
+function retriveProcurement(id,tab){
+	var obj = {
+			"id" : id,
+			"tab" : tab
+	};
+	$.ajax({
+		url:'/import/order/retriveProcurement',
+	    type: 'post',
+	    data: JSON.stringify(obj),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		if(result.ai.length > 1){
+    			for(var i = 0; i< result.ai.length-1; i++){
+    				createAICommittee();
+    			}
+    		}
+    		for(var i = 0; i< result.ai.length; i++){
+    			var aiDiv = $('#ai'+(i+1) + ' :input');
+    			$.each(aiDiv, function(j, field) {
+    				if(j<7){
+    					$(field).val(result.ai[i][j]);
+    				}
+    			});
+    		}
+    		if(tab == 1){
+    			if(result.eo.length > 1){
+    				for(var i = 0; i< result.eo.length-1; i++){
+    					createEOCommittee();
+    				}
+    			}
+    			for(var i = 0; i< result.eo.length; i++){
+    				var eoDiv = $('#eo'+(i+1) + ' :input');
+    				$.each(eoDiv, function(j, field) {
+    					if(j<7){
+    						$(field).val(result.eo[i][j]);
+    					}
+    				});
+    			}
+    		}
+    	}
+	});
+}
 function cancelStatus(id,typeOfOrder){
 	var data = {
 			"id" : id,

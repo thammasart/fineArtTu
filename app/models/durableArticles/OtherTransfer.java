@@ -13,15 +13,23 @@ import java.text.SimpleDateFormat;
 import models.Company;
 import models.type.ExportStatus;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table (name = "other_transfer")
 public class OtherTransfer extends Model{
 
 	@Id
 	public long id;
+	public String title; // ชื่อ เรื่อง
+	public String number; //เลขที่
 	public Date approveDate; // วันที่ทำการอนุมัติ
 	public String description; // สาเหตุ-รายละเอียดการโอน การโอน
 	public ExportStatus status; //สถานะใบโอน
+
+	@JsonBackReference
+	@OneToMany(mappedBy="otherTransfer")
+	public List<OtherTransferDetail> detail = new ArrayList<OtherTransferDetail>();
 
 	@OneToMany
 	public List<OtherTransfer_FF_Committee> ffCommittee = new ArrayList<OtherTransfer_FF_Committee>(); // คณะกรรมการสอบข้อเท็จจริง
