@@ -641,6 +641,7 @@ public class Import extends Controller {
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   AI 
     	
+    	boolean editingMode = true;
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
     	if(a != "")
@@ -663,13 +664,21 @@ public class Import extends Controller {
 		
 			        cmt.save();
 	    		}
-		        AI_Committee ai_cmt = new AI_Committee();
+		        AI_Committee ai_cmt;
+		        if(i<articlesOrder.aiCommittee.size()){
+		        	ai_cmt = articlesOrder.aiCommittee.get(i);
+			        editingMode = true;
+		        }else{
+			        ai_cmt = new AI_Committee();
+			        editingMode = false;
+	    		}
 		        ai_cmt.employeesType = form.get("aiCommitteeType"+temp[i]); 
 		        ai_cmt.committeePosition = form.get("aiCommitteePosition"+temp[i]);     
 		        ai_cmt.procurement = articlesOrder;
 		        ai_cmt.committee = cmt;
 		        
-		        ai_cmt.save();
+		        if(!editingMode) ai_cmt.save();
+		        else ai_cmt.update();
 	    	}
     	}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   endAI 	
@@ -681,13 +690,11 @@ public class Import extends Controller {
     	{
 	    	for(int i=0;i<temp.length;i++)
 	    	{
-	    		System.out.println("inlist is: "+temp[i]);
 	    		String pId=form.get("eoPersonalID"+temp[i]);
 	    		Committee cmt = Committee.find.byId(pId);
 	    		
 	    		if(cmt==null)
 	    		{
-	    			System.out.println("innnnn");
 			        cmt = new Committee();
 			        cmt.title = form.get("eoPrefixName"+temp[i]);		
 			        cmt.firstName = form.get("eoFirstName"+temp[i]);
@@ -697,13 +704,22 @@ public class Import extends Controller {
 		
 			        cmt.save();
 	    		}
-		        EO_Committee eo_cmt = new EO_Committee();
+	    		
+	    		EO_Committee eo_cmt;
+	    		if(i<articlesOrder.eoCommittee.size()){
+	    			eo_cmt = articlesOrder.eoCommittee.get(i);
+	    			editingMode = true;
+	    		}else{
+	    			eo_cmt = new EO_Committee();
+	    			editingMode = false;
+	    		}
 		        eo_cmt.employeesType = form.get("eoCommitteeType"+temp[i]); 
 		        eo_cmt.committeePosition = form.get("eoCommitteePosition"+temp[i]);     
 		        eo_cmt.procurement = articlesOrder;
 		        eo_cmt.committee = cmt;
 		        
-		        eo_cmt.save();
+		        if(!editingMode) eo_cmt.save();
+		        else eo_cmt.update();
 	    	}
     	}
     	
@@ -729,7 +745,7 @@ public class Import extends Controller {
     	
     	
         articlesOrder.status = ImportStatus.SUCCESS;        
-        articlesOrder.save();
+        articlesOrder.update();
         System.out.println(articlesOrder);
         
         return redirect(routes.Import.importsOrder2("1"));
@@ -750,35 +766,39 @@ public class Import extends Controller {
     	
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
+    	boolean editingMode = true;
     	
     	if(a != "")
     	{
-		    	for(int i=0;i<temp.length;i++)
-		    	{
-		    	System.out.println("inlist is: "+temp[i]);
+	    	for(int i=0;i<temp.length;i++){
 		    	String pId=form.get("aiPersonalID"+temp[i]);
 		    	Committee cmt = Committee.find.byId(pId);
-		    	
-		    	if(cmt==null)
-		    	{
-		    	System.out.println("innnnn");
-		    	cmt = new Committee();
-		    	cmt.title = form.get("aiPrefixName"+temp[i]);
-		    	cmt.firstName = form.get("aiFirstName"+temp[i]);
-		    	cmt.lastName = form.get("aiLastName"+temp[i]);
-		    	cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
-		    	cmt.position = form.get("aiPosition"+temp[i]);
-		    	
-		    	cmt.save();
+		    	if(cmt==null){
+			    	cmt = new Committee();
+			    	cmt.title = form.get("aiPrefixName"+temp[i]);
+			    	cmt.firstName = form.get("aiFirstName"+temp[i]);
+			    	cmt.lastName = form.get("aiLastName"+temp[i]);
+			    	cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
+			    	cmt.position = form.get("aiPosition"+temp[i]);
+			    	
+			    	cmt.save();
 		    	}
 		    	
-		    models.durableGoods.AI_Committee ai_cmt = new models.durableGoods.AI_Committee();
-	    	ai_cmt.employeesType = form.get("aiCommitteeType"+temp[i]);
-	    	ai_cmt.committeePosition = form.get("aiCommitteePosition"+temp[i]);
-	    	ai_cmt.procurement = goodsOrder;
-	    	ai_cmt.committee = cmt;
-	    	
-	    	ai_cmt.save();
+			    models.durableGoods.AI_Committee ai_cmt;
+			    if(i<goodsOrder.aiCommittee.size()){
+			    	ai_cmt = goodsOrder.aiCommittee.get(i);
+			    	editingMode = true;
+			    }else{
+			    	ai_cmt = new models.durableGoods.AI_Committee();
+			    	editingMode = false;
+			    }
+		    	ai_cmt.employeesType = form.get("aiCommitteeType"+temp[i]);
+		    	ai_cmt.committeePosition = form.get("aiCommitteePosition"+temp[i]);
+		    	ai_cmt.procurement = goodsOrder;
+		    	ai_cmt.committee = cmt;
+		    	
+		    	if(!editingMode) ai_cmt.save();
+		    	else ai_cmt.update();
 	    	}
     	}
     	
@@ -800,7 +820,7 @@ public class Import extends Controller {
     	System.out.println(goodsOrder.checkDate.toLocaleString());
         
     	goodsOrder.status = ImportStatus.SUCCESS;        
-    	goodsOrder.save();
+    	goodsOrder.update();
     	System.out.println(goodsOrder);
 
         return redirect(routes.Import.importsOrder2("2"));
@@ -813,8 +833,11 @@ public class Import extends Controller {
     	System.out.println(body);
     	JsonNode json = body.asJson();
     	models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
-
-    	models.durableGoods.ProcurementDetail procurementDetail = new models.durableGoods.ProcurementDetail();
+    	models.durableGoods.ProcurementDetail procurementDetail = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(json.get("procurementDetailId").asText()));
+    	
+    	boolean editingMode = true;
+    	
+    	if(procurementDetail == null) procurementDetail = new models.durableGoods.ProcurementDetail();
     	
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
@@ -827,12 +850,22 @@ public class Import extends Controller {
     	procurementDetail.serialNumber = json.get("serialNumber").asText();
     	//procurementDetail.partOfPic = json.get("serialNumber").asText();
     	procurementDetail.procurement = procurement;
-    	procurementDetail.save();
+    	if(!editingMode) procurementDetail.save();
+    	else procurementDetail.update();
     
 
     	for(int i=1;i<=Integer.parseInt(json.get("quantity").asText());i++)
-    	{
-	    	DurableGoods goods = new DurableGoods();
+    	{	
+    		DurableGoods goods;
+    		if((i-1)<procurementDetail.subDetails.size()){
+    			goods = procurementDetail.subDetails.get(i-1);
+    			editingMode = true;
+    		}
+    		else{
+    			goods = new DurableGoods();
+    			editingMode = false;
+    		}
+	    	
 	    	goods.department = json.get("goodDepartment"+i).asText();
 	    	goods.room = json.get("goodRoom"+i).asText();
 	    	goods.floorLevel = json.get("goodLevel"+i).asText();
@@ -843,7 +876,8 @@ public class Import extends Controller {
 	    	
 	    	goods.detail = procurementDetail;
 	    	
-	    	goods.save();
+	    	if(!editingMode) goods.save();
+	    	else goods.update();
     	}
 
     	
@@ -879,7 +913,14 @@ public class Import extends Controller {
     	///////////////////System.out.println(body);
     	JsonNode json = body.asJson();
     	models.durableArticles.Procurement procurement = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
-    	models.durableArticles.ProcurementDetail procurementDetail = new models.durableArticles.ProcurementDetail();
+    	models.durableArticles.ProcurementDetail procurementDetail = models.durableArticles.ProcurementDetail.find.byId(Long.parseLong(json.get("procurementDetailId").asText()));
+    	
+    	boolean editingMode = true;
+    	
+    	if(procurementDetail == null){
+    		procurementDetail = new models.durableArticles.ProcurementDetail();
+    		editingMode = false;
+    	}
     	
 
     	procurementDetail.description = json.get("description").asText();
@@ -895,7 +936,8 @@ public class Import extends Controller {
     	procurementDetail.serialNumber = json.get("serialNumber").asText();
     	//procurementDetail.partOfPic = json.get("serialNumber").asText();
     	procurementDetail.procurement = procurement;
-    	procurementDetail.save();
+    	if(!editingMode) procurementDetail.save();
+    	else procurementDetail.update();
     	
     	
     	/*durableArticles.code = json.get("code").asText();
@@ -905,20 +947,30 @@ public class Import extends Controller {
     	
     	for(int i=1;i<=Integer.parseInt(json.get("quantity").asText());i++)
     	{
-    	DurableArticles dA = new DurableArticles();
-    	dA.status = SuppliesStatus.NORMAL;
-    	dA.department = json.get("articleDepartment"+i).asText();
-    	dA.room = json.get("articleRoom"+i).asText();
-    	dA.floorLevel = json.get("articleLevel"+i).asText();
-    	dA.code = json.get("articleFSNCode"+i).asText();
-    	dA.title = json.get("articlePrefixName"+i).asText();			
-    	dA.firstName = json.get("articleFirstName"+i).asText();		
-    	dA.lastName = json.get("articleLastName"+i).asText();			
-    	dA.codeFromStock = json.get("articleStock"+i).asText(); 
-    	
-    	dA.detail = procurementDetail;
-    	
-    	dA.save();
+    		DurableArticles dA;
+    		if((i-1)<procurementDetail.subDetails.size()){
+    			dA = procurementDetail.subDetails.get(i-1);
+    			editingMode = true; 
+    		}
+    		else{
+	    		dA = new DurableArticles();
+	    		editingMode = false;
+	    	}
+	    	
+	    	dA.status = SuppliesStatus.NORMAL;
+	    	dA.department = json.get("articleDepartment"+i).asText();
+	    	dA.room = json.get("articleRoom"+i).asText();
+	    	dA.floorLevel = json.get("articleLevel"+i).asText();
+	    	dA.code = json.get("articleFSNCode"+i).asText();
+	    	dA.title = json.get("articlePrefixName"+i).asText();			
+	    	dA.firstName = json.get("articleFirstName"+i).asText();		
+	    	dA.lastName = json.get("articleLastName"+i).asText();			
+	    	dA.codeFromStock = json.get("articleStock"+i).asText(); 
+	    	
+	    	dA.detail = procurementDetail;
+	    	
+	    	if(!editingMode) dA.save();
+	    	else dA.update();
     	}
     	
     	
