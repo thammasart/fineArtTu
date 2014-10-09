@@ -50,9 +50,9 @@ public class ExportDonate extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportDonateAdd(long donationId) {
+    public static Result exportDonateAdd(long id) {
         User user = User.find.byId(session().get("username"));
-        Donation donate = Donation.find.byId(donationId);
+        Donation donate = Donation.find.byId(id);
         if(donate == null){
             return redirect(routes.ExportDonate.exportDonate());
         }
@@ -66,12 +66,12 @@ public class ExportDonate extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result saveDonation(long donationId){
+    public static Result saveDonation(long id){
 
         System.out.println(" save donate");
 
         User user = User.find.byId(session().get("username"));
-        Donation donate = Donation.find.byId(donationId);
+        Donation donate = Donation.find.byId(id);
 
         DynamicForm f = Form.form().bindFromRequest();
         donate.title = f.get("title");
@@ -94,11 +94,14 @@ public class ExportDonate extends Controller {
             long id = Long.parseLong(json.get("id").asText());
             Donation donate = Donation.find.byId(id);
             for (final JsonNode objNode : json.get("detail")) {
-                DonationDetail newDetail = new DonationDetail();
                 id = Long.parseLong(objNode.toString());
-                newDetail.durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
-                newDetail.donation = donate;
-                newDetail.save();
+                DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
+                if(durableArticles != null){
+                    DonationDetail newDetail = new DonationDetail();
+                    newDetail.durableArticles = durableArticles;
+                    newDetail.donation = donate;
+                    newDetail.save();
+                }
             }
             result.put("status", "SUCCESS");
         }
@@ -115,18 +118,21 @@ public class ExportDonate extends Controller {
         JsonNode json;
         try { 
             Donation donate = Donation.find.byId(id);
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonArray = mapper.writeValueAsString(donate.detail);
-            json = Json.parse(jsonArray);
-            result.put("details",json);
-            result.put("status", "SUCCESS");
-            System.out.println("load detail SUCCESS");
-
+            if(donate != null){
+                ObjectMapper mapper = new ObjectMapper();
+                String jsonArray = mapper.writeValueAsString(donate.detail);
+                json = Json.parse(jsonArray);
+                result.put("details",json);
+                result.put("status", "SUCCESS");
+            }
+            else{
+                result.put("message","not Found dotation id:" + id);
+                result.put("status", "error3");
+            }
         }
         catch(Exception e){
             result.put("message", e.getMessage());
             result.put("status", "error3");
-            System.out.println("load detail ERROR");
         }
         return ok(result);
     }
