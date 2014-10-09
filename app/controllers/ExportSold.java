@@ -85,6 +85,17 @@ public class ExportSold extends Controller {
         return redirect(routes.ExportSold.exportSold());
     }
 
+    @Security.Authenticated(Secured.class)
+    public static Result cancelAuction(long id){
+        User user = User.find.byId(session().get("username"));
+        Auction sold = Auction.find.byId(id);
+        if(sold != null && sold.status == ExportStatus.INIT){
+            sold.status = ExportStatus.CANCEL;
+            sold.update();
+        }
+        return redirect(routes.ExportSold.exportSold());
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveAuctionDetail() {
         ObjectNode result = Json.newObject();

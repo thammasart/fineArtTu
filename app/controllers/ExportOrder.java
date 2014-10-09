@@ -105,12 +105,10 @@ public class ExportOrder extends Controller {
     public static Result cancelRequisition(long id){
         User user = User.find.byId(session().get("username"));
         Requisition req = Requisition.find.byId(id);
-
-        if(req.status == ExportStatus.INIT){
+        if(req != null && req.status == ExportStatus.INIT){
             req.status = ExportStatus.CANCEL;
+            req.update();
         }
-        req.update();
-
         return redirect(routes.ExportOrder.exportOrder());
     }
 

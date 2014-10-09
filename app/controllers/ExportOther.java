@@ -83,6 +83,17 @@ public class ExportOther extends Controller {
         return redirect(routes.ExportOther.exportOther());
     }
 
+    @Security.Authenticated(Secured.class)
+    public static Result cancelOther(long id){
+        User user = User.find.byId(session().get("username"));
+        OtherTransfer other = OtherTransfer.find.byId(id);
+        if(other != null && other.status == ExportStatus.INIT){
+            other.status = ExportStatus.CANCEL;
+            other.update();
+        }
+        return redirect(routes.ExportOther.exportOther());
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveOtherDetail() {
         ObjectNode result = Json.newObject();

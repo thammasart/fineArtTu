@@ -85,6 +85,17 @@ public class ExportDonate extends Controller {
         return redirect(routes.ExportDonate.exportDonate());
     }
 
+    @Security.Authenticated(Secured.class)
+    public static Result cancelDonation(long id){
+        User user = User.find.byId(session().get("username"));
+        Donation donate = Donation.find.byId(id);
+        if(donate != null && donate.status == ExportStatus.INIT){
+            donate.status = ExportStatus.CANCEL;
+            donate.update();
+        }
+        return redirect(routes.ExportDonate.exportDonate());
+    }
+
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveDonateDetail() {
         ObjectNode result = Json.newObject();
