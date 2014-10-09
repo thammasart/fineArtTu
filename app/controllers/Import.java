@@ -10,7 +10,9 @@ import play.libs.Json;
 import views.html.*;
 import models.*;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +20,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import javax.imageio.ImageIO;
 import javax.persistence.ManyToOne;
 import javax.swing.JOptionPane;
 
@@ -101,13 +104,20 @@ public class Import extends Controller {
 
 	@Security.Authenticated(Secured.class)
     public static Result saveNewInstitute(){
+		
     	MultipartFormData body = request().body().asMultipartFormData();
     	FilePart filePart = body.getFile("attachFile");
+		String fileName="";
+		String contentType=""; 
+		File file = null;
     	if (filePart != null) {
-			String fileName = filePart.getFilename();
-			String contentType = filePart.getContentType(); 
-			File file = filePart.getFile();
+			fileName = filePart.getFilename();
+			contentType = filePart.getContentType(); 
+			file = filePart.getFile();
 			
+			System.out.println(fileName);
+			System.out.println(contentType);
+			System.out.println(file);
 			
 			//save file to new path
 			
@@ -168,11 +178,20 @@ public class Import extends Controller {
 
 
 
+        
+
         Address newInstituteaddress = newAddressFrom.get();
         newInstituteaddress.save();
         newInstitute.address = newInstituteaddress;
         newInstitute.save();
 
+
+        try {
+        	newInstitute.img = ImageIO.read(file);
+            ImageIO.write(newInstitute.img, "jpg", new File("./public/images/company/"+newInstitute.id+".jpg"));
+        } catch (IOException e) {
+
+        }
 
 
         return redirect(routes.Import.importsInstitute());
