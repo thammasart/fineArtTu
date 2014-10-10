@@ -25,6 +25,7 @@
     margin-top: 2% !important;
     box-shadow: 0px 2px 0px lightgray !important;
     border-radius: 0 !important;
+    padding-left:0 !important;
 }
 .mainWindow{
     min-height: 500px;

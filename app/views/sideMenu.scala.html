@@ -1,11 +1,11 @@
 @(user : User)
 <div class ="sideMenu">
-    <a href="@routes.Application.home()">
+    <a href="@routes.Application.home()" tabindex="1">
         <!--<img src="@routes.Assets.at("images/fineArtLogo.png") "style="width:100%;" alt="โลโก้คณะศิลปกรรมศาสตร์">-->
         <img src="@routes.Assets.at("images/logo.png") "style="width:100%;" alt="โลโก้คณะศิลปกรรมศาสตร์">
     </a>
     <div class="panel panel-default" style="border-color:white;">
-      <div class="panel-body">
+      <div class="">
             <ul class="nav nav-pills nav-stacked">
             <!--
                 @if(user.status.module2){
@@ -25,8 +25,8 @@
                     <li>
                         <div >
                             <div class="dropdown">
-                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                                ระบบจัดซื้อและนำเข้าวัสดุครุภัณฑ์
+                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" tabindex="2">
+                                จัดซื้อและนำเข้า
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsInstitute()">ระบบโครงสร้างสถานประกอบการจัดซื้อและนำเข้า </a></li>
@@ -41,12 +41,12 @@
                     <li>
                         <div >
                             <div class="dropdown">
-                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
-                                ระบบเบิกจ่ายและโอนย้าย
+                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" tabindex="3">
+                                เบิกจ่ายและโอนย้าย
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu2">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportOrder.exportOrder()">ระบบจัดเบิกจ่าย </a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportTransferIndide.exportTransferInside">ระบบโอนย้ายภายใน</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportTransferInside.exportTransferInside">ระบบโอนย้ายภายใน</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Export.exportTransferOutSide">ระบบโอนย้ายภายนอก</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportSold.exportSold">จำหน่าย</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportDonate.exportDonate">บริจาค</a></li>
@@ -60,8 +60,8 @@
                     <li>
                         <div >
                             <div class="dropdown">
-                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown">
-                                ระบบบริหารจัดการรายงาน
+                              <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" tabindex="4">
+                                รายงาน
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu3">
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Report.reportRemainingMaterial()">รายงานวัสดุคงเหลือ</a></li>
@@ -79,8 +79,8 @@
                     <li>
                             <div class="dropdown">
                                 <a href="@routes.Graph.index()">
-                                    <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" >
-                                        ระบบติดตามและตรวจสอบ
+                                    <button class=" sideMenuBtn btn btn-default dropdown-toggle" type="button" tabindex="5">
+                                        ติดตามและตรวจสอบ
                                     </button>
                                 </a>
                             </div>

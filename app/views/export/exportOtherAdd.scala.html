@@ -1,4 +1,4 @@
-@(user : User, other : models.durableArticles.OtherTransfer))
+@(user : User, other : models.durableArticles.OtherTransfer)
 @header("exportOther")
 
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/other.js")"></script>
@@ -30,6 +30,7 @@
           <div class="input-group">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
             <input type="text" class="form-control width300px" name="approveDate">
+            <span class="glyphicon glyphicon-calendar"></span>
           </div>
         </div>
       </div>

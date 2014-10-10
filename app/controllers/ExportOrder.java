@@ -55,17 +55,7 @@ public class ExportOrder extends Controller {
         if(req != null && req.status == ExportStatus.SUCCESS){
             return redirect(routes.ExportOrder.exportOrder());
         }
-        else{
-            return ok(exportOrderAdd.render(user,req));
-        }
-    }
-
-    @Security.Authenticated(Secured.class)
-    public static Result exportOrderAddDetail(long id) {
-        User user = User.find.byId(session().get("username"));
-        DynamicForm f = Form.form().bindFromRequest();
-        System.out.println(f.get("title"));
-        return ok(exportOrderAddDetail.render(user, Requisition.find.byId(id)));
+        return ok(exportOrderAdd.render(user,req));
     }
 
     @Security.Authenticated(Secured.class)

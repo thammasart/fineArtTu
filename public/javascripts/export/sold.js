@@ -1,3 +1,8 @@
+$(function () {
+    $('#dateP').datetimepicker({
+  	  language:'th'
+    })
+});
 var auction = {
 	'id': 0,
 	'title': "",

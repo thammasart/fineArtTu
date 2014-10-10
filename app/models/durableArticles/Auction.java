@@ -34,11 +34,14 @@ public class Auction extends Model{ // จำหน่าย หรือ กา
 	@OneToMany(mappedBy="auction")
 	public List<AuctionDetail> detail = new ArrayList<AuctionDetail>();
 
-	@OneToMany
+	@JsonBackReference
+	@OneToMany(mappedBy="auction")
 	public List<Auction_FF_Committee> ffCommittee = new ArrayList<Auction_FF_Committee>(); // คณะกรรมการสอบข้อเท็จจริง
-	@OneToMany
+	@JsonBackReference
+	@OneToMany(mappedBy="auction")
 	public List<Auction_D_Committee> dCommittee = new ArrayList<Auction_D_Committee>(); // คณะกรรมการจำหน่าย
-	@OneToMany
+	@JsonBackReference
+	@OneToMany(mappedBy="auction")
 	public List<Auction_E_Committee> eCommittee = new ArrayList<Auction_E_Committee>(); // คณะกรรมการประเมิณราคากลาง
 
 	public void setApproveDate(String date){

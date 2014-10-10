@@ -30,81 +30,82 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;  
 
-public class ExportSold extends Controller {
+public class ExportTransferInside extends Controller {
 
     @Security.Authenticated(Secured.class)
-    public static Result exportSold() {
+    public static Result exportTransferInside() {
         User user = User.find.byId(session().get("username"));
-        List<Auction> initList = Auction.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
-        List<Auction> successList = Auction.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
-        return ok(exportSold.render(user,initList, successList));
+        List<InternalTransfer> initList = InternalTransfer.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
+        List<InternalTransfer> successList = InternalTransfer.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
+        return ok(exportTransferInside.render(user, initList , successList));
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportCreateSold() {
-        Auction temp =  new Auction ();
+    public static Result exportCreateInternalTransfer() {
+        InternalTransfer temp =  new InternalTransfer();
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
         temp.save();
-        return redirect(routes.ExportSold.exportSoldAdd(temp.id));
+        return redirect(routes.ExportTransferInside.exportTransferInsideAdd(temp.id));
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportSoldAdd(long id) {
+    public static Result exportTransferInsideAdd(long id) {
         User user = User.find.byId(session().get("username"));
-        Auction sold = Auction.find.byId(id);
-        if(sold == null){
-            return redirect(routes.ExportSold.exportSold());
+        InternalTransfer inside = InternalTransfer.find.byId(id);
+        if(inside == null){
+            return redirect(routes.ExportTransferInside.exportTransferInside());
         }
-        return ok(exportSoldAdd.render(user, sold));
+        return ok(exportTransferInsideAdd.render(user,inside));
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result saveAuction(long id){
-
-        System.out.println("save Auction");
-
+    public static Result saveInternalTransfer(long id){
         User user = User.find.byId(session().get("username"));
-        Auction auction = Auction.find.byId(id);
-
-        DynamicForm f = Form.form().bindFromRequest();
-        auction.title = f.get("title");
-        auction.contractNo = f.get("contractNo");
-        auction.setApproveDate(f.get("approveDate"));
-        auction.status = ExportStatus.SUCCESS;
-        auction.update();
-
-        System.out.println(auction.id + " " + auction.title);
-
-        return redirect(routes.ExportSold.exportSold());
-    }
-
-    @Security.Authenticated(Secured.class)
-    public static Result cancelAuction(long id){
-        User user = User.find.byId(session().get("username"));
-        Auction sold = Auction.find.byId(id);
-        if(sold != null && sold.status == ExportStatus.INIT){
-            sold.status = ExportStatus.CANCEL;
-            sold.update();
+        InternalTransfer inside = InternalTransfer.find.byId(id);
+        if(inside != null){
+            DynamicForm f = Form.form().bindFromRequest();
+            inside.title = f.get("title");
+            inside.number = f.get("number");
+            inside.setApproveDate(f.get("approveDate"));
+            inside.status = ExportStatus.SUCCESS;
+            inside.update();
         }
-        return redirect(routes.ExportSold.exportSold());
+        return redirect(routes.ExportTransferInside.exportTransferInside());
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result cancelInternalTransfer(long id){
+        User user = User.find.byId(session().get("username"));
+        InternalTransfer inside = InternalTransfer.find.byId(id);
+        if(inside != null && inside.status == ExportStatus.INIT){
+            inside.status = ExportStatus.CANCEL;
+            inside.update();
+        }
+        return redirect(routes.ExportTransferInside.exportTransferInside());
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result saveAuctionDetail() {
+    public static Result saveTransferInsideDetail() {
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
             JsonNode json = body.asJson();
             long id = Long.parseLong(json.get("id").asText());
-            Auction auction = Auction.find.byId(id);
+            String department = json.get("department").asText();
+            String room = json.get("room").asText();
+            String floorLevel = json.get("floorLevel").asText();
+            InternalTransfer inside = InternalTransfer.find.byId(id);
             for (final JsonNode objNode : json.get("detail")) {
                 id = Long.parseLong(objNode.toString());
                 DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
                 if(durableArticles != null){
-                    AuctionDetail newDetail = new AuctionDetail();
+                    InternalTransferDetail newDetail = new InternalTransferDetail();
                     newDetail.durableArticles = durableArticles;
-                    newDetail.auction = auction;
+                    newDetail.internalTransfer = inside;
+                    newDetail.department = department;
+                    newDetail.room = room;
+                    newDetail.floorLevel = floorLevel;
                     newDetail.save();
                 }
             }
@@ -114,20 +115,19 @@ public class ExportSold extends Controller {
             result.put("message", e.getMessage());
             result.put("status", "error");
         }
-        System.out.println("saveAuctionDetail");
 
         return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)
-    public static Result loadAuctionDetail(long id) {
+    public static Result loadTransferInsideDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;
         try { 
-            Auction auction = Auction.find.byId(id);
-            if(auction != null){
+            InternalTransfer inside = InternalTransfer.find.byId(id);
+            if(inside != null){
                 ObjectMapper mapper = new ObjectMapper();
-                String jsonArray = mapper.writeValueAsString(auction.detail);
+                String jsonArray = mapper.writeValueAsString(inside.detail);
                 json = Json.parse(jsonArray);
                 result.put("details",json);
                 result.put("status", "SUCCESS");
@@ -136,7 +136,6 @@ public class ExportSold extends Controller {
                 result.put("message","not Found action id:" + id);
                 result.put("status", "error3");
             }
-
         }
         catch(Exception e){
             result.put("message", e.getMessage());
