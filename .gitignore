@@ -21,3 +21,4 @@ conf/evolutions/
 *.class
 *.java~
 .cache
+public/images/company/*
