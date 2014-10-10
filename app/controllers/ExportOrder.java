@@ -59,14 +59,6 @@ public class ExportOrder extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportOrderAddDetail(long id) {
-        User user = User.find.byId(session().get("username"));
-        DynamicForm f = Form.form().bindFromRequest();
-        System.out.println(f.get("title"));
-        return ok(exportOrderAddDetail.render(user, Requisition.find.byId(id)));
-    }
-
-    @Security.Authenticated(Secured.class)
     public static Result saveRequisition(long id){
         User user = User.find.byId(session().get("username"));
         Requisition req = Requisition.find.byId(id);

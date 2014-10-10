@@ -60,12 +60,6 @@ public class ExportSold extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportSoldAddDetail() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportSoldAddDetail.render(user));
-    }
-
-    @Security.Authenticated(Secured.class)
     public static Result saveAuction(long id){
 
         System.out.println("save Auction");

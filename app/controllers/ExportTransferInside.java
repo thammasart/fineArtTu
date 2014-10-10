@@ -60,12 +60,6 @@ public class ExportTransferInside extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exportTransferInsideAddDetail() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportTransferInsideAddDetail.render(user));
-    }
-
-    @Security.Authenticated(Secured.class)
     public static Result saveInternalTransfer(long id){
         User user = User.find.byId(session().get("username"));
         InternalTransfer inside = InternalTransfer.find.byId(id);

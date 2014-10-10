@@ -60,12 +60,6 @@ public class ExportDonate extends Controller {
     }
     
     @Security.Authenticated(Secured.class)
-    public static Result exportDonateAddDetail() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportDonateAddDetail.render(user));
-    }
-
-    @Security.Authenticated(Secured.class)
     public static Result saveDonation(long id){
 
         System.out.println(" save donate");
