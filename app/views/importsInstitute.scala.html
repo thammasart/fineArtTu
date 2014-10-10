@@ -75,7 +75,7 @@
                     <th>@institute.address.telephoneNumber</th>
                     <th>@institute.payPeriod</th>
                     <th>@institute.sendPeriod</th>
-                    <th><img src="@routes.Assets.at("/images/company/"+institute.id+".jpg")" alt="DownloadFail" style="width:40px;height:40px"></th>
+                    <th><img src="@routes.Assets.at(institute.path)" alt="@institute.fileName" style="width:40px;height:40px"></th>
                     <th> <a href="@routes.ImportDetail.importsInstituteDetail(institute.id)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
                     
                     </tr>

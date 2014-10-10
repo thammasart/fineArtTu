@@ -3,6 +3,9 @@ package models;
 import java.awt.image.BufferedImage;
 
 import play.db.ebean.*;
+
+
+
 import javax.persistence.*;
 
 import models.fsnNumber.FSN_Type;
@@ -24,7 +27,8 @@ public class Company extends Model{	// ครุภัณฑ์
 	public String consumableGoodsType;       	//ประเภทวัสดุสิ้นเปลือง
 	public String otherDetail;					//รายละเอียดอื่นๆ
 	
-	public BufferedImage img = null;
+	public String fileName;
+	public String path;
 
 	@ManyToOne
 	public Address address;// ที่อยู่

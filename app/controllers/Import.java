@@ -24,6 +24,7 @@ import javax.imageio.ImageIO;
 import javax.persistence.ManyToOne;
 import javax.swing.JOptionPane;
 
+
 import models.consumable.Procurement;
 import models.durableArticles.DurableArticles;
 import models.durableArticles.ProcurementDetail;
@@ -108,19 +109,19 @@ public class Import extends Controller {
     	MultipartFormData body = request().body().asMultipartFormData();
     	FilePart filePart = body.getFile("attachFile");
 		String fileName="";
-		String contentType=""; 
-		File file = null;
+		//String contentType=""; 
+		//File file = null;
     	if (filePart != null) {
 			fileName = filePart.getFilename();
-			contentType = filePart.getContentType(); 
-			file = filePart.getFile();
+			//contentType = filePart.getContentType(); 
+			//file = filePart.getFile();
+		
 			
-			System.out.println(fileName);
-			System.out.println(contentType);
-			System.out.println(file);
+			//System.out.println(fileName);
+			//System.out.println(contentType);
+			//System.out.println(file);
 			
 			//save file to new path
-			
 			
 		} else {
 			flash("error", "Missing file");
@@ -176,16 +177,40 @@ public class Import extends Controller {
         newInstitute.durableGoodsType = typeDurableGoods;
         newInstitute.consumableGoodsType = typeConsumableGoods;
 
-
-
+        newInstitute.fileName = fileName;//get origin name
+        System.out.println(newInstitute.fileName);
         
 
+        
+        
+        //write file
+		String[] extension=fileName.split("\\.");
+		String targetPath = "./public/images/company/" + newInstitute.id;
+		newInstitute.path ="/images/company/" + newInstitute.id;
+		if(extension.length>1)
+		{
+			targetPath += "." + extension[((extension.length)-1)];
+			newInstitute.path+="." + extension[((extension.length)-1)];	
+			
+		}
+		newInstitute.fileName = fileName;
+		filePart.getFile().renameTo(new File(targetPath));
+        //end write file
+		
+        
+        
+        
         Address newInstituteaddress = newAddressFrom.get();
         newInstituteaddress.save();
         newInstitute.address = newInstituteaddress;
         newInstitute.save();
 
+        
+        
 
+		
+        
+/*
         try {
         	newInstitute.img = ImageIO.read(file);
             ImageIO.write(newInstitute.img, "jpg", new File("./public/images/company/"+newInstitute.id+".jpg"));
@@ -193,7 +218,7 @@ public class Import extends Controller {
 
         }
 
-
+*/
         return redirect(routes.Import.importsInstitute());
     }
 	@Security.Authenticated(Secured.class)
