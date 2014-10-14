@@ -1,4 +1,5 @@
 var array = [];
+var pagingNumber = 15;
 function validateNumberKey(evt) {
 
   var theEvent = evt || window.event;
@@ -51,23 +52,53 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
         }
     }
 }
-function destroyTable(){
-	for(var i=0; i<array.length; i++){
-		array[i].destroy();
+function destroyTable(num){
+	if(num == undefined){
+		for(var i=0; i<array.length; i++){
+			array[i].destroy();
+		}
+	}else{
+		array[num].destroy();
 	}
 }
-function updateTable(){
+function updateTable(num){
 	var tableContent = $('.table.table-striped.overlayTable');
 	var table;
-	for(var i=0; i<tableContent.length; i++){
-		table = $(tableContent.get(i)).DataTable({
+	if(num == undefined){
+		for(var i=0; i<tableContent.length; i++){
+			table = $(tableContent.get(i)).DataTable({
+				info : false,
+				"iDisplayLength": pagingNumber,   // records per page
+				"sPaginationType": "bootstrap",
+				"sDom": "t <'pagingContainer'p> ",
+				"fnDrawCallback": function(oSettings) {
+					if (oSettings.aiDisplay.length < pagingNumber) {
+						$('.dataTables_paginate').hide();
+						$('.pagingContainer').html("<div style='width:100%; margin-bottom:50px'> </div>");
+					}
+				}
+			});
+			array[i]= table;
+		}
+	}else{
+		table = $(tableContent.get(num)).DataTable({
 			info : false,
-			"iDisplayLength": 15,   // records per page
+			"iDisplayLength": pagingNumber,   // records per page
 			"sPaginationType": "bootstrap",
 			"sDom": "t <'pagingContainer'p> ",
+			"fnDrawCallback": function(oSettings) {
+				if (oSettings.aiDisplay.length < pagingNumber) {
+					$('.dataTables_paginate').hide();
+					$('.pagingContainer').html("<div style='width:100%; margin-bottom:50px'> </div>");
+				}
+			}
 		});
-		array[i]= table;
+		array[num]= table;
 	}
+}
+
+function clearTable(num){
+	if(num != undefined) array[num].clear().draw();
 }
 $(document).ready( function () {
 	var searchBox = $('.searchS :input');
@@ -76,10 +107,18 @@ $(document).ready( function () {
 	for(var i=0; i<tableContent.length; i++){
 		table = $(tableContent.get(i)).DataTable({
 			info : false,
-			"iDisplayLength": 15,   // records per page
+			"iDisplayLength": pagingNumber,   // records per page
 			"sPaginationType": "bootstrap",
 			"sDom": "t <'pagingContainer'p> ",
+			"fnDrawCallback": function(oSettings) {
+		        if (oSettings.aiDisplay.length < pagingNumber) {
+		            $('.dataTables_paginate').hide();
+		            $('.pagingContainer').html("<div style='width:100%; margin-bottom:50px'> </div>");
+		        }
+		    }
 		});
+		
+		console.log($(table).context[0]);
 		array[i]= table;
 	}
 	for(var i=0; i<searchBox.length; i++){
