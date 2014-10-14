@@ -116,23 +116,6 @@ public class Export extends Controller {
         return ok(result);
     }
 
-    // โอนย่ายภานนอก
-    @Security.Authenticated(Secured.class)
-    public static Result exportTransferOutSide() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportTransferOutSide.render(user));
-    }
-    @Security.Authenticated(Secured.class)
-    public static Result exportTransferOutSideAdd() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportTransferOutSideAdd.render(user));
-    }
-    @Security.Authenticated(Secured.class)
-    public static Result exportTransferOutSideAddDetail() {
-        User user = User.find.byId(session().get("username"));
-        return ok(exportTransferOutSideAddDetail.render(user));
-    }
-
     @Security.Authenticated(Secured.class)
     public static Result autocompleteExportCommitee (){
         List<User> allUser = User.find.all();
