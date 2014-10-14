@@ -57,19 +57,7 @@ public class ImportDetail extends Controller {
 	
 	 public static Result saveNewInstitute(){
 		 
-		 	
-		 MultipartFormData body = request().body().asMultipartFormData();
-	    	FilePart filePart = body.getFile("attachFile");
-			String fileName="";
-			String contentType=""; 
-			//File file = null;
-	    	if (filePart != null) {
-				fileName = filePart.getFilename();
-				contentType = filePart.getContentType(); 	
-
-			} else {
-				flash("error", "Missing file");
-			}
+		 
 	    	
 	    	////////////////////////////////////////////////////////////////////////////////////
 	        DynamicForm form = Form.form().bindFromRequest();
@@ -145,28 +133,36 @@ public class ImportDetail extends Controller {
 	    	c.otherDetail = form.get("otherDetail");
 
 
-	    	if (filePart != null) //กรณีไม่ส่งfileใหม่ให้
-	    	{
-		        File file = new File("./public/"+c.path);		//get file------------------------------------------------
-				file.delete();									//delete file---------------------------------------------
-				
-				//write file
-				String[] extension=fileName.split("\\.");
-				String targetPath = "./public/images/company/" + c.id;
-				c.path ="images/company/" + c.id;
-				if(extension.length>1)
-				{
-					targetPath += "." + extension[((extension.length)-1)];
-					c.path+="." + extension[((extension.length)-1)];	
+	    	
+			 MultipartFormData body = request().body().asMultipartFormData();
+		    	FilePart filePart = body.getFile("attachFile");
+				String fileName="";
+				String contentType=""; 
+				//File file = null;
+		    	if (filePart != null) {
+					fileName = filePart.getFilename();
+					contentType = filePart.getContentType(); 	
+			        File file = new File("./public/"+c.path);		//get file------------------------------------------------
+					file.delete();									//delete file---------------------------------------------
 					
+					//write file
+					String[] extension=fileName.split("\\.");
+					String targetPath = "./public/images/company/" + c.id;
+					c.path ="images/company/" + c.id;
+					if(extension.length>1)
+					{
+						targetPath += "." + extension[((extension.length)-1)];
+						c.path+="." + extension[((extension.length)-1)];	
+						
+					}
+					c.fileName = fileName;
+					filePart.getFile().renameTo(new File(targetPath));
+					c.fileType = contentType; 
+			        //end write file
 				}
-				c.fileName = fileName;
-				filePart.getFile().renameTo(new File(targetPath));
-				c.fileType = contentType; 
-		        //end write file
-	    	}
-	        c.update();
-	        
+	    	
+		    c.update();
+		    	
 	        return redirect(routes.Import.importsInstitute());
 	    }
 

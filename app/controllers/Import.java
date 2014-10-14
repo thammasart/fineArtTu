@@ -106,27 +106,6 @@ public class Import extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result saveNewInstitute(){
 		
-    	MultipartFormData body = request().body().asMultipartFormData();
-    	FilePart filePart = body.getFile("attachFile");
-		String fileName="";
-		String contentType=""; 
-		//File file = null;
-    	if (filePart != null) {
-			fileName = filePart.getFilename();
-			contentType = filePart.getContentType(); 
-			//file = filePart.getFile();
-		
-			
-			//System.out.println(fileName);
-			//System.out.println(contentType);
-			//System.out.println(file);
-			
-			//save file to new path
-			
-		} else {
-			flash("error", "Missing file");
-		}
-    	
         DynamicForm form = Form.form().bindFromRequest();
 
         String typeDurableArticles="";                                  //save all list
@@ -177,48 +156,48 @@ public class Import extends Controller {
         newInstitute.durableGoodsType = typeDurableGoods;
         newInstitute.consumableGoodsType = typeConsumableGoods;
 
-        newInstitute.fileName = fileName;//get origin name
-        System.out.println(newInstitute.fileName);
-        
-        
+
         
         Address newInstituteaddress = newAddressFrom.get();
         newInstituteaddress.save();
         newInstitute.address = newInstituteaddress;
         newInstitute.save();
 
-        if (filePart != null) {	//กรณีส่งfile
-	        //write file
-			String[] extension=fileName.split("\\.");
-			String targetPath = "./public/images/company/" + newInstitute.id;
-			newInstitute.path ="images/company/" + newInstitute.id;
-			if(extension.length>1)
-			{
-				targetPath += "." + extension[((extension.length)-1)];
-				newInstitute.path+="." + extension[((extension.length)-1)];	
+        
+        ////////////////////////////////////////////////////////////////////////////file
+        MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+
+        	
+    		String fileName="";
+    		String contentType=""; 
+    		//File file = null;
+        	if (filePart != null) //กรณีมีไฟล์
+        	{
+    			fileName = filePart.getFilename();
+    			contentType = filePart.getContentType(); 
+
+			 	newInstitute.fileName = fileName;//get origin name
+			 
+			 
+			 	String[] extension=fileName.split("\\.");							//split .
+				String targetPath = "./public/images/company/" + newInstitute.id;
+				newInstitute.path ="images/company/" + newInstitute.id;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];				//get type file by last spilt
+					newInstitute.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				newInstitute.fileName = fileName;										//get traditional file name
 				
-			}
-			newInstitute.fileName = fileName;
-			filePart.getFile().renameTo(new File(targetPath));
-			newInstitute.fileType = contentType; 
-	        //end write file
-			newInstitute.update();
-        }
-		
-		
-        
+				filePart.getFile().renameTo(new File(targetPath));						//save file on your path
+				newInstitute.fileType = contentType; 
+		        //end write file
+				newInstitute.update();
+    			
+    		} 
 
-		
-        
-/*
-        try {
-        	newInstitute.img = ImageIO.read(file);
-            ImageIO.write(newInstitute.img, "jpg", new File("./public/images/company/"+newInstitute.id+".jpg"));
-        } catch (IOException e) {
-
-        }
-
-*/
         return redirect(routes.Import.importsInstitute());
     }
 	@Security.Authenticated(Secured.class)
