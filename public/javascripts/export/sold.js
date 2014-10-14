@@ -14,7 +14,7 @@ var newDetail = [];
 var oldDetail = [];
 
 function addDetailButton(){
-	document.getElementById("searchResultTable").innerHTML = "";
+	clearTable(1);
 
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
