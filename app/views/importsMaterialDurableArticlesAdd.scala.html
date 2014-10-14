@@ -15,7 +15,7 @@
 <body onload="init()">
 <div class="detailWindow" ng-app="materialConsumableGoodsAddFsn" ng-controller="autoCompleteController" >
 
-    <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableArticles()"onsubmit="return submitButtonClick()">
+    <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableArticles()" onsubmit="return submitButtonClick()" enctype="multipart/form-data">
         <div class="well" ng-init="findFsn()">
             <h3 > เพิ่มครุภัณฑ์ </h3>
 		<div class="form-inline marginBtm1" role="form" align="center">

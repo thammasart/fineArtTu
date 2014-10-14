@@ -85,7 +85,17 @@
                     <th>@fsn.typ.typeDescription</th>
                     <th>@fsn.typ.groupClass.classId</th>
                     <th>@fsn.typ.groupClass.classDescription</th>
-                    <th><img src=""></th>
+                    <th>
+                    	@if(fsn.fileType != null && fsn.fileType.contains("image")){
+	                    	<a href="@routes.Assets.at(fsn.path)">
+	                    		<img src="@routes.Assets.at(fsn.path)" alt="@fsn.fileName" style="width:40px;height:40px">
+	                    	</a>
+                    	}else{
+                    		<a href="@routes.Assets.at(fsn.path)" download>
+	                    		@fsn.fileName
+	                    	</a>
+                    	}
+                    </th>
                     <th> <a href="@routes.ImportDetail.importsMaterialDurableArticlesDetail(fsn.descriptionId)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
                     </tr>
                   }
@@ -165,7 +175,17 @@
                   <th>@goodCode.materialType.preCodeId</th>
                   <th>@goodCode.materialType.typeName</th>
                   <th>@goodCode.materialType.acronym</th>
-                  <th><img src=""></th>
+                  <th>
+                   	@if(goodCode.fileType != null && goodCode.fileType.contains("image")){
+                    	<a href="@routes.Assets.at(goodCode.path)">
+                    		<img src="@routes.Assets.at(goodCode.path)" alt="@goodCode.fileName" style="width:40px;height:40px">
+                    	</a>
+                   	}else{
+                   		<a href="@routes.Assets.at(goodCode.path)" download>
+                    		@goodCode.fileName
+                    	</a>
+                   	}
+                   </th>
                   <th> <a href="@routes.ImportDetail.importsMaterialDurableGoodsDetail(goodCode.code)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
                   </tr>
                   }
@@ -249,7 +269,17 @@
                   <th>@goodCode.materialType.preCodeId</th>
                   <th>@goodCode.materialType.typeName</th>
                   <th>@goodCode.materialType.acronym</th>
-                  <th><img src=""></th>
+                  <th>
+                  	@if(goodCode.fileType != null && goodCode.fileType.contains("image")){
+	                   	<a href="@routes.Assets.at(goodCode.path)">
+	                   		<img src="@routes.Assets.at(goodCode.path)" alt="@goodCode.fileName" style="width:40px;height:40px">
+	                   	</a>
+                  	}else{
+                  		<a href="@routes.Assets.at(goodCode.path)" download>
+                   			@goodCode.fileName
+                   		</a>
+                  	}
+                  </th>
                   <th> <a href="@routes.ImportDetail.importsMaterialConsumableGoodsDetail(goodCode.code)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
                   </tr>
                   }

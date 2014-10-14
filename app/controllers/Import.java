@@ -290,7 +290,7 @@ public class Import extends Controller {
         String fsnId = form.get("descriptionId");
         String fsnDes = form.get("descriptionDescription");
 
-        System.out.println( gId +"\n"+ gD +"\n"+ cId +"\n"+ cD +"\n"+ tId +"\n"+ tD +"\n"+ fsnId +"\n"+ fsnDes );
+        //System.out.println( gId +"\n"+ gD +"\n"+ cId +"\n"+ cD +"\n"+ tId +"\n"+ tD +"\n"+ fsnId +"\n"+ fsnDes );
 
         Form<FSN_Description> newFsnForm = Form.form(FSN_Description.class).bindFromRequest();
         FSN_Description newFsn = newFsnForm.get();
@@ -310,6 +310,43 @@ public class Import extends Controller {
         newFsn.typ = type;
 
         newFsn.save();
+        
+        
+        ////////////////////////////////////////////////////////////////////////////file
+        
+        MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+
+        	
+    		String fileName="";
+    		String contentType=""; 
+    		//File file = null;
+        	if (filePart != null) //กรณีมีไฟล์
+        	{
+    			fileName = filePart.getFilename();
+    			contentType = filePart.getContentType(); 
+
+    			newFsn.fileName = fileName;//get origin name
+			 
+			 
+			 	String[] extension=fileName.split("\\.");							//split .
+				String targetPath = "./public/images/fsnNumber/" + newFsn.descriptionId;
+				newFsn.path ="images/fsnNumber/" + newFsn.descriptionId;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];				//get type file by last spilt
+					newFsn.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				newFsn.fileName = fileName;										//get traditional file name
+				
+				filePart.getFile().renameTo(new File(targetPath));						//save file on your path
+				newFsn.fileType = contentType; 
+		        //end write file
+				newFsn.update();
+    			
+    		} 
+        ////////////////////////////////////////////////////////////////////////////end file
 
         return redirect(routes.Import.importsMaterial2("1"));
     }   
@@ -355,6 +392,42 @@ public class Import extends Controller {
         //newCode.materialType = code[0]+code[1];
 
         newCode.save();
+        
+        ////////////////////////////////////////////////////////////////////////////file
+        
+        MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+
+        	
+    		String fileName="";
+    		String contentType=""; 
+    		//File file = null;
+        	if (filePart != null) //กรณีมีไฟล์
+        	{
+    			fileName = filePart.getFilename();
+    			contentType = filePart.getContentType(); 
+
+    			newCode.fileName = fileName;//get origin name
+			 
+			 
+			 	String[] extension=fileName.split("\\.");							//split .
+				String targetPath = "./public/images/goodsNumber/" + newCode.code;
+				newCode.path ="images/goodsNumber/" + newCode.code;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];				//get type file by last spilt
+					newCode.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				newCode.fileName = fileName;										//get traditional file name
+				
+				filePart.getFile().renameTo(new File(targetPath));						//save file on your path
+				newCode.fileType = contentType; 
+		        //end write file
+				newCode.update();
+    			
+    		} 
+        ////////////////////////////////////////////////////////////////////////////end file
 
         return redirect(routes.Import.importsMaterial2(tab));
     }
