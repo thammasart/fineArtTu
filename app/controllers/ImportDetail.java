@@ -58,13 +58,15 @@ public class ImportDetail extends Controller {
 	 public static Result saveNewInstitute(){
 		 
 		 	
-	    	MultipartFormData body = request().body().asMultipartFormData();
+		 MultipartFormData body = request().body().asMultipartFormData();
 	    	FilePart filePart = body.getFile("attachFile");
+			String fileName="";
+			String contentType=""; 
+			//File file = null;
 	    	if (filePart != null) {
-				String fileName = filePart.getFilename();
-				String contentType = filePart.getContentType(); 
-				File file = filePart.getFile();		
-				//save file to new path
+				fileName = filePart.getFilename();
+				contentType = filePart.getContentType(); 	
+
 			} else {
 				flash("error", "Missing file");
 			}
@@ -142,10 +144,29 @@ public class ImportDetail extends Controller {
 	    	c.payCodition =form.get("payCodition"); 
 	    	c.otherDetail = form.get("otherDetail");
 
+
+	    	if (filePart != null) //กรณีไม่ส่งfileใหม่ให้
+	    	{
+		        File file = new File("./public/"+c.path);		//get file------------------------------------------------
+				file.delete();									//delete file---------------------------------------------
+				
+				//write file
+				String[] extension=fileName.split("\\.");
+				String targetPath = "./public/images/company/" + c.id;
+				c.path ="images/company/" + c.id;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];
+					c.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				c.fileName = fileName;
+				filePart.getFile().renameTo(new File(targetPath));
+				c.fileType = contentType; 
+		        //end write file
+	    	}
 	        c.update();
-
-
-
+	        
 	        return redirect(routes.Import.importsInstitute());
 	    }
 

@@ -187,22 +187,25 @@ public class Import extends Controller {
         newInstitute.address = newInstituteaddress;
         newInstitute.save();
 
-        //write file
-		String[] extension=fileName.split("\\.");
-		String targetPath = "./public/images/company/" + newInstitute.id;
-		newInstitute.path ="images/company/" + newInstitute.id;
-		if(extension.length>1)
-		{
-			targetPath += "." + extension[((extension.length)-1)];
-			newInstitute.path+="." + extension[((extension.length)-1)];	
-			
-		}
-		newInstitute.fileName = fileName;
-		filePart.getFile().renameTo(new File(targetPath));
-		newInstitute.fileType = contentType; 
-        //end write file
+        if (filePart != null) {	//กรณีส่งfile
+	        //write file
+			String[] extension=fileName.split("\\.");
+			String targetPath = "./public/images/company/" + newInstitute.id;
+			newInstitute.path ="images/company/" + newInstitute.id;
+			if(extension.length>1)
+			{
+				targetPath += "." + extension[((extension.length)-1)];
+				newInstitute.path+="." + extension[((extension.length)-1)];	
+				
+			}
+			newInstitute.fileName = fileName;
+			filePart.getFile().renameTo(new File(targetPath));
+			newInstitute.fileType = contentType; 
+	        //end write file
+			newInstitute.update();
+        }
 		
-		newInstitute.update();
+		
         
 
 		
@@ -224,7 +227,7 @@ public class Import extends Controller {
     	Company company;
     	
         if(!form.get("institutesTickList").equals("")){
-    	String[] institutes = form.get("institutesTickList").split(",");
+    	String[] institutes = form.get("institutesTickList").split(",");		//แบ่งidเพื่อเข้าloop
     		
     	int del=0;
     	int cantDel=0;
@@ -242,6 +245,10 @@ public class Import extends Controller {
             		{
             			del++;
             			company.delete();
+            			
+            			File file = new File("./public/"+company.path);		//get file------------------------------------------------
+            			file.delete();										//delete file---------------------------------------------
+            			
             		}
             		else
             		{

@@ -79,7 +79,7 @@
                     <th>
                     	@if(institute.fileType != null && institute.fileType.contains("image")){
 	                    	<a href="@routes.Assets.at(institute.path)">
-	                    		<img src="@routes.Assets.at(institute.path)" alt="@institute.fileName" style="width:40px;height:40px" ng-click="openImage('@institute.fileName','@routes.Assets.at(institute.path)')">
+	                    		<img src="@routes.Assets.at(institute.path)" alt="@institute.fileName" style="width:40px;height:40px">
 	                    	</a>
                     	}else{
                     		<a href="@routes.Assets.at(institute.path)" download>
