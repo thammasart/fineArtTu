@@ -68,6 +68,7 @@
     	
 
     	if(value==0){
+    		$('#browse').prop('disabled',true); //fix only button 
     		$('textarea').prop('disabled',true);		
     		$('#fixButton').hide();
     		$('#activate').val(1);
@@ -75,7 +76,7 @@
     	else
     	{
     		var inputs = $('input');
-    		
+    		$('#browse').prop('disabled',false); //fix only button 
     		$('#fixButton').show();
     		$('textarea').prop('disabled',false);	
     		$('#activate').val(0);
@@ -177,7 +178,7 @@
 
 	
 				<div align="center">
-					<input type="file" class="btn-lg" name="attachFile"> 
+					<input type="file" id="browse" class="btn-lg" name="attachFile"> 
 				</div>
 		
         </div>	<!-- end well -->
