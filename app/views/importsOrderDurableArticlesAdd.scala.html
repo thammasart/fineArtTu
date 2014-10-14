@@ -1,4 +1,6 @@
-@(order:models.durableArticles.Procurement ,user : User)
+@(order:models.durableArticles.Procurement ,user : User, companies : List[models.Company])
+@import java.text.SimpleDateFormat
+@import java.util.Locale
 @header("importsOrderDurableArticlesAdd")
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
@@ -37,7 +39,7 @@
             <div class="form-group" >
                   <div class="input-group date" id="addDate">
                       <span class="input-group-addon width250px" >วันที่นำเข้า</span>
-                      <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p">
+                      <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.addDate))}">
                       <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
                   </div>
             </div>
@@ -47,7 +49,7 @@
             <div class="form-group" >
                   <div class="input-group date" id="checkDate">
                       <span class="input-group-addon width250px" >วันที่ตรวจรับ</span>
-                      <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p">
+                      <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.checkDate))}">
                       <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
                   </div>
             </div>
@@ -57,10 +59,10 @@
             <div class="input-group marginBtm1">
                 <span class="input-group-addon width250px">ประเภทงบประมาณ</span>
                     <select class="form-control textAlignCenter  width300px" name="budgetType">
-                        <option>งบคลัง</option>
-                        <option>งบพิเศษ</option>
-                        <option>งบกองทุนค่าธรรมเนียม</option>
-                        <option>อื่นๆ</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("คลัง")) { selected }>งบคลัง</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("พิเศษ")) { selected }>งบพิเศษ</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("ค่าธรรมเนียม")) { selected }>งบกองทุนค่าธรรมเนียม</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("อื่นๆ")) { selected }>อื่นๆ</option>
                     </select>
             </div>
         </div>
@@ -70,9 +72,11 @@
                 <span class="input-group-addon width250px">สถานประกอบการ</span>
                     <select class="form-control textAlignCenter  width300px" name="institute">
                         <option>---เลือก---</option>
-                        <option>Asissoft</option>
-                        <option>Lotus</option>
-                        <option>ProBike</option>
+                        @for(company <- companies){
+                        	<option @if(order.institute != null && order.institute ==company.nameEntrepreneur ){ selected}>
+                        		@company.nameEntrepreneur
+                        	</option>
+                        }
                     </select>
             </div>
         </div>

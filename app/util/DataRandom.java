@@ -30,6 +30,19 @@ public class DataRandom {
 	private static int contractNo1 = 1;
 	private static int contractNo2 = 1;
 	
+	public static String toStandardYear(String date){
+		String trueDate = "";
+		String[] d = date.split("/");
+		int year = Integer.parseInt(d[d.length-1]) - 543;
+		d[d.length-1] = year + "";
+		for(int i=0; i<d.length; i++){
+			trueDate += d[i];
+			if(i<d.length-1) trueDate += "/";
+		}
+		System.out.println(trueDate);
+		return trueDate;
+	}
+	
 	public static String getNextFsnDescriptionDetail(String typeId){
 		FSN_Type type = FSN_Type.find.byId(typeId);
 		int i=FSN_Description.find.where().eq("typ", type).findRowCount() + 1;
