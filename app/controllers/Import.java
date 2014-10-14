@@ -451,6 +451,9 @@ public class Import extends Controller {
         	 {
         		 fsnCode.delete();
         		 del++;
+        		 
+        		File file = new File("./public/"+fsnCode.path);		//get file------------------------------------------------
+     			file.delete();										//delete file---------------------------------------------
         	 }
         	 else
         	 {
@@ -488,6 +491,9 @@ public class Import extends Controller {
 	   			{
 		   			code.delete();
 		   			del++;
+		   			
+	        		File file = new File("./public/"+code.path);		//get file------------------------------------------------
+	     			file.delete();										//delete file---------------------------------------------
 	   			}
 	   			else
 	   			{
