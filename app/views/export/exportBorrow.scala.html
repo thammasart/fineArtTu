@@ -1,0 +1,86 @@
+@(user : User, initList:List[models.durableArticles.Borrow], successList:List[models.durableArticles.Borrow])
+@header("exportBorrow")
+
+@nav(user)
+@headerTag("ระบบจัดการรายการยืม")
+@sideMenu(user)
+
+
+<div class="listWindowMaterial">
+  <div class="tableHeaderBtnContainer">
+
+    <div class="searchS">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">ค้นหา</span>
+            <input type="text" class="form-control" style="width:300px">
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <div>
+      <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportBorrow.exportCreateBorrow()">
+        <button class="btn btn-success" style="width:100%">เพิ่มรายการยืม</button>
+      </a>
+      <button class="btn btn-danger width20p" style="float:right;">ลบรายการยืม</button>
+    </div>
+
+  </div>
+
+  @if(!initList.isEmpty()) {
+    <table class="table table-striped overlayTable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่เริ่มยืม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>รายละเอียด</th>
+          </tr>
+      </thead>
+      <tbody>
+        @for(borrow <- initList){
+          <tr>
+            <th> <input type="checkbox"/> </th>
+            <th>@borrow.title</th>
+            <th>@borrow.number</th>
+            <th>borrow.getApproveDate()</th>
+            <th>borrow.status</th>
+            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <table class="table table-striped overlayTable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันที่เริ่มยืม<span class="glyphicon glyphicon-sort"></span></th>
+        <th>ผู้ยืม<span class="glyphicon glyphicon-sort"></span></th>
+        <th>รายละเอียด</th>
+        </tr>
+    </thead>
+    <tbody>
+      @for(borrow <- successList){
+        <tr>
+          <th> <input type="checkbox"/> </th>
+          <th>@borrow.title</th>
+          <th>@borrow.number</th>
+          <th>borrow.getStartBorrow()</th>
+          <th>borrow.approverToString</th>
+          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</div>
+
+@footerFull()
