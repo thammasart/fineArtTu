@@ -109,11 +109,11 @@ public class Import extends Controller {
     	MultipartFormData body = request().body().asMultipartFormData();
     	FilePart filePart = body.getFile("attachFile");
 		String fileName="";
-		//String contentType=""; 
+		String contentType=""; 
 		//File file = null;
     	if (filePart != null) {
 			fileName = filePart.getFilename();
-			//contentType = filePart.getContentType(); 
+			contentType = filePart.getContentType(); 
 			//file = filePart.getFile();
 		
 			
@@ -180,13 +180,17 @@ public class Import extends Controller {
         newInstitute.fileName = fileName;//get origin name
         System.out.println(newInstitute.fileName);
         
+        
+        
+        Address newInstituteaddress = newAddressFrom.get();
+        newInstituteaddress.save();
+        newInstitute.address = newInstituteaddress;
+        newInstitute.save();
 
-        
-        
         //write file
 		String[] extension=fileName.split("\\.");
 		String targetPath = "./public/images/company/" + newInstitute.id;
-		newInstitute.path ="/images/company/" + newInstitute.id;
+		newInstitute.path ="images/company/" + newInstitute.id;
 		if(extension.length>1)
 		{
 			targetPath += "." + extension[((extension.length)-1)];
@@ -195,17 +199,10 @@ public class Import extends Controller {
 		}
 		newInstitute.fileName = fileName;
 		filePart.getFile().renameTo(new File(targetPath));
+		newInstitute.fileType = contentType; 
         //end write file
 		
-        
-        
-        
-        Address newInstituteaddress = newAddressFrom.get();
-        newInstituteaddress.save();
-        newInstitute.address = newInstituteaddress;
-        newInstitute.save();
-
-        
+		newInstitute.update();
         
 
 		

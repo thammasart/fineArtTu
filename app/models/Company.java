@@ -29,6 +29,7 @@ public class Company extends Model{	// ครุภัณฑ์
 	
 	public String fileName;
 	public String path;
+	public String fileType;
 
 	@ManyToOne
 	public Address address;// ที่อยู่

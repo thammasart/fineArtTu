@@ -12,6 +12,7 @@
 
 @importsInstituteOverlay()   <!--draw รายละเอียด -->
 @delInsititute()
+@imgOverlay()
 
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
@@ -75,7 +76,17 @@
                     <th>@institute.address.telephoneNumber</th>
                     <th>@institute.payPeriod</th>
                     <th>@institute.sendPeriod</th>
-                    <th><img src="@routes.Assets.at(institute.path)" alt="@institute.fileName" style="width:40px;height:40px"></th>
+                    <th>
+                    	@if(institute.fileType != null && institute.fileType.contains("image")){
+	                    	<a href="@routes.Assets.at(institute.path)">
+	                    		<img src="@routes.Assets.at(institute.path)" alt="@institute.fileName" style="width:40px;height:40px" ng-click="openImage('@institute.fileName','@routes.Assets.at(institute.path)')">
+	                    	</a>
+                    	}else{
+                    		<a href="@routes.Assets.at(institute.path)" download>
+	                    		@institute.fileName
+	                    	</a>
+                    	}
+                    </th>
                     <th> <a href="@routes.ImportDetail.importsInstituteDetail(institute.id)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
                     
                     </tr>
