@@ -24,7 +24,6 @@ import javax.imageio.ImageIO;
 import javax.persistence.ManyToOne;
 import javax.swing.JOptionPane;
 
-
 import models.consumable.Procurement;
 import models.durableArticles.DurableArticles;
 import models.durableArticles.ProcurementDetail;
@@ -1242,6 +1241,41 @@ public class Import extends Controller {
     	return ok(result);
     }
     
+    @Security.Authenticated(Secured.class)
+    public static Result findNextMaterialNumber(String matKey){
+        String desIdInput = matKey;
+        System.out.println(matKey);
+        List<MaterialCode> allMat = MaterialCode.find.where().ilike("code",desIdInput+"%").orderBy("code desc").findList();
+        String lastMat = matKey + "000";
+        if(allMat.size() > 0){
+           lastMat = allMat.get(0).code; 
+        }
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+        
+            ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            String jsonArray = mapper.writeValueAsString(lastMat);
+            json = Json.parse(jsonArray);
+            result.put("lastDes",json);
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error3");
+        }
+
+      return ok(result);
+        
+    }
     @Security.Authenticated(Secured.class)
     public static Result findNextFsnNumber(String fsnKey){
         String desIdInput = fsnKey;

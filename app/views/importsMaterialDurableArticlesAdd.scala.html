@@ -22,7 +22,7 @@
                       <div class="form-group" >
                             <div class="input-group ui-widget" >
                                 <span class="input-group-addon width250px" >รหัสกลุ่ม</span>
-                                <input type="text" size="2" maxlength="2" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchIDToDes()" name="groupId" id="groupId">
+                                <input type="text" size="2" maxlength="2" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchIDToDes()" name="groupId" id="groupId" autocomplete="off">
                                 <span class="alertText" id="groupIdAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
@@ -38,7 +38,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสประเภท</span>
-                                <input type="text" size="4" maxlength="4"class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchClassIdToDes()" name="classId" id="classId">
+                                <input type="text" size="4" maxlength="4"class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" onkeyup="matchClassIdToDes()" name="classId" id="classId" autocomplete="off">
                                 <span class="alertText" id="classIdAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
@@ -54,7 +54,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสชนิด</span>
-                                <input type="text" size="8" maxlength="8"class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="typeId" id="typeId" ng-model="typeId" ng-change="matchTypeToDes()">
+                                <input type="text" size="8" maxlength="8"class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="typeId" id="typeId" ng-model="typeId" ng-change="matchTypeToDes()" autocomplete="off">
                                 <span class="alertText" id="typeIdAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>

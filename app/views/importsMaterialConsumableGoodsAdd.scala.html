@@ -12,7 +12,7 @@
 @headerTagFull("เพิ่มรายละเอียดวัสดุสิ้นเปลือง")
 
 <body >
-<div class="detailWindow" >
+<div class="detailWindow" ng-app="materialConsumableGoodsAddMatCode"  ng-controller="autoCompleteController">
 
     <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableGoods()" onsubmit="return submitButtonClick()">
         <div class="well" >
@@ -26,29 +26,29 @@
 
                     <table  class="table table-striped">
                     <tr>
-                        <td ><input type="radio" name="chosen" value="01" onclick="radioClick()"> วัสดุสิ้นเปลืองสำนักงาน(01)</td>
-                        <td ><input type="radio" name="chosen" value="02" onclick="radioClick()"> วัสดุสิ้นเปลืองไฟฟ้าและวิทยุ(02)</td>
-                        <td ><input type="radio" name="chosen" value="03" onclick="radioClick()"> วัสดุสิ้นเปลืองงานบ้านงานครัว(03)</td>
-                        <td ><input type="radio" name="chosen" value="04" onclick="radioClick()"> วัสดุสิ้นเปลืองคอมพิวเตอร์(04)</td>
-                        <td ><input type="radio" name="chosen" value="05" onclick="radioClick()"> วัสดุสิ้นเปลืองยานพาหนะและขนส่ง(05)</td>
-                        <td ><input type="radio" name="chosen" value="06" onclick="radioClick()"> วัสดุสิ้นเปลืองวิทยาศาสตร์และการแพทย์(06)</td>
+                        <td ><input type="radio" name="chosen" value="01" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองสำนักงาน(01)</td>
+                        <td ><input type="radio" name="chosen" value="02" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองไฟฟ้าและวิทยุ(02)</td>
+                        <td ><input type="radio" name="chosen" value="03" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองงานบ้านงานครัว(03)</td>
+                        <td ><input type="radio" name="chosen" value="04" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองคอมพิวเตอร์(04)</td>
+                        <td ><input type="radio" name="chosen" value="05" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองยานพาหนะและขนส่ง(05)</td>
+                        <td ><input type="radio" name="chosen" value="06" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองวิทยาศาสตร์และการแพทย์(06)</td>
                       </tr>
 
                       <tr>
-                        <td><input type="radio" name="chosen" value="07" onclick="radioClick()"> วัสดุสิ้นเปลืองโฆษณาและเผยแพร่(07)</td>
-                        <td><input type="radio" name="chosen" value="08" onclick="radioClick()"> วัสดุสิ้นเปลืองการศึกษา(08)</td>
-                        <td><input type="radio" name="chosen" value="09" onclick="radioClick()"> วัสดุสิ้นเปลืองสนาม(09)</td>
-                        <td><input type="radio" name="chosen" value="10" onclick="radioClick()"> วัสดุสิ้นเปลืองการเกษตร(10)</td>
-                        <td><input type="radio" name="chosen" value="11" onclick="radioClick()"> วัสดุสิ้นเปลืองสำรวจ(11)</td>
-                        <td><input type="radio" name="chosen" value="12" onclick="radioClick()"> วัสดุสิ้นเปลืองก่อสร้าง(12)</td>
+                        <td><input type="radio" name="chosen" value="07" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองโฆษณาและเผยแพร่(07)</td>
+                        <td><input type="radio" name="chosen" value="08" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองการศึกษา(08)</td>
+                        <td><input type="radio" name="chosen" value="09" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองสนาม(09)</td>
+                        <td><input type="radio" name="chosen" value="10" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองการเกษตร(10)</td>
+                        <td><input type="radio" name="chosen" value="11" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองสำรวจ(11)</td>
+                        <td><input type="radio" name="chosen" value="12" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองก่อสร้าง(12)</td>
                       </tr>
 
                       <tr>
-                        <td><input type="radio" name="chosen" value="13" onclick="radioClick()"> วัสดุสิ้นเปลืองโรงงาน(13)</td>
-                        <td><input type="radio" name="chosen" value="14" onclick="radioClick()"> วัสดุสิ้นเปลืองดนตรีและนาฏศิลทป์(14)</td>
-                        <td><input type="radio" name="chosen" value="15" onclick="radioClick()"> วัสดุสิ้นเปลืองกีฬา(15)</td>
-                        <td><input type="radio" name="chosen" value="16" onclick="radioClick()"> วัสดุสิ้นเปลืองอาวุธ(16)</td>
-                        <td><input type="radio" name="chosen" value="17" onclick="radioClick()"> วัสดุสิ้นเปลืองอื่นๆ(17)</td>
+                        <td><input type="radio" name="chosen" value="13" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองโรงงาน(13)</td>
+                        <td><input type="radio" name="chosen" value="14" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองดนตรีและนาฏศิลทป์(14)</td>
+                        <td><input type="radio" name="chosen" value="15" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองกีฬา(15)</td>
+                        <td><input type="radio" name="chosen" value="16" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองอาวุธ(16)</td>
+                        <td><input type="radio" name="chosen" value="17" onclick="radioClick()" ng-click="genCode()"> วัสดุสิ้นเปลืองอื่นๆ(17)</td>
                       </tr>
 
                     </table>
@@ -66,7 +66,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >รหัสวัสดุ</span>
-                                <input type="text" class="form-control  textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="code" id="code" size="5" maxlength="5">
+                                <input type="text" class="form-control  textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="code" id="code" size="5" maxlength="5" ng-Model="code" ng-change="genCode()">
                                 <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>

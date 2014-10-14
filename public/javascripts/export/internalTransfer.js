@@ -117,6 +117,44 @@ function getDetail(){
 		}
 	});
 }
+function submitButtonAddClick(){
+    
+    submitStatus = true;
+    if(document.getElementById("floorLevel").value ==""){
+        document.getElementById("floorLevelAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.title.focus();
+    }else  document.getElementById("floorLevelAlert").style.display= "none";
+
+    if(document.getElementById("room").value ==""){
+        document.getElementById("roomAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.number.focus();
+    }else  document.getElementById("roomAlert").style.display= "none";
+
+
+    if(document.getElementById("recieveFirstName").value ==""){
+        document.getElementById("recieveFirstNameAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.number.focus();
+    }else  document.getElementById("recieveFirstNameAlert").style.display= "none";
+
+    if(document.getElementById("recieveLastName").value ==""){
+        document.getElementById("recieveLastNameAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.number.focus();
+    }else  document.getElementById("recieveLastNameAlert").style.display= "none";
+
+    if(document.getElementById("recievePosition").value ==""){
+        document.getElementById("recievePositionAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.number.focus();
+    }else  document.getElementById("recievePositionAlert").style.display= "none";
+
+    if(submitStatus == true){
+        saveDetail();
+    }
+}
 
 function saveDetail(){
 	var dataDetail = {};
@@ -152,3 +190,44 @@ function init(id){
 	getDetail();
 }
 
+function submitButtonClick(){
+    
+    submitStatus = true;
+    if(document.getElementById("title").value ==""){
+        document.getElementById("titleAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.title.focus();
+    }else  document.getElementById("titleAlert").style.display= "none";
+
+    if(document.getElementById("number").value ==""){
+        document.getElementById("numberAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.number.focus();
+    }else  document.getElementById("numberAlert").style.display= "none";
+
+    if(document.getElementById("approveDate").value ==""){
+        document.getElementById("approveDateAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.approveDate.focus();
+    }else  document.getElementById("approveDateAlert").style.display= "none";
+
+    if(document.getElementById("approverFirstName").value ==""){
+        document.getElementById("approverFirstNameAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.approverFirstName.focus();
+    }else  document.getElementById("approverFirstNameAlert").style.display= "none";
+
+    if(document.getElementById("approverLastName").value ==""){
+        document.getElementById("approverLastNameAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.approverLastName.focus();
+    }else  document.getElementById("approverLastNameAlert").style.display= "none";
+
+    if(document.getElementById("approverPosition").value ==""){
+        document.getElementById("approverPositionAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addTransferInside.approverPosition.focus();
+    }else  document.getElementById("approverPositionAlert").style.display= "none";
+
+    return submitStatus;
+}
