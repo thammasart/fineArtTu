@@ -35,15 +35,15 @@ public class ExportBorrow extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result exportBorrow() {
         User user = User.find.byId(session().get("username"));
-        List<Repairing> initList = Repairing.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
-        List<Repairing> successList = Repairing.find.where().eq("status", ExportStatus.REPAIRING).orderBy("id desc").findList();
-        return TODO;//ok(exportRepairing.render(user,initList, successList));
+        List<Borrow> initList = Borrow.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
+        List<Borrow> successList = Borrow.find.where().eq("status", ExportStatus.REPAIRING).orderBy("id desc").findList();
+        return ok(exportBorrow.render(user,initList, successList));
     }
 
     @Security.Authenticated(Secured.class)
     public static Result exportCreateBorrow() {
-        Repairing temp =  new Repairing();
-        temp.dateOfSentToRepair = new Date();
+        Borrow temp =  new Borrow();
+        temp.startBorrow = new Date();
         temp.status = ExportStatus.INIT;
         temp.save();
         return redirect(routes.ExportBorrow.exporBorrowAdd(temp.id));
@@ -52,10 +52,10 @@ public class ExportBorrow extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exporBorrowAdd(long id) {
         User user = User.find.byId(session().get("username"));
-        Repairing repair = Repairing.find.byId(id);
+        Borrow repair = Borrow.find.byId(id);
         if(repair == null){
             return redirect(routes.ExportBorrow.exportBorrow());
         }
-        return TODO;//ok(exportRepairingAdd.render(user, repair));
+        return ok(exportBorrowAdd.render(user, repair));
     }
 }

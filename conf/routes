@@ -63,6 +63,7 @@ GET 	/export/repair/lodeDetail 				controllers.ExportRepair.loadRepairingDetail(
 
 GET 	/export/borrow 							controllers.ExportBorrow.exportBorrow()
 GET 	/export/borrow/add 						controllers.ExportBorrow.exporBorrowAdd(id:Long)
+GET 	/export/borrow/new 						controllers.ExportBorrow.exportCreateBorrow()
 
 GET     /export/order/autocompleteExportCommitee              controllers.Export.autocompleteExportCommitee()
 
