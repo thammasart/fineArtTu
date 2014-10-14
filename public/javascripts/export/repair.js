@@ -4,7 +4,7 @@ $(function () {
     })
 });
 
-var auction = {
+var repair = {
 	'id': 0,
 	'title': "",
 	'contractNo': ""
@@ -14,14 +14,17 @@ var newDetail = [];
 var oldDetail = [];
 
 function addDetailButton(){
+
+	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
+	updateTable();
 
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
 	document.addDetail.fsnCode.focus();
 }
 
-function addSoldButton(){
+function addRepairButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
 }
@@ -38,7 +41,7 @@ function addNewDetai(code){
 function getDetail(id){
 	$.ajax({
 		type: "GET",
-		url: "/export/sold/lodeDetail",
+		url: "/export/repair/lodeDetail",
 		data: {'id': id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
@@ -60,8 +63,7 @@ function getDetail(id){
 					else{
 						s += '	<th>'+ 'ไม่มี' +'</th>';
 					}
-					s += '	<th>'+ details[i].durableArticles.detail.procurement.budgetType +'</th>';
-					s += '	<th>'+ details[i].durableArticles.remainingPriceToString +'</th>';
+					s += '	<th>'+ details[i].description +'</th>';
 					s += '</tr>';
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
@@ -125,10 +127,11 @@ function findFSN(){
 
 function saveDetail(){
 	var dataDetail = {};
-	dataDetail.id = auction.id;
+	dataDetail.id = repair.id;
+	dataDetail.description = document.getElementById("natureOfDamage").value;
 	dataDetail.detail = newDetail;
 	$.ajax({
-		url:'/export/sold/saveDetail',
+		url:'/export/repair/saveDetail',
 	    type: 'post',
 	    data: JSON.stringify(dataDetail),
 	    contentType: 'application/json',
@@ -137,15 +140,16 @@ function saveDetail(){
     		//alert(JSON.stringify(result));
     		document.getElementById("fsnCode").value = "";
 			document.getElementById("fsnDescription").value = "";
-			addSoldButton();
+			document.getElementById("natureOfDamage").value = "";
+			addRepairButton();
 			newDetail = [];
-			getDetail(auction.id);
+			getDetail(repair.id);
     	}
 	});
 }
 
 function init(id){
-	auction.id = id;
+	repair.id = id;
 	getDetail(id);
-	addSoldButton();
+	addRepairButton();
 }

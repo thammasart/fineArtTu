@@ -1,0 +1,86 @@
+@(user : User, initList:List[models.durableArticles.Repairing], successList:List[models.durableArticles.Repairing])
+@header("exportRepair")
+
+@nav(user)
+@headerTag("ระบบจัดการรายการส่งซ่อม")
+@sideMenu(user)
+
+
+<div class="listWindowMaterial">
+  <div class="tableHeaderBtnContainer">
+
+    <div class="searchS">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">ค้นหา</span>
+            <input type="text" class="form-control" style="width:300px">
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    <div>
+      <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportRepair.exportCreateRepairing()">
+        <button class="btn btn-success" style="width:100%">เพิ่มรายการส่งซ่อม</button>
+      </a>
+      <button class="btn btn-danger width20p" style="float:right;">ลบรายการส่งซ่อม</button>
+    </div>
+
+  </div>
+
+  @if(!initList.isEmpty()) {
+    <table class="table table-striped overlayTable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>รายละเอียด</th>
+          </tr>
+      </thead>
+      <tbody>
+        @for(repair <- initList){
+          <tr>
+            <th> <input type="checkbox"/> </th>
+            <th>@repair.title</th>
+            <th>@repair.number</th>
+            <th>repair.getApproveDate()</th>
+            <th>repair.status</th>
+            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <table class="table table-striped overlayTable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>หน่ายงาน<span class="glyphicon glyphicon-sort"></span></th>
+        <th>รายละเอียด</th>
+        </tr>
+    </thead>
+    <tbody>
+      @for(repair <- successList){
+        <tr>
+          <th> <input type="checkbox"/> </th>
+          <th>@repair.title</th>
+          <th>@repair.number</th>
+          <th>repair.getApproveDate()</th>
+          <th>repair.approverToString</th>
+          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</div>
+
+@footerFull()

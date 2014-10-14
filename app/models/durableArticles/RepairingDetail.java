@@ -12,18 +12,13 @@ public class RepairingDetail extends Model{
 
 	@Id
 	public long id;
-	public String descliption; // ลักษะณะการชำรุด
+	public String description; // ลักษะณะการชำรุด
 	public double price; // ราคาซ่อม
-
-	@ManyToOne
-	public Company company; // ร้านซ่อม
-	@ManyToOne
-	public User user; // `ผู้ส่งซ่อม 
 
 	@ManyToOne
 	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการโอนย่าย
 	@ManyToOne
-	public Repairing epairing; // การส่งซ่อม
+	public Repairing repairing; // การส่งซ่อม
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,RepairingDetail> find = new Finder(Long.class,RepairingDetail.class);
