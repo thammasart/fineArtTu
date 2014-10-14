@@ -38,43 +38,42 @@ function addNewDetai(code){
 	}
 }
 
-// function getDetail(id){
-// 	$.ajax({
-// 		type: "GET",
-// 		url: "/export/repair/lodeDetail",
-// 		data: {'id': id},
-// 		success: function(data){
-// 		   	//alert(JSON.stringify(data));
-// 		   	var status = data["status"];
-// 		    if(status == "SUCCESS"){
-// 			   	var details = data["details"];
-// 			   	var detailLength = details.length;
-// 			   	var s = "";
-// 			   	destroyTable();
-// 			   	oldDetail = [];
-// 				for (var i = 0; i < detailLength; i++) {
-// 					oldDetail.push(details[i].durableArticles.id);
-// 					s += '<tr>';
-// 					s += '	<th>'+(i+1)+'</th>';
-// 					s += '	<th>'+ details[i].durableArticles.code +'</th>';
-// 					if(details[i].durableArticles.detail){
-// 						s += '	<th>'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
-// 					}
-// 					else{
-// 						s += '	<th>'+ 'ไม่มี' +'</th>';
-// 					}
-// 					s += '	<th>'+ details[i].description +'</th>';
-// 					s += '</tr>';
-// 			   	}
-// 			   	document.getElementById("detailInTable").innerHTML = s;
-// 			   	updateTable();
-// 		    }
-// 		    else{
-// 		    	alert(data["message"]);
-// 		    }
-// 		}
-// 	});
-// }
+function getDetail(id){
+	$.ajax({
+		type: "GET",
+		url: "/export/borrow/lodeDetail",
+		data: {'id': id},
+		success: function(data){
+		   	//alert(JSON.stringify(data));
+		   	var status = data["status"];
+		    if(status == "SUCCESS"){
+			   	var details = data["details"];
+			   	var detailLength = details.length;
+			   	var s = "";
+			   	destroyTable();
+			   	oldDetail = [];
+				for (var i = 0; i < detailLength; i++) {
+					oldDetail.push(details[i].durableArticles.id);
+					s += '<tr>';
+					s += '	<th>'+(i+1)+'</th>';
+					s += '	<th>'+ details[i].durableArticles.code +'</th>';
+					if(details[i].durableArticles.detail){
+						s += '	<th>'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
+					}
+					else{
+						s += '	<th>'+ 'ไม่มี' +'</th>';
+					}
+					s += '</tr>';
+			   	}
+			   	document.getElementById("detailInTable").innerHTML = s;
+			   	updateTable();
+		    }
+		    else{
+		    	alert(data["message"]);
+		    }
+		}
+	});
+}
 
 function findFSN(){
 	var fsnCode = document.getElementById("fsnCode").value;
@@ -125,31 +124,30 @@ function findFSN(){
 
 }
 
-// function saveDetail(){
-// 	var dataDetail = {};
-// 	dataDetail.id = repair.id;
-// 	dataDetail.description = document.getElementById("natureOfDamage").value;
-// 	dataDetail.detail = newDetail;
-// 	$.ajax({
-// 		url:'/export/repair/saveDetail',
-// 	    type: 'post',
-// 	    data: JSON.stringify(dataDetail),
-// 	    contentType: 'application/json',
-// 	    dataType: 'json',
-//     	success: function(result){
-//     		//alert(JSON.stringify(result));
-//     		document.getElementById("fsnCode").value = "";
-// 			document.getElementById("fsnDescription").value = "";
-// 			document.getElementById("natureOfDamage").value = "";
-// 			addRepairButton();
-// 			newDetail = [];
-// 			getDetail(repair.id);
-//     	}
-// 	});
-// }
+function saveDetail(){
+	var dataDetail = {};
+	dataDetail.id = borrow.id;
+	dataDetail.description = document.getElementById("fsnDescription").value;
+	dataDetail.detail = newDetail;
+	$.ajax({
+		url:'/export/borrow/saveDetail',
+	    type: 'post',
+	    data: JSON.stringify(dataDetail),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		//alert(JSON.stringify(result));
+    		document.getElementById("fsnCode").value = "";
+			document.getElementById("fsnDescription").value = "";
+			addBorrowButton();
+			newDetail = [];
+			getDetail(borrow.id);
+    	}
+	});
+}
 
 function init(id){
 	borrow.id = id;
-	//getDetail(id);
+	getDetail(id);
 	addBorrowButton();
 }

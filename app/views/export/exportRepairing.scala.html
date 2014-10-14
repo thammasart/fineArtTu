@@ -1,4 +1,4 @@
-@(user : User, initList:List[models.durableArticles.Repairing], successList:List[models.durableArticles.Repairing])
+@(user : User, initList:List[models.durableArticles.Repairing], repairingList:List[models.durableArticles.Repairing], successList:List[models.durableArticles.Repairing])
 @header("exportRepair")
 
 @nav(user)
@@ -43,6 +43,33 @@
       </thead>
       <tbody>
         @for(repair <- initList){
+          <tr>
+            <th> <input type="checkbox"/> </th>
+            <th>@repair.title</th>
+            <th>@repair.number</th>
+            <th>repair.getApproveDate()</th>
+            <th>repair.status</th>
+            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+    @if(!repairingList.isEmpty()) {
+    <table class="table table-striped overlayTable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>รายละเอียด</th>
+          </tr>
+      </thead>
+      <tbody>
+        @for(repair <- repairingList){
           <tr>
             <th> <input type="checkbox"/> </th>
             <th>@repair.title</th>
