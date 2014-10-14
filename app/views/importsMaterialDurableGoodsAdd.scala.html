@@ -9,7 +9,7 @@
 <body >
 <div class="detailWindow" >
 
-    <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableGoods()" onsubmit="return submitButtonClick()">
+    <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableGoods()" onsubmit="return submitButtonClick()" enctype="multipart/form-data">
         <div class="well" >
             <h3 > เพิ่มวัสดุคงทนถาวร </h3>
 
@@ -95,14 +95,11 @@
 
 		
 
-		            <div class="form-inline marginBtm1" role="form" align="center">
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width250px" >รูปภาพ</span>
-                                <button>Browse</button>
-                            </div>
-                      </div>
-                </div>
+				<div align="center">
+					<input type="file" class="btn-lg" name="attachFile"> 
+				</div>
+                      
+       </div><!-- end well -->
 
 
     <legend style="width:auto">รายละเอียดเพิ่มเติม</legend>

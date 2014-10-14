@@ -68,6 +68,7 @@
     	
 
     	if(value==0){
+    		$('#browse').prop('disabled',true); //fix only button 
     		$('textarea').prop('disabled',true);		
     		$('#fixButton').hide();
     		$('#activate').val(1);
@@ -75,7 +76,7 @@
     	else
     	{
     		var inputs = $('input');
-    		
+    		$('#browse').prop('disabled',false); //fix only button 
     		$('#fixButton').show();
     		$('textarea').prop('disabled',false);	
     		$('#activate').val(0);
@@ -89,7 +90,7 @@
 
 
 
-    <form name="addDurableArticles" method="post" action="@routes.ImportDetail.saveNewMaterialConsumableGoods()" onsubmit="return submitButtonClick()">
+    <form name="addDurableArticles" method="post" action="@routes.ImportDetail.saveNewMaterialConsumableGoods()" onsubmit="return submitButtonClick()" enctype="multipart/form-data">
         <div class="well" >
             <h3 > เพิ่มวัสดุสิ้นเปลือง </h3>
 
@@ -176,19 +177,12 @@
                 
 
 	
+				<div align="center">
+					<input type="file" id="browse" class="btn-lg" name="attachFile"> 
+				</div>
 		
-
-		
-
-		<div class="form-inline marginBtm1" role="form" align="center">
-                      <div class="form-group" >
-                            <div class="input-group" >
-                                <span class="input-group-addon width150px" >รูปภาพ</span>
-                                <button>Browse</button>
-                            </div>
-                      </div>
-                </div>
-        </div>
+        </div>	<!-- end well -->
+        
 
     <legend style="width:auto">รายละเอียดเพิ่มเติม</legend>
     <textarea class="form-control" rows="3" name="otherDetail">@code.otherDetail</textarea>
