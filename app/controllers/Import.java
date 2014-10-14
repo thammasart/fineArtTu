@@ -105,27 +105,6 @@ public class Import extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result saveNewInstitute(){
 		
-    	MultipartFormData body = request().body().asMultipartFormData();
-    	FilePart filePart = body.getFile("attachFile");
-		String fileName="";
-		String contentType=""; 
-		//File file = null;
-    	if (filePart != null) {
-			fileName = filePart.getFilename();
-			contentType = filePart.getContentType(); 
-			//file = filePart.getFile();
-		
-			
-			//System.out.println(fileName);
-			//System.out.println(contentType);
-			//System.out.println(file);
-			
-			//save file to new path
-			
-		} else {
-			flash("error", "Missing file");
-		}
-    	
         DynamicForm form = Form.form().bindFromRequest();
 
         String typeDurableArticles="";                                  //save all list
@@ -176,45 +155,48 @@ public class Import extends Controller {
         newInstitute.durableGoodsType = typeDurableGoods;
         newInstitute.consumableGoodsType = typeConsumableGoods;
 
-        newInstitute.fileName = fileName;//get origin name
-        System.out.println(newInstitute.fileName);
-        
-        
+
         
         Address newInstituteaddress = newAddressFrom.get();
         newInstituteaddress.save();
         newInstitute.address = newInstituteaddress;
         newInstitute.save();
 
-        //write file
-		String[] extension=fileName.split("\\.");
-		String targetPath = "./public/images/company/" + newInstitute.id;
-		newInstitute.path ="images/company/" + newInstitute.id;
-		if(extension.length>1)
-		{
-			targetPath += "." + extension[((extension.length)-1)];
-			newInstitute.path+="." + extension[((extension.length)-1)];	
-			
-		}
-		newInstitute.fileName = fileName;
-		filePart.getFile().renameTo(new File(targetPath));
-		newInstitute.fileType = contentType; 
-        //end write file
-		
-		newInstitute.update();
         
+        ////////////////////////////////////////////////////////////////////////////file
+        MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
 
-		
-        
-/*
-        try {
-        	newInstitute.img = ImageIO.read(file);
-            ImageIO.write(newInstitute.img, "jpg", new File("./public/images/company/"+newInstitute.id+".jpg"));
-        } catch (IOException e) {
+        	
+    		String fileName="";
+    		String contentType=""; 
+    		//File file = null;
+        	if (filePart != null) //กรณีมีไฟล์
+        	{
+    			fileName = filePart.getFilename();
+    			contentType = filePart.getContentType(); 
 
-        }
+			 	newInstitute.fileName = fileName;//get origin name
+			 
+			 
+			 	String[] extension=fileName.split("\\.");							//split .
+				String targetPath = "./public/images/company/" + newInstitute.id;
+				newInstitute.path ="images/company/" + newInstitute.id;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];				//get type file by last spilt
+					newInstitute.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				newInstitute.fileName = fileName;										//get traditional file name
+				
+				filePart.getFile().renameTo(new File(targetPath));						//save file on your path
+				newInstitute.fileType = contentType; 
+		        //end write file
+				newInstitute.update();
+    			
+    		} 
 
-*/
         return redirect(routes.Import.importsInstitute());
     }
 	@Security.Authenticated(Secured.class)
@@ -223,7 +205,7 @@ public class Import extends Controller {
     	Company company;
     	
         if(!form.get("institutesTickList").equals("")){
-    	String[] institutes = form.get("institutesTickList").split(",");
+    	String[] institutes = form.get("institutesTickList").split(",");		//แบ่งidเพื่อเข้าloop
     		
     	int del=0;
     	int cantDel=0;
@@ -241,6 +223,10 @@ public class Import extends Controller {
             		{
             			del++;
             			company.delete();
+            			
+            			File file = new File("./public/"+company.path);		//get file------------------------------------------------
+            			file.delete();										//delete file---------------------------------------------
+            			
             		}
             		else
             		{
@@ -303,7 +289,7 @@ public class Import extends Controller {
         String fsnId = form.get("descriptionId");
         String fsnDes = form.get("descriptionDescription");
 
-        System.out.println( gId +"\n"+ gD +"\n"+ cId +"\n"+ cD +"\n"+ tId +"\n"+ tD +"\n"+ fsnId +"\n"+ fsnDes );
+        //System.out.println( gId +"\n"+ gD +"\n"+ cId +"\n"+ cD +"\n"+ tId +"\n"+ tD +"\n"+ fsnId +"\n"+ fsnDes );
 
         Form<FSN_Description> newFsnForm = Form.form(FSN_Description.class).bindFromRequest();
         FSN_Description newFsn = newFsnForm.get();
@@ -323,6 +309,43 @@ public class Import extends Controller {
         newFsn.typ = type;
 
         newFsn.save();
+        
+        
+        ////////////////////////////////////////////////////////////////////////////file
+        
+        MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+
+        	
+    		String fileName="";
+    		String contentType=""; 
+    		//File file = null;
+        	if (filePart != null) //กรณีมีไฟล์
+        	{
+    			fileName = filePart.getFilename();
+    			contentType = filePart.getContentType(); 
+
+    			newFsn.fileName = fileName;//get origin name
+			 
+			 
+			 	String[] extension=fileName.split("\\.");							//split .
+				String targetPath = "./public/images/fsnNumber/" + newFsn.descriptionId;
+				newFsn.path ="images/fsnNumber/" + newFsn.descriptionId;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];				//get type file by last spilt
+					newFsn.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				newFsn.fileName = fileName;										//get traditional file name
+				
+				filePart.getFile().renameTo(new File(targetPath));						//save file on your path
+				newFsn.fileType = contentType; 
+		        //end write file
+				newFsn.update();
+    			
+    		} 
+        ////////////////////////////////////////////////////////////////////////////end file
 
         return redirect(routes.Import.importsMaterial2("1"));
     }   
@@ -368,6 +391,42 @@ public class Import extends Controller {
         //newCode.materialType = code[0]+code[1];
 
         newCode.save();
+        
+        ////////////////////////////////////////////////////////////////////////////file
+        
+        MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+
+        	
+    		String fileName="";
+    		String contentType=""; 
+    		//File file = null;
+        	if (filePart != null) //กรณีมีไฟล์
+        	{
+    			fileName = filePart.getFilename();
+    			contentType = filePart.getContentType(); 
+
+    			newCode.fileName = fileName;//get origin name
+			 
+			 
+			 	String[] extension=fileName.split("\\.");							//split .
+				String targetPath = "./public/images/goodsNumber/" + newCode.code;
+				newCode.path ="images/goodsNumber/" + newCode.code;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];				//get type file by last spilt
+					newCode.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				newCode.fileName = fileName;										//get traditional file name
+				
+				filePart.getFile().renameTo(new File(targetPath));						//save file on your path
+				newCode.fileType = contentType; 
+		        //end write file
+				newCode.update();
+    			
+    		} 
+        ////////////////////////////////////////////////////////////////////////////end file
 
         return redirect(routes.Import.importsMaterial2(tab));
     }
@@ -391,6 +450,9 @@ public class Import extends Controller {
         	 {
         		 fsnCode.delete();
         		 del++;
+        		 
+        		File file = new File("./public/"+fsnCode.path);		//get file------------------------------------------------
+     			file.delete();										//delete file---------------------------------------------
         	 }
         	 else
         	 {
@@ -428,6 +490,9 @@ public class Import extends Controller {
 	   			{
 		   			code.delete();
 		   			del++;
+		   			
+	        		File file = new File("./public/"+code.path);		//get file------------------------------------------------
+	     			file.delete();										//delete file---------------------------------------------
 	   			}
 	   			else
 	   			{
@@ -508,7 +573,8 @@ public class Import extends Controller {
     public static Result importsOrderDurableArticlesAdd(Long id) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         models.durableArticles.Procurement order = models.durableArticles.Procurement.find.byId(id);
-        return ok(importsOrderDurableArticlesAdd.render(order,user));
+        List<Company> companies = Company.find.all();
+        return ok(importsOrderDurableArticlesAdd.render(order,user,companies));
     }
     
     @Security.Authenticated(Secured.class)
@@ -678,6 +744,8 @@ public class Import extends Controller {
     	articlesOrder.budgetType = form.get("budgetType");
     	articlesOrder.institute = form.get("institute");
     	articlesOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
+    	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"));
+    		articlesOrder.company = Company.find.where().eq("nameEntrepreneur", form.get("institute")).findList().get(0);
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   AI 
     	
@@ -767,11 +835,11 @@ public class Import extends Controller {
     	try {
     		Date date;
 	        if(!form.get("addDate_p").equals("")) {
-				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
+				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("addDate_p")));
 				articlesOrder.addDate = date;
 	        }
 	        if(!form.get("checkDate_p").equals("")){
-	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
+	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("checkDate_p")));
 	        	articlesOrder.checkDate = date;
 	        }
     	} catch (ParseException e) {
@@ -802,7 +870,9 @@ public class Import extends Controller {
     	goodsOrder.contractNo = form.get("contractNo");
     	goodsOrder.budgetType = form.get("budgetType");
     	goodsOrder.institute = form.get("institute");
-    	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));	
+    	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
+    	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"))
+    		goodsOrder.company = Company.find.where().eq("nameEntrepreneur", form.get("institute")).findList().get(0);
     	
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
@@ -846,11 +916,11 @@ public class Import extends Controller {
     	try {
     		Date date;
 	        if(!form.get("addDate_p").equals("")) {
-				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
+				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("addDate_p")));
 				goodsOrder.addDate = date;
 	        }
 	        if(!form.get("checkDate_p").equals("")){
-	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
+	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("checkDate_p")));
 	        	goodsOrder.checkDate = date;
 	        }
     	} catch (ParseException e) {
@@ -1077,8 +1147,9 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result importsOrderGoodsAdd(Long id) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        models.durableGoods.Procurement order = models.durableGoods.Procurement.find.byId(id); 
-        return ok(importsOrderGoodsAdd.render(order,user));
+        models.durableGoods.Procurement order = models.durableGoods.Procurement.find.byId(id);
+        List<Company> companies = Company.find.all();
+        return ok(importsOrderGoodsAdd.render(order,user,companies));
     }
     
     @Security.Authenticated(Secured.class)

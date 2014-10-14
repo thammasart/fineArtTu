@@ -14,6 +14,10 @@ public class FSN_Description extends Model{
 
 	public String classifier; 									//หน่วย
 	public String otherDetail;									//รายละเอียดอื่นๆ 
+	
+	public String fileName;
+	public String path;
+	public String fileType;
 
 	@ManyToOne
 	public FSN_Type typ;

@@ -57,17 +57,7 @@ public class ImportDetail extends Controller {
 	
 	 public static Result saveNewInstitute(){
 		 
-		 	
-	    	MultipartFormData body = request().body().asMultipartFormData();
-	    	FilePart filePart = body.getFile("attachFile");
-	    	if (filePart != null) {
-				String fileName = filePart.getFilename();
-				String contentType = filePart.getContentType(); 
-				File file = filePart.getFile();		
-				//save file to new path
-			} else {
-				flash("error", "Missing file");
-			}
+		 
 	    	
 	    	////////////////////////////////////////////////////////////////////////////////////
 	        DynamicForm form = Form.form().bindFromRequest();
@@ -142,13 +132,52 @@ public class ImportDetail extends Controller {
 	    	c.payCodition =form.get("payCodition"); 
 	    	c.otherDetail = form.get("otherDetail");
 
-	        c.update();
 
-
-
+	    	
+			 MultipartFormData body = request().body().asMultipartFormData();
+		    	FilePart filePart = body.getFile("attachFile");
+				String fileName="";
+				String contentType=""; 
+				//File file = null;
+		    	if (filePart != null) {
+					fileName = filePart.getFilename();
+					contentType = filePart.getContentType(); 	
+			        File file = new File("./public/"+c.path);		//get file------------------------------------------------
+					file.delete();									//delete file---------------------------------------------
+					
+					//write file
+					String[] extension=fileName.split("\\.");
+					String targetPath = "./public/images/company/" + c.id;
+					c.path ="images/company/" + c.id;
+					if(extension.length>1)
+					{
+						targetPath += "." + extension[((extension.length)-1)];
+						c.path+="." + extension[((extension.length)-1)];	
+						
+					}
+					c.fileName = fileName;
+					filePart.getFile().renameTo(new File(targetPath));
+					c.fileType = contentType; 
+			        //end write file
+				}
+	    	
+		    c.update();
+		    	
 	        return redirect(routes.Import.importsInstitute());
 	    }
 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	 @Security.Authenticated(Secured.class)
 	 public static Result importsMaterialDurableArticlesDetail(String id)
 	 {
@@ -169,7 +198,36 @@ public class ImportDetail extends Controller {
 		 FSN_Description fd = FSN_Description.find.byId(form.get("descriptionId"));
 		 fd.otherDetail = form.get("otherDetail");
 		 
-		 fd.update();
+		 
+		 MultipartFormData body = request().body().asMultipartFormData();
+	    	FilePart filePart = body.getFile("attachFile");
+			String fileName="";
+			String contentType=""; 
+			//File file = null;
+	    	if (filePart != null) {
+				fileName = filePart.getFilename();
+				contentType = filePart.getContentType(); 	
+		        File file = new File("./public/"+fd.path);		//get file------------------------------------------------
+				file.delete();									//delete file---------------------------------------------
+				
+				//write file
+				String[] extension=fileName.split("\\.");
+				String targetPath = "./public/images/fsnNumber/" + fd.descriptionId;
+				fd.path ="images/fsnNumber/" + fd.descriptionId;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];
+					fd.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				fd.fileName = fileName;
+				filePart.getFile().renameTo(new File(targetPath));
+				fd.fileType = contentType; 
+		        //end write file
+			}
+ 	
+	    fd.update();
+		 
 		 
 		 return redirect(routes.Import.importsMaterial2("1"));
 		 
@@ -194,6 +252,33 @@ public class ImportDetail extends Controller {
 		 MaterialCode mc = MaterialCode.find.byId(form.get("code"));
 		 mc.otherDetail = form.get("otherDetail");
 		 
+		 MultipartFormData body = request().body().asMultipartFormData();
+	    	FilePart filePart = body.getFile("attachFile");
+			String fileName="";
+			String contentType=""; 
+			//File file = null;
+	    	if (filePart != null) {
+				fileName = filePart.getFilename();
+				contentType = filePart.getContentType(); 	
+		        File file = new File("./public/"+mc.path);		//get file------------------------------------------------
+				file.delete();									//delete file---------------------------------------------
+				
+				//write file
+				String[] extension=fileName.split("\\.");
+				String targetPath = "./public/images/goodsNumber/" + mc.code;
+				mc.path ="images/goodsNumber/" + mc.code;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];
+					mc.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				mc.fileName = fileName;
+				filePart.getFile().renameTo(new File(targetPath));
+				mc.fileType = contentType; 
+		        //end write file
+			}
+		 
 		 mc.update();
 		 
 		 return redirect(routes.Import.importsMaterial2("2"));
@@ -215,9 +300,36 @@ public class ImportDetail extends Controller {
 	 
 	 public static Result saveNewMaterialConsumableGoods(){
 		 DynamicForm form = Form.form().bindFromRequest();
-		 System.out.println("inside!!!!!");
+
 		 MaterialCode mc = MaterialCode.find.byId(form.get("code"));
 		 mc.otherDetail = form.get("otherDetail");
+		 
+		 MultipartFormData body = request().body().asMultipartFormData();
+	    	FilePart filePart = body.getFile("attachFile");
+			String fileName="";
+			String contentType=""; 
+			//File file = null;
+	    	if (filePart != null) {
+				fileName = filePart.getFilename();
+				contentType = filePart.getContentType(); 	
+		        File file = new File("./public/"+mc.path);		//get file------------------------------------------------
+				file.delete();									//delete file---------------------------------------------
+				
+				//write file
+				String[] extension=fileName.split("\\.");
+				String targetPath = "./public/images/goodsNumber/" + mc.code;
+				mc.path ="images/goodsNumber/" + mc.code;
+				if(extension.length>1)
+				{
+					targetPath += "." + extension[((extension.length)-1)];
+					mc.path+="." + extension[((extension.length)-1)];	
+					
+				}
+				mc.fileName = fileName;
+				filePart.getFile().renameTo(new File(targetPath));
+				mc.fileType = contentType; 
+		        //end write file
+			}
 		 
 		 mc.update();
 		 
