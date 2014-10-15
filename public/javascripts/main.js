@@ -118,7 +118,6 @@ $(document).ready( function () {
 		    }
 		});
 		
-		console.log($(table).context[0]);
 		array[i]= table;
 	}
 	for(var i=0; i<searchBox.length; i++){

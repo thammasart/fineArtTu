@@ -42,7 +42,7 @@
                     <div class="input-group date" id="addDate">
                         <span class="input-group-addon width250px" >วันที่นำเข้า</span>
                         <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p" id="addDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.addDate))}">
-                        <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
                         <span class="alertText" id="addDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
@@ -53,7 +53,7 @@
                     <div class="input-group date" id="checkDate">
                         <span class="input-group-addon width250px" >วันที่ตรวจสอบ</span>
                         <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p" id="checkDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.checkDate))}">
-                        <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
                         <span class="alertText" id="checkDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
               </div>
