@@ -44,7 +44,7 @@ public class Borrow extends Model{
         }
 	}
 
-	public String getApproveDate(){
+	public String getDateOfStartBorrow(){
 		if(this.dateOfStartBorrow == null){
 			return " -- ไม่ระบุ -- ";
 		}

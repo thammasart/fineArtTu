@@ -27,11 +27,13 @@ function addSoldButton(){
 }
 
 function addNewDetai(code){
-	if(newDetail.indexOf(code) > -1){
-		newDetail.remove(code);
+	if(newDetail.indexOf("fsn" + code) > -1){
+		newDetail.remove("fsn" + code);
+		document.getElementById("fsn" + code).style.color = "";
 	}
 	else{
-		newDetail.push(code);
+		newDetail.push("fsn" + code);
+		document.getElementById("fsn" + code).style.color = "#cc3300";
 	}
 }
 
@@ -91,7 +93,8 @@ function findFSN(){
 			   	destroyTable();
 				for (var i = 0; i < length; i++) {
 					if((oldDetail.indexOf(allArticles[i].id) < 0)){
-						s += '				<th> <input type=\"checkbox\" ';
+						s += '<tr id="' + 'fsn' + allArticles[i].id + '">';
+						s += '	<th> <input type=\"checkbox\" ';
 						if(newDetail.indexOf(allArticles[i].id) > -1){
 							s += ' checked';
 						}
