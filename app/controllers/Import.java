@@ -744,7 +744,7 @@ public class Import extends Controller {
     	articlesOrder.budgetType = form.get("budgetType");
     	articlesOrder.institute = form.get("institute");
     	articlesOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
-    	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"));
+    	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"))
     		articlesOrder.company = Company.find.where().eq("nameEntrepreneur", form.get("institute")).findList().get(0);
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   AI 
@@ -835,11 +835,11 @@ public class Import extends Controller {
     	try {
     		Date date;
 	        if(!form.get("addDate_p").equals("")) {
-				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("addDate_p")));
+				date = new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).parse(form.get("addDate_p"));
 				articlesOrder.addDate = date;
 	        }
 	        if(!form.get("checkDate_p").equals("")){
-	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("checkDate_p")));
+	        	date = new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).parse(form.get("checkDate_p"));
 	        	articlesOrder.checkDate = date;
 	        }
     	} catch (ParseException e) {
@@ -943,11 +943,16 @@ public class Import extends Controller {
     	System.out.println(body);
     	JsonNode json = body.asJson();
     	models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
-    	models.durableGoods.ProcurementDetail procurementDetail = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(json.get("procurementDetailId").asText()));
+    	models.durableGoods.ProcurementDetail procurementDetail = null;
+    	if(!json.get("procurementDetailId").asText().equals(""))
+    		procurementDetail = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(json.get("procurementDetailId").asText()));
     	
     	boolean editingMode = true;
     	
-    	if(procurementDetail == null) procurementDetail = new models.durableGoods.ProcurementDetail();
+    	if(procurementDetail == null){
+    		procurementDetail = new models.durableGoods.ProcurementDetail();
+    		editingMode = false;
+    	}
     	
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
@@ -1023,7 +1028,10 @@ public class Import extends Controller {
     	///////////////////System.out.println(body);
     	JsonNode json = body.asJson();
     	models.durableArticles.Procurement procurement = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
-    	models.durableArticles.ProcurementDetail procurementDetail = models.durableArticles.ProcurementDetail.find.byId(Long.parseLong(json.get("procurementDetailId").asText()));
+    	models.durableArticles.ProcurementDetail procurementDetail = null;
+    	if(!json.get("procurementDetailId").asText().equals(""))
+    		procurementDetail = models.durableArticles.ProcurementDetail.find.byId(Long.parseLong(json.get("procurementDetailId").asText()));
+    	
     	
     	boolean editingMode = true;
     	
