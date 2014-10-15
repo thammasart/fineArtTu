@@ -1,4 +1,4 @@
-@(user : User, initList:List[models.durableArticles.Borrow], successList:List[models.durableArticles.Borrow])
+@(user : User, initList:List[models.durableArticles.Borrow], borrowList:List[models.durableArticles.Borrow], successList:List[models.durableArticles.Borrow])
 @header("exportBorrow")
 
 @nav(user)
@@ -47,8 +47,35 @@
             <th> <input type="checkbox"/> </th>
             <th>@borrow.title</th>
             <th>@borrow.number</th>
-            <th>borrow.getApproveDate()</th>
-            <th>borrow.status</th>
+            <th>@borrow.getDateOfStartBorrow()</th>
+            <th>@borrow.status</th>
+            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  @if(!borrowList.isEmpty()) {
+    <table class="table table-striped overlayTable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่เริ่มยืม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>รายละเอียด</th>
+          </tr>
+      </thead>
+      <tbody>
+        @for(borrow <- borrowList){
+          <tr>
+            <th> <input type="checkbox"/> </th>
+            <th>@borrow.title</th>
+            <th>@borrow.number</th>
+            <th>@borrow.getDateOfStartBorrow()</th>
+            <th>@borrow.status</th>
             <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
           </tr>
         }
@@ -73,8 +100,8 @@
           <th> <input type="checkbox"/> </th>
           <th>@borrow.title</th>
           <th>@borrow.number</th>
-          <th>borrow.getStartBorrow()</th>
-          <th>borrow.approverToString</th>
+          <th>@borrow.getDateOfStartBorrow()</th>
+          <th>@borrow.status</th>
           <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
         </tr>
       }

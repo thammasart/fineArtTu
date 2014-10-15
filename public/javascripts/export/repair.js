@@ -14,14 +14,12 @@ var newDetail = [];
 var oldDetail = [];
 
 function addDetailButton(){
-
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
-
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.addDetail.fsnCode.focus();
+	document.getElementById("fsnCode").focus();
 }
 
 function addRepairButton(){
@@ -32,16 +30,20 @@ function addRepairButton(){
 function addNewDetai(code){
 	if(newDetail.indexOf(code) > -1){
 		newDetail.remove(code);
+		document.getElementById("fsn" + code).style.color = "";
+		document.getElementById("addDetail" + code).checked = false;
 	}
 	else{
 		newDetail.push(code);
+		document.getElementById("fsn" + code).style.color = "#cc3300";
+		document.getElementById("addDetail" + code).checked = true;
 	}
 }
 
 function getDetail(id){
 	$.ajax({
 		type: "GET",
-		url: "/export/repair/lodeDetail",
+		url: "/export/repair/loadDetail",
 		data: {'id': id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
@@ -93,12 +95,16 @@ function findFSN(){
 			   	destroyTable();
 				for (var i = 0; i < length; i++) {
 					if((oldDetail.indexOf(allArticles[i].id) < 0)){
-						s += '				<th> <input type=\"checkbox\" ';
+						s += '<tr id="fsn' + allArticles[i].id + '" >';
+						s += '	<th onclick="addNewDetai(' + allArticles[i].id + ')"> ';
 						if(newDetail.indexOf(allArticles[i].id) > -1){
-							s += ' checked';
+							s += '<input type="checkbox" id="addDetail' + allArticles[i].id + '" checked';
 						}
-						s += ' onclick=\"addNewDetai(' + allArticles[i].id + ')\"> </th>';
-						s += '				<th>'+ allArticles[i].code +'</th>';
+						else{
+							s += '<input type="checkbox" id="addDetail' + allArticles[i].id + '"';
+						}
+						s += '> </th>';
+						s += ' <th onclick="addNewDetai(' + allArticles[i].id + ')">'+ allArticles[i].code +'</th>';
 						if(allArticles[i].detail){
 							s += '	<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
 							s += '	<th>'+ allArticles[i].detail.llifeTime + ' ปี / ' + allArticles[i].remainLifetimeToString +'</th>';
