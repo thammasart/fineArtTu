@@ -61,21 +61,21 @@ public class ExportSold extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result saveAuction(long id){
-
-        System.out.println("save Auction");
-
         User user = User.find.byId(session().get("username"));
         Auction auction = Auction.find.byId(id);
+        if(auction != null){
+            DynamicForm f = Form.form().bindFromRequest();
+            auction.title = f.get("title");
+            auction.contractNo = f.get("contractNo");
+            auction.setApproveDate(f.get("approveDate"));
+            auction.status = ExportStatus.SUCCESS;
+            auction.update();
 
-        DynamicForm f = Form.form().bindFromRequest();
-        auction.title = f.get("title");
-        auction.contractNo = f.get("contractNo");
-        auction.setApproveDate(f.get("approveDate"));
-        auction.status = ExportStatus.SUCCESS;
-        auction.update();
-
-        System.out.println(auction.id + " " + auction.title);
-
+            for(AuctionDetail detail : auction.detail){
+                detail.durableArticles.status = SuppliesStatus.AUCTION;
+                detail.durableArticles.update();
+            }
+        }
         return redirect(routes.ExportSold.exportSold());
     }
 

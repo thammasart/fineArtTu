@@ -71,6 +71,10 @@ public class ExportBorrow extends Controller {
             borrow.status = ExportStatus.BORROW;
             borrow.update();
 
+            for(BorrowDetail detail : borrow.detail){
+                detail.durableArticles.status = SuppliesStatus.BORROW;
+                detail.durableArticles.update();
+            }
         }
         return redirect(routes.ExportBorrow.exportBorrow());
     }

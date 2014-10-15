@@ -71,9 +71,12 @@ public class ExportOther extends Controller {
             other.setApproveDate(f.get("approveDate"));
             other.status = ExportStatus.SUCCESS;
             other.update();
-            System.out.println(other.id + " " + other.title);
-        }
 
+            for(OtherTransferDetail detail : other.detail){
+                detail.durableArticles.status = SuppliesStatus.OTHERTRANSFER;
+                detail.durableArticles.update();
+            }
+        }
         return redirect(routes.ExportOther.exportOther());
     }
 

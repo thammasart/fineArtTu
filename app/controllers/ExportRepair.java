@@ -71,6 +71,10 @@ public class ExportRepair extends Controller {
             repair.status = ExportStatus.REPAIRING;
             repair.update();
 
+            for(RepairingDetail detail : repair.detail){
+                detail.durableArticles.status = SuppliesStatus.REPAIRING;
+                detail.durableArticles.update();
+            }
         }
         return redirect(routes.ExportRepair.exportRepairing());
     }

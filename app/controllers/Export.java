@@ -14,6 +14,7 @@ import models.fsnNumber.FSN_Description;
 import models.consumable.*;
 import models.durableArticles.*;
 import models.type.ExportStatus;
+import models.type.SuppliesStatus;
 
 import java.util.Date;
 import java.util.List;
@@ -62,7 +63,7 @@ public class Export extends Controller {
                 searchResult = new ArrayList<DurableArticles>();
                 List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription",description).findList();
                 for(FSN_Description fsn : fanList){
-                    List<DurableArticles> searchDetail = DurableArticles.find.where().like("code", '%'+fsn.descriptionId+'%').findList();
+                    List<DurableArticles> searchDetail = DurableArticles.find.where().like("code", '%'+fsn.descriptionId+'%').eq("status",SuppliesStatus.NORMAL).findList();
                     for(DurableArticles durableArticle : searchDetail){
                         searchResult.add(durableArticle);
                     }
@@ -77,7 +78,7 @@ public class Export extends Controller {
                 List<DurableArticles> searchCode = DurableArticles.find.where().ilike("code",code).findList();
                 List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription",description).findList();
                 for(FSN_Description fsn : fanList){
-                    List<DurableArticles> searchDetail = DurableArticles.find.where().like("code", '%'+fsn.descriptionId+'%').findList();
+                    List<DurableArticles> searchDetail = DurableArticles.find.where().like("code", '%'+fsn.descriptionId+'%').eq("status",SuppliesStatus.NORMAL).findList();
                     for(DurableArticles durableArticle : searchDetail){
                         if(searchCode.contains(durableArticle) && !searchResult.contains(durableArticle)){
                             searchResult.add(durableArticle);
@@ -86,7 +87,7 @@ public class Export extends Controller {
                 }
             }
             else{
-                searchResult = DurableArticles.find.all();
+                searchResult = DurableArticles.find.where().eq("status",SuppliesStatus.NORMAL).findList();
             }
             ObjectMapper mapper = new ObjectMapper();
             String jsonArray = mapper.writeValueAsString(searchResult);

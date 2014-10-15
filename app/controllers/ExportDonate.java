@@ -67,15 +67,19 @@ public class ExportDonate extends Controller {
         User user = User.find.byId(session().get("username"));
         Donation donate = Donation.find.byId(id);
 
-        DynamicForm f = Form.form().bindFromRequest();
-        donate.title = f.get("title");
-        donate.contractNo = f.get("contractNo");
-        donate.setApproveDate(f.get("approveDate"));
-        donate.status = ExportStatus.SUCCESS;
-        donate.update();
+        if(donate != null){
+            DynamicForm f = Form.form().bindFromRequest();
+            donate.title = f.get("title");
+            donate.contractNo = f.get("contractNo");
+            donate.setApproveDate(f.get("approveDate"));
+            donate.status = ExportStatus.SUCCESS;
+            donate.update();
 
-        System.out.println(donate.id + " " + donate.title);
-
+            for(DonationDetail detail : donate.detail){
+                detail.durableArticles.status = SuppliesStatus.DONATED;
+                detail.durableArticles.update();
+            }
+        }
         return redirect(routes.ExportDonate.exportDonate());
     }
 
