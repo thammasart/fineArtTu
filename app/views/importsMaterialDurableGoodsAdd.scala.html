@@ -7,7 +7,7 @@
 @headerTagFull("เพิ่มรายละเอียดวัสดุคงทนถาวร")
 
 <body >
-<div class="detailWindow" >
+<div class="detailWindow" ng-app="materialConsumableGoodsAddMatCode" ng-controller="autoCompleteController">
 
     <form name="addDurableArticles" method="post" action="@routes.Import.saveNewMaterialDurableGoods()" onsubmit="return submitButtonClick()" enctype="multipart/form-data">
         <div class="well" >
@@ -21,29 +21,29 @@
 
                     <table  class="table table-striped">
                       <tr>
-                        <td ><input type="radio" name="chosen" value="01" onclick="radioClick()"> วัสดุคงทนถาวรสำนักงาน(01)</td>
-                        <td ><input type="radio" name="chosen" value="02" onclick="radioClick()"> วัสดุคงทนถาวรไฟฟ้าและวิทยุ(02)</td>
-                        <td ><input type="radio" name="chosen" value="03" onclick="radioClick()"> วัสดุคงทนถาวรงานบ้านงานครัว(03)</td>
-                        <td ><input type="radio" name="chosen" value="04" onclick="radioClick()"> วัสดุคงทนถาวรคอมพิวเตอร์(04)</td>
-                        <td ><input type="radio" name="chosen" value="05" onclick="radioClick()"> วัสดุคงทนถาวรยานพาหนะและขนส่ง(05)</td>
-                        <td ><input type="radio" name="chosen" value="06" onclick="radioClick()"> วัสดุคงทนถาวรวิทยาศาสตร์และการแพทย์(06)</td>
+                        <td><input type="radio" name="chosen" value="01" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรสำนักงาน(01)</td>
+                        <td><input type="radio" name="chosen" value="02" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรไฟฟ้าและวิทยุ(02)</td>
+                        <td><input type="radio" name="chosen" value="03" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรงานบ้านงานครัว(03)</td>
+                        <td><input type="radio" name="chosen" value="04" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรคอมพิวเตอร์(04)</td>
+                        <td><input type="radio" name="chosen" value="05" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรยานพาหนะและขนส่ง(05)</td>
+                        <td><input type="radio" name="chosen" value="06" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรวิทยาศาสตร์และการแพทย์(06)</td>
                       </tr>
 
                       <tr>
-                        <td><input type="radio" name="chosen" value="07" onclick="radioClick()"> วัสดุคงทนถาวรโฆษณาและเผยแพร่(07)</td>
-                        <td><input type="radio" name="chosen" value="08" onclick="radioClick()"> วัสดุคงทนถาวรการศึกษา(08)</td>
-                        <td><input type="radio" name="chosen" value="09" onclick="radioClick()"> วัสดุคงทนถาวรสนาม(09)</td>
-                        <td><input type="radio" name="chosen" value="10" onclick="radioClick()"> วัสดุคงทนถาวรการเกษตร(10)</td>
-                        <td><input type="radio" name="chosen" value="11" onclick="radioClick()"> วัสดุคงทนถาวรสำรวจ(11)</td>
-                        <td><input type="radio" name="chosen" value="12" onclick="radioClick()"> วัสดุคงทนถาวรก่อสร้าง(12)</td>
+                        <td><input type="radio" name="chosen" value="07" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรโฆษณาและเผยแพร่(07)</td>
+                        <td><input type="radio" name="chosen" value="08" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรการศึกษา(08)</td>
+                        <td><input type="radio" name="chosen" value="09" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรสนาม(09)</td>
+                        <td><input type="radio" name="chosen" value="10" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรการเกษตร(10)</td>
+                        <td><input type="radio" name="chosen" value="11" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรสำรวจ(11)</td>
+                        <td><input type="radio" name="chosen" value="12" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรก่อสร้าง(12)</td>
                       </tr>
 
                       <tr>
-                        <td><input type="radio" name="chosen" value="13" onclick="radioClick()"> วัสดุคงทนถาวรโรงงาน(13)</td>
-                        <td><input type="radio" name="chosen" value="14" onclick="radioClick()"> วัสดุคงทนถาวรดนตรีและนาฏศิลทป์(14)</td>
-                        <td><input type="radio" name="chosen" value="15" onclick="radioClick()"> วัสดุคงทนถาวรกีฬา(15)</td>
-                        <td><input type="radio" name="chosen" value="16" onclick="radioClick()"> วัสดุคงทนถาวรอาวุธ(16)</td>
-                        <td><input type="radio" name="chosen" value="17" onclick="radioClick()"> วัสดุคงทนถาวรอื่นๆ(17)</td>
+                        <td><input type="radio" name="chosen" value="13" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรโรงงาน(13)</td>
+                        <td><input type="radio" name="chosen" value="14" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรดนตรีและนาฏศิลทป์(14)</td>
+                        <td><input type="radio" name="chosen" value="15" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรกีฬา(15)</td>
+                        <td><input type="radio" name="chosen" value="16" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรอาวุธ(16)</td>
+                        <td><input type="radio" name="chosen" value="17" onclick="radioClick()" ng-click="genCode()"> วัสดุคงทนถาวรอื่นๆ(17)</td>
                       </tr>
 
                     </table>
@@ -53,14 +53,14 @@
                 <script>
                     function radioClick(){
                         document.getElementById("materialCode").value = document.querySelector('input[name="chosen"]:checked').value;
-                        document.addDurableArticles.code.focus();
+                        document.addDurableArticles.description.focus();
                     }
                 </script>
               <div class="form-inline marginBtm1" role="form" align="center">
                     <div class="form-group" >
                           <div class="input-group" >
                               <span class="input-group-addon width250px" >รหัสวัสดุ</span>
-                              <input type="text" class="form-control  textAlignCenter width300px"placeholder="ตัวอย่าง 01001 สองตัวแรกมาจากradioสามตัวหลังรันไล่เลข" onkeypress="validateNumberKey(event)" name="code" id="materialCode" autocomplete="off" maxlength="5">
+                              <input type="text" class="form-control  textAlignCenter width300px"onkeypress="validateNumberKey(event)" name="code" id="materialCode" autocomplete="off" maxlength="5" ng-Model="code">
                                 <span class="alertText" id="materialCodeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                           </div>
                     </div>

@@ -15,7 +15,7 @@
 
     <div class="detailWindow" id="page1">
 	
-        <form id="saveOrderGood" method="post" action="@routes.Import.saveNewGoodsOrder()" onsubmit="return submitButtonClicks()">
+        <form name="saveOrderGood" id="saveOrderGood" method="post" action="@routes.Import.saveNewGoodsOrder()" onsubmit="return submitButtonClicks()">
 	<input type="hidden" name="id" value="@order.id">
         <div class="form-inline marginBtm1" role="form" align="left">
               <div class="form-group" >
@@ -154,11 +154,9 @@
                     <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                 </button>
             </a>
-            <a href="@routes.Import.importsOrder2("2")">
                 <button form="saveOrderGood" type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
                     ยืนยัน <span class="glyphicon glyphicon-ok"></span>
                 </button>
-            </a>
         </div>
         
     	</form>  

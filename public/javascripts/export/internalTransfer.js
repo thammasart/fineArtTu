@@ -1,3 +1,8 @@
+$(function () {
+    $('#dateP').datetimepicker({
+  	  language:'th'
+    })
+});
 var internalTransfer = {
 	'id': 0,
 	'title': "",
