@@ -19,12 +19,14 @@ function addDetailButton(){
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการส่งซ่อม"
 	document.getElementById("fsnCode").focus();
 }
 
 function addRepairButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการส่งซ่อม"
 }
 
 function addNewDetai(code){

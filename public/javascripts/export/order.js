@@ -3,6 +3,7 @@ $(function () {
   	  language:'th'
     })
 });
+
 var requisition = {
 	'id': 0,
 	'title': "",
@@ -24,12 +25,14 @@ var details = [];
 function addDetailButton(){
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.addDetail.groupCode.focus();
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการเบิกจ่าย"
+	document.getElementById("fsnCode").focus();
 }
 
 function addOrderButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการเบิกจ่าย"
 }
 
 function update(){

@@ -3,6 +3,7 @@ $(function () {
   	  language:'th'
     })
 });
+
 var donation = {
 	'id': 0,
 	'title': "",
@@ -13,18 +14,19 @@ var newDetail = [];
 var oldDetail = [];
 
 function addDetailButton(){
-	//clearTable(1); // clear table 2 in the page
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.addDetail.fsnCode.focus();
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการบริจาค"
+	document.getElementById("fsnCode").focus();
 }
 
 function addDonateButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการบริจาค"
 }
 
 function addNewDetai(code){

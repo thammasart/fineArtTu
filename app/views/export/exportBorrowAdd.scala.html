@@ -1,11 +1,11 @@
 @(user : User ,borrow:models.durableArticles.Borrow)
-@header("exportexportRepairAdd")
+@header("exportBorrowAdd")
 
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/borrow.js")"></script>
 <body onload="init(@borrow.id)"> 
 
 @nav(user)
-@headerTagFull("เพิ่มรายการจำหน่าย")
+@headerTagFull("เพิ่มรายการยืม")
 
 <div id="addWindows" class ="detailWindow" >
   
@@ -138,9 +138,11 @@
 </div> 
 
 <div id="addDetailWindows" class="detailWindow">
-  <form name="addDetail">
 
-    <div class="form-inline marginBtm1" role="form" align="left">
+  <div class="well" >
+    <h2 style ="text-align:center;">รายการครุภัณฑ์</h2>
+
+    <div class="form-inline marginBtm1" role="form" align="center">
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >รหัสFSN</span>
@@ -156,10 +158,6 @@
       <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
     </div>
 
-  </form>  
-
-  <div class="well" >
-    <h2 style ="text-align:center;">รายการครุภัณฑ์</h2>
     <table class="table table-striped overlayTable">
       <thead>
         <tr>

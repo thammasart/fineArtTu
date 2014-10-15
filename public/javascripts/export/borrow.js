@@ -19,12 +19,14 @@ function addDetailButton(){
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.addDetail.fsnCode.focus();
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการยืม"
+	document.getElementById("fsnCode").focus();
 }
 
 function addBorrowButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการยืม"
 }
 
 function addNewDetai(code){
