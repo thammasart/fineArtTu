@@ -105,7 +105,7 @@ function saveDetail(){
 function getDetail(id){
 	$.ajax({
 		type: "GET",
-		url: "/export/order/lodeDetail",
+		url: "/export/order/loadDetail",
 		data: {'id': id},
 		success: function(data){
 		   	details = JSON.stringify(data);

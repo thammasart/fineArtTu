@@ -27,20 +27,21 @@ function addDonateButton(){
 }
 
 function addNewDetai(code){
-	if(newDetail.indexOf("fsn" + code) > -1){
-		newDetail.remove("fsn" + code);
+	if(newDetail.indexOf(code) > -1){
+		newDetail.remove(code);
 		document.getElementById("fsn" + code).style.color = "";
+		document.getElementById("addDetail" + code).checked = false;
 	}
 	else{
-		newDetail.push("fsn" + code);
+		newDetail.push(code);
 		document.getElementById("fsn" + code).style.color = "#cc3300";
-	}
-}
+		document.getElementById("addDetail" + code).checked = true;
+	}}
 
 function getDetail(id){
 	$.ajax({
 		type: "GET",
-		url: "/export/donate/lodeDetail",
+		url: "/export/donate/loadDetail",
 		data: {'id': id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
@@ -53,8 +54,7 @@ function getDetail(id){
 			   	oldDetail = [];
 				for (var i = 0; i < detailLength; i++) {
 					oldDetail.push(details[i].durableArticles.id);
-					
-					s += '<tr id="' + 'detail' + allArticles[i].id + '">';
+					s += '<tr id="' + 'detail' + details[i].id + '">';
 					s += '	<th>'+(i+1)+'</th>';
 					s += '	<th>'+ details[i].durableArticles.code +'</th>';
 					if(details[i].durableArticles.detail){
@@ -93,13 +93,16 @@ function findFSN(){
 			   	destroyTable();
 				for (var i = 0; i < length; i++) {
 					if((oldDetail.indexOf(allArticles[i].id) < 0)){
-						s += '<tr id="' + 'fsn' + allArticles[i].id + '">';
-						s += '				<th> <input type=\"checkbox\" ';
+						s += '<tr id="fsn' + allArticles[i].id + '" >';
+						s += '	<th onclick="addNewDetai(' + allArticles[i].id + ')"> ';
 						if(newDetail.indexOf(allArticles[i].id) > -1){
-							s += ' checked';
+							s += '<input type="checkbox" id="addDetail' + allArticles[i].id + '" checked';
 						}
-						s += ' onclick=\"addNewDetai(' + allArticles[i].id + ')\"> </th>';
-						s += '				<th>'+ allArticles[i].code +'</th>';
+						else{
+							s += '<input type="checkbox" id="addDetail' + allArticles[i].id + '"';
+						}
+						s += '> </th>';
+						s += ' <th onclick="addNewDetai(' + allArticles[i].id + ')">'+ allArticles[i].code +'</th>';
 						if(allArticles[i].detail){
 							s += '	<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
 							s += '	<th>'+ allArticles[i].detail.llifeTime + ' ปี / ' + allArticles[i].remainLifetimeToString +'</th>';
