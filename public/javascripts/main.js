@@ -89,8 +89,11 @@ function updateTable(num){
 			"fnDrawCallback": function(oSettings) {
 				if (oSettings.aiDisplay.length < pagingNumber) {
 					$('.dataTables_paginate').hide();
-					$('.pagingContainer').html("<div style='width:100%; margin-bottom:50px'> </div>");
-				}
+					$('.pagingContainer').append("<div class='tableFoot' style='width:100%; margin-bottom:50px'> </div>");
+				}else{
+		        	$('.dataTables_paginate').show();
+		        	$('.pagingContainer .tableFoot').hide();
+		        }
 			}
 		});
 		array[num]= table;
@@ -113,7 +116,10 @@ $(document).ready( function () {
 			"fnDrawCallback": function(oSettings) {
 		        if (oSettings.aiDisplay.length < pagingNumber) {
 		            $('.dataTables_paginate').hide();
-		            $('.pagingContainer').html("<div style='width:100%; margin-bottom:50px'> </div>");
+		            $('.pagingContainer').append("<div class='tableFoot' style='width:100%; margin-bottom:50px'> </div>");
+		        }else{
+		        	$('.dataTables_paginate').show();
+		        	$('.pagingContainer .tableFoot').hide();
 		        }
 		    }
 		});
