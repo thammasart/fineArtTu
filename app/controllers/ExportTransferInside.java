@@ -63,13 +63,22 @@ public class ExportTransferInside extends Controller {
     public static Result saveInternalTransfer(long id){
         User user = User.find.byId(session().get("username"));
         InternalTransfer inside = InternalTransfer.find.byId(id);
-        if(inside != null){
+        if(inside != null && inside.status == ExportStatus.INIT){
             DynamicForm f = Form.form().bindFromRequest();
             inside.title = f.get("title");
             inside.number = f.get("number");
             inside.setApproveDate(f.get("approveDate"));
             inside.status = ExportStatus.SUCCESS;
             inside.update();
+
+            for(InternalTransferDetail detail : inside.detail){
+                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                    //ทำอะไรดี
+                    //detail.durableArticles.status = SuppliesStatus.TRANSFERED;
+                    detail.durableArticles.update();
+                }
+            }
+
         }
         return redirect(routes.ExportTransferInside.exportTransferInside());
     }
@@ -80,6 +89,24 @@ public class ExportTransferInside extends Controller {
         InternalTransfer inside = InternalTransfer.find.byId(id);
         if(inside != null && inside.status == ExportStatus.INIT){
             inside.status = ExportStatus.CANCEL;
+            inside.update();
+        }
+        return redirect(routes.ExportTransferInside.exportTransferInside());
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result deleteInternalTransfer(long id){
+        User user = User.find.byId(session().get("username"));
+        InternalTransfer inside = InternalTransfer.find.byId(id);
+        if(inside != null && inside.status == ExportStatus.INIT){
+            for(InternalTransferDetail detail : inside.detail){
+                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                    //ทำอะไรดี
+                    //detail.durableArticles.status = SuppliesStatus.NORMAL;
+                    detail.durableArticles.update();
+                }
+            }
+            inside.status = ExportStatus.DELETE;
             inside.update();
         }
         return redirect(routes.ExportTransferInside.exportTransferInside());

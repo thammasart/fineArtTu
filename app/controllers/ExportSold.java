@@ -63,7 +63,7 @@ public class ExportSold extends Controller {
     public static Result saveAuction(long id){
         User user = User.find.byId(session().get("username"));
         Auction auction = Auction.find.byId(id);
-        if(auction != null){
+        if(auction != null && auction.status == ExportStatus.INIT){
             DynamicForm f = Form.form().bindFromRequest();
             auction.title = f.get("title");
             auction.contractNo = f.get("contractNo");
@@ -72,8 +72,10 @@ public class ExportSold extends Controller {
             auction.update();
 
             for(AuctionDetail detail : auction.detail){
-                detail.durableArticles.status = SuppliesStatus.AUCTION;
-                detail.durableArticles.update();
+                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                    detail.durableArticles.status = SuppliesStatus.AUCTION;
+                    detail.durableArticles.update();
+                }
             }
         }
         return redirect(routes.ExportSold.exportSold());
@@ -85,6 +87,23 @@ public class ExportSold extends Controller {
         Auction sold = Auction.find.byId(id);
         if(sold != null && sold.status == ExportStatus.INIT){
             sold.status = ExportStatus.CANCEL;
+            sold.update();
+        }
+        return redirect(routes.ExportSold.exportSold());
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result deleteAuction(long id){
+        User user = User.find.byId(session().get("username"));
+        Auction sold = Auction.find.byId(id);
+        if(sold != null && sold.status == ExportStatus.INIT){
+            for(AuctionDetail detail : sold.detail){
+                if(detail.durableArticles.status == SuppliesStatus.AUCTION){
+                    detail.durableArticles.status = SuppliesStatus.NORMAL;
+                    detail.durableArticles.update();
+                }
+            }
+            sold.status = ExportStatus.DELETE;
             sold.update();
         }
         return redirect(routes.ExportSold.exportSold());

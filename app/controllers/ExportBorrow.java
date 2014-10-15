@@ -64,7 +64,7 @@ public class ExportBorrow extends Controller {
     public static Result saveBorrow(long id) {
         User user = User.find.byId(session().get("username"));
         Borrow borrow = Borrow.find.byId(id);
-        if(borrow != null){
+        if(borrow != null && borrow.status == ExportStatus.INIT){
             DynamicForm f = Form.form().bindFromRequest();
             borrow.title = f.get("title");
             borrow.number = f.get("number");;
@@ -72,8 +72,10 @@ public class ExportBorrow extends Controller {
             borrow.update();
 
             for(BorrowDetail detail : borrow.detail){
-                detail.durableArticles.status = SuppliesStatus.BORROW;
-                detail.durableArticles.update();
+                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                    detail.durableArticles.status = SuppliesStatus.BORROW;
+                    detail.durableArticles.update();
+                }
             }
         }
         return redirect(routes.ExportBorrow.exportBorrow());
@@ -85,6 +87,23 @@ public class ExportBorrow extends Controller {
         Borrow borrow = Borrow.find.byId(id);
         if(borrow != null && borrow.status == ExportStatus.INIT){
             borrow.status = ExportStatus.CANCEL;
+            borrow.update();
+        }
+        return redirect(routes.ExportBorrow.exportBorrow());
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result deleteBorrow(long id){
+        User user = User.find.byId(session().get("username"));
+        Borrow borrow = Borrow.find.byId(id);
+        if(borrow != null && borrow.status == ExportStatus.BORROW){
+            for(BorrowDetail detail : borrow.detail){
+                if(detail.durableArticles.status == SuppliesStatus.BORROW){
+                    detail.durableArticles.status = SuppliesStatus.NORMAL;
+                    detail.durableArticles.update();
+                }
+            }
+            borrow.status = ExportStatus.DELETE;
             borrow.update();
         }
         return redirect(routes.ExportBorrow.exportBorrow());

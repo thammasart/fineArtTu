@@ -64,7 +64,7 @@ public class ExportRepair extends Controller {
     public static Result saveRepairing(long id) {
         User user = User.find.byId(session().get("username"));
         Repairing repair = Repairing.find.byId(id);
-        if(repair != null){
+        if(repair != null && repair.status == ExportStatus.INIT){
         	DynamicForm f = Form.form().bindFromRequest();
             repair.title = f.get("title");
             repair.number = f.get("number");;
@@ -72,8 +72,10 @@ public class ExportRepair extends Controller {
             repair.update();
 
             for(RepairingDetail detail : repair.detail){
-                detail.durableArticles.status = SuppliesStatus.REPAIRING;
-                detail.durableArticles.update();
+                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                    detail.durableArticles.status = SuppliesStatus.REPAIRING;
+                    detail.durableArticles.update();
+                }
             }
         }
         return redirect(routes.ExportRepair.exportRepairing());
@@ -89,6 +91,24 @@ public class ExportRepair extends Controller {
         }
         return redirect(routes.ExportRepair.exportRepairing());
     }
+
+    @Security.Authenticated(Secured.class)
+    public static Result deleteRepairing(long id){
+        User user = User.find.byId(session().get("username"));
+        Repairing repair = Repairing.find.byId(id);
+        if(repair != null && repair.status == ExportStatus.INIT){
+            for(RepairingDetail detail : repair.detail){
+                if(detail.durableArticles.status == SuppliesStatus.REPAIRING){
+                    detail.durableArticles.status = SuppliesStatus.NORMAL;
+                    detail.durableArticles.update();
+                }
+            }
+            repair.status = ExportStatus.DELETE;
+            repair.update();
+        }
+        return redirect(routes.ExportRepair.exportRepairing());
+    }
+
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveRepairingDetail() {
