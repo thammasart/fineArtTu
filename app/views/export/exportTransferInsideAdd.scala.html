@@ -18,7 +18,7 @@
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">รายการ/เรื่อง</span>
-            <input type="text" class="form-control width300px" name="title" id="title">
+            <input type="text" class="form-control width300px" name="title" id="title" >
               <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -33,9 +33,10 @@
 
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
-          <div class="input-group">
+          <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
-            <input type="text" class="form-control width300px" id="approveDate"  name="approveDate">
+            <input type="text" class="form-control width300px" id="approveDate"  name="approveDate" data-format="DD/MM/YYYY">
+            <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
               <span class="alertText" id="approveDateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
