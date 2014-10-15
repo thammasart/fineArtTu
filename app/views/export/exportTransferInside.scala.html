@@ -38,19 +38,21 @@
           <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
           <th>วันอนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
           <th>รายละเอียด</th>
-          <th></th>
         </tr>
       </thead>
       
       <tbody>
-        @for(TransferInside <- initList){
+        @for(transferInside <- initList){
           <tr>
             <th> <input type="checkbox"/> </th>
-            <th>@TransferInside.title</th>
-            <th>@TransferInside.number</th>
-            <th>@TransferInside.getApproveDate()</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
-            <th>@TransferInside.status</th>
+            <th>@transferInside.title</th>
+            <th>@transferInside.number</th>
+            <th>@transferInside.getApproveDate()</th>
+            <th>
+              <a href="@routes.ExportTransferInside.exportTransferInsideAdd(transferInside.id)">
+                <button class="btn btn-xs btn-info" > ทำต่อ</button> 
+              </a>
+            </th>
           </tr>
         }
       </tbody>
@@ -65,19 +67,17 @@
         <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
         <th>วันอนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
         <th>รายละเอียด</th>
-        <th></th>
       </tr>
     </thead>
     
     <tbody>
-      @for(TransferInside <- successList){
+      @for(transferInside <- successList){
         <tr>
           <th> <input type="checkbox"/> </th>
-          <th>@TransferInside.title</th>
-          <th>@TransferInside.number</th>
-          <th>@TransferInside.getApproveDate()</th>
+          <th>@transferInside.title</th>
+          <th>@transferInside.number</th>
+          <th>@transferInside.getApproveDate()</th>
           <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
-          <th>@TransferInside.status</th>
         </tr>
       }
     </tbody>

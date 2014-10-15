@@ -47,11 +47,11 @@ public class ExportBorrow extends Controller {
         temp.dateOfStartBorrow = new Date();
         temp.status = ExportStatus.INIT;
         temp.save();
-        return redirect(routes.ExportBorrow.exporBorrowAdd(temp.id));
+        return redirect(routes.ExportBorrow.exportBorrowAdd(temp.id));
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result exporBorrowAdd(long id) {
+    public static Result exportBorrowAdd(long id) {
         User user = User.find.byId(session().get("username"));
         Borrow borrow = Borrow.find.byId(id);
         if(borrow == null){

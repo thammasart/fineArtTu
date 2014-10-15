@@ -49,7 +49,11 @@
             <th>@borrow.number</th>
             <th>@borrow.getDateOfStartBorrow()</th>
             <th>@borrow.status</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+            <th>
+              <a href="@routes.ExportBorrow.exportBorrowAdd(borrow.id)">
+                <button class="btn btn-xs btn-info" > ทำต่อ</button> 
+              </a>
+            </th>
           </tr>
         }
       </tbody>

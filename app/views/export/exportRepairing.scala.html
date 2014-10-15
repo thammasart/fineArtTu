@@ -49,7 +49,11 @@
             <th>@repair.number</th>
             <th>repair.getApproveDate()</th>
             <th>repair.status</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+            <th>
+              <a href="@routes.ExportRepair.exportRepairingAdd(repair.id)">
+                <button class="btn btn-xs btn-info" > ทำต่อ</button> 
+              </a>
+            </th>
           </tr>
         }
       </tbody>
