@@ -8,6 +8,9 @@ var newDetail = [];
 var oldDetail = [];
 
 function addDetailButton(){
+	destroyTable();
+	document.getElementById("searchResultTable").innerHTML = "";
+	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
 	document.addDetail.room.focus();

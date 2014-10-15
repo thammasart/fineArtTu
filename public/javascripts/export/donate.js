@@ -13,9 +13,10 @@ var newDetail = [];
 var oldDetail = [];
 
 function addDetailButton(){
-
-	clearTable(1); // clear table 2 in the page
-
+	//clearTable(1); // clear table 2 in the page
+	destroyTable();
+	document.getElementById("searchResultTable").innerHTML = "";
+	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
 	document.addDetail.fsnCode.focus();
