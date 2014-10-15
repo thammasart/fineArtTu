@@ -128,6 +128,19 @@ function findFSN(){
 
 }
 
+function submitButtonJsClick(){
+    var submitStatusjs = true;
+    if(document.getElementById("natureOfDamage").value ==""){
+        document.getElementById("natureOfDamageAlert").style.display = "table-row";
+        submitStatusjs = false;
+        document.addSold.title.focus();
+    }else  document.getElementById("natureOfDamageAlert").style.display= "none";
+
+    if(submitStatusjs == true){
+        saveDetail();
+    }
+    
+}
 function saveDetail(){
 	var dataDetail = {};
 	dataDetail.id = repair.id;
@@ -155,4 +168,45 @@ function init(id){
 	repair.id = id;
 	getDetail(id);
 	addRepairButton();
+}
+function submitButtonClick(){
+    
+    submitStatus = true;
+    if(document.getElementById("title").value ==""){
+        document.getElementById("titleAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addSold.title.focus();
+    }else  document.getElementById("titleAlert").style.display= "none";
+
+    if(document.getElementById("number").value ==""){
+        document.getElementById("numberAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addSold.number.focus();
+    }else  document.getElementById("numberAlert").style.display= "none";
+
+    if(document.getElementById("dateOfSentToRepair").value ==""){
+        document.getElementById("dateOfSentToRepairAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addSold.dateOfSentToRepair.focus();
+    }else  document.getElementById("dateOfSentToRepairAlert").style.display= "none";
+
+    if(document.getElementById("approverFirstName").value ==""){
+        document.getElementById("approverFirstNameAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addSold.approverFirstName.focus();
+    }else  document.getElementById("approverFirstNameAlert").style.display= "none";
+
+    if(document.getElementById("approverLastName").value ==""){
+        document.getElementById("approverLastNameAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addSold.approverLastName.focus();
+    }else  document.getElementById("approverLastNameAlert").style.display= "none";
+
+    if(document.getElementById("approverPosition").value ==""){
+        document.getElementById("approverPositionAlert").style.display = "table-row";
+        submitStatus = false;
+        document.addSold.approverPosition.focus();
+    }else  document.getElementById("approverPositionAlert").style.display= "none";
+
+    return submitStatus;
 }

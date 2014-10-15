@@ -1,4 +1,6 @@
-@(order:models.durableGoods.Procurement,user : User)
+@(order:models.durableGoods.Procurement,user : User, companies : List[models.Company])
+@import java.text.SimpleDateFormat
+@import java.util.Locale
 @header("importsOrderDurableGoodsAdd")
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
@@ -13,7 +15,7 @@
 
     <div class="detailWindow" id="page1">
 	
-        <form name="saveOrderGood" method="post" action="@routes.Import.saveNewGoodsOrder()" onsubmit="return submitButtonClicks()">
+        <form id="saveOrderGood" method="post" action="@routes.Import.saveNewGoodsOrder()" onsubmit="return submitButtonClicks()">
 	<input type="hidden" name="id" value="@order.id">
         <div class="form-inline marginBtm1" role="form" align="left">
               <div class="form-group" >
@@ -39,7 +41,7 @@
               <div class="form-group" >
                     <div class="input-group date" id="addDate">
                         <span class="input-group-addon width250px" >วันที่นำเข้า</span>
-                        <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p" id="addDate_p">
+                        <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p" id="addDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.addDate))}">
                         <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
                         <span class="alertText" id="addDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
@@ -50,7 +52,7 @@
               <div class="form-group" >
                     <div class="input-group date" id="checkDate">
                         <span class="input-group-addon width250px" >วันที่ตรวจสอบ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p" id="checkDate_p">
+                        <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p" id="checkDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.checkDate))}">
                         <span class="input-group-addon width25px"><span class="glyphicon glyphicon-calendar"></span></span>
                         <span class="alertText" id="checkDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
@@ -61,10 +63,10 @@
             <div class="input-group marginBtm1">
                 <span class="input-group-addon width250px">ประเภทงบประมาณ</span>
                     <select class="form-control textAlignCenter  width300px" name="budgetType" value="@order.budgetType">
-                        <option>งบคลัง</option>
-                        <option>งบพิเศษ</option>
-                        <option>งบกองทุนค่าธรรมเนียม</option>
-                        <option>อื่นๆ</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("คลัง")) { selected }>งบคลัง</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("พิเศษ")) { selected }>งบพิเศษ</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("ค่าธรรมเนียม")) { selected }>งบกองทุนค่าธรรมเนียม</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("อื่นๆ")) { selected }>อื่นๆ</option>
                     </select>
             </div>
         </div>
@@ -74,9 +76,11 @@
                 <span class="input-group-addon width250px">สถานประกอบการ</span>
                     <select class="form-control textAlignCenter  width300px" name="institute" value="@order.institute">
                         <option>---เลือก---</option>
-                        <option>Asissoft</option>
-                        <option>Lotus</option>
-                        <option>ProBike</option>
+                        @for(company <- companies){
+                        	<option @if(order.institute ==company.nameEntrepreneur ){ selected}>
+                        		@company.nameEntrepreneur
+                        	</option>
+                        }
                     </select>
             </div>
         </div>

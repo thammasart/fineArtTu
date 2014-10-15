@@ -15,11 +15,16 @@ $('document').ready(function(){
 
 $(function () {
     $('#addDate').datetimepicker({
-  	  language:'th'
+  	  language:'th',
+  	  pickTime: false,
     })
+    
+    if($('#addDate').val()!='')$('#addDate').data("DateTimePicker").setDate(new Date());
     $('#checkDate').datetimepicker({
-  	  language:'th'
+  	  language:'th',
+  	  pickTime: false,
     })
+    if($('#checkDate').val()!='')$('#checkDate').data("DateTimePicker").setDate(new Date());
 });
 function retriveProcurement(id,tab){
 	var obj = {

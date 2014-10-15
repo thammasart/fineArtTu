@@ -24,7 +24,6 @@ import javax.imageio.ImageIO;
 import javax.persistence.ManyToOne;
 import javax.swing.JOptionPane;
 
-
 import models.consumable.Procurement;
 import models.durableArticles.DurableArticles;
 import models.durableArticles.ProcurementDetail;
@@ -574,7 +573,8 @@ public class Import extends Controller {
     public static Result importsOrderDurableArticlesAdd(Long id) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         models.durableArticles.Procurement order = models.durableArticles.Procurement.find.byId(id);
-        return ok(importsOrderDurableArticlesAdd.render(order,user));
+        List<Company> companies = Company.find.all();
+        return ok(importsOrderDurableArticlesAdd.render(order,user,companies));
     }
     
     @Security.Authenticated(Secured.class)
@@ -744,6 +744,8 @@ public class Import extends Controller {
     	articlesOrder.budgetType = form.get("budgetType");
     	articlesOrder.institute = form.get("institute");
     	articlesOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
+    	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"));
+    		articlesOrder.company = Company.find.where().eq("nameEntrepreneur", form.get("institute")).findList().get(0);
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   AI 
     	
@@ -833,11 +835,11 @@ public class Import extends Controller {
     	try {
     		Date date;
 	        if(!form.get("addDate_p").equals("")) {
-				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
+				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("addDate_p")));
 				articlesOrder.addDate = date;
 	        }
 	        if(!form.get("checkDate_p").equals("")){
-	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
+	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("checkDate_p")));
 	        	articlesOrder.checkDate = date;
 	        }
     	} catch (ParseException e) {
@@ -868,7 +870,9 @@ public class Import extends Controller {
     	goodsOrder.contractNo = form.get("contractNo");
     	goodsOrder.budgetType = form.get("budgetType");
     	goodsOrder.institute = form.get("institute");
-    	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));	
+    	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
+    	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"))
+    		goodsOrder.company = Company.find.where().eq("nameEntrepreneur", form.get("institute")).findList().get(0);
     	
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
@@ -912,11 +916,11 @@ public class Import extends Controller {
     	try {
     		Date date;
 	        if(!form.get("addDate_p").equals("")) {
-				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("addDate_p"));
+				date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("addDate_p")));
 				goodsOrder.addDate = date;
 	        }
 	        if(!form.get("checkDate_p").equals("")){
-	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(form.get("checkDate_p"));
+	        	date = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(util.DataRandom.toStandardYear(form.get("checkDate_p")));
 	        	goodsOrder.checkDate = date;
 	        }
     	} catch (ParseException e) {
@@ -1143,8 +1147,9 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result importsOrderGoodsAdd(Long id) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        models.durableGoods.Procurement order = models.durableGoods.Procurement.find.byId(id); 
-        return ok(importsOrderGoodsAdd.render(order,user));
+        models.durableGoods.Procurement order = models.durableGoods.Procurement.find.byId(id);
+        List<Company> companies = Company.find.all();
+        return ok(importsOrderGoodsAdd.render(order,user,companies));
     }
     
     @Security.Authenticated(Secured.class)
@@ -1307,6 +1312,41 @@ public class Import extends Controller {
     	return ok(result);
     }
     
+    @Security.Authenticated(Secured.class)
+    public static Result findNextMaterialNumber(String matKey){
+        String desIdInput = matKey;
+        System.out.println(matKey);
+        List<MaterialCode> allMat = MaterialCode.find.where().ilike("code",desIdInput+"%").orderBy("code desc").findList();
+        String lastMat = matKey + "000";
+        if(allMat.size() > 0){
+           lastMat = allMat.get(0).code; 
+        }
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+        
+            ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            String jsonArray = mapper.writeValueAsString(lastMat);
+            json = Json.parse(jsonArray);
+            result.put("lastDes",json);
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error3");
+        }
+
+      return ok(result);
+        
+    }
     @Security.Authenticated(Secured.class)
     public static Result findNextFsnNumber(String fsnKey){
         String desIdInput = fsnKey;

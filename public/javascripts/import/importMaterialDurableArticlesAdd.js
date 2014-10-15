@@ -28,7 +28,7 @@ angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
 
         function plusOne(desId) { 
             var number = desId[9]+desId[10]+desId[11]+desId[12];
-            var number = parseInt(number)+1;
+             number = parseInt(number)+1;
             if(number<10){
                 number = "-"+"0"+"0"+"0"+number;
             }else  if(number<100){
