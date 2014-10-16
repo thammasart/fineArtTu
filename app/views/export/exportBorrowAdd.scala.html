@@ -1,15 +1,15 @@
 @(user : User ,borrow:models.durableArticles.Borrow)
-@header("exportexportRepairAdd")
+@header("exportBorrowAdd")
 
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/borrow.js")"></script>
 <body onload="init(@borrow.id)"> 
 
 @nav(user)
-@headerTagFull("เพิ่มรายการจำหน่าย")
+@headerTagFull("เพิ่มรายการยืม")
 
 <div id="addWindows" class ="detailWindow" >
   
-  <form name="addSold" method="post" action="routes.ExportBorrow.saveBorrow(borrow.id)">
+  <form name="addSold" method="post" action="@routes.ExportBorrow.saveBorrow(borrow.id)">
     <div>
 
       <div class="form-inline marginBtm1" role="form">
@@ -124,7 +124,7 @@
 
 
     <div align="center" style="margin-bottom:1%;">
-      <a href="routes.ExportBorrow.cancelBorrow(borrow.id)">
+      <a href="@routes.ExportBorrow.cancelBorrow(borrow.id)">
         <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
           <span class="glyphicon glyphicon-remove"></span> ยกเลิก
         </button>
@@ -138,9 +138,11 @@
 </div> 
 
 <div id="addDetailWindows" class="detailWindow">
-  <form name="addDetail">
 
-    <div class="form-inline marginBtm1" role="form" align="left">
+  <div class="well" >
+    <h2 style ="text-align:center;">รายการครุภัณฑ์</h2>
+
+    <div class="form-inline marginBtm1" role="form" align="center">
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >รหัสFSN</span>
@@ -156,10 +158,6 @@
       <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
     </div>
 
-  </form>  
-
-  <div class="well" >
-    <h2 style ="text-align:center;">รายการครุภัณฑ์</h2>
     <table class="table table-striped overlayTable">
       <thead>
         <tr>
@@ -180,7 +178,7 @@
 
   <div align="center" style="margin-bottom:1%;">
 
-    <button class="btn btn-danger btn-lg width250px" onclick="addSoldButton()" style="margin-top:1%;margin-right:1%;">
+    <button class="btn btn-danger btn-lg width250px" onclick="addBorrowButton()" style="margin-top:1%;margin-right:1%;">
         <span class="glyphicon glyphicon-remove"></span> ยกเลิก
     </button>
     <button class="btn btn-success btn-lg width250px" onclick="saveDetail()" style=" margin-top:1%;">

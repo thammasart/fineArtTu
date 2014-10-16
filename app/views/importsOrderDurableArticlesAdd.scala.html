@@ -9,19 +9,19 @@
     <script src="@routes.Assets.at("javascripts/controllers/fsnAutocomplete.js")"></script>
     <script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
 
-
 @nav(user)
 @headerTagFull("เพิ่มรายการครุภัณฑ์จัดซื้อและนำเข้า")
 
 <div class="detailWindow" id="page1">
 
-      <form id="saveOrderArticle" method="post" action="@routes.Import.saveNewArticlesOrder()">
+      <form name="saveOrderArticle" id="saveOrderArticle" method="post" action="@routes.Import.saveNewArticlesOrder()" onsubmit="return submitButtonClickAr()">
 	<input type="hidden" name="id" value="@order.id">
      <div class="form-inline marginBtm1" role="form" align="left">
             <div class="form-group" >
                   <div class="input-group" >
                       <span class="input-group-addon width250px" >ชื่อรายการ</span>
-                      <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="title" value="@order.title">
+                      <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="title" name="title" value="@order.title">
+                        <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                   </div>
             </div>
       </div>
@@ -30,7 +30,8 @@
             <div class="form-group" >
                   <div class="input-group" >
                       <span class="input-group-addon width250px" >เลขที่</span>
-                      <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="contractNo" value="@order.contractNo">
+                      <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="contractNo" name="contractNo" value="@order.contractNo">
+                        <span class="alertText" id="contractNoAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                   </div>
             </div>
       </div>
@@ -39,7 +40,8 @@
             <div class="form-group" >
                   <div class="input-group date" id="addDate">
                       <span class="input-group-addon width250px" >วันที่นำเข้า</span>
-                      <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.addDate))}">
+                      <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p" id="addDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.addDate))}">
+                        <span class="alertText" id="addDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                       <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
                   </div>
             </div>
@@ -49,7 +51,8 @@
             <div class="form-group" >
                   <div class="input-group date" id="checkDate">
                       <span class="input-group-addon width250px" >วันที่ตรวจรับ</span>
-                      <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.checkDate))}">
+                      <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p" id="checkDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.checkDate))}">
+                        <span class="alertText" id="checkDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                       <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
                   </div>
             </div>
@@ -86,6 +89,7 @@
                   <div class="input-group" >
                       <span class="input-group-addon width250px" >ปีงบประมาณ</span>
                       <input type="number" class="form-control textAlignCenter  width300px" onkeypress="validateNumberKey(event)" placeholder="ใส่ค่า" name="budgetYear"  id="years" value="@order.budgetYear">
+                        <span class="alertText" id="yearsAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                   </div>
             </div>
       </div>
@@ -166,11 +170,9 @@
                     <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                 </button>
             </a>
-            <a href="@routes.Import.importsOrder2("1")">
                 <button form="saveOrderArticle" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" >
                     ยืนยัน <span class="glyphicon glyphicon-ok"></span>
                 </button>
-            </a>
         </div>
 
         </form>  

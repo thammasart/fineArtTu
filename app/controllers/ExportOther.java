@@ -64,16 +64,21 @@ public class ExportOther extends Controller {
         System.out.println("save other");
         User user = User.find.byId(session().get("username"));
         OtherTransfer other = OtherTransfer.find.byId(id);
-        if(other != null){
+        if(other != null && other.status == ExportStatus.INIT){
             DynamicForm f = Form.form().bindFromRequest();
             other.title = f.get("title");
             other.number = f.get("number");
             other.setApproveDate(f.get("approveDate"));
             other.status = ExportStatus.SUCCESS;
             other.update();
-            System.out.println(other.id + " " + other.title);
-        }
 
+            for(OtherTransferDetail detail : other.detail){
+                if(detail.durableArticles.status == SuppliesStatus.NORMAL ){
+                    detail.durableArticles.status = SuppliesStatus.OTHERTRANSFER;
+                    detail.durableArticles.update();
+                }
+            }
+        }
         return redirect(routes.ExportOther.exportOther());
     }
 
@@ -83,6 +88,22 @@ public class ExportOther extends Controller {
         OtherTransfer other = OtherTransfer.find.byId(id);
         if(other != null && other.status == ExportStatus.INIT){
             other.status = ExportStatus.CANCEL;
+            other.update();
+        }
+        return redirect(routes.ExportOther.exportOther());
+    }
+
+    public static Result deleteOther(long id){
+        User user = User.find.byId(session().get("username"));
+        OtherTransfer other = OtherTransfer.find.byId(id);
+        if(other != null && other.status == ExportStatus.SUCCESS){
+            for(OtherTransferDetail detail : other.detail){
+                if(detail.durableArticles.status == SuppliesStatus.DONATED){
+                    detail.durableArticles.status = SuppliesStatus.NORMAL;
+                    detail.durableArticles.update();
+                }
+            }
+            other.status = ExportStatus.DELETE;
             other.update();
         }
         return redirect(routes.ExportOther.exportOther());

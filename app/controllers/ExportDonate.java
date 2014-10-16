@@ -61,21 +61,24 @@ public class ExportDonate extends Controller {
     
     @Security.Authenticated(Secured.class)
     public static Result saveDonation(long id){
-
-        System.out.println(" save donate");
-
         User user = User.find.byId(session().get("username"));
         Donation donate = Donation.find.byId(id);
 
-        DynamicForm f = Form.form().bindFromRequest();
-        donate.title = f.get("title");
-        donate.contractNo = f.get("contractNo");
-        donate.setApproveDate(f.get("approveDate"));
-        donate.status = ExportStatus.SUCCESS;
-        donate.update();
+        if(donate != null && donate.status == ExportStatus.INIT ){
+            DynamicForm f = Form.form().bindFromRequest();
+            donate.title = f.get("title");
+            donate.contractNo = f.get("contractNo");
+            donate.setApproveDate(f.get("approveDate"));
+            donate.status = ExportStatus.SUCCESS;
+            donate.update();
 
-        System.out.println(donate.id + " " + donate.title);
-
+            for(DonationDetail detail : donate.detail){
+                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                    detail.durableArticles.status = SuppliesStatus.DONATED;
+                    detail.durableArticles.update();
+                }
+            }
+        }
         return redirect(routes.ExportDonate.exportDonate());
     }
 
@@ -85,6 +88,23 @@ public class ExportDonate extends Controller {
         Donation donate = Donation.find.byId(id);
         if(donate != null && donate.status == ExportStatus.INIT){
             donate.status = ExportStatus.CANCEL;
+            donate.update();
+        }
+        return redirect(routes.ExportDonate.exportDonate());
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result deleteDonation(long id){
+        User user = User.find.byId(session().get("username"));
+        Donation donate = Donation.find.byId(id);
+        if(donate != null && donate.status == ExportStatus.SUCCESS){
+            for(DonationDetail detail : donate.detail){
+                if(detail.durableArticles.status == SuppliesStatus.BORROW){
+                    detail.durableArticles.status = SuppliesStatus.NORMAL;
+                    detail.durableArticles.update();
+                }
+            }
+            donate.status = ExportStatus.DELETE;
             donate.update();
         }
         return redirect(routes.ExportDonate.exportDonate());

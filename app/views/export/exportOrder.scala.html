@@ -51,7 +51,11 @@
             <th>@requisition.number</th>
             <th>@requisition.approveDateToString()</th>
             <th>@requisition.status</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+            <th>
+              <a href="@routes.ExportOrder.exportOrderAdd(requisition.id)">
+                <button class="btn btn-xs btn-info" > ทำต่อ</button> 
+              </a>
+            </th>
           </tr>
         }
       </tbody>

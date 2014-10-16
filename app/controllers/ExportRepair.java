@@ -36,8 +36,9 @@ public class ExportRepair extends Controller {
     public static Result exportRepairing() {
         User user = User.find.byId(session().get("username"));
         List<Repairing> initList = Repairing.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
-        List<Repairing> successList = Repairing.find.where().eq("status", ExportStatus.REPAIRING).orderBy("id desc").findList();
-        return ok(exportRepairing.render(user,initList, successList));
+        List<Repairing> repairingList = Repairing.find.where().eq("status", ExportStatus.REPAIRING).orderBy("id desc").findList();
+        List<Repairing> successList = Repairing.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
+        return ok(exportRepairing.render(user,initList, repairingList, successList));
     }
 
     @Security.Authenticated(Secured.class)
@@ -63,13 +64,19 @@ public class ExportRepair extends Controller {
     public static Result saveRepairing(long id) {
         User user = User.find.byId(session().get("username"));
         Repairing repair = Repairing.find.byId(id);
-        if(repair != null){
+        if(repair != null && repair.status == ExportStatus.INIT){
         	DynamicForm f = Form.form().bindFromRequest();
             repair.title = f.get("title");
             repair.number = f.get("number");;
             repair.status = ExportStatus.REPAIRING;
             repair.update();
 
+            for(RepairingDetail detail : repair.detail){
+                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                    detail.durableArticles.status = SuppliesStatus.REPAIRING;
+                    detail.durableArticles.update();
+                }
+            }
         }
         return redirect(routes.ExportRepair.exportRepairing());
     }
@@ -84,6 +91,24 @@ public class ExportRepair extends Controller {
         }
         return redirect(routes.ExportRepair.exportRepairing());
     }
+
+    @Security.Authenticated(Secured.class)
+    public static Result deleteRepairing(long id){
+        User user = User.find.byId(session().get("username"));
+        Repairing repair = Repairing.find.byId(id);
+        if(repair != null && repair.status == ExportStatus.INIT){
+            for(RepairingDetail detail : repair.detail){
+                if(detail.durableArticles.status == SuppliesStatus.REPAIRING){
+                    detail.durableArticles.status = SuppliesStatus.NORMAL;
+                    detail.durableArticles.update();
+                }
+            }
+            repair.status = ExportStatus.DELETE;
+            repair.update();
+        }
+        return redirect(routes.ExportRepair.exportRepairing());
+    }
+
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveRepairingDetail() {

@@ -61,21 +61,23 @@ public class ExportSold extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result saveAuction(long id){
-
-        System.out.println("save Auction");
-
         User user = User.find.byId(session().get("username"));
         Auction auction = Auction.find.byId(id);
+        if(auction != null && auction.status == ExportStatus.INIT){
+            DynamicForm f = Form.form().bindFromRequest();
+            auction.title = f.get("title");
+            auction.contractNo = f.get("contractNo");
+            auction.setApproveDate(f.get("approveDate"));
+            auction.status = ExportStatus.SUCCESS;
+            auction.update();
 
-        DynamicForm f = Form.form().bindFromRequest();
-        auction.title = f.get("title");
-        auction.contractNo = f.get("contractNo");
-        auction.setApproveDate(f.get("approveDate"));
-        auction.status = ExportStatus.SUCCESS;
-        auction.update();
-
-        System.out.println(auction.id + " " + auction.title);
-
+            for(AuctionDetail detail : auction.detail){
+                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                    detail.durableArticles.status = SuppliesStatus.AUCTION;
+                    detail.durableArticles.update();
+                }
+            }
+        }
         return redirect(routes.ExportSold.exportSold());
     }
 
@@ -85,6 +87,23 @@ public class ExportSold extends Controller {
         Auction sold = Auction.find.byId(id);
         if(sold != null && sold.status == ExportStatus.INIT){
             sold.status = ExportStatus.CANCEL;
+            sold.update();
+        }
+        return redirect(routes.ExportSold.exportSold());
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result deleteAuction(long id){
+        User user = User.find.byId(session().get("username"));
+        Auction sold = Auction.find.byId(id);
+        if(sold != null && sold.status == ExportStatus.INIT){
+            for(AuctionDetail detail : sold.detail){
+                if(detail.durableArticles.status == SuppliesStatus.AUCTION){
+                    detail.durableArticles.status = SuppliesStatus.NORMAL;
+                    detail.durableArticles.update();
+                }
+            }
+            sold.status = ExportStatus.DELETE;
             sold.update();
         }
         return redirect(routes.ExportSold.exportSold());

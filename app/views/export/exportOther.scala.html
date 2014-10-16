@@ -46,7 +46,11 @@
             <th>@other.number</th>
             <th>@other.getApproveDate()</th>
             <th>@other.status</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+            <th>
+              <a href="@routes.ExportOther.exportOtherAdd(other.id)">
+                <button class="btn btn-xs btn-info" > ทำต่อ</button> 
+              </a>
+            </th>
           </tr>
         }
       </tbody>

@@ -36,7 +36,7 @@ angular.module('goodsCodeModule', ['ui.bootstrap'])
 function mapDescriptionToCode(){
     var id = document.getElementById("description").value ;
     for(var j = 0; j <goodsName.length;j++){
-        if(id ==goodsCode[j]){
+        if(id ==goodsName[j]){
             document.getElementById("code").value =goodsCode[j];            
         }
     }
@@ -52,16 +52,17 @@ function mapCodeToDescription(){
 
 function submitButtonClicks(){
     
-alert(submitStatus);
     submitStatus = true;
     if(document.getElementById("title").value==""){
         document.getElementById("titleAlert").style.display = "table-row";
         submitStatus = false;
+        document.saveOrderGood.title.focus();
     }else  document.getElementById("titleAlert").style.display= "none";
 
     if(document.getElementById("contractNo").value ==""){
         document.getElementById("contractNoAlert").style.display = "table-row";
         submitStatus = false;
+        document.saveOrderGood.contractNo.focus();
     }else  document.getElementById("contractNoAlert").style.display= "none";
 
     if(document.getElementById("addDate_p").value ==""){
@@ -70,9 +71,9 @@ alert(submitStatus);
     }else  document.getElementById("addDate_pAlert").style.display= "none";
 
     if(document.getElementById("checkDate_p").value==""){
-        document.getElementById("checkDate_pAlertAlert").style.display = "table-row";
+        document.getElementById("checkDate_pAlert").style.display = "table-row";
         submitStatus = false;
-    }else  document.getElementById("checkDate_pAlertAlert").style.display= "none";
+    }else  document.getElementById("checkDate_pAlert").style.display= "none";
 
     if(document.getElementById("years").value ==""){
         document.getElementById("yearsAlert").style.display = "table-row";

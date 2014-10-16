@@ -46,7 +46,11 @@
                     <th>@acution.contractNo</th>
                     <th>@acution.getApproveDate()</th>
                     <th>@acution.status</th>
-                    <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+                    <th>
+                        <a href="@routes.ExportSold.exportSoldAdd(acution.id)">
+                            <button class="btn btn-xs btn-info" > ทำต่อ</button> 
+                        </a>
+                    </th>
                 </tr>
             }
             </tr>

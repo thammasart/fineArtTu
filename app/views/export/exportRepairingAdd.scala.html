@@ -1,5 +1,5 @@
 @(user : User ,repair:models.durableArticles.Repairing)
-@header("exportexportRepairAdd")
+@header("exportRepairAdd")
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
@@ -135,24 +135,23 @@
   </form>  
 
   <div class="well" >
-
     <h2 style ="text-align:center;">เลือกครุภัณฑ์</h2>
 
-        <div class="form-inline marginBtm1" role="form" align="center">
-          <div class="form-group" >
-            <div class="input-group" >
-              <span class="input-group-addon width250px" >ค้นหารหัสFSN</span>
-              <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
-            </div>
-          </div>
-          <div class="form-group" >
-            <div class="input-group" >
-              <span class="input-group-addon width250px" >ค้นหาชื่อครุภัณฑ์</span>
-              <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
-            </div>
-          </div>
-          <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
+    <div class="form-inline marginBtm1" role="form" align="center">
+      <div class="form-group" >
+        <div class="input-group" >
+          <span class="input-group-addon width250px" >ค้นหารหัสFSN</span>
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
         </div>
+      </div>
+      <div class="form-group" >
+        <div class="input-group" >
+          <span class="input-group-addon width250px" >ค้นหาชื่อครุภัณฑ์</span>
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
+        </div>
+      </div>
+      <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
+    </div>
 
     <table class="table table-striped overlayTable">
       <thead>
