@@ -6,7 +6,6 @@ var tableConfiguration = {
 		"sPaginationType": "bootstrap",
 		"sDom": "t <'pagingContainer'p> ",
 		"fnDrawCallback": function(oSettings) {
-			console.log(oSettings.nTableWrapper);
 	        if (oSettings.aiDisplay.length < pagingNumber) {
 	            $(oSettings.nTableWrapper).find('.dataTables_paginate').hide();
 	            $('.pagingContainer').append("<div class='tableFoot' style='width:100%; margin-bottom:50px'> </div>");
@@ -95,6 +94,11 @@ function updateTable(num){
 function clearTable(num){
 	if(num != undefined) array[num].clear().draw();
 }
+
+function getTable(num){
+	return $('.table.table-striped.overlayTable').get(num);
+}
+
 $(document).ready( function () {
 	var searchBox = $('.searchS :input');
 	var tableContent = $('.table.table-striped.overlayTable');

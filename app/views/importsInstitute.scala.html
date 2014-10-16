@@ -56,7 +56,7 @@
 
                 <thead>
                     <tr>
-                        <th></th>
+                        <th><input type="checkbox" id="checkAll" onchange="checkAll()"/></th>
                         <th>ซื่อสถานประกอบการ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ผู้ค้า<span class="glyphicon glyphicon-sort"></span></th>
                         <th>เบอร์โทร<span class="glyphicon glyphicon-sort"></span></th>
@@ -70,7 +70,7 @@
 
                   @for(institute<- institutes){
                     <tr>
-                    <th><input id="@institute.id" type="checkbox" onclick="addTick(@institute.id,'@institute.nameEntrepreneur')"></th>
+                    <th><input id="@institute.id" class="checkLists" type="checkbox" onchange="addTick(@institute.id,'@institute.nameEntrepreneur')" onclick="isCheckAll()"></th>
                     <th>@institute.nameEntrepreneur</th>
                     <th>@institute.nameDealer</th>
                     <th>@institute.address.telephoneNumber</th>

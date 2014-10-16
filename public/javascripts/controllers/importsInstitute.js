@@ -19,6 +19,28 @@ function removeInstitute() {
 	postData('/import/removeInstitute', institutesTickList);
 }
 
+function checkAll(){
+	var check = $("#checkAll").prop("checked");
+	var checkLists = $(getTable(0)).find('.checkLists');
+	$.each(checkLists,function(i,field){
+		var isChange = field.checked != check; 
+		field.checked = check;
+		if(isChange){
+			field.onchange();
+		}
+	});
+}
+
+function isCheckAll(){
+	var check = $("#checkAll").prop("checked");
+	var checkLists = $(getTable(0)).find('.checkLists');
+	$.each(checkLists,function(i,field){
+		if(!field.checked){
+			$("#checkAll").prop("checked",false);
+		}
+	});
+}
+
 angular.module('importsInstituteApp', [ 'ui.bootstrap' ]).controller(
 		'importsInstituteCtrl', function($scope, $modal) {
 			$scope.name = "asd";
