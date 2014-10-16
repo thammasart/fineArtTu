@@ -1,13 +1,16 @@
 @(user : User, initList:List[models.consumable.Requisition], successList:List[models.consumable.Requisition])
 @header("exportOrder")
 
+    <script src="@routes.Assets.at("javascripts/export/exportOrder.js")"></script>
+
 @nav(user)
 @headerTag("ระบบจัดการรายการเบิกจ่าย")
 @sideMenu(user)
 
 
-<div class="listWindowMaterial">
+<div class="listWindowMaterial" ng-app="exportOrderApp" ng-Controller="exportDel">
 
+@cancelList()
   <div class="tableHeaderBtnContainer">
 
     <div class="searchS">
@@ -25,7 +28,7 @@
       <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportOrder.exportCreateOrder()">
         <button class="btn btn-success" style="width:100%">เพิ่มรายการเบิกจ่าย</button>
       </a>
-      <button class="btn btn-danger width20p" style="float:right;">ลบรายการเบิกจ่าย</button>
+      <button class="btn btn-danger width20p" style="float:right;" ng-click="openDelModal()">ลบรายการเบิกจ่าย</button>
     </div>
 
   </div>

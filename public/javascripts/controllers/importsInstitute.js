@@ -15,7 +15,6 @@ function removeInstitute() {
 	var institutesTickList = {
 		'institutesTickList' : institutesTick
 	};
-	console.log('aaaaaaaaaaaaaaaa');
 	postData('/import/removeInstitute', institutesTickList);
 }
 

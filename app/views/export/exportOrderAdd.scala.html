@@ -5,12 +5,14 @@
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/export/order.js")"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameAutoComplete.js")"></script>
-  <body onload="init(@requisition.id)"> 
+  <body onload="init(@requisition.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการเบิกจ่าย")
 
-<div class ="detailWindow" id="addWindows" ng-app="userAccountModule" ng-controller="autoCompleteUserController">
+
+@cancelExportAdd()
+<div class ="detailWindow" id="addWindows" >
   <form name="addOrder" method="post" action="@routes.ExportOrder.saveRequisition(requisition.id)" ng-init="findUser()" onsubmit="return submitButtonClick()">
     <div>
 
@@ -127,15 +129,13 @@
 
         </tbody>
       </table>
-        
+            @routes.ExportOrder.cancelRequisition(requisition.id)
     </div>
-
     <div align="center" style="margin-bottom:1%;">
-      <a href="@routes.ExportOrder.cancelRequisition(requisition.id)">
-        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+      <!--<a href="@routes.ExportOrder.cancelRequisition(requisition.id)">-->
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="addId(requisition.id)" ng-click="openCancelModal('cancelRequisition')">
           <span class="glyphicon glyphicon-remove"></span> ยกเลิก
         </button>
-      </a>
       <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
         ยืนยัน <span class="glyphicon glyphicon-ok"></span>
       </button>

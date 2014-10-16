@@ -5,14 +5,28 @@ var positionList= [];
 var userAll= [] ;
 var code = [];
 var codeName = [];
+var exportLink;
+var exportId;
 
+ function addId(id) { 
+    exportId = id;
+ } 
 var desId;
 angular.module('userAccountModule', ['ui.bootstrap'])
-    .controller('autoCompleteUserController',function($scope,$http){
+    .controller('autoCompleteUserController',function($scope,$http,$modal){
         
         $scope.name= [];
         $scope.lastname= [];
         $scope.position= [];
+
+         $scope.openCancelModal = function(link) {
+             var cancelModalInstance = $modal.open({
+                     templateUrl : 'cancelExportAdd.html',
+                     controller : cancelModalInstanceCtrl,
+                     size : 'lg'
+             });
+            exportLink = link;
+         };
 
          function combine() { 
             for(var i = 0; i < nameList.length ; i++){
@@ -60,6 +74,17 @@ angular.module('userAccountModule', ['ui.bootstrap'])
         };
     }
 );
+var cancelModalInstanceCtrl = function($scope, $modalInstance){
+
+   $scope.ok = function () {
+        window.location.href = exportLink + "?id="+exportId ;
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
 function radioClick(rValue){
     document.getElementById("code").value = rValue;
 }
