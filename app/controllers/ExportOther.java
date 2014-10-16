@@ -61,7 +61,6 @@ public class ExportOther extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result saveOther(long id){
-        System.out.println("save other");
         User user = User.find.byId(session().get("username"));
         OtherTransfer other = OtherTransfer.find.byId(id);
         if(other != null && other.status == ExportStatus.INIT){
@@ -93,6 +92,7 @@ public class ExportOther extends Controller {
         return redirect(routes.ExportOther.exportOther());
     }
 
+    @Security.Authenticated(Secured.class)
     public static Result deleteOther(long id){
         User user = User.find.byId(session().get("username"));
         OtherTransfer other = OtherTransfer.find.byId(id);
@@ -110,6 +110,7 @@ public class ExportOther extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result saveOtherDetail() {
         ObjectNode result = Json.newObject();
         try {
@@ -117,26 +118,33 @@ public class ExportOther extends Controller {
             JsonNode json = body.asJson();
             long id = Long.parseLong(json.get("id").asText());
             OtherTransfer other = OtherTransfer.find.byId(id);
-            for (final JsonNode objNode : json.get("detail")) {
-                id = Long.parseLong(objNode.toString());
-                DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
-                if(durableArticles != null){
-                    OtherTransferDetail newDetail = new OtherTransferDetail();
-                    newDetail.durableArticles = durableArticles;
-                    newDetail.otherTransfer = other;
-                    newDetail.save();
+            if(other != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
+                    if(durableArticles != null){
+                        OtherTransferDetail newDetail = new OtherTransferDetail();
+                        newDetail.durableArticles = durableArticles;
+                        newDetail.otherTransfer = other;
+                        newDetail.save();
+                    }
                 }
+                result.put("status", "SUCCESS");
             }
-            result.put("status", "SUCCESS");
+            else{
+                result.put("message","not Found other transfer id:" + id);
+                result.put("status", "error");
+            }
         }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("status", "error3");
+            result.put("status", "error");
         }
         return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result loadOtherDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;
@@ -151,20 +159,12 @@ public class ExportOther extends Controller {
             }
             else{
                 result.put("message","not Found other transfer id:" + id);
-                result.put("status", "error3");
+                result.put("status", "error");
             }
-        }
-        catch (JsonProcessingException e) {
-            result.put("message", e.getMessage());
-            result.put("status", "error1");
-        }
-        catch(RuntimeException e){
-            e.printStackTrace();
-            result.put("message", e.getMessage());
-            result.put("status", "error2");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
+            result.put("status", "error");
         }
         return ok(result);
     }

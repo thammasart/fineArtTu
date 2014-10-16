@@ -20,8 +20,6 @@ var detail = {
   	'requisitionId': -1
 };
 
-var details = [];
-
 function addDetailButton(){
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
@@ -49,6 +47,77 @@ function updateDetail(){
   	detail.withdrawerPosition = document.getElementById("withdrawerPosition").value;
   	detail.requisitionId = requisition.id;
 
+}
+
+function getDetail(id){
+	$.ajax({
+		type: "GET",
+		url: "/export/order/loadDetail",
+		data: {'id': id},
+		success: function(data){
+		   	//details = JSON.stringify(data);
+		    if(data["status"] == "SUCCESS"){
+			   	var tr = data["details"];
+			   	var arrayLength = tr.length;
+			   	var s = "";
+				for (var i = 0; i < arrayLength; i++) {
+					s += '<tr>';
+					s += '				<th>'+(i+1)+'</th>';
+					if(tr[i].code){
+						s += '				<th>'+ tr[i].code.code +'</th>';
+						s += '				<th>'+ tr[i].code.description +'</th>';
+						s += '				<th>'+ tr[i].quantity+'</th>';
+						s += '				<th>'+ tr[i].code.classifier +'</th>';
+					}
+					else{
+						s += '				<th> null </th>';
+						s += '				<th> null </th>';
+						s += '				<th>'+tr[i].quantity+'</th>';
+						s += '				<th> null </th>';
+					}
+					if(tr[i].withdrawer){
+						s += '				<th>'+ tr[i].withdrawer.firstName + ' ' + tr[i].withdrawer.lastName +'</th>';
+					}
+					else{
+						s += '				<th> null </th>';
+					}
+					s += '				<th> </th>';
+					s += '</tr>';
+			   	}
+			   	document.getElementById("detailInTable").innerHTML = s;
+			}
+			else{
+		    	alert("get detail error : " + data["message"]);
+		    }
+		}
+	});
+}
+
+function saveDetail(){
+	updateDetail();
+	$.ajax({
+		url:'/export/order/saveDetail',
+	    type: 'post',
+	    data: JSON.stringify(detail),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+	    		addOrderButton()
+	    		getDetail(requisition.id);
+	    	}
+	    	else{
+	    		alert('save detail error : ' + data["message"]);
+	    	}
+    	}
+	});
+}
+
+function init(id){
+	requisition.id = id;
+	getDetail(id);
+	document.addOrder.title.focus();
 }
 
 function validateSaveDetail(){
@@ -87,69 +156,3 @@ function validateSaveDetail(){
         saveDetail();
     }
 }
-
-function saveDetail(){
-	updateDetail();
-	$.ajax({
-		url:'/export/order/saveDetail',
-	    type: 'post',
-	    data: JSON.stringify(detail),
-	    contentType: 'application/json',
-	    dataType: 'json',
-    	success: function(result){
-    		addOrderButton()
-    		getDetail(requisition.id);
-    		//alert(result);
-    		//alert("success");
-    	}
-	});
-}
-
-function getDetail(id){
-	$.ajax({
-		type: "GET",
-		url: "/export/order/loadDetail",
-		data: {'id': id},
-		success: function(data){
-		   	details = JSON.stringify(data);
-		   	var tr = data["details"];
-		   	var arrayLength = tr.length;
-		   	var s = "";
-			for (var i = 0; i < arrayLength; i++) {
-				s += '<tr>';
-				s += '				<th>'+(i+1)+'</th>';
-				if(tr[i].code){
-					s += '				<th>'+ tr[i].code.code +'</th>';
-					s += '				<th>'+ tr[i].code.description +'</th>';
-					s += '				<th>'+ tr[i].quantity+'</th>';
-					s += '				<th>'+ tr[i].code.classifier +'</th>';
-				}
-				else{
-					s += '				<th> null </th>';
-					s += '				<th> null </th>';
-					s += '				<th>'+tr[i].quantity+'</th>';
-					s += '				<th> null </th>';
-				}
-				if(tr[i].withdrawer){
-					s += '				<th>'+ tr[i].withdrawer.firstName + ' ' + tr[i].withdrawer.lastName +'</th>';
-				}
-				else{
-					s += '				<th> null </th>';
-				}
-				s += '				<th> </th>';
-				s += '</tr>';
-		   	}
-		   	document.getElementById("detailInTable").innerHTML = s;
-		}
-	});
-}
-
-function init(id){
-	requisition.id = id;
-	getDetail(id);
-	document.addOrder.title.focus();
-}
-
-
-
-

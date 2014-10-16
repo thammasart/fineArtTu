@@ -110,6 +110,7 @@ public class ExportBorrow extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result saveBorrowDetail() {
         ObjectNode result = Json.newObject();
         try {
@@ -118,17 +119,23 @@ public class ExportBorrow extends Controller {
             long id = Long.parseLong(json.get("id").asText());
             String description = json.get("description").asText();
             Borrow borrow =Borrow.find.byId(id);
-            for (final JsonNode objNode : json.get("detail")) {
-                id = Long.parseLong(objNode.toString());
-                DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
-                if(durableArticles != null){
-                    BorrowDetail newDetail = new BorrowDetail();
-                    newDetail.durableArticles = durableArticles;
-                    newDetail.borrow = borrow;
-                    newDetail.save();
+            if(borrow != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
+                    if(durableArticles != null){
+                        BorrowDetail newDetail = new BorrowDetail();
+                        newDetail.durableArticles = durableArticles;
+                        newDetail.borrow = borrow;
+                        newDetail.save();
+                    }
                 }
+                result.put("status", "SUCCESS");
             }
-            result.put("status", "SUCCESS");
+            else{
+                result.put("message","not Found borrow id:" + id);
+                result.put("status", "error");
+            }
         }
         catch(Exception e){
             result.put("message", e.getMessage());
@@ -139,6 +146,7 @@ public class ExportBorrow extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result loadBorrowDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;
@@ -152,13 +160,13 @@ public class ExportBorrow extends Controller {
                 result.put("status", "SUCCESS");
             }
             else{
-                result.put("message","not Found dotation id:" + id);
-                result.put("status", "error3");
+                result.put("message","not Found borrow id:" + id);
+                result.put("status", "error");
             }
         }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("status", "error3");
+            result.put("status", "error");
         }
         return ok(result);
     }

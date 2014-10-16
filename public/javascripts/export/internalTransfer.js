@@ -51,8 +51,7 @@ function findFSN(){
 		data: {'code': fsnCode, 'description' : des},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
-		   	var status = data["status"];
-		    if(status == "SUCCESS"){
+		    if(data["status"] == "SUCCESS"){
 			   	var allArticles = data["result"];
 			   	var length = allArticles.length;
 			   	var s = "";
@@ -88,7 +87,7 @@ function findFSN(){
 			   	updateTable();
 		    }
 		    else{
-		    	alert("find FSN :" + data["message"]);
+		    	alert("find FSN error : " + data["message"]);
 		    }
 		}
 	});
@@ -101,8 +100,7 @@ function getDetail(){
 		data: {'id': internalTransfer.id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
-		   	var status = data["status"];
-		    if(status == "SUCCESS"){
+		    if(data["status"] == "SUCCESS"){
 			   	var details = data["details"];
 			   	var detailLength = details.length;
 			   	var s = "";
@@ -128,11 +126,51 @@ function getDetail(){
 			   	updateTable();
 		    }
 		    else{
-		    	alert("get detail :" + data["message"]);
+		    	alert("get detail error : " + data["message"]);
 		    }
 		}
 	});
 }
+
+function saveDetail(){
+	var dataDetail = {};
+	dataDetail.id = internalTransfer.id;
+	dataDetail.department = document.getElementById("department").value;
+	dataDetail.room = document.getElementById("room").value;
+	dataDetail.floorLevel = document.getElementById("floorLevel").value;
+	dataDetail.detail = newDetail;
+	$.ajax({
+		url:'/export/transferInside/saveDetail',
+	    type: 'post',
+	    data: JSON.stringify(dataDetail),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+	    		document.getElementById("fsnCode").value = "";
+				document.getElementById("fsnDescription").value = "";
+				document.getElementById("department").value = "";
+				document.getElementById("room").value = "";
+				document.getElementById("floorLevel").value = "";
+				addInternalTransferButton();
+				newDetail = [];
+				getDetail();
+			}
+			else{
+				alert('save detail error : ' + data["message"]);
+			}
+    	}
+	});
+
+}
+
+function init(id){
+	internalTransfer.id = id;
+	addInternalTransferButton();
+	getDetail();
+}
+
 function submitButtonAddClick(){
     
     submitStatus = true;
@@ -170,40 +208,6 @@ function submitButtonAddClick(){
     if(submitStatus == true){
         saveDetail();
     }
-}
-
-function saveDetail(){
-	var dataDetail = {};
-	dataDetail.id = internalTransfer.id;
-	dataDetail.department = document.getElementById("department").value;
-	dataDetail.room = document.getElementById("room").value;
-	dataDetail.floorLevel = document.getElementById("floorLevel").value;
-	dataDetail.detail = newDetail;
-	$.ajax({
-		url:'/export/transferInside/saveDetail',
-	    type: 'post',
-	    data: JSON.stringify(dataDetail),
-	    contentType: 'application/json',
-	    dataType: 'json',
-    	success: function(result){
-    		//alert(JSON.stringify(result));
-    		document.getElementById("fsnCode").value = "";
-			document.getElementById("fsnDescription").value = "";
-			document.getElementById("department").value = "";
-			document.getElementById("room").value = "";
-			document.getElementById("floorLevel").value = "";
-			addInternalTransferButton();
-			newDetail = [];
-			getDetail();
-    	}
-	});
-
-}
-
-function init(id){
-	internalTransfer.id = id;
-	addInternalTransferButton();
-	getDetail();
 }
 
 function submitButtonClick(){

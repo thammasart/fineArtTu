@@ -51,8 +51,7 @@ function findFSN(){
 		data: {'code': fsnCode, 'description' : des},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
-		   	var status = data["status"];
-		    if(status == "SUCCESS"){
+		    if(data["status"] == "SUCCESS"){
 			   	var allArticles = data["result"];
 			   	var length = allArticles.length;
 			   	var s = "";
@@ -88,7 +87,7 @@ function findFSN(){
 			   	updateTable();
 		    }
 		    else{
-		    	alert("find FSN :" + data["message"]);
+		    	alert("find FSN error : " + data["message"]);
 		    }
 		}
 	});
@@ -101,8 +100,7 @@ function getDetail(){
 		data: {'id': other.id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
-		   	var status = data["status"];
-		    if(status == "SUCCESS"){
+		    if(data["status"] == "SUCCESS"){
 			   	var details = data["details"];
 			   	var detailLength = details.length;
 			   	var s = "";
@@ -127,7 +125,7 @@ function getDetail(){
 			   	updateTable();
 		    }
 		    else{
-		    	alert("get detail :" + data["message"]);
+		    	alert("get detail error : " + data["message"]);
 		    }
 		}
 	});
@@ -144,15 +142,19 @@ function saveDetail(){
 	    contentType: 'application/json',
 	    dataType: 'json',
     	success: function(result){
-    		//alert(JSON.stringify(result));
-    		document.getElementById("fsnCode").value = "";
-			document.getElementById("fsnDescription").value = "";
-			addOtherButton();
-			newDetail = [];
-			getDetail();
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+	    		document.getElementById("fsnCode").value = "";
+				document.getElementById("fsnDescription").value = "";
+				addOtherButton();
+				newDetail = [];
+				getDetail();
+			}
+			else{
+				alert('save detail error : ' + data["message"]);
+			}
     	}
 	});
-
 }
 
 function init(id){
