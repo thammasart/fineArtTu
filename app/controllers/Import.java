@@ -1275,7 +1275,8 @@ public class Import extends Controller {
     	for(models.durableArticles.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
-    		item.put("fsn", "fsnCode");
+    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+    		else item.put("fsn", "null");
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
     		item.put("classifier", "อัน");
