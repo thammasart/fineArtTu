@@ -75,7 +75,7 @@ public class ExportOrder extends Controller {
         List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
         if(employees.size() == 1){
             req.user = employees.get(0);
-            System.out.println("user :" + req.user.username);
+//            System.out.println("user :" + req.user.username);
         }
         firstName = f.get("approverFirstName");
         lastName = f.get("approverLastName");
@@ -83,7 +83,7 @@ public class ExportOrder extends Controller {
         employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
         if(employees.size() == 1){
             req.approver = employees.get(0);
-            System.out.println("appover :" + req.approver.username);
+//            System.out.println("appover :" + req.approver.username);
         }
         req.status = ExportStatus.SUCCESS;
         req.update();
@@ -103,13 +103,11 @@ public class ExportOrder extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result saveOrderDetail() {
         RequestBody body = request().body();
         JsonNode json = body.asJson();
-        //System.out.println("saveOrderDetail\n ");
-        //System.out.println(json);
         RequisitionDetail newDetail = new RequisitionDetail();
-
         newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
         MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
         if(code != null){
@@ -132,35 +130,28 @@ public class ExportOrder extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result loadOrderDetail(long id) {
         ObjectNode result = Json.newObject();
-        System.out.println("loadOrderDetail");
         JsonNode json;
         try { 
-            Requisition  requisition = Requisition.find.byId(id);
-            List<RequisitionDetail> detail = RequisitionDetail.find.where().eq("requisition", requisition).findList();
-            ObjectMapper mapper = new ObjectMapper();
-            String jsonArray = mapper.writeValueAsString(detail);
-            json = Json.parse(jsonArray);
-            result.put("details",json);
-            System.out.println("SUCCESS");
+            Requisition requisition = Requisition.find.byId(id);
+            if(requisition != null){
+                List<RequisitionDetail> detail = RequisitionDetail.find.where().eq("requisition", requisition).findList();
+                ObjectMapper mapper = new ObjectMapper();
+                String jsonArray = mapper.writeValueAsString(detail);
+                json = Json.parse(jsonArray);
+                result.put("details",json);
+            }
+            else{
+                result.put("message","not Found requisition id:" + id);
+                result.put("status", "error");
+            }
 
-        }
-        catch (JsonProcessingException e) {
-            result.put("message", e.getMessage());
-            result.put("status", "error1");
-            System.out.println("ERROR 1" + e.getMessage());
-        }
-        catch(RuntimeException e){
-            e.printStackTrace();
-            result.put("message", e.getMessage());
-            result.put("status", "error2");
-            System.out.println("ERROR 2");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
             result.put("status", "error3");
-            System.out.println("ERROR 3");
         }
         return ok(result);
     }

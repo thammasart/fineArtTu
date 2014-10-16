@@ -45,21 +45,18 @@ public class Export extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result searchFSN (String code,String description) {
         ObjectNode result = Json.newObject();
         JsonNode json;
         try{
             List<DurableArticles> searchResult;
             if(!code.isEmpty() && description.isEmpty()){
-
                 code = '%'+code+'%';
-
                 searchResult = DurableArticles.find.where().ilike("code",code).findList();
             }
             else if(code.isEmpty() && !description.isEmpty()){
-
                 description = '%'+description+'%';
-
                 searchResult = new ArrayList<DurableArticles>();
                 List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription",description).findList();
                 for(FSN_Description fsn : fanList){
@@ -73,7 +70,6 @@ public class Export extends Controller {
             else if(!code.isEmpty() && !description.isEmpty()){
                 code = '%'+code+'%';
                 description = '%'+description+'%';
-
                 searchResult = new ArrayList<DurableArticles>();
                 List<DurableArticles> searchCode = DurableArticles.find.where().ilike("code",code).findList();
                 List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription",description).findList();
@@ -94,26 +90,11 @@ public class Export extends Controller {
             json = Json.parse(jsonArray);
             result.put("result",json);
             result.put("status", "SUCCESS");
-            System.out.println("searchFSN SUCCESS");
-
-        }
-        catch (JsonProcessingException e) {
-            result.put("message", e.getMessage());
-            result.put("status", "error1");
-            System.out.println("searchFSN ERROR 1" + e.getMessage());
-        }
-        catch(RuntimeException e){
-            e.printStackTrace();
-            result.put("message", e.getMessage());
-            result.put("status", "error2");
-            System.out.println("searchFSN ERROR 2");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("status", "error3");
-            System.out.println("searchFSN ERROR 3");
+            result.put("status", "error");
         }
-
         return ok(result);
     }
 
@@ -179,6 +160,7 @@ public class Export extends Controller {
         return ok(result);
         
     }
+
     @Security.Authenticated(Secured.class)
     public static Result autocompleteRepairCommitee(){
         List<User> allUser = User.find.all();
