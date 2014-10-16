@@ -104,9 +104,9 @@ function getDetail(id){
 			   	var details = data["details"];
 			   	var detailLength = details.length;
 			   	var s = "";
-			   	destroyTable();
-			   	oldDetail = [];
-				for (var i = 0; i < detailLength; i++) {
+				oldDetail = [];
+				destroyTable();
+			   	for (var i = 0; i < detailLength; i++) {
 					oldDetail.push(details[i].durableArticles.id);
 					s += '<tr>';
 					s += '	<th>'+(i+1)+'</th>';

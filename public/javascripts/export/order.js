@@ -60,6 +60,7 @@ function getDetail(id){
 			   	var tr = data["details"];
 			   	var arrayLength = tr.length;
 			   	var s = "";
+			   	destroyTable();
 				for (var i = 0; i < arrayLength; i++) {
 					s += '<tr>';
 					s += '				<th>'+(i+1)+'</th>';
@@ -85,6 +86,7 @@ function getDetail(id){
 					s += '</tr>';
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
+			   	updateTable();
 			}
 			else{
 		    	alert("get detail error : " + data["message"]);
