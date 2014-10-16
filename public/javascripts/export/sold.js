@@ -101,6 +101,10 @@ function getDetail(id){
 		data: {'id': id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
+		   	var summaryTotal = 0
+			var summaryBudgetType = [];
+			var summaryRemaining = [];
+
 		    if(data["status"] == "SUCCESS"){
 			   	var details = data["details"];
 			   	var detailLength = details.length;
@@ -118,8 +122,21 @@ function getDetail(id){
 					else{
 						s += '	<th>'+ 'ไม่มี' +'</th>';
 					}
-					s += '	<th>'+ details[i].durableArticles.detail.procurement.budgetType +'</th>';
-					s += '	<th>'+ details[i].durableArticles.remainingPriceToString +'</th>';
+					var budgetType = details[i].durableArticles.detail.procurement.budgetType;
+					var remaining = details[i].durableArticles.remaining;
+					summaryTotal += remaining;
+					if(budgetType){
+						var position = summaryBudgetType.indexOf(budgetType);
+						if(position > -1){
+							summaryRemaining[position] += remaining;
+						}
+						else{
+							summaryBudgetType.push(budgetType);
+							summaryRemaining.push(remaining);
+						}
+					}
+					s += '	<th>'+ budgetType +'</th>';
+					s += '	<th>'+ remaining.toFixed(2) +'</th>';
 					s += '</tr>';
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
@@ -128,6 +145,21 @@ function getDetail(id){
 		    else{
 		    	alert("get detail error : " + data["message"]);
 		    }
+
+	   		var summary = '';
+		   	summary += '<div class="input-group width300px">';
+		   	summary += '  <span class="input-group-addon width100px">ราคารวม</span>';
+        	summary += '    <input type="text" class="form-control width150px" value="' + summaryTotal.toFixed(2) +'" disabled>';
+        	summary += '  <span class="input-group-addon" > บาท </span>';
+      		summary += '</div>';
+      		for (var i = 0; i < summaryBudgetType.length; i++) {
+          		summary += '<div class="input-group width300px">';
+			   	summary += '  <span class="input-group-addon width100px">งบ' + summaryBudgetType[i] + '</span>';
+            	summary += '    <input type="text" class="form-control width150px" value="' + summaryRemaining[i].toFixed(2) +'" disabled>';
+            	summary += '  <span class="input-group-addon" > บาท </span>';
+          		summary += '</div>';
+          	}
+			document.getElementById("summaryTable").innerHTML = summary;
 		}
 	});
 }
