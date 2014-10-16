@@ -619,7 +619,8 @@ public class Import extends Controller {
     		for(models.durableArticles.ProcurementDetail p : procurementDetails){
     			ObjectNode item = Json.newObject();
     			item.put("id", p.id);
-    			item.put("fsn", p.fsn.descriptionId);
+    			if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+    			else item.put("fsn", "null");
     			item.put("description", p.description);
     			item.put("quantity", p.quantity);
     			item.put("classifier", "อัน");
@@ -649,7 +650,8 @@ public class Import extends Controller {
     		for(models.durableGoods.ProcurementDetail p : procurementDetails){
     			ObjectNode item = Json.newObject();
         		item.put("id", p.id);
-        		item.put("code", p.code.code);
+        		if(p.code!=null) item.put("code", p.code.code);
+        		else item.put("code", "null");
         		item.put("description", p.description);
         		item.put("quantity", p.quantity);
         		item.put("classifier", "อัน");
@@ -965,6 +967,14 @@ public class Import extends Controller {
     	procurementDetail.serialNumber = json.get("serialNumber").asText();
     	//procurementDetail.partOfPic = json.get("serialNumber").asText();
     	procurementDetail.procurement = procurement;
+    	
+    	String codeId = json.get("code").asText();
+    	if(!codeId.equals("")){
+    		procurementDetail.code = MaterialCode.find.byId(codeId);
+    	}else{
+    		System.out.println("\n\n Exception MaterialCode Not Found !!!! \n\n\n\n\n");
+    	}
+    	
     	if(!editingMode) procurementDetail.save();
     	else procurementDetail.update();
     
@@ -1004,7 +1014,8 @@ public class Import extends Controller {
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
-    		item.put("fsn", "Codes");
+    		if(p.code!=null) item.put("code", p.code.code);
+    		else item.put("code", p.code.code);
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
     		item.put("classifier", "อัน");
@@ -1054,6 +1065,14 @@ public class Import extends Controller {
     	procurementDetail.serialNumber = json.get("serialNumber").asText();
     	//procurementDetail.partOfPic = json.get("serialNumber").asText();
     	procurementDetail.procurement = procurement;
+    	
+    	String fsnCode = json.get("fsnCode").asText();
+    	if(!fsnCode.equals("")){
+    		procurementDetail.fsn = FSN_Description.find.byId(fsnCode);
+    	}else{
+    		System.out.println("\n\n Exception FSN code not found in database!!!!!  \n\n\n\n");
+    	}
+    	
     	if(!editingMode) procurementDetail.save();
     	else procurementDetail.update();
     	
@@ -1102,7 +1121,8 @@ public class Import extends Controller {
     	for(models.durableArticles.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
-    		item.put("fsn", "fsnCode");
+    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+			else item.put("fsn", "null");
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
     		item.put("classifier", "อัน");
@@ -1255,7 +1275,8 @@ public class Import extends Controller {
     	for(models.durableArticles.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
-    		item.put("fsn", "fsnCode");
+    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+    		else item.put("fsn", "null");
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
     		item.put("classifier", "อัน");
