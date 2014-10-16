@@ -4,9 +4,11 @@ import play.data.Form;
 import play.db.ebean.*;
 import javax.persistence.*;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import models.Company;
 import models.durableArticles.*;
@@ -49,10 +51,10 @@ public class Procurement extends Model{
 	public List<AI_Committee> aiCommittee = new ArrayList<AI_Committee>(); // คณะกรรมการตรวจรับ
 	
 	public String getAddDate(){
-		return  addDate != null ? addDate.getDate() + "/" + (addDate.getMonth()+1) + "/" + (addDate.getYear()+1900):"";
+		return  new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(addDate);
 	}
 	public String getCheckDate(){
-		return  checkDate != null ? checkDate.getDate() + "/" + (checkDate.getMonth()+1) + "/" + (checkDate.getYear()+1900):"";
+		return  new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(checkDate);
 	}
 	
 	

@@ -1,5 +1,22 @@
 var array = [];
 var pagingNumber = 15;
+var tableConfiguration = {
+		"info" : false,
+		"iDisplayLength": pagingNumber,   // records per page
+		"sPaginationType": "bootstrap",
+		"sDom": "t <'pagingContainer'p> ",
+		"fnDrawCallback": function(oSettings) {
+			console.log(oSettings.nTableWrapper);
+	        if (oSettings.aiDisplay.length < pagingNumber) {
+	            $(oSettings.nTableWrapper).find('.dataTables_paginate').hide();
+	            $('.pagingContainer').append("<div class='tableFoot' style='width:100%; margin-bottom:50px'> </div>");
+	        }else{
+	        	$(oSettings.nTableWrapper).find('.dataTables_paginate').show();
+	        	$('.pagingContainer .tableFoot').hide();
+	        }
+	    },
+	};
+
 function validateNumberKey(evt) {
 
   var theEvent = evt || window.event;
@@ -66,36 +83,11 @@ function updateTable(num){
 	var table;
 	if(num == undefined){
 		for(var i=0; i<tableContent.length; i++){
-			table = $(tableContent.get(i)).DataTable({
-				info : false,
-				"iDisplayLength": pagingNumber,   // records per page
-				"sPaginationType": "bootstrap",
-				"sDom": "t <'pagingContainer'p> ",
-				"fnDrawCallback": function(oSettings) {
-					if (oSettings.aiDisplay.length < pagingNumber) {
-						$('.dataTables_paginate').hide();
-						$('.pagingContainer').html("<div style='width:100%; margin-bottom:50px'> </div>");
-					}
-				}
-			});
+			table = $(tableContent.get(i)).DataTable(tableConfiguration);
 			array[i]= table;
 		}
 	}else{
-		table = $(tableContent.get(num)).DataTable({
-			info : false,
-			"iDisplayLength": pagingNumber,   // records per page
-			"sPaginationType": "bootstrap",
-			"sDom": "t <'pagingContainer'p> ",
-			"fnDrawCallback": function(oSettings) {
-				if (oSettings.aiDisplay.length < pagingNumber) {
-					$('.dataTables_paginate').hide();
-					$('.pagingContainer').append("<div class='tableFoot' style='width:100%; margin-bottom:50px'> </div>");
-				}else{
-		        	$('.dataTables_paginate').show();
-		        	$('.pagingContainer .tableFoot').hide();
-		        }
-			}
-		});
+		table = $(tableContent.get(num)).DataTable(tableConfiguration);
 		array[num]= table;
 	}
 }
@@ -108,21 +100,7 @@ $(document).ready( function () {
 	var tableContent = $('.table.table-striped.overlayTable');
 	var table;
 	for(var i=0; i<tableContent.length; i++){
-		table = $(tableContent.get(i)).DataTable({
-			info : false,
-			"iDisplayLength": pagingNumber,   // records per page
-			"sPaginationType": "bootstrap",
-			"sDom": "t <'pagingContainer'p> ",
-			"fnDrawCallback": function(oSettings) {
-		        if (oSettings.aiDisplay.length < pagingNumber) {
-		            $('.dataTables_paginate').hide();
-		            $('.pagingContainer').append("<div class='tableFoot' style='width:100%; margin-bottom:50px'> </div>");
-		        }else{
-		        	$('.dataTables_paginate').show();
-		        	$('.pagingContainer .tableFoot').hide();
-		        }
-		    }
-		});
+		table = $(tableContent.get(i)).DataTable(tableConfiguration);
 		
 		array[i]= table;
 	}
