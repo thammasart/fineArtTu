@@ -37,8 +37,8 @@
           <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
           <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
           <th>วันที่เริ่มยืม<span class="glyphicon glyphicon-sort"></span></th>
-          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>รายละเอียด</th>
+          <th>ผู้ยืม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ทำรายการต่อ</th>
           </tr>
       </thead>
       <tbody>
@@ -48,10 +48,10 @@
             <th>@borrow.title</th>
             <th>@borrow.number</th>
             <th>@borrow.getDateOfStartBorrow()</th>
-            <th>@borrow.status</th>
+            <th>@borrow.getWithdrawerToString()</th>
             <th>
               <a href="@routes.ExportBorrow.exportBorrowAdd(borrow.id)">
-                <button class="btn btn-xs btn-primary" > ทำรายการต่อ</button> 
+                <button class="btn btn-xs btn-primary" > ทำรายการต่อ </button> 
               </a>
             </th>
           </tr>
@@ -68,8 +68,8 @@
           <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
           <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
           <th>วันที่เริ่มยืม<span class="glyphicon glyphicon-sort"></span></th>
-          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>รายละเอียด</th>
+          <th>ผู้ยืม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>คืนครุภัณฑ์</th>
           </tr>
       </thead>
       <tbody>
@@ -79,8 +79,12 @@
             <th>@borrow.title</th>
             <th>@borrow.number</th>
             <th>@borrow.getDateOfStartBorrow()</th>
-            <th>@borrow.status</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+            <th>@borrow.getWithdrawerToString()</th>
+            <th> 
+              <a href="@routes.ExportBorrow.returnFromBorrow(borrow.id)">
+                <button class="btn btn-xs btn-warning" > รับคืน </button> 
+              </a>
+            </th>
           </tr>
         }
       </tbody>
@@ -105,8 +109,12 @@
           <th>@borrow.title</th>
           <th>@borrow.number</th>
           <th>@borrow.getDateOfStartBorrow()</th>
-          <th>@borrow.status</th>
-          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>@borrow.getWithdrawerToString()</th>
+          <th> 
+            <a href="@routes.ExportBorrow.viewDetail(borrow.id)">
+              <button class="btn btn-xs btn-info" > รายละเอียด </button> 
+            </a>
+          </th>
         </tr>
       }
     </tbody>

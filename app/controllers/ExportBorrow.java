@@ -61,15 +61,50 @@ public class ExportBorrow extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
+    public static Result returnFromBorrow(long id){
+        return TODO;
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result viewDetail(long id){
+        return TODO;
+    }
+
+    @Security.Authenticated(Secured.class)
     public static Result saveBorrow(long id) {
         User user = User.find.byId(session().get("username"));
         Borrow borrow = Borrow.find.byId(id);
         if(borrow != null && borrow.status == ExportStatus.INIT){
             DynamicForm f = Form.form().bindFromRequest();
             borrow.title = f.get("title");
-            borrow.number = f.get("number");;
-            borrow.status = ExportStatus.BORROW;
+            borrow.number = f.get("number");
+            borrow.setDateOfStartBorrow(f.get("dateOfStartBorrow"));
             borrow.update();
+
+            String firstName = f.get("withdrawerFirstName");
+            String lastName = f.get("withdrawerLastName");
+            String position = f.get("withdrawerPosition");
+            List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            if(employees.size() == 1){
+                borrow.user = employees.get(0);
+                borrow.update();
+            }
+            else{
+                System.out.println(firstName + '\t' + lastName + '\t' + position);
+                return redirect(routes.ExportBorrow.exportBorrowAdd(id));
+            }
+
+            firstName = f.get("approverFirstName");
+            lastName = f.get("approverLastName");
+            position = f.get("approverPosition");
+            employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            if(employees.size() == 1){
+                borrow.approver = employees.get(0);
+                borrow.update();
+            }
+            else{
+                return redirect(routes.ExportBorrow.exportBorrowAdd(id));
+            }
 
             for(BorrowDetail detail : borrow.detail){
                 if(detail.durableArticles.status == SuppliesStatus.NORMAL){
@@ -77,6 +112,9 @@ public class ExportBorrow extends Controller {
                     detail.durableArticles.update();
                 }
             }
+
+            borrow.status = ExportStatus.BORROW;
+            borrow.update();
         }
         return redirect(routes.ExportBorrow.exportBorrow());
     }

@@ -60,6 +60,11 @@ public class ExportOther extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
+    public static Result viewDetail(long id){
+        return TODO;
+    }
+
+    @Security.Authenticated(Secured.class)
     public static Result saveOther(long id){
         User user = User.find.byId(session().get("username"));
         OtherTransfer other = OtherTransfer.find.byId(id);

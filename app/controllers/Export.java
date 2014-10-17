@@ -53,7 +53,7 @@ public class Export extends Controller {
             List<DurableArticles> searchResult;
             if(!code.isEmpty() && description.isEmpty()){
                 code = '%'+code+'%';
-                searchResult = DurableArticles.find.where().ilike("code",code).findList();
+                searchResult = DurableArticles.find.where().ilike("code",code).eq("status",SuppliesStatus.NORMAL).findList();
             }
             else if(code.isEmpty() && !description.isEmpty()){
                 description = '%'+description+'%';

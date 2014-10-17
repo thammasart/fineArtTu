@@ -39,13 +39,6 @@ public class Donation extends Model{ // บริจาค
 	@OneToMany(mappedBy="donation")
 	public List<Donation_D_Committee> dCommittee = new ArrayList<Donation_D_Committee>(); // คณะกรรมการจำหน่าย
 
-	public String approverToString(){
-		if(this.company != null){
-			return company.nameEntrepreneur;
-		}
-		return " null ";
-	}
-
 	public void setApproveDate(String date){
         String[] sList = date.split("/");
         if(sList.length == 3){
@@ -86,6 +79,14 @@ public class Donation extends Model{ // บริจาค
         	result += (approveDate.getYear() + 2443);
 			return result;
 		}
+	}
+
+	public String getCompanyToString(){
+		String result = "";
+		if(company != null){
+			result += company.nameEntrepreneur;
+		}
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")

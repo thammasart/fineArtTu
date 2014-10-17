@@ -37,8 +37,8 @@
           <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
           <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
           <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>รายละเอียด</th>
+          <th>ร้านที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ทำรายการต่อ</th>
           </tr>
       </thead>
       <tbody>
@@ -47,8 +47,8 @@
             <th> <input type="checkbox"/> </th>
             <th>@repair.title</th>
             <th>@repair.number</th>
-            <th>repair.getApproveDate()</th>
-            <th>repair.status</th>
+            <th>@repair.getDateOfSentToRepair()</th>
+            <th>@repair.getCompanyToString()</th>
             <th>
               <a href="@routes.ExportRepair.exportRepairingAdd(repair.id)">
                 <button class="btn btn-xs btn-primary" > ทำรายการต่อ</button> 
@@ -68,8 +68,8 @@
           <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
           <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
           <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>รายละเอียด</th>
+          <th>ร้านที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>คืนครุภัณฑ์</th>
           </tr>
       </thead>
       <tbody>
@@ -78,9 +78,13 @@
             <th> <input type="checkbox"/> </th>
             <th>@repair.title</th>
             <th>@repair.number</th>
-            <th>repair.getApproveDate()</th>
-            <th>repair.status</th>
-            <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+            <th>@repair.getDateOfSentToRepair()</th>
+            <th>@repair.getCompanyToString()</th>
+            <th> 
+              <a href="@routes.ExportRepair.receiveFromRepair(repair.id)">
+                <button class="btn btn-xs btn-warning" > รับคืน </button> 
+              </a>
+            </th>
           </tr>
         }
       </tbody>
@@ -94,7 +98,7 @@
         <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
         <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
         <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-        <th>หน่ายงาน<span class="glyphicon glyphicon-sort"></span></th>
+        <th>ร้านที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th>
         <th>รายละเอียด</th>
         </tr>
     </thead>
@@ -104,9 +108,13 @@
           <th> <input type="checkbox"/> </th>
           <th>@repair.title</th>
           <th>@repair.number</th>
-          <th>repair.getApproveDate()</th>
-          <th>repair.approverToString</th>
-          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>@repair.getDateOfSentToRepair()</th>
+          <th>@repair.getCompanyToString()</th>
+          <th>
+            <a href="@routes.ExportRepair.viewDetail(repair.id)">
+              <button class="btn btn-xs btn-info" > รายละเอียด </button> 
+            </a>
+          </th>
         </tr>
       }
     </tbody>

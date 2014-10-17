@@ -59,6 +59,11 @@ public class ExportOrder extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
+    public static Result viewDetail(long id){
+        return TODO;
+    }
+
+    @Security.Authenticated(Secured.class)
     public static Result saveRequisition(long id){
         User user = User.find.byId(session().get("username"));
         Requisition req = Requisition.find.byId(id);

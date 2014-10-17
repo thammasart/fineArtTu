@@ -77,7 +77,11 @@
           <th>@transferInside.title</th>
           <th>@transferInside.number</th>
           <th>@transferInside.getApproveDate()</th>
-          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>
+            <a href="@routes.ExportTransferInside.viewDetail(transferInside.id)">
+              <button class="btn btn-xs btn-info" > รายละเอียด </button> 
+            </a>
+          </th>
         </tr>
       }
     </tbody>

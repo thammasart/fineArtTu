@@ -61,6 +61,16 @@ public class ExportRepair extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
+    public static Result receiveFromRepair(long id){
+        return TODO;
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result viewDetail(long id){
+        return TODO;
+    }
+
+    @Security.Authenticated(Secured.class)
     public static Result saveRepairing(long id) {
         User user = User.find.byId(session().get("username"));
         Repairing repair = Repairing.find.byId(id);

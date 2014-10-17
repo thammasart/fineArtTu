@@ -16,14 +16,14 @@
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">รายการ เรื่อง</span>
-            <input type="text" class="form-control width300px" name="title">
+            <input type="text" class="form-control width300px" value="@borrow.title" name="title">
             <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">เลขที่</span>
-            <input type="text" class="form-control width300px" name="number">
+            <input type="text" class="form-control width300px" value="@borrow.number" name="number">
             <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -32,8 +32,8 @@
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group" id="dateP">
-            <span class="input-group-addon width250px">วัน/เดือน/ปี ส่งซ่อม</span>
-            <input type="text" class="form-control width300px" name="dateOfSentToRepair" data-format="DD/MM/YYYY">
+            <span class="input-group-addon width250px">วัน/เดือน/ปี เริ่มยืม</span>
+            <input type="text" class="form-control width300px" value="@borrow.getDateOfStartBorrow()" name="dateOfStartBorrow" data-format="DD/MM/YYYY">
             <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
             <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
@@ -45,14 +45,14 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้ยืม:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="withdrawerNmae" id="withdrawerNmae" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" name="withdrawerFirstName" id="withdrawerNmae" onkeyup="mapInput2()">
               <span class="alertText" id="withdrawerNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
-              <input type="text" class="form-control width190px textAlignCenter" name="withdrawerLastname" id="withdrawerLastname">
+              <input type="text" class="form-control width190px textAlignCenter" name="withdrawerLastName" id="withdrawerLastname">
               <span class="alertText" id="withdrawerLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>

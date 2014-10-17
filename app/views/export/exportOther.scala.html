@@ -35,7 +35,7 @@
               <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
               <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
               <th>สาเหตุโอนย้าย<span class="glyphicon glyphicon-sort"></span></th>
-              <th>รายละเอียด</th>
+              <th>ทำรายการต่อ</th>
           </tr>
       </thead>
       <tbody>
@@ -45,7 +45,7 @@
             <th>@other.title</th>
             <th>@other.number</th>
             <th>@other.getApproveDate()</th>
-            <th>@other.status</th>
+            <th>@other.description</th>
             <th>
               <a href="@routes.ExportOther.exportOtherAdd(other.id)">
                 <button class="btn btn-xs btn-primary" > ทำรายการต่อ</button> 
@@ -75,8 +75,12 @@
           <th>@other.title</th>
           <th>@other.number</th>
           <th>@other.getApproveDate()</th>
-          <th>@other.status</th>
-          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>@other.description</th>
+          <th>
+            <a href="@routes.ExportOther.viewDetail(other.id)">
+              <button class="btn btn-xs btn-info" > รายละเอียด </button> 
+            </a>
+          </th>
         </tr>
       }
     </tbody>
