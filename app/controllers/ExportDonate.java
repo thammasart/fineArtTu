@@ -111,6 +111,7 @@ public class ExportDonate extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result saveDonateDetail() {
         ObjectNode result = Json.newObject();
         try {
@@ -118,17 +119,23 @@ public class ExportDonate extends Controller {
             JsonNode json = body.asJson();
             long id = Long.parseLong(json.get("id").asText());
             Donation donate = Donation.find.byId(id);
-            for (final JsonNode objNode : json.get("detail")) {
-                id = Long.parseLong(objNode.toString());
-                DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
-                if(durableArticles != null){
-                    DonationDetail newDetail = new DonationDetail();
-                    newDetail.durableArticles = durableArticles;
-                    newDetail.donation = donate;
-                    newDetail.save();
+            if(donate != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
+                    if(durableArticles != null){
+                        DonationDetail newDetail = new DonationDetail();
+                        newDetail.durableArticles = durableArticles;
+                        newDetail.donation = donate;
+                        newDetail.save();
+                    }
                 }
+                result.put("status", "SUCCESS");
             }
-            result.put("status", "SUCCESS");
+            else{
+                result.put("message","not Found dotation id:" + id);
+                result.put("status", "error");
+            }
         }
         catch(Exception e){
             result.put("message", e.getMessage());
@@ -138,6 +145,7 @@ public class ExportDonate extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result loadDonateDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;
@@ -152,12 +160,12 @@ public class ExportDonate extends Controller {
             }
             else{
                 result.put("message","not Found dotation id:" + id);
-                result.put("status", "error3");
+                result.put("status", "error");
             }
         }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("status", "error3");
+            result.put("status", "error");
         }
         return ok(result);
     }

@@ -110,6 +110,7 @@ public class ExportSold extends Controller {
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result saveAuctionDetail() {
         ObjectNode result = Json.newObject();
         try {
@@ -117,28 +118,34 @@ public class ExportSold extends Controller {
             JsonNode json = body.asJson();
             long id = Long.parseLong(json.get("id").asText());
             Auction auction = Auction.find.byId(id);
-            for (final JsonNode objNode : json.get("detail")) {
-                id = Long.parseLong(objNode.toString());
-                DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
-                if(durableArticles != null){
-                    AuctionDetail newDetail = new AuctionDetail();
-                    newDetail.durableArticles = durableArticles;
-                    newDetail.auction = auction;
-                    newDetail.save();
+            if(auction != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
+                    if(durableArticles != null){
+                        AuctionDetail newDetail = new AuctionDetail();
+                        newDetail.durableArticles = durableArticles;
+                        newDetail.auction = auction;
+                        newDetail.save();
+                    }
                 }
+                result.put("status", "SUCCESS");
             }
-            result.put("status", "SUCCESS");
+            else{
+                result.put("message","not Found action id:" + id);
+                result.put("status", "error");
+            }
+
         }
         catch(Exception e){
             result.put("message", e.getMessage());
             result.put("status", "error");
         }
-        System.out.println("saveAuctionDetail");
-
         return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result loadAuctionDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;
@@ -153,7 +160,7 @@ public class ExportSold extends Controller {
             }
             else{
                 result.put("message","not Found action id:" + id);
-                result.put("status", "error3");
+                result.put("status", "error");
             }
 
         }

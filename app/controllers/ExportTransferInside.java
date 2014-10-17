@@ -123,20 +123,26 @@ public class ExportTransferInside extends Controller {
             String room = json.get("room").asText();
             String floorLevel = json.get("floorLevel").asText();
             InternalTransfer inside = InternalTransfer.find.byId(id);
-            for (final JsonNode objNode : json.get("detail")) {
-                id = Long.parseLong(objNode.toString());
-                DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
-                if(durableArticles != null){
-                    InternalTransferDetail newDetail = new InternalTransferDetail();
-                    newDetail.durableArticles = durableArticles;
-                    newDetail.internalTransfer = inside;
-                    newDetail.department = department;
-                    newDetail.room = room;
-                    newDetail.floorLevel = floorLevel;
-                    newDetail.save();
+            if(inside != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
+                    if(durableArticles != null){
+                        InternalTransferDetail newDetail = new InternalTransferDetail();
+                        newDetail.durableArticles = durableArticles;
+                        newDetail.internalTransfer = inside;
+                        newDetail.department = department;
+                        newDetail.room = room;
+                        newDetail.floorLevel = floorLevel;
+                        newDetail.save();
+                    }
                 }
+                result.put("status", "SUCCESS");
             }
-            result.put("status", "SUCCESS");
+            else{
+                result.put("message","not Found transferInside id:" + id);
+                result.put("status", "error");
+            }
         }
         catch(Exception e){
             result.put("message", e.getMessage());
@@ -160,8 +166,8 @@ public class ExportTransferInside extends Controller {
                 result.put("status", "SUCCESS");
             }
             else{
-                result.put("message","not Found action id:" + id);
-                result.put("status", "error3");
+                result.put("message","not Found transferInside id:" + id);
+                result.put("status", "error");
             }
         }
         catch(Exception e){

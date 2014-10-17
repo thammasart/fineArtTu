@@ -1,12 +1,15 @@
 @(user : User, initList:List[models.durableArticles.Repairing], repairingList:List[models.durableArticles.Repairing], successList:List[models.durableArticles.Repairing])
 @header("exportRepair")
 
+    <script src="@routes.Assets.at("javascripts/export/exportRepair.js")"></script>
 @nav(user)
 @headerTag("ระบบจัดการรายการส่งซ่อม")
 @sideMenu(user)
 
 
-<div class="listWindowMaterial">
+<div class="listWindowMaterial" ng-app="exportRepairApp" ng-Controller="exportDel">
+
+@cancelList()
   <div class="tableHeaderBtnContainer">
 
     <div class="searchS">
@@ -24,7 +27,7 @@
       <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportRepair.exportCreateRepairing()">
         <button class="btn btn-success" style="width:100%">เพิ่มรายการส่งซ่อม</button>
       </a>
-      <button class="btn btn-danger width20p" style="float:right;">ลบรายการส่งซ่อม</button>
+      <button class="btn btn-danger width20p" style="float:right;" ng-click="openDelModal()">ลบรายการส่งซ่อม</button>
     </div>
 
   </div>

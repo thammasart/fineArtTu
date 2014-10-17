@@ -552,6 +552,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result importsOrder2(String tab) {
 	    User user = User.find.where().eq("username", session().get("username")).findUnique();
+
 	    //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
 	    List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
 	    //List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
@@ -751,6 +752,21 @@ public class Import extends Controller {
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   AI 
     	
+    	
+    	for(int i =articlesOrder.aiCommittee.size()-1;i>=0;i--){
+			models.durableArticles.AI_Committee ai = articlesOrder.aiCommittee.get(i);
+			ai.committee = null;
+			ai.delete();
+			articlesOrder.aiCommittee.remove(i);
+		}
+		for(int i =articlesOrder.eoCommittee.size()-1;i>=0;i--){
+			models.durableArticles.EO_Committee eo = articlesOrder.eoCommittee.get(i);
+			eo.committee = null;
+			eo.delete();
+			articlesOrder.eoCommittee.remove(i);
+		}
+    	
+    	
     	boolean editingMode = true;
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
@@ -786,6 +802,8 @@ public class Import extends Controller {
 		        ai_cmt.committeePosition = form.get("aiCommitteePosition"+temp[i]);     
 		        ai_cmt.procurement = articlesOrder;
 		        ai_cmt.committee = cmt;
+		        
+		        articlesOrder.aiCommittee.add(ai_cmt);
 		        
 		        if(!editingMode) ai_cmt.save();
 		        else ai_cmt.update();
@@ -827,6 +845,8 @@ public class Import extends Controller {
 		        eo_cmt.committeePosition = form.get("eoCommitteePosition"+temp[i]);     
 		        eo_cmt.procurement = articlesOrder;
 		        eo_cmt.committee = cmt;
+		        
+		        articlesOrder.eoCommittee.add(eo_cmt);
 		        
 		        if(!editingMode) eo_cmt.save();
 		        else eo_cmt.update();
@@ -1145,18 +1165,26 @@ public class Import extends Controller {
     	System.out.println(json.get("id").toString());
     	String s = json.get("typeOfOrder").asText();
     	System.out.println(s);
-    	models.durableArticles.Procurement articlesOrder = null;
+    	models.durableArticles.Procurement articlesOrder = null; //declare value ให้เห็นค่าที่จะใช้ จะได้นำมาอยู่ใน if ได้
     	models.durableGoods.Procurement goodsOrder = null;
     	
     	String tab="";
     	if(s.equals("article")){
     		System.out.println("in articles");
     		articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
+    		
+    		if(articlesOrder.status ==ImportStatus.INIT)
+    		articlesOrder.status = ImportStatus.CANCEL;
+    		
         	articlesOrder.update();
         	tab="1";
     	}else{
     		System.out.println("in good");
     		goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
+    		
+    		if(goodsOrder.status ==ImportStatus.INIT)
+    		goodsOrder.status = ImportStatus.CANCEL;
+    		
     		goodsOrder.update();
     		tab="2";
     	}
@@ -1275,7 +1303,8 @@ public class Import extends Controller {
     	for(models.durableArticles.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
-    		item.put("fsn", "fsnCode");
+    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+    		else item.put("fsn", "null");
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
     		item.put("classifier", "อัน");
