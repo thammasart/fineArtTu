@@ -628,6 +628,9 @@ public class Import extends Controller {
     			item.put("price", p.price);
     			item.put("priceNoVat", p.priceNoVat);
     			item.put("lifeTime", p.llifeTime);
+    			item.put("fileName", p.fsn.fileName);
+        		item.put("fileType", p.fsn.fileType);
+        		item.put("path", p.fsn.path);
     			jsonProcurementDetails.add(item);
     		}
     		result.put("data",jsonProcurementDetails);
@@ -871,8 +874,39 @@ public class Import extends Controller {
     	System.out.println(articlesOrder.checkDate.toLocaleString());
         
     	
-    	
-    	
+    	/////////////////////////////////////////////////////////////////////////////////////
+		MultipartFormData body = request().body().asMultipartFormData();
+		FilePart filePart = body.getFile("attachFile");
+		
+		String fileName="";
+		String contentType=""; 
+		//File file = null;
+		if (filePart != null) //กรณีมีไฟล์
+		{
+			fileName = filePart.getFilename();
+			contentType = filePart.getContentType(); 
+			
+			articlesOrder.fileName = fileName;//get origin name
+			
+			
+			String[] extension=fileName.split("\\.");							//split .
+			String targetPath = "./public/images/articlesOrder/" + articlesOrder.id;
+			articlesOrder.path ="images/articlesOrder/" + articlesOrder.id;
+			if(extension.length>1)
+			{
+			targetPath += "." + extension[((extension.length)-1)];				//get type file by last spilt
+			articlesOrder.path+="." + extension[((extension.length)-1)];	
+			}
+			articlesOrder.fileName = fileName;										//get traditional file name
+			
+		
+			filePart.getFile().renameTo(new File(targetPath));						//save file on your path
+
+			articlesOrder.fileType = contentType; 
+			//end write file
+
+		} 
+    	/////////////////////////////////////////////////////////////////////////////////////
     	
         articlesOrder.status = ImportStatus.SUCCESS;        
         articlesOrder.update();
@@ -1137,8 +1171,14 @@ public class Import extends Controller {
     	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
     	ObjectNode result = Json.newObject();
     	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+    	
+    
+    	
     	int i=0;
     	for(models.durableArticles.ProcurementDetail p : procurementDetails){
+    		
+    		FSN_Description newFsn = FSN_Description.find.byId(p.fsn.descriptionId);
+    		
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
     		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
@@ -1149,6 +1189,10 @@ public class Import extends Controller {
     		item.put("price", p.price);
     		item.put("priceNoVat", p.priceNoVat);
     		item.put("lifeTime", p.llifeTime);
+    		item.put("fileName", p.fsn.fileName);
+    		item.put("fileType", p.fsn.fileType);
+    		item.put("path", p.fsn.path);
+
     		jsonArray.insert(i++, item);
     	}
     	result.put("type", "article");
@@ -1225,6 +1269,15 @@ public class Import extends Controller {
     			{
     				models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(durableArticlesProcurementInList[i]));
     				p.status = ImportStatus.DELETE;
+    				for(ProcurementDetail pd :p.details)
+    				{
+    					for(DurableArticles d:pd.subDetails)
+    					{
+    						d.status = SuppliesStatus.DELETE;
+    						d.update();
+    					}
+    				}
+    				
     				p.update();
     			}
     			flash("delete1","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + durableArticlesProcurementInList.length +" รายการ ");
@@ -1244,7 +1297,7 @@ public class Import extends Controller {
     			for(int i=0;i<goodsProcurementInList.length;i++)
     			{
     				models.durableGoods.Procurement p = models.durableGoods.Procurement.find.byId(Long.parseLong(goodsProcurementInList[i]));
-    				p.status = ImportStatus.DELETE;
+    				p.status = ImportStatus.DELETE;  	
     				p.update();
     			}
     			flash("delete2","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + goodsProcurementInList.length +" รายการ ");
@@ -1311,6 +1364,9 @@ public class Import extends Controller {
     		item.put("price", p.price);
     		item.put("priceNoVat", p.priceNoVat);
     		item.put("lifeTime", p.llifeTime);
+    		item.put("fileName", p.fsn.fileName);
+    		item.put("fileType", p.fsn.fileType);
+    		item.put("path", p.fsn.path);
     		jsonArray.insert(i++, item);
     	}
     	result.put("type", "article");
