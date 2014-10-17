@@ -99,6 +99,12 @@ function getTable(num){
 	return $('.table.table-striped.overlayTable').get(num);
 }
 
+function setSearchBox(searchBox,numTable){
+	$(searchBox).on( 'keyup change', function () {
+		array[numTable].search( searchBox.value ).draw();
+	});
+}
+
 $(document).ready( function () {
 	var searchBox = $('.searchS :input');
 	var tableContent = $('.table.table-striped.overlayTable');

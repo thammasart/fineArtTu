@@ -1,6 +1,9 @@
 .marginTopSpace{
     margin-top:9%;
 }
+.marginBottomSpace{
+	margin-bottom:6%;
+}
 .headerText{
     background-color:lightgrey;
 }
