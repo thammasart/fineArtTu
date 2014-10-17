@@ -1,12 +1,14 @@
 @(user : User, initList:List[models.durableArticles.Borrow], borrowList:List[models.durableArticles.Borrow], successList:List[models.durableArticles.Borrow])
 @header("exportBorrow")
 
+    <script src="@routes.Assets.at("javascripts/export/exportBorrow.js")"></script>
 @nav(user)
 @headerTag("ระบบจัดการรายการยืม")
 @sideMenu(user)
 
 
-<div class="listWindowMaterial">
+<div class="listWindowMaterial" ng-app="exportBorrowApp" ng-Controller="exportDel">
+@cancelList()
   <div class="tableHeaderBtnContainer">
 
     <div class="searchS">
@@ -24,7 +26,7 @@
       <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportBorrow.exportCreateBorrow()">
         <button class="btn btn-success" style="width:100%">เพิ่มรายการยืม</button>
       </a>
-      <button class="btn btn-danger width20p" style="float:right;">ลบรายการยืม</button>
+      <button class="btn btn-danger width20p" style="float:right;" ng-click="openDelModal()">ลบรายการยืม</button>
     </div>
 
   </div>

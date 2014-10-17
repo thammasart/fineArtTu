@@ -49,6 +49,9 @@ function retriveProcurement(id,tab){
     				if(j<7){
     					$(field).val(result.ai[i][j]);
     				}
+    				if(j == 0 || j == 1 || j == 2 || j == 3 || j==4){
+    					$(field).prop("disabled",true);
+    				}
     			});
     		}
     		if(tab == 1){
@@ -63,6 +66,9 @@ function retriveProcurement(id,tab){
     					if(j<7){
     						$(field).val(result.eo[i][j]);
     					}
+    					if(j == 0 || j == 1 || j == 2 || j == 3 || j==4){
+        					$(field).prop("disabled",true);
+        				}
     				});
     			}
     			loadOrderArticle(result);
