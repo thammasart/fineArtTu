@@ -32,7 +32,8 @@ var state = {
 	'mode' : 'balance',
 	'previousMode' : 'balance',
 	'page' : 0,
-	'clickedItem' : {'row':-1,'column':-1}
+	'clickedItem' : {'row':-1,'column':-1},
+	'dataType' : 'default' 
 }
 var modeBtn = null;
 var mode = {
@@ -65,33 +66,45 @@ function load() {
 }
 
 function selectionHandler(){
-
-		/*console.log(chart3.getSelection()[0]['column'] + " "
-				+ chart3.getSelection()[0]['row']);
-		 */
 		var object = chart2.getSelection()[0]||chart3.getSelection()[0];//||chart1.getSelection()[0];
-		//var isChart1 = chart1.getSelection()[0]!=undefined;
-		/*if(isChart1){
-			chart1.setSelection(chart1.getSelection()[0]);
-		}*/
-		console.log(state);
-		console.log(object);
-		//data = getData(object);
-		//drawChart();
-		//var isIn2 = false;
-		var element = [['name','value',{role:'style'},{role:'annotation'}]];
-		for ( var i = 0; i < materialNames.length; i++) {
-			element.push([materialNames[i],Math.floor(Math.random() * 1000),color[i],materialNames[i]]);
+		state['clickedItem'] = object;
+		if(state['page'] == 0){
+			getData('column');
+		}else if(state['page']==1){
+			//getData('table');
 		}
-		if(object['column'] == 1){
-		}else if(object['column'] == 2){
-		}/*else{
-			$('#graph-tab a[href="#tracking"]').tab('show');
-			myRandom();
-		}*/
-		//chart2.draw(data,options);
+}
+
+function clearChart(){
+//	chart1.clearChart();
+	chart2.clearChart();
+	chart3.clearChart();
+}
+
+function getData(chart){
+	$.ajax({
+		url:'/graph',
+	    type: 'post',
+	    data: JSON.stringify(state),
+	    contentType: 'application/json',
+	    dataType: 'json',
+	    success: function(result) {
+	    	setData(result , chart);
+	    }
+	});
+}
+
+function setData(obj,chart){
+	console.log(obj);
+	data = new google.visualization.arrayToDataTable(obj);
+	clearChart();
+	if(chart == "line"){
+		chart3.draw(data, options);
+		state['dataType'] = 'default';
+		state['page'] = 0;
+	}else if(chart == "column"){
+		state['page'] = 1;
 		chart2.draw(data, {
-			title : 'เปรียบเทียบการใช้งบประมาณรายเดือน',
 			chartArea : {'width':'80%','height':'80%'},
 			animation : {
 				duration : 1000,
@@ -104,32 +117,9 @@ function selectionHandler(){
 			},
 			annotations : {alwaysOutside : true},
 		});
-}
-
-function clearChart(){
-//	chart1.clearChart();
-	chart2.clearChart();
-	chart3.clearChart();
-}
-
-function getData(){
-	$.ajax({
-		url:'/graph',
-	    type: 'post',
-	    data: JSON.stringify(state),
-	    contentType: 'application/json',
-	    dataType: 'json',
-	    success: function(result) {
-	    	setData(result);
-	    }
-	});
-}
-
-function setData(obj){
-	console.log(obj);
-	data = new google.visualization.arrayToDataTable(obj);
-	clearChart();
-	chart3.draw(data, options);
+	}else if(chart == "table"){
+		
+	}
 }
 
 function myRandom() {
@@ -169,7 +159,7 @@ function drawChart() {
 	// Create the data table.
 	load();
 	//myRandom();
-	getData();
+	getData('line');
 }
 
 var setRelation = function(r, element) {
@@ -184,6 +174,7 @@ var setRelation = function(r, element) {
     }
 	state['relation'] = r;
 	state['clickedItem'] = {'row':-1 , 'column':-1};
+	state['dataType'] = 'default';
 	switch (r) {
 	case 'month': 
 	case 'quarter':
@@ -207,6 +198,7 @@ var setMode = function(m, element) {
     }
 	state['mode'] = m;
 	state['clickedItem'] = {'row' : -1,'column' : -1};
+	state['dataType'] = 'default';
 	setOption({
 		"title" : mode[m] + relation[state['relation']]
 	});
