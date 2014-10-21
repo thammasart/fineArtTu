@@ -126,19 +126,19 @@
 
           </div>
 
-		@if(flash().containsKey("delete3")){
+		@if(flash().containsKey("delete2")){
         <div class="alert alert-success">
-        	 <font size="5">@flash().get("delete3")</font> 
+        	 <font size="5">@flash().get("delete2")</font> 
 		</div>
 		}
-		@if(flash().containsKey("cantdelete3")){
+		@if(flash().containsKey("cantdelete2")){
         <div class="alert alert-danger">
-        	 <font size="5">@flash().get("cantdelete3")</font> 
+        	 <font size="5">@flash().get("cantdelete2")</font> 
 		</div>
 		}
-		@if(flash().containsKey("notSelect3")){
+		@if(flash().containsKey("notSelect2")){
         <div class="alert alert-danger">
-        	 <font size="5">@flash().get("notSelect3")</font> 
+        	 <font size="5">@flash().get("notSelect2")</font> 
 		</div>
 		}
 
@@ -148,7 +148,6 @@
                     <th></th>
                     <th>หมายเลขวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ประเภทวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
                     <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
                     <th>เวลาแจ้งเตือนกุหมดอายุ<span class="glyphicon glyphicon-sort"></span></th>
                     <th>รหัสนำหน้า1<span class="glyphicon glyphicon-sort"></span></th>
@@ -161,12 +160,11 @@
             <tbody>
               @for(goodCode<- goodsCode){
                                             
-                  @if(goodCode.typeOfGood=="วัสดุสิ้นเปลือง"){
+                 
                   <tr>
                   <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','consumableGoods','@goodCode.description')"></th>
                   <th>@goodCode.code</th>
                   <th>@goodCode.description</th>
-                  <th>@goodCode.typeOfGood</th>
                   <th>@goodCode.classifier</th>
                   <th>@goodCode.minNumberToAlert</th>
                   <th>@goodCode.materialType.preCodeId</th>
@@ -185,7 +183,7 @@
                   </th>
                   <th> <a href="@routes.ImportDetail.importsMaterialConsumableGoodsDetail(goodCode.code)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
                   </tr>
-                  }
+                  
                 }
              </tbody>
            </table>

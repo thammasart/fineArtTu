@@ -370,7 +370,7 @@ public class Import extends Controller {
 
 
 
-            newCode.typeOfGood = "วัสดุสิ้นเปลือง";
+            //newCode.typeOfGood = "วัสดุสิ้นเปลือง";
             tab = "2";
         
         code = newCode.code;
@@ -490,37 +490,23 @@ public class Import extends Controller {
 	   		}
 	   		
 	   			
-	   		if(code.typeOfGood=="วัสดุคงทนถาวร")
-	   		{
-		         if(del!=0)
-		             flash("delete2","ลบรหัสวัสดุทั้งหมด " + del +" รายการ ");
-	             if(cantDel!=0)
-		             flash("cantdelete2","ไม่สามารถลบรหัสวัสดุได้ " + cantDel +" รายการ เนื่องจากรหัสวัสดุเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");
-	             tab = "2";
-	   		}
-	   		else
-	   		{
+
+
 	   		 if(del!=0)
-	             flash("delete3","ลบรหัสวัสดุทั้งหมด " + del +" รายการ ");
+	             flash("delete2","ลบรหัสวัสดุทั้งหมด " + del +" รายการ ");
              if(cantDel!=0)
-	             flash("cantdelete3","ไม่สามารถลบรหัสวัสดุได้ " + cantDel +" รายการ เนื่องจากรหัสวัสดุเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");
-             tab = "3";
-	   		}
+	             flash("cantdelete2","ไม่สามารถลบรหัสวัสดุได้ " + cantDel +" รายการ เนื่องจากรหัสวัสดุเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");
+             tab = "2";
+	   		
 	   		
 	   		 
     	}
     	else{
     		System.out.println(type);
-    		if(type.equals("durableGoods"))
-    		{
-	    		tab="2";
-	    		flash("notSelect2","เลือกรหัสวัสดุที่ต้องการจะลบ");
-    		}
-    		else if(type.equals("consumableGoods"))
-    		{
-        		tab="3";
-        		flash("notSelect3","เลือกรหัสวัสดุที่ต้องการจะลบ");
-    		}
+    		
+        		tab="2";
+        		flash("notSelect2","เลือกรหัสวัสดุที่ต้องการจะลบ");
+    		
     	}
     	
     	return redirect(routes.Import.importsMaterial2(tab));

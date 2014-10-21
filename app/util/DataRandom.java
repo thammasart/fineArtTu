@@ -79,10 +79,8 @@ public class DataRandom {
 			}
 		}
 		m.description = randomString(10);
-		m.typeOfGood = "วัสดุคงทนถาวร";
 		m.classifier = classifier[rand.nextInt(classifier.length)];
 		m.minNumberToAlert = rand.nextInt(10);
-		m.lifeOfGood = rand.nextInt(100);
 		m.materialType = MaterialType.find.all().get(rand.nextInt(MaterialType.find.findRowCount()));
 		return m;
 	}
