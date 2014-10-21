@@ -195,7 +195,8 @@ public class DataRandom {
 		pd.phone = randomString(10);
 		pd.brand = randomString(5);
 		pd.serialNumber = randomString(12);
-		pd.code = String.format("%05d", rand.nextInt(99999));
+		pd.code = MaterialCode.find.all().get(rand.nextInt(MaterialCode.find.findRowCount())).code;
+		System.out.println(pd.code);
 		pd.procurement = p; 
 		return pd;
 	}

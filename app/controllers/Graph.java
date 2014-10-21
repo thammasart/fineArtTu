@@ -395,7 +395,8 @@ public class Graph extends Controller {
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
 		for(models.durableGoods.Procurement p : ps){
 			for(models.durableGoods.ProcurementDetail pd : p.details){
-				String key = pd.code.materialType.typeName;
+				MaterialCode c = MaterialCode.find.byId(pd.code);
+				String key = c.materialType.typeName;
 				Double value = listResult.get(key);
 				if(value == null){
 					if(pd.price * pd.quantity != 0)

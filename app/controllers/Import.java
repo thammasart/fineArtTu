@@ -629,7 +629,7 @@ public class Import extends Controller {
     		for(models.durableGoods.ProcurementDetail p : procurementDetails){
     			ObjectNode item = Json.newObject();
         		item.put("id", p.id);
-        		if(p.code!=null) item.put("code", p.code);
+        		if(p.code!="") item.put("code", p.code);
         		else item.put("code", "null");
         		item.put("description", p.description);
         		item.put("quantity", p.quantity);
@@ -1045,7 +1045,7 @@ public class Import extends Controller {
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
-    		if(p.code!=null) item.put("code", p.code);
+    		if(p.code!="") item.put("code", p.code);
     		else item.put("code", p.code);
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
@@ -1388,7 +1388,7 @@ public class Import extends Controller {
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
-    		if(p.code!=null) item.put("code", p.code);
+    		if(p.code!="") item.put("code", p.code);
     		else item.put("code", p.code);
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
