@@ -73,8 +73,21 @@ public class ExportOther extends Controller {
             other.title = f.get("title");
             other.number = f.get("number");
             other.setApproveDate(f.get("approveDate"));
-            other.status = ExportStatus.SUCCESS;
+            other.description = f.get("description");
             other.update();
+
+            String firstName = f.get("approverFirstName");
+            String lastName = f.get("approverLastName");
+            String position = f.get("approverPosition");
+            List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            if(employees.size() == 1){
+                other.approver = employees.get(0);
+                other.update();
+            }
+            else{
+                System.out.println(firstName + '\t' + lastName + '\t' + position);
+                return redirect(routes.ExportOther.exportOtherAdd(id));
+            }
 
             for(OtherTransferDetail detail : other.detail){
                 if(detail.durableArticles.status == SuppliesStatus.NORMAL ){
@@ -82,6 +95,9 @@ public class ExportOther extends Controller {
                     detail.durableArticles.update();
                 }
             }
+
+            other.status = ExportStatus.SUCCESS;
+            other.update();
         }
         return redirect(routes.ExportOther.exportOther());
     }

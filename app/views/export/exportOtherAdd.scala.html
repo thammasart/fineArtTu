@@ -14,13 +14,13 @@
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">รายการ เรื่อง</span>
-            <input type="text" class="form-control width300px" name="title">
+            <input type="text" class="form-control width300px" value="@other.title" name="title">
           </div>
         </div>
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">เลขที่</span>
-            <input type="text" class="form-control width300px" name="number">
+            <input type="text" class="form-control width300px" value="@other.number" name="number">
           </div>
         </div>
       </div>
@@ -29,7 +29,7 @@
         <div class="form-group">
           <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
-            <input type="text" class="form-control width300px" name="approveDate" data-format="DD/MM/YYYY">
+            <input type="text" class="form-control width300px" value="@other.getApproveDate()" name="approveDate" data-format="DD/MM/YYYY">
             <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
           </div>
         </div>
@@ -38,8 +38,8 @@
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group">
-            <span class="input-group-addon width250px">หน่วยงานที่โอนย้าย</span>
-            <input type="text" class="form-control width300px">
+            <span class="input-group-addon width250px">สาเหตุการโอนย้าย</span>
+            <input type="text" class="form-control width300px" value="@other.description" name="description">
           </div>
         </div>
       </div>
@@ -67,14 +67,23 @@
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group">
-            <span class="input-group-addon width250px">ผู้อนุมัติ</span>
-            <input type="text" class="form-control width300px">
+              <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
+              <input type="text" class="form-control width190px textAlignCenter" name="approverFirstName" id="approverName" onkeyup="mapInput2()">
+              <span class="alertText" id="approverNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
-            <span class="input-group-addon width250px">ตำแหน่ง</span>
-            <input type="text" class="form-control width300px">
+              <span class="input-group-addon width125px">นามสกุล</span>
+              <input type="text" class="form-control width190px textAlignCenter" name="approverLastName" id="approverLastName">
+              <span class="alertText" id="approverLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ตำแหน่ง</span>
+              <input type="text" class="form-control width190px textAlignCenter" name="approverPosition" id="approverPosition">
+              <span class="alertText" id="approverPositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>

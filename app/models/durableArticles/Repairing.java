@@ -23,6 +23,7 @@ public class Repairing extends Model{
 	public String number; // เลขที่
 	public Date dateOfSentToRepair;
 	public Date dateOfResiveFromRepair;
+	public double repairCosts; // ราคาไซ่อม
 	public ExportStatus status;
 	
 	@ManyToOne
@@ -72,6 +73,48 @@ public class Repairing extends Model{
 	            default: result += "Invalid month";break;
 	        }
         	result += (dateOfSentToRepair.getYear() + 2443);
+			return result;
+		}
+	}
+
+	public void setDateOfResiveFromRepair(String date){
+        String[] sList = date.split("/");
+        if(sList.length == 3){
+            int d = Integer.parseInt(sList[0]);
+            int m = Integer.parseInt(sList[1]);
+            int y = Integer.parseInt(sList[2]);
+            this.dateOfResiveFromRepair = new Date(y-2443,m-1,d);
+        }
+        else{
+        	this.dateOfResiveFromRepair = null;
+        }
+	}
+
+	public String getDateOfResiveFromRepair(){
+		if(dateOfResiveFromRepair == null){
+			return " -- ไม่ระบุ -- ";
+		}
+		else{
+			String result = ""+dateOfResiveFromRepair.getDate();
+			if(result.length() == 1){
+				result = "0" + result;
+			}
+			switch (dateOfResiveFromRepair.getMonth()) {
+	            case 0:  result += "/01/";break;//" มกราคม ";break;
+	            case 1:  result += "/02/";break;//" กุมภาพันธ์ ";break;
+	            case 2:  result += "/03/";break;//" มีนาคม ";break;
+	            case 3:  result += "/04/";break;//" เมษายน ";break;
+	            case 4:  result += "/05/";break;//" พฤษภาคม ";break;
+	            case 5:  result += "/06/";break;//" มิถุนายน ";break;
+	            case 6:  result += "/07/";break;//" กรกฎาคม ";break;
+	            case 7:  result += "/08/";break;//" สิงหาคม ";break;
+	            case 8:  result += "/09/";break;//" กันยายน ";break;
+	            case 9:  result += "/10/";break;//" ตุลาคม ";break;
+	            case 10: result += "/11/";break;//" พฤษจิกายน ";break;
+	            case 11: result += "/12/";break;//" ธันวาคม ";break;
+	            default: result += "Invalid month";break;
+	        }
+        	result += (dateOfResiveFromRepair.getYear() + 2443);
 			return result;
 		}
 	}
