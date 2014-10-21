@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import models.User;
 import models.Company;
 import models.type.ExportStatus;
 
@@ -27,14 +28,19 @@ public class OtherTransfer extends Model{
 	public String description; // สาเหตุ-รายละเอียดการโอน การโอน
 	public ExportStatus status; //สถานะใบโอน
 
+	@ManyToOne
+	public User approver; // ผู้อนุมัติ
+
 	@JsonBackReference
 	@OneToMany(mappedBy="otherTransfer")
 	public List<OtherTransferDetail> detail = new ArrayList<OtherTransferDetail>();
-
-	@OneToMany
+	@JsonBackReference
+	@OneToMany(mappedBy="otherTransfer")
 	public List<OtherTransfer_FF_Committee> ffCommittee = new ArrayList<OtherTransfer_FF_Committee>(); // คณะกรรมการสอบข้อเท็จจริง
-	@OneToMany
+	@JsonBackReference
+	@OneToMany(mappedBy="otherTransfer")
 	public List<OtherTransfer_D_Committee> dCommittee = new ArrayList<OtherTransfer_D_Committee>(); // คณะกรรมการจำหน่าย
+
 
 	public void setApproveDate(String date){
         String[] sList = date.split("/");
@@ -56,18 +62,18 @@ public class OtherTransfer extends Model{
 		else{
 			String result = ""+approveDate.getDate();
 			switch (approveDate.getMonth()) {
-	            case 0:  result += " มกราคม ";break;
-	            case 1:  result += " กุมภาพันธ์ ";break;
-	            case 2:  result += " มีนาคม ";break;
-	            case 3:  result += " เมษายน ";break;
-	            case 4:  result += " พฤษภาคม ";break;
-	            case 5:  result += " มิถุนายน ";break;
-	            case 6:  result += " กรกฎาคม ";break;
-	            case 7:  result += " สิงหาคม ";break;
-	            case 8:  result += " กันยายน ";break;
-	            case 9:  result += " ตุลาคม ";break;
-	            case 10: result += " พฤษจิกายน ";break;
-	            case 11: result += " ธันวาคม ";break;
+	            case 0:  result += "/01/";break;//" มกราคม ";break;
+	            case 1:  result += "/02/";break;//" กุมภาพันธ์ ";break;
+	            case 2:  result += "/03/";break;//" มีนาคม ";break;
+	            case 3:  result += "/04/";break;//" เมษายน ";break;
+	            case 4:  result += "/05/";break;//" พฤษภาคม ";break;
+	            case 5:  result += "/06/";break;//" มิถุนายน ";break;
+	            case 6:  result += "/07/";break;//" กรกฎาคม ";break;
+	            case 7:  result += "/08/";break;//" สิงหาคม ";break;
+	            case 8:  result += "/09/";break;//" กันยายน ";break;
+	            case 9:  result += "/10/";break;//" ตุลาคม ";break;
+	            case 10: result += "/11/";break;//" พฤษจิกายน ";break;
+	            case 11: result += "/12/";break;//" ธันวาคม ";break;
 	            default: result += "Invalid month";break;
 	        }
         	result += (approveDate.getYear() + 2443);

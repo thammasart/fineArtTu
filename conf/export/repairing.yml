@@ -1,0 +1,15 @@
+- &Repairiung01 !!models.durableArticles.Repairing
+  title:                   ส่งซ่อม_1
+  number:                  1/57
+  dateOfSentToRepair:      2014-01-30
+  status:                  REPAIRING
+- &Repairiung02 !!models.durableArticles.Repairing
+  title:                   ส่งซ่อม_2
+  number:                  2/57
+  dateOfSentToRepair:      2014-05-30
+  status:                  SUCCESS
+- &Repairiung03 !!models.durableArticles.Repairing
+  title:                   ส่งซ่อม_3
+  number:                  3/57
+  dateOfSentToRepair:      2014-09-30
+  status:                  INIT
