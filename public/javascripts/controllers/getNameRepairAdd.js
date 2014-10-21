@@ -4,13 +4,29 @@ var lastnameList= [];
 var positionList= [];
 var userAll= [] ;
 
+var exportLink;
+var exportId;
+
+ function addId(id) { 
+    exportId = id;
+ } 
+
 var desId;
 angular.module('userAccountModule', ['ui.bootstrap'])
-    .controller('autoCompleteUserController',function($scope,$http){
+    .controller('autoCompleteUserController',function($scope,$http,$modal){
         
         $scope.name= [];
         $scope.lastname= [];
         $scope.position= [];
+
+         $scope.openCancelModal = function(link) {
+             var cancelModalInstance = $modal.open({
+                     templateUrl : 'cancelExportAdd.html',
+                     controller : cancelModalInstanceCtrl,
+                     size : 'lg'
+             });
+            exportLink = link;
+         };
 
          function combine() { 
             for(var i = 0; i < nameList.length ; i++){
@@ -44,6 +60,17 @@ angular.module('userAccountModule', ['ui.bootstrap'])
         };
     }
 );
+var cancelModalInstanceCtrl = function($scope, $modalInstance){
+
+   $scope.ok = function () {
+        window.location.href = exportLink + "?id="+exportId ;
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
 function mapInput1(){
     var id = document.getElementById("recieveFirstName").value ;
     for(var j = 0; j < userAll.length;j++){
