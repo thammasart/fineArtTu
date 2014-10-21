@@ -18,6 +18,7 @@ public class UserStatus extends Model{
 	public boolean module3;
 	public boolean module4;
 	public boolean module5;
+	public boolean module6;
 
 	@JsonBackReference
 	@OneToMany(mappedBy="status")

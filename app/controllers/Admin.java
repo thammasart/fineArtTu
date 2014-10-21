@@ -62,6 +62,9 @@ public class Admin extends Controller {
     	if(form.get("module5").equals("true")){
     		userStatus.module5 = true;
     	}
+    	if(form.get("module6").equals("true")){
+    		userStatus.module6 = true;
+    	}
     	userStatus.save();
     	return redirect(routes.Admin.manageRole());
     }

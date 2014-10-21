@@ -12,7 +12,7 @@
   <form onsubmit=" return submitButtonClick()"name="addSold" method="post" action="@routes.ExportRepair.saveReceive(repair.id)" ng-init="findUser()">
     <div>
 
-      <div class="form-inline marginBtm1" role="form">
+      <div class="form-inline marginBtm1">
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">รายการ เรื่อง</span>
@@ -27,7 +27,7 @@
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" role="form">
+      <div class="form-inline marginBtm1">
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width250px">บริษัท-ร้านค้า ที่ส่งซ่อม</span>
@@ -36,16 +36,16 @@
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" role="form">
+      <div class="form-inline marginBtm1">
         <div class="form-group">
-          <div class="input-group" id="dateP">
+          <div class="input-group">
             <span class="input-group-addon width250px">วัน/เดือน/ปี ส่งซ่อม</span>
             <input type="text"  disabled class="form-control width300px" value="@repair.getDateOfSentToRepair()" name="dateOfSentToRepair" id="dateOfSentToRepair" data-format="DD/MM/YYYY">
           </div>
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" role="form">
+      <div class="form-inline marginBtm1">
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
@@ -66,7 +66,7 @@
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" role="form">
+      <div class="form-inline marginBtm1">
         <div class="form-group">
           <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี ที่รับคืน</span>
@@ -79,7 +79,7 @@
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" role="form">
+      <div class="form-inline marginBtm1">
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width250px">ราคาซ่อมรวม (บาท) </span>

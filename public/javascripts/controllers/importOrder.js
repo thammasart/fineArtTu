@@ -484,6 +484,53 @@ function removeDivCommittee(name,num){
 		document.getElementById("eoLists").value = eoLists.join();
 	}
 }
+function submitToNext(){
+    
+    submitNext = true;
+
+    if(document.getElementById("description").value ==""){
+        document.getElementById("descriptionAlert").style.display = "table-row";
+        submitNext = false;
+    }else  document.getElementById("descriptionAlert").style.display= "none";
+
+    if(document.getElementById("code").value==""){
+        document.getElementById("codeAlert").style.display = "table-row";
+        submitNext = false;
+    }else  document.getElementById("codeAlert").style.display= "none";
+
+    if(document.getElementById("price").value ==""){
+        document.getElementById("priceAlert").style.display = "table-row";
+        submitNext = false;
+    }else  document.getElementById("priceAlert").style.display= "none";
+
+    if(document.getElementById("priceNoVat").value ==""){
+        document.getElementById("priceNoVatAlert").style.display = "table-row";
+        submitNext = false;
+    }else  document.getElementById("priceNoVatAlert").style.display= "none";
+
+    if(document.getElementById("quantity").value==""){
+        document.getElementById("quantityAlert").style.display = "table-row";
+        submitNext = false;
+    }else  document.getElementById("quantityAlert").style.display= "none";
+
+    if(document.getElementById("seller").value ==""){
+        document.getElementById("sellerAlert").style.display = "table-row";
+        submitNext = false;
+    }else  document.getElementById("sellerAlert").style.display= "none";
+
+    if(document.getElementById("phone").value ==""){
+        document.getElementById("phoneAlert").style.display = "table-row";
+        submitNext = false;
+    }else  document.getElementById("phoneAlert").style.display= "none";
+    
+    if(submitNext == false){
+        document.getElementById("description").focus();
+    }
+    else{
+        showPage('3');
+        preSpread('good');
+    }
+}
 
 function showPage(num){
 	document.getElementById("page1").style.display = num == '1' ?  "block" : "none";
