@@ -17,6 +17,7 @@ public class ProcurementDetail extends Model{
 
 	@Id
 	public long id;
+	public String code;
 	public String description; // ชื่อ - รายละเอียด
 	public double price; // ราคราต่อหน่วย
 	public double priceNoVat; // ราคาต่อหน่วยไม่รวมภาษี
@@ -31,9 +32,10 @@ public class ProcurementDetail extends Model{
 	@JsonBackReference
 	@OneToMany(mappedBy="detail")
 	public List<DurableGoods> subDetails = new ArrayList<DurableGoods>();
-
+/*
 	@ManyToOne
 	public MaterialCode code; // หมายเลขวัสดุ
+*/
 	@ManyToOne
 	public Procurement procurement; // การจัดซื้อ
 
