@@ -71,863 +71,720 @@
   description: กรรไกร 6"
   classifier:   เล่ม
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode002 !!models.MaterialCode
   code: '01002'
   description: กระดาษกาว 2 หน้า-บาง- 1" ครึ่ง
   classifier:   ม้วน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode003 !!models.MaterialCode
   code: '01003'
   description: กระดาษกาว 2 หน้า-บาง-1"
   classifier:   ม้วน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode004 !!models.MaterialCode
   code: '01004'
   description: กระดาษกาวย่น - 1"
   classifier:   ม้วน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode005 !!models.MaterialCode
   code: '01005'
   description: กระดาษกาวย่น - 2"
   classifier:   ม้วน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode006 !!models.MaterialCode
   code: '01006'
   description: กระดาษคาร์บอน
   classifier:   ม้วน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode007 !!models.MaterialCode
   code: '01007'
   description: กระดาษถ่ายเอกสาร A4 - 80 G.
   classifier:   รีม
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode008 !!models.MaterialCode
   code: '01008'
   description: กระดาษปอนด์สี เอ4 80 G.
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode009 !!models.MaterialCode
   code: '01009'
   description: กระดาษฟลิปชาร์ท
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode010 !!models.MaterialCode
   code: '01010'
   description: กระดาษสีชมพู - 80 G
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode011 !!models.MaterialCode
   code: '01011'
   description: กระดาษสีฟ้า - 80 G
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode012 !!models.MaterialCode
   code: '01012'
   description: กระดาษสีเหลือง - 80 G.
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode013 !!models.MaterialCode
   code: '01013'
   description: กระดาษสีเหลือง - 120 G
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode014 !!models.MaterialCode
   code: '01014'
   description: กระดาษสีเหลือง - 150 G
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode015 !!models.MaterialCode
   code: '01015'
   description: กระดาษสีเหลือง - 180 G
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode016 !!models.MaterialCode
   code: '01016'
   description: คลิบดำ -108
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode017 !!models.MaterialCode
   code: '01017'
   description: คลิบดำ -109
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode018 !!models.MaterialCode
   code: '01018'
   description: คลิบดำ -110
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode019 !!models.MaterialCode
   code: '01019'
   description: คลิบดำ -111
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode020 !!models.MaterialCode
   code: '01020'
   description: คลิบดำ -112 (1/12)
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode021 !!models.MaterialCode
   code: '01021'
   description: คลิปดำ 113 (1/12)
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode022 !!models.MaterialCode
   code: '01022'
   description: เครื่องเหลาดินสอ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode023 !!models.MaterialCode
   code: '01023'
   description: เชือกขาวมัดข้อสอบ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode024 !!models.MaterialCode
   code: '01024'
   description: เชือกฟาง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode025 !!models.MaterialCode
   code: '01025'
   description: ซองขาว
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode026 !!models.MaterialCode
   code: '01026'
   description: ซองขาว - ครุฑ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode027 !!models.MaterialCode
   code: '01027'
   description: ซองน้ำตาล - ครุฑ - C5
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode028 !!models.MaterialCode
   code: '01028'
   description: ซองน้ำตาล - ครุฑ - A4 - ขยายข้าง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode029 !!models.MaterialCode
   code: '01029'
   description: ซองน้ำตาล - ครุฑ - ใหญ่ 1/50
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode030 !!models.MaterialCode
   code: '01030'
   description: ซองน้ำตาล - 4A - ขยายข้าง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode031 !!models.MaterialCode
   code: '01031'
   description: ซองน้ำตาล - ใหญ่ - ขยายข้าง 1/50
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode032 !!models.MaterialCode
   code: '01032'
   description: ซองอเนกประสงค์ A4
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode033 !!models.MaterialCode
   code: '01033'
   description: ดินสอ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode034 !!models.MaterialCode
   code: '01034'
   description: ที่คั่นหนังสือ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode035 !!models.MaterialCode
   code: '01035'
   description: ที่เจาะกระดาษ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode036 !!models.MaterialCode
   code: '01036'
   description: ที่ถอดลวด
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode037 !!models.MaterialCode
   code: '01037'
   description: ที่เย็บกระดาษ HD-10
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode038 !!models.MaterialCode
   code: '01038'
   description: ที่เย็บกระดาษ HD-50
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode039 !!models.MaterialCode
   code: '01039'
   description: เทปกระดาษ 3" - แพ็คกล่อง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode040 !!models.MaterialCode
   code: '01040'
   description: เทปกาวน้ำตาล - 2"
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode041 !!models.MaterialCode
   code: '01041'
   description: เทปติดสันปก - 3" - ดำ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode042 !!models.MaterialCode
   code: '01042'
   description: เทปติดสันปก - 3" - แดง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode043 !!models.MaterialCode
   code: '01043'
   description: เทปปั๊มตัวอักษร
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode044 !!models.MaterialCode
   code: '01044'
   description: เทปโฟม 2 หน้า 3M ยาว 3 ม.
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode045 !!models.MaterialCode
   code: '01045'
   description: เทปลบคำผิดพิมพ์ดีดไฟฟ้า (IBM 1337765)
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode046 !!models.MaterialCode
   code: '01046'
   description: แท่นตัดเทปใส
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode047 !!models.MaterialCode
   code: '01047'
   description: แท่นประทับตรา - แดง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode048 !!models.MaterialCode
   code: '01048'
   description: แท่นประทับตรา - น้ำเงิน
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode049 !!models.MaterialCode
   code: '01049'
   description: แท่นเสียบป้ายชื่อ 2 หน้า - ยาว
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode050 !!models.MaterialCode
   code: '01050'
   description: น้ำยาลบคำผิด - ( PENTEL )
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode051 !!models.MaterialCode
   code: '01051'
   description: น้ำยาลบคำผิด - ขวดคู่
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode052 !!models.MaterialCode
   code: '01052'
   description: ใบมีดคัตเตอร์ - 9 ม.ม.
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode053 !!models.MaterialCode
   code: '01053'
   description: ใบมีดคัตเตอร์ 18 ม.ม.
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode054 !!models.MaterialCode
   code: '01054'
   description: ปากกา - แดง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode055 !!models.MaterialCode
   code: '01055'
   description: ปากกา - ลูกลื่น
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode056 !!models.MaterialCode
   code: '01056'
   description: ปากกาเขียน - ครุภัณฑ์ - ขาว
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode057 !!models.MaterialCode
   code: '01057'
   description: ปากกาเขียน - ครุภัณฑ์ - ดำ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode058 !!models.MaterialCode
   code: '01058'
   description: ปากกาเขียน - ซีดี
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode059 !!models.MaterialCode
   code: '01059'
   description: ปากกาเขียน - แผ่นใส - 1/4
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode060 !!models.MaterialCode
   code: '01060'
   description: ปากกาเขียน - แผ่นใส-ลบไม่ได้ -1/4
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode061 !!models.MaterialCode
   code: '01061'
   description: ปากกาเน้นข้อความ - เหลือง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode062 !!models.MaterialCode
   code: '01062'
   description: ปากกาไวท์บอร์ด - Arrow - ดำ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode063 !!models.MaterialCode
   code: '01063'
   description: ปากกาไวท์บอร์ด - Arrow - แดง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode064 !!models.MaterialCode
   code: '01064'
   description: ปากกาไวท์บอร์ด - Arrow - น้ำเงิน
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode065 !!models.MaterialCode
   code: '01065'
   description: ปากกาไวท์บอร์ด - Pilot - แดง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode066 !!models.MaterialCode
   code: '01066'
   description: ผงหมึกเครื่องโทรสาร Panasonic KX-FA136A
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode067 !!models.MaterialCode
   code: '01067'
   description: ผ้าหมึกเครื่องคิดเลข-ดำ/แดง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode068 !!models.MaterialCode
   code: '01068'
   description: แผ่นใสชนิดเขียน
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode069 !!models.MaterialCode
   code: '01069'
   description: แผ่นใสชนิดถ่าย
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode070 !!models.MaterialCode
   code: '01070'
   description: แฟ้ม 2" - 125 F
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode071 !!models.MaterialCode
   code: '01071'
   description: แฟ้มกระดาษ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode072 !!models.MaterialCode
   code: '01072'
   description: แฟ้มแขวน
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode073 !!models.MaterialCode
   code: '01073'
   description: แฟ้มพลาสติก - ตรามธ.
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode074 !!models.MaterialCode
   code: '01074'
   description: แฟ้มพลาสติก - A4 - ชั้นเดียว
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode075 !!models.MaterialCode
   code: '01075'
   description: แฟ้มพลาสติก - A4 - 3 ชั้น
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode076 !!models.MaterialCode
   code: '01076'
   description: แฟ้มเสนอเซ็น - ปกกระดาษ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode077 !!models.MaterialCode
   code: '01077'
   description: แฟ้มห่วง 2 ห่วง - ปกสอด
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode078 !!models.MaterialCode
   code: '01078'
   description: ไม้บรรทัด
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode079 !!models.MaterialCode
   code: '01079'
   description: ยางลบ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode080 !!models.MaterialCode
   code: '01080'
   description: ลวดเย็บกระดาษ No.10 - 1M
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode081 !!models.MaterialCode
   code: '01081'
   description: ลวดเย็บกระดาษ No.35 - 1M
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode082 !!models.MaterialCode
   code: '01082'
   description: ลวดเย็บกระดาษ 3 - 1M
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode083 !!models.MaterialCode
   code: '01083'
   description: ลวดเย็บกระดาษ 1213FA-H
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode084 !!models.MaterialCode
   code: '01084'
   description: ลวดเสียบกระดาษ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode085 !!models.MaterialCode
   code: '01085'
   description: สมุดบัญชี 4 ช่อง หน้าคู่
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode086 !!models.MaterialCode
   code: '01086'
   description: สมุดปกแข็งเบอร์ 1 ใหญ่
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode087 !!models.MaterialCode
   code: '01087'
   description: หนังสือรับ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode088 !!models.MaterialCode
   code: '01088'
   description: หนังสือส่ง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode089 !!models.MaterialCode
   code: '01089'
   description: หมึกเติมแท่นประทับตรา-แดง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode090 !!models.MaterialCode
   code: '01090'
   description: หมึกเติมแท่นประทับตรา-น้ำเงิน
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode091 !!models.MaterialCode
   code: '01091'
   description: หมึกพิมพ์ดีดไฟฟ้า-IBM 1380999
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode092 !!models.MaterialCode
   code: '01092'
   description: เหล็กเสียบกระดาษ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode093 !!models.MaterialCode
   code: '01093'
   description: กระดาษบวกเลข 2"
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode094 !!models.MaterialCode
   code: '01094'
   description: กาวแท่ง 21ml.
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode095 !!models.MaterialCode
   code: '01095'
   description: กาวน้ำ 50ml.
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode096 !!models.MaterialCode
   code: '01096'
   description: ซองน้ำตาล - A4
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode097 !!models.MaterialCode
   code: '01097'
   description: ซองน้ำตาล - A4 - ครุฑ
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode098 !!models.MaterialCode
   code: '01098'
   description: เทปกาวโฟม 21mm. - 5m.
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode099 !!models.MaterialCode
   code: '01099'
   description: เทปใส 3/4 แกนเล็ก 1"
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode100 !!models.MaterialCode
   code: '01100'
   description: ปากกาเคมี
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode101 !!models.MaterialCode
   code: '01101'
   description: แฟ้มห่วง 2 ห่วง
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode102 !!models.MaterialCode
   code: '01102'
   description: แฟ้ม 3" - 125F
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode103 !!models.MaterialCode
   code: '01103'
   description: ลิ้นแฟ้มพลาสติก
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode104 !!models.MaterialCode
   code: '01104'
   description: สมุดปกน้ำเงิน เบอร์ 2/80
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode105 !!models.MaterialCode
   code: '01105'
   description: หมุดปักหัวกลม (50)
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode106 !!models.MaterialCode
   code: '01106'
   description: ตรายาง จ่ายแล้วพร้อมวันที่
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode107 !!models.MaterialCode
   code: '01107'
   description: ตรายาง วันที่
   classifier:   อัน
   materialType: *cType001
-  typeOfGood: วัสดุสิ้นเปลือง
 ###########################################################################
 - &cCodecc2001 !!models.MaterialCode
   code: '02001'
   description: แผ่นดิสเก็ต 3.5 (1/10 แผ่น)
   classifier:   อัน
   materialType: *cType004
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2002 !!models.MaterialCode
   code: '02002'
   description: แผ่น CD-R 700MB
   classifier:   อัน
   materialType: *cType004
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2003 !!models.MaterialCode
   code: '02003'
   description: HP TONER (ORG) รุ่น Q7516A
   classifier:   อัน
   materialType: *cType004
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2004 !!models.MaterialCode
   code: '02004'
   description: ซองกระดาษใส่ CD
   classifier:   อัน
   materialType: *cType004
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2005 !!models.MaterialCode
   code: '02005'
   description: แผ่น DVD
   classifier:   อัน
   materialType: *cType004
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2006 !!models.MaterialCode
   code: '02006'
   description: กล่องใส่ DVD 2 หน้า
   classifier:   อัน
   materialType: *cType004
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodecc2007 !!models.MaterialCode
   code: '02007'
   description: เมาส์
   classifier:   อัน
   materialType: *cType004
-  typeOfGood: วัสดุสิ้นเปลือง
 ###########################################################################
 - &cCodec3001 !!models.MaterialCode
   code: '03001'
   description: ไม้กวาดดอกหญ้า
   classifier:   อัน
   materialType: *cType003
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3002 !!models.MaterialCode
   code: '03002'
   description: กระดาษทิชชู (ม้วน)
   classifier:   อัน
   materialType: *cType003
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3003 !!models.MaterialCode
   code: '03003'
   description: ผงซักฟอก - 450 g.
   classifier:   อัน
   materialType: *cType003
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3004 !!models.MaterialCode
   code: '03004'
   description: ผงซักฟอก - 900 g.
   classifier:   อัน
   materialType: *cType003
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3005 !!models.MaterialCode
   code: '03005'
   description: กระดาษทิชชู (แผ่น)
   classifier:   อัน
   materialType: *cType003
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3006 !!models.MaterialCode
   code: '03006'
   description: ถุงขยะ ขนาด 24*28
   classifier:   อัน
   materialType: *cType003
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3007 !!models.MaterialCode
   code: '03007'
   description: ผ้าเอนกประสงค์
   classifier:   อัน
   materialType: *cType003
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec3008 !!models.MaterialCode
   code: '03008'
   description: น้ำยาล้างจาน
   classifier:   อัน
   materialType: *cType003
-  typeOfGood: วัสดุสิ้นเปลือง
 ###########################################################################
 - &cCodec4001 !!models.MaterialCode
   code: '04001'
   description: ถ่านไฟฉาย 1.5V.
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4002 !!models.MaterialCode
   code: '04002'
   description: ถ่านไฟ - Panasonic Alkaline (AAA)
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4003 !!models.MaterialCode
   code: '04003'
   description: ถ่านอัลคาไลน์ แม็กเซล 9V.
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4004 !!models.MaterialCode
   code: '04004'
   description: ถ่านแม็กเซล 3VCR2032 (ชนิดกลม)
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4005 !!models.MaterialCode
   code: '04005'
   description: ปลั๊กไฟ 5 เต้า 1 สวิทซ์ ยาว 5 เมตร
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4006 !!models.MaterialCode
   code: '04006'
   description: ถ่านไฟ - Panasonic Alkaline (AA)
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4007 !!models.MaterialCode
   code: '04007'
   description: ถ่าน AA2500mA
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4008 !!models.MaterialCode
   code: '04008'
   description: สายไมโครโฟน ยาว 10 ม. พร้อมขั้วต่อ
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4009 !!models.MaterialCode
   code: '04009'
   description: ถ่านไมโครโฟนเคลื่อนที่ 9V.
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4010 !!models.MaterialCode
   code: '04010'
   description: ถ่าน AA
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCodec4011 !!models.MaterialCode
   code: '04011'
   description: ถ่าน AAA
   classifier:   อัน
   materialType: *cType002
-  typeOfGood: วัสดุสิ้นเปลือง
 ###########################################################################
 - &cCode5001 !!models.MaterialCode
   code: '05001'
   description: เนสกาแฟเรดคัพ - ซอง - 3กรัม (1/50)
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5002 !!models.MaterialCode
   code: '05002'
   description: น้ำตาลชนิด - ซอง - 6กรัม (1/50)
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5003 !!models.MaterialCode
   code: '05003'
   description: ครีมเทียมคอฟฟี่เมต - ซอง - 3กรัม (1/50)
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5004 !!models.MaterialCode
   code: '05004'
   description: โอวัลติน 3 in 1
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5005 !!models.MaterialCode
   code: '05005'
   description: ขิงผงจินเจน (กล่อง)
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5006 !!models.MaterialCode
   code: '05006'
   description: ชาเขียวญี่ปุ่น (1/10)
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5007 !!models.MaterialCode
   code: '05007'
   description: ไมโล 3 in 1
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5008 !!models.MaterialCode
   code: '05008'
   description: กาแฟ 360g.
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5009 !!models.MaterialCode
   code: '05009'
   description: ครีมเทียม 450g.
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 - &cCode5010 !!models.MaterialCode
   code: '05010'
   description: ชา 2g.
   classifier:   อัน
   materialType: *cType017
-  typeOfGood: วัสดุสิ้นเปลือง
 ################################################################################################
 - &procurementGoods01    !!models.durableGoods.Procurement
   title:    ใบนำเข้าเดือนกันยายน

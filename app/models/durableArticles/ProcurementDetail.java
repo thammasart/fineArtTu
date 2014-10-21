@@ -36,6 +36,7 @@ public class ProcurementDetail extends Model{
 
 	@ManyToOne
 	public FSN_Description fsn; // หมายเลขครุภัณฑ์
+	
 	@ManyToOne
 	public Procurement procurement; // การจัดซื้อ
 

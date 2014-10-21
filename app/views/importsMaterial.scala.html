@@ -12,9 +12,8 @@
 
 @delMaterial()
     <ul class="nav nav-tabs" role="tablist" id="imdTabs" style="height:42px; margin-bottom:10px;">
-      <li class="active"><a href="#1" role="tab" data-toggle="tab">ครุภัณฑ์</a></li>
-      <li><a href="#2" role="tab" data-toggle="tab">วัสดุคงทนถาวร</a></li>
-      <li><a href="#3" role="tab" data-toggle="tab">วัสดุสิ้นเปลือง</a></li>
+      <li class="active"><a href="#1" role="tab" data-toggle="tab">ครุภัณฑ์และวัสดุคงทนถาวร</a></li>
+      <li><a href="#2" role="tab" data-toggle="tab">วัสดุสิ้นเปลือง</a></li>
     </ul>
 
 	
@@ -35,9 +34,9 @@
             </div>
               <div>
                   <a style="float:right;margin-left:1%;" class="width20p" href="@routes.Import.importsMaterialDurableArticlesAdd()">
-                  <button class="btn btn-success " style="width:100%;">เพิ่มครุภัณฑ์</button>
+                  <button class="btn btn-success " style="width:100%;">เพิ่มครุภัณฑ์และวัสดุคงทนถาวร</button>
                   </a>
-                  <button class="btn btn-danger width20p" style="float:right;" ng-click="open('durableArticles')">ลบครุภัณฑ์</button>
+                  <button class="btn btn-danger width20p" style="float:right;" ng-click="open('durableArticles')">ลบครุภัณฑ์และวัสดุคงทนถาวร</button>
               </div>
         </div>
         @if(flash().containsKey("delete1")){
@@ -57,12 +56,11 @@
 		}
 		
          <table class="table table-striped overlayTable">
-            <legend>ครุภัณฑ์สำนักงาน 7510</legend>
                 <thead>
                     <tr>
                         <th></th>
                         <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ชื่อลักษณะFSN<span class="glyphicon glyphicon-sort"></span></th>
                         <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
                         <th>xxxxx<span class="glyphicon glyphicon-sort"></span></th>
                         <th>xxxxx<span class="glyphicon glyphicon-sort"></span></th>
@@ -99,107 +97,13 @@
                     <th> <a href="@routes.ImportDetail.importsMaterialDurableArticlesDetail(fsn.descriptionId)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
                     </tr>
                   }
-
-
                 </tbody>
            </table>
     </div>  <!--end id =1-->
 <!-- ========================================== tab2 ============================================ -->
+
+<!-- ========================================== tab2 ============================================ -->
       <div class="tab-pane fade" id="2">
-    
-        <div class="tableHeaderBtnContainer">
-            <div class="searchS">
-                    <form>
-                        <div class="form-group">
-                            <div class="input-group">
-                              <span class="input-group-addon">ค้นหา</span>
-                              <input type="text" class="form-control" style="width:300px">
-                            </div>
-                          </div>
-                    </form>
-            </div>
-            <div>
-                  <a style="float:right;margin-left:1%;" class="width20p" href="@routes.Import.importsMaterialDurableGoodsAdd()">
-                  <button class="btn btn-success " style="width:100%;">เพิ่มวัสดุคงทนถาวร</button>
-                  </a>
-                  <button class="btn btn-danger width20p" style="float:right;" ng-click="open('durableGoods')">ลบวัสดุคงทนถาวร</button>
-            </div>
-
-        </div>
-        
-        @if(flash().containsKey("delete2")){
-        <div class="alert alert-success">
-        	 <font size="5">@flash().get("delete2")</font> 
-		</div>
-		}
-		@if(flash().containsKey("cantdelete2")){
-        <div class="alert alert-danger">
-        	 <font size="5">@flash().get("cantdelete2")</font> 
-		</div>
-		}
-		@if(flash().containsKey("notSelect2")){
-        <div class="alert alert-danger">
-        	 <font size="5">@flash().get("notSelect2")</font> 
-		</div>
-		}
-
-
-           <table class="table table-striped overlayTable">
-            <legend>วัสดุคงทนถาวรสำนักงาน</legend>
-             <thead>
-                <tr>
-                    <th></th>
-                    <th>หมายเลขวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ชื่อวัสดุคงทนถาวร<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ประเภทวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>เวลาแจ้งเตือนกุหมดอายุ<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รหัสนำหน้า1<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>xxx<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>xxx<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>รูปภาพ</th>
-                    <th>รายละเอียด</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for(goodCode<- goodsCode){
-
-                  @if(goodCode.typeOfGood=="วัสดุคงทนถาวร"){
-                  <tr>
-                  <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','durableGoods','@goodCode.description')"></th>
-                  <th>@goodCode.code</th>
-                  <th>@goodCode.description</th>
-                  <th>@goodCode.typeOfGood</th>
-                  <th>@goodCode.classifier</th>
-                  <th>@goodCode.minNumberToAlert</th>
-                  <th>@goodCode.materialType.preCodeId</th>
-                  <th>@goodCode.materialType.typeName</th>
-                  <th>@goodCode.materialType.acronym</th>
-                  <th>
-                   	@if(goodCode.fileType != null && goodCode.fileType.contains("image")){
-                    	<a href="@routes.Assets.at(goodCode.path)">
-                    		<img src="@routes.Assets.at(goodCode.path)" alt="@goodCode.fileName" style="width:40px;height:40px">
-                    	</a>
-                   	}else{
-                   		<a href="@routes.Assets.at(goodCode.path)" download>
-                    		@goodCode.fileName
-                    	</a>
-                   	}
-                   </th>
-                  <th> <a href="@routes.ImportDetail.importsMaterialDurableGoodsDetail(goodCode.code)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
-                  </tr>
-                  }
-
-                }
-
-             </tbody>
-           </table>
-
-        </div> <!--end id =2-->
-
-
-<!-- ========================================== tab3 ============================================ -->
-      <div class="tab-pane fade" id="3">
 
           <div class="tableHeaderBtnContainer">
               <div class="searchS">
@@ -222,30 +126,28 @@
 
           </div>
 
-		@if(flash().containsKey("delete3")){
+		@if(flash().containsKey("delete2")){
         <div class="alert alert-success">
-        	 <font size="5">@flash().get("delete3")</font> 
+        	 <font size="5">@flash().get("delete2")</font> 
 		</div>
 		}
-		@if(flash().containsKey("cantdelete3")){
+		@if(flash().containsKey("cantdelete2")){
         <div class="alert alert-danger">
-        	 <font size="5">@flash().get("cantdelete3")</font> 
+        	 <font size="5">@flash().get("cantdelete2")</font> 
 		</div>
 		}
-		@if(flash().containsKey("notSelect3")){
+		@if(flash().containsKey("notSelect2")){
         <div class="alert alert-danger">
-        	 <font size="5">@flash().get("notSelect3")</font> 
+        	 <font size="5">@flash().get("notSelect2")</font> 
 		</div>
 		}
 
            <table class="table table-striped overlayTable">
-            <legend>วัสดุสิ้นเปลืองสำนักงาน</legend>
              <thead>
                 <tr>
                     <th></th>
                     <th>หมายเลขวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
-                    <th>ประเภทวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
                     <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
                     <th>เวลาแจ้งเตือนกุหมดอายุ<span class="glyphicon glyphicon-sort"></span></th>
                     <th>รหัสนำหน้า1<span class="glyphicon glyphicon-sort"></span></th>
@@ -257,13 +159,11 @@
             </thead>
             <tbody>
               @for(goodCode<- goodsCode){
-                                            
-                  @if(goodCode.typeOfGood=="วัสดุสิ้นเปลือง"){
+
                   <tr>
                   <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','consumableGoods','@goodCode.description')"></th>
                   <th>@goodCode.code</th>
                   <th>@goodCode.description</th>
-                  <th>@goodCode.typeOfGood</th>
                   <th>@goodCode.classifier</th>
                   <th>@goodCode.minNumberToAlert</th>
                   <th>@goodCode.materialType.preCodeId</th>
@@ -282,12 +182,12 @@
                   </th>
                   <th> <a href="@routes.ImportDetail.importsMaterialConsumableGoodsDetail(goodCode.code)"> <button class="btn btn-xs btn-info" > รายละเอียด</button> </a> </th>
                   </tr>
-                  }
+                  
                 }
              </tbody>
            </table>
 
-        </div>  <!--end id=3-->
+        </div>  <!--end id=2-->
 
       </div> <!-- end tab content-->
 
