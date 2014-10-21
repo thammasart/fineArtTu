@@ -68,6 +68,13 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
         }
     }
 }
+
+if(!('contains' in String.prototype)) {
+    String.prototype.contains = function(str, startIndex) {
+             return -1 !== String.prototype.indexOf.call(this, str, startIndex);
+    };
+}
+
 function destroyTable(num){
 	if(num == undefined){
 		for(var i=0; i<array.length; i++){

@@ -424,7 +424,7 @@ function loadOrderArticle(data){
 		'                    <th>'+ data['data'][i].price +'</th>'+
 		'                    <th>'+ data['data'][i].lifeTime +'</th>'+
 		'<th>';
-		
+		console.log(data["data"][i]+ "   " + data['data'][i].fileType!=undefined);
 		if(data['data'][i].fileType != null && data['data'][i].fileType.contains("image")){
 			divTable+='<a href="/assets/'+data['data'][i].path+'"><img src="/assets/'+data['data'][i].path+'" alt="'+data['data'][i].fileName+'" style="width:40px;height:40px"></a>';
 		}else{

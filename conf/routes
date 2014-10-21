@@ -96,8 +96,7 @@ POST	/import/saveInstituteDetail						controllers.ImportDetail.saveNewInstitute(
 GET		/import/materialDurableArticlesDetail			controllers.ImportDetail.importsMaterialDurableArticlesDetail(id : String)
 POST	/import/saveMaterialDurableArticlesDetail		controllers.ImportDetail.saveNewMaterialDurableArticles()
 
-GET		/import/materialDurableGoodsDetail				controllers.ImportDetail.importsMaterialDurableGoodsDetail(id : String)
-POST	/import/saveMaterialDurableGoodsDetail			controllers.ImportDetail.saveNewMaterialDurableGoods()
+
 
 GET		/import/materialConsumableGoodsDetail			controllers.ImportDetail.importsMaterialConsumableGoodsDetail(id : String)
 POST	/import/saveMaterialConsumableGoodsDetail			controllers.ImportDetail.saveNewMaterialConsumableGoods()
@@ -128,11 +127,12 @@ GET		/import/materialDurableArticlesAdd				controllers.Import.importsMaterialDur
 POST	/import/saveMaterialDurableArticles				controllers.Import.saveNewMaterialDurableArticles()
 
 
-GET		/import/materialDurableGoodsAdd					controllers.Import.importsMaterialDurableGoodsAdd()
-POST	/import/saveMaterialDurableGoods				controllers.Import.saveNewMaterialDurableGoods()
+GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
+POST	/import/saveMaterialConsumableGoods				controllers.Import.saveNewMaterialConsumableGoods()
+
 POST	/import/removeFSNCode							controllers.Import.removeFSNCode()
 POST 	/import/removeCode								controllers.Import.removeCode()
-GET		/import/materialConsumableGoodsAdd				controllers.Import.importsMaterialConsumableGoodsAdd()
+
 
 GET		/import/order									controllers.Import.importsOrder()
 GET		/import/order2									controllers.Import.importsOrder2(tab :String)
@@ -154,7 +154,7 @@ GET		/import/order/createGoodsAdd	    			controllers.Import.createImportsOrderGo
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd(id : Long)
 POST 	/import/saveNewGoodsOrder						controllers.Import.saveNewGoodsOrder()
 
-GET     /editUser                                                       controllers.Application.editUser()
+GET     /editUser                                       controllers.Application.editUser()
 
 GET     /Admin                      					controllers.Admin.index()
 GET     /Admin/addUser              					controllers.Admin.addUser()
