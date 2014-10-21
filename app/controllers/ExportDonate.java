@@ -58,6 +58,11 @@ public class ExportDonate extends Controller {
         }
         return ok(exportDonateAdd.render(user, donate));
     }
+
+    @Security.Authenticated(Secured.class)
+    public static Result viewDetail(long id){
+        return TODO;
+    }
     
     @Security.Authenticated(Secured.class)
     public static Result saveDonation(long id){

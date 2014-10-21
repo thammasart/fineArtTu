@@ -40,8 +40,8 @@
           <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
           <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
           <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>สถานะ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>รายละเอียด</th>
+          <th>บริจาคไปที่<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ทำรายการต่อ</th>
           </tr>
       </thead>
       <tbody>
@@ -51,10 +51,10 @@
             <th>@acution.title</th>
             <th>@acution.contractNo</th>
             <th>@acution.getApproveDate()</th>
-            <th>@acution.status</th>
+            <th>@acution.getCompanyToString()</th>
             <th>
               <a href="@routes.ExportSold.exportSoldAdd(acution.id)">
-                <button class="btn btn-xs btn-info" > ทำต่อ</button> 
+                <button class="btn btn-xs btn-primary" > ทำรายการต่อ</button>  
               </a>
             </th>
           </tr>
@@ -71,7 +71,7 @@
         <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
         <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
         <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-        <th>หน่ายงาน<span class="glyphicon glyphicon-sort"></span></th>
+        <th>บริจาคไปที่<span class="glyphicon glyphicon-sort"></span></th>
         <th>รายละเอียด</th>
         </tr>
     </thead>
@@ -82,8 +82,12 @@
           <th>@acution.title</th>
           <th>@acution.contractNo</th>
           <th>@acution.getApproveDate()</th>
-          <th>@acution.approverToString</th>
-          <th> <button class="btn btn-xs btn-info" ng-click="open()" > รายละเอียด</button> </th>
+          <th>@acution.getCompanyToString()</th>
+          <th>
+            <a href="@routes.ExportSold.viewDetail(acution.id)">
+              <button class="btn btn-xs btn-info" > รายละเอียด </button> 
+            </a>
+          </th>
         </tr>
       }
     </tbody>

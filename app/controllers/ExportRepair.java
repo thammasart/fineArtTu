@@ -61,22 +61,62 @@ public class ExportRepair extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
+    public static Result receiveFromRepair(long id){
+        User user = User.find.byId(session().get("username"));
+        Repairing repair = Repairing.find.byId(id);
+        if(repair == null){
+            return redirect(routes.ExportRepair.exportRepairing());
+        }
+        return ok(exportRepairingReceive.render(user, repair));
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result viewDetail(long id){
+        return TODO;
+    }
+
+    @Security.Authenticated(Secured.class)
     public static Result saveRepairing(long id) {
         User user = User.find.byId(session().get("username"));
         Repairing repair = Repairing.find.byId(id);
         if(repair != null && repair.status == ExportStatus.INIT){
         	DynamicForm f = Form.form().bindFromRequest();
             repair.title = f.get("title");
-            repair.number = f.get("number");;
-            repair.status = ExportStatus.REPAIRING;
-            repair.update();
-
+            repair.number = f.get("number");
             for(RepairingDetail detail : repair.detail){
                 if(detail.durableArticles.status == SuppliesStatus.NORMAL){
                     detail.durableArticles.status = SuppliesStatus.REPAIRING;
                     detail.durableArticles.update();
                 }
             }
+            repair.status = ExportStatus.REPAIRING;
+            repair.update();
+        }
+        return redirect(routes.ExportRepair.exportRepairing());
+    }
+
+    @Security.Authenticated(Secured.class)
+    public static Result saveReceive(long id) {
+        User user = User.find.byId(session().get("username"));
+        Repairing repair = Repairing.find.byId(id);
+        System.out.println("saveReceive");
+        if(repair != null && repair.status == ExportStatus.REPAIRING){
+            DynamicForm f = Form.form().bindFromRequest();
+            repair.setDateOfResiveFromRepair(f.get("dateOfResiveFromRepair"));
+            String repairCosts = f.get("repairCosts");
+            if(repairCosts == null){
+                repairCosts = "0.00";
+            }
+            repair.repairCosts = Double.parseDouble(repairCosts);
+            for(RepairingDetail detail : repair.detail){
+                if(detail.durableArticles.status == SuppliesStatus.REPAIRING){
+                    detail.durableArticles.status = SuppliesStatus.NORMAL;
+                    detail.durableArticles.update();
+                }
+            }
+            repair.status = ExportStatus.SUCCESS;
+            repair.update();
+            System.out.println("saveReceive");
         }
         return redirect(routes.ExportRepair.exportRepairing());
     }

@@ -59,6 +59,11 @@ public class ExportOrder extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
+    public static Result viewDetail(long id){
+        return TODO;
+    }
+
+    @Security.Authenticated(Secured.class)
     public static Result saveRequisition(long id){
         User user = User.find.byId(session().get("username"));
         Requisition req = Requisition.find.byId(id);
@@ -142,6 +147,7 @@ public class ExportOrder extends Controller {
                 String jsonArray = mapper.writeValueAsString(detail);
                 json = Json.parse(jsonArray);
                 result.put("details",json);
+                result.put("status", "SUCCESS");
             }
             else{
                 result.put("message","not Found requisition id:" + id);

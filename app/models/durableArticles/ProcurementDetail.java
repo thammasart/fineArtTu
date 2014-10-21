@@ -29,6 +29,7 @@ public class ProcurementDetail extends Model{
 	public String serialNumber; //หมายเลขเครื่อง
 	public String partOfPic; // รูปภาพ
 	
+	
 	@JsonBackReference
 	@OneToMany(mappedBy="detail")
 	public List<DurableArticles> subDetails = new ArrayList<DurableArticles>();

@@ -10,6 +10,8 @@
 @nav(user)
 @headerTagFull("เพิ่มรายการโอนย้ายภายใน")
 
+@cancelExportAdd()
+
 <div class ="detailWindow" id="addWindows" >
   <form name="addTransferInside" method="post" action="@routes.ExportTransferInside.saveInternalTransfer(inside.id)" ng-init="findUser()" onsubmit="return submitButtonClick()">
 
@@ -105,8 +107,8 @@
     </div> <!-- end well -->
 
     <div align="center" style="margin-bottom:1%;">
-      <a href="@routes.ExportTransferInside.cancelInternalTransfer(inside.id)">
-        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+      <!--<a href="@routes.ExportTransferInside.cancelInternalTransfer(inside.id)">-->
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;"onclick="addId(@inside.id)" ng-click="openCancelModal('cancelInternalTransfer')">
             <span class="glyphicon glyphicon-remove"></span> ยกเลิก
         </button>
       </a>

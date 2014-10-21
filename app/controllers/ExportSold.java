@@ -60,6 +60,11 @@ public class ExportSold extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
+    public static Result viewDetail(long id){
+        return TODO;
+    }
+
+    @Security.Authenticated(Secured.class)
     public static Result saveAuction(long id){
         User user = User.find.byId(session().get("username"));
         Auction auction = Auction.find.byId(id);
@@ -128,6 +133,9 @@ public class ExportSold extends Controller {
                         newDetail.auction = auction;
                         newDetail.save();
                     }
+                    else{
+                        System.out.println(id);
+                    }
                 }
                 result.put("status", "SUCCESS");
             }
@@ -135,7 +143,6 @@ public class ExportSold extends Controller {
                 result.put("message","not Found action id:" + id);
                 result.put("status", "error");
             }
-
         }
         catch(Exception e){
             result.put("message", e.getMessage());

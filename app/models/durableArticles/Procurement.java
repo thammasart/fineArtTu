@@ -38,6 +38,9 @@ public class Procurement extends Model{
 	//public String telephoneNumber;	// เบอร์โทร พนักงานขาย
 	public ImportStatus status;			//สถานะใบเบิก
 	
+	public String fileName;
+	public String fileType;
+	public String path;
 	@ManyToOne
 	public Company company; 			// บริษัทที่ทำการซื้อ 	
 	

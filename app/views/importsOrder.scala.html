@@ -101,6 +101,7 @@
                         <th>ประเภทงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>สถานประกอบการ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ปีงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ไฟล์</th>
                         <th>รายละเอียด</th>
                     </tr>
                 </thead>
@@ -120,6 +121,17 @@
 		                        <th>@articleOrder.budgetType</th>
 		                        <th>@articleOrder.institute</th>
 		                        <th>@articleOrder.budgetYear</th>
+		                        <th>
+								@if(articleOrder.fileType != null && articleOrder.fileType.contains("image")){
+		                    	<a href="@routes.Assets.at(articleOrder.path)">
+		                    		<img src="@routes.Assets.at(articleOrder.path)" alt="@articleOrder.fileName" style="width:40px;height:40px">
+		                    	</a>
+		                    	}else{
+		                    		<a href="@routes.Assets.at(articleOrder.path)" download>
+			                    		@articleOrder.fileName
+			                    	</a>
+		                    	}
+		                        </th>
 		                        <th> <button class="btn btn-xs btn-info" onclick="edit(@articleOrder.id,1)" > รายละเอียด</button>
 		                    </tr>
 		                }

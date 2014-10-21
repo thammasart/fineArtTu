@@ -73,6 +73,14 @@ public class Borrow extends Model{
 		}
 	}
 
+	public String getWithdrawerToString(){
+		String result = "";
+		if(user != null){
+			result += user.firstName + "  " + user.lastName;
+		}
+		return result;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Borrow> find = new Finder(Long.class,Borrow.class);
 }

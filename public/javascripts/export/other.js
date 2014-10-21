@@ -26,7 +26,7 @@ function addDetailButton(){
 function addOtherButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-		document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการโอนย้ายอื่นๆ"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการโอนย้ายอื่นๆ"
 }
 
 function addNewDetai(code){
@@ -104,8 +104,8 @@ function getDetail(){
 			   	var details = data["details"];
 			   	var detailLength = details.length;
 			   	var s = "";
-			   	destroyTable();
 			   	oldDetail = [];
+			   	destroyTable();
 				for (var i = 0; i < detailLength; i++) {
 					oldDetail.push(details[i].durableArticles.id);
 					s += '<tr>';
