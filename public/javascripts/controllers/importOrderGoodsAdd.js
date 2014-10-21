@@ -1,4 +1,5 @@
 var submitStatus = true;
+var submitNext = true;
 
 var goodsCode=[];
 var goodsName=[];
@@ -79,40 +80,7 @@ function submitButtonClicks(){
         document.getElementById("yearsAlert").style.display = "table-row";
         submitStatus = false;
     }else  document.getElementById("yearsAlert").style.display= "none";
-    if(document.getElementById("description").value ==""){
-        document.getElementById("descriptionAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("descriptionAlert").style.display= "none";
 
-    if(document.getElementById("code").value==""){
-        document.getElementById("codeAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("codeAlert").style.display= "none";
-
-    if(document.getElementById("price").value ==""){
-        document.getElementById("priceAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("priceAlert").style.display= "none";
-
-    if(document.getElementById("priceNoVat").value ==""){
-        document.getElementById("priceNoVatAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("priceNoVatAlert").style.display= "none";
-
-    if(document.getElementById("quantity").value==""){
-        document.getElementById("quantityAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("quantityAlert").style.display= "none";
-
-    if(document.getElementById("seller").value ==""){
-        document.getElementById("sellerAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("sellerAlert").style.display= "none";
-
-    if(document.getElementById("phone").value ==""){
-        document.getElementById("phoneAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("phoneAlert").style.display= "none";
 
     return submitStatus;
 }

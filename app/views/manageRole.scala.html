@@ -19,6 +19,7 @@
 						<th>3<span></span></th>
 						<th>4<span></span></th>
 						<th>5<span></span></th>
+						<th>6<span></span></th>
 						<th>ลบ<span></span></th>
 					</tr>
 				</thead>
@@ -53,6 +54,11 @@
 							}else{
 								<th><input type="checkbox" onclick="return false;"></th>
 							}
+							@if(userStatus.module6){
+								<th><input type="checkbox" onclick="return false;" checked></th>
+							}else{
+								<th><input type="checkbox" onclick="return false;"></th>
+							}
 							<th><button onclick="del(@userStatus.name)">ลบ</button></th>
 						</tr>
 					}
@@ -64,6 +70,7 @@
 						<th><input type="checkbox" id="add3"></th>
 						<th><input type="checkbox" id="add4"></th>
 						<th><input type="checkbox" id="add5"></th>
+						<th><input type="checkbox" id="add6"></th>
 						<th><button type="button" onclick="save()">บันทึก</button></th>
 					</tr>
 				</tbody>

@@ -64,7 +64,8 @@ function save() {
 		'module2' : document.getElementById("add2").checked,
 		'module3' : document.getElementById("add3").checked,
 		'module4' : document.getElementById("add4").checked,
-		'module5' : document.getElementById("add5").checked
+		'module5' : document.getElementById("add5").checked,
+		'module6' : document.getElementById("add6").checked
 	};
 
 	postData('/Admin/addRole', data);

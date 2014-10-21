@@ -352,11 +352,7 @@ public class Import extends Controller {
 
 
     //----------------------------------------------------------------------------------------------------
-    @Security.Authenticated(Secured.class)
-        public static Result importsMaterialDurableGoodsAdd() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsMaterialDurableGoodsAdd.render(user));
-    }
+
     @Security.Authenticated(Secured.class)
         public static Result importsMaterialConsumableGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -364,7 +360,7 @@ public class Import extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result saveNewMaterialDurableGoods(){
+    public static Result saveNewMaterialConsumableGoods(){
     	String tab = "";
         String code = "";
         DynamicForm form = Form.form().bindFromRequest();
@@ -373,17 +369,10 @@ public class Import extends Controller {
         MaterialCode newCode = newCodeForm.get();
 
 
-        if(form.get("chosenType").equals("1"))
-        {
-            newCode.typeOfGood = "วัสดุคงทนถาวร";
-            newCode.minNumberToAlert =0;
+
+            //newCode.typeOfGood = "วัสดุสิ้นเปลือง";
             tab = "2";
-        }
-        else
-        {
-            newCode.typeOfGood = "วัสดุสิ้นเปลือง";
-            tab = "3";
-        }
+        
         code = newCode.code;
         code = Character.toString(code.charAt(0))+Character.toString(code.charAt(1));
         System.out.println(code);
@@ -501,37 +490,23 @@ public class Import extends Controller {
 	   		}
 	   		
 	   			
-	   		if(code.typeOfGood=="วัสดุคงทนถาวร")
-	   		{
-		         if(del!=0)
-		             flash("delete2","ลบรหัสวัสดุทั้งหมด " + del +" รายการ ");
-	             if(cantDel!=0)
-		             flash("cantdelete2","ไม่สามารถลบรหัสวัสดุได้ " + cantDel +" รายการ เนื่องจากรหัสวัสดุเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");
-	             tab = "2";
-	   		}
-	   		else
-	   		{
+
+
 	   		 if(del!=0)
-	             flash("delete3","ลบรหัสวัสดุทั้งหมด " + del +" รายการ ");
+	             flash("delete2","ลบรหัสวัสดุทั้งหมด " + del +" รายการ ");
              if(cantDel!=0)
-	             flash("cantdelete3","ไม่สามารถลบรหัสวัสดุได้ " + cantDel +" รายการ เนื่องจากรหัสวัสดุเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");
-             tab = "3";
-	   		}
+	             flash("cantdelete2","ไม่สามารถลบรหัสวัสดุได้ " + cantDel +" รายการ เนื่องจากรหัสวัสดุเหล่านี้ได้ถูกใช้งานอยู่ในระบบ");
+             tab = "2";
+	   		
 	   		
 	   		 
     	}
     	else{
     		System.out.println(type);
-    		if(type.equals("durableGoods"))
-    		{
-	    		tab="2";
-	    		flash("notSelect2","เลือกรหัสวัสดุที่ต้องการจะลบ");
-    		}
-    		else if(type.equals("consumableGoods"))
-    		{
-        		tab="3";
-        		flash("notSelect3","เลือกรหัสวัสดุที่ต้องการจะลบ");
-    		}
+    		
+        		tab="2";
+        		flash("notSelect2","เลือกรหัสวัสดุที่ต้องการจะลบ");
+    		
     	}
     	
     	return redirect(routes.Import.importsMaterial2(tab));

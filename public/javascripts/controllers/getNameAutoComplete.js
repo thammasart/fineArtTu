@@ -144,7 +144,7 @@ function mapInput3(){
 function submitButtonClick(){
     
     submitStatus = true;
-    if(document.getElementById("title").value.length ==""){
+    if(document.getElementById("title").value==""){
         document.getElementById("titleAlert").style.display = "table-row";
         submitStatus = false;
     }else  document.getElementById("titleAlert").style.display= "none";
@@ -159,7 +159,7 @@ function submitButtonClick(){
         submitStatus = false;
     }else  document.getElementById("dateAlert").style.display= "none";
 
-    if(document.getElementById("firstName").value.length ==""){
+    if(document.getElementById("firstName").value==""){
         document.getElementById("firstNameAlert").style.display = "table-row";
         submitStatus = false;
     }else  document.getElementById("firstNameAlert").style.display= "none";
@@ -174,7 +174,7 @@ function submitButtonClick(){
         submitStatus = false;
     }else  document.getElementById("positionAlert").style.display= "none";
 
-    if(document.getElementById("approverName").value.length ==""){
+    if(document.getElementById("approverName").value==""){
         document.getElementById("approverNameAlert").style.display = "table-row";
         submitStatus = false;
     }else  document.getElementById("approverNameAlert").style.display= "none";
