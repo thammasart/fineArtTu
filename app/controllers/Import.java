@@ -352,11 +352,7 @@ public class Import extends Controller {
 
 
     //----------------------------------------------------------------------------------------------------
-    @Security.Authenticated(Secured.class)
-        public static Result importsMaterialDurableGoodsAdd() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(importsMaterialDurableGoodsAdd.render(user));
-    }
+
     @Security.Authenticated(Secured.class)
         public static Result importsMaterialConsumableGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -364,7 +360,7 @@ public class Import extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-    public static Result saveNewMaterialDurableGoods(){
+    public static Result saveNewMaterialConsumableGoods(){
     	String tab = "";
         String code = "";
         DynamicForm form = Form.form().bindFromRequest();
@@ -373,17 +369,10 @@ public class Import extends Controller {
         MaterialCode newCode = newCodeForm.get();
 
 
-        if(form.get("chosenType").equals("1"))
-        {
-            newCode.typeOfGood = "วัสดุคงทนถาวร";
-            newCode.minNumberToAlert =0;
-            tab = "2";
-        }
-        else
-        {
+
             newCode.typeOfGood = "วัสดุสิ้นเปลือง";
-            tab = "3";
-        }
+            tab = "2";
+        
         code = newCode.code;
         code = Character.toString(code.charAt(0))+Character.toString(code.charAt(1));
         System.out.println(code);

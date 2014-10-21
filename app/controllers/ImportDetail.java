@@ -232,60 +232,7 @@ public class ImportDetail extends Controller {
 		 return redirect(routes.Import.importsMaterial2("1"));
 		 
 	 }
-	 ////////////////////////////////////////////////////////////////////////////////
-	 @Security.Authenticated(Secured.class)
-	 public static Result importsMaterialDurableGoodsDetail(String id)
-	 {
-		User user = User.find.where().eq("username", session().get("username")).findUnique();
-		MaterialCode code = MaterialCode.find.byId(id);
-		
-		System.out.println(code.code);
-		
-		
-		return ok(importsMaterialDurableGoodsDetail.render(user,code));
-	 }
-	 
-	 
-	 public static Result saveNewMaterialDurableGoods(){
-		 DynamicForm form = Form.form().bindFromRequest();
-		 
-		 MaterialCode mc = MaterialCode.find.byId(form.get("code"));
-		 mc.otherDetail = form.get("otherDetail");
-		 
-		 MultipartFormData body = request().body().asMultipartFormData();
-	    	FilePart filePart = body.getFile("attachFile");
-			String fileName="";
-			String contentType=""; 
-			//File file = null;
-	    	if (filePart != null) {
-				fileName = filePart.getFilename();
-				contentType = filePart.getContentType(); 	
-		        File file = new File("./public/"+mc.path);		//get file------------------------------------------------
-				file.delete();									//delete file---------------------------------------------
-				
-				//write file
-				String[] extension=fileName.split("\\.");
-				String targetPath = "./public/images/goodsNumber/" + mc.code;
-				mc.path ="images/goodsNumber/" + mc.code;
-				if(extension.length>1)
-				{
-					targetPath += "." + extension[((extension.length)-1)];
-					mc.path+="." + extension[((extension.length)-1)];	
-					
-				}
-				mc.fileName = fileName;
-				filePart.getFile().renameTo(new File(targetPath));
-				mc.fileType = contentType; 
-		        //end write file
-			}
-		 
-		 mc.update();
-		 
-		 return redirect(routes.Import.importsMaterial2("2"));
-		 
-	 }
-	 ////////////////////////////////////////////////////////////////////////////////
-	 
+
 	 @Security.Authenticated(Secured.class)
 	 public static Result importsMaterialConsumableGoodsDetail(String id)
 	 {
@@ -333,7 +280,7 @@ public class ImportDetail extends Controller {
 		 
 		 mc.update();
 		 
-		 return redirect(routes.Import.importsMaterial2("3"));
+		 return redirect(routes.Import.importsMaterial2("2"));
 		 
 	 }
 	 
