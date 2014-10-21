@@ -39,47 +39,26 @@ function submitButtonClick(){
     if(document.getElementById("title").value==""){
         document.getElementById("titleAlert").style.display = "table-row";
         submitStatus = false;
+        document.addSold.title.focus();
     }else  document.getElementById("titleAlert").style.display= "none";
 
-    if(document.getElementById("number").value ==""){
-        document.getElementById("numberAlert").style.display = "table-row";
+    if(document.getElementById("contractNo").value ==""){
+        document.getElementById("contractNoAlert").style.display = "table-row";
         submitStatus = false;
-    }else  document.getElementById("numberAlert").style.display= "none";
+        document.addSold.contractNo.focus();
+    }else  document.getElementById("contractNoAlert").style.display= "none";
 
-    if(document.getElementById("date").value ==""){
-        document.getElementById("dateAlert").style.display = "table-row";
+    if(document.getElementById("approveDate").value ==""){
+        document.getElementById("approveDateAlert").style.display = "table-row";
         submitStatus = false;
-    }else  document.getElementById("dateAlert").style.display= "none";
+        document.addSold.approveDate.focus();
+    }else  document.getElementById("approveDateAlert").style.display= "none";
 
-    if(document.getElementById("firstName").value==""){
-        document.getElementById("firstNameAlert").style.display = "table-row";
+    if(document.getElementById("soldDestination").value==""){
+        document.getElementById("soldDestinationAlert").style.display = "table-row";
         submitStatus = false;
-    }else  document.getElementById("firstNameAlert").style.display= "none";
-
-    if(document.getElementById("lastName").value ==""){
-        document.getElementById("lastNameAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("lastNameAlert").style.display= "none";
-
-    if(document.getElementById("position").value ==""){
-        document.getElementById("positionAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("positionAlert").style.display= "none";
-
-    if(document.getElementById("approverName").value==""){
-        document.getElementById("approverNameAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("approverNameAlert").style.display= "none";
-
-    if(document.getElementById("approverLastName").value ==""){
-        document.getElementById("approverLastNameAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("approverLastNameAlert").style.display= "none";
-
-    if(document.getElementById("approverPosition").value ==""){
-        document.getElementById("approverPositionAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("approverPositionAlert").style.display= "none";
+        document.addSold.soldDestination.focus();
+    }else  document.getElementById("soldDestinationAlert").style.display= "none";
 
     return submitStatus;
 }

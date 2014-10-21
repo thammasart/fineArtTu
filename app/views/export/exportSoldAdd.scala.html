@@ -12,22 +12,22 @@
 
 <div id="addWindows" class ="detailWindow" >
   
-  <form name="addSold" method="post" action="@routes.ExportSold.saveAuction(auction.id)">
+  <form name="addSold" method="post" action="@routes.ExportSold.saveAuction(auction.id)" onsubmit="return submitButtonClick()">
     <div>
 
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">รายการ เรื่อง</span>
-            <input type="text" class="form-control width300px" name="title">
-            <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+            <input type="text" class="form-control width300px" name="title" id="title">
+            <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">เลขที่</span>
-            <input type="text" class="form-control width300px" name="contractNo">
-            <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+            <input type="text" class="form-control width300px" name="contractNo" id="contractNo">
+            <span class="alertText" id="contractNoAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
@@ -56,9 +56,9 @@
         <div class="form-group">
           <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
-            <input type="text" class="form-control width300px" name="approveDate" data-format="DD/MM/YYYY">
+            <input type="text" class="form-control width300px" id="approveDate" name="approveDate" data-format="DD/MM/YYYY">
             <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
-            <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+            <span class="alertText" id="approveDateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
@@ -67,10 +67,98 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width250px">บริษัท-ร้านค้า ที่จำหน่วยไป</span>
-            <input type="text" class="form-control width300px">
-            <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+            <input type="text" class="form-control width300px" name="soldDestination" id="soldDestination">
+            <span class="alertText" id="soldDestinationAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
+           <div class="form-inline" role="form" >
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >เลขที่</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="buildingNo">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >หมู่</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="village">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >ซอย</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="alley">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >ถนน</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="road">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >ตำบล</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="parish">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >อำเภอ</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="district">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >จังหวัด</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="province">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >เบอร์โทร</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="telephoneNumber">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >Fax</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="fax">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >รหัสไปรษณีย์</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="postCode">
+                    </div>
+              </div>
+           </div>
+           <div class="form-inline marginBtm1" role="form">
+              <div class="form-group" >
+                    <div class="input-group" >
+                        <span class="input-group-addon width250px" >e-mail</span>
+                        <input type="text" class="form-control textAlignLeft  width300px" name="email">
+                    </div>
+              </div>
+           </div>
       </div>
 
       <div class="form-inline marginBtm1" role="form">
@@ -162,13 +250,13 @@
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >รหัสFSN</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
         </div>
       </div>
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
         </div>
       </div>
       <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
