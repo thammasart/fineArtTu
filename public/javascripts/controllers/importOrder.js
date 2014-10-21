@@ -265,7 +265,7 @@ function getCommitteeTemplate(name){
 }
 
 function preSpread(name){
-	var num = document.getElementById("quantity").value;
+		var num = document.getElementById("quantity").value;
         var val = document.getElementById("code").value;
         var years = document.getElementById("years").value;
 	document.getElementById("fixNumber").value=num;
@@ -273,9 +273,12 @@ function preSpread(name){
 	var ss = "";
 	for(k=1;k<=num;k++)
 	{
-		var v='<div id="sub'+k+'">'+
-		'  <div class="form-inline marginBtm1" role="form" align="left" style="display:inline-table">'+
-		''+
+		var v1;
+		var v='<div id="sub'+k+'">'
+		
+		if(val.length>5)
+		{
+		v1='  <div class="form-inline marginBtm1" role="form" align="left" style="display:inline-table">'+
 		'	        	<div class="form-group" >'+
 		'	        		<div class="input-group"> '+
 		'		                <span class="input-group-addon">สาขา</span>'+
@@ -284,12 +287,24 @@ function preSpread(name){
 		'		                        <option>สาขาวิชาศิลปะการออกแบบพัสตราภรณ์</option>'+
 		'		                        <option>สาขาวิชาศิลปะการออกแบบอุตสาหกรรม</option>'+
 		'		                        <option>สำนักงานเลขานุการ</option>'+
+		'		                    </select>'+
+		'		            </div>'+
+		'	        	</div>'
+		}
+		else
+		{
+		v1='  <div class="form-inline marginBtm1" role="form" align="left" style="display:inline-table">'+
+		'	        	<div class="form-group" >'+
+		'	        		<div class="input-group"> '+
+		'		                <span class="input-group-addon">สาขา</span>'+
+		'		                    <select class="form-control textAlignCenter  width300px" name="'+name+'Department'+k+'" id="'+name+'Department'+k+'">'+
 		'		                        <option>ห้องพัสดุ</option>'+
 		'		                    </select>'+
 		'		            </div>'+
-		'	        	</div>'+
-		''+
-		'	        	<div class="form-group" >'+
+		'	        	</div>'	
+		}
+
+		var v15='	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ห้อง</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  width75px" name="'+name+'Room'+k+'" id="'+name+'Room'+k+'">'+
@@ -342,9 +357,9 @@ var v3 ='	            <button onclick="setValueBelow(\''+name+'\','+ k +')">ต�
 		'	        </div>  '+
 		'		</div>'
 if(name=='article')
-	v=v+v2+v3;
+	v=v+v1+v15+v2+v3;
 else
-	v=v+v3;
+	v=v+v1+v15+v3;
 
 		
 		
@@ -424,7 +439,6 @@ function loadOrderArticle(data){
 		'                    <th>'+ data['data'][i].price +'</th>'+
 		'                    <th>'+ data['data'][i].lifeTime +'</th>'+
 		'<th>';
-		console.log(data["data"][i]+ "   " + data['data'][i].fileType!=undefined);
 		if(data['data'][i].fileType != null && data['data'][i].fileType.contains("image")){
 			divTable+='<a href="/assets/'+data['data'][i].path+'"><img src="/assets/'+data['data'][i].path+'" alt="'+data['data'][i].fileName+'" style="width:40px;height:40px"></a>';
 		}else{
