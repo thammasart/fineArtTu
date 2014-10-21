@@ -110,7 +110,7 @@ function setData(obj,chart){
 				duration : 1000,
 				easing : 'out',
 			},
-			//legend: { position: "none" },
+			legend: { position: "none" },
 			hAxis: {
 				//textPosition : 'none',
 				textStyle :{fontSize: 10},

@@ -200,7 +200,6 @@ public class Graph extends Controller {
     			}
     		}
     	}else{
-    		result = getDetailHeader();
     		if(col == 1){
     			if(relation.equals("year")){
     				int year = Calendar.getInstance().get(Calendar.YEAR)-(3-row);
@@ -215,32 +214,30 @@ public class Graph extends Controller {
     				cal.set(Calendar.DAY_OF_MONTH, 31); // new years eve
     				
     				Date endDate = cal.getTime();
-    				HashMap<String,Double> listResult = new HashMap<String,Double>();
     				List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).findList();
-    				for(models.durableArticles.Procurement p : ps){
-    					for(models.durableArticles.ProcurementDetail pd : p.details){
-    						String key = pd.fsn.typ.groupClass.group.groupDescription;
-    						Double value = listResult.get(key);
-    						if(value == null){
-    							listResult.put(key, pd.price * pd.quantity);
-    						}else{
-    							listResult.put(key, listResult.get(key) + (pd.price * pd.quantity));
-    						}
-    					}
-    				}
-    				int i=0;
-    				for (String key : listResult.keySet()) {
-    					ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-    					tr.add(key);
-    					tr.add(listResult.get(key));
-    					tr.add(colors[i++]);
-    					tr.add(key);
-    					result.add(tr);
-    				}
+    				result = getDetailMapArticle(ps);
     			}else if(relation.equals("month")){
-    				
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				cal.set(Calendar.YEAR, year);
+    				cal.set(Calendar.MONTH, row);
+    				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+    				Date startDate = cal.getTime();
+    				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+    				Date endDate = cal.getTime();
+    				List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).findList();
+    				result = getDetailMapArticle(ps);
     			}else if(relation.equals("quarter")){
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				cal.set(Calendar.YEAR, year);
+    				cal.set(Calendar.MONTH, row*3);
+    				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+    				Date startDate = cal.getTime();
     				
+    				cal.set(Calendar.MONTH, row*3+2);
+    				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+    				Date endDate = cal.getTime();
+    				List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).findList();
+    				result = getDetailMapArticle(ps);
     			}
     		}else if(col == 2){
     			if(relation.equals("year")){
@@ -257,33 +254,30 @@ public class Graph extends Controller {
     				cal.set(Calendar.DAY_OF_MONTH, 31); // new years eve
     				
     				Date endDate = cal.getTime();
-    				HashMap<String,Double> listResult = new HashMap<String,Double>();
-    				List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).findList();
-    				for(models.durableGoods.Procurement p : pgs){
-    					for(models.durableGoods.ProcurementDetail pd : p.details){
-    						String key = pd.code.description;
-    						Double value = listResult.get(key);
-    						if(value == null){
-    							if(pd.price * pd.quantity != 0)
-    								listResult.put(key, pd.price * pd.quantity);
-    						}else{
-    							listResult.put(key, listResult.get(key) + (pd.price * pd.quantity));
-    						}
-    					}
-    				}
-    				int i=0;
-    				for (String key : listResult.keySet()) {
-    					ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-    					tr.add(key);
-    					tr.add(listResult.get(key));
-    					tr.add(colors[i++]);
-    					tr.add(key);
-    					result.add(tr);
-    				}
+    				List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).findList();
+    				result = getDetailMapGoods(ps);
     			}else if(relation.equals("month")){
-    				
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				cal.set(Calendar.YEAR, year);
+    				cal.set(Calendar.MONTH, row);
+    				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+    				Date startDate = cal.getTime();
+    				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+    				Date endDate = cal.getTime();
+    				List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).findList();
+    				result = getDetailMapGoods(ps);
     			}else if(relation.equals("quarter")){
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				cal.set(Calendar.YEAR, year);
+    				cal.set(Calendar.MONTH, row*3);
+    				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+    				Date startDate = cal.getTime();
     				
+    				cal.set(Calendar.MONTH, row*3+2);
+    				cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+    				Date endDate = cal.getTime();
+    				List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).findList();
+    				result = getDetailMapGoods(ps);
     			}
     		}
     	}
@@ -370,4 +364,56 @@ public class Graph extends Controller {
     	return result;
     }
 
+    private static ArrayNode getDetailMapArticle(List<models.durableArticles.Procurement> ps){
+    	ArrayNode result = getDetailHeader();
+    	HashMap<String,Double> listResult = new HashMap<String,Double>();
+		for(models.durableArticles.Procurement p : ps){
+			for(models.durableArticles.ProcurementDetail pd : p.details){
+				String key = pd.fsn.typ.groupClass.group.groupDescription;
+				Double value = listResult.get(key);
+				if(value == null){
+					listResult.put(key, pd.price * pd.quantity);
+				}else{
+					listResult.put(key, listResult.get(key) + (pd.price * pd.quantity));
+				}
+			}
+		}
+		int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+		return result;
+    }
+    
+    private static ArrayNode getDetailMapGoods(List<models.durableGoods.Procurement> ps){
+    	ArrayNode result = getDetailHeader();
+    	HashMap<String,Double> listResult = new HashMap<String,Double>();
+		for(models.durableGoods.Procurement p : ps){
+			for(models.durableGoods.ProcurementDetail pd : p.details){
+				String key = pd.code.materialType.typeName;
+				Double value = listResult.get(key);
+				if(value == null){
+					if(pd.price * pd.quantity != 0)
+						listResult.put(key, pd.price * pd.quantity);
+				}else{
+					listResult.put(key, listResult.get(key) + (pd.price * pd.quantity));
+				}
+			}
+		}
+		int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+    	return result;
+    }
 }
