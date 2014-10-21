@@ -67,6 +67,7 @@ public class ExportRepair extends Controller {
         if(repair == null){
             return redirect(routes.ExportRepair.exportRepairing());
         }
+        repair.dateOfResiveFromRepair = new Date();
         return ok(exportRepairingReceive.render(user, repair));
     }
 

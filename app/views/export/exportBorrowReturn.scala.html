@@ -1,0 +1,138 @@
+@(user : User ,borrow:models.durableArticles.Borrow)
+@header("exportBorrowAdd")
+
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/borrow.js")"></script>
+<body onload="getDetail(@borrow.id)"> 
+
+@nav(user)
+@headerTagFull("เพิ่มรายการยืม")
+
+<div id="addWindows" class ="detailWindow" >
+  
+  <form name="addSold" method="post" action="@routes.ExportBorrow.saveReturn(borrow.id)">
+    <div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group ">
+            <span class="input-group-addon width250px">รายการ เรื่อง</span>
+            <input type="text" disabled class="form-control width300px" value="@borrow.title" name="title">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group ">
+            <span class="input-group-addon width250px">เลขที่</span>
+            <input type="text" disabled class="form-control width300px" value="@borrow.number" name="number">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon width250px">วัน/เดือน/ปี เริ่มยืม</span>
+            <input type="text" disabled class="form-control width300px" value="@borrow.getDateOfStartBorrow()" name="dateOfStartBorrow" data-format="DD/MM/YYYY">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ผู้ยืม:ชื่อ</span>
+              <input type="text" disabled class="form-control width190px textAlignCenter" value="borrow.user.firstName" name="withdrawerFirstName" id="withdrawerNmae" onkeyup="mapInput2()">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">นามสกุล</span>
+              <input type="text" disabled class="form-control width190px textAlignCenter" value="borrow.user.lastName" name="withdrawerLastName" id="withdrawerLastname">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ตำแหน่ง</span>
+              <input type="text" disabled class="form-control width190px textAlignCenter" value="borrow.user.position" name="withdrawerPosition" id="withdrawerPosition">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
+              <input type="text" disabled class="form-control width190px textAlignCenter" value="borrow.approver.firstName" name="approverFirstName" id="approverName" onkeyup="mapInput2()">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">นามสกุล</span>
+              <input type="text" disabled class="form-control width190px textAlignCenter" value="borrow.approver.lastName" name="approverLastName" id="approverLastName">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ตำแหน่ง</span>
+              <input type="text" disabled class="form-control width190px textAlignCenter" value="borrow.approver.position" name="approverPosition" id="approverPosition">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group" id="dateP">
+            <span class="input-group-addon width250px">วัน/เดือน/ปี รับคืน</span>
+            <input type="text" class="form-control width300px" name="dateOfEndBorrow" value="@borrow.getDateOfEndBorrow()" data-format="DD/MM/YYYY">
+            <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="well" >
+      <h2 style ="text-align:center;">รายละเอียดครุภัณฑ์</h2>
+      <div class="tableHeaderBtnContainer" >
+        <div class="searchS">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon">ค้นหา</span>
+              <input type="text" class="form-control" style="width:300px">
+            </div>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn btn-success width200px" style="float:right;margin-left:1%;" onclick="addDetailButton()">เพิ่มครุภัณฑ์</button>
+          <button type="button" class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
+        </div> 
+      </div>
+
+      <table class="table table-striped overlayTable" style="margin-bottom:3%;">
+        <thead>
+            <tr>
+                <th>ลำดับ</th>
+                <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
+                <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+            </tr>
+        </thead>
+        <tbody id="detailInTable">
+
+        </tbody>
+      </table>
+    </div>  <!--end well-->
+
+
+    <div align="center" style="margin-bottom:1%;">
+      <a href="@routes.ExportBorrow.cancelBorrow(borrow.id)">
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+        </button>
+      </a>
+        <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+          ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+        </button>
+    </div>
+  </form>
+
+</div> 
+@footerFull()
