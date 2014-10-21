@@ -167,16 +167,7 @@ public class ImportDetail extends Controller {
 	    }
 
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
+
 	 
 	 @Security.Authenticated(Secured.class)
 	 public static Result importsMaterialDurableArticlesDetail(String id)
