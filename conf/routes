@@ -78,6 +78,7 @@ POST 	/export/borrow/saveDetail 				controllers.ExportBorrow.saveBorrowDetail()
 GET 	/export/borrow/loadDetail 				controllers.ExportBorrow.loadBorrowDetail(id:Long)
 GET 	/export/borrow/viewDetail 				controllers.ExportBorrow.viewDetail(id:Long)
 GET 	/export/borrow/return 					controllers.ExportBorrow.returnFromBorrow(id:Long)
+POST 	/export/borrow/saveReturn 				controllers.ExportBorrow.saveReturn(id:Long)
 
 GET     /export/order/autocompleteExportCommitee              controllers.Export.autocompleteExportCommitee()
 GET     /export/repair/autocompleteRepairCommitee             controllers.Export.autocompleteRepairCommitee()
