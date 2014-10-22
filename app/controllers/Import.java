@@ -985,10 +985,29 @@ public class Import extends Controller {
     		e.printStackTrace();
     	}
     	System.out.println(goodsOrder.checkDate.toLocaleString());
+    	
         
     	goodsOrder.status = ImportStatus.SUCCESS;        
     	goodsOrder.update();
-    	System.out.println(goodsOrder);
+    	
+    	for(models.durableGoods.ProcurementDetail pd:goodsOrder.details) 	//เพิ่มจำนวนวัสดุให้กับclassหมายเลขวัสดุสิ้นเปลือง
+    	{
+    		if(pd.typeOfDurableGoods==0)
+    		{
+    			MaterialCode mc = MaterialCode.find.byId(pd.code);
+    			
+    			mc.remain = 0;
+    			
+    			List<models.durableGoods.ProcurementDetail> details = models.durableGoods.ProcurementDetail.find.where().eq("code", pd.code).eq("procurement.status", ImportStatus.SUCCESS).findList();
+    			for(models.durableGoods.ProcurementDetail detail : details){
+    				mc.remain += detail.quantity;
+    			}
+    			System.out.println("Let me see"+mc.code);
+    			System.out.println(mc.remain);
+    			mc.update();
+    		}
+    	}
+    	//System.out.println(goodsOrder);
 
         return redirect(routes.Import.importsOrder2("2"));
     }
@@ -1032,8 +1051,6 @@ public class Import extends Controller {
     	if(!codeId.equals("")){
     		procurementDetail.code = codeId; //fsn or code 5 number
     		procurementDetail.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
-    		System.out.println("Let me see");
-    		System.out.println(procurementDetail.typeOfDurableGoods);
     		
     	}else{
     		System.out.println("\n\n Exception MaterialCode Not Found !!!! \n\n\n\n\n");
@@ -1065,14 +1082,13 @@ public class Import extends Controller {
 	    	
 	    	goods.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
 	    	
-	    	System.out.println(goods.typeOfDurableGoods);
-	    	
 	    	goods.detail = procurementDetail;
 	    	
 	    	if(!editingMode) goods.save();
 	    	else goods.update();
     	}
-
+    	
+    
     	
     	List<models.durableGoods.ProcurementDetail> procurementDetails = models.durableGoods.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
     	ObjectNode result = Json.newObject();
