@@ -1011,6 +1011,9 @@ public class Import extends Controller {
     		editingMode = false;
     	}
     	
+    
+
+    	
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
     	procurementDetail.price = Double.parseDouble(json.get("price").asText());
@@ -1027,7 +1030,11 @@ public class Import extends Controller {
     	
     	
     	if(!codeId.equals("")){
-    		procurementDetail.code = codeId;
+    		procurementDetail.code = codeId; //fsn or code 5 number
+    		procurementDetail.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
+    		System.out.println("Let me see");
+    		System.out.println(procurementDetail.typeOfDurableGoods);
+    		
     	}else{
     		System.out.println("\n\n Exception MaterialCode Not Found !!!! \n\n\n\n\n");
     	}
@@ -1054,7 +1061,11 @@ public class Import extends Controller {
 	    	goods.codes = json.get("goodFSNCode"+i).asText();
 	    	goods.title = json.get("goodPrefixName"+i).asText();			
 	    	goods.firstName = json.get("goodFirstName"+i).asText();		
-	    	goods.lastName = json.get("goodLastName"+i).asText();			 
+	    	goods.lastName = json.get("goodLastName"+i).asText();	
+	    	
+	    	goods.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
+	    	
+	    	System.out.println(goods.typeOfDurableGoods);
 	    	
 	    	goods.detail = procurementDetail;
 	    	
