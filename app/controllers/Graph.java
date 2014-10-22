@@ -53,23 +53,23 @@ public class Graph extends Controller {
       ArrayNode result=null;
       
 	  if(mode.equals("balance")){
-		  result = getBalance(relation,row,column);
+		  result = getBalance(relation,row,column,page);
 	  }else if(mode.equals("procurement")){
-		  result = getProcurement(relation,row,column);
+		  result = getProcurement(relation,row,column,page);
 	  }else if(mode.equals("requisition")){
-		  result = getRequisition(relation,row,column);
+		  result = getRequisition(relation,row,column,page);
 	  }else if(mode.equals("transfer")){
-		  result = getTransfer(relation,row,column);
+		  result = getTransfer(relation,row,column,page);
 	  }else if(mode.equals("repairing")){
-		  result = getRepairing(relation,row,column);
+		  result = getRepairing(relation,row,column,page);
 	  }else if(mode.equals("remain")){
-		  result = getRemain(relation,row,column);
+		  result = getRemain(relation,row,column,page);
 	  }else if(mode.equals("sold")){
-		  result = getSold(relation,row,column);
+		  result = getSold(relation,row,column,page);
 	  }else if(mode.equals("donate")){
-		  result = getDonate(relation,row,column);
+		  result = getDonate(relation,row,column,page);
 	  }else if(mode.equals("other")){
-		  result = getOther(relation,row,column);
+		  result = getOther(relation,row,column,page);
 	  }
 	  
       return ok(result);
@@ -106,7 +106,7 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getBalance(String relation,int row,int col){
+    private static ArrayNode getBalance(String relation,int row,int col, int page){
     	ArrayNode result = null;
     	//System.out.println("\n\n\n\n"+row +"  "+col +"\n\n\n\n");
     	if(row == -1 && col == -1){
@@ -126,7 +126,7 @@ public class Graph extends Controller {
     				tr.add(d.get(1));
     				result.add(tr);
     			}
-    		}else {
+    		}else if(page != 2){
     			int num = 12;
     			if(relation.equals("quarter")) num = 4;
     			for(int i=0; i<num; i++){
@@ -168,7 +168,7 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getProcurement(String relation,int row,int col){
+    private static ArrayNode getProcurement(String relation,int row,int col, int page){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
     		result = getHeader();
@@ -187,7 +187,7 @@ public class Graph extends Controller {
     				tr.add(d.get(1));
     				result.add(tr);
     			}
-    		}else {
+    		}else if(page != 2){
     			int num = 12;
     			if(relation.equals("quarter")) num = 4;
     			for(int i=0; i<num; i++){
@@ -229,7 +229,7 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getRequisition(String relation,int row,int col){
+    private static ArrayNode getRequisition(String relation,int row,int col, int page){
     	ArrayNode result = getDetailHeader();
     	if(row == -1 && col == -1){
     		if(relation.equals("year")){
@@ -246,7 +246,7 @@ public class Graph extends Controller {
     				tr.add(d);
     				result.add(tr);
     			}
-    		}else {
+    		}else if(page != 2){
     			int num = 12;
     			if(relation.equals("quarter")) num = 4;
     			for(int i=0; i<num; i++){
@@ -282,9 +282,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getTransfer(String relation,int row,int col){
+    private static ArrayNode getTransfer(String relation,int row,int col, int page){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -292,9 +294,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getRepairing(String relation,int row,int col){
+    private static ArrayNode getRepairing(String relation,int row,int col, int page){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -302,9 +306,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getSold(String relation,int row,int col){
+    private static ArrayNode getSold(String relation,int row,int col, int page){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -312,9 +318,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getDonate(String relation,int row,int col){
+    private static ArrayNode getDonate(String relation,int row,int col, int page){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -322,9 +330,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getOther(String relation,int row,int col){
+    private static ArrayNode getOther(String relation,int row,int col, int page){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page !=2){
     		
     	}else{
     		
@@ -332,9 +342,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getRemain(String relation,int row,int col){
+    private static ArrayNode getRemain(String relation,int row,int col, int page){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -565,6 +577,6 @@ public class Graph extends Controller {
     }
     
     private static int getSumRequisition(Date startDate, Date endDate){
-    	return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).findList().size();
+    	return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
     }
 }
