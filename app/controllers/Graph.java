@@ -7,6 +7,7 @@ import play.data.*;
 import play.libs.Json;
 import views.html.*;
 import models.*;
+import models.type.ExportStatus;
 import models.type.ImportStatus;
 
 import java.text.SimpleDateFormat;
@@ -77,9 +78,15 @@ public class Graph extends Controller {
     private static ArrayNode getHeader(){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	ArrayNode thead = JsonNodeFactory.instance.arrayNode();
+    	ObjectNode annotation1 = Json.newObject();
+    	annotation1.put("role", "annotation");
+    	ObjectNode annotation2 = Json.newObject();
+    	annotation2.put("role", "annotation");
     	thead.add("type");
     	thead.add("ครุภัณฑ์");
+    	thead.add(annotation1);
     	thead.add("วัสดุ");
+    	thead.add(annotation2);
     	result.add(thead);
     	return result;
     }
@@ -114,6 +121,8 @@ public class Graph extends Controller {
     				year = year-i;
     				tr.add(""+year);
     				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
     				tr.add(d.get(1));
     				result.add(tr);
     			}
@@ -133,6 +142,8 @@ public class Graph extends Controller {
     					tr.add("Q"+(i+1));
     				}
     				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
     				tr.add(d.get(1));
     				result.add(tr);
     			}
@@ -171,6 +182,8 @@ public class Graph extends Controller {
     				year = year-i;
     				tr.add(""+year);
     				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
     				tr.add(d.get(1));
     				result.add(tr);
     			}
@@ -190,6 +203,8 @@ public class Graph extends Controller {
     					tr.add("Q"+(i+1));
     				}
     				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
     				tr.add(d.get(1));
     				result.add(tr);
     			}
@@ -215,12 +230,55 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getRequisition(String relation,int row,int col){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	ArrayNode result = getDetailHeader();
     	if(row == -1 && col == -1){
-    		
+    		if(relation.equals("year")){
+    			for(int i=3; i>=0; i--){
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				
+    				List<Date> date = getYearDate((3-i));
+    				int d = getSumRequisition(date.get(0), date.get(1)); 
+    				year = year-i;
+    				tr.add(""+year);
+    				tr.add(d);
+    				tr.add(colors[3-i]);
+    				tr.add(d);
+    				result.add(tr);
+    			}
+    		}else {
+    			int num = 12;
+    			if(relation.equals("quarter")) num = 4;
+    			for(int i=0; i<num; i++){
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				int d;
+    				if(relation.equals("month")){
+    					List<Date> date = getMonthDate(i);
+        				d = getSumRequisition(date.get(0), date.get(1));
+    					tr.add(new SimpleDateFormat("MMM",new Locale("th", "th")).format(cal.getTime()));
+    				}else{
+    					List<Date> date = getQuarterDate(i);
+        				d = getSumRequisition(date.get(0), date.get(1));
+    					tr.add("Q"+(i+1));
+    				}
+    				tr.add(d);
+    				tr.add(colors[i]);
+    				tr.add(d);
+    				result.add(tr);
+    			}
+    		}
     	}else{
-    		
-    	}    	
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(row);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(row);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(row);
+    		}
+			List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+			result = getDetailRequisitionMap(rs);
+    	}
     	return result;
     }
     
@@ -319,8 +377,9 @@ public class Graph extends Controller {
 				String key = c.materialType.typeName;
 				Double value = listResult.get(key);
 				if(value == null){
-					if(pd.price * pd.quantity != 0)
+					if(pd.price * pd.quantity != 0){
 						listResult.put(key, pd.price * pd.quantity);
+					}
 				}else{
 					listResult.put(key, listResult.get(key) + (pd.price * pd.quantity));
 				}
@@ -346,7 +405,9 @@ public class Graph extends Controller {
 				String key = pd.fsn.typ.groupClass.group.groupDescription;
 				Integer value = listResult.get(key);
 				if(value == null){
-					listResult.put(key, pd.quantity);
+					if(pd.quantity != 0){
+						listResult.put(key, pd.quantity);
+					}
 				}else{
 					listResult.put(key, listResult.get(key) + (pd.quantity));
 				}
@@ -373,8 +434,9 @@ public class Graph extends Controller {
 				String key = c.materialType.typeName;
 				Integer value = listResult.get(key);
 				if(value == null){
-					if(pd.quantity != 0)
+					if(pd.quantity != 0){
 						listResult.put(key, pd.quantity);
+					}
 				}else{
 					listResult.put(key, listResult.get(key) + pd.quantity);
 				}
@@ -390,6 +452,34 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
     	return result;
+    }
+    
+    private static ArrayNode getDetailRequisitionMap(List<models.consumable.Requisition> rs){
+    	ArrayNode result = getDetailHeader();
+    	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
+    	for(models.consumable.Requisition r : rs){
+    		for(models.consumable.RequisitionDetail rd : r.detils){
+    			String key = rd.code.materialType.typeName;
+    			Integer value = listResult.get(key);
+				if(value == null){
+					if(rd.quantity != 0){
+						listResult.put(key, rd.quantity);
+					}
+				}else{
+					listResult.put(key, listResult.get(key) + rd.quantity);
+				}
+    		}
+    	}
+    	int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+		return result;
     }
     
     private static List<Date> getYearDate(int row){
@@ -472,5 +562,9 @@ public class Graph extends Controller {
 		d.add(ps.size());
 		d.add(pgs.size());
 		return d;
+    }
+    
+    private static int getSumRequisition(Date startDate, Date endDate){
+    	return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).findList().size();
     }
 }
