@@ -1,5 +1,5 @@
 @(user : User ,borrow:models.durableArticles.Borrow)
-@header("exportBorrowReturn")
+@header("exportBorrowViewDetail")
 
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/borrow.js")"></script>
 <body onload="getDetail(@borrow.id)"> 
@@ -9,7 +9,7 @@
 
 <div id="addWindows" class ="detailWindow" >
   
-  <form name="addSold" method="post" action="@routes.ExportBorrow.saveReturn(borrow.id)">
+  <form name="addSold" method="post" action="routes.ExportBorrow.exportBorrow()">
     <div>
 
       <div class="form-inline marginBtm1" role="form">
@@ -32,6 +32,15 @@
           <div class="input-group">
             <span class="input-group-addon width250px">วัน/เดือน/ปี เริ่มยืม</span>
             <input type="text" disabled class="form-control width300px" value="@borrow.getDateOfStartBorrow()" name="dateOfStartBorrow" data-format="DD/MM/YYYY">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon width250px">วัน/เดือน/ปี รับคืน</span>
+            <input type="text" disabled class="form-control width300px" name="dateOfEndBorrow" value="@borrow.getDateOfEndBorrow()" data-format="DD/MM/YYYY">
           </div>
         </div>
       </div>
@@ -78,16 +87,6 @@
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" role="form">
-        <div class="form-group">
-          <div class="input-group" id="dateP">
-            <span class="input-group-addon width250px">วัน/เดือน/ปี รับคืน</span>
-            <input type="text" class="form-control width300px" name="dateOfEndBorrow" value="@borrow.getDateOfEndBorrow()" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <div class="well" >
@@ -101,10 +100,6 @@
             </div>
           </div>
         </div>
-        <div>
-          <button type="button" class="btn btn-success width200px" style="float:right;margin-left:1%;" onclick="addDetailButton()">เพิ่มครุภัณฑ์</button>
-          <button type="button" class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
-        </div> 
       </div>
 
       <table class="table table-striped overlayTable" style="margin-bottom:3%;">
@@ -134,5 +129,5 @@
     </div>
   </form>
 
-</div> 
+</div>
 @footerFull()

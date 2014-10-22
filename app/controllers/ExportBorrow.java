@@ -73,13 +73,12 @@ public class ExportBorrow extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
-        // User user = User.find.byId(session().get("username"));
-        // Borrow borrow = Borrow.find.byId(id);
-        // if(borrow == null){
-        //     return redirect(routes.ExportBorrow.exportBorrow());
-        // }
-        // return ok(exportBorrowViewDetail.render(user, borrow));
-        return TODO;
+        User user = User.find.byId(session().get("username"));
+        Borrow borrow = Borrow.find.byId(id);
+        if(borrow == null){
+            return redirect(routes.ExportBorrow.exportBorrow());
+        }
+        return ok(exportBorrowViewDetail.render(user, borrow));
     }
 
     @Security.Authenticated(Secured.class)

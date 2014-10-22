@@ -45,15 +45,15 @@
           </tr>
       </thead>
       <tbody>
-        @for(acution <- initList){
+        @for(donate <- initList){
           <tr>
             <th> <input type="checkbox"/> </th>
-            <th>@acution.title</th>
-            <th>@acution.contractNo</th>
-            <th>@acution.getApproveDate()</th>
-            <th>@acution.getCompanyToString()</th>
+            <th>@donate.title</th>
+            <th>@donate.contractNo</th>
+            <th>@donate.getApproveDate()</th>
+            <th>@donate.getCompanyToString()</th>
             <th>
-              <a href="@routes.ExportSold.exportSoldAdd(acution.id)">
+              <a href="@routes.ExportDonate.exportDonateAdd(donate.id)">
                 <button class="btn btn-xs btn-primary" > ทำรายการต่อ</button>  
               </a>
             </th>
@@ -76,15 +76,15 @@
         </tr>
     </thead>
     <tbody>
-      @for(acution <- successList){
+      @for(donate <- successList){
         <tr>
           <th> <input type="checkbox"/> </th>
-          <th>@acution.title</th>
-          <th>@acution.contractNo</th>
-          <th>@acution.getApproveDate()</th>
-          <th>@acution.getCompanyToString()</th>
+          <th>@donate.title</th>
+          <th>@donate.contractNo</th>
+          <th>@donate.getApproveDate()</th>
+          <th>@donate.getCompanyToString()</th>
           <th>
-            <a href="@routes.ExportSold.viewDetail(acution.id)">
+            <a href="@routes.ExportDonate.viewDetail(donate.id)">
               <button class="btn btn-xs btn-info" > รายละเอียด </button> 
             </a>
           </th>
