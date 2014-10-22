@@ -12,6 +12,7 @@
 @nav(user)
 @headerTagFull("เพิ่มรายการวัสดุจัดซื้อและนำเข้า")
 
+<body onload="document.saveOrderGood.title.focus()">
 
     <div class="detailWindow" id="page1">
 	
@@ -182,20 +183,29 @@ $('input').prop("disabled",false);
 		
 		<input type="hidden" name="procurementId" value="@order.id">  <!-- id kong procument -->
 		<input type="hidden" id="procurementDetailId" name="procurementDetailId">
+		<input type="hidden" id="typeOfGoods" name="typeOfGoods">
  
+        <div class="marginBtm1">
+            <label class="radio-inline">
+                <input type="radio" name="goodsRadio" id="Radio1" value="1" ng-click="radioClick()"> วัสดุคงทนถาวร
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="goodsRadio" id="Radio2" value="0" ng-click="radioClick()"> วัสดุสิ้นเปลือง
+            </label>
+        </div>
         
         <div class="form-inline marginBtm1" role="form" align="left" >
                 <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ชื่อวัสดุ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description" id="description"onkeyup="mapDescriptionToCode()">
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description" id="description"onkeyup="mapDescriptionToCode()" disabled>
                         <span class="alertText" id="descriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
                 <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >รหัสวัสดุ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="code" id="code" onkeyup="mapCodeToDescription()">
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="code" id="code" onkeyup="mapCodeToDescription()" disabled>
                         <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>

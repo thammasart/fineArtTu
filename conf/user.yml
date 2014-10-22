@@ -5,12 +5,14 @@
     module3:    true
     module4:    true
     module5:    true
+    module6:    true
 - &UserStatus02 !!models.UserStatus
     name:     เจ้าหน้าที่
     module1:    false
     module2:    true
     module3:    true
     module4:    true
+    module5:    false
     module5:    false
 - &UserStatus03 !!models.UserStatus
     name:     ผู้บริหาร
@@ -19,12 +21,14 @@
     module3:    false
     module4:    true
     module5:    true
+    module5:    false
 - &UserStatus04 !!models.UserStatus
     name:     บุคลากรทั่วไป
     module1:    false
     module2:    false
     module3:    false
     module4:    false
+    module5:    false
     module5:    false
 
 

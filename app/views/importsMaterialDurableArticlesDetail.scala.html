@@ -15,10 +15,11 @@
 <body onload="init()">
 <div class="detailWindow" ng-app="materialConsumableGoodsAddFsn" ng-controller="autoCompleteController" >
 
-
-		<button onclick="changeValue();" class="btn btn-danger btn-lg width250px" style="margin-bottom:1%;">
+        @if(user.status.module6){
+	    <button onclick="changeValue();" class="btn btn-danger btn-lg width250px" style="margin-bottom:1%;">
 	    	แก้ไขรายละเอียด
 	    </button>
+        }
 	    
 	    <input id="activate" type="hidden" value=0>
 
