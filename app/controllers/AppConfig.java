@@ -14,7 +14,7 @@ public class AppConfig {
 		if (TAX == -1) {
 			try{
 				String tax = readFile("./conf/tax.ini", Charset.defaultCharset());
-				Application.TAX = Integer.parseInt(tax);
+				TAX = Integer.parseInt(tax);
 			}catch (Exception e){
 			 
 			}
