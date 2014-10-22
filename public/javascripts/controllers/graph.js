@@ -187,7 +187,7 @@ var setRelation = function(r, element) {
     }
 	state['relation'] = r;
 	state['clickedItem'] = {'row':-1 , 'column':-1};
-	state['dataType'] = 'default';
+	state['page'] = 0;
 	switch (r) {
 	case 'month': 
 	case 'quarter':
@@ -211,7 +211,7 @@ var setMode = function(m, element) {
     }
 	state['mode'] = m;
 	state['clickedItem'] = {'row' : -1,'column' : -1};
-	state['dataType'] = 'default';
+	state['page'] = 0;
 	setOption({
 		"title" : mode[m] + relation[state['relation']]
 	});

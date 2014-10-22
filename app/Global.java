@@ -1,12 +1,15 @@
 import play.*;
 import play.libs.*;
 import com.avaje.ebean.Ebean;
+
+import controllers.AppConfig;
 import models.*;
 import java.util.*;
 
 public class Global extends GlobalSettings {
 	@Override
 	public void onStart(Application app) {
+		AppConfig.doConfig();
 		if(User.find.findRowCount() == 0) {
 			Ebean.save((List) Yaml.load("user.yml"));
 			Ebean.save((List) Yaml.load("materialCode.yml"));
