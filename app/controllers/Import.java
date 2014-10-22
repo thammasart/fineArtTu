@@ -46,6 +46,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;  
 
 public class Import extends Controller {
+	
 
  	@Security.Authenticated(Secured.class)
     public static Result imports() {
@@ -1605,26 +1606,42 @@ public class Import extends Controller {
     public static Result autoCompleteGood(){
         ObjectNode result = Json.newObject();
         JsonNode json;
-
+        String jsonArray;
         List<String> goodsCode = new ArrayList<String>();
         List<String> goodsName = new ArrayList<String>();
 
+        List<String> goodsCodeFsn = new ArrayList<String>();
+        List<String> goodsNameFsn = new ArrayList<String>();
+
         List<MaterialCode> materialCode = MaterialCode.find.all();
+        List<FSN_Description> fsnDes = FSN_Description.find.all();
 
         try{
             for(MaterialCode mc : materialCode){
                 goodsCode.add(mc.code);
                 goodsName.add(mc.description);
             }
+            for(FSN_Description fd : fsnDes){
+                goodsCodeFsn.add(fd.descriptionId);
+                goodsNameFsn.add(fd.descriptionDescription);
+            }
             ObjectMapper mapper = new ObjectMapper();
 
-            String jsonArray = mapper.writeValueAsString(goodsCode);
+            jsonArray = mapper.writeValueAsString(goodsCode);
             json = Json.parse(jsonArray);
             result.put("goodsCode",json);
 
             jsonArray = mapper.writeValueAsString(goodsName);
             json = Json.parse(jsonArray);
             result.put("goodsName",json);
+
+            jsonArray = mapper.writeValueAsString(goodsCodeFsn);
+            json = Json.parse(jsonArray);
+            result.put("goodsCodeFsn",json);
+
+            jsonArray = mapper.writeValueAsString(goodsNameFsn);
+            json = Json.parse(jsonArray);
+            result.put("goodsNameFsn",json);
         }
         catch(RuntimeException e){
             result.put("message", e.getMessage());

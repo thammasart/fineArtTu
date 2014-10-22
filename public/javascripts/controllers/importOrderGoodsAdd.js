@@ -3,6 +3,10 @@ var submitNext = true;
 
 var goodsCode=[];
 var goodsName=[];
+var goodsCodeFsn=[];
+var goodsNameFsn=[];
+var sourceCode=[];
+var sourceName=[];
 
 angular.module('goodsCodeModule', ['ui.bootstrap'])
     .controller('autoCompleteGoods',function($scope,$http){
@@ -10,46 +14,80 @@ angular.module('goodsCodeModule', ['ui.bootstrap'])
         $scope.goodsCode =[];
         $scope.goodsName =[];
         
+        $scope.radioClick =  function(){ 
+                document.getElementById("typeOfGoods").value = document.querySelector('input[name="goodsRadio"]:checked').value;
+                    if(document.getElementById("typeOfGoods").value == 0){
+                        sourceCode = goodsCode;
+                        sourceName = goodsName;
+                    }else{
+                        sourceCode = goodsCodeFsn;
+                        sourceName = goodsNameFsn;
+                    }
+                document.getElementById("description").disabled = false;
+                document.getElementById("code").disabled = false;
+                document.getElementById("description").value = "";
+                document.getElementById("code").value = "";
+
+                $(function() {
+                    $( "#description" ).autocomplete({
+                      minLength:2,
+                      source: sourceName
+                    });
+                });
+                $(function() {
+                    $( "#code" ).autocomplete({
+                      minLength:2,
+                      source: sourceCode
+                    });
+                });
+             };
+
         $scope.findGoods = function(){
             $http({method : 'GET',url : 'autoCompleteGood' })
             .success(function(result){
                 
             goodsCode = result.goodsCode;
             goodsName = result.goodsName;
-            console.log(goodsCode);
+            goodsCodeFsn = result.goodsCodeFsn;
+            goodsNameFsn = result.goodsNameFsn;
 
-                $(function() {
-                    $( "#description" ).autocomplete({
-                      minLength:2,
-                      source: goodsName
-                    });
-                });
-                $(function() {
-                    $( "#code" ).autocomplete({
-                      minLength:3,
-                      source: goodsCode
-                    });
-                });
             });
         };
     }
 );
 function mapDescriptionToCode(){
     var id = document.getElementById("description").value ;
-    for(var j = 0; j <goodsName.length;j++){
-        if(id ==goodsName[j]){
-            document.getElementById("code").value =goodsCode[j];            
+    if(document.getElementById("typeOfGoods").value == 0){
+        for(var j = 0; j <goodsName.length;j++){
+            if(id ==goodsName[j]){
+                document.getElementById("code").value =goodsCode[j];            
+        }
+    }
+    }else{
+        for(var z = 0; z <goodsNameFsn.length;z++){
+            if(id ==goodsNameFsn[z]){
+                document.getElementById("code").value =goodsCodeFsn[z];            
+            }
         }
     }
 }
 function mapCodeToDescription(){
     var id = document.getElementById("code").value ;
-    for(var j = 0; j <goodsCode.length;j++){
-        if(id ==goodsCode[j]){
-            document.getElementById("description").value = goodsName[j];            
+    if(document.getElementById("typeOfGoods").value == 0){
+        for(var q = 0; q <goodsCode.length;q++){
+            if(id ==goodsCode[q]){
+                document.getElementById("description").value = goodsName[q];            
+            }
+        }
+    }else{
+        for(var x = 0; x <goodsCode.length;x++){
+            if(id ==goodsCodeFsn[x]){
+                document.getElementById("description").value = goodsNameFsn[x];            
+            }
         }
     }
 }
+
 
 function submitButtonClicks(){
     
