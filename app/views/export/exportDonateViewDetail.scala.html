@@ -93,7 +93,14 @@
           </tr>
         </thead>
         <tbody id="detailInTable">
-          
+          @for((detail, index) <- donation.detail.zipWithIndex){
+            <tr>
+              <th>@{index+1}</th>
+              <th>detail.code</th>
+              <th>@detail.durableArticles.detail.fsn.descriptionDescription</span></th>
+              <th>@detail.annotation</span></th>
+            </tr>
+          }
         </tbody>
       </table>
 

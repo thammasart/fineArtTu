@@ -52,7 +52,7 @@ public class ExportOrder extends Controller {
     public static Result exportOrderAdd(long id) {
         User user = User.find.byId(session().get("username"));
         Requisition req = Requisition.find.byId(id);
-        if(req != null && req.status == ExportStatus.SUCCESS){
+        if(req == null || req.status != ExportStatus.INIT){
             return redirect(routes.ExportOrder.exportOrder());
         }
         return ok(exportOrderAdd.render(user,req));
@@ -60,7 +60,12 @@ public class ExportOrder extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
-        return TODO;
+        User user = User.find.byId(session().get("username"));
+        Requisition req = Requisition.find.byId(id);
+        if(req == null || req.status != ExportStatus.SUCCESS){
+            return redirect(routes.ExportOrder.exportOrder());
+        }
+        return ok(exportOrderViewDetail.render(user,req));
     }
 
     @Security.Authenticated(Secured.class)
@@ -110,28 +115,49 @@ public class ExportOrder extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result saveOrderDetail() {
-        RequestBody body = request().body();
-        JsonNode json = body.asJson();
-        RequisitionDetail newDetail = new RequisitionDetail();
-        newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
-        MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
-        if(code != null){
-            newDetail.code = code;
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            RequisitionDetail newDetail = new RequisitionDetail();
+            newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
+            MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
+            if(code != null){
+                newDetail.code = code;
+            }
+            else{
+                result.put("message", "หมายเลขวัสดุไม่ถูกต้อง");
+                result.put("status", "error");
+            }
+            int quantity = Integer.parseInt(json.get("quantity").asText());
+            if(quantity > 0){
+                newDetail.quantity = quantity;
+            }
+            else{
+                result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
+                result.put("status", "error");
+            }
+            String firstName = json.get("withdrawerNmae").asText();
+            String lastName = json.get("withdrawerLastname").asText();
+            String position = json.get("withdrawerPosition").asText();
+            List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            if(withdrawers.size() == 1){
+                newDetail.withdrawer = withdrawers.get(0);
+            }
+            else{
+                result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
+                result.put("status", "error");
+            }
+            if(result.get("status") == null){
+                newDetail.save();
+                result.put("status", "SUCCESS");
+            }
         }
-        int quantity = Integer.parseInt(json.get("quantity").asText());
-        if(quantity > 0){
-            newDetail.quantity = quantity;
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
         }
-        String firstName = json.get("withdrawerNmae").asText();
-        String lastName = json.get("withdrawerLastname").asText();
-        String position = json.get("withdrawerPosition").asText();
-        List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-        if(withdrawers.size() == 1){
-            newDetail.withdrawer = withdrawers.get(0);
-        }
-        newDetail.save();
-
-        return ok(body.asJson());
+        return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)

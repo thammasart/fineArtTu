@@ -53,7 +53,7 @@ public class ExportSold extends Controller {
     public static Result exportSoldAdd(long id) {
         User user = User.find.byId(session().get("username"));
         Auction sold = Auction.find.byId(id);
-        if(sold == null){
+        if(sold == null || sold.status != ExportStatus.INIT){
             return redirect(routes.ExportSold.exportSold());
         }
         return ok(exportSoldAdd.render(user, sold));
@@ -61,6 +61,11 @@ public class ExportSold extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
+        User user = User.find.byId(session().get("username"));
+        Auction sold = Auction.find.byId(id);
+        if(sold == null || sold.status != ExportStatus.SUCCESS){
+            return redirect(routes.ExportSold.exportSold());
+        }
         return TODO;
     }
 

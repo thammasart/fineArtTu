@@ -21,10 +21,15 @@ var detail = {
 };
 
 function addDetailButton(){
+	document.getElementById("code").value = '';
+	document.getElementById("groupCode").value = '';
+	document.getElementById("quantity").value = '';
+	document.getElementById("withdrawer").value = '';
+	document.getElementById("withdrawerPosition").value = ''
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
 	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการเบิกจ่าย"
-	document.getElementById("fsnCode").focus();
+	document.getElementById("code").focus();
 }
 
 function addOrderButton(){
@@ -110,7 +115,7 @@ function saveDetail(){
 	    		getDetail(requisition.id);
 	    	}
 	    	else{
-	    		alert('save detail error : ' + data["message"]);
+	    		alert('save detail error : ' + result["message"]);
 	    	}
     	}
 	});
