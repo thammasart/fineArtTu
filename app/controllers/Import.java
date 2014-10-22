@@ -748,7 +748,7 @@ public class Import extends Controller {
     	boolean editingMode = true;
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
-    	if(a != "")
+    	if(!a.equals(""))
     	{
 	    	for(int i=0;i<temp.length;i++)
 	    	{
@@ -792,7 +792,7 @@ public class Import extends Controller {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   EO 	
     	temp = form.get("eoLists").split(",");
     	a=form.get("eoLists");
-    	if(a != "")
+    	if(!a.equals(""))
     	{
 	    	for(int i=0;i<temp.length;i++)
 	    	{
@@ -885,7 +885,7 @@ public class Import extends Controller {
     	
         articlesOrder.status = ImportStatus.SUCCESS;        
         articlesOrder.update();
-        System.out.println(articlesOrder);
+        //System.out.println(articlesOrder);
         
         return redirect(routes.Import.importsOrder2("1"));
     }
@@ -902,17 +902,40 @@ public class Import extends Controller {
     	goodsOrder.budgetType = form.get("budgetType");
     	goodsOrder.institute = form.get("institute");
     	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
+    	
     	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"))
     		goodsOrder.company = Company.find.where().eq("nameEntrepreneur", form.get("institute")).findList().get(0);
     	
+    	
+    	for(int i =goodsOrder.aiCommittee.size()-1;i>=0;i--)
+    	{
+			models.durableGoods.AI_Committee ai = goodsOrder.aiCommittee.get(i);
+			ai.committee = null;
+			ai.delete();
+			goodsOrder.aiCommittee.remove(i);
+		}
+
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
+    	
+    	System.out.println("Let me see");
+    	System.out.println(a);
+    	System.out.println(temp.length);
+    	
     	boolean editingMode = true;
     	
-    	if(a != "")
+    	if(!a.equals(""))
     	{
 	    	for(int i=0;i<temp.length;i++){
+	    		
+	    		System.out.println("inlist is: "+temp[i]);
+
+	    		
+	    		
 		    	String pId=form.get("aiPersonalID"+temp[i]);
+		    	
+		    	System.out.println(pId);
+		    	
 		    	Committee cmt = Committee.find.byId(pId);
 		    	if(cmt==null){
 			    	cmt = new Committee();
@@ -937,6 +960,8 @@ public class Import extends Controller {
 		    	ai_cmt.committeePosition = form.get("aiCommitteePosition"+temp[i]);
 		    	ai_cmt.procurement = goodsOrder;
 		    	ai_cmt.committee = cmt;
+		    	
+		    	goodsOrder.aiCommittee.add(ai_cmt);
 		    	
 		    	if(!editingMode) ai_cmt.save();
 		    	else ai_cmt.update();
