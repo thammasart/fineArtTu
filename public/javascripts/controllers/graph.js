@@ -90,6 +90,9 @@ function getData(chart){
 	    dataType: 'json',
 	    success: function(result) {
 	    	setData(result , chart);
+	    },
+	    statusCode: function(response){
+	    	$(document).html(response);
 	    }
 	});
 }
