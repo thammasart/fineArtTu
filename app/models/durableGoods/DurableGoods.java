@@ -12,6 +12,7 @@ public class DurableGoods extends Model{	// ครุภัณฑ์
 
 	@Id
 	public long id;
+	public String code;
 	public String department;		//สาขา
 	public String room;				//ห้อง
 	public String floorLevel;		//ชั้น
@@ -21,9 +22,10 @@ public class DurableGoods extends Model{	// ครุภัณฑ์
 	public String lastName;			//สกุล
 	public int remain; // จำนวนปัจจุบัน, ยอดคงเหลือ
 	
-
+/*
 	@ManyToOne //หมายเลขวัสดุ
 	public MaterialCode code;
+	*/
 	@ManyToOne
 	public ProcurementDetail detail;
 

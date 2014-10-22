@@ -195,8 +195,8 @@ public class DataRandom {
 		pd.phone = randomString(10);
 		pd.brand = randomString(5);
 		pd.serialNumber = randomString(12);
-		pd.code = getRandomDurableMaterialCode();
-		pd.code.save();
+		pd.code = MaterialCode.find.all().get(rand.nextInt(MaterialCode.find.findRowCount())).code;
+		System.out.println(pd.code);
 		pd.procurement = p; 
 		return pd;
 	}
@@ -207,7 +207,7 @@ public class DataRandom {
 		d.room = randomString(4);
 		d.floorLevel = randomString(2);
 		d.code = pd.code;
-		d.codes = pd.code.code;
+		d.codes = pd.code;
 		d.title = randomString();
 		d.firstName = randomString();
 		d.lastName = randomString();

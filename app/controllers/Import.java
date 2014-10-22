@@ -629,7 +629,7 @@ public class Import extends Controller {
     		for(models.durableGoods.ProcurementDetail p : procurementDetails){
     			ObjectNode item = Json.newObject();
         		item.put("id", p.id);
-        		if(p.code!=null) item.put("code", p.code.code);
+        		if(p.code!="") item.put("code", p.code);
         		else item.put("code", "null");
         		item.put("description", p.description);
         		item.put("quantity", p.quantity);
@@ -696,7 +696,7 @@ public class Import extends Controller {
     		}
     		result.put("id", pgd.id);
     		result.put("description", pgd.description);
-    		result.put("code", pgd.code.code);
+    		result.put("code", pgd.code);
     		result.put("price", pgd.price);
     		result.put("priceNoVat", pgd.priceNoVat);
     		result.put("quantity", pgd.quantity);
@@ -998,8 +998,10 @@ public class Import extends Controller {
     	procurementDetail.procurement = procurement;
     	
     	String codeId = json.get("code").asText();
+    	
+    	
     	if(!codeId.equals("")){
-    		procurementDetail.code = MaterialCode.find.byId(codeId);
+    		procurementDetail.code = codeId;
     	}else{
     		System.out.println("\n\n Exception MaterialCode Not Found !!!! \n\n\n\n\n");
     	}
@@ -1043,8 +1045,8 @@ public class Import extends Controller {
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
-    		if(p.code!=null) item.put("code", p.code.code);
-    		else item.put("code", p.code.code);
+    		if(p.code!="") item.put("code", p.code);
+    		else item.put("code", p.code);
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
     		item.put("classifier", "อัน");
@@ -1386,7 +1388,8 @@ public class Import extends Controller {
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
-    		item.put("fsn", "Codes");
+    		if(p.code!="") item.put("code", p.code);
+    		else item.put("code", p.code);
     		item.put("description", p.description);
     		item.put("quantity", p.quantity);
     		item.put("classifier", "อัน");
