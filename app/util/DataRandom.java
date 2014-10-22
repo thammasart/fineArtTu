@@ -39,7 +39,6 @@ public class DataRandom {
 			trueDate += d[i];
 			if(i<d.length-1) trueDate += "/";
 		}
-		System.out.println(trueDate);
 		return trueDate;
 	}
 	
@@ -196,7 +195,6 @@ public class DataRandom {
 		pd.brand = randomString(5);
 		pd.serialNumber = randomString(12);
 		pd.code = MaterialCode.find.all().get(rand.nextInt(MaterialCode.find.findRowCount())).code;
-		System.out.println(pd.code);
 		pd.procurement = p; 
 		return pd;
 	}

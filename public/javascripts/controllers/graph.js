@@ -20,7 +20,7 @@ var options = {
 			duration : 1000,
 			easing : 'out',
 		},
-		colors: color
+		colors: color,
 };
 
 var months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep',
@@ -66,13 +66,15 @@ function load() {
 }
 
 function selectionHandler(){
-		var object = chart2.getSelection()[0]||chart3.getSelection()[0];//||chart1.getSelection()[0];
-		state['clickedItem'] = object;
-		if(state['page'] == 0){
-			getData('column');
-		}else if(state['page']==1){
-			//getData('table');
-		}
+	var object = chart2.getSelection()[0]||chart3.getSelection()[0];//||chart1.getSelection()[0];
+	state['clickedItem'] = object;
+	if(state['page'] == 0){
+		state['page'] = 1;
+		getData('column');
+	}else if(state['page']==1){
+		state['page'] = 2;
+		//getData('table');
+	}
 }
 
 function clearChart(){
@@ -91,14 +93,19 @@ function getData(chart){
 	    success: function(result) {
 	    	setData(result , chart);
 	    },
-	    statusCode: function(response){
-	    	$(document).html(response);
+	    statusCode:{
+	    	500: function(response){
+	    		//console.log(response.responseText);
+	    		
+	    		var mywindow = window.open('', 'my div', 'height=400,width=600');
+	            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+	            mywindow.document.write(response.responseText);
+	 	    }
 	    }
 	});
 }
 
 function setData(obj,chart){
-	console.log(obj);
 	data = new google.visualization.arrayToDataTable(obj);
 	clearChart();
 	if(chart == "line"){
@@ -106,7 +113,6 @@ function setData(obj,chart){
 		state['dataType'] = 'default';
 		state['page'] = 0;
 	}else if(chart == "column"){
-		state['page'] = 1;
 		chart2.draw(data, {
 			chartArea : {'width':'80%','height':'80%'},
 			animation : {
@@ -162,7 +168,11 @@ function drawChart() {
 	// Create the data table.
 	load();
 	//myRandom();
-	getData('line');
+	if(state['mode'] == 'requisition'){
+		getData('column');
+	}else{
+		getData('line');
+	}
 }
 
 var setRelation = function(r, element) {
