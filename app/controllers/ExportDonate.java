@@ -61,7 +61,12 @@ public class ExportDonate extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
-        return TODO;
+        User user = User.find.byId(session().get("username"));
+        Donation donate = Donation.find.byId(id);
+        if(donate == null){
+            return redirect(routes.ExportDonate.exportDonate());
+        }
+        return ok(exportDonateViewDetail.render(user, donate));
     }
     
     @Security.Authenticated(Secured.class)

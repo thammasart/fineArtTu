@@ -1,0 +1,15 @@
+- &Borrow01 !!models.durableArticles.Borrow
+  title:                  ส่งซ่อม_1
+  number:                 1/57
+  dateOfStartBorrow:      2014-01-30
+  status:                 BORROW
+- &Borrow02 !!models.durableArticles.Borrow
+  title:                  ส่งซ่อม_2
+  number:                 2/57
+  dateOfStartBorrow:      2014-05-30
+  status:                  SUCCESS
+- &Borrow03 !!models.durableArticles.Borrow
+  title:                  ส่งซ่อม_3
+  number:                 3/57
+  dateOfStartBorrow:      2014-09-30
+  status:                 INIT
