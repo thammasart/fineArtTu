@@ -628,6 +628,16 @@ public class Import extends Controller {
     		List<models.durableGoods.ProcurementDetail> procurementDetails = models.durableGoods.ProcurementDetail.find.where().eq("procurement", pg).findList(); 
     		ArrayNode jsonProcurementDetails = JsonNodeFactory.instance.arrayNode();
     		for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    			
+    			FSN_Description fsnCode=null;
+        		MaterialCode consumableGoodCode=null;
+        		
+        		if(p.typeOfDurableGoods==1)//is a durableGood
+        			fsnCode = FSN_Description.find.byId(p.code);
+     
+        		else
+        			consumableGoodCode= MaterialCode.find.byId(p.code);
+    			
     			ObjectNode item = Json.newObject();
         		item.put("id", p.id);
         		if(p.code!="") item.put("code", p.code);
@@ -637,6 +647,18 @@ public class Import extends Controller {
         		item.put("classifier", "อัน");
         		item.put("price", p.price);
         		item.put("priceNoVat", p.priceNoVat);
+        		if(p.typeOfDurableGoods==1)//is a durableGood
+        		{
+        			item.put("fileName", fsnCode.fileName);
+        			item.put("fileType", fsnCode.fileType);
+        			item.put("path", fsnCode.path);
+        		}
+        		else
+        		{
+        			item.put("fileName", consumableGoodCode.fileName);
+        			item.put("fileType", consumableGoodCode.fileType);
+        			item.put("path", consumableGoodCode.path);
+        		}
     			jsonProcurementDetails.add(item);
     		}
     		result.put("data",jsonProcurementDetails);
@@ -987,6 +1009,45 @@ public class Import extends Controller {
     	System.out.println(goodsOrder.checkDate.toLocaleString());
     	
         
+    	
+    	
+    	MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+    	
+    	String fileName="";
+    	String contentType="";
+    	//File file = null;
+    	if (filePart != null) //กรณีมีไฟล์
+    	{
+    	fileName = filePart.getFilename();
+    	contentType = filePart.getContentType();
+    	
+    	goodsOrder.fileName = fileName;//get origin name
+    	
+    	
+    	String[] extension=fileName.split("\\."); //split .
+    	String targetPath = "./public/images/goodsOrder/" + goodsOrder.id;
+    	goodsOrder.path ="images/goodsOrder/" + goodsOrder.id;
+    	if(extension.length>1)
+    	{
+    	targetPath += "." + extension[((extension.length)-1)]; //get type file by last spilt
+    	goodsOrder.path+="." + extension[((extension.length)-1)];
+    	}
+    	goodsOrder.fileName = fileName; //get traditional file name
+    	
+    	
+    	filePart.getFile().renameTo(new File(targetPath)); //save file on your path
+    	
+    	goodsOrder.fileType = contentType;
+    	//end write file
+    	
+    	} 
+    	
+    	
+    	
+    	
+    	
+    	
     	goodsOrder.status = ImportStatus.SUCCESS;        
     	goodsOrder.update();
     	
@@ -1051,7 +1112,7 @@ public class Import extends Controller {
     	if(!codeId.equals("")){
     		procurementDetail.code = codeId; //fsn or code 5 number
     		procurementDetail.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
-    		
+
     	}else{
     		System.out.println("\n\n Exception MaterialCode Not Found !!!! \n\n\n\n\n");
     	}
@@ -1096,6 +1157,16 @@ public class Import extends Controller {
     	int i=0;
     	
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    		
+    		FSN_Description fsnCode=null;
+    		MaterialCode consumableGoodCode=null;
+    		
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    			fsnCode = FSN_Description.find.byId(p.code);
+    		else
+    			consumableGoodCode= MaterialCode.find.byId(p.code);
+
+    		
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
     		if(p.code!="") item.put("code", p.code);
@@ -1105,6 +1176,19 @@ public class Import extends Controller {
     		item.put("classifier", "อัน");
     		item.put("price", p.price);
     		item.put("priceNoVat", p.priceNoVat);
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    		{
+    			item.put("fileName", fsnCode.fileName);
+    			item.put("fileType", fsnCode.fileType);
+    			item.put("path", fsnCode.path);
+    		}
+    		else
+    		{
+    			item.put("fileName", consumableGoodCode.fileName);
+    			item.put("fileType", consumableGoodCode.fileType);
+    			item.put("path", consumableGoodCode.path);
+    		}
+    		
     		jsonArray.insert(i++, item);
     	}
     	result.put("type", "goods");
@@ -1139,6 +1223,10 @@ public class Import extends Controller {
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
     	procurementDetail.price = Double.parseDouble(json.get("price").asText());
+    	
+    	if(procurementDetail.depreciationPrice == 0.0)
+    	procurementDetail.depreciationPrice = procurementDetail.price;
+    	
     	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
     	//procurementDetail.classifier = json.get("classifier").asText();
     	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
@@ -1299,6 +1387,9 @@ public class Import extends Controller {
     			{
     				models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(durableArticlesProcurementInList[i]));
     				p.status = ImportStatus.DELETE;
+    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
+        			file.delete();									//delete file---------------------------------------------
+        			
     				for(ProcurementDetail pd :p.details)
     				{
     					for(DurableArticles d:pd.subDetails)
@@ -1327,7 +1418,11 @@ public class Import extends Controller {
     			for(int i=0;i<goodsProcurementInList.length;i++)
     			{
     				models.durableGoods.Procurement p = models.durableGoods.Procurement.find.byId(Long.parseLong(goodsProcurementInList[i]));
-    				p.status = ImportStatus.DELETE;  	
+    				p.status = ImportStatus.DELETE;  
+    				
+    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
+        			file.delete();									//delete file---------------------------------------------
+        			
     				p.update();
     			}
     			flash("delete2","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + goodsProcurementInList.length +" รายการ ");
@@ -1439,6 +1534,15 @@ public class Import extends Controller {
     	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
     	int i=0;
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    		
+    		FSN_Description fsnCode=null;
+    		MaterialCode consumableGoodCode=null;
+    		
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    			fsnCode = FSN_Description.find.byId(p.code);
+    		else
+    			consumableGoodCode= MaterialCode.find.byId(p.code);
+    		
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
     		if(p.code!="") item.put("code", p.code);
@@ -1448,6 +1552,19 @@ public class Import extends Controller {
     		item.put("classifier", "อัน");
     		item.put("price", p.price);
     		item.put("priceNoVat", p.priceNoVat);
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    		{
+    			item.put("fileName", fsnCode.fileName);
+    			item.put("fileType", fsnCode.fileType);
+    			item.put("path", fsnCode.path);
+    		}
+    		else
+    		{
+    			item.put("fileName", consumableGoodCode.fileName);
+    			item.put("fileType", consumableGoodCode.fileType);
+    			item.put("path", consumableGoodCode.path);
+    		}
+    		
     		jsonArray.insert(i++, item);
     	}
     	result.put("type", "goods");
