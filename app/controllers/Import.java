@@ -1160,21 +1160,12 @@ public class Import extends Controller {
     		
     		FSN_Description fsnCode=null;
     		MaterialCode consumableGoodCode=null;
-    		System.out.println("let me see");
-    		System.out.println(procurementDetail.typeOfDurableGoods);
     		
     		if(p.typeOfDurableGoods==1)//is a durableGood
-    		{
-    			System.out.println(p.code);
     			fsnCode = FSN_Description.find.byId(p.code);
-    			System.out.println(fsnCode.descriptionId);
-    		}
     		else
-    		{
-    			System.out.println(p.code);
     			consumableGoodCode= MaterialCode.find.byId(p.code);
-    			System.out.println(consumableGoodCode.code);
-    		}
+
     		
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
@@ -1539,6 +1530,15 @@ public class Import extends Controller {
     	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
     	int i=0;
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    		
+    		FSN_Description fsnCode=null;
+    		MaterialCode consumableGoodCode=null;
+    		
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    			fsnCode = FSN_Description.find.byId(p.code);
+    		else
+    			consumableGoodCode= MaterialCode.find.byId(p.code);
+    		
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
     		if(p.code!="") item.put("code", p.code);
@@ -1548,6 +1548,19 @@ public class Import extends Controller {
     		item.put("classifier", "อัน");
     		item.put("price", p.price);
     		item.put("priceNoVat", p.priceNoVat);
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    		{
+    			item.put("fileName", fsnCode.fileName);
+    			item.put("fileType", fsnCode.fileType);
+    			item.put("path", fsnCode.path);
+    		}
+    		else
+    		{
+    			item.put("fileName", consumableGoodCode.fileName);
+    			item.put("fileType", consumableGoodCode.fileType);
+    			item.put("path", consumableGoodCode.path);
+    		}
+    		
     		jsonArray.insert(i++, item);
     	}
     	result.put("type", "goods");
