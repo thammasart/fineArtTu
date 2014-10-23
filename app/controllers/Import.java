@@ -987,6 +987,45 @@ public class Import extends Controller {
     	System.out.println(goodsOrder.checkDate.toLocaleString());
     	
         
+    	
+    	
+    	MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+    	
+    	String fileName="";
+    	String contentType="";
+    	//File file = null;
+    	if (filePart != null) //กรณีมีไฟล์
+    	{
+    	fileName = filePart.getFilename();
+    	contentType = filePart.getContentType();
+    	
+    	goodsOrder.fileName = fileName;//get origin name
+    	
+    	
+    	String[] extension=fileName.split("\\."); //split .
+    	String targetPath = "./public/images/goodsOrder/" + goodsOrder.id;
+    	goodsOrder.path ="images/goodsOrder/" + goodsOrder.id;
+    	if(extension.length>1)
+    	{
+    	targetPath += "." + extension[((extension.length)-1)]; //get type file by last spilt
+    	goodsOrder.path+="." + extension[((extension.length)-1)];
+    	}
+    	goodsOrder.fileName = fileName; //get traditional file name
+    	
+    	
+    	filePart.getFile().renameTo(new File(targetPath)); //save file on your path
+    	
+    	goodsOrder.fileType = contentType;
+    	//end write file
+    	
+    	} 
+    	
+    	
+    	
+    	
+    	
+    	
     	goodsOrder.status = ImportStatus.SUCCESS;        
     	goodsOrder.update();
     	
