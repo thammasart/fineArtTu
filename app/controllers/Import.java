@@ -1392,6 +1392,9 @@ public class Import extends Controller {
     			{
     				models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(durableArticlesProcurementInList[i]));
     				p.status = ImportStatus.DELETE;
+    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
+        			file.delete();									//delete file---------------------------------------------
+        			
     				for(ProcurementDetail pd :p.details)
     				{
     					for(DurableArticles d:pd.subDetails)
@@ -1420,7 +1423,11 @@ public class Import extends Controller {
     			for(int i=0;i<goodsProcurementInList.length;i++)
     			{
     				models.durableGoods.Procurement p = models.durableGoods.Procurement.find.byId(Long.parseLong(goodsProcurementInList[i]));
-    				p.status = ImportStatus.DELETE;  	
+    				p.status = ImportStatus.DELETE;  
+    				
+    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
+        			file.delete();									//delete file---------------------------------------------
+        			
     				p.update();
     			}
     			flash("delete2","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + goodsProcurementInList.length +" รายการ ");
