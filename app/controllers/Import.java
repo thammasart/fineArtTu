@@ -1223,6 +1223,10 @@ public class Import extends Controller {
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
     	procurementDetail.price = Double.parseDouble(json.get("price").asText());
+    	
+    	if(procurementDetail.depreciationPrice == 0.0)
+    	procurementDetail.depreciationPrice = procurementDetail.price;
+    	
     	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
     	//procurementDetail.classifier = json.get("classifier").asText();
     	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());

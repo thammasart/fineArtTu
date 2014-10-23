@@ -51,9 +51,9 @@ public class Option extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result optionCalculateDepreciate() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-
+        List<models.durableArticles.Procurement> p = models.durableArticles.Procurement.find.where().eq("status",ImportStatus.SUCCESS).findList();
         
-        return ok(optionCalculateDepreciate.render(user));
+        return ok(optionCalculateDepreciate.render(user,p));
     }
 	
 	@Security.Authenticated(Secured.class)
