@@ -106,6 +106,23 @@ function getTable(num){
 	return $('.table.table-striped.overlayTable').get(num);
 }
 
+function getDataTable(num){
+	return array[num];
+}
+
+function setDataTableColumn(id,innerThead){
+	destroyTable();
+	var table = document.getElementById(id);
+	$(table).find('thead').get(0).innerHTML = innerThead;
+	updateTable();
+	var tableContent = $('.table.table-striped.overlayTable');
+	for(var i=0; i<tableContent.length; i++){
+		if($(tableContent.get(i)).attr('id')){
+			return array[i];
+		}
+	}
+}
+
 function setSearchBox(searchBox,numTable){
 	$(searchBox).on( 'keyup change', function () {
 		array[numTable].search( searchBox.value ).draw();
