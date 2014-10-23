@@ -336,21 +336,29 @@
   description: ปากกา - แดง
   classifier:   อัน
   materialType: *cType001
+  path: images/goodsNumber/01054.jpg
+  fileType: image
 - &cCode055 !!models.MaterialCode
   code: '01055'
   description: ปากกา - ลูกลื่น
   classifier:   อัน
   materialType: *cType001
+  path: images/goodsNumber/01055.jpg
+  fileType: image
 - &cCode056 !!models.MaterialCode
   code: '01056'
   description: ปากกาเขียน - ครุภัณฑ์ - ขาว
   classifier:   อัน
   materialType: *cType001
+  path: images/goodsNumber/01056.jpg
+  fileType: image
 - &cCode057 !!models.MaterialCode
   code: '01057'
   description: ปากกาเขียน - ครุภัณฑ์ - ดำ
   classifier:   อัน
   materialType: *cType001
+  path: images/goodsNumber/01057.jpg
+  fileType: image
 - &cCode058 !!models.MaterialCode
   code: '01058'
   description: ปากกาเขียน - ซีดี

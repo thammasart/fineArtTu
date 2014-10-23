@@ -465,7 +465,16 @@ function loadOrderGood(data){
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
 		'                    <th>'+ data['data'][i].price +'</th>'+
-		'                    <th> <button type="button" class="btn btn-xs btn-info" onclick="setDetail('+data['data'][i].id + ',2)" > รายละเอียด</button></th>'+
+		'<th>';
+		if(data['data'][i].fileType != null && data['data'][i].fileType.contains("image")){
+			divTable+='<a href="/assets/'+data['data'][i].path+'"><img src="/assets/'+data['data'][i].path+'" alt="'+data['data'][i].fileName+'" style="width:40px;height:40px"></a>';
+		}else{
+			divTable+='<a href="'+data['data'][i].path+'" download>'+data['data'][i].fileName+'</a>';
+		}
+		
+		
+		divTable +='</th>'+
+		'                    <th> <button type="button" class="btn btn-xs btn-info" onclick="setDetail('+data['data'][i].id + ',1)" > รายละเอียด</button></th>'+
 		'                </tr>';
 	}
 	destroyTable();

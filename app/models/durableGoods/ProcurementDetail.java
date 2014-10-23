@@ -30,6 +30,8 @@ public class ProcurementDetail extends Model{
 	public String partOfPic; // รูปภาพ
 	public int typeOfDurableGoods;//คงทนถาวร = 1 / false = 0 
 	
+	
+	
 	@JsonBackReference
 	@OneToMany(mappedBy="detail")
 	public List<DurableGoods> subDetails = new ArrayList<DurableGoods>();
