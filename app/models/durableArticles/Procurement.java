@@ -34,6 +34,7 @@ public class Procurement extends Model{
 	public String budgetType; 			// ประเภทงบประมาณ
 	public String institute;
 	public int budgetYear; 				// ปีงบประมาณ
+	
 	//public String dealer; 			// ผู้ติดต่อ พนักงานขาย
 	//public String telephoneNumber;	// เบอร์โทร พนักงานขาย
 	public ImportStatus status;			//สถานะใบเบิก
@@ -60,6 +61,12 @@ public class Procurement extends Model{
 		return  new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(checkDate);
 	}
 	
+	public int getMonth(){
+		return Integer.parseInt(new SimpleDateFormat("M", new Locale("th","th")).format(addDate));
+	}
+	public int getDay(){
+		return Integer.parseInt(new SimpleDateFormat("d", new Locale("th","th")).format(addDate));
+	}
 	
 	
 	public String toString()

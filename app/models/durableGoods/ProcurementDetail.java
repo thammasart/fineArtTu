@@ -28,6 +28,9 @@ public class ProcurementDetail extends Model{
 	public String brand; // ยี่ห้อ
 	public String serialNumber; //หมายเลขเครื่อง
 	public String partOfPic; // รูปภาพ
+	public int typeOfDurableGoods;//คงทนถาวร = 1 / false = 0 
+	
+	
 	
 	@JsonBackReference
 	@OneToMany(mappedBy="detail")

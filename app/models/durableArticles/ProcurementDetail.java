@@ -19,6 +19,9 @@ public class ProcurementDetail extends Model{
 	public String description; // ชื่อ - รายละเอียด
 	public double price; // ราคราต่อหน่วย
 	public double priceNoVat; // ราคาไม่รวมภาษี
+	
+	public double depreciationPrice=0.0;//ค่าเสื่อม
+	
 	public int quantity; // จำนวน
 	//public String classifier; // หน่วย, ลักษณนาม
 	public double llifeTime;// อายุการใช้งาน

@@ -1,0 +1,24 @@
+@(user : User)
+@header("optionChangeTax")
+
+@nav(user)
+@headerTag("กำหนดเงินภาษี")
+@sideMenu(user)
+
+
+<div class ="mainWindow" style="text-align:center;">
+
+	<form>
+		<div class="form-inline marginBtm1" role="form" align="center">
+		      <div class="form-group" >
+		            <div class="input-group" >
+		                <span class="input-group-addon width250px" >เปอร์เซ็นภาษีมูลค่าเพิ่ม</span>
+		                <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="">
+		            </div>
+		      </div>
+		</div>
+	</form>
+
+</div>
+
+@footer()

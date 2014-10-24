@@ -46,6 +46,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;  
 
 public class Import extends Controller {
+	
 
  	@Security.Authenticated(Secured.class)
     public static Result imports() {
@@ -627,6 +628,16 @@ public class Import extends Controller {
     		List<models.durableGoods.ProcurementDetail> procurementDetails = models.durableGoods.ProcurementDetail.find.where().eq("procurement", pg).findList(); 
     		ArrayNode jsonProcurementDetails = JsonNodeFactory.instance.arrayNode();
     		for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    			
+    			FSN_Description fsnCode=null;
+        		MaterialCode consumableGoodCode=null;
+        		
+        		if(p.typeOfDurableGoods==1)//is a durableGood
+        			fsnCode = FSN_Description.find.byId(p.code);
+     
+        		else
+        			consumableGoodCode= MaterialCode.find.byId(p.code);
+    			
     			ObjectNode item = Json.newObject();
         		item.put("id", p.id);
         		if(p.code!="") item.put("code", p.code);
@@ -636,6 +647,18 @@ public class Import extends Controller {
         		item.put("classifier", "อัน");
         		item.put("price", p.price);
         		item.put("priceNoVat", p.priceNoVat);
+        		if(p.typeOfDurableGoods==1)//is a durableGood
+        		{
+        			item.put("fileName", fsnCode.fileName);
+        			item.put("fileType", fsnCode.fileType);
+        			item.put("path", fsnCode.path);
+        		}
+        		else
+        		{
+        			item.put("fileName", consumableGoodCode.fileName);
+        			item.put("fileType", consumableGoodCode.fileType);
+        			item.put("path", consumableGoodCode.path);
+        		}
     			jsonProcurementDetails.add(item);
     		}
     		result.put("data",jsonProcurementDetails);
@@ -748,7 +771,7 @@ public class Import extends Controller {
     	boolean editingMode = true;
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
-    	if(a != "")
+    	if(!a.equals(""))
     	{
 	    	for(int i=0;i<temp.length;i++)
 	    	{
@@ -792,7 +815,7 @@ public class Import extends Controller {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   EO 	
     	temp = form.get("eoLists").split(",");
     	a=form.get("eoLists");
-    	if(a != "")
+    	if(!a.equals(""))
     	{
 	    	for(int i=0;i<temp.length;i++)
 	    	{
@@ -885,7 +908,7 @@ public class Import extends Controller {
     	
         articlesOrder.status = ImportStatus.SUCCESS;        
         articlesOrder.update();
-        System.out.println(articlesOrder);
+        //System.out.println(articlesOrder);
         
         return redirect(routes.Import.importsOrder2("1"));
     }
@@ -902,17 +925,40 @@ public class Import extends Controller {
     	goodsOrder.budgetType = form.get("budgetType");
     	goodsOrder.institute = form.get("institute");
     	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
+    	
     	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"))
     		goodsOrder.company = Company.find.where().eq("nameEntrepreneur", form.get("institute")).findList().get(0);
     	
+    	
+    	for(int i =goodsOrder.aiCommittee.size()-1;i>=0;i--)
+    	{
+			models.durableGoods.AI_Committee ai = goodsOrder.aiCommittee.get(i);
+			ai.committee = null;
+			ai.delete();
+			goodsOrder.aiCommittee.remove(i);
+		}
+
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
+    	
+    	System.out.println("Let me see");
+    	System.out.println(a);
+    	System.out.println(temp.length);
+    	
     	boolean editingMode = true;
     	
-    	if(a != "")
+    	if(!a.equals(""))
     	{
 	    	for(int i=0;i<temp.length;i++){
+	    		
+	    		System.out.println("inlist is: "+temp[i]);
+
+	    		
+	    		
 		    	String pId=form.get("aiPersonalID"+temp[i]);
+		    	
+		    	System.out.println(pId);
+		    	
 		    	Committee cmt = Committee.find.byId(pId);
 		    	if(cmt==null){
 			    	cmt = new Committee();
@@ -938,6 +984,8 @@ public class Import extends Controller {
 		    	ai_cmt.procurement = goodsOrder;
 		    	ai_cmt.committee = cmt;
 		    	
+		    	goodsOrder.aiCommittee.add(ai_cmt);
+		    	
 		    	if(!editingMode) ai_cmt.save();
 		    	else ai_cmt.update();
 	    	}
@@ -959,10 +1007,68 @@ public class Import extends Controller {
     		e.printStackTrace();
     	}
     	System.out.println(goodsOrder.checkDate.toLocaleString());
+    	
         
+    	
+    	
+    	MultipartFormData body = request().body().asMultipartFormData();
+    	FilePart filePart = body.getFile("attachFile");
+    	
+    	String fileName="";
+    	String contentType="";
+    	//File file = null;
+    	if (filePart != null) //กรณีมีไฟล์
+    	{
+    	fileName = filePart.getFilename();
+    	contentType = filePart.getContentType();
+    	
+    	goodsOrder.fileName = fileName;//get origin name
+    	
+    	
+    	String[] extension=fileName.split("\\."); //split .
+    	String targetPath = "./public/images/goodsOrder/" + goodsOrder.id;
+    	goodsOrder.path ="images/goodsOrder/" + goodsOrder.id;
+    	if(extension.length>1)
+    	{
+    	targetPath += "." + extension[((extension.length)-1)]; //get type file by last spilt
+    	goodsOrder.path+="." + extension[((extension.length)-1)];
+    	}
+    	goodsOrder.fileName = fileName; //get traditional file name
+    	
+    	
+    	filePart.getFile().renameTo(new File(targetPath)); //save file on your path
+    	
+    	goodsOrder.fileType = contentType;
+    	//end write file
+    	
+    	} 
+    	
+    	
+    	
+    	
+    	
+    	
     	goodsOrder.status = ImportStatus.SUCCESS;        
     	goodsOrder.update();
-    	System.out.println(goodsOrder);
+    	
+    	for(models.durableGoods.ProcurementDetail pd:goodsOrder.details) 	//เพิ่มจำนวนวัสดุให้กับclassหมายเลขวัสดุสิ้นเปลือง
+    	{
+    		if(pd.typeOfDurableGoods==0)
+    		{
+    			MaterialCode mc = MaterialCode.find.byId(pd.code);
+    			
+    			mc.remain = 0;
+    			
+    			List<models.durableGoods.ProcurementDetail> details = models.durableGoods.ProcurementDetail.find.where().eq("code", pd.code).eq("procurement.status", ImportStatus.SUCCESS).findList();
+    			for(models.durableGoods.ProcurementDetail detail : details){
+    				mc.remain += detail.quantity;
+    			}
+    			System.out.println("Let me see"+mc.code);
+    			System.out.println(mc.remain);
+    			mc.update();
+    		}
+    	}
+    	//System.out.println(goodsOrder);
 
         return redirect(routes.Import.importsOrder2("2"));
     }
@@ -985,6 +1091,9 @@ public class Import extends Controller {
     		editingMode = false;
     	}
     	
+    
+
+    	
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
     	procurementDetail.price = Double.parseDouble(json.get("price").asText());
@@ -1001,7 +1110,9 @@ public class Import extends Controller {
     	
     	
     	if(!codeId.equals("")){
-    		procurementDetail.code = codeId;
+    		procurementDetail.code = codeId; //fsn or code 5 number
+    		procurementDetail.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
+
     	}else{
     		System.out.println("\n\n Exception MaterialCode Not Found !!!! \n\n\n\n\n");
     	}
@@ -1028,14 +1139,17 @@ public class Import extends Controller {
 	    	goods.codes = json.get("goodFSNCode"+i).asText();
 	    	goods.title = json.get("goodPrefixName"+i).asText();			
 	    	goods.firstName = json.get("goodFirstName"+i).asText();		
-	    	goods.lastName = json.get("goodLastName"+i).asText();			 
+	    	goods.lastName = json.get("goodLastName"+i).asText();	
+	    	
+	    	goods.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
 	    	
 	    	goods.detail = procurementDetail;
 	    	
 	    	if(!editingMode) goods.save();
 	    	else goods.update();
     	}
-
+    	
+    
     	
     	List<models.durableGoods.ProcurementDetail> procurementDetails = models.durableGoods.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
     	ObjectNode result = Json.newObject();
@@ -1043,6 +1157,16 @@ public class Import extends Controller {
     	int i=0;
     	
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    		
+    		FSN_Description fsnCode=null;
+    		MaterialCode consumableGoodCode=null;
+    		
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    			fsnCode = FSN_Description.find.byId(p.code);
+    		else
+    			consumableGoodCode= MaterialCode.find.byId(p.code);
+
+    		
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
     		if(p.code!="") item.put("code", p.code);
@@ -1052,6 +1176,19 @@ public class Import extends Controller {
     		item.put("classifier", "อัน");
     		item.put("price", p.price);
     		item.put("priceNoVat", p.priceNoVat);
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    		{
+    			item.put("fileName", fsnCode.fileName);
+    			item.put("fileType", fsnCode.fileType);
+    			item.put("path", fsnCode.path);
+    		}
+    		else
+    		{
+    			item.put("fileName", consumableGoodCode.fileName);
+    			item.put("fileType", consumableGoodCode.fileType);
+    			item.put("path", consumableGoodCode.path);
+    		}
+    		
     		jsonArray.insert(i++, item);
     	}
     	result.put("type", "goods");
@@ -1086,6 +1223,10 @@ public class Import extends Controller {
     	procurementDetail.description = json.get("description").asText();
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
     	procurementDetail.price = Double.parseDouble(json.get("price").asText());
+    	
+    	if(procurementDetail.depreciationPrice == 0.0)
+    	procurementDetail.depreciationPrice = procurementDetail.price;
+    	
     	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
     	//procurementDetail.classifier = json.get("classifier").asText();
     	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
@@ -1246,6 +1387,9 @@ public class Import extends Controller {
     			{
     				models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(durableArticlesProcurementInList[i]));
     				p.status = ImportStatus.DELETE;
+    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
+        			file.delete();									//delete file---------------------------------------------
+        			
     				for(ProcurementDetail pd :p.details)
     				{
     					for(DurableArticles d:pd.subDetails)
@@ -1274,7 +1418,11 @@ public class Import extends Controller {
     			for(int i=0;i<goodsProcurementInList.length;i++)
     			{
     				models.durableGoods.Procurement p = models.durableGoods.Procurement.find.byId(Long.parseLong(goodsProcurementInList[i]));
-    				p.status = ImportStatus.DELETE;  	
+    				p.status = ImportStatus.DELETE;  
+    				
+    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
+        			file.delete();									//delete file---------------------------------------------
+        			
     				p.update();
     			}
     			flash("delete2","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + goodsProcurementInList.length +" รายการ ");
@@ -1386,6 +1534,15 @@ public class Import extends Controller {
     	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
     	int i=0;
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
+    		
+    		FSN_Description fsnCode=null;
+    		MaterialCode consumableGoodCode=null;
+    		
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    			fsnCode = FSN_Description.find.byId(p.code);
+    		else
+    			consumableGoodCode= MaterialCode.find.byId(p.code);
+    		
     		ObjectNode item = Json.newObject();
     		item.put("id", p.id);
     		if(p.code!="") item.put("code", p.code);
@@ -1395,6 +1552,19 @@ public class Import extends Controller {
     		item.put("classifier", "อัน");
     		item.put("price", p.price);
     		item.put("priceNoVat", p.priceNoVat);
+    		if(p.typeOfDurableGoods==1)//is a durableGood
+    		{
+    			item.put("fileName", fsnCode.fileName);
+    			item.put("fileType", fsnCode.fileType);
+    			item.put("path", fsnCode.path);
+    		}
+    		else
+    		{
+    			item.put("fileName", consumableGoodCode.fileName);
+    			item.put("fileType", consumableGoodCode.fileType);
+    			item.put("path", consumableGoodCode.path);
+    		}
+    		
     		jsonArray.insert(i++, item);
     	}
     	result.put("type", "goods");
@@ -1580,26 +1750,42 @@ public class Import extends Controller {
     public static Result autoCompleteGood(){
         ObjectNode result = Json.newObject();
         JsonNode json;
-
+        String jsonArray;
         List<String> goodsCode = new ArrayList<String>();
         List<String> goodsName = new ArrayList<String>();
 
+        List<String> goodsCodeFsn = new ArrayList<String>();
+        List<String> goodsNameFsn = new ArrayList<String>();
+
         List<MaterialCode> materialCode = MaterialCode.find.all();
+        List<FSN_Description> fsnDes = FSN_Description.find.all();
 
         try{
             for(MaterialCode mc : materialCode){
                 goodsCode.add(mc.code);
                 goodsName.add(mc.description);
             }
+            for(FSN_Description fd : fsnDes){
+                goodsCodeFsn.add(fd.descriptionId);
+                goodsNameFsn.add(fd.descriptionDescription);
+            }
             ObjectMapper mapper = new ObjectMapper();
 
-            String jsonArray = mapper.writeValueAsString(goodsCode);
+            jsonArray = mapper.writeValueAsString(goodsCode);
             json = Json.parse(jsonArray);
             result.put("goodsCode",json);
 
             jsonArray = mapper.writeValueAsString(goodsName);
             json = Json.parse(jsonArray);
             result.put("goodsName",json);
+
+            jsonArray = mapper.writeValueAsString(goodsCodeFsn);
+            json = Json.parse(jsonArray);
+            result.put("goodsCodeFsn",json);
+
+            jsonArray = mapper.writeValueAsString(goodsNameFsn);
+            json = Json.parse(jsonArray);
+            result.put("goodsNameFsn",json);
         }
         catch(RuntimeException e){
             result.put("message", e.getMessage());

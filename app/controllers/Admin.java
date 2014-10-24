@@ -39,6 +39,7 @@ public class Admin extends Controller {
     public static Result manageRole() {
         User user = User.find.byId(session().get("username"));
         List<UserStatus> usersStatus = UserStatus.find.all();
+        //List<Integer> numberOfUserPerStatus = new ArrayList<Integer>();
         return ok(manageRole.render(user,usersStatus));
     }
     
