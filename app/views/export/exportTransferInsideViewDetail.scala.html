@@ -1,0 +1,231 @@
+@(user : User, inside:models.durableArticles.InternalTransfer)
+@header("exportTransferInsideViewDetail")
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/internalTransfer.js")"></script>
+  <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
+<body onload="initViewDetial(@inside.id)"ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
+
+@nav(user)
+@headerTagFull("เพิ่มรายการโอนย้ายภายใน")
+
+@cancelExportAdd()
+
+<div class ="detailWindow" id="addWindows" >
+  <form name="addTransferInside" method="post" action="@routes.ExportTransferInside.saveInternalTransfer(inside.id)" ng-init="findUser()" onsubmit="return submitButtonClick()">
+
+    <div>
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group ">
+            <span class="input-group-addon width250px">รายการ/เรื่อง</span>
+            <input type="text" class="form-control width300px" value="@inside.title" name="title" id="title" >
+              <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group ">
+            <span class="input-group-addon width250px">เลขที่</span>
+            <input type="text" class="form-control width300px" value="@inside.number" id="number" name="number">
+              <span class="alertText" id="numberAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group" id="dateP">
+            <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
+            <input type="text" class="form-control width300px" value="@inside.getApproveDate()" id="approveDate"  name="approveDate" data-format="DD/MM/YYYY">
+            <span class="input-group-addon width25px" id="datepickerbutton">
+              <span class="datepickerbutton glyphicon glyphicon-calendar"></span>
+            </span>
+              <span class="alertText" id="approveDateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(inside.approver != null){ value="inside.approver.firstName" } name="approverFirstName" id="approverFirstName" onkeyup="mapInput2()">
+              <span class="alertText" id="approverFirstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">นามสกุล</span>
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(inside.approver != null){ value="inside.approver.lastName" } name="approverLastName" id="approverLastName">
+              <span class="alertText" id="approverLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ตำแหน่ง</span>
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(inside.approver != null){ value="inside.approver.position" } name="approverPosition" id="approverPosition">
+              <span class="alertText" id="approverPositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="well" >
+
+      <h2 style ="text-align:center;">รายละเอียดครุภัณฑ์</h2>
+      <div class="tableHeaderBtnContainer" >
+        <div class="searchS">
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon">ค้นหา</span>
+              <input type="text" class="form-control" style="width:300px" onkeydown="return (event.keyCode!=13);">
+            </div>
+          </div>
+        </div>
+        <div id="editDetail">
+          <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มครุภัณฑ์</button>
+          <button  type="button" class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
+        </div> 
+      </div>
+
+      <table class="table table-striped overlayTable" style="margin-bottom:3%;">
+        <thead>
+          <tr>
+            <th>ลำดับ</th>
+            <th>หมายเลขวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
+            <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
+            <th>สาขาวิชา<span class="glyphicon glyphicon-sort"></span></th>
+            <th>ชั้น<span class="glyphicon glyphicon-sort"></span></th>
+            <th>ห้อง<span class="glyphicon glyphicon-sort"></span></th>
+          </tr>
+        </thead>
+        <tbody id="detailInTable">
+
+        </tbody>
+      </table>
+
+    </div> <!-- end well -->
+
+    <div align="center" style="margin-bottom:1%;">
+      <!--<a href="@routes.ExportTransferInside.cancelInternalTransfer(inside.id)">-->
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;"onclick="addId(@inside.id)" ng-click="openCancelModal('cancelInternalTransfer')">
+            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+        </button>
+      </a>
+      <button  type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+          ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+      </button>
+    </div>
+
+  </form>
+</div> 
+
+<div class="detailWindow" id="addDetailWindows">
+
+  <div class="well" >
+    <h2 style ="text-align:center;">รายการครุภัณฑ์</h2>
+
+    <div class="form-inline marginBtm1" role="form" align="center">
+      <div class="form-group" >
+        <div class="input-group" >
+          <span class="input-group-addon width250px" >รหัสFSN</span>
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
+        </div>
+      </div>
+      <div class="form-group" >
+        <div class="input-group" >
+          <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
+        </div>
+      </div>
+      <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
+    </div>
+
+    <table class="table table-striped overlayTable">
+      <thead>
+        <tr>
+          <th> <input type="checkbox"/> </th>
+          <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+          <th>อายุการใช้งานคงเหลือ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ราคาปัจจุบัน<span class="glyphicon glyphicon-sort"></span></th>
+          <th>รายละเอียด</th>
+        </tr>
+      </thead>
+      <tbody id="searchResultTable">
+
+      </tbody>
+    </table>
+  </div>
+
+    <div class="well">
+        <h2> ย้ายไปที่ </h2>
+        <div class="form-inline marginBtm1" align="left">
+          <div class="form-group"style="width:365px" >
+            <div class="input-group"> 
+              <span class="input-group-addon">สาขา</span>
+              <select class="form-control textAlignCenter  width300px" name="department" id="department">
+                <option>สาขาวิชาการละคอน</option>
+                <option>สาขาวิชาศิลปะการออกแบบพัสตราภรณ์</option>
+                <option>สาขาวิชาศิลปะการออกแบบอุตสาหกรรม</option>
+                <option>สำนักงานเลขานุการ</option>
+                <option>ห้องพัสดุ</option>
+              </select>
+            </div>
+          </div>
+    
+          <div class="form-group" >
+            <div class="input-group" style="width:131px">
+              <span class="input-group-addon" >ห้อง</span>
+              <input type="text" class="form-control textAlignCenter  width75px" name="room" id="room">
+              <span class="alertText" id="roomAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+            </div>
+          </div>
+          <div class="form-group" style="width:250px">
+            <div class="input-group" >
+              <span class="input-group-addon" >ชั้น</span>
+              <input type="text" class="form-control textAlignCenter  width50px" name="floorLevel" id="floorLevel">
+              <span class="alertText" id="floorLevelAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+            </div>
+          </div>
+        </div> 
+        
+          <h2> ผู้รับผิดชอบ </h2>
+              <div class="form-inline marginBtm1" role="form">
+                <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon width125px">ชื่อ</span>
+                      <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="recieveFirstName" id="recieveFirstName" onkeyup="mapInput1()">
+                      <span class="alertText" id="recieveFirstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon width125px">นามสกุล</span>
+                      <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="recieveLastName" id="recieveLastName">
+                      <span class="alertText" id="recieveLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon width125px">ตำแหน่ง</span>
+                      <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="recievePosition" id="recievePosition">
+                      <span class="alertText" id="recievePositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+                  </div>
+                </div>
+              </div>
+    </div>
+
+  <div align="center" style="margin-bottom:1%;">
+    <button  type="button" class="btn btn-danger btn-lg width250px" onclick="addInternalTransferButton()" style="margin-top:1%;margin-right:1%;">
+      <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+    </button>
+    <button  type="button" class="btn btn-success btn-lg width250px" onclick="submitButtonAddClick()" style=" margin-top:1%;">
+      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+    </button>
+  </div>
+</div>  
+
+@footerFull()

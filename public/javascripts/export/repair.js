@@ -1,5 +1,11 @@
 $(function () {
-    $('#dateP').datetimepicker({
+    $('#datePๅ').datetimepicker({
+  	  language:'th'
+    })
+});
+
+$(function () {
+    $('#dateP/').datetimepicker({
   	  language:'th'
     })
 });
@@ -162,6 +168,21 @@ function init(id){
 	repair.id = id;
 	getDetail(id);
 	addRepairButton();
+}
+
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("number").disabled = true;
+	document.getElementById("dateOfSentToRepair").disabled = true;
+	document.getElementById("dateOfResiveFromRepair").disabled = true;
+	document.getElementById("approverFirstName").disabled = true;
+	document.getElementById("approverLastName").disabled = true;
+	document.getElementById("approverPosition").disabled = true;
+
+	document.getElementById("datepickerbuttonP1").style.display = "none";
+	document.getElementById("datepickerbuttonP2").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+	init(id);
 }
 
 function submitButtonJsClick(){

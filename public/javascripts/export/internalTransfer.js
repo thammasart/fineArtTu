@@ -171,6 +171,21 @@ function init(id){
 	getDetail();
 }
 
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("number").disabled = true;
+	document.getElementById("approveDate").disabled = true;
+	document.getElementById("approverFirstName").disabled = true;
+	document.getElementById("approverLastName").disabled = true;
+	document.getElementById("approverPosition").disabled = true;
+
+	document.getElementById("datepickerbutton").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+
+	init(id);
+}
+
+
 function submitButtonAddClick(){
     
     submitStatus = true;

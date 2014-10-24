@@ -66,7 +66,7 @@ public class ExportTransferInside extends Controller {
         if(inside == null || inside.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportTransferInside.exportTransferInside());
         }
-        return TODO;
+        return ok(exportTransferInsideViewDetail.render(user,inside));
     }
 
     @Security.Authenticated(Secured.class)

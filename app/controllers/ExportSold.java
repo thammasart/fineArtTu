@@ -66,7 +66,7 @@ public class ExportSold extends Controller {
         if(sold == null || sold.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportSold.exportSold());
         }
-        return TODO;
+        return ok(exportSoldViewDetail.render(user, sold));
     }
 
     @Security.Authenticated(Secured.class)

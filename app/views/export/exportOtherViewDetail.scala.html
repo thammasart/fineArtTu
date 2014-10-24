@@ -1,8 +1,8 @@
 @(user : User, other : models.durableArticles.OtherTransfer)
-@header("exportOtherAdd")
+@header("exportOtherViewDetail")
 
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/other.js")"></script>
-<body onload="init(@other.id)">
+<body onload="initViewDetial(@other.id)">
 
 @nav(user)
 @headerTagFull("เพิ่มรายการอื่นๆ")
@@ -30,7 +30,7 @@
           <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
             <input type="text" class="form-control width300px" value="@other.getApproveDate()" name="approveDate" id="approveDate" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+            <span class="input-group-addon width25px" id="datepickerbutton"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" @if(other.approver!=null){ value="@other.approver.firstName" } name="approverFirstName" id="approverName" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" @if(other.approver!=null){ value="@other.approver.firstName" } name="approverName" id="approverName" onkeyup="mapInput2()">
               <span class="alertText" id="approverNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -102,7 +102,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div id="editDetail">
           <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มครุภัณฑ์</button>
           <button type="button" class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
         </div> 

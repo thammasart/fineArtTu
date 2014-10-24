@@ -56,7 +56,7 @@ public class ExportOther extends Controller {
         if(other == null || other.status != ExportStatus.INIT){
             return redirect(routes.ExportOther.exportOther());
         }
-        return ok( exportOtherAdd.render(user, other));
+        return ok(exportOtherAdd.render(user, other));
     }
 
     @Security.Authenticated(Secured.class)
@@ -66,7 +66,7 @@ public class ExportOther extends Controller {
         if(other == null || other.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportOther.exportOther());
         }
-        return TODO;
+        return ok(exportOtherViewDetail.render(user, other));
     }
 
     @Security.Authenticated(Secured.class)

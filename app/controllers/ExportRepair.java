@@ -78,7 +78,7 @@ public class ExportRepair extends Controller {
         if(repair == null || repair.status != ExportStatus.SUCCESS ){
             return redirect(routes.ExportRepair.exportRepairing());
         }
-        return TODO;
+        return ok(exportRepairingViewDetail.render(user, repair));
     }
 
     @Security.Authenticated(Secured.class)
