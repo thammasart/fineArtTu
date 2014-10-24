@@ -42,7 +42,10 @@ public class ProcurementDetail extends Model{
 	
 	@ManyToOne
 	public Procurement procurement; // การจัดซื้อ
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,ProcurementDetail> find = new Finder(Long.class,ProcurementDetail.class);
+	
 }
