@@ -536,16 +536,16 @@ function submitToNext(){
         submitNext = false;
     }else  document.getElementById("quantityAlert").style.display= "none";
 
-    if(document.getElementById("seller").value ==""){
-        document.getElementById("sellerAlert").style.display = "table-row";
-        submitNext = false;
-    }else  document.getElementById("sellerAlert").style.display= "none";
-
-    if(document.getElementById("phone").value ==""){
-        document.getElementById("phoneAlert").style.display = "table-row";
-        submitNext = false;
-    }else  document.getElementById("phoneAlert").style.display= "none";
-    
+//    if(document.getElementById("seller").value ==""){
+//        document.getElementById("sellerAlert").style.display = "table-row";
+//        submitNext = false;
+//    }else  document.getElementById("sellerAlert").style.display= "none";
+//
+//    if(document.getElementById("phone").value ==""){
+//        document.getElementById("phoneAlert").style.display = "table-row";
+//        submitNext = false;
+//    }else  document.getElementById("phoneAlert").style.display= "none";
+//    
     if(submitNext == false){
         document.getElementById("description").focus();
     }
