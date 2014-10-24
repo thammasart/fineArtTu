@@ -120,7 +120,15 @@ public class ExportOrder extends Controller {
             RequestBody body = request().body();
             JsonNode json = body.asJson();
             RequisitionDetail newDetail = new RequisitionDetail();
-            newDetail.requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
+            Requisition requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
+            if(requisition != null && requisition.status == ExportStatus.INIT){
+                newDetail.requisition = requisition;
+            }
+            else{
+                result.put("message", "ไม่สามารถเพิ่มรายการเบิกใรก ใบเบิก เลขที่" + json.get("requisitionId") + "ได้");
+                result.put("status", "error");
+                return ok(result);
+            }
             MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
             if(code != null){
                 newDetail.code = code;
@@ -128,14 +136,16 @@ public class ExportOrder extends Controller {
             else{
                 result.put("message", "หมายเลขวัสดุไม่ถูกต้อง");
                 result.put("status", "error");
+                return ok(result);
             }
             int quantity = Integer.parseInt(json.get("quantity").asText());
-            if(quantity > 0){
-                newDetail.quantity = quantity;
-            }
-            else{
+            if(quantity < 0){
                 result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
                 result.put("status", "error");
+                return ok(result);
+            }
+            else{
+                newDetail.quantity = quantity;
             }
             String firstName = json.get("withdrawerNmae").asText();
             String lastName = json.get("withdrawerLastname").asText();
@@ -147,6 +157,7 @@ public class ExportOrder extends Controller {
             else{
                 result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
                 result.put("status", "error");
+                return ok(result);
             }
             if(result.get("status") == null){
                 newDetail.save();

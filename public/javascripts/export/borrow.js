@@ -1,8 +1,15 @@
 $(function () {
-    $('#dateP').datetimepicker({
+    $('#dateP1').datetimepicker({
   	  language:'th'
     })
 });
+
+$(function () {
+    $('#dateP2').datetimepicker({
+  	  language:'th'
+    })
+});
+
 
 var borrow = {
 	'id': 0,
@@ -160,4 +167,22 @@ function init(id){
 	borrow.id = id;
 	getDetail(id);
 	addBorrowButton();
+}
+
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("number").disabled = true;
+	document.getElementById("dateOfStartBorrow").disabled = true;
+	document.getElementById("dateOfEndBorrow").disabled = true;
+	document.getElementById("withdrawerNmae").disabled = true;
+	document.getElementById("withdrawerLastname").disabled = true;
+	document.getElementById("withdrawerPosition").disabled = true;
+	document.getElementById("approverName").disabled = true;
+	document.getElementById("approverLastName").disabled = true;
+	document.getElementById("approverPosition").disabled = true;
+
+	document.getElementById("datepickerbuttonP1").style.display = "none";
+	document.getElementById("datepickerbuttonP2").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+	init(id);
 }
