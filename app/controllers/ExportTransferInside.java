@@ -53,7 +53,7 @@ public class ExportTransferInside extends Controller {
     public static Result exportTransferInsideAdd(long id) {
         User user = User.find.byId(session().get("username"));
         InternalTransfer inside = InternalTransfer.find.byId(id);
-        if(inside == null){
+        if(inside == null || inside.status != ExportStatus.INIT){
             return redirect(routes.ExportTransferInside.exportTransferInside());
         }
         return ok(exportTransferInsideAdd.render(user,inside));
@@ -61,7 +61,12 @@ public class ExportTransferInside extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
-        return TODO;
+        User user = User.find.byId(session().get("username"));
+        InternalTransfer inside = InternalTransfer.find.byId(id);
+        if(inside == null || inside.status != ExportStatus.SUCCESS){
+            return redirect(routes.ExportTransferInside.exportTransferInside());
+        }
+        return ok(exportTransferInsideViewDetail.render(user,inside));
     }
 
     @Security.Authenticated(Secured.class)

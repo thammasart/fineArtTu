@@ -195,3 +195,26 @@ function init(id){
 	getDetail(id);
 	addSoldButton();
 }
+
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("contractNo").disabled = true;
+	document.getElementById("approveDate").disabled = true;
+	document.getElementById("soldDestination").disabled = true;
+	document.getElementById("buildingNo").disabled = true;
+	document.getElementById("village").disabled = true;
+	document.getElementById("alley").disabled = true;
+	document.getElementById("road").disabled = true;
+	document.getElementById("parish").disabled = true;
+	document.getElementById("district").disabled = true;
+	document.getElementById("province").disabled = true;
+	document.getElementById("telephoneNumber").disabled = true;
+	document.getElementById("fax").disabled = true;
+	document.getElementById("postCode").disabled = true;
+	document.getElementById("email").disabled = true;
+
+	document.getElementById("initViewDetial").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+
+	init(id);
+}

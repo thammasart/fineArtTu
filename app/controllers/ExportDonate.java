@@ -53,7 +53,7 @@ public class ExportDonate extends Controller {
     public static Result exportDonateAdd(long id) {
         User user = User.find.byId(session().get("username"));
         Donation donate = Donation.find.byId(id);
-        if(donate == null){
+        if(donate == null || donate.status != ExportStatus.INIT){
             return redirect(routes.ExportDonate.exportDonate());
         }
         return ok(exportDonateAdd.render(user, donate));
@@ -63,7 +63,7 @@ public class ExportDonate extends Controller {
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
         Donation donate = Donation.find.byId(id);
-        if(donate == null){
+        if(donate == null || donate.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportDonate.exportDonate());
         }
         return ok(exportDonateViewDetail.render(user, donate));

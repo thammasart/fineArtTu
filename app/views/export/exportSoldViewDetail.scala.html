@@ -1,9 +1,9 @@
 @(user : User ,auction:models.durableArticles.Auction)
-@header("exportSoldAdd")
+@header("exportSoldViewDetail")
 
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/sold.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getExportSold.js")"></script>
-<body onload="init(@auction.id)" ng-app="exportModule" ng-controller="exportSoldCtrl"> 
+<body onload="initViewDetial(@auction.id)" ng-app="exportModule" ng-controller="exportSoldCtrl"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการจำหน่าย")
@@ -33,22 +33,8 @@
       </div>
 
       <div class="form-inline marginBtm1" align="right" role="form">
-        <div class="form-group" style="float:right" id="summaryTable">
-<!--           <div class="input-group width300px">
-            <span class="input-group-addon width100px">ราคารวม</span>
-            <input type="text" class="form-control width150px" value="1080000" disabled>
-            <span class="input-group-addon" > บาท </span>
-          </div>
-          <div class="input-group width300px">
-            <span class="input-group-addon width100px">งบคลัง</span>
-            <input type="text" class="form-control width150px" value="1080000" disabled>
-            <span class="input-group-addon" > บาท </span>
-          </div>
-          <div class="input-group width300px">
-            <span class="input-group-addon width100px">งบประจำปี</span>
-            <input type="text" class="form-control width150px" value="1080000" disabled>
-            <span class="input-group-addon" > บาท </span>
-          </div> -->
+        <div class="form-group" style="float:right" id="summaryTable">  
+          <!-- รายละเอียด มาจากงบใดราคราเท่าไหร่บ้าง -->
         </div>
       </div>
 
@@ -57,7 +43,7 @@
           <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
             <input type="text" class="form-control width300px" value="@auction.getApproveDate()" id="approveDate" name="approveDate" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+            <span class="input-group-addon width25px" id="initViewDetial"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
             <span class="alertText" id="approveDateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -75,7 +61,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >เลขที่</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="buildingNo">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="buildingNo" id="buildingNo">
                     </div>
               </div>
            </div>
@@ -83,7 +69,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >หมู่</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="village">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="village" id="village">
                     </div>
               </div>
            </div>
@@ -91,7 +77,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ซอย</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="alley">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="alley" id="alley">
                     </div>
               </div>
            </div>
@@ -99,7 +85,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ถนน</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="road">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="road" id="road">
                     </div>
               </div>
            </div>
@@ -107,7 +93,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ตำบล</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="parish">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="parish" id="parish">
                     </div>
               </div>
            </div>
@@ -115,7 +101,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >อำเภอ</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="district">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="district" id="district">
                     </div>
               </div>
            </div>
@@ -123,7 +109,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >จังหวัด</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="province">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="province" id="province">
                     </div>
               </div>
            </div>
@@ -131,7 +117,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >เบอร์โทร</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="telephoneNumber">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="telephoneNumber" id="telephoneNumber">
                     </div>
               </div>
            </div>
@@ -139,7 +125,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >Fax</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="fax">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="fax" id="fax">
                     </div>
               </div>
            </div>
@@ -147,7 +133,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >รหัสไปรษณีย์</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="postCode">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="postCode" id="postCode">
                     </div>
               </div>
            </div>
@@ -155,7 +141,7 @@
               <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >e-mail</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="email">
+                        <input type="text" class="form-control textAlignLeft  width300px" name="email" id="email">
                     </div>
               </div>
            </div>
@@ -204,7 +190,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div id="editDetail">
           <button type="button" class="btn btn-success width200px" style="float:right;margin-left:1%;" onclick="addDetailButton()">เพิ่มครุภัณฑ์</button>
           <button type="button" class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
         </div> 

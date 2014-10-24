@@ -16,13 +16,13 @@
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">รายการ เรื่อง</span>
-            <input type="text" disabled class="form-control width300px" value="@borrow.title" name="title">
+            <input type="text" disabled class="form-control width300px" value="@borrow.title" name="title" id="title">
           </div>
         </div>
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">เลขที่</span>
-            <input type="text" disabled class="form-control width300px" value="@borrow.number" name="number">
+            <input type="text" disabled class="form-control width300px" value="@borrow.number" name="number" id="number">
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width250px">วัน/เดือน/ปี เริ่มยืม</span>
-            <input type="text" disabled class="form-control width300px" value="@borrow.getDateOfStartBorrow()" name="dateOfStartBorrow" data-format="DD/MM/YYYY">
+            <input type="text" disabled class="form-control width300px" value="@borrow.getDateOfStartBorrow()" name="dateOfStartBorrow" id="dateOfStartBorrow" data-format="DD/MM/YYYY">
           </div>
         </div>
       </div>
@@ -80,9 +80,9 @@
 
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
-          <div class="input-group" id="dateP">
+          <div class="input-group" id="dateP2">
             <span class="input-group-addon width250px">วัน/เดือน/ปี รับคืน</span>
-            <input type="text" class="form-control width300px" name="dateOfEndBorrow" value="@borrow.getDateOfEndBorrow()" data-format="DD/MM/YYYY">
+            <input type="text" class="form-control width300px" name="dateOfEndBorrow" id="dateOfEndBorrow" value="@borrow.getDateOfEndBorrow()" data-format="DD/MM/YYYY">
             <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
           </div>
         </div>

@@ -21,10 +21,15 @@ var detail = {
 };
 
 function addDetailButton(){
+	document.getElementById("code").value = '';
+	document.getElementById("groupCode").value = '';
+	document.getElementById("quantity").value = '';
+	document.getElementById("withdrawer").value = '';
+	document.getElementById("withdrawerPosition").value = ''
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
 	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการเบิกจ่าย"
-	document.getElementById("fsnCode").focus();
+	document.getElementById("code").focus();
 }
 
 function addOrderButton(){
@@ -110,7 +115,7 @@ function saveDetail(){
 	    		getDetail(requisition.id);
 	    	}
 	    	else{
-	    		alert('save detail error : ' + data["message"]);
+	    		alert('save detail error : ' + result["message"]);
 	    	}
     	}
 	});
@@ -120,6 +125,23 @@ function init(id){
 	requisition.id = id;
 	getDetail(id);
 	document.addOrder.title.focus();
+}
+
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("number").disabled = true;
+	document.getElementById("approveDate").disabled = true;
+	document.getElementById("firstName").disabled = true;
+	document.getElementById("lastName").disabled = true;
+	document.getElementById("position").disabled = true;
+	document.getElementById("approverName").disabled = true;
+	document.getElementById("approverLastName").disabled = true;
+	document.getElementById("approverPosition").disabled = true;
+
+	document.getElementById("datepickerbutton").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+
+	init(id);
 }
 
 function validateSaveDetail(){

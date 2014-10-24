@@ -1,11 +1,11 @@
 @(user : User, requisition:models.consumable.Requisition)
-@header("exportOrderAdd")
+@header("exportOrderViewDetail")
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/export/order.js")"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameAutoComplete.js")"></script>
-  <body onload="init(@requisition.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
+  <body onload="initViewDetial(@requisition.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการเบิกจ่าย")
@@ -38,8 +38,8 @@
         <div class="form-group">
           <div class="input-group" id="dateP">
               <span class="input-group-addon width250px">วัน/เดือน/ปี ที่ทำการเบิกจ่าย</span>
-              <input type="text" class="form-control width300px textAlignCenter" data-format="DD/MM/YYYY" value="@requisition.approveDateToString" name="approveDate" id="date">
-              <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+              <input type="text" class="form-control width300px textAlignCenter" data-format="DD/MM/YYYY" value="@requisition.approveDateToString" name="approveDate" id="approveDate">
+              <span class="input-group-addon width25px" id="datepickerbutton"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
               <span class="alertText" id="dateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -107,7 +107,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div id="editDetail">
             <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มวัสดุ</button>
             <button type="button" class="btn btn-danger width200px" style="float:right;">ลบวัสดุ</button>
         </div> 

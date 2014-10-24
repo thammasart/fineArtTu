@@ -53,15 +53,20 @@ public class ExportOther extends Controller {
     public static Result exportOtherAdd(long id) {
         User user = User.find.byId(session().get("username"));
         OtherTransfer other = OtherTransfer.find.byId(id);
-        if(other == null){
+        if(other == null || other.status != ExportStatus.INIT){
             return redirect(routes.ExportOther.exportOther());
         }
-        return ok( exportOtherAdd.render(user, other));
+        return ok(exportOtherAdd.render(user, other));
     }
 
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
-        return TODO;
+        User user = User.find.byId(session().get("username"));
+        OtherTransfer other = OtherTransfer.find.byId(id);
+        if(other == null || other.status != ExportStatus.SUCCESS){
+            return redirect(routes.ExportOther.exportOther());
+        }
+        return ok(exportOtherViewDetail.render(user, other));
     }
 
     @Security.Authenticated(Secured.class)

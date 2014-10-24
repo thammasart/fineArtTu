@@ -10,6 +10,7 @@ import models.*;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,31 +46,39 @@ public class Graph extends Controller {
       String relation = json.get("relation").asText();
       String mode = json.get("mode").asText();
       int page = json.get("page").asInt();
+      String selectedName = json.get("selectedName").asText(); 
       
       JsonNode clickedItem = json.get("clickedItem");
       int row = clickedItem.get("row").asInt();
       int column = clickedItem.get("column").asInt();
       
+      JsonNode last = json.get("lastSelected");
+      int lastClickedRow = last.get("row").asInt();
+      int lastClickedColumn = last.get("column").asInt();
+      
+      
       ArrayNode result=null;
       
+      System.out.println(String.format("%d %d / %d %d / %d", row,column,lastClickedRow, lastClickedColumn,page));
+      
 	  if(mode.equals("balance")){
-		  result = getBalance(relation,row,column);
+		  result = getBalance(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("procurement")){
-		  result = getProcurement(relation,row,column);
+		  result = getProcurement(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("requisition")){
-		  result = getRequisition(relation,row,column);
+		  result = getRequisition(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("transfer")){
-		  result = getTransfer(relation,row,column);
+		  result = getTransfer(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("repairing")){
-		  result = getRepairing(relation,row,column);
+		  result = getRepairing(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("remain")){
-		  result = getRemain(relation,row,column);
+		  result = getRemain(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("sold")){
-		  result = getSold(relation,row,column);
+		  result = getSold(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("donate")){
-		  result = getDonate(relation,row,column);
+		  result = getDonate(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("other")){
-		  result = getOther(relation,row,column);
+		  result = getOther(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }
 	  
       return ok(result);
@@ -106,7 +115,7 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getBalance(String relation,int row,int col){
+    private static ArrayNode getBalance(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = null;
     	//System.out.println("\n\n\n\n"+row +"  "+col +"\n\n\n\n");
     	if(row == -1 && col == -1){
@@ -119,14 +128,15 @@ public class Graph extends Controller {
     				List<Date> date = getYearDate((3-i));
     				List<Double> d = getSumBalance(date.get(0), date.get(1)); 
     				year = year-i;
+    				DecimalFormat df = new DecimalFormat("#.00"); 
     				tr.add(""+year);
-    				tr.add(d.get(0));
-    				tr.add(d.get(0));
-    				tr.add(d.get(1));
-    				tr.add(d.get(1));
+    				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
+    				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
+    				tr.add(Double.valueOf(String.format("%.2f",d.get(1))));
+    				tr.add(Double.valueOf(String.format("%.2f",d.get(1))));
     				result.add(tr);
     			}
-    		}else {
+    		}else{
     			int num = 12;
     			if(relation.equals("quarter")) num = 4;
     			for(int i=0; i<num; i++){
@@ -141,14 +151,14 @@ public class Graph extends Controller {
         				d = getSumBalance(date.get(0), date.get(1));
     					tr.add("Q"+(i+1));
     				}
-    				tr.add(d.get(0));
-    				tr.add(d.get(0));
-    				tr.add(d.get(1));
-    				tr.add(d.get(1));
+    				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
+    				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
+    				tr.add(Double.valueOf(String.format("%.2f",d.get(1))));
+    				tr.add(Double.valueOf(String.format("%.2f",d.get(1))));
     				result.add(tr);
     			}
     		}
-    	}else{
+    	}else if(page!=2){
     		List<Date> d = null;
     		if(relation.equals("year")){
     			d = getYearDate(row);
@@ -158,17 +168,33 @@ public class Graph extends Controller {
     			d = getQuarterDate(row);
     		}
     		if(col == 1){
-    			List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", d.get(0), d.get(1)).findList();
+    			List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
     			result = getDetailBalanceMapArticle(ps);
-    		}else if(col == 2){
-    			List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", d.get(0), d.get(1)).findList();
+    		}else if(col == 3){
+    			List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
     			result = getDetailBalanceMapGoods(ps);
+    		}
+    	}else{
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(lRow);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(lRow);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(lRow);
+    		}
+    		if(col == 1){
+    			List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
+    			result = getTableBalanceArticle(ps,selectedName);
+    		}else if(col == 3){
+    			List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
+    			result = getTableBalanceGoods(ps,selectedName);
     		}
     	}
     	return result;
     }
     
-    private static ArrayNode getProcurement(String relation,int row,int col){
+    private static ArrayNode getProcurement(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
     		result = getHeader();
@@ -187,7 +213,7 @@ public class Graph extends Controller {
     				tr.add(d.get(1));
     				result.add(tr);
     			}
-    		}else {
+    		}else{
     			int num = 12;
     			if(relation.equals("quarter")) num = 4;
     			for(int i=0; i<num; i++){
@@ -209,7 +235,7 @@ public class Graph extends Controller {
     				result.add(tr);
     			}
     		}
-    	}else{
+    	}else if(page!=2){
     		List<Date> d = null;
     		if(relation.equals("year")){
     			d = getYearDate(row);
@@ -219,17 +245,19 @@ public class Graph extends Controller {
     			d = getQuarterDate(row);
     		}
     		if(col == 1){
-    			List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", d.get(0), d.get(1)).findList();
+    			List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
     			result = getDetailProcurementMapArticle(ps);
-    		}else if(col == 2){
-    			List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", d.get(0), d.get(1)).findList();
+    		}else if(col == 3){
+    			List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
     			result = getDetailProcurementMapGoods(ps);
     		}
+    	}else{
+    		
     	}
     	return result;
     }
     
-    private static ArrayNode getRequisition(String relation,int row,int col){
+    private static ArrayNode getRequisition(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = getDetailHeader();
     	if(row == -1 && col == -1){
     		if(relation.equals("year")){
@@ -246,7 +274,7 @@ public class Graph extends Controller {
     				tr.add(d);
     				result.add(tr);
     			}
-    		}else {
+    		}else{
     			int num = 12;
     			if(relation.equals("quarter")) num = 4;
     			for(int i=0; i<num; i++){
@@ -267,7 +295,7 @@ public class Graph extends Controller {
     				result.add(tr);
     			}
     		}
-    	}else{
+    	}else if(page != 2){
     		List<Date> d = null;
     		if(relation.equals("year")){
     			d = getYearDate(row);
@@ -278,13 +306,17 @@ public class Graph extends Controller {
     		}
 			List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
 			result = getDetailRequisitionMap(rs);
+    	}else{
+    		
     	}
     	return result;
     }
     
-    private static ArrayNode getTransfer(String relation,int row,int col){
+    private static ArrayNode getTransfer(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -292,9 +324,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getRepairing(String relation,int row,int col){
+    private static ArrayNode getRepairing(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -302,9 +336,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getSold(String relation,int row,int col){
+    private static ArrayNode getSold(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -312,9 +348,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getDonate(String relation,int row,int col){
+    private static ArrayNode getDonate(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -322,9 +360,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getOther(String relation,int row,int col){
+    private static ArrayNode getOther(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page !=2){
     		
     	}else{
     		
@@ -332,9 +372,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getRemain(String relation,int row,int col){
+    private static ArrayNode getRemain(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
+    		
+    	}else if(page != 2){
     		
     	}else{
     		
@@ -565,6 +607,44 @@ public class Graph extends Controller {
     }
     
     private static int getSumRequisition(Date startDate, Date endDate){
-    	return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).findList().size();
+    	return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+    }
+    
+    private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps,String selectedName){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Double> listResult = new HashMap<String,Double>();
+		for(models.durableArticles.Procurement p : ps){
+			for(models.durableArticles.ProcurementDetail pd : p.details){
+				if(pd.fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
+					String key = pd.fsn.descriptionDescription;
+					Double value = listResult.get(key);
+					if(value == null){
+						if(pd.quantity * pd.price != 0){
+							listResult.put(key, pd.quantity * pd.price);
+						}
+					}else{
+						listResult.put(key, listResult.get(key) + (pd.quantity * pd.price));
+					}
+				}
+			}
+		}
+		int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add("" + listResult.get(key));
+			tr.add("<button type='button'> รายละเอียด </button>");
+			result.add(tr);
+		}
+		return result;
+    }
+    
+    private static ArrayNode getTableBalanceGoods(List<models.durableGoods.Procurement> ps,String selectedName){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	for(models.durableGoods.Procurement p : ps){
+    		
+    	}
+    	return null;
     }
 }

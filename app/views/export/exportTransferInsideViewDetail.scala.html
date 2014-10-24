@@ -1,11 +1,11 @@
 @(user : User, inside:models.durableArticles.InternalTransfer)
-@header("exportTransferInsideAdd")
+@header("exportTransferInsideViewDetail")
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/internalTransfer.js")"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
-<body onload="init(@inside.id)"ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
+<body onload="initViewDetial(@inside.id)"ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการโอนย้ายภายใน")
@@ -38,7 +38,9 @@
           <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
             <input type="text" class="form-control width300px" value="@inside.getApproveDate()" id="approveDate"  name="approveDate" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+            <span class="input-group-addon width25px" id="datepickerbutton">
+              <span class="datepickerbutton glyphicon glyphicon-calendar"></span>
+            </span>
               <span class="alertText" id="approveDateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -82,7 +84,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div id="editDetail">
           <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มครุภัณฑ์</button>
           <button  type="button" class="btn btn-danger width200px" style="float:right;">ลบครุภัณฑ์</button>
         </div> 

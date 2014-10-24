@@ -12,7 +12,8 @@ var color = ['#7B9CDE','#EA8871','#FFC266','#70C074','#C266C2',
 '#83A1BF','#C28FC2','#7ACCC2','#CCCC70','#A385E0',
 '#F0AB66','#B96A6A','#84BEA1','#99ACCA','#898BCD'];
 var materialNames = ['สนง','ยานพหนะและขนส่ง','ไฟฟ้าและวิทยุ','คอมฯ','การศึกษา','งานบ้านงานครัว','ดนตรี','โฆษณาและเผยแพร่','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง']
-
+var defaultThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวน<span class="glyphicon glyphicon-sort"></span></th><th>สถานะ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>'
+var balanceThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>งบประมาณที่ใช้<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var options = {
 		title : 'เปรียบเทียบการใช้งบประมาณรายเดือน',
 		chartArea : {'left':'8%','width':'75%','height':'75%'},
@@ -33,7 +34,8 @@ var state = {
 	'previousMode' : 'balance',
 	'page' : 0,
 	'clickedItem' : {'row':-1,'column':-1},
-	'dataType' : 'default' 
+	'selectedName' : 'default',
+	'lastSelected' : {'row':-1,'column':-1},
 }
 var modeBtn = null;
 var mode = {
@@ -67,13 +69,15 @@ function load() {
 
 function selectionHandler(){
 	var object = chart2.getSelection()[0]||chart3.getSelection()[0];//||chart1.getSelection()[0];
+	state['lastSelected'] = state['clickedItem'];
 	state['clickedItem'] = object;
 	if(state['page'] == 0){
 		state['page'] = 1;
 		getData('column');
 	}else if(state['page']==1){
 		state['page'] = 2;
-		//getData('table');
+		state['selectedName'] = data.getFormattedValue(object.row, object.column+2);
+		getData('table');
 	}
 }
 
@@ -91,7 +95,7 @@ function getData(chart){
 	    contentType: 'application/json',
 	    dataType: 'json',
 	    success: function(result) {
-	    	setData(result , chart);
+    		setData(result , chart);
 	    },
 	    statusCode:{
 	    	500: function(response){
@@ -127,7 +131,10 @@ function setData(obj,chart){
 			annotations : {alwaysOutside : true},
 		});
 	}else if(chart == "table"){
-		
+		if(state['mode'] == 'balance'){
+			setDataTableColumn("trackingTable",balanceThead).rows.add(obj).draw();
+		}
+		$('#graph-tab a[href="#tracking"]').tab('show');
 	}
 }
 
@@ -159,10 +166,6 @@ function myRandom() {
 		}
 	}
 }
-$(document).on('shown.bs.tab', 'a[href="#relation"]', function (e) {
-	drawChart();
-	console.log('event fired');
-})
 
 function drawChart() {
 	// Create the data table.
@@ -187,7 +190,8 @@ var setRelation = function(r, element) {
     }
 	state['relation'] = r;
 	state['clickedItem'] = {'row':-1 , 'column':-1};
-	state['dataType'] = 'default';
+	state['lastSelected'] = state['clickedItem'];
+	state['page'] = 0;
 	switch (r) {
 	case 'month': 
 	case 'quarter':
@@ -211,7 +215,8 @@ var setMode = function(m, element) {
     }
 	state['mode'] = m;
 	state['clickedItem'] = {'row' : -1,'column' : -1};
-	state['dataType'] = 'default';
+	state['lastSelected'] = state['clickedItem'];
+	state['page'] = 0;
 	setOption({
 		"title" : mode[m] + relation[state['relation']]
 	});
@@ -223,3 +228,26 @@ var setOption = function(obj) {
 	}
 		options[k] = obj[k];
 }
+
+$(document).on('shown.bs.tab', 'a[href="#relation"]', function (e) {
+	state['clickedItem'] = {'row':-1 , 'column':-1};
+	state['lastSelected'] = state['clickedItem'];
+	state['page'] = 0;
+	state['selectedName'] = 'default';
+	drawChart();
+});
+
+$(document).on('shown.bs.tab', 'a[href="#tracking"]', function (e) {
+	if(state['page']!=2){
+		clearTable(0);
+		setDataTableColumn("trackingTable",defaultThead);
+	}
+});
+/*
+'<tr>
+<th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th>
+<th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th>
+<th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th>
+<th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th>
+</tr>'
+*/

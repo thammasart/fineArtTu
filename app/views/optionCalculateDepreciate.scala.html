@@ -1,0 +1,79 @@
+@(user : User,articleOrders : List[models.durableArticles.Procurement])
+
+@import java.text.SimpleDateFormat
+@import java.util.Locale
+
+@header("optionCalculateDepreciate")
+
+@nav(user)
+@headerTag("ระบบคำนวณค่าเสื่อม")
+@sideMenu(user)
+
+
+<div class="listWindow">
+
+        <div class="tableHeaderBtnContainer">
+                <div class="searchS">
+                        <form>
+                            <div class="form-group">
+                                <div class="input-group">
+                                  <span class="input-group-addon">ค้นหา</span>
+                                  <input type="text" class="form-control" style="width:300px">
+                                </div>
+                              </div>
+                        </form>
+                </div>
+                 <div>
+                    <a style="float:right;margin-left:1%;" class="width20p" href="@routes.Import.importsInstituteAdd()">
+                    <button class="btn btn-success" style="width:100%;">ดำเนินการคำนวณค่าเสื่อม</button>
+                    </a>
+                </div>
+        </div>
+
+        <div class="adminUserinfoTableContainer">
+            <table class="table table-striped overlayTable">
+                
+
+                <thead>
+                    <tr>
+                    	<th>วัน เดือน ปี<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รายการ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ทะเบียนครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ค่าเสื่อมรายปี<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ค่าเสื่อมราคาสะสม<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ค่าเสื่อมราคาประจำปี<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>มูลค่าสินทรัพย์<span class="glyphicon glyphicon-sort"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+
+				@for(articleOrder <- articleOrders){
+					@for(subOrders <- articleOrder.details){
+                    <tr>
+                    <th>@articleOrder.getAddDate()</th>
+                    <th>@subOrders.description</th>
+                    <th>@subOrders.fsn.descriptionId</th>
+                    <th>@subOrders.quantity</th>
+                    <th>@subOrders.price</th>
+                    <th>@subOrders.llifeTime</th>
+                    <th>@(subOrders.price/subOrders.llifeTime)</th>
+                    <th>@articleOrder.getDay()</th>
+                    <th>@articleOrder.getMonth()</th>
+                    <th>@subOrders.depreciationPrice</th>
+                    </tr>
+                    }
+                 }
+            
+                </tbody>
+
+
+            </table>
+
+        </div> 
+<!---->
+</div>
+@footer()

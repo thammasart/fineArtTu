@@ -54,7 +54,7 @@ public class ExportRepair extends Controller {
     public static Result exportRepairingAdd(long id) {
         User user = User.find.byId(session().get("username"));
         Repairing repair = Repairing.find.byId(id);
-        if(repair == null){
+        if(repair == null || repair.status != ExportStatus.INIT ){
             return redirect(routes.ExportRepair.exportRepairing());
         }
         return ok(exportRepairingAdd.render(user, repair));
@@ -64,7 +64,7 @@ public class ExportRepair extends Controller {
     public static Result receiveFromRepair(long id){
         User user = User.find.byId(session().get("username"));
         Repairing repair = Repairing.find.byId(id);
-        if(repair == null){
+        if(repair == null || repair.status != ExportStatus.REPAIRING){
             return redirect(routes.ExportRepair.exportRepairing());
         }
         repair.dateOfResiveFromRepair = new Date();
@@ -73,7 +73,12 @@ public class ExportRepair extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
-        return TODO;
+        User user = User.find.byId(session().get("username"));
+        Repairing repair = Repairing.find.byId(id);
+        if(repair == null || repair.status != ExportStatus.SUCCESS ){
+            return redirect(routes.ExportRepair.exportRepairing());
+        }
+        return ok(exportRepairingViewDetail.render(user, repair));
     }
 
     @Security.Authenticated(Secured.class)
