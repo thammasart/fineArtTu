@@ -1,5 +1,6 @@
 var usersTick = [];
 var data;
+var editDate;
 
 var userNameEdit;
 
@@ -35,6 +36,11 @@ var editModalInstanceCtrl= function($scope, $modalInstance){
     $scope.name = "Edit User(s) Role.";
     $scope.username = userNameEdit;
     $scope.ok = function () {
+            editData = {
+                            'editName'	: userNameEdit,
+                            'newRole'      : document.getElementById("status").innerHTML
+            };
+	postData('/Admin/editUser',data);
         $modalInstance.close();
     };
 

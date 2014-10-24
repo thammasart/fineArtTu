@@ -164,6 +164,7 @@ POST	/Admin/addRole									controllers.Admin.addRole()
 POST	/Admin/removeRole								controllers.Admin.removeRole()
 POST    /Admin/saveUser									controllers.Admin.saveNewUser()
 POST    /Admin/removeUser								controllers.Admin.removeUser()
+POST    /Admin/editUser                 						controllers.Admin.adminEditUserRole()
 
 POST    /Admin/saveEditUser								controllers.Application.saveEditUser()
 
