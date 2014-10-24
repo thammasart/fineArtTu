@@ -6,7 +6,8 @@
 - &Repairiung02 !!models.durableArticles.Repairing
   title:                   ส่งซ่อม_2
   number:                  2/57
-  dateOfSentToRepair:      2014-05-30
+  dateOfSentToRepair:      2014-05-15
+  dateOfReceiveFromRepair:  2014-05-30
   status:                  SUCCESS
 - &Repairiung03 !!models.durableArticles.Repairing
   title:                   ส่งซ่อม_3

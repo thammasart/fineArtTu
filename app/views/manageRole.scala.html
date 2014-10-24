@@ -28,7 +28,7 @@
 					@for(userStatus <- usersStatus){
 						<tr>
 							<th id="@userStatus.name">@userStatus.name</th>
-							<th>5</th>
+							<th>@userStatus.numberOfUser.size()</th>
 							@if(userStatus.module1){
 								<th><input type="checkbox" onclick="return false;" checked></th>
 							}else{
@@ -59,7 +59,11 @@
 							}else{
 								<th><input type="checkbox" onclick="return false;"></th>
 							}
-							<th><button onclick="del(@userStatus.name)">ลบ</button></th>
+                                                        @if(userStatus.numberOfUser.size()!=0){
+                                                            <th><button class="btn btn-default"  disabled>ลบ</button></th>
+                                                        }else{
+                                                            <th><button class="btn btn-danger"  onclick="del(@userStatus.name)">ลบ</button></th>
+                                                        }
 						</tr>
 					}
 					<tr id="addRole" style="display: none;">

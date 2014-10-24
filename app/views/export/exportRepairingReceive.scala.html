@@ -49,28 +49,28 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-            <input type="text"  disabled class="form-control width190px textAlignCenter" autocomplete="off" value="repair.approver.firstName" name="approverFirstName" id="approverFirstName" onkeyup="mapInput2()">
+            <input type="text"  disabled class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="@repair.approver.firstName" } name="approverFirstName" id="approverFirstName" onkeyup="mapInput2()">
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width125px">นามสกุล</span>
-            <input type="text"  disabled class="form-control width190px textAlignCenter"autocomplete="off" value="repair.approver.lastName" name="approverLastName" id="approverLastName">
+            <input type="text"  disabled class="form-control width190px textAlignCenter"autocomplete="off" @if(repair.approver != null){ value="@repair.approver.lastName" } name="approverLastName" id="approverLastName">
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width125px">ตำแหน่ง</span>
-            <input type="text"  disabled class="form-control width190px textAlignCenter"autocomplete="off" value="repair.approver.position" name="approverPosition" id="approverPosition">
+            <input type="text"  disabled class="form-control width190px textAlignCenter"autocomplete="off" @if(repair.approver != null){ value="@repair.approver.position" } name="approverPosition" id="approverPosition">
           </div>
         </div>
       </div>
 
       <div class="form-inline marginBtm1">
         <div class="form-group">
-          <div class="input-group" id="dateP">
+          <div class="input-group" id="dateP2">
             <span class="input-group-addon width250px">วัน/เดือน/ปี ที่รับคืน</span>
-            <input type="text" class="form-control width300px" name="dateOfResiveFromRepair" id="dateOfResiveFromRepair" data-format="DD/MM/YYYY">
+            <input type="text" class="form-control width300px" value="@repair.getDateOfReceiveFromRepair()" name="dateOfResiveFromRepair" id="dateOfResiveFromRepair" data-format="DD/MM/YYYY">
             <span class="input-group-addon width25px">
               <span class="datepickerbutton glyphicon glyphicon-calendar"></span>
             </span>

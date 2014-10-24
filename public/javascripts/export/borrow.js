@@ -1,8 +1,15 @@
 $(function () {
-    $('#dateP').datetimepicker({
+    $('#dateP1').datetimepicker({
   	  language:'th'
     })
 });
+
+$(function () {
+    $('#dateP2').datetimepicker({
+  	  language:'th'
+    })
+});
+
 
 var borrow = {
 	'id': 0,
@@ -13,20 +20,22 @@ var borrow = {
 var newDetail = [];	
 var oldDetail = [];
 
+var titleInHeader = "เพิ่มรายการยืม";
+
 function addDetailButton(){
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการยืม"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการยืม";
 	document.getElementById("fsnCode").focus();
 }
 
 function addBorrowButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการยืม"
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function addNewDetai(code){
@@ -160,4 +169,48 @@ function init(id){
 	borrow.id = id;
 	getDetail(id);
 	addBorrowButton();
+}
+
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("number").disabled = true;
+	document.getElementById("dateOfStartBorrow").disabled = true;
+	document.getElementById("dateOfEndBorrow").disabled = true;
+	document.getElementById("withdrawerNmae").disabled = true;
+	document.getElementById("withdrawerLastname").disabled = true;
+	document.getElementById("withdrawerPosition").disabled = true;
+	document.getElementById("approverName").disabled = true;
+	document.getElementById("approverLastName").disabled = true;
+	document.getElementById("approverPosition").disabled = true;
+
+	document.getElementById("datepickerbuttonP1").style.display = "none";
+	document.getElementById("datepickerbuttonP2").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+	document.getElementById("saveExport").style.display = "none";
+	
+	init(id);
+	titleInHeader = "แสดงรายละเอียดการการยืม";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
+function changeToEdit(){
+	document.getElementById("title").disabled = false;
+	document.getElementById("number").disabled = false;
+	document.getElementById("dateOfStartBorrow").disabled = false;
+	document.getElementById("dateOfEndBorrow").disabled = false;
+	document.getElementById("withdrawerNmae").disabled = false;
+	document.getElementById("withdrawerLastname").disabled = false;
+	document.getElementById("withdrawerPosition").disabled = false;
+	document.getElementById("approverName").disabled = false;
+	document.getElementById("approverLastName").disabled = false;
+	document.getElementById("approverPosition").disabled = false;
+
+	document.getElementById("datepickerbuttonP1").style.display = "table-cell";
+	document.getElementById("datepickerbuttonP2").style.display = "table-cell";
+	document.getElementById("editDetail").style.display = "block";
+	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("changeToEditButton").style.display = "none";
+
+	titleInHeader = "แก้ไขรายละเอียดการการยืม";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }

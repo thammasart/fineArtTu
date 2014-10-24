@@ -1,0 +1,28 @@
+@( allStatus:List[UserStatus])
+<script type="text/ng-template" id="adminEditUserRole.html" >
+  <div class="modal-header">
+            <h2 class="modal-title"> {{name}}
+            </h2>
+        </div>
+        <div class="modal-body">
+        
+       <h3>
+           Edit Account :  {{username}} 
+       </h3>
+                <div class="input-group marginBtm1">
+                  <span class="input-group-addon width250px">สิทธิ</span>
+                    <select class="form-control width300px textAlignCenter" name="statusName" id="status">
+                      <option>---เลือก---</option>
+                      @for(status <- allStatus){
+                        <option >@status.name</option>
+                      }
+                    </select>
+                </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn btn-success" ng-click="ok()"  style="float:right; margin-left:5%;">ยืนยัน</button>
+            <button class="btn btn-danger" ng-click="cancel()" style="float:right;">ยกเลิก</button>
+        </div>
+</script>

@@ -22,7 +22,7 @@ public class Repairing extends Model{
 	public String title; // เรื่อง
 	public String number; // เลขที่
 	public Date dateOfSentToRepair;
-	public Date dateOfResiveFromRepair;
+	public Date dateOfReceiveFromRepair;
 	public double repairCosts; // ราคาไซ่อม
 	public ExportStatus status;
 	
@@ -77,29 +77,29 @@ public class Repairing extends Model{
 		}
 	}
 
-	public void setDateOfResiveFromRepair(String date){
+	public void setDateOfReceiveFromRepair(String date){
         String[] sList = date.split("/");
         if(sList.length == 3){
             int d = Integer.parseInt(sList[0]);
             int m = Integer.parseInt(sList[1]);
             int y = Integer.parseInt(sList[2]);
-            this.dateOfResiveFromRepair = new Date(y-2443,m-1,d);
+            this.dateOfReceiveFromRepair = new Date(y-2443,m-1,d);
         }
         else{
-        	this.dateOfResiveFromRepair = null;
+        	this.dateOfReceiveFromRepair = null;
         }
 	}
 
-	public String getDateOfResiveFromRepair(){
-		if(dateOfResiveFromRepair == null){
+	public String getDateOfReceiveFromRepair(){
+		if(dateOfReceiveFromRepair == null){
 			return " -- ไม่ระบุ -- ";
 		}
 		else{
-			String result = ""+dateOfResiveFromRepair.getDate();
+			String result = ""+dateOfReceiveFromRepair.getDate();
 			if(result.length() == 1){
 				result = "0" + result;
 			}
-			switch (dateOfResiveFromRepair.getMonth()) {
+			switch (dateOfReceiveFromRepair.getMonth()) {
 	            case 0:  result += "/01/";break;//" มกราคม ";break;
 	            case 1:  result += "/02/";break;//" กุมภาพันธ์ ";break;
 	            case 2:  result += "/03/";break;//" มีนาคม ";break;
@@ -114,7 +114,7 @@ public class Repairing extends Model{
 	            case 11: result += "/12/";break;//" ธันวาคม ";break;
 	            default: result += "Invalid month";break;
 	        }
-        	result += (dateOfResiveFromRepair.getYear() + 2443);
+        	result += (dateOfReceiveFromRepair.getYear() + 2443);
 			return result;
 		}
 	}

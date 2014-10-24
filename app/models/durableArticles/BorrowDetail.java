@@ -12,12 +12,11 @@ public class BorrowDetail extends Model{
 
 	@Id
 	public long id;
-	public String description; // ลักษะณะการชำรุด
-
+	public String description; // หมายเหตุการยืม
 	@ManyToOne
-	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการโอนย่าย
+	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการยืม
 	@ManyToOne
-	public Borrow borrow; // การส่งซ่อม
+	public Borrow borrow; // การยืม
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,BorrowDetail> find = new Finder(Long.class,BorrowDetail.class);

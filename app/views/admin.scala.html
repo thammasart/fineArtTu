@@ -1,4 +1,4 @@
-@(users:List[User], user : User)
+@(users:List[User], user : User, allStatus:List[UserStatus])
 @header("admin")
     <script src="@routes.Assets.at("javascripts/controllers/admin.js")"></script>
     <script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
@@ -10,7 +10,7 @@
 <div class ="mainWindow" style="margin-top:0; border:none;" ng-app="adminApp" ng-controller="delUser">
 
         @adminDelUser()
-
+        @adminEditUserRole(allStatus)
     <div class ="tableHeaderBtnContainer">
         
           @if(flash().containsKey("notSelect")){
@@ -40,6 +40,7 @@
                     <th>สายงาน<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ตำแหน่ง<span class="glyphicon glyphicon-sort"></span></th>
                     <th>สิทธิ<span class="glyphicon glyphicon-sort"></span></th>
+                    <th>แก้ไข</th>
                 </tr>
             </thead>
             <tbody>
@@ -53,6 +54,7 @@
                         <th>@user.departure</th>
                         <th>@user.position</th>
                         <th>@user.status.name</th>
+                        <th><button class="btn btn-warning btn-xs" ng-click="openEditRole('@user.username')">แก้ไขสิทธื</button></th>
                         
                     </tr>
                 }

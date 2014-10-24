@@ -33,7 +33,7 @@ public class Requisition extends Model{
 
 	@JsonBackReference
 	@OneToMany(mappedBy="requisition")
-	public List<RequisitionDetail> detils = new ArrayList<RequisitionDetail>();
+	public List<RequisitionDetail> details = new ArrayList<RequisitionDetail>();
 
 	public String approverToString(){
 		if(this.approver != null){

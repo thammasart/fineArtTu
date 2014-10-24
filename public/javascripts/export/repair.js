@@ -1,5 +1,11 @@
 $(function () {
-    $('#dateP').datetimepicker({
+    $('#datePๅ').datetimepicker({
+  	  language:'th'
+    })
+});
+
+$(function () {
+    $('#dateP/').datetimepicker({
   	  language:'th'
     })
 });
@@ -13,20 +19,22 @@ var repair = {
 var newDetail = [];	
 var oldDetail = [];
 
+var titleInHeader = "เพิ่มรายการส่งซ่อม";
+
 function addDetailButton(){
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการส่งซ่อม"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการส่งซ่อม";
 	document.getElementById("fsnCode").focus();
 }
 
 function addRepairButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการส่งซ่อม"
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function addNewDetai(code){
@@ -162,6 +170,44 @@ function init(id){
 	repair.id = id;
 	getDetail(id);
 	addRepairButton();
+}
+
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("number").disabled = true;
+	document.getElementById("dateOfSentToRepair").disabled = true;
+	document.getElementById("dateOfResiveFromRepair").disabled = true;
+	document.getElementById("approverFirstName").disabled = true;
+	document.getElementById("approverLastName").disabled = true;
+	document.getElementById("approverPosition").disabled = true;
+
+	document.getElementById("datepickerbuttonP1").style.display = "none";
+	document.getElementById("datepickerbuttonP2").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+	document.getElementById("saveExport").style.display = "none";
+	
+	init(id);
+	titleInHeader = "แสดงรายละเอียดการส่งซ่อม";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
+function changeToEdit(){
+	document.getElementById("title").disabled = false;
+	document.getElementById("number").disabled = false;
+	document.getElementById("dateOfSentToRepair").disabled = false;
+	document.getElementById("dateOfResiveFromRepair").disabled = false;
+	document.getElementById("approverFirstName").disabled = false;
+	document.getElementById("approverLastName").disabled = false;
+	document.getElementById("approverPosition").disabled = false;
+
+	document.getElementById("datepickerbuttonP1").style.display = "table-cell";
+	document.getElementById("datepickerbuttonP2").style.display = "table-cell";
+	document.getElementById("editDetail").style.display = "block";
+	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("changeToEditButton").style.display = "none";
+
+	titleInHeader = "แก้ไขรายละเอียดการส่งซ่อม";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function submitButtonJsClick(){

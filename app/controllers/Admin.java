@@ -16,7 +16,8 @@ public class Admin extends Controller {
     public static Result index() {
         User user = User.find.byId(session().get("username"));
         List<User> users = User.find.all(); 
-        return ok(admin.render(users, user));
+        List<UserStatus> allStatus = UserStatus.find.all();
+        return ok(admin.render(users, user,allStatus));
     }
 
     public static Result saveNewUser() {
@@ -39,7 +40,6 @@ public class Admin extends Controller {
     public static Result manageRole() {
         User user = User.find.byId(session().get("username"));
         List<UserStatus> usersStatus = UserStatus.find.all();
-        //List<Integer> numberOfUserPerStatus = new ArrayList<Integer>();
         return ok(manageRole.render(user,usersStatus));
     }
     
@@ -74,7 +74,10 @@ public class Admin extends Controller {
     	// no handle exception with userStatus that bind with user
     	DynamicForm form = Form.form().bindFromRequest();
     	UserStatus userStatus = UserStatus.find.byId(form.get("name"));
-    	userStatus.delete();
+
+        if(userStatus != null && userStatus.numberOfUser.size()==0){
+            userStatus.delete();
+        }
     	return redirect(routes.Admin.manageRole());
     }
 
