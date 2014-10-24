@@ -13,20 +13,22 @@ var other = {
 var newDetail = [];	
 var oldDetail = [];
 
+var titleInHeader = "เพิ่มรายการโอนย้ายอื่นๆ";
+
 function addDetailButton(){
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการโอนย้าย"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการโอนย้ายอื่นๆ";
 	document.getElementById("fsnCode").focus();
 }
 
 function addOtherButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการโอนย้ายอื่นๆ"
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function addNewDetai(code){
@@ -175,7 +177,10 @@ function initViewDetial(id){
 	document.getElementById("datepickerbutton").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
 	document.getElementById("saveExport").style.display = "none";
+
 	init(id);
+	titleInHeader = "แสดงรายละเอียดการโอนย้ายอื่นๆ";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function changeToEdit(){
@@ -191,4 +196,7 @@ function changeToEdit(){
 	document.getElementById("editDetail").style.display = "block";
 	document.getElementById("saveExport").style.display = "block";
 	document.getElementById("changeToEditButton").style.display = "none";
+
+	titleInHeader = "แก้ไขรายละเอียดการโอนย้ายอื่นๆ";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }

@@ -20,6 +20,8 @@ var detail = {
   	'requisitionId': -1
 };
 
+var titleInHeader = "เพิ่มรายการเบิกจ่าย";
+
 function addDetailButton(){
 	document.getElementById("code").value = '';
 	document.getElementById("groupCode").value = '';
@@ -28,14 +30,14 @@ function addDetailButton(){
 	document.getElementById("withdrawerPosition").value = ''
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการเบิกจ่าย"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการเบิกจ่าย";
 	document.getElementById("code").focus();
 }
 
 function addOrderButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการเบิกจ่าย"
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function update(){
@@ -124,6 +126,7 @@ function saveDetail(){
 function init(id){
 	requisition.id = id;
 	getDetail(id);
+	addOrderButton();
 	document.addOrder.title.focus();
 }
 
@@ -143,6 +146,8 @@ function initViewDetial(id){
 	document.getElementById("saveExport").style.display = "none";
 
 	init(id);
+	titleInHeader = "แสดงรายละเอียดการเบิกจ่าย";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function changeToEdit(){
@@ -160,6 +165,8 @@ function changeToEdit(){
 	document.getElementById("editDetail").style.display = "block";
 	document.getElementById("saveExport").style.display = "block";
 	document.getElementById("changeToEditButton").style.display = "none";
+	titleInHeader = "แก้ไขรายละเอียดการเบิกจ่าย";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 

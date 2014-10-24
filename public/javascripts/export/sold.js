@@ -10,8 +10,10 @@ var auction = {
 	'contractNo': ""
 };
 
-var newDetail = [];	
+var newDetail = [];
 var oldDetail = [];
+
+var titleInHeader = "เพิ่มรายการจำหน่าย";
 
 function addDetailButton(){
 	destroyTable();
@@ -19,14 +21,14 @@ function addDetailButton(){
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการจำหน่าย"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการจำหน่าย";
 	document.getElementById("fsnCode").focus();
 }
 
 function addSoldButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการจำหน่าย"
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function addNewDetai(code){
@@ -218,6 +220,8 @@ function initViewDetial(id){
 	document.getElementById("saveExport").style.display = "none";
 
 	init(id);
+	titleInHeader = "แสดงรายละเอียดการการจำหน่าย";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function changeToEdit(){
@@ -241,4 +245,7 @@ function changeToEdit(){
 	document.getElementById("editDetail").style.display = "block";
 	document.getElementById("saveExport").style.display = "block";
 	document.getElementById("changeToEditButton").style.display = "none";
+
+	titleInHeader = "แก้ไขรายละเอียดการการจำหน่าย";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
