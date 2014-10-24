@@ -10,6 +10,12 @@
 @nav(user)
 @headerTagFull("เพิ่มรายการส่งซ่อม")
 
+<div class="detailWindow"  id="changeToEditButton">
+      <button onclick="changeToEdit();" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">
+        แก้ไขรายละเอียด
+      </button>
+</div>
+
 <div id="addWindows" class ="detailWindow" ng-app="userAccountModule" ng-controller="autoCompleteUserController">
   
   <form onsubmit=" return submitButtonClick()"name="addSold" method="post" action="@routes.ExportRepair.saveRepairing(repair.id)" ng-init="findUser()">
@@ -127,7 +133,7 @@
     </div>  <!--end well-->
 
 
-    <div align="center" style="margin-bottom:1%;">
+    <div align="center" style="margin-bottom:1%;" id="saveExport">
       <a href="@routes.ExportRepair.cancelRepairing(repair.id)">
         <button  type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
           <span class="glyphicon glyphicon-remove"></span> ยกเลิก

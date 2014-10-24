@@ -184,5 +184,25 @@ function initViewDetial(id){
 	document.getElementById("datepickerbuttonP1").style.display = "none";
 	document.getElementById("datepickerbuttonP2").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
+	document.getElementById("saveExport").style.display = "none";
 	init(id);
+}
+
+function changeToEdit(){
+	document.getElementById("title").disabled = false;
+	document.getElementById("number").disabled = false;
+	document.getElementById("dateOfStartBorrow").disabled = false;
+	document.getElementById("dateOfEndBorrow").disabled = false;
+	document.getElementById("withdrawerNmae").disabled = false;
+	document.getElementById("withdrawerLastname").disabled = false;
+	document.getElementById("withdrawerPosition").disabled = false;
+	document.getElementById("approverName").disabled = false;
+	document.getElementById("approverLastName").disabled = false;
+	document.getElementById("approverPosition").disabled = false;
+
+	document.getElementById("datepickerbuttonP1").style.display = "table-cell";
+	document.getElementById("datepickerbuttonP2").style.display = "table-cell";
+	document.getElementById("editDetail").style.display = "block";
+	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("changeToEditButton").style.display = "none";
 }

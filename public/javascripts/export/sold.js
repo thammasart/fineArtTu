@@ -215,6 +215,30 @@ function initViewDetial(id){
 
 	document.getElementById("initViewDetial").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
+	document.getElementById("saveExport").style.display = "none";
 
 	init(id);
+}
+
+function changeToEdit(){
+	document.getElementById("title").disabled = false;
+	document.getElementById("contractNo").disabled = false;
+	document.getElementById("approveDate").disabled = false;
+	document.getElementById("soldDestination").disabled = false;
+	document.getElementById("buildingNo").disabled = false;
+	document.getElementById("village").disabled = false;
+	document.getElementById("alley").disabled = false;
+	document.getElementById("road").disabled = false;
+	document.getElementById("parish").disabled = false;
+	document.getElementById("district").disabled = false;
+	document.getElementById("province").disabled = false;
+	document.getElementById("telephoneNumber").disabled = false;
+	document.getElementById("fax").disabled = false;
+	document.getElementById("postCode").disabled = false;
+	document.getElementById("email").disabled = false;
+
+	document.getElementById("initViewDetial").style.display = "table-cell";
+	document.getElementById("editDetail").style.display = "block";
+	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("changeToEditButton").style.display = "none";
 }

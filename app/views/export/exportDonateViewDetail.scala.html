@@ -9,6 +9,12 @@
 @headerTagFull("เพิ่มรายการบริจาค")
 @cancelExportAdd()
 
+<div class="detailWindow"  id="changeToEditButton">
+      <button onclick="changeToEdit();" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">
+        แก้ไขรายละเอียด
+      </button>
+</div>
+
 <div class ="detailWindow" id="addWindows">
 
   <form name="addDonate" method="post" action="@routes.ExportDonate.saveDonation(donation.id)" onsubmit="return submitButtonClick()">
@@ -108,7 +114,7 @@
       </table>
 
     </div> <!--end well-->
-    <div align="center" style="margin-bottom:1%;">
+    <div align="center" style="margin-bottom:1%;" id="saveExport">
       <!--<a href="@routes.ExportDonate.cancelDonation(donation.id)">-->
         <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="addId(donation.id)" ng-click="openCancelModal('cancelDonation')">
           <span class="glyphicon glyphicon-remove" ></span> ยกเลิก

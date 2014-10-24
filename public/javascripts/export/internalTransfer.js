@@ -181,10 +181,24 @@ function initViewDetial(id){
 
 	document.getElementById("datepickerbutton").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
+	document.getElementById("saveExport").style.display = "none";
 
 	init(id);
 }
 
+function changeToEdit(){
+	document.getElementById("title").disabled = false;
+	document.getElementById("number").disabled = false;
+	document.getElementById("approveDate").disabled = false;
+	document.getElementById("approverFirstName").disabled = false;
+	document.getElementById("approverLastName").disabled = false;
+	document.getElementById("approverPosition").disabled = false;
+
+	document.getElementById("datepickerbutton").style.display = "table-cell";
+	document.getElementById("editDetail").style.display = "block";
+	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("changeToEditButton").style.display = "none";
+}
 
 function submitButtonAddClick(){
     
