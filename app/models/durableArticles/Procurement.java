@@ -42,6 +42,9 @@ public class Procurement extends Model{
 	public String fileName;
 	public String fileType;
 	public String path;
+	
+	public int testDay=0;
+	
 	@ManyToOne
 	public Company company; 			// บริษัทที่ทำการซื้อ 	
 	
@@ -72,9 +75,11 @@ public class Procurement extends Model{
 	}
 	public int getCurrentYear(){
 		Date now = new Date();
-		System.out.println(now.getYear()+1900+543);
-		return now.getYear()+1900+543; 
+		//System.out.println(now.getYear()+1900+543);
+		return now.getYear()+1900+543+testDay; 
 	}
+
+	
 	
 	public double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();

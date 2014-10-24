@@ -24,9 +24,9 @@
                         </form>
                 </div>
                  <div>
-                    <a style="float:right;margin-left:1%;" class="width20p" href="@routes.Import.importsInstituteAdd()">
+                    <a style="float:right;margin-left:1%;" class="width20p" href="@routes.Option.optionCalculatingDepreciate()">
                     <button class="btn btn-success" style="width:100%;">ดำเนินการคำนวณค่าเสื่อม</button>
-                    </a>
+                    </a>	
                 </div>
         </div>
 
@@ -75,25 +75,27 @@
 					<!-- ค่าเสือมประจำปี -->
                     @if( ( (articleOrder.getYear()==articleOrder.getCurrentYear()) && ( (articleOrder.getMonth()-9<1) ) ) || ( ( ((articleOrder.getCurrentYear()-articleOrder.getYear())==1)&&(articleOrder.getMonth()-9>1) ) ) ){
                     <th>@articleOrder.round(((subOrders.price/subOrders.llifeTime)*(articleOrder.getFirstYearDepreciation(articleOrder.getDay(),articleOrder.getMonth()))),2)</th>
+                    @subOrders.getDepreciationOfYear(((subOrders.price/subOrders.llifeTime)*(articleOrder.getFirstYearDepreciation(articleOrder.getDay(),articleOrder.getMonth()))))
                     }else{ <!-- second year or last year -->
-                    	@if( (subOrders.depreciationPrice-(subOrders.price/subOrders.llifeTime))<=1.0 ){
+                    	@if( (subOrders.depreciationPrice-(subOrders.price/subOrders.llifeTime))>=1.0 ){
                     	<th>@articleOrder.round(subOrders.price/subOrders.llifeTime,2)</th>
+                    	 @subOrders.getDepreciationOfYear(subOrders.price/subOrders.llifeTime)
                     	}else{
-                    	<th>@(subOrders.depreciationPrice-1)</th>
+                    	<th>@articleOrder.round((subOrders.depreciationPrice-1),2)</th>	<!-- last year -->
+                    	 @subOrders.getDepreciationOfYear(subOrders.depreciationPrice-1)
                     	}
                     }
-                    <th>@subOrders.depreciationPrice</th>
+                    <th>@articleOrder.round(subOrders.depreciationPrice,2)</th>
                     </tr>
                     }
                  }
-           <!-- articleOrder.getDay()
-            articleOrder.getMonth() --> 
+
                 </tbody>
 
 
             </table>
 
         </div> 
-<!---->
+
 </div>
 @footer()
