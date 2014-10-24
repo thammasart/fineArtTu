@@ -59,21 +59,21 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="repair.approver.firstName" } name="approverFirstName" id="approverFirstName" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="@repair.approver.firstName" } name="approverFirstName" id="approverFirstName" onkeyup="mapInput2()">
               <span class="alertText" id="approverFirstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
-              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="repair.approver.lastName" } name="approverLastName" id="approverLastName">
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="@repair.approver.lastName" } name="approverLastName" id="approverLastName">
               <span class="alertText" id="approverLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ตำแหน่ง</span>
-              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="repair.approver.position" } name="approverPosition" id="approverPosition">
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="@repair.approver.position" } name="approverPosition" id="approverPosition">
               <span class="alertText" id="approverPositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>

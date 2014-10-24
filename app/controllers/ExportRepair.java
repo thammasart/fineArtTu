@@ -67,7 +67,7 @@ public class ExportRepair extends Controller {
         if(repair == null || repair.status != ExportStatus.REPAIRING){
             return redirect(routes.ExportRepair.exportRepairing());
         }
-        repair.dateOfResiveFromRepair = new Date();
+        repair.dateOfReceiveFromRepair = new Date();
         return ok(exportRepairingReceive.render(user, repair));
     }
 
@@ -108,7 +108,7 @@ public class ExportRepair extends Controller {
         System.out.println("saveReceive");
         if(repair != null && repair.status == ExportStatus.REPAIRING){
             DynamicForm f = Form.form().bindFromRequest();
-            repair.setDateOfResiveFromRepair(f.get("dateOfResiveFromRepair"));
+            repair.setDateOfReceiveFromRepair(f.get("dateOfResiveFromRepair"));
             String repairCosts = f.get("repairCosts");
             if(repairCosts == null){
                 repairCosts = "0.00";

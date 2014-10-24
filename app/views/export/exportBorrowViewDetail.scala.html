@@ -43,7 +43,7 @@
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" role="form">
+      <div class="form-inline marginBtm1" role="form" @if(borrow.dateOfEndBorrow == null){ style="display:none;"}>
         <div class="form-group">
           <div class="input-group" id="dateP2">
             <span class="input-group-addon width250px">วัน/เดือน/ปี รับคืน</span>
