@@ -19,14 +19,14 @@
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">รายการ เรื่อง</span>
-            <input type="text" class="form-control width300px" name="title" id="title" autocomplete="off">
+            <input type="text" class="form-control width300px" value="@repair.title" name="title" id="title" autocomplete="off">
             <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">เลขที่</span>
-            <input type="text" class="form-control width300px" name="number" id="number" autocomplete="off">
+            <input type="text" class="form-control width300px" value="@repair.number" name="number" id="number" autocomplete="off">
             <span class="alertText" id="numberAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -46,7 +46,7 @@
         <div class="form-group">
           <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี ส่งซ่อม</span>
-            <input type="text" class="form-control width300px" name="dateOfSentToRepair" id="dateOfSentToRepair" data-format="DD/MM/YYYY">
+            <input type="text" class="form-control width300px" value="@repair.getDateOfSentToRepair()" name="dateOfSentToRepair" id="dateOfSentToRepair" data-format="DD/MM/YYYY">
             <span class="input-group-addon width25px">
               <span class="datepickerbutton glyphicon glyphicon-calendar"></span>
             </span>
@@ -59,21 +59,21 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="approverFirstName" id="approverFirstName" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="repair.approver.firstName" } name="approverFirstName" id="approverFirstName" onkeyup="mapInput2()">
               <span class="alertText" id="approverFirstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
-              <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="approverLastName" id="approverLastName">
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="repair.approver.lastName" } name="approverLastName" id="approverLastName">
               <span class="alertText" id="approverLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ตำแหน่ง</span>
-              <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="approverPosition" id="approverPosition">
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(repair.approver != null){ value="repair.approver.position" } name="approverPosition" id="approverPosition">
               <span class="alertText" id="approverPositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
