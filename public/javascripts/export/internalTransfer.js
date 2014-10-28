@@ -13,20 +13,22 @@ var internalTransfer = {
 var newDetail = [];	
 var oldDetail = [];
 
+var titleInHeader = "เพิ่มรายการโอนย้ายภายใน";
+
 function addDetailButton(){
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการโอนย้ายภายใน"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการโอนย้ายภายใน";
 	document.getElementById("fsnCode").focus();
 }
 
 function addInternalTransferButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการโอนย้ายภายใน"
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function addNewDetai(code){
@@ -169,6 +171,40 @@ function init(id){
 	internalTransfer.id = id;
 	addInternalTransferButton();
 	getDetail();
+}
+
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("number").disabled = true;
+	document.getElementById("approveDate").disabled = true;
+	document.getElementById("approverFirstName").disabled = true;
+	document.getElementById("approverLastName").disabled = true;
+	document.getElementById("approverPosition").disabled = true;
+
+	document.getElementById("datepickerbutton").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+	document.getElementById("saveExport").style.display = "none";
+
+	init(id);
+	titleInHeader = "แสดงรายละเอียดการโอนย้ายภายใน";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
+function changeToEdit(){
+	document.getElementById("title").disabled = false;
+	document.getElementById("number").disabled = false;
+	document.getElementById("approveDate").disabled = false;
+	document.getElementById("approverFirstName").disabled = false;
+	document.getElementById("approverLastName").disabled = false;
+	document.getElementById("approverPosition").disabled = false;
+
+	document.getElementById("datepickerbutton").style.display = "table-cell";
+	document.getElementById("editDetail").style.display = "block";
+	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("changeToEditButton").style.display = "none";
+
+	titleInHeader = "แก้ไขรายละเอียดการโอนย้ายภายใน";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function submitButtonAddClick(){

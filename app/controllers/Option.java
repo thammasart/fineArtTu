@@ -57,6 +57,32 @@ public class Option extends Controller {
     }
 	
 	@Security.Authenticated(Secured.class)
+    public static Result optionCalculatingDepreciate() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status",ImportStatus.SUCCESS).findList();
+        System.out.println("Innnnnnnnnnnn");
+        for(models.durableArticles.Procurement p:ps)
+        {
+        	for(models.durableArticles.ProcurementDetail pd:p.details)
+        	{
+        		pd.depreciationPrice = pd.depreciationPrice-pd.depreciationOfYear;
+        		System.out.println(pd.depreciationPrice);
+        		pd.update();
+        	}
+        }
+        
+        for(models.durableArticles.Procurement p:ps)
+        {
+        	p.testDay++;
+        	p.update();
+        }
+        
+        return ok(optionCalculateDepreciate.render(user,ps));
+    }
+	
+	
+	
+	@Security.Authenticated(Secured.class)
     public static Result optionIncomingBalance() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(optionIncomingBalance.render(user));
@@ -73,6 +99,8 @@ public class Option extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         return ok(optionChangeTax.render(user));
     }
+	
+	
 	
 	
 }

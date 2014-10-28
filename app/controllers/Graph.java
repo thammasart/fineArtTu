@@ -507,7 +507,7 @@ public class Graph extends Controller {
     	ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
     	for(models.consumable.Requisition r : rs){
-    		for(models.consumable.RequisitionDetail rd : r.detils){
+    		for(models.consumable.RequisitionDetail rd : r.details){
     			String key = rd.code.materialType.typeName;
     			Integer value = listResult.get(key);
 				if(value == null){

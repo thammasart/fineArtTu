@@ -12,8 +12,8 @@
 @nav(user)
 @headerTagFull("เพิ่มรายการวัสดุจัดซื้อและนำเข้า")
 
-<body onload="document.saveOrderGood.title.focus()">
-
+<body onload="document.saveOrderGood.title.focus()" ng-app="goodsCodeModule" ng-controller="autoCompleteGoods">
+@cancelList()
     <div class="detailWindow" id="page1">
 	
         <form name="saveOrderGood" id="saveOrderGood" method="post" action="@routes.Import.saveNewGoodsOrder()" onsubmit="return submitButtonClicks()" enctype="multipart/form-data">
@@ -105,14 +105,15 @@
 		<input id="aiLists" type="hidden" name="aiLists" >
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
+            <div class="well">
 		<legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
 		<div class="form-inline marginBtm1" role="form" id="ai_committee" ></div> 
 
+            </div>
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
 
-
-    <div class = "well">
+    <div class = "well" >
       <h2 style ="text-align:center;">รายละเอียดวัสดุ</h2>
 
         <div class="tableHeaderBtnContainer" >
@@ -126,9 +127,9 @@
                       </div>
            
             </div>
-               <div>
-            	  <button style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage()">เพิ่มวัสดุ</button>
-                  <button class="btn btn-danger width200px" style="float:right;" type="button" onclick="removeProcurementDetail('/import/removeProcurementDetail2')">ลบวัสดุ</button>
+               <div > 
+            	  <button style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage();reDisableRadio();">เพิ่มวัสดุ</button>
+                  <button class="btn btn-danger width200px" style="float:right;" type="button" ng-click="openCancleDel('/import/removeProcurementDetail2')">ลบวัสดุ</button>
               </div>
 
         </div>
@@ -184,7 +185,7 @@ $('input').prop("disabled",false);
     <!-- ------------------------------------------------------------------------------------------------------------------------ -->
      <!-- ------------------------------------------------------------------------------------------------------------------------ -->
       <!-- ------------------------------------------------------------------------------------------------------------------------ -->
-<div class="detailWindow" id="page2"ng-app="goodsCodeModule" ng-controller="autoCompleteGoods">
+<div class="detailWindow" id="page2" >
     <div class="well" ng-init="findGoods()">
 		
 		
@@ -250,14 +251,14 @@ $('input').prop("disabled",false);
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >พนักงานขาย</span>
                     <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="seller" id="seller">
-                    <span class="alertText" id="sellerAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
+                    <!--<span class="alertText" id="sellerAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>-->
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >เบอร์โทรศัพท์</span>
                     <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="phone" id="phone">
-                    <span class="alertText" id="phoneAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
+                    <!--<span class="alertText" id="phoneAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>-->
                 </div>
             </div>
         </div>       

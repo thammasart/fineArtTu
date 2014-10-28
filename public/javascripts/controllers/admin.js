@@ -1,9 +1,20 @@
 var usersTick = [];
 var data;
+var editDate;
+
+var userNameEdit;
 
 angular.module('adminApp', ['ui.bootstrap'])
     .controller('delUser',function($scope,$modal){
 
+        $scope.openEditRole = function(name){
+            var modalInstance = $modal.open({
+                templateUrl: 'adminEditUserRole.html',
+                controller: editModalInstanceCtrl,
+                size: 'lg'
+            });
+                userNameEdit = name;
+        };
 
         $scope.open = function(){
 
@@ -21,6 +32,22 @@ angular.module('adminApp', ['ui.bootstrap'])
     }
 );
 
+var editModalInstanceCtrl= function($scope, $modalInstance){
+    $scope.name = "Edit User(s) Role.";
+    $scope.username = userNameEdit;
+    $scope.ok = function () {
+            editData = {
+                            'editName'	: userNameEdit,
+                            'newRole'      : document.getElementById("status").value
+            };
+	postData('/Admin/editUser',editData);
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
 var resultModalInstanceCtrl= function($scope, $modalInstance){
     $scope.name = "Delete User(s).";
     $scope.userT= usersTick;

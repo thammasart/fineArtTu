@@ -42,6 +42,9 @@ public class Procurement extends Model{
 	public String fileName;
 	public String fileType;
 	public String path;
+	
+	public int testDay=0;
+	
 	@ManyToOne
 	public Company company; 			// บริษัทที่ทำการซื้อ 	
 	
@@ -67,7 +70,42 @@ public class Procurement extends Model{
 	public int getDay(){
 		return Integer.parseInt(new SimpleDateFormat("d", new Locale("th","th")).format(addDate));
 	}
+	public int getYear(){
+		return Integer.parseInt(new SimpleDateFormat("yyyy", new Locale("th","th")).format(addDate));
+	}
+	public int getCurrentYear(){
+		Date now = new Date();
+		//System.out.println(now.getYear()+1900+543);
+		return now.getYear()+1900+543+testDay; 
+	}
+
 	
+	
+	public double round(double value, int places) {
+	    if (places < 0) throw new IllegalArgumentException();
+	    long factor = (long) Math.pow(10, places);
+	    value = value * factor;
+	    long tmp = Math.round(value);
+	    return (double) tmp / factor;
+	}
+	
+	public double getFirstYearDepreciation(int day,int month){
+		
+		if(day>15)
+			month++;
+		day=1;
+		
+		int countMonth=0;
+		
+		if(month<=9)
+			countMonth=9-month+1;
+		else
+		{
+			countMonth=9-month+13;
+		}
+		
+		return countMonth/12.0;
+	}
 	
 	public String toString()
 	{

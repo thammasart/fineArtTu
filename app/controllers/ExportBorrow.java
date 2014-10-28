@@ -54,7 +54,7 @@ public class ExportBorrow extends Controller {
     public static Result exportBorrowAdd(long id) {
         User user = User.find.byId(session().get("username"));
         Borrow borrow = Borrow.find.byId(id);
-        if(borrow == null){
+        if(borrow == null || borrow.status != ExportStatus.INIT){
             return redirect(routes.ExportBorrow.exportBorrow());
         }
         return ok(exportBorrowAdd.render(user, borrow));
@@ -64,7 +64,7 @@ public class ExportBorrow extends Controller {
     public static Result returnFromBorrow(long id){
         User user = User.find.byId(session().get("username"));
         Borrow borrow = Borrow.find.byId(id);
-        if(borrow == null){
+        if(borrow == null || borrow.status != ExportStatus.BORROW){
             return redirect(routes.ExportBorrow.exportBorrow());
         }
         borrow.dateOfEndBorrow = new Date();
@@ -75,7 +75,7 @@ public class ExportBorrow extends Controller {
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
         Borrow borrow = Borrow.find.byId(id);
-        if(borrow == null){
+        if(borrow == null || borrow.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportBorrow.exportBorrow());
         }
         return ok(exportBorrowViewDetail.render(user, borrow));

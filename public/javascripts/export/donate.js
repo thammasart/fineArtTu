@@ -13,20 +13,22 @@ var donation = {
 var newDetail = [];
 var oldDetail = [];
 
+var titleInHeader = "เพิ่มรายการบริจาค";
+
 function addDetailButton(){
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการบริจาค"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการบริจาค";
 	document.getElementById("fsnCode").focus();
 }
 
 function addDonateButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการบริจาค"
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function addNewDetai(code){
@@ -161,4 +163,30 @@ function init(id){
 	donation.id = id;
 	getDetail(id);
 	addDonateButton();
+}
+
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("contractNo").disabled = true;
+	document.getElementById("approveDate").disabled = true;
+
+	document.getElementById("datepickerbutton").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+	document.getElementById("saveExport").style.display = "none";
+	init(id);
+	titleInHeader = "แสดงรายละเอียดการการบริจาค";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
+function changeToEdit(){
+	document.getElementById("title").disabled = false;
+	document.getElementById("contractNo").disabled = false;
+	document.getElementById("approveDate").disabled = false;
+
+	document.getElementById("datepickerbutton").style.display = "table-cell";
+	document.getElementById("editDetail").style.display = "block";
+	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("changeToEditButton").style.display = "none";
+	titleInHeader = "แก้ไขรายละเอียดการการบริจาค";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }

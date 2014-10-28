@@ -7,13 +7,27 @@ var goodsCodeFsn=[];
 var goodsNameFsn=[];
 var sourceCode=[];
 var sourceName=[];
+var pathToRemove;
 
 angular.module('goodsCodeModule', ['ui.bootstrap'])
-    .controller('autoCompleteGoods',function($scope,$http){
+    .controller('autoCompleteGoods',function($scope,$http,$modal){
         
         $scope.goodsCode =[];
         $scope.goodsName =[];
         
+        $scope.openCancleDel = function(path){
+            pathToRemove = path;
+            var modalInstance = $modal.open({
+                templateUrl: 'cancelList.html',
+                controller: resultModalInstanceCtrl,
+                size: 'lg',
+                resolve: {
+                    name : function(){
+                        return $scope.name;
+                    }
+                }
+            });
+        };
         $scope.radioClick =  function(){ 
                 document.getElementById("typeOfGoods").value = document.querySelector('input[name="goodsRadio"]:checked').value;
                     if(document.getElementById("typeOfGoods").value == 0){
@@ -55,6 +69,19 @@ angular.module('goodsCodeModule', ['ui.bootstrap'])
         };
     }
 );
+var resultModalInstanceCtrl= function($scope, $modalInstance){
+
+   $scope.name = " ลบรายการสัสดุ ";
+
+   $scope.ok = function () {
+        removeProcurementDetail(pathToRemove);
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
 function mapDescriptionToCode(){
     var id = document.getElementById("description").value ;
     if(document.getElementById("typeOfGoods").value == 0){
@@ -88,6 +115,10 @@ function mapCodeToDescription(){
     }
 }
 
+ function reDisableRadio () { 
+    document.getElementById("description").disabled = true;
+    document.getElementById("code").disabled = true;
+ } 
 
 function submitButtonClicks(){
     

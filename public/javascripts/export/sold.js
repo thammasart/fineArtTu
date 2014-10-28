@@ -10,8 +10,10 @@ var auction = {
 	'contractNo': ""
 };
 
-var newDetail = [];	
+var newDetail = [];
 var oldDetail = [];
+
+var titleInHeader = "เพิ่มรายการจำหน่าย";
 
 function addDetailButton(){
 	destroyTable();
@@ -19,14 +21,14 @@ function addDetailButton(){
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการจำหน่าย"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการจำหน่าย";
 	document.getElementById("fsnCode").focus();
 }
 
 function addSoldButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการจำหน่าย"
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function addNewDetai(code){
@@ -194,4 +196,56 @@ function init(id){
 	auction.id = id;
 	getDetail(id);
 	addSoldButton();
+}
+
+function initViewDetial(id){
+	document.getElementById("title").disabled = true;
+	document.getElementById("contractNo").disabled = true;
+	document.getElementById("approveDate").disabled = true;
+	document.getElementById("soldDestination").disabled = true;
+	document.getElementById("buildingNo").disabled = true;
+	document.getElementById("village").disabled = true;
+	document.getElementById("alley").disabled = true;
+	document.getElementById("road").disabled = true;
+	document.getElementById("parish").disabled = true;
+	document.getElementById("district").disabled = true;
+	document.getElementById("province").disabled = true;
+	document.getElementById("telephoneNumber").disabled = true;
+	document.getElementById("fax").disabled = true;
+	document.getElementById("postCode").disabled = true;
+	document.getElementById("email").disabled = true;
+
+	document.getElementById("initViewDetial").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+	document.getElementById("saveExport").style.display = "none";
+
+	init(id);
+	titleInHeader = "แสดงรายละเอียดการการจำหน่าย";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
+function changeToEdit(){
+	document.getElementById("title").disabled = false;
+	document.getElementById("contractNo").disabled = false;
+	document.getElementById("approveDate").disabled = false;
+	document.getElementById("soldDestination").disabled = false;
+	document.getElementById("buildingNo").disabled = false;
+	document.getElementById("village").disabled = false;
+	document.getElementById("alley").disabled = false;
+	document.getElementById("road").disabled = false;
+	document.getElementById("parish").disabled = false;
+	document.getElementById("district").disabled = false;
+	document.getElementById("province").disabled = false;
+	document.getElementById("telephoneNumber").disabled = false;
+	document.getElementById("fax").disabled = false;
+	document.getElementById("postCode").disabled = false;
+	document.getElementById("email").disabled = false;
+
+	document.getElementById("initViewDetial").style.display = "table-cell";
+	document.getElementById("editDetail").style.display = "block";
+	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("changeToEditButton").style.display = "none";
+
+	titleInHeader = "แก้ไขรายละเอียดการการจำหน่าย";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
