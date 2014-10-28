@@ -43,6 +43,8 @@ public class Procurement extends Model{
 	public String fileType;
 	public String path;
 	
+	public int yearStatus=0;
+	
 	public int testDay=0;
 	
 	@ManyToOne
@@ -78,6 +80,7 @@ public class Procurement extends Model{
 		//System.out.println(now.getYear()+1900+543);
 		return now.getYear()+1900+543+testDay; 
 	}
+	
 
 	
 	

@@ -59,29 +59,29 @@
                     <th>@subOrders.description</th>
                     <th>@subOrders.fsn.descriptionId</th>
                     <th>@subOrders.quantity</th>
-                    <th>@articleOrder.round(subOrders.price,2)</th>
+                    <th>@articleOrder.round(subOrders.getSumablePrice(),2)</th>
                     <th>@subOrders.llifeTime</th>
-                    <th>@articleOrder.round(subOrders.price/subOrders.llifeTime,2)</th> <!-- ค่าเสื่อมต่อปี -->
+                    <th>@articleOrder.round(subOrders.getSumablePrice()/subOrders.llifeTime,2)</th> <!-- ค่าเสื่อมต่อปี -->
 
                     
                     <!-- ค่าเสือมสะสม -->
-                    @if( (subOrders.price-(subOrders.price-subOrders.depreciationPrice)) <=1.0){
-                    <th>@(subOrders.price-1.0)</th>
+                    @if( (subOrders.getSumablePrice()-(subOrders.getSumablePrice()-subOrders.depreciationPrice)) <=1.0){
+                    <th>@(subOrders.getSumablePrice()-1.0) get last value</th>
                     }else{
-                    <th>@articleOrder.round(subOrders.price-subOrders.depreciationPrice,2)</th>
+                    <th>@articleOrder.round(subOrders.getSumablePrice()-subOrders.depreciationPrice,2) @subOrders.depreciationPrice normal</th>
                     }
                     
                     
 					<!-- ค่าเสือมประจำปี -->
                     @if( ( (articleOrder.getYear()==articleOrder.getCurrentYear()) && ( (articleOrder.getMonth()-9<1) ) ) || ( ( ((articleOrder.getCurrentYear()-articleOrder.getYear())==1)&&(articleOrder.getMonth()-9>1) ) ) ){
-                    <th>@articleOrder.round(((subOrders.price/subOrders.llifeTime)*(articleOrder.getFirstYearDepreciation(articleOrder.getDay(),articleOrder.getMonth()))),2)</th>
-                    @subOrders.getDepreciationOfYear(((subOrders.price/subOrders.llifeTime)*(articleOrder.getFirstYearDepreciation(articleOrder.getDay(),articleOrder.getMonth()))))
+                    <th>@articleOrder.round(((subOrders.getSumablePrice()/subOrders.llifeTime)*(articleOrder.getFirstYearDepreciation(articleOrder.getDay(),articleOrder.getMonth()))),2) x</th>
+                    @subOrders.getDepreciationOfYear(((subOrders.getSumablePrice()/subOrders.llifeTime)*(articleOrder.getFirstYearDepreciation(articleOrder.getDay(),articleOrder.getMonth()))))
                     }else{ <!-- second year or last year -->
                     	@if( (subOrders.depreciationPrice-(subOrders.price/subOrders.llifeTime))>=1.0 ){
-                    	<th>@articleOrder.round(subOrders.price/subOrders.llifeTime,2)</th>
-                    	 @subOrders.getDepreciationOfYear(subOrders.price/subOrders.llifeTime)
+                    	<th>@articleOrder.round(subOrders.getSumablePrice()/subOrders.llifeTime,2) y</th>
+                    	 @subOrders.getDepreciationOfYear(subOrders.getSumablePrice()/subOrders.llifeTime)
                     	}else{
-                    	<th>@articleOrder.round((subOrders.depreciationPrice-1),2)</th>	<!-- last year -->
+                    	<th>@articleOrder.round((subOrders.depreciationPrice-1),2) z</th>	<!-- last year -->
                     	 @subOrders.getDepreciationOfYear(subOrders.depreciationPrice-1)
                     	}
                     }

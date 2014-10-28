@@ -20,7 +20,7 @@ public class ProcurementDetail extends Model{
 	public double price; // ราคราต่อหน่วย
 	public double priceNoVat; // ราคาไม่รวมภาษี
 	
-	public double depreciationPrice=0.0;//ค่าเสื่อม
+	public double depreciationPrice=0.0; //ราคาค่าเสื่อมสะสม
 	public double depreciationOfYear=0.0;
 	
 	public int quantity; // จำนวน
@@ -38,6 +38,16 @@ public class ProcurementDetail extends Model{
 		//System.out.println(value);
 		depreciationOfYear=value;
 		this.update();
+	}
+	
+	public double getSumablePrice()
+	{
+		return price*quantity;
+	}
+	
+	public double getTotalDepreciationPrice()	//return ค่าเสื่อมราคาสะสม
+	{
+		return getSumablePrice()-depreciationPrice;
 	}
 	
 	@JsonBackReference

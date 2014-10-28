@@ -906,6 +906,24 @@ public class Import extends Controller {
 		} 
     	/////////////////////////////////////////////////////////////////////////////////////
     	
+		if(articlesOrder.getMonth()>9)
+		{
+			articlesOrder.yearStatus = articlesOrder.getYear()+1;
+			System.out.println("a: "+articlesOrder.yearStatus);
+		}
+		else if(articlesOrder.getMonth()==9 && articlesOrder.getDay()>15)
+		{
+			articlesOrder.yearStatus = articlesOrder.getYear()+1;
+			System.out.println("b: "+articlesOrder.yearStatus);
+		}
+		else
+		{
+			articlesOrder.yearStatus = articlesOrder.getYear();
+			System.out.println("c: "+articlesOrder.yearStatus);
+		}
+		
+		
+		
         articlesOrder.status = ImportStatus.SUCCESS;        
         articlesOrder.update();
         //System.out.println(articlesOrder);
@@ -1225,7 +1243,7 @@ public class Import extends Controller {
     	procurementDetail.price = Double.parseDouble(json.get("price").asText());
     	
     	if(procurementDetail.depreciationPrice == 0.0)
-    	procurementDetail.depreciationPrice = procurementDetail.price;
+    	procurementDetail.depreciationPrice = procurementDetail.price*procurementDetail.quantity;
     	
     	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
     	//procurementDetail.classifier = json.get("classifier").asText();
