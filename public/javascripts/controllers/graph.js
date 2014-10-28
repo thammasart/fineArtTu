@@ -69,6 +69,11 @@ function load() {
 
 function selectionHandler(){
 	var object = chart2.getSelection()[0]||chart3.getSelection()[0];//||chart1.getSelection()[0];
+	if(chart2.getSelection()[0] == undefined){
+		chart3.setSelection(chart3.getSelection()[0]);
+	}else{
+		chart2.setSelection(chart2.getSelection()[0]);
+	}
 	state['lastSelected'] = state['clickedItem'];
 	state['clickedItem'] = object;
 	if(state['page'] == 0){
@@ -131,6 +136,7 @@ function setData(obj,chart){
 			annotations : {alwaysOutside : true},
 		});
 	}else if(chart == "table"){
+		clearTable();
 		if(state['mode'] == 'balance'){
 			setDataTableColumn("trackingTable",balanceThead).rows.add(obj).draw();
 		}

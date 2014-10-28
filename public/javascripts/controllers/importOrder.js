@@ -474,7 +474,7 @@ function loadOrderGood(data){
 		
 		
 		divTable +='</th>'+
-		'                    <th> <button type="button" class="btn btn-xs btn-info" onclick="setDetail('+data['data'][i].id + ',1)" > รายละเอียด</button></th>'+
+		'                    <th> <button type="button" class="btn btn-xs btn-info" onclick="setDetail('+data['data'][i].id + ',2)" > รายละเอียด</button></th>'+
 		'                </tr>';
 	}
 	destroyTable();
