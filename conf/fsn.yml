@@ -2563,18 +2563,20 @@
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    1/57
   status:    SUCCESS
-  addDate:       2014-01-17
-  checkDate:     2014-01-21
+  addDate:       2014-09-17
+  checkDate:     2014-09-21
   budgetType:    พิเศษ
   budgetYear:    57 
+  yearStatus: 2558
 - &procurement02    !!models.durableArticles.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    2/57
   status:    SUCCESS
-  addDate:       2014-02-19
-  checkDate:     2014-02-21
+  addDate:       2014-09-12
+  checkDate:     2014-09-15
   budgetType:    พิเศษ
   budgetYear:    57
+  yearStatus: 2557
 - &procurement03    !!models.durableArticles.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    3/57
@@ -2583,6 +2585,7 @@
   checkDate:     2014-03-21
   budgetType:    พิเศษ
   budgetYear:    57
+  yearStatus: 2557
 - &procurementDetail01    !!models.durableArticles.ProcurementDetail
   description:    ตู้หมายเลข1
   fsn:    *fsnDescription71250010001

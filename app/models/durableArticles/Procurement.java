@@ -125,7 +125,7 @@ public class Procurement extends Model{
 			
 		}
 		*/
-		
+		/*
 		List<DurableArticles> dList = DurableArticles.find.all();
 		System.out.println("testStatus");
 		for(DurableArticles d:dList)
@@ -138,7 +138,7 @@ public class Procurement extends Model{
 			}
 
 		}
-		
+		*/
 		
 		/*
 		for(AI_Committee a: aiCommittee)

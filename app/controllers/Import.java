@@ -1247,11 +1247,7 @@ public class Import extends Controller {
     	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
     	
     	if(procurementDetail.depreciationPrice == 0.0)
-    	{
-    		System.out.println("INNNNNNNNNNNNNNNNNNN");
     	procurementDetail.depreciationPrice = procurementDetail.price*procurementDetail.quantity;
-    	System.out.println(procurementDetail.depreciationPrice);
-    	}
     	//procurementDetail.classifier = json.get("classifier").asText();
     	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
     	procurementDetail.alertTime = Double.parseDouble(json.get("alertTime").asText());
