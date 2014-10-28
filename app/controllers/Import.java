@@ -36,6 +36,7 @@ import models.durableGoods.DurableGoods;
 
 import models.fsnNumber.*;
 import models.type.ImportStatus;
+import models.type.OrderDetailStatus;
 import models.type.SuppliesStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -924,7 +925,22 @@ public class Import extends Controller {
 		
 		
 		
-        articlesOrder.status = ImportStatus.SUCCESS;        
+        articlesOrder.status = ImportStatus.SUCCESS;      
+        
+        
+        for(models.durableArticles.ProcurementDetail pd : articlesOrder.details)
+        {
+        	pd.status = OrderDetailStatus.SUCCESS;
+        	
+        	for( DurableArticles pda : pd.subDetails)
+        	{
+        		pda.status = SuppliesStatus.NORMAL;
+        		pda.update();
+        	}
+        	
+        	pd.update();
+        }
+        
         articlesOrder.update();
         //System.out.println(articlesOrder);
         
@@ -1256,6 +1272,9 @@ public class Import extends Controller {
     	procurementDetail.brand = json.get("brand").asText();
     	procurementDetail.serialNumber = json.get("serialNumber").asText();
     	//procurementDetail.partOfPic = json.get("serialNumber").asText();
+    	
+    	procurementDetail.status =  OrderDetailStatus.INIT;
+    	
     	procurementDetail.procurement = procurement;
     	
     	String fsnCode = json.get("fsnCode").asText();
@@ -1286,7 +1305,7 @@ public class Import extends Controller {
 	    		editingMode = false;
 	    	}
 	    	
-	    	dA.status = SuppliesStatus.NORMAL;
+	    	dA.status = SuppliesStatus.INIT;
 	    	dA.department = json.get("articleDepartment"+i).asText();
 	    	dA.room = json.get("articleRoom"+i).asText();
 	    	dA.floorLevel = json.get("articleLevel"+i).asText();
@@ -1295,7 +1314,7 @@ public class Import extends Controller {
 	    	dA.firstName = json.get("articleFirstName"+i).asText();		
 	    	dA.lastName = json.get("articleLastName"+i).asText();			
 	    	dA.codeFromStock = json.get("articleStock"+i).asText(); 
-	    	
+	    
 	    	dA.detail = procurementDetail;
 	    	
 	    	if(!editingMode) dA.save();

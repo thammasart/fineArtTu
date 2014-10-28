@@ -9,6 +9,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import models.fsnNumber.FSN_Description;
+import models.type.OrderDetailStatus;
 
 @Entity
 @Table (name = "durable_articles_procurement_detail")
@@ -32,6 +33,9 @@ public class ProcurementDetail extends Model{
 	public String brand; // ยี่ห้อ
 	public String serialNumber; //หมายเลขเครื่อง
 	public String partOfPic; // รูปภาพ
+	public OrderDetailStatus status;
+	
+	
 	
 	public void getDepreciationOfYear(double value)
 	{
