@@ -65,12 +65,13 @@
 
                     
                     <!-- ค่าเสือมสะสม -->
-                    @if( (subOrders.getSumablePrice()-(subOrders.getSumablePrice()-subOrders.depreciationPrice)) <=1.0){
-                    <th>@(subOrders.getSumablePrice()-1.0) get last value</th>
+                    @if( ( subOrders.getSumablePrice()-subOrders.getTotalDepreciationPrice() ) <=1.0){
+                    <th>@(subOrders.getSumablePrice()-1.0)</th>
                     }else{
-                    <th>@articleOrder.round(subOrders.getSumablePrice()-subOrders.depreciationPrice,2) @subOrders.depreciationPrice normal</th>
+                    <th>@articleOrder.round(subOrders.getTotalDepreciationPrice(),2)</th>
                     }
                     
+    
                     
 					<!-- ค่าเสือมประจำปี -->
                     @if( ( (articleOrder.getYear()==articleOrder.getCurrentYear()) && ( (articleOrder.getMonth()-9<1) ) ) || ( ( ((articleOrder.getCurrentYear()-articleOrder.getYear())==1)&&(articleOrder.getMonth()-9>1) ) ) ){
