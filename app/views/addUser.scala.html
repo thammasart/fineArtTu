@@ -15,6 +15,11 @@
 
 <div class ="mainWindow" style="border:none; margin-top:0;" >
     <form role="form" class="form-horizontal" method="post" action="@routes.Admin.saveNewUser()" name="addUserForm"  onsubmit="return submitButtonClick()">
+                      @if(flash().containsKey("sameUser")){
+                        <div class="alert alert-danger tdmAlert" role="alert" align="center">
+                            <p>@flash().get("sameUser")</p>
+                        </div>
+                      }
         <div class="well " align="center" > <h3>เพิ่มบัญชีผู้ใช้</h3>
 
             <div class="input-group marginBtm1">
@@ -26,11 +31,13 @@
               <span class="input-group-addon width250px">Password</span>
               <input type="password" class="form-control width300px textAlignCenter" name="password"autocomplete="off"  id="password">
               <label class="alertText" id="passwordAlert"  > <i> *  Please enter Password</i></label>
+              <label class="alertText" id="passwordDiffAlert"  > <i> *  Password and Re-Password should be same</i></label>
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">Re-Password</span>
               <input type="password" class="form-control width300px textAlignCenter" name="rePassword" autocomplete="off"  id="rePassword">
               <label class="alertText" id="rePasswordAlert"  > <i> *  Please enter Password</i></label>
+              <label class="alertText" id="rePasswordDiffAlert"  > <i> *  Password and Re-Password should be same</i></label>
             </div>
             <div class="input-group marginBtm1">
               <span class="input-group-addon width250px">สายงาน</span>
@@ -73,19 +80,13 @@
             <a href="@routes.Admin.index()" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
             	<span class="glyphicon glyphicon-remove"></span> ยกเลิก
             </a>
-            <a href="@routes.Admin.index()">
                 <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" type="submit">
                     ยืนยัน <span class="glyphicon glyphicon-ok"></span>
                 </button>
-            </a>
           </div>
 
       </form>
 
 </div> 
 
-        <div class="footerContainer" style="position:relative; left:15%; width:85%;">
-            <div class="footDiv"> <h6 >Copyright 2014  &copy; Thammasat University </h6> </div>
-        </div>
-    </body>
-</html>
+@footerFull()

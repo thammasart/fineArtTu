@@ -38,6 +38,18 @@ function submitButtonClick(){
         submitStatus = false;
     }else  document.getElementById("lastnameAlert").style.display= "none";
 
+    if(document.getElementById("password").value != document.getElementById("rePassword").value){
+        document.getElementById("rePasswordDiffAlert").style.display = "table-row";
+        document.getElementById("passwordDiffAlert").style.display = "table-row";
+        submitStatus = false;
+        document.getElementById("password").value = ""; 
+        document.getElementById("rePassword").value = ""; 
+        document.addUserForm.password.focus();
+    }else {
+        document.getElementById("rePasswordDiffAlert").style.display = "none";
+        document.getElementById("passwordDiffAlert").style.display = "none";
+    }
+
 //    if($("#status option:selected").text() == "---เลือก---"){
 //        document.getElementById("statusAlert").style.display = "table-row";
 //        submitStatus = false;
