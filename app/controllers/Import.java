@@ -1001,7 +1001,6 @@ public class Import extends Controller {
 			    	cmt.lastName = form.get("aiLastName"+temp[i]);
 			    	cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
 			    	cmt.position = form.get("aiPosition"+temp[i]);
-			    	
 			    	cmt.save();
 		    	}
 		    	
