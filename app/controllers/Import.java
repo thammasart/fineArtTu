@@ -36,6 +36,7 @@ import models.durableGoods.DurableGoods;
 
 import models.fsnNumber.*;
 import models.type.ImportStatus;
+import models.type.OrderDetailStatus;
 import models.type.SuppliesStatus;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -906,7 +907,40 @@ public class Import extends Controller {
 		} 
     	/////////////////////////////////////////////////////////////////////////////////////
     	
-        articlesOrder.status = ImportStatus.SUCCESS;        
+		if(articlesOrder.getMonth()>9)
+		{
+			articlesOrder.yearStatus = articlesOrder.getYear()+1;
+			System.out.println("a: "+articlesOrder.yearStatus);
+		}
+		else if(articlesOrder.getMonth()==9 && articlesOrder.getDay()>15)
+		{
+			articlesOrder.yearStatus = articlesOrder.getYear()+1;
+			System.out.println("b: "+articlesOrder.yearStatus);
+		}
+		else
+		{
+			articlesOrder.yearStatus = articlesOrder.getYear();
+			System.out.println("c: "+articlesOrder.yearStatus);
+		}
+		
+		
+		
+        articlesOrder.status = ImportStatus.SUCCESS;      
+        
+        
+        for(models.durableArticles.ProcurementDetail pd : articlesOrder.details)
+        {
+        	pd.status = OrderDetailStatus.SUCCESS;
+        	
+        	for( DurableArticles pda : pd.subDetails)
+        	{
+        		pda.status = SuppliesStatus.NORMAL;
+        		pda.update();
+        	}
+        	
+        	pd.update();
+        }
+        
         articlesOrder.update();
         //System.out.println(articlesOrder);
         
@@ -1224,10 +1258,12 @@ public class Import extends Controller {
     	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
     	procurementDetail.price = Double.parseDouble(json.get("price").asText());
     	
-    	if(procurementDetail.depreciationPrice == 0.0)
-    	procurementDetail.depreciationPrice = procurementDetail.price;
+
     	
     	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+    	
+    	if(procurementDetail.depreciationPrice == 0.0)
+    	procurementDetail.depreciationPrice = procurementDetail.price*procurementDetail.quantity;
     	//procurementDetail.classifier = json.get("classifier").asText();
     	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
     	procurementDetail.alertTime = Double.parseDouble(json.get("alertTime").asText());
@@ -1236,6 +1272,9 @@ public class Import extends Controller {
     	procurementDetail.brand = json.get("brand").asText();
     	procurementDetail.serialNumber = json.get("serialNumber").asText();
     	//procurementDetail.partOfPic = json.get("serialNumber").asText();
+    	
+    	procurementDetail.status =  OrderDetailStatus.INIT;
+    	
     	procurementDetail.procurement = procurement;
     	
     	String fsnCode = json.get("fsnCode").asText();
@@ -1266,7 +1305,7 @@ public class Import extends Controller {
 	    		editingMode = false;
 	    	}
 	    	
-	    	dA.status = SuppliesStatus.NORMAL;
+	    	dA.status = SuppliesStatus.INIT;
 	    	dA.department = json.get("articleDepartment"+i).asText();
 	    	dA.room = json.get("articleRoom"+i).asText();
 	    	dA.floorLevel = json.get("articleLevel"+i).asText();
@@ -1275,7 +1314,7 @@ public class Import extends Controller {
 	    	dA.firstName = json.get("articleFirstName"+i).asText();		
 	    	dA.lastName = json.get("articleLastName"+i).asText();			
 	    	dA.codeFromStock = json.get("articleStock"+i).asText(); 
-	    	
+	    
 	    	dA.detail = procurementDetail;
 	    	
 	    	if(!editingMode) dA.save();

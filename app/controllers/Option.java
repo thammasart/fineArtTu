@@ -60,22 +60,30 @@ public class Option extends Controller {
     public static Result optionCalculatingDepreciate() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status",ImportStatus.SUCCESS).findList();
-        System.out.println("Innnnnnnnnnnn");
         for(models.durableArticles.Procurement p:ps)
         {
-        	for(models.durableArticles.ProcurementDetail pd:p.details)
+        	if(p.getCurrentYear() == p.yearStatus)
         	{
-        		pd.depreciationPrice = pd.depreciationPrice-pd.depreciationOfYear;
-        		System.out.println(pd.depreciationPrice);
-        		pd.update();
+	        	for(models.durableArticles.ProcurementDetail pd:p.details)
+	        	{
+	        		pd.depreciationPrice = pd.depreciationPrice-pd.depreciationOfYear;
+	        		System.out.println(pd.depreciationPrice);
+	        		pd.update();
+	        	}
+	        	p.yearStatus++;
+	        	p.update();
         	}
+        	
         }
         
+        /////////////////////////////////////////Testtttttttt
         for(models.durableArticles.Procurement p:ps)
         {
-        	p.testDay++;
-        	p.update();
+    	p.testDay++;
+    	p.update();
         }
+        /////////////////////////////////////////Testtttttttt
+        
         
         return ok(optionCalculateDepreciate.render(user,ps));
     }

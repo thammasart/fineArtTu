@@ -14,6 +14,7 @@ var color = ['#7B9CDE','#EA8871','#FFC266','#70C074','#C266C2',
 var materialNames = ['สนง','ยานพหนะและขนส่ง','ไฟฟ้าและวิทยุ','คอมฯ','การศึกษา','งานบ้านงานครัว','ดนตรี','โฆษณาและเผยแพร่','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง']
 var defaultThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวน<span class="glyphicon glyphicon-sort"></span></th><th>สถานะ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>'
 var balanceThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>งบประมาณที่ใช้<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
+var procurementThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่นำเข้า<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var options = {
 		title : 'เปรียบเทียบการใช้งบประมาณรายเดือน',
 		chartArea : {'left':'8%','width':'75%','height':'75%'},
@@ -69,6 +70,12 @@ function load() {
 
 function selectionHandler(){
 	var object = chart2.getSelection()[0]||chart3.getSelection()[0];//||chart1.getSelection()[0];
+	if(chart2.getSelection()[0] == undefined){
+		chart3.setSelection(chart3.getSelection()[0]);
+	}else{
+		chart2.setSelection(chart2.getSelection()[0]);
+	}
+	console.log(object);
 	state['lastSelected'] = state['clickedItem'];
 	state['clickedItem'] = object;
 	if(state['page'] == 0){
@@ -131,8 +138,11 @@ function setData(obj,chart){
 			annotations : {alwaysOutside : true},
 		});
 	}else if(chart == "table"){
+		clearTable(0);
 		if(state['mode'] == 'balance'){
 			setDataTableColumn("trackingTable",balanceThead).rows.add(obj).draw();
+		}else if(state['mode'] == 'procurement'){
+			setDataTableColumn("trackingTable",procurementThead).rows.add(obj).draw();
 		}
 		$('#graph-tab a[href="#tracking"]').tab('show');
 	}
