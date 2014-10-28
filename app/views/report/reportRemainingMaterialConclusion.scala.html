@@ -1,5 +1,6 @@
-@(user : User)
+@(user : User , mc: List[MaterialCode], mt:List[MaterialType])
 @header("รายงาน")
+    <script src="@routes.Assets.at("javascripts/report.js")"></script>
 
 @nav(user)
 @headerTag("สรุปวัสดุคงเหลือ")
@@ -18,7 +19,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                   <span class="input-group-addon">ค้นหา</span>
-                                  <input type="text" class="form-control" style="width:300px">
+                                  <input type="text" class="form-control "style="width:300px" id="search" >
                                 </div>
                               </div>
                         </form>
@@ -61,12 +62,11 @@
                     </div>
                     <div class="input-group"style="float:right;">
                       <span class="input-group-addon width150px">ประเภทวัสดุ</span>
-                        <select class="form-control textAlignCenter  width300px">
+                        <select class="form-control textAlignCenter  width300px" id="MaterialTypeSelect" onchange="setKeySearch(this.value)">
                           <option>ทั้งหมด</option>
-                          <option>วัสดุสำนักงาน</option>
-                          <option>วัสดุ....</option>
-                          <option>วัสดุ....</option>
-                          <option>วัสดุ....</option>
+                     @for(mtl <-mt){
+                          <option value="@mtl.typeName" >@mtl.typeName</option>
+                     }
                         </select>
                    </div>
               </div>
@@ -86,37 +86,19 @@
                 </thead>
                 <tbody>
 
+                @for((mcl,index) <-mc.zipWithIndex){
                     <tr>
-                        <th style="text-align:center">1</th>
-                        <th style="text-align:center">กรรไกร 6 นิ้ว</th>
-                        <th style="text-align:center">อัน</th>
-                        <th style="text-align:center">8</th>
-                        <th style="text-align:center">32.10</th>
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@mcl.description</th>
+                        <th style="text-align:center">@mcl.classifier</th>
+                        <th style="text-align:center">@mcl.remain</th>
+                        <th style="text-align:center">@mcl.pricePerEach</th>
                         <th style="text-align:center">256.80</th>
-                        <th style="text-align:center">-</th>
+                        <th style="text-align:center">@mcl.materialType.typeName</th>
                     </tr>
-                    <tr>
-                        <th style="text-align:center">2</th>
-                        <th style="text-align:center">กระดาษถ่ายเอกสาร A4-80G.</th>
-                        <th style="text-align:center">รีม</th>
-                        <th style="text-align:center">85</th>
-                        <th style="text-align:center">110.00</th>
-                        <th style="text-align:center">9350.00</th>
-                        <th style="text-align:center">-</th>
-                    </tr>
+                }
                 </tbody>
             </table>
-            <div class="pagingContainer" align="center">
-                <ul class="pagination" style="margin:0;">
-                  <li class="disabled"><a href="#">&laquo;</a></li>
-                  <li class="active"><a href="#">1</a></li>
-                  <li><a href="#">2</a></li>
-                  <li><a href="#">3</a></li>
-                  <li><a href="#">4</a></li>
-                  <li><a href="#">5</a></li>
-                  <li><a href="#">&raquo;</a></li>
-                </ul>
-           </div>
         </div> 
 <!---->
 </div>

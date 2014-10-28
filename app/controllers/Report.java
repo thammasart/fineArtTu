@@ -7,6 +7,8 @@ import play.libs.Json;
 import views.html.*;
 import views.html.report.*;
 import models.*;
+import models.durableGoods.*;
+import models.fsnNumber.*;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
@@ -28,13 +30,17 @@ public class Report  extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result reportDurableArticles() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportDurableArticles.render(user));
+        List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.all();                    //ครุภัณฑ์
+        return ok(reportDurableArticles.render(user,da));
     }
 
     @Security.Authenticated(Secured.class)
         public static Result reportRemainingMaterialConclusion() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportRemainingMaterialConclusion.render(user));
+        List<MaterialCode> mc = MaterialCode.find.all();
+        List<MaterialType> mt = MaterialType.find.all();
+        
+        return ok(reportRemainingMaterialConclusion.render(user,mc,mt));
     }
     
     @Security.Authenticated(Secured.class)

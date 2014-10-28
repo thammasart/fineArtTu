@@ -18,7 +18,8 @@ public class MaterialCode extends Model{
 	public String otherDetail;									//รายละเอียดอื่นๆ 
 	
 	public int remain = 0; // จำนวนปัจจุบัน, ยอดคงเหลือ
-	
+	public int pricePerEach ;
+
 	public String fileName;
 	public String path;
 	public String fileType;
