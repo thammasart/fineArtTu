@@ -23,11 +23,20 @@ public class Admin extends Controller {
     public static Result saveNewUser() {
         DynamicForm f = Form.form().bindFromRequest();
         Form<User> newUserFrom = Form.form(User.class).bindFromRequest();
-        System.out.println(newUserFrom);
-        User newUser = newUserFrom.get();    
-        newUser.status = UserStatus.find.byId(f.get("statusName"));
-        newUser.save();
-        return redirect(routes.Admin.index());
+
+        User user = User.find.byId(f.get("username"));
+        
+        if(user == null){
+            System.out.println(newUserFrom);
+            User newUser = newUserFrom.get();    
+            newUser.status = UserStatus.find.byId(f.get("statusName"));
+            newUser.save();
+            return redirect(routes.Admin.index());
+        }else {
+            flash("sameUser", " This username already exists.");
+            return redirect(routes.Admin.addUser());
+        }
+
     }
     
 
@@ -72,22 +81,14 @@ public class Admin extends Controller {
     public static Result adminEditUserRole(){
     	DynamicForm form = Form.form().bindFromRequest();
 
-        String editName = form.get("editName");
-        String newRole = form.get("newRole");
-
-        User user = User.find.byId(editName);
-        UserStatus status = UserStatus.find.byId(newRole);
+        User user = User.find.byId(form.get("editName"));
+        UserStatus status = UserStatus.find.byId(form.get("newRole"));
 
         if(user != null && status != null){
             user.status = status;
             user.update();
         }
-
-        User userAll = User.find.byId(session().get("username"));
-        List<User> users = User.find.all(); 
-        List<UserStatus> allStatus = UserStatus.find.all();
-
-        return ok(admin.render(users, userAll,allStatus));
+        return redirect(routes.Admin.index());
     }
     
     public static Result removeRole(){

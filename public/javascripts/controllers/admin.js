@@ -38,9 +38,9 @@ var editModalInstanceCtrl= function($scope, $modalInstance){
     $scope.ok = function () {
             editData = {
                             'editName'	: userNameEdit,
-                            'newRole'      : document.getElementById("status").innerHTML
+                            'newRole'      : document.getElementById("status").value
             };
-	postData('/Admin/editUser',data);
+	postData('/Admin/editUser',editData);
         $modalInstance.close();
     };
 

@@ -35,8 +35,8 @@
     bottom: 0;
 }
 .footerContainer{
-    position: fixed;
-    left: 15%;
+    position: relative;
+    left: 8%;
     right: 0;
     bottom: 0;
 }
@@ -235,4 +235,13 @@ table.dataTable thead .sorting {
     float: none !important;
     text-align: center !important;
     width: 100%;
+}
+
+.tdmAlert{
+    color: darkred;
+    font-size: 20px;
+    width: 50%;
+    margin-left: 25%;
+    position: relative;
+    margin-top: -5%;
 }
