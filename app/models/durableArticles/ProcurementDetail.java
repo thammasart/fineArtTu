@@ -21,6 +21,7 @@ public class ProcurementDetail extends Model{
 	public double priceNoVat; // ราคาไม่รวมภาษี
 	
 	public double depreciationPrice=0.0;//ค่าเสื่อม
+	public double depreciationOfYear=0.0;
 	
 	public int quantity; // จำนวน
 	//public String classifier; // หน่วย, ลักษณนาม
@@ -32,6 +33,12 @@ public class ProcurementDetail extends Model{
 	public String serialNumber; //หมายเลขเครื่อง
 	public String partOfPic; // รูปภาพ
 	
+	public void getDepreciationOfYear(double value)
+	{
+		//System.out.println(value);
+		depreciationOfYear=value;
+		this.update();
+	}
 	
 	@JsonBackReference
 	@OneToMany(mappedBy="detail")
@@ -42,7 +49,10 @@ public class ProcurementDetail extends Model{
 	
 	@ManyToOne
 	public Procurement procurement; // การจัดซื้อ
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,ProcurementDetail> find = new Finder(Long.class,ProcurementDetail.class);
+	
 }

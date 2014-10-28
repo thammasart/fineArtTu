@@ -2587,7 +2587,8 @@
   description:    ตู้หมายเลข1
   fsn:    *fsnDescription71250010001
   procurement:    *procurement01
-  price:          1000
+  price:          107000
+  depreciationPrice: 107000
   priceNoVat:     930
   quantity:    5
   llifeTime:   5
@@ -2596,6 +2597,7 @@
   fsn:    *fsnDescription71250010004
   procurement:    *procurement02
   price:          1000
+  depreciationPrice: 1000
   priceNoVat:     930
   quantity:    4
   llifeTime:   5
@@ -2604,6 +2606,7 @@
   fsn:    *fsnDescription71250010002
   procurement:    *procurement02
   price:          1000
+  depreciationPrice: 1000
   priceNoVat:     930
   quantity:    4
   llifeTime:   5 
@@ -2612,6 +2615,7 @@
   fsn:    *fsnDescription71250010003
   procurement:    *procurement03
   price:          1000
+  depreciationPrice: 1000
   priceNoVat:     930
   quantity:    4
   llifeTime:   4
@@ -2620,6 +2624,7 @@
   fsn:    *fsnDescription71250010002
   procurement:    *procurement03
   price:          1000
+  depreciationPrice: 1000
   priceNoVat:     930
   quantity:    10
   llifeTime:   4
@@ -2628,6 +2633,7 @@
   fsn:    *fsnDescription71250010004
   procurement:    *procurement03
   price:          1000
+  depreciationPrice: 1000
   priceNoVat:     930
   quantity:    3 
   llifeTime:   4

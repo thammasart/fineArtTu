@@ -7,6 +7,7 @@
   title:                  ส่งซ่อม_2
   number:                 2/57
   dateOfStartBorrow:      2014-05-30
+  dateOfEndBorrow:        2014-06-07
   status:                  SUCCESS
 - &Borrow03 !!models.durableArticles.Borrow
   title:                  ส่งซ่อม_3

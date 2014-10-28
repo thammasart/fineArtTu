@@ -13,20 +13,22 @@ var internalTransfer = {
 var newDetail = [];	
 var oldDetail = [];
 
+var titleInHeader = "เพิ่มรายการโอนย้ายภายใน";
+
 function addDetailButton(){
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการโอนย้ายภายใน"
+	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการโอนย้ายภายใน";
 	document.getElementById("fsnCode").focus();
 }
 
 function addInternalTransferButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
-	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายการโอนย้ายภายใน"
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function addNewDetai(code){
@@ -184,6 +186,8 @@ function initViewDetial(id){
 	document.getElementById("saveExport").style.display = "none";
 
 	init(id);
+	titleInHeader = "แสดงรายละเอียดการโอนย้ายภายใน";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function changeToEdit(){
@@ -198,6 +202,9 @@ function changeToEdit(){
 	document.getElementById("editDetail").style.display = "block";
 	document.getElementById("saveExport").style.display = "block";
 	document.getElementById("changeToEditButton").style.display = "none";
+
+	titleInHeader = "แก้ไขรายละเอียดการโอนย้ายภายใน";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
 function submitButtonAddClick(){
