@@ -1420,26 +1420,33 @@ public class Import extends Controller {
     		{
     			String[] durableArticlesProcurementInList = form.get("durableArticlesProcurementTickList").split(",");
     			
-    			
+    			int cantDelete=0;
     			for(int i=0;i<durableArticlesProcurementInList.length;i++)
     			{
     				models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(durableArticlesProcurementInList[i]));
-    				p.status = ImportStatus.DELETE;
-    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
-        			file.delete();									//delete file---------------------------------------------
-        			
-    				for(ProcurementDetail pd :p.details)
-    				{
-    					for(DurableArticles d:pd.subDetails)
-    					{
-    						d.status = SuppliesStatus.DELETE;
-    						d.update();
-    					}
-    				}
     				
-    				p.update();
+    				if(p.status!=ImportStatus.UNCHANGE)
+    				{
+	    				p.status = ImportStatus.DELETE;
+	    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
+	        			file.delete();									//delete file---------------------------------------------
+	        			
+	    				for(ProcurementDetail pd :p.details)
+	    				{
+	    					for(DurableArticles d:pd.subDetails)
+	    					{
+	    						d.status = SuppliesStatus.DELETE;
+	    						d.update();
+	    					}
+	    				}
+	    				p.update();
+    				}
+    				else
+    					cantDelete++;
     			}
-    			flash("delete1","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + durableArticlesProcurementInList.length +" รายการ ");
+    			flash("delete1","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + (durableArticlesProcurementInList.length-cantDelete) +" รายการ ");
+    			if(cantDelete!=0)
+    				flash("delete2","ไม่สามารถลบรายการจัดซื้อและนำเข้าทั้งหมด " + cantDelete +" รายการ ");
     		}
     		else
     		{
@@ -1452,18 +1459,25 @@ public class Import extends Controller {
     		{
     			String[] goodsProcurementInList = form.get("goodsProcurementTickList").split(",");
 
-    			
+    			int cantDelete=0;
     			for(int i=0;i<goodsProcurementInList.length;i++)
     			{
     				models.durableGoods.Procurement p = models.durableGoods.Procurement.find.byId(Long.parseLong(goodsProcurementInList[i]));
-    				p.status = ImportStatus.DELETE;  
-    				
-    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
-        			file.delete();									//delete file---------------------------------------------
-        			
-    				p.update();
+    				if(p.status!=ImportStatus.UNCHANGE)
+    				{
+	    				p.status = ImportStatus.DELETE;  
+	    				
+	    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
+	        			file.delete();									//delete file---------------------------------------------
+	        			
+	    				p.update();
+    				}
+    				else
+    					cantDelete++;
     			}
-    			flash("delete2","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + goodsProcurementInList.length +" รายการ ");
+    			flash("delete3","ลบรายการจัดซื้อและนำเข้าทั้งหมด " + (goodsProcurementInList.length-cantDelete) +" รายการ ");
+    			if(cantDelete!=0)
+    				flash("delete4","ไม่สามารถลบรายการจัดซื้อและนำเข้าทั้งหมด " + cantDelete +" รายการ ");
     		}
     		else
     		{
