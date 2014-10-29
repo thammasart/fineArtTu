@@ -322,7 +322,16 @@ public class Graph extends Controller {
 			List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
 			result = getDetailRequisitionMap(rs);
     	}else{
-    		
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(lRow);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(lRow);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(lRow);
+    		}
+			List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+			result = getTableRequisition( rs , selectedName );
     	}
     	return result;
     }
@@ -631,7 +640,7 @@ public class Graph extends Controller {
     	return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
     }
     
-    private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps,String selectedName){
+    private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -665,7 +674,7 @@ public class Graph extends Controller {
 		return result;
     }
     
-    private static ArrayNode getTableBalanceGoods(List<models.durableGoods.Procurement> ps,String selectedName){
+    private static ArrayNode getTableBalanceGoods(List<models.durableGoods.Procurement> ps, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -675,7 +684,6 @@ public class Graph extends Controller {
     			if(c.materialType.typeName.equals(selectedName)){
     				String key = c.description;
 					Double value = listResult.get(key);
-					System.out.println(String.format("%s\t%.2f\n", key,value));
 					if(value == null){
 						if(pd.quantity * pd.price != 0){
 							listResult.put(key, pd.quantity * pd.price);
@@ -702,7 +710,7 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getTableProcurementArticle(List<models.durableArticles.Procurement> ps,String selectedName){
+    private static ArrayNode getTableProcurementArticle(List<models.durableArticles.Procurement> ps, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -712,7 +720,7 @@ public class Graph extends Controller {
 					String key = pd.fsn.descriptionDescription;
 					Integer value = listResult.get(key);
 					if(value == null){
-						if(pd.quantity * pd.price != 0){
+						if(pd.quantity != 0){
 							listResult.put(key, pd.quantity);
 							ids.put(key,""+pd.id);
 						}
@@ -736,7 +744,7 @@ public class Graph extends Controller {
 		return result;
     }
     
-    private static ArrayNode getTableProcurementGoods(List<models.durableGoods.Procurement> ps,String selectedName){
+    private static ArrayNode getTableProcurementGoods(List<models.durableGoods.Procurement> ps, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -748,13 +756,51 @@ public class Graph extends Controller {
 					Integer value = listResult.get(key);
 					System.out.println(String.format("%s\t%.2f\n", key,value));
 					if(value == null){
-						if(pd.quantity * pd.price != 0){
+						if(pd.quantity != 0){
 							listResult.put(key, pd.quantity);
 							ids.put(key,""+pd.id);
 						}
 					}else{
 						listResult.put(key, listResult.get(key) + pd.quantity);
 						ids.put(key,ids.get(key)+","+pd.id);
+					}
+				}
+    		}
+    		
+    	}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+    }
+    
+    private static ArrayNode getTableRequisition(List<models.consumable.Requisition> rs, String selectedName){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	for(models.consumable.Requisition r : rs){
+    		for(models.consumable.RequisitionDetail rd : r.details){
+    			MaterialCode c = rd.code;
+    			if(c.materialType.typeName.equals(selectedName)){
+    				String key = c.description;
+					Integer value = listResult.get(key);
+					System.out.println(String.format("%s\t%.2f\n", key,value));
+					if(value == null){
+						System.out.println(key);
+						if(rd.quantity  != 0){
+							listResult.put(key, rd.quantity);
+							ids.put(key,"" + rd.id);
+						}
+					}else{
+						listResult.put(key, listResult.get(key) + rd.quantity);
+						ids.put(key,ids.get(key) + "," + rd.id);
 					}
 				}
     		}

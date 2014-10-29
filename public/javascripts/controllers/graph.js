@@ -15,6 +15,7 @@ var materialNames = ['สนง','ยานพหนะและขนส่ง'
 var defaultThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวน<span class="glyphicon glyphicon-sort"></span></th><th>สถานะ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>'
 var balanceThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>งบประมาณที่ใช้<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var procurementThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่นำเข้า<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
+var requisitionThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่เบิกวัสดุ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var options = {
 		title : 'เปรียบเทียบการใช้งบประมาณรายเดือน',
 		chartArea : {'left':'8%','width':'75%','height':'75%'},
@@ -83,7 +84,7 @@ function selectionHandler(){
 		getData('column');
 	}else if(state['page']==1){
 		state['page'] = 2;
-		state['selectedName'] = data.getFormattedValue(object.row, object.column+2);
+		state['selectedName'] = data.getFormattedValue(object.row, 3);
 		getData('table');
 	}
 }
@@ -140,9 +141,11 @@ function setData(obj,chart){
 	}else if(chart == "table"){
 		clearTable(0);
 		if(state['mode'] == 'balance'){
-			setDataTableColumn("trackingTable",balanceThead).rows.add(obj).draw();
+			setDataTableColumn("trackingTable", balanceThead).rows.add(obj).draw();
 		}else if(state['mode'] == 'procurement'){
-			setDataTableColumn("trackingTable",procurementThead).rows.add(obj).draw();
+			setDataTableColumn("trackingTable", procurementThead).rows.add(obj).draw();
+		}else if(state['mode'] == 'requisition'){
+			setDataTableColumn("trackingTable", requisitionThead).rows.add(obj).draw();
 		}
 		$('#graph-tab a[href="#tracking"]').tab('show');
 	}
