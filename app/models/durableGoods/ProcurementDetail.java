@@ -9,6 +9,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import models.MaterialCode;
+import models.type.OrderDetailStatus;
 
 
 @Entity
@@ -22,6 +23,8 @@ public class ProcurementDetail extends Model{
 	public double price; // ราคราต่อหน่วย
 	public double priceNoVat; // ราคาต่อหน่วยไม่รวมภาษี
 	public int quantity; // จำนวน
+	public int remain; // จำนวนคงเหลือของใบรายการ
+	
 	//public String classifier; // หน่วย, ลักษณนาม
 	public String seller; // ยี่ห้อ
 	public String phone; // ยี่ห้อ
@@ -29,6 +32,8 @@ public class ProcurementDetail extends Model{
 	public String serialNumber; //หมายเลขเครื่อง
 	public String partOfPic; // รูปภาพ
 	public int typeOfDurableGoods;//คงทนถาวร = 1 / false = 0 
+	
+	public OrderDetailStatus status;
 	
 	
 	
