@@ -156,6 +156,37 @@ public class ExportDonate extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
+    public static Result deleteDonateDetail() {
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            long id = Long.parseLong(json.get("id").asText());
+            Donation donate = Donation.find.byId(id);
+            if(donate != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    DonationDetail detail = DonationDetail.find.byId(id);
+                    if(detail != null && donate.equals(detail.donation)){
+                        detail.delete();
+                    }
+                }
+                result.put("status", "SUCCESS");
+            }
+            else{
+                result.put("message","not Found donate id:" + id);
+                result.put("status", "error");
+            }
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result loadDonateDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;

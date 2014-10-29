@@ -158,7 +158,37 @@ public class ExportTransferInside extends Controller {
             result.put("message", e.getMessage());
             result.put("status", "error");
         }
+        return ok(result);
+    }
 
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
+    public static Result deleteTransferInsideDetail() {
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            long id = Long.parseLong(json.get("id").asText());
+            InternalTransfer inside = InternalTransfer.find.byId(id);
+            if(inside != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    InternalTransferDetail detail = InternalTransferDetail.find.byId(id);
+                    if(detail != null && inside.equals(detail.internalTransfer)){
+                        detail.delete();
+                    }
+                }
+                result.put("status", "SUCCESS");
+            }
+            else{
+                result.put("message","not Found repairing id:" + id);
+                result.put("status", "error");
+            }
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
         return ok(result);
     }
 

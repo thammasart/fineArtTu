@@ -158,6 +158,37 @@ public class ExportSold extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
+    public static Result deleteAuctionDetail() {
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            long id = Long.parseLong(json.get("id").asText());
+            Auction auction = Auction.find.byId(id);
+            if(auction != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    AuctionDetail detail = AuctionDetail.find.byId(id);
+                    if(detail != null && auction.equals(detail.auction)){
+                        detail.delete();
+                    }
+                }
+                result.put("status", "SUCCESS");
+            }
+            else{
+                result.put("message","not Found auction id:" + id);
+                result.put("status", "error");
+            }
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result loadAuctionDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;
