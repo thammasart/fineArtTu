@@ -45,6 +45,11 @@
         	 <font size="5">@flash().get("delete1")</font> 
 		</div>
 		}
+		@if(flash().containsKey("delete2")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("delete2")</font> 
+		</div>
+		}
 		@if(flash().containsKey("notSelect1")){
         <div class="alert alert-danger">
         	 <font size="5">@flash().get("notSelect1")</font> 
@@ -177,9 +182,14 @@
 
         </div>
         
-        @if(flash().containsKey("delete2")){
+        @if(flash().containsKey("delete3")){
         <div class="alert alert-success">
-        	 <font size="5">@flash().get("delete2")</font> 
+        	 <font size="5">@flash().get("delete3")</font> 
+		</div>
+		}
+		@if(flash().containsKey("delete4")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("delete4")</font> 
 		</div>
 		}
 		@if(flash().containsKey("notSelect2")){

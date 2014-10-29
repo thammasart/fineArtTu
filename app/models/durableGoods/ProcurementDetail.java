@@ -9,6 +9,7 @@ import javax.persistence.*;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import models.MaterialCode;
+import models.type.OrderDetailStatus;
 
 
 @Entity
@@ -29,6 +30,8 @@ public class ProcurementDetail extends Model{
 	public String serialNumber; //หมายเลขเครื่อง
 	public String partOfPic; // รูปภาพ
 	public int typeOfDurableGoods;//คงทนถาวร = 1 / false = 0 
+	
+	public OrderDetailStatus status;
 	
 	
 	
