@@ -114,11 +114,11 @@ function addCheckedDetail(code){
 	}
 }
 
-function getDetail(id){
+function getDetail(){
 	$.ajax({
 		type: "GET",
 		url: "/export/donate/loadDetail",
-		data: {'id': id},
+		data: {'id': donate.id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		    if(data["status"] == "SUCCESS"){
@@ -175,7 +175,7 @@ function saveDetail(){
 				document.getElementById("fsnDescription").value = "";
 				addDonateButton();
 				newDetail = [];
-				getDetail(donation.id);
+				getDetail();
 			}
 			else{
 				alert('save detail error : ' + data["message"]);
@@ -210,7 +210,7 @@ function deleteDetail(){
 
 function init(id){
 	donation.id = id;
-	getDetail(id);
+	getDetail();
 	addDonateButton();
 }
 

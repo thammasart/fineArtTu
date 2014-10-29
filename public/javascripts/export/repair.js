@@ -119,11 +119,11 @@ function addCheckedDetail(code){
 	}
 }
 
-function getDetail(id){
+function getDetail(){
 	$.ajax({
 		type: "GET",
 		url: "/export/repair/loadDetail",
-		data: {'id': id},
+		data: {'id': repair.id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		    if(data["status"] == "SUCCESS"){
@@ -182,7 +182,7 @@ function saveDetail(){
 				document.getElementById("natureOfDamage").value = "";
 				addRepairButton();
 				newDetail = [];
-				getDetail(repair.id);
+				getDetail();
 			}
 			else{
 				alert('save detail error : ' + data["message"]);
@@ -217,7 +217,7 @@ function deleteDetail(){
 
 function init(id){
 	repair.id = id;
-	getDetail(id);
+	getDetail();
 	addRepairButton();
 }
 

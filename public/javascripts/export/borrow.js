@@ -120,11 +120,11 @@ function addCheckedDetail(code){
 	}
 }
 
-function getDetail(id){
+function getDetail(){
 	$.ajax({
 		type: "GET",
 		url: "/export/borrow/loadDetail",
-		data: {'id': id},
+		data: {'id': borrow.id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		    if(data["status"] == "SUCCESS"){
@@ -181,7 +181,7 @@ function saveDetail(){
 				document.getElementById("fsnDescription").value = "";
 				addBorrowButton();
 				newDetail = [];
-				getDetail(borrow.id);
+				getDetail();
 			}
 			else{
 		    	alert('save detail error : ' + data["message"]);
@@ -216,7 +216,7 @@ function deleteDetail(){
 
 function init(id){
 	borrow.id = id;
-	getDetail(id);
+	getDetail();
 	addBorrowButton();
 }
 

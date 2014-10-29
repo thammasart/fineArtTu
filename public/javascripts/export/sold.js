@@ -114,11 +114,11 @@ function addCheckedDetail(code){
 	}
 }
 
-function getDetail(id){
+function getDetail(){
 	$.ajax({
 		type: "GET",
 		url: "/export/sold/loadDetail",
-		data: {'id': id},
+		data: {'id': auction.id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		   	var summaryTotal = 0
@@ -208,7 +208,7 @@ function saveDetail(){
 				document.getElementById("fsnDescription").value = "";
 				addSoldButton();
 				newDetail = [];
-				getDetail(auction.id);
+				getDetail();
 			}
 			else{
 				alert('save detail error : ' + data["message"]);
@@ -243,7 +243,7 @@ function deleteDetail(){
 
 function init(id){
 	auction.id = id;
-	getDetail(id);
+	getDetail();
 	addSoldButton();
 }
 

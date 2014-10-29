@@ -74,11 +74,11 @@ function addCheckedDetail(code){
 	}
 }
 
-function getDetail(id){
+function getDetail(){
 	$.ajax({
 		type: "GET",
 		url: "/export/order/loadDetail",
-		data: {'id': id},
+		data: {'id': requisition.id},
 		success: function(data){
 		   	//details = JSON.stringify(data);
 		    if(data["status"] == "SUCCESS"){
@@ -139,7 +139,7 @@ function saveDetail(){
     		var status = result["status"];
 		    if(status == "SUCCESS"){
 	    		addOrderButton()
-	    		getDetail(requisition.id);
+	    		getDetail();
 	    	}
 	    	else{
 	    		alert('save detail error : ' + result["message"]);
@@ -174,7 +174,7 @@ function deleteDetail(){
 
 function init(id){
 	requisition.id = id;
-	getDetail(id);
+	getDetail();
 	addOrderButton();
 	document.addOrder.title.focus();
 }
