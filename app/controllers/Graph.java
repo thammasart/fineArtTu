@@ -15,6 +15,7 @@ import models.durableArticles.InternalTransfer;
 import models.durableArticles.InternalTransferDetail;
 import models.durableArticles.OtherTransfer;
 import models.durableArticles.OtherTransferDetail;
+import models.durableGoods.Procurement;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
 
@@ -143,7 +144,6 @@ public class Graph extends Controller {
     				List<Date> date = getYearDate((3-i));
     				List<Double> d = getSumBalance(date.get(0), date.get(1)); 
     				year = year-i;
-    				DecimalFormat df = new DecimalFormat("#.00"); 
     				tr.add(""+year);
     				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
     				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
@@ -401,6 +401,16 @@ public class Graph extends Controller {
 			result = getDetailTransferMap(d.get(0),d.get(1));
     	}else{
     		//TODO
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(lRow);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(lRow);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(lRow);
+    		}
+    		
+    		result = getTableTransfer(d.get(0), d.get(1), col, selectedName);
     	}
     	return result;
     }
@@ -430,7 +440,50 @@ public class Graph extends Controller {
     	return result;
     }
 
-    private static ArrayNode getDetailBalanceMapArticle(List<models.durableArticles.Procurement> ps){
+    private static List<Double> getSumBalance(Date startDate,Date endDate){
+		List<Double> d = new ArrayList<Double>();
+		List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
+		double sum = 0;
+		for(models.durableArticles.Procurement p : ps){
+			for(models.durableArticles.ProcurementDetail pd : p.details){
+				sum+= pd.price * pd.quantity;
+			}
+		}
+		d.add(Double.valueOf(String.format("%.2f",sum)));
+		List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
+		double sum2 = 0;
+		for(models.durableGoods.Procurement p : pgs){
+			for(models.durableGoods.ProcurementDetail pd : p.details){
+				sum2+= pd.price * pd.quantity;
+			}
+		}
+		d.add(Double.valueOf(String.format("%.2f",sum2)));
+		return d;
+	}
+
+	private static List<Integer> getSumProcurement(Date startDate, Date endDate){
+		List<Integer> d = new ArrayList<Integer>();
+		List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
+		List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
+		d.add(ps.size());
+		d.add(pgs.size());
+		return d;
+	}
+
+	private static int getSumRequisition(Date startDate, Date endDate){
+		return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+	}
+
+	private static int getSumTransfer(Date startDate, Date endDate){
+		int sum = 0;
+		sum += models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+		sum += models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+		sum += models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+		sum += models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+		return sum;
+	}
+
+	private static ArrayNode getDetailBalanceMapArticle(List<models.durableArticles.Procurement> ps){
     	ArrayNode result = ps.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
 		for(models.durableArticles.Procurement p : ps){
@@ -577,7 +630,6 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailTransferMap(Date startDate, Date endDate) {
-    	// TODO 
     	ArrayList<String> columnName = new ArrayList<String>();
     	columnName.add("โอนย้ายภายใน");
     	columnName.add("จำหน่าย");
@@ -607,102 +659,7 @@ public class Graph extends Controller {
 		return result;
 	}
 
-	private static List<Date> getYearDate(int row){
-    	int year = Calendar.getInstance().get(Calendar.YEAR)-(3-row);
-		cal.set(Calendar.YEAR, year);
-		cal.set(Calendar.WEEK_OF_YEAR, 1);
-		cal.set(Calendar.DAY_OF_WEEK, 1);
-		
-		Date startDate = cal.getTime();
-		
-		cal.set(Calendar.YEAR, year);
-		cal.set(Calendar.MONTH, 11); // 11 = december
-		cal.set(Calendar.DAY_OF_MONTH, 31); // new years eve
-		
-		Date endDate = cal.getTime();
-		
-		List<Date> d = new ArrayList<Date>();
-		d.add(startDate);
-		d.add(endDate);
-		return d;
-    }
-    
-    private static List<Date> getQuarterDate(int row){
-    	int year = Calendar.getInstance().get(Calendar.YEAR);
-		cal.set(Calendar.YEAR, year);
-		cal.set(Calendar.MONTH, row*3);
-		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-		Date startDate = cal.getTime();
-		
-		cal.set(Calendar.MONTH, row*3+2);
-		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-		Date endDate = cal.getTime();
-		
-		List<Date> d = new ArrayList<Date>();
-		d.add(startDate);
-		d.add(endDate);
-		return d;
-    } 
-    
-    private static List<Date> getMonthDate(int row){
-    	int year = Calendar.getInstance().get(Calendar.YEAR);
-		cal.set(Calendar.YEAR, year);
-		cal.set(Calendar.MONTH, row);
-		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-		Date startDate = cal.getTime();
-		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-		Date endDate = cal.getTime();
-		
-		List<Date> d = new ArrayList<Date>();
-		d.add(startDate);
-		d.add(endDate);
-		return d;
-    }
-    
-    private static List<Double> getSumBalance(Date startDate,Date endDate){
-    	List<Double> d = new ArrayList<Double>();
-    	List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
-		double sum = 0;
-		for(models.durableArticles.Procurement p : ps){
-			for(models.durableArticles.ProcurementDetail pd : p.details){
-				sum+= pd.price * pd.quantity;
-			}
-		}
-		d.add(Double.valueOf(String.format("%.2f",sum)));
-		List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
-		double sum2 = 0;
-		for(models.durableGoods.Procurement p : pgs){
-			for(models.durableGoods.ProcurementDetail pd : p.details){
-				sum2+= pd.price * pd.quantity;
-			}
-		}
-		d.add(Double.valueOf(String.format("%.2f",sum2)));
-		return d;
-    }
-    
-    private static List<Integer> getSumProcurement(Date startDate, Date endDate){
-    	List<Integer> d = new ArrayList<Integer>();
-    	List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
-		List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
-		d.add(ps.size());
-		d.add(pgs.size());
-		return d;
-    }
-    
-    private static int getSumRequisition(Date startDate, Date endDate){
-    	return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-    }
-    
-    private static int getSumTransfer(Date startDate, Date endDate){
-    	int sum = 0;
-    	sum += models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-    	sum += models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-    	sum += models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-    	sum += models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-    	return sum;
-    }
-    
-    private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps, String selectedName){
+	private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -881,7 +838,153 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static List<String> getTransferKey(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
+    private static ArrayNode getTableTransfer(Date startDate, Date endDate, int col, String selectedName){
+    	//TODO
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	
+    	if(col == 1){ // โอนย้ายภายใน
+    		List<InternalTransfer> internals = models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(InternalTransfer internal : internals){
+    			for(InternalTransferDetail internalDetail : internal.detail){
+    				String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = internalDetail.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + internalDetail.id);
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + internalDetail.id );
+    					}
+    				}
+    			}
+    		}
+    		
+    	}else if(col == 2){ // จำหน่าย
+    		List<Auction> auctions = models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(Auction auction	: auctions){
+    			for(AuctionDetail auctionDetail : auction.detail){
+    				String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = auctionDetail.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + auctionDetail.id );
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + auctionDetail.id );
+    					}
+    				}
+    			}
+    		}
+    	}else if(col == 3){ // บริจาค
+    		List<Donation> donations = models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(Donation donation : donations){
+    			for(DonationDetail donationDetail : donation.detail){
+    				String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = donationDetail.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + donationDetail.id );
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + donationDetail.id );
+    					}
+    				}
+    			}
+    		}
+    	}else if(col == 4){ // อื่นๆ
+    		List<OtherTransfer> others = models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(OtherTransfer other : others){
+    			for(OtherTransferDetail otherDetail : other.detail){
+    				String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = otherDetail.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + otherDetail.id );
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + otherDetail.id );
+    					}
+    				}
+    			}
+    		}
+    	}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+    }
+    
+    
+    private static List<Date> getYearDate(int row){
+		int year = Calendar.getInstance().get(Calendar.YEAR)-(3-row);
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.WEEK_OF_YEAR, 1);
+		cal.set(Calendar.DAY_OF_WEEK, 1);
+		
+		Date startDate = cal.getTime();
+		
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, 11); // 11 = december
+		cal.set(Calendar.DAY_OF_MONTH, 31); // new years eve
+		
+		Date endDate = cal.getTime();
+		
+		List<Date> d = new ArrayList<Date>();
+		d.add(startDate);
+		d.add(endDate);
+		return d;
+	}
+
+	private static List<Date> getQuarterDate(int row){
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, row*3);
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+		Date startDate = cal.getTime();
+		
+		cal.set(Calendar.MONTH, row*3+2);
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+		Date endDate = cal.getTime();
+		
+		List<Date> d = new ArrayList<Date>();
+		d.add(startDate);
+		d.add(endDate);
+		return d;
+	}
+
+	private static List<Date> getMonthDate(int row){
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, row);
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+		Date startDate = cal.getTime();
+		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+		Date endDate = cal.getTime();
+		
+		List<Date> d = new ArrayList<Date>();
+		d.add(startDate);
+		d.add(endDate);
+		return d;
+	}
+
+	private static List<String> getTransferKey(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
     	List<String> list = new ArrayList<String>();
     	for(InternalTransfer internal : internals){
     		for(InternalTransferDetail internalDetail : internal.detail){
