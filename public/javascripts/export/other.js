@@ -12,6 +12,8 @@ var other = {
 
 var newDetail = [];	
 var oldDetail = [];
+var checkedDetail = [];
+var isViewDetail = false;
 
 var titleInHeader = "เพิ่มรายการโอนย้ายอื่นๆ";
 
@@ -95,6 +97,21 @@ function findFSN(){
 	});
 }
 
+function addCheckedDetail(code){
+	if(!isViewDetail){
+		if(checkedDetail.indexOf(code) > -1){
+			checkedDetail.remove(code);
+			document.getElementById("detailRow" + code).style.color = "";
+			document.getElementById("detail" + code).checked = false;
+		}
+		else{
+			checkedDetail.push(code);
+			document.getElementById("detailRow" + code).style.color = "#cc3300";
+			document.getElementById("detail" + code).checked = true;
+		}
+	}
+}
+
 function getDetail(){
 	$.ajax({
 		type: "GET",
@@ -110,7 +127,9 @@ function getDetail(){
 			   	destroyTable();
 				for (var i = 0; i < detailLength; i++) {
 					oldDetail.push(details[i].durableArticles.id);
-					s += '<tr>';
+					s += '<tr id="detailRow' + details[i].id + '">';
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')"' +
+								' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
 					s += '	<th>'+(i+1)+'</th>';
 					s += '	<th>'+ details[i].durableArticles.code +'</th>';
 					if(details[i].durableArticles.detail){
@@ -125,6 +144,11 @@ function getDetail(){
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
 			   	updateTable();
+
+			   	for (i = 0, len = checkedDetail.length; i < len; i++) {
+			   		document.getElementById("detail" + checkedDetail[i]).checked = true;
+    				document.getElementById("detailRow" + checkedDetail[i]).style.color = "#cc3300";
+				}
 		    }
 		    else{
 		    	alert("get detail error : " + data["message"]);
@@ -166,6 +190,7 @@ function init(id){
 }
 
 function initViewDetial(id){
+	isViewDetail = true;
 	document.getElementById("title").disabled = true;
 	document.getElementById("number").disabled = true;
 	document.getElementById("approveDate").disabled = true;
@@ -184,6 +209,7 @@ function initViewDetial(id){
 }
 
 function changeToEdit(){
+	isViewDetail = false;
 	document.getElementById("title").disabled = false;
 	document.getElementById("number").disabled = false;
 	document.getElementById("approveDate").disabled = false;
