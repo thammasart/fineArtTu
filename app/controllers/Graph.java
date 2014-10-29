@@ -7,6 +7,14 @@ import play.data.*;
 import play.libs.Json;
 import views.html.*;
 import models.*;
+import models.durableArticles.Auction;
+import models.durableArticles.AuctionDetail;
+import models.durableArticles.Donation;
+import models.durableArticles.DonationDetail;
+import models.durableArticles.InternalTransfer;
+import models.durableArticles.InternalTransferDetail;
+import models.durableArticles.OtherTransfer;
+import models.durableArticles.OtherTransferDetail;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
 
@@ -74,12 +82,6 @@ public class Graph extends Controller {
 		  result = getRepairing(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("remain")){
 		  result = getRemain(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("sold")){
-		  result = getSold(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("donate")){
-		  result = getDonate(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("other")){
-		  result = getOther(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }
 	  
       return ok(result);
@@ -112,6 +114,18 @@ public class Graph extends Controller {
     	thead.add("value");
     	thead.add(style);
     	thead.add(annotation);
+    	result.add(thead);
+    	return result;
+    }
+    
+    private static ArrayNode getDetailHeader(ArrayList<String> columns){
+    	
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	ArrayNode thead = JsonNodeFactory.instance.arrayNode();
+    	thead.add("type");
+    	for(String column : columns){
+    		thead.add(column);
+    	}
     	result.add(thead);
     	return result;
     }
@@ -337,13 +351,56 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getTransfer(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	ArrayNode result = getDetailHeader();
     	if(row == -1 && col == -1){
-    		
+    		if(relation.equals("year")){
+    			for(int i=3; i>=0; i--){
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				
+    				List<Date> date = getYearDate((3-i));
+    				int d = getSumTransfer(date.get(0), date.get(1)); 
+    				year = year-i;
+    				tr.add(""+year);
+    				tr.add(d);
+    				tr.add(colors[3-i]);
+    				tr.add(d);
+    				result.add(tr);
+    			}
+    		}else{
+    			int num = 12;
+    			if(relation.equals("quarter")) num = 4;
+    			for(int i=0; i<num; i++){
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				int d;
+    				if(relation.equals("month")){
+    					List<Date> date = getMonthDate(i);
+        				d = getSumTransfer(date.get(0), date.get(1));
+    					tr.add(new SimpleDateFormat("MMM",new Locale("th", "th")).format(cal.getTime()));
+    				}else{
+    					List<Date> date = getQuarterDate(i);
+        				d = getSumTransfer(date.get(0), date.get(1));
+    					tr.add("Q"+(i+1));
+    				}
+    				tr.add(d);
+    				tr.add(colors[i]);
+    				tr.add(d);
+    				result.add(tr);
+    			}
+    		}
     	}else if(page != 2){
-    		
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(row);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(row);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(row);
+    		}
+			
+			result = getDetailTransferMap(d.get(0),d.get(1));
     	}else{
-    		
+    		//TODO
     	}
     	return result;
     }
@@ -351,59 +408,24 @@ public class Graph extends Controller {
     private static ArrayNode getRepairing(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
-    		
+    		//TODO
     	}else if(page != 2){
-    		
+    		//TODO
     	}else{
-    		
+    		//TODO
     	}
     	return result;
     }
     
-    private static ArrayNode getSold(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	if(row == -1 && col == -1){
-    		
-    	}else if(page != 2){
-    		
-    	}else{
-    		
-    	}
-    	return result;
-    }
-    
-    private static ArrayNode getDonate(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	if(row == -1 && col == -1){
-    		
-    	}else if(page != 2){
-    		
-    	}else{
-    		
-    	}
-    	return result;
-    }
-    
-    private static ArrayNode getOther(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	if(row == -1 && col == -1){
-    		
-    	}else if(page !=2){
-    		
-    	}else{
-    		
-    	}
-    	return result;
-    }
     
     private static ArrayNode getRemain(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
-    		
+    		//TODO
     	}else if(page != 2){
-    		
+    		//TODO
     	}else{
-    		
+    		//TODO
     	}
     	return result;
     }
@@ -554,7 +576,38 @@ public class Graph extends Controller {
 		return result;
     }
     
-    private static List<Date> getYearDate(int row){
+    private static ArrayNode getDetailTransferMap(Date startDate, Date endDate) {
+    	// TODO 
+    	ArrayList<String> columnName = new ArrayList<String>();
+    	columnName.add("โอนย้ายภายใน");
+    	columnName.add("จำหน่าย");
+    	columnName.add("บริจาค");
+    	columnName.add("อื่นๆ");
+    	ArrayNode result = getDetailHeader(columnName);
+    	HashMap<String, Integer[]> listResult = new HashMap<String, Integer[]>();
+    	List<InternalTransfer> internals = models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    	List<Auction> auctions = models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    	List<Donation> donations = models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    	List<OtherTransfer> others = models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    	
+    	List<String> list = getTransferKey(internals, auctions, donations, others);
+    	listResult = getMapTransfer(internals, auctions, donations, others, list);
+    	
+    	for(String key : listResult.keySet()){
+    		System.out.println(key);
+    		ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    		tr.add(key);
+    		tr.add(listResult.get(key)[0]);
+    		tr.add(listResult.get(key)[1]);
+    		tr.add(listResult.get(key)[2]);
+    		tr.add(listResult.get(key)[3]);
+    		result.add(tr);
+    	}
+    	
+		return result;
+	}
+
+	private static List<Date> getYearDate(int row){
     	int year = Calendar.getInstance().get(Calendar.YEAR)-(3-row);
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.WEEK_OF_YEAR, 1);
@@ -638,6 +691,15 @@ public class Graph extends Controller {
     
     private static int getSumRequisition(Date startDate, Date endDate){
     	return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+    }
+    
+    private static int getSumTransfer(Date startDate, Date endDate){
+    	int sum = 0;
+    	sum += models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+    	sum += models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+    	sum += models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+    	sum += models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+    	return sum;
     }
     
     private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps, String selectedName){
@@ -819,5 +881,105 @@ public class Graph extends Controller {
     	return result;
     }
     
+    private static List<String> getTransferKey(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
+    	List<String> list = new ArrayList<String>();
+    	for(InternalTransfer internal : internals){
+    		for(InternalTransferDetail internalDetail : internal.detail){
+    			String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	
+    	for(Auction auction : auctions){
+    		for(AuctionDetail auctionDetail : auction.detail){
+    			String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	
+    	for(Donation donation : donations){
+    		for(DonationDetail donationDetail : donation.detail){
+    			String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	
+    	for(OtherTransfer other : others){
+    		for(OtherTransferDetail otherDetail : other.detail){
+    			String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	
+    	return list;
+    }
+    
+    private static HashMap<String, Integer[]> getMapTransfer(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others, List<String> list){
+    	HashMap<String , Integer[]> map = new HashMap<String, Integer[]>();
+    	for(InternalTransfer internal : internals){
+    		for(InternalTransferDetail internalDetail : internal.detail){
+    			String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {1,0,0,0};
+    				map.put(key, newValue);
+    			}else{
+    				value[0] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	
+    	for(Auction auction : auctions){
+    		for(AuctionDetail auctionDetail : auction.detail){
+    			String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {0,1,0,0};
+    				map.put(key, newValue);
+    			}else{
+    				value[1] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	
+    	for(Donation donation : donations){
+    		for(DonationDetail donationDetail : donation.detail){
+    			String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {0,0,1,0};
+    				map.put(key, newValue);
+    			}else{
+    				value[2] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	
+    	for(OtherTransfer other : others){
+    		for(OtherTransferDetail otherDetail : other.detail){
+    			String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {0,0,0,1};
+    				map.put(key, newValue);
+    			}else{
+    				value[3] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	return map;
+    } 
     
 }

@@ -108,7 +108,6 @@ function getData(chart){
 	    statusCode:{
 	    	500: function(response){
 	    		//console.log(response.responseText);
-	    		
 	    		var mywindow = window.open('', 'my div', 'height=400,width=600');
 	            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
 	            mywindow.document.write(response.responseText);
@@ -118,6 +117,7 @@ function getData(chart){
 }
 
 function setData(obj,chart){
+	console.log(obj);
 	data = new google.visualization.arrayToDataTable(obj);
 	clearChart();
 	if(chart == "line"){
@@ -125,19 +125,25 @@ function setData(obj,chart){
 		state['dataType'] = 'default';
 		state['page'] = 0;
 	}else if(chart == "column"){
-		chart2.draw(data, {
-			chartArea : {'width':'80%','height':'80%'},
-			animation : {
-				duration : 1000,
-				easing : 'out',
-			},
-			legend: { position: "none" },
-			hAxis: {
-				//textPosition : 'none',
-				textStyle :{fontSize: 10},
-			},
-			annotations : {alwaysOutside : true},
-		});
+		var newOption = {
+				chartArea : {'width':'80%','height':'80%'},
+				animation : {
+					duration : 1000,
+					easing : 'out',
+				},
+				legend: { position: "none" },
+				hAxis: {
+					//textPosition : 'none',
+					textStyle :{fontSize: 10},
+				},
+				annotations : {alwaysOutside : true},
+				colors: color,
+				isStacked: true,
+			};
+		if(state['mode'] == 'transfer'){
+			newOption.legend = { position: "top" };
+		}
+		chart2.draw(data, newOption);
 	}else if(chart == "table"){
 		clearTable(0);
 		if(state['mode'] == 'balance'){
