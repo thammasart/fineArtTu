@@ -23,6 +23,8 @@ public class ProcurementDetail extends Model{
 	public double price; // ราคราต่อหน่วย
 	public double priceNoVat; // ราคาต่อหน่วยไม่รวมภาษี
 	public int quantity; // จำนวน
+	public int remain; // จำนวนคงเหลือของใบรายการ
+	
 	//public String classifier; // หน่วย, ลักษณนาม
 	public String seller; // ยี่ห้อ
 	public String phone; // ยี่ห้อ
