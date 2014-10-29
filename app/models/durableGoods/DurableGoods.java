@@ -22,6 +22,8 @@ public class DurableGoods extends Model{	// ครุภัณฑ์
 	public String lastName;			//สกุล
 	public int remain; // จำนวนปัจจุบัน, ยอดคงเหลือ
     public int typeOfDurableGoods;//คงทนถาวร = 1 / false = 0 
+    
+    public SuppliesStatus status;
 	
 /*
 	@ManyToOne //หมายเลขวัสดุ

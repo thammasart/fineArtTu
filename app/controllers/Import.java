@@ -595,20 +595,23 @@ public class Import extends Controller {
     		List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", pa).findList(); 
     		ArrayNode jsonProcurementDetails = JsonNodeFactory.instance.arrayNode();
     		for(models.durableArticles.ProcurementDetail p : procurementDetails){
-    			ObjectNode item = Json.newObject();
-    			item.put("id", p.id);
-    			if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
-    			else item.put("fsn", "null");
-    			item.put("description", p.description);
-    			item.put("quantity", p.quantity);
-    			item.put("classifier", "อัน");
-    			item.put("price", p.price);
-    			item.put("priceNoVat", p.priceNoVat);
-    			item.put("lifeTime", p.llifeTime);
-    			item.put("fileName", p.fsn.fileName);
-        		item.put("fileType", p.fsn.fileType);
-        		item.put("path", p.fsn.path);
-    			jsonProcurementDetails.add(item);
+    			if(p.status!=OrderDetailStatus.DELETE)
+    			{
+	    			ObjectNode item = Json.newObject();
+	    			item.put("id", p.id);
+	    			if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+	    			else item.put("fsn", "null");
+	    			item.put("description", p.description);
+	    			item.put("quantity", p.quantity);
+	    			item.put("classifier", "อัน");
+	    			item.put("price", p.price);
+	    			item.put("priceNoVat", p.priceNoVat);
+	    			item.put("lifeTime", p.llifeTime);
+	    			item.put("fileName", p.fsn.fileName);
+	        		item.put("fileType", p.fsn.fileType);
+	        		item.put("path", p.fsn.path);
+	    			jsonProcurementDetails.add(item);
+    			}
     		}
     		result.put("data",jsonProcurementDetails);
     	}else if(json.get("tab").asText().equals("2")){
@@ -630,37 +633,42 @@ public class Import extends Controller {
     		ArrayNode jsonProcurementDetails = JsonNodeFactory.instance.arrayNode();
     		for(models.durableGoods.ProcurementDetail p : procurementDetails){
     			
-    			FSN_Description fsnCode=null;
-        		MaterialCode consumableGoodCode=null;
-        		
-        		if(p.typeOfDurableGoods==1)//is a durableGood
-        			fsnCode = FSN_Description.find.byId(p.code);
-     
-        		else
-        			consumableGoodCode= MaterialCode.find.byId(p.code);
+    			if(p.status!=OrderDetailStatus.DELETE)
+    			{
     			
-    			ObjectNode item = Json.newObject();
-        		item.put("id", p.id);
-        		if(p.code!="") item.put("code", p.code);
-        		else item.put("code", "null");
-        		item.put("description", p.description);
-        		item.put("quantity", p.quantity);
-        		item.put("classifier", "อัน");
-        		item.put("price", p.price);
-        		item.put("priceNoVat", p.priceNoVat);
-        		if(p.typeOfDurableGoods==1)//is a durableGood
-        		{
-        			item.put("fileName", fsnCode.fileName);
-        			item.put("fileType", fsnCode.fileType);
-        			item.put("path", fsnCode.path);
-        		}
-        		else
-        		{
-        			item.put("fileName", consumableGoodCode.fileName);
-        			item.put("fileType", consumableGoodCode.fileType);
-        			item.put("path", consumableGoodCode.path);
-        		}
+	    			FSN_Description fsnCode=null;
+	        		MaterialCode consumableGoodCode=null;
+	        		
+	        		if(p.typeOfDurableGoods==1)//is a durableGood
+	        			fsnCode = FSN_Description.find.byId(p.code);
+	     
+	        		else
+	        			consumableGoodCode= MaterialCode.find.byId(p.code);
+	    			
+	    			ObjectNode item = Json.newObject();
+	        		item.put("id", p.id);
+	        		if(p.code!="") item.put("code", p.code);
+	        		else item.put("code", "null");
+	        		item.put("description", p.description);
+	        		item.put("quantity", p.quantity);
+	        		item.put("classifier", "อัน");
+	        		item.put("price", p.price);
+	        		item.put("priceNoVat", p.priceNoVat);
+	        		if(p.typeOfDurableGoods==1)//is a durableGood
+	        		{
+	        			item.put("fileName", fsnCode.fileName);
+	        			item.put("fileType", fsnCode.fileType);
+	        			item.put("path", fsnCode.path);
+	        		}
+	        		else
+	        		{
+	        			item.put("fileName", consumableGoodCode.fileName);
+	        			item.put("fileType", consumableGoodCode.fileType);
+	        			item.put("path", consumableGoodCode.path);
+	        		}
+    			
     			jsonProcurementDetails.add(item);
+    			}
     		}
     		result.put("data",jsonProcurementDetails);
 
@@ -678,58 +686,68 @@ public class Import extends Controller {
     	ObjectNode result = Json.newObject();
     	if(json.get("tab").asText().equals("1")){
     		ArrayNode subDetail = JsonNodeFactory.instance.arrayNode();
+    		
+    		
     		models.durableArticles.ProcurementDetail pad = models.durableArticles.ProcurementDetail.find.byId(Long.parseLong(json.get("id").asText()));
-    		for(models.durableArticles.DurableArticles d : pad.subDetails){
-    			ArrayNode subDetailItem = JsonNodeFactory.instance.arrayNode();
-    			subDetailItem.add(d.department);
-    			subDetailItem.add(d.room);
-    			subDetailItem.add(d.floorLevel);
-    			subDetailItem.add(d.code);
-    			subDetailItem.add(d.title);
-    			subDetailItem.add(d.firstName);
-    			subDetailItem.add(d.lastName);
-    			subDetailItem.add(d.codeFromStock);
-    			subDetail.add(subDetailItem);
+    		
+    		if(pad.status!=OrderDetailStatus.DELETE)
+    		{
+	    		for(models.durableArticles.DurableArticles d : pad.subDetails){
+	    			ArrayNode subDetailItem = JsonNodeFactory.instance.arrayNode();
+	    			subDetailItem.add(d.department);
+	    			subDetailItem.add(d.room);
+	    			subDetailItem.add(d.floorLevel);
+	    			subDetailItem.add(d.code);
+	    			subDetailItem.add(d.title);
+	    			subDetailItem.add(d.firstName);
+	    			subDetailItem.add(d.lastName);
+	    			subDetailItem.add(d.codeFromStock);
+	    			subDetail.add(subDetailItem);
+	    		}
+	    		result.put("id", pad.id);
+	    		result.put("description", pad.description);
+	    		result.put("code", pad.fsn.descriptionId);
+	    		result.put("price", pad.price);
+	    		result.put("priceNoVat", pad.priceNoVat);
+	    		result.put("quantity", pad.quantity);
+	    		result.put("llifeTime", pad.llifeTime);
+	    		result.put("alertTime", pad.alertTime);
+	    		result.put("seller", pad.seller);
+	    		result.put("phone", pad.phone);
+	    		result.put("brand", pad.brand);
+	    		result.put("serialNumber", pad.serialNumber);
+	    		result.put("subDetails", subDetail);
     		}
-    		result.put("id", pad.id);
-    		result.put("description", pad.description);
-    		result.put("code", pad.fsn.descriptionId);
-    		result.put("price", pad.price);
-    		result.put("priceNoVat", pad.priceNoVat);
-    		result.put("quantity", pad.quantity);
-    		result.put("llifeTime", pad.llifeTime);
-    		result.put("alertTime", pad.alertTime);
-    		result.put("seller", pad.seller);
-    		result.put("phone", pad.phone);
-    		result.put("brand", pad.brand);
-    		result.put("serialNumber", pad.serialNumber);
-    		result.put("subDetails", subDetail);
+    		
     	}else if(json.get("tab").asText().equals("2")){
     		ArrayNode subDetail = JsonNodeFactory.instance.arrayNode();
     		models.durableGoods.ProcurementDetail pgd = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(json.get("id").asText()));
-    		for(models.durableGoods.DurableGoods g : pgd.subDetails){
-    			ArrayNode subDetailItem = JsonNodeFactory.instance.arrayNode();
-    			subDetailItem.add(g.department);
-    			subDetailItem.add(g.room);
-    			subDetailItem.add(g.floorLevel);
-    			subDetailItem.add(g.codes);
-    			subDetailItem.add(g.title);
-    			subDetailItem.add(g.firstName);
-    			subDetailItem.add(g.lastName);
-    			subDetail.add(subDetailItem);
+    		if(pgd.status!=OrderDetailStatus.DELETE)
+    		{
+	    		for(models.durableGoods.DurableGoods g : pgd.subDetails){
+	    			ArrayNode subDetailItem = JsonNodeFactory.instance.arrayNode();
+	    			subDetailItem.add(g.department);
+	    			subDetailItem.add(g.room);
+	    			subDetailItem.add(g.floorLevel);
+	    			subDetailItem.add(g.codes);
+	    			subDetailItem.add(g.title);
+	    			subDetailItem.add(g.firstName);
+	    			subDetailItem.add(g.lastName);
+	    			subDetail.add(subDetailItem);
+	    		}
+	    		result.put("id", pgd.id);
+	    		result.put("description", pgd.description);
+	    		result.put("code", pgd.code);
+	    		result.put("price", pgd.price);
+	    		result.put("priceNoVat", pgd.priceNoVat);
+	    		result.put("quantity", pgd.quantity);
+	    		result.put("seller", pgd.seller);
+	    		result.put("phone", pgd.phone);
+	    		result.put("brand", pgd.brand);
+	    		result.put("serialNumber", pgd.serialNumber);
+	    		result.put("partOfPic", pgd.partOfPic);
+	    		result.put("subDetails", subDetail);
     		}
-    		result.put("id", pgd.id);
-    		result.put("description", pgd.description);
-    		result.put("code", pgd.code);
-    		result.put("price", pgd.price);
-    		result.put("priceNoVat", pgd.priceNoVat);
-    		result.put("quantity", pgd.quantity);
-    		result.put("seller", pgd.seller);
-    		result.put("phone", pgd.phone);
-    		result.put("brand", pgd.brand);
-    		result.put("serialNumber", pgd.serialNumber);
-    		result.put("partOfPic", pgd.partOfPic);
-    		result.put("subDetails", subDetail);
     	}
     	
     	
@@ -927,19 +945,7 @@ public class Import extends Controller {
 		
         articlesOrder.status = ImportStatus.SUCCESS;      
         
-        
-        for(models.durableArticles.ProcurementDetail pd : articlesOrder.details)
-        {
-        	pd.status = OrderDetailStatus.SUCCESS;
-        	
-        	for( DurableArticles pda : pd.subDetails)
-        	{
-        		pda.status = SuppliesStatus.NORMAL;
-        		pda.update();
-        	}
-        	
-        	pd.update();
-        }
+     
         
         articlesOrder.update();
         //System.out.println(articlesOrder);
@@ -1188,44 +1194,49 @@ public class Import extends Controller {
     	ObjectNode result = Json.newObject();
     	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
     	int i=0;
-    	
+    	int count =0;
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
     		
-    		FSN_Description fsnCode=null;
-    		MaterialCode consumableGoodCode=null;
-    		
-    		if(p.typeOfDurableGoods==1)//is a durableGood
-    			fsnCode = FSN_Description.find.byId(p.code);
-    		else
-    			consumableGoodCode= MaterialCode.find.byId(p.code);
-
-    		
-    		ObjectNode item = Json.newObject();
-    		item.put("id", p.id);
-    		if(p.code!="") item.put("code", p.code);
-    		else item.put("code", p.code);
-    		item.put("description", p.description);
-    		item.put("quantity", p.quantity);
-    		item.put("classifier", "อัน");
-    		item.put("price", p.price);
-    		item.put("priceNoVat", p.priceNoVat);
-    		if(p.typeOfDurableGoods==1)//is a durableGood
+    		if(p.status != OrderDetailStatus.DELETE)
     		{
-    			item.put("fileName", fsnCode.fileName);
-    			item.put("fileType", fsnCode.fileType);
-    			item.put("path", fsnCode.path);
+	    		FSN_Description fsnCode=null;
+	    		MaterialCode consumableGoodCode=null;
+	    		
+	    		if(p.typeOfDurableGoods==1)//is a durableGood
+	    			fsnCode = FSN_Description.find.byId(p.code);
+	    		else
+	    			consumableGoodCode= MaterialCode.find.byId(p.code);
+	
+	    		
+	    		ObjectNode item = Json.newObject();
+	    		item.put("id", p.id);
+	    		if(p.code!="") item.put("code", p.code);
+	    		else item.put("code", p.code);
+	    		item.put("description", p.description);
+	    		item.put("quantity", p.quantity);
+	    		item.put("classifier", "อัน");
+	    		item.put("price", p.price);
+	    		item.put("priceNoVat", p.priceNoVat);
+	    		if(p.typeOfDurableGoods==1)//is a durableGood
+	    		{
+	    			item.put("fileName", fsnCode.fileName);
+	    			item.put("fileType", fsnCode.fileType);
+	    			item.put("path", fsnCode.path);
+	    		}
+	    		else
+	    		{
+	    			item.put("fileName", consumableGoodCode.fileName);
+	    			item.put("fileType", consumableGoodCode.fileType);
+	    			item.put("path", consumableGoodCode.path);
+	    		}
+	    		
+	    		jsonArray.insert(i++, item);
     		}
     		else
-    		{
-    			item.put("fileName", consumableGoodCode.fileName);
-    			item.put("fileType", consumableGoodCode.fileType);
-    			item.put("path", consumableGoodCode.path);
-    		}
-    		
-    		jsonArray.insert(i++, item);
+    			count++;
     	}
     	result.put("type", "goods");
-    	result.put("length",procurementDetails.size());
+    	result.put("length",(procurementDetails.size()-count));
 	    result.put("data",jsonArray);
     
     	return ok(result);
@@ -1319,40 +1330,40 @@ public class Import extends Controller {
 	    	if(!editingMode) dA.save();
 	    	else dA.update();
     	}
-    	
-    	
-    	
-    	
+
     	
     	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
     	ObjectNode result = Json.newObject();
     	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
     	
-    
-    	
     	int i=0;
+    	int count=0;
     	for(models.durableArticles.ProcurementDetail p : procurementDetails){
     		
-    		FSN_Description newFsn = FSN_Description.find.byId(p.fsn.descriptionId);
-    		
-    		ObjectNode item = Json.newObject();
-    		item.put("id", p.id);
-    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
-			else item.put("fsn", "null");
-    		item.put("description", p.description);
-    		item.put("quantity", p.quantity);
-    		item.put("classifier", "อัน");
-    		item.put("price", p.price);
-    		item.put("priceNoVat", p.priceNoVat);
-    		item.put("lifeTime", p.llifeTime);
-    		item.put("fileName", p.fsn.fileName);
-    		item.put("fileType", p.fsn.fileType);
-    		item.put("path", p.fsn.path);
-
-    		jsonArray.insert(i++, item);
+    		if(p.status != OrderDetailStatus.DELETE)
+    		{
+	    		FSN_Description newFsn = FSN_Description.find.byId(p.fsn.descriptionId);
+	    		ObjectNode item = Json.newObject();
+	    		item.put("id", p.id);
+	    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+				else item.put("fsn", "null");
+	    		item.put("description", p.description);
+	    		item.put("quantity", p.quantity);
+	    		item.put("classifier", "อัน");
+	    		item.put("price", p.price);
+	    		item.put("priceNoVat", p.priceNoVat);
+	    		item.put("lifeTime", p.llifeTime);
+	    		item.put("fileName", p.fsn.fileName);
+	    		item.put("fileType", p.fsn.fileType);
+	    		item.put("path", p.fsn.path);
+	
+	    		jsonArray.insert(i++, item);
+    		}
+    		else
+    			count++;
     	}
     	result.put("type", "article");
-    	result.put("length",procurementDetails.size());
+    	result.put("length",(procurementDetails.size()-count));
 	    result.put("data",jsonArray);
     	return ok(result);
     }
@@ -1516,12 +1527,17 @@ public class Import extends Controller {
         	for(int i=0;i<procumentDetails.length;i++)
         	{
         		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
-        		procurement = models.durableArticles.Procurement.find.byId(pc.procurement.id);
-        		for(DurableArticles subDetail:pc.subDetails)
+        		if(pc.status!=OrderDetailStatus.UNCHANGE)
         		{
-        			subDetail.delete();
+	        		procurement = models.durableArticles.Procurement.find.byId(pc.procurement.id);
+	        		for(DurableArticles subDetail:pc.subDetails)
+	        		{
+	        			subDetail.status = SuppliesStatus.DELETE;
+	        			subDetail.update();
+	        		}
+	        		pc.status = OrderDetailStatus.DELETE;
+	        		pc.update();
         		}
-        		pc.delete();
         	}
     	}
     	/////////////////
@@ -1530,24 +1546,30 @@ public class Import extends Controller {
     	ObjectNode result = Json.newObject();
     	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
     	int i=0;
+    	int count=0;
     	for(models.durableArticles.ProcurementDetail p : procurementDetails){
-    		ObjectNode item = Json.newObject();
-    		item.put("id", p.id);
-    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
-    		else item.put("fsn", "null");
-    		item.put("description", p.description);
-    		item.put("quantity", p.quantity);
-    		item.put("classifier", "อัน");
-    		item.put("price", p.price);
-    		item.put("priceNoVat", p.priceNoVat);
-    		item.put("lifeTime", p.llifeTime);
-    		item.put("fileName", p.fsn.fileName);
-    		item.put("fileType", p.fsn.fileType);
-    		item.put("path", p.fsn.path);
-    		jsonArray.insert(i++, item);
+    		if(p.status!=OrderDetailStatus.DELETE)
+    		{
+	    		ObjectNode item = Json.newObject();
+	    		item.put("id", p.id);
+	    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+	    		else item.put("fsn", "null");
+	    		item.put("description", p.description);
+	    		item.put("quantity", p.quantity);
+	    		item.put("classifier", "อัน");
+	    		item.put("price", p.price);
+	    		item.put("priceNoVat", p.priceNoVat);
+	    		item.put("lifeTime", p.llifeTime);
+	    		item.put("fileName", p.fsn.fileName);
+	    		item.put("fileType", p.fsn.fileType);
+	    		item.put("path", p.fsn.path);
+	    		jsonArray.insert(i++, item);
+    		}
+    		else
+    			count++;
     	}
     	result.put("type", "article");
-    	result.put("length",procurementDetails.size());
+    	result.put("length",(procurementDetails.size()-count));
 	    result.put("data",jsonArray);
     	return ok(result);
     }
@@ -1574,9 +1596,11 @@ public class Import extends Controller {
         		procurement = models.durableGoods.Procurement.find.byId(pc.procurement.id);
         		for(DurableGoods subDetail:pc.subDetails)
         		{
-        			subDetail.delete();
+        			subDetail.status = SuppliesStatus.DELETE;
+        			subDetail.update();
         		}
-        		pc.delete();
+        		pc.status = OrderDetailStatus.DELETE;
+        		pc.update();
         	}
     	}
     	/////////////////
@@ -1585,42 +1609,48 @@ public class Import extends Controller {
     	ObjectNode result = Json.newObject();
     	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
     	int i=0;
+    	int count=0;
     	for(models.durableGoods.ProcurementDetail p : procurementDetails){
     		
-    		FSN_Description fsnCode=null;
-    		MaterialCode consumableGoodCode=null;
-    		
-    		if(p.typeOfDurableGoods==1)//is a durableGood
-    			fsnCode = FSN_Description.find.byId(p.code);
-    		else
-    			consumableGoodCode= MaterialCode.find.byId(p.code);
-    		
-    		ObjectNode item = Json.newObject();
-    		item.put("id", p.id);
-    		if(p.code!="") item.put("code", p.code);
-    		else item.put("code", p.code);
-    		item.put("description", p.description);
-    		item.put("quantity", p.quantity);
-    		item.put("classifier", "อัน");
-    		item.put("price", p.price);
-    		item.put("priceNoVat", p.priceNoVat);
-    		if(p.typeOfDurableGoods==1)//is a durableGood
+    		if(p.status!=OrderDetailStatus.DELETE)
     		{
-    			item.put("fileName", fsnCode.fileName);
-    			item.put("fileType", fsnCode.fileType);
-    			item.put("path", fsnCode.path);
+	    		FSN_Description fsnCode=null;
+	    		MaterialCode consumableGoodCode=null;
+	    		
+	    		if(p.typeOfDurableGoods==1)//is a durableGood
+	    			fsnCode = FSN_Description.find.byId(p.code);
+	    		else
+	    			consumableGoodCode= MaterialCode.find.byId(p.code);
+	    		
+	    		ObjectNode item = Json.newObject();
+	    		item.put("id", p.id);
+	    		if(p.code!="") item.put("code", p.code);
+	    		else item.put("code", p.code);
+	    		item.put("description", p.description);
+	    		item.put("quantity", p.quantity);
+	    		item.put("classifier", "อัน");
+	    		item.put("price", p.price);
+	    		item.put("priceNoVat", p.priceNoVat);
+	    		if(p.typeOfDurableGoods==1)//is a durableGood
+	    		{
+	    			item.put("fileName", fsnCode.fileName);
+	    			item.put("fileType", fsnCode.fileType);
+	    			item.put("path", fsnCode.path);
+	    		}
+	    		else
+	    		{
+	    			item.put("fileName", consumableGoodCode.fileName);
+	    			item.put("fileType", consumableGoodCode.fileType);
+	    			item.put("path", consumableGoodCode.path);
+	    		}
+	    		
+	    		jsonArray.insert(i++, item);
     		}
     		else
-    		{
-    			item.put("fileName", consumableGoodCode.fileName);
-    			item.put("fileType", consumableGoodCode.fileType);
-    			item.put("path", consumableGoodCode.path);
-    		}
-    		
-    		jsonArray.insert(i++, item);
+    			count++;
     	}
     	result.put("type", "goods");
-    	result.put("length",procurementDetails.size());
+    	result.put("length",(procurementDetails.size()-count));
 	    result.put("data",jsonArray);
     	return ok(result);
     }
