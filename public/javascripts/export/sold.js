@@ -18,6 +18,7 @@ var isViewDetail = false;
 var titleInHeader = "เพิ่มรายการจำหน่าย";
 
 function addDetailButton(){
+	newDetail = [];
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
@@ -208,6 +209,30 @@ function saveDetail(){
 				addSoldButton();
 				newDetail = [];
 				getDetail(auction.id);
+			}
+			else{
+				alert('save detail error : ' + data["message"]);
+			}
+    	}
+	});
+}
+
+function deleteDetail(){
+	var dataDetail = {};
+	dataDetail.id = auction.id;
+	dataDetail.detail = checkedDetail;
+	$.ajax({
+		url:'/export/sold/deleteDetail',
+	    type: 'post',
+	    data: JSON.stringify(dataDetail),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+		    	var newDetail = [];	
+				var oldDetail = [];
+				getDetail();
 			}
 			else{
 				alert('save detail error : ' + data["message"]);

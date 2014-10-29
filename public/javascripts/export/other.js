@@ -18,6 +18,7 @@ var isViewDetail = false;
 var titleInHeader = "เพิ่มรายการโอนย้ายอื่นๆ";
 
 function addDetailButton(){
+	newDetail = [];
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
@@ -174,6 +175,30 @@ function saveDetail(){
 				document.getElementById("fsnDescription").value = "";
 				addOtherButton();
 				newDetail = [];
+				getDetail();
+			}
+			else{
+				alert('save detail error : ' + data["message"]);
+			}
+    	}
+	});
+}
+
+function deleteDetail(){
+	var dataDetail = {};
+	dataDetail.id = other.id;
+	dataDetail.detail = checkedDetail;
+	$.ajax({
+		url:'/export/other/deleteDetail',
+	    type: 'post',
+	    data: JSON.stringify(dataDetail),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+		    	var newDetail = [];	
+				var oldDetail = [];
 				getDetail();
 			}
 			else{

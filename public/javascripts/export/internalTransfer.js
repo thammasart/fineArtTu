@@ -18,6 +18,7 @@ var isViewDetail = false;
 var titleInHeader = "เพิ่มรายการโอนย้ายภายใน";
 
 function addDetailButton(){
+	newDetail = [];
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
@@ -190,7 +191,30 @@ function saveDetail(){
 			}
     	}
 	});
+}
 
+function deleteDetail(){
+	var dataDetail = {};
+	dataDetail.id = internalTransfer.id;
+	dataDetail.detail = checkedDetail;
+	$.ajax({
+		url:'/export/transferInside/deleteDetail',
+	    type: 'post',
+	    data: JSON.stringify(dataDetail),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+		    	var newDetail = [];	
+				var oldDetail = [];
+				getDetail();
+			}
+			else{
+				alert('save detail error : ' + data["message"]);
+			}
+    	}
+	});
 }
 
 function init(id){

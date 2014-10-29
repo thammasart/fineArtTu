@@ -148,6 +148,30 @@ function saveDetail(){
 	});
 }
 
+function deleteDetail(){
+	var dataDetail = {};
+	dataDetail.id = requisition.id;
+	dataDetail.detail = checkedDetail;
+	$.ajax({
+		url:'/export/order/deleteDetail',
+	    type: 'post',
+	    data: JSON.stringify(dataDetail),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+		    	var newDetail = [];	
+				var oldDetail = [];
+				getDetail();
+			}
+			else{
+				alert('save detail error : ' + data["message"]);
+			}
+    	}
+	});
+}
+
 function init(id){
 	requisition.id = id;
 	getDetail(id);
