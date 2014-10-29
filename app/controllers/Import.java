@@ -1884,4 +1884,59 @@ public class Import extends Controller {
 
         return ok(result);
     }
+    @Security.Authenticated(Secured.class)
+    public static Result autocompleteImportOrderCommitee(){
+        List<User> allUser = User.find.all();
+        List<String> namePrefix = new ArrayList<String>();        
+        List<String> name = new ArrayList<String>();        
+        List<String> lastname = new ArrayList<String>();
+        List<String> position = new ArrayList<String>();
+        List<String> code = new ArrayList<String>();
+        List<String> codeName = new ArrayList<String>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+    String jsonArray;
+        try{
+
+            for(User us : allUser){ 
+                namePrefix.add(us.namePrefix);
+                name.add(us.firstName);               
+                lastname.add(us.lastName);
+                position.add(us.position);
+            } 
+
+            jsonArray = mapper.writeValueAsString(name);
+            json = Json.parse(jsonArray);
+            result.put("name",json);
+
+            jsonArray = mapper.writeValueAsString(lastname);
+            json = Json.parse(jsonArray);
+            result.put("lastname",json);
+
+            jsonArray = mapper.writeValueAsString(position);
+            json = Json.parse(jsonArray);
+            result.put("position",json);
+
+            jsonArray = mapper.writeValueAsString(namePrefix);
+            json = Json.parse(jsonArray);
+            result.put("namePrefix",json);
+
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error1");
+        }
+        catch(JsonProcessingException e){
+            result.put("message", e.getMessage());
+            result.put("stats","error2");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("stats","error3");
+        }
+        return ok(result);
+        
+    }
 }

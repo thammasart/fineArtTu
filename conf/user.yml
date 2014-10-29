@@ -35,6 +35,7 @@
 - &test01 !!models.User
     username:              test01
     password:              test01
+    namePrefix:  mr.
     firstName:   dark
     lastName:    vader
     position:    admiral
@@ -43,6 +44,7 @@
 - &test02 !!models.User
     username:              test02
     password:              test02
+    namePrefix:  mrs.
     firstName:   hello
     lastName:    world
     position:    dev
@@ -51,6 +53,7 @@
 - &test03 !!models.User
     username:              test03
     password:              test03
+    namePrefix:  นาย
     firstName:   dargon
     lastName:    knight
     position:    solo mid
@@ -59,6 +62,7 @@
 - &test04 !!models.User
     username:              test04
     password:              test04
+    namePrefix:  นาง
     firstName:   lanaya
     lastName:    dondo
     position:    solo mid
@@ -67,6 +71,7 @@
 - &test05 !!models.User
     username:              test05
     password:              test05
+    namePrefix:  นางสาว
     firstName:   strike
     lastName:    freedom
     position:    gardian
@@ -75,6 +80,7 @@
 - &test06 !!models.User
     username:              test06
     password:              test06
+    namePrefix:  ดร.
     firstName:   hello1
     lastName:    world1
     position:    dev
@@ -83,6 +89,7 @@
 - &test07 !!models.User
     username:              test07
     password:              test07
+    namePrefix:  รศ.
     firstName:   hello3
     lastName:    world3
     position:    dev
@@ -91,6 +98,7 @@
 - &test08 !!models.User
     username:              test08
     password:              test08
+    namePrefix:  mr.
     firstName:   hello2
     lastName:    world2
     position:    dev
@@ -99,6 +107,7 @@
 - &user01    !!models.User
   username:    user01
   password:    user01
+  namePrefix:  mr.
   firstName:   นิก
   lastName:    แว่น
   position:    ผู้บริิหาร
@@ -107,6 +116,7 @@
 - &user02    !!models.User
   username:    user02
   password:    user02
+  namePrefix:  mr.
   firstName:   นิด
   lastName:    ไม่มีแว่น
   position:    ผู้บริิหาร
@@ -115,6 +125,7 @@
 - &user03    !!models.User
   username:    user03
   password:    user03
+  namePrefix:  mr.
   firstName:   นิค
   lastName:    อ้วน
   position:    คณะบดี
@@ -123,6 +134,7 @@
 - &user04    !!models.User
   username:    user04
   password:    user04
+  namePrefix:  mr.
   firstName:   นัด
   lastName:    ไม่อ้วน
   position:    นายก
@@ -131,6 +143,7 @@
 - &user05    !!models.User
   username:    user05
   password:    user05
+  namePrefix:  mr.
   firstName:   นก
   lastName:    เพนกวิน
   position:    ราชา
@@ -139,6 +152,7 @@
 - &user06    !!models.User
   username:    user06
   password:    user06
+  namePrefix:  mr.
   firstName:   นัท
   lastName:    ไม่ใส่แว่น
   position:    คนธรรมดา
@@ -147,6 +161,7 @@
 - &user07    !!models.User
   username:    user07
   password:    user07
+  namePrefix:  mr.
   firstName:   สรนิค
   lastName:    สุดหล่อ
   position:    ไม่มีต้ำแหน่ง
@@ -155,6 +170,7 @@
 - &user08    !!models.User
   username:    user08
   password:    user08
+  namePrefix:  mr.
   firstName:   สรเสี้ยม
   lastName:    ไม่มีนามสกุล
   position:    ไม่มีต้ำแหน่ง
@@ -163,6 +179,7 @@
 - &user09    !!models.User
   username:    user09
   password:    user09
+  namePrefix:  mr.
   firstName:   เทพศาสตร์
   lastName:    ทุกๆด้าน
   position:    รองนายก
@@ -171,6 +188,7 @@
 - &user10    !!models.User
   username:    user10
   password:    user10
+  namePrefix:  mr.
   firstName:   สาดแม่งเทพ
   lastName:    หรือเปล่า
   position:    ผู้ใหญ่บ้าน
@@ -179,6 +197,7 @@
 - &user11    !!models.User
   username:    user11
   password:    user11
+  namePrefix:  mr.
   firstName:   เกรียนเทพ
   lastName:    โดนตบเกรียน
   position:    ผู้ว่า
@@ -187,6 +206,7 @@
 - &user12    !!models.User
   username:    user12
   password:    user12
+  namePrefix:  mr.
   firstName:   เทพยุทธ์123
   lastName:    ไม่มี123มันซ้ำ
   position:    นายอำเภอ
@@ -195,6 +215,7 @@
 - &user13    !!models.User
   username:    user13
   password:    user13
+  namePrefix:  mr.
   firstName:   เทพยุทธ์
   lastName:    ยังไม่ใส่123
   position:    หนึ่งในใต้หล้า
@@ -203,6 +224,7 @@
 - &user14    !!models.User
   username:    user14
   password:    user14
+  namePrefix:  mr.
   firstName:   สมหมาย
   lastName:    สายหมม
   position:    ไม่มีต้ำแหน่ง
@@ -211,6 +233,7 @@
 - &user15    !!models.User
   username:    user15
   password:    user15
+  namePrefix:  mr.
   firstName:   สมชาย
   lastName:    สายชม
   position:    ไม่มีต้ำแหน่ง
@@ -219,6 +242,7 @@
 - &user16    !!models.User
   username:    user16
   password:    user16
+  namePrefix:  mr.
   firstName:   สมหญิง
   lastName:    สิงหยม
   position:    ไม่มีต้ำแหน่ง
