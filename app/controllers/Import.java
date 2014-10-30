@@ -752,6 +752,11 @@ public class Import extends Controller {
 	    		result.put("serialNumber", pgd.serialNumber);
 	    		result.put("partOfPic", pgd.partOfPic);
 	    		result.put("subDetails", subDetail);
+	    		String status = "null";
+	    		if(pgd.status!=null){
+	    			status = pgd.status.name();
+	    		}
+	    		result.put("status", status);
     		}
     	}
     	
