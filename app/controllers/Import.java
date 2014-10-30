@@ -717,6 +717,11 @@ public class Import extends Controller {
 	    		result.put("brand", pad.brand);
 	    		result.put("serialNumber", pad.serialNumber);
 	    		result.put("subDetails", subDetail);
+	    		String status = "null";
+	    		if(pad.status!=null){
+	    			status = pad.status.name();
+	    		}
+	    		result.put("status", status);
     		}
     		
     	}else if(json.get("tab").asText().equals("2")){
