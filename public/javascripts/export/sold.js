@@ -12,10 +12,13 @@ var auction = {
 
 var newDetail = [];
 var oldDetail = [];
+var checkedDetail = [];
+var isViewDetail = false;
 
 var titleInHeader = "เพิ่มรายการจำหน่าย";
 
 function addDetailButton(){
+	newDetail = [];
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
@@ -96,11 +99,26 @@ function findFSN(){
 
 }
 
-function getDetail(id){
+function addCheckedDetail(code){
+	if(!isViewDetail){
+		if(checkedDetail.indexOf(code) > -1){
+			checkedDetail.remove(code);
+			document.getElementById("detailRow" + code).style.color = "";
+			document.getElementById("detail" + code).checked = false;
+		}
+		else{
+			checkedDetail.push(code);
+			document.getElementById("detailRow" + code).style.color = "#cc3300";
+			document.getElementById("detail" + code).checked = true;
+		}
+	}
+}
+
+function getDetail(){
 	$.ajax({
 		type: "GET",
 		url: "/export/sold/loadDetail",
-		data: {'id': id},
+		data: {'id': auction.id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		   	var summaryTotal = 0
@@ -115,7 +133,9 @@ function getDetail(id){
 			   	destroyTable();
 				for (var i = 0; i < detailLength; i++) {
 					oldDetail.push(details[i].durableArticles.id);
-					s += '<tr>';
+					s += '<tr id="detailRow' + details[i].id + '">';
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">' +
+								' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
 					s += '	<th>'+(i+1)+'</th>';
 					s += '	<th>'+ details[i].durableArticles.code +'</th>';
 					if(details[i].durableArticles.detail){
@@ -143,6 +163,11 @@ function getDetail(id){
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
 			   	updateTable();
+
+			   	for (i = 0, len = checkedDetail.length; i < len; i++) {
+			   		document.getElementById("detail" + checkedDetail[i]).checked = true;
+    				document.getElementById("detailRow" + checkedDetail[i]).style.color = "#cc3300";
+				}
 		    }
 		    else{
 		    	alert("get detail error : " + data["message"]);
@@ -183,7 +208,31 @@ function saveDetail(){
 				document.getElementById("fsnDescription").value = "";
 				addSoldButton();
 				newDetail = [];
-				getDetail(auction.id);
+				getDetail();
+			}
+			else{
+				alert('save detail error : ' + data["message"]);
+			}
+    	}
+	});
+}
+
+function deleteDetail(){
+	var dataDetail = {};
+	dataDetail.id = auction.id;
+	dataDetail.detail = checkedDetail;
+	$.ajax({
+		url:'/export/sold/deleteDetail',
+	    type: 'post',
+	    data: JSON.stringify(dataDetail),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+		    	var newDetail = [];	
+				var oldDetail = [];
+				getDetail();
 			}
 			else{
 				alert('save detail error : ' + data["message"]);
@@ -194,11 +243,12 @@ function saveDetail(){
 
 function init(id){
 	auction.id = id;
-	getDetail(id);
+	getDetail();
 	addSoldButton();
 }
 
 function initViewDetial(id){
+	isViewDetail = true;
 	document.getElementById("title").disabled = true;
 	document.getElementById("contractNo").disabled = true;
 	document.getElementById("approveDate").disabled = true;
@@ -225,6 +275,7 @@ function initViewDetial(id){
 }
 
 function changeToEdit(){
+	isViewDetail = false;
 	document.getElementById("title").disabled = false;
 	document.getElementById("contractNo").disabled = false;
 	document.getElementById("approveDate").disabled = false;

@@ -194,7 +194,17 @@ function submitDetail(path){
     		}else{
     			loadOrderGood(result);
     		}
-    	}
+    		$('#procurementDetailId').val("");
+    	},
+	    statusCode:{
+	    	500: function(response){
+	    		//console.log(response.responseText);
+	    		
+	    		var mywindow = window.open('', 'my div', 'height=400,width=600');
+	            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+	            mywindow.document.write(response.responseText);
+	 	    }
+	    }
 	});
 }
 

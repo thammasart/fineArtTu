@@ -15,6 +15,10 @@ var materialNames = ['สนง','ยานพหนะและขนส่ง'
 var defaultThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวน<span class="glyphicon glyphicon-sort"></span></th><th>สถานะ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>'
 var balanceThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>งบประมาณที่ใช้<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var procurementThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่นำเข้า<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
+var requisitionThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่เบิกวัสดุ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
+var transferThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่โอนย้าย<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
+var repairingThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
+var repairedThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th><th>ราคา<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var options = {
 		title : 'เปรียบเทียบการใช้งบประมาณรายเดือน',
 		chartArea : {'left':'8%','width':'75%','height':'75%'},
@@ -82,8 +86,13 @@ function selectionHandler(){
 		state['page'] = 1;
 		getData('column');
 	}else if(state['page']==1){
+		var col = 3;
+		if(state['mode'] == 'transfer'){
+			console.log(data.getFormattedValue(object.row, 0));
+			col = 0;
+		}
 		state['page'] = 2;
-		state['selectedName'] = data.getFormattedValue(object.row, object.column+2);
+		state['selectedName'] = data.getFormattedValue(object.row, col);
 		getData('table');
 	}
 }
@@ -107,7 +116,6 @@ function getData(chart){
 	    statusCode:{
 	    	500: function(response){
 	    		//console.log(response.responseText);
-	    		
 	    		var mywindow = window.open('', 'my div', 'height=400,width=600');
 	            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
 	            mywindow.document.write(response.responseText);
@@ -124,25 +132,42 @@ function setData(obj,chart){
 		state['dataType'] = 'default';
 		state['page'] = 0;
 	}else if(chart == "column"){
-		chart2.draw(data, {
-			chartArea : {'width':'80%','height':'80%'},
-			animation : {
-				duration : 1000,
-				easing : 'out',
-			},
-			legend: { position: "none" },
-			hAxis: {
-				//textPosition : 'none',
-				textStyle :{fontSize: 10},
-			},
-			annotations : {alwaysOutside : true},
-		});
+		var newOption = {
+				chartArea : {'width':'80%','height':'80%'},
+				animation : {
+					duration : 1000,
+					easing : 'out',
+				},
+				legend: { position: "none" },
+				hAxis: {
+					//textPosition : 'none',
+					textStyle :{fontSize: 10},
+				},
+				annotations : {alwaysOutside : true},
+				colors: color,
+				isStacked: true,
+			};
+		if(state['mode'] == 'transfer'){
+			newOption.legend = { position: "top" };
+		}
+		chart2.draw(data, newOption);
 	}else if(chart == "table"){
 		clearTable(0);
 		if(state['mode'] == 'balance'){
-			setDataTableColumn("trackingTable",balanceThead).rows.add(obj).draw();
+			setDataTableColumn("trackingTable", balanceThead).rows.add(obj).draw();
 		}else if(state['mode'] == 'procurement'){
-			setDataTableColumn("trackingTable",procurementThead).rows.add(obj).draw();
+			setDataTableColumn("trackingTable", procurementThead).rows.add(obj).draw();
+		}else if(state['mode'] == 'requisition'){
+			setDataTableColumn("trackingTable", requisitionThead).rows.add(obj).draw();
+		}else if(state['mode'] == 'transfer'){
+			setDataTableColumn("trackingTable", transferThead).rows.add(obj).draw();
+		}else if(state['mode'] == 'repairing'){
+			setDataTableColumn("trackingTable", repairingThead).rows.add(obj).draw();
+			/*if(state['clickedItem'].column == 1){
+				setDataTableColumn("trackingTable", repairedThead).rows.add(obj).draw();
+			}else{
+				setDataTableColumn("trackingTable", repairingThead).rows.add(obj).draw();
+			}*/
 		}
 		$('#graph-tab a[href="#tracking"]').tab('show');
 	}

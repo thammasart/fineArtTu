@@ -7,6 +7,17 @@ import play.data.*;
 import play.libs.Json;
 import views.html.*;
 import models.*;
+import models.durableArticles.Auction;
+import models.durableArticles.AuctionDetail;
+import models.durableArticles.Donation;
+import models.durableArticles.DonationDetail;
+import models.durableArticles.InternalTransfer;
+import models.durableArticles.InternalTransferDetail;
+import models.durableArticles.OtherTransfer;
+import models.durableArticles.OtherTransferDetail;
+import models.durableArticles.Repairing;
+import models.durableArticles.RepairingDetail;
+import models.durableGoods.Procurement;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
 
@@ -74,12 +85,6 @@ public class Graph extends Controller {
 		  result = getRepairing(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("remain")){
 		  result = getRemain(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("sold")){
-		  result = getSold(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("donate")){
-		  result = getDonate(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("other")){
-		  result = getOther(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }
 	  
       return ok(result);
@@ -101,6 +106,20 @@ public class Graph extends Controller {
     	return result;
     }
     
+    private static ArrayNode getHeader(ArrayList<String> columns){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	ArrayNode thead = JsonNodeFactory.instance.arrayNode();
+    	thead.add("type");
+    	for(String column : columns){
+    		ObjectNode annotation = Json.newObject();
+    		annotation.put("role", "annotation");
+    		thead.add(column);
+    		thead.add(annotation);
+    	}
+    	result.add(thead);
+    	return result;
+    }
+    
     private static ArrayNode getDetailHeader(){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	ArrayNode thead = JsonNodeFactory.instance.arrayNode();
@@ -112,6 +131,18 @@ public class Graph extends Controller {
     	thead.add("value");
     	thead.add(style);
     	thead.add(annotation);
+    	result.add(thead);
+    	return result;
+    }
+    
+    private static ArrayNode getDetailHeader(ArrayList<String> columns){
+    	
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	ArrayNode thead = JsonNodeFactory.instance.arrayNode();
+    	thead.add("type");
+    	for(String column : columns){
+    		thead.add(column);
+    	}
     	result.add(thead);
     	return result;
     }
@@ -129,7 +160,6 @@ public class Graph extends Controller {
     				List<Date> date = getYearDate((3-i));
     				List<Double> d = getSumBalance(date.get(0), date.get(1)); 
     				year = year-i;
-    				DecimalFormat df = new DecimalFormat("#.00"); 
     				tr.add(""+year);
     				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
     				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
@@ -322,84 +352,229 @@ public class Graph extends Controller {
 			List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
 			result = getDetailRequisitionMap(rs);
     	}else{
-    		
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(lRow);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(lRow);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(lRow);
+    		}
+			List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+			result = getTableRequisition( rs , selectedName );
     	}
     	return result;
     }
     
     private static ArrayNode getTransfer(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	ArrayNode result = getDetailHeader();
     	if(row == -1 && col == -1){
-    		
+    		if(relation.equals("year")){
+    			for(int i=3; i>=0; i--){
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				
+    				List<Date> date = getYearDate((3-i));
+    				int d = getSumTransfer(date.get(0), date.get(1)); 
+    				year = year-i;
+    				tr.add(""+year);
+    				tr.add(d);
+    				tr.add(colors[3-i]);
+    				tr.add(d);
+    				result.add(tr);
+    			}
+    		}else{
+    			int num = 12;
+    			if(relation.equals("quarter")) num = 4;
+    			for(int i=0; i<num; i++){
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				int d;
+    				if(relation.equals("month")){
+    					List<Date> date = getMonthDate(i);
+        				d = getSumTransfer(date.get(0), date.get(1));
+    					tr.add(new SimpleDateFormat("MMM",new Locale("th", "th")).format(cal.getTime()));
+    				}else{
+    					List<Date> date = getQuarterDate(i);
+        				d = getSumTransfer(date.get(0), date.get(1));
+    					tr.add("Q"+(i+1));
+    				}
+    				tr.add(d);
+    				tr.add(colors[i]);
+    				tr.add(d);
+    				result.add(tr);
+    			}
+    		}
     	}else if(page != 2){
-    		
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(row);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(row);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(row);
+    		}
+			
+			result = getDetailTransferMap(d.get(0),d.get(1));
     	}else{
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(lRow);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(lRow);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(lRow);
+    		}
     		
+    		result = getTableTransfer(d.get(0), d.get(1), col, selectedName);
     	}
     	return result;
     }
     
     private static ArrayNode getRepairing(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	ArrayList<String> columns = new ArrayList<String>();
+    	columns.add("ซ่อมแล้ว");
+    	columns.add("กำลังซ่อม");
+    	ArrayNode result = getHeader(columns);
     	if(row == -1 && col == -1){
-    		
+    		if(relation.equals("year")){
+    			for(int i=3; i>=0; i--){
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				
+    				List<Date> date = getYearDate((3-i));
+    				ArrayList<Integer> d = getSumRepair(date.get(0), date.get(1)); 
+    				year = year-i;
+    				tr.add(""+year);
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
+    				result.add(tr);
+    			}
+    		}else{
+    			int num = 12;
+    			if(relation.equals("quarter")) num = 4;
+    			for(int i=0; i<num; i++){
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				ArrayList<Integer> d;
+    				if(relation.equals("month")){
+    					List<Date> date = getMonthDate(i);
+        				d = getSumRepair(date.get(0), date.get(1));
+    					tr.add(new SimpleDateFormat("MMM",new Locale("th", "th")).format(cal.getTime()));
+    				}else{
+    					List<Date> date = getQuarterDate(i);
+        				d = getSumRepair(date.get(0), date.get(1));
+    					tr.add("Q"+(i+1));
+    				}
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
+    				result.add(tr);
+    			}
+    		}
     	}else if(page != 2){
-    		
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(row);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(row);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(row);
+    		}
+    		List<Repairing> rs = null;
+    		if(col == 1 || col == 2){
+    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    		}else if(col == 3 || col == 4){
+    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.REPAIRING).findList();
+    		}
+    		result = getDetailRepairingMap(rs);
     	}else{
+    		//TODO
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(lRow);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(lRow);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(lRow);
+    		}
     		
+    		List<Repairing> rs = null;
+    		if(lCol == 1 || lCol == 2){
+    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    		}else if(lCol == 3 || lCol == 4){
+    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.REPAIRING).findList();
+    		}
+    		result = getTableRepairing(rs, selectedName);
     	}
     	return result;
     }
     
-    private static ArrayNode getSold(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
+
+	private static ArrayNode getRemain(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
-    		
+    		//TODO
     	}else if(page != 2){
-    		
+    		//TODO
     	}else{
-    		
-    	}
-    	return result;
-    }
-    
-    private static ArrayNode getDonate(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	if(row == -1 && col == -1){
-    		
-    	}else if(page != 2){
-    		
-    	}else{
-    		
-    	}
-    	return result;
-    }
-    
-    private static ArrayNode getOther(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	if(row == -1 && col == -1){
-    		
-    	}else if(page !=2){
-    		
-    	}else{
-    		
-    	}
-    	return result;
-    }
-    
-    private static ArrayNode getRemain(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	if(row == -1 && col == -1){
-    		
-    	}else if(page != 2){
-    		
-    	}else{
-    		
+    		//TODO
     	}
     	return result;
     }
 
-    private static ArrayNode getDetailBalanceMapArticle(List<models.durableArticles.Procurement> ps){
+    private static List<Double> getSumBalance(Date startDate,Date endDate){
+		List<Double> d = new ArrayList<Double>();
+		List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
+		double sum = 0;
+		for(models.durableArticles.Procurement p : ps){
+			for(models.durableArticles.ProcurementDetail pd : p.details){
+				sum+= pd.price * pd.quantity;
+			}
+		}
+		d.add(Double.valueOf(String.format("%.2f",sum)));
+		List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
+		double sum2 = 0;
+		for(models.durableGoods.Procurement p : pgs){
+			for(models.durableGoods.ProcurementDetail pd : p.details){
+				sum2+= pd.price * pd.quantity;
+			}
+		}
+		d.add(Double.valueOf(String.format("%.2f",sum2)));
+		return d;
+	}
+
+	private static List<Integer> getSumProcurement(Date startDate, Date endDate){
+		List<Integer> d = new ArrayList<Integer>();
+		List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
+		List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
+		d.add(ps.size());
+		d.add(pgs.size());
+		return d;
+	}
+
+	private static int getSumRequisition(Date startDate, Date endDate){
+		return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+	}
+
+	private static int getSumTransfer(Date startDate, Date endDate){
+		int sum = 0;
+		sum += models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+		sum += models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+		sum += models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+		sum += models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+		return sum;
+	}
+	
+	private static ArrayList<Integer> getSumRepair(Date startDate, Date endDate){
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		result.add(models.durableArticles.Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		result.add(models.durableArticles.Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.REPAIRING).findList().size());
+		return result;
+	}
+
+	private static ArrayNode getDetailBalanceMapArticle(List<models.durableArticles.Procurement> ps){
     	ArrayNode result = ps.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
 		for(models.durableArticles.Procurement p : ps){
@@ -545,8 +720,432 @@ public class Graph extends Controller {
 		return result;
     }
     
+    private static ArrayNode getDetailTransferMap(Date startDate, Date endDate) {
+    	ArrayList<String> columnName = new ArrayList<String>();
+    	columnName.add("โอนย้ายภายใน");
+    	columnName.add("จำหน่าย");
+    	columnName.add("บริจาค");
+    	columnName.add("อื่นๆ");
+    	ArrayNode result = getDetailHeader(columnName);
+    	HashMap<String, Integer[]> listResult = new HashMap<String, Integer[]>();
+    	List<InternalTransfer> internals = models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    	List<Auction> auctions = models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    	List<Donation> donations = models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    	List<OtherTransfer> others = models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    	
+    	List<String> list = getTransferKey(internals, auctions, donations, others);
+    	listResult = getMapTransfer(internals, auctions, donations, others, list);
+    	
+    	for(String key : listResult.keySet()){
+    		ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    		tr.add(key);
+    		tr.add(listResult.get(key)[0]);
+    		tr.add(listResult.get(key)[1]);
+    		tr.add(listResult.get(key)[2]);
+    		tr.add(listResult.get(key)[3]);
+    		result.add(tr);
+    	}
+    	
+		return result;
+	}
+    
+	private static ArrayNode getDetailRepairingMap(List<Repairing> rs) {
+		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+    	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
+    	for(Repairing r : rs){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer value = listResult.get(key);
+				if(value == null){
+					listResult.put(key, 1);
+				}else{
+					listResult.put(key, listResult.get(key) + 1);
+				}
+    		}
+    	}
+    	int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+		return result;
+	}
+
+	private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps, String selectedName){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Double> listResult = new HashMap<String,Double>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+		for(models.durableArticles.Procurement p : ps){
+			for(models.durableArticles.ProcurementDetail pd : p.details){
+				if(pd.fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
+					String key = pd.fsn.descriptionDescription;
+					Double value = listResult.get(key);
+					if(value == null){
+						if(pd.quantity * pd.price != 0){
+							listResult.put(key, pd.quantity * pd.price);
+							ids.put(key,""+pd.id);
+						}
+					}else{
+						listResult.put(key, listResult.get(key) + (pd.quantity * pd.price));
+						ids.put(key,ids.get(key)+","+pd.id);
+					}
+				}
+			}
+		}
+		int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%.2f",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+		return result;
+    }
+    
+    private static ArrayNode getTableBalanceGoods(List<models.durableGoods.Procurement> ps, String selectedName){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Double> listResult = new HashMap<String,Double>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	for(models.durableGoods.Procurement p : ps){
+    		for(models.durableGoods.ProcurementDetail pd : p.details){
+    			MaterialCode c = MaterialCode.find.byId(pd.code);
+    			if(c.materialType.typeName.equals(selectedName)){
+    				String key = c.description;
+					Double value = listResult.get(key);
+					if(value == null){
+						if(pd.quantity * pd.price != 0){
+							listResult.put(key, pd.quantity * pd.price);
+							ids.put(key,""+pd.id);
+						}
+					}else{
+						listResult.put(key, listResult.get(key) + (pd.quantity * pd.price));
+						ids.put(key,ids.get(key)+","+pd.id);
+					}
+				}
+    		}
+    		
+    	}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%.2f",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+    }
+    
+    private static ArrayNode getTableProcurementArticle(List<models.durableArticles.Procurement> ps, String selectedName){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+		for(models.durableArticles.Procurement p : ps){
+			for(models.durableArticles.ProcurementDetail pd : p.details){
+				if(pd.fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
+					String key = pd.fsn.descriptionDescription;
+					Integer value = listResult.get(key);
+					if(value == null){
+						if(pd.quantity != 0){
+							listResult.put(key, pd.quantity);
+							ids.put(key,""+pd.id);
+						}
+					}else{
+						listResult.put(key, listResult.get(key) + pd.quantity);
+						ids.put(key,ids.get(key)+","+pd.id);
+					}
+				}
+			}
+		}
+		int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+		return result;
+    }
+    
+    private static ArrayNode getTableProcurementGoods(List<models.durableGoods.Procurement> ps, String selectedName){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	for(models.durableGoods.Procurement p : ps){
+    		for(models.durableGoods.ProcurementDetail pd : p.details){
+    			MaterialCode c = MaterialCode.find.byId(pd.code);
+    			if(c.materialType.typeName.equals(selectedName)){
+    				String key = c.description;
+					Integer value = listResult.get(key);
+					System.out.println(String.format("%s\t%.2f\n", key,value));
+					if(value == null){
+						if(pd.quantity != 0){
+							listResult.put(key, pd.quantity);
+							ids.put(key,""+pd.id);
+						}
+					}else{
+						listResult.put(key, listResult.get(key) + pd.quantity);
+						ids.put(key,ids.get(key)+","+pd.id);
+					}
+				}
+    		}
+    		
+    	}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+    }
+    
+    private static ArrayNode getTableRequisition(List<models.consumable.Requisition> rs, String selectedName){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	for(models.consumable.Requisition r : rs){
+    		for(models.consumable.RequisitionDetail rd : r.details){
+    			MaterialCode c = rd.code;
+    			if(c.materialType.typeName.equals(selectedName)){
+    				String key = c.description;
+					Integer value = listResult.get(key);
+					System.out.println(String.format("%s\t%.2f\n", key,value));
+					if(value == null){
+						System.out.println(key);
+						if(rd.quantity  != 0){
+							listResult.put(key, rd.quantity);
+							ids.put(key,"" + rd.id);
+						}
+					}else{
+						listResult.put(key, listResult.get(key) + rd.quantity);
+						ids.put(key,ids.get(key) + "," + rd.id);
+					}
+				}
+    		}
+    		
+    	}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+    }
+    
+    private static ArrayNode getTableTransfer(Date startDate, Date endDate, int col, String selectedName){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	
+    	if(col == 1){ // โอนย้ายภายใน
+    		List<InternalTransfer> internals = models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(InternalTransfer internal : internals){
+    			for(InternalTransferDetail internalDetail : internal.detail){
+    				String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = internalDetail.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + internalDetail.id);
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + internalDetail.id );
+    					}
+    				}
+    			}
+    		}
+    		
+    	}else if(col == 2){ // จำหน่าย
+    		List<Auction> auctions = models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(Auction auction	: auctions){
+    			for(AuctionDetail auctionDetail : auction.detail){
+    				String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = auctionDetail.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + auctionDetail.id );
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + auctionDetail.id );
+    					}
+    				}
+    			}
+    		}
+    	}else if(col == 3){ // บริจาค
+    		List<Donation> donations = models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(Donation donation : donations){
+    			for(DonationDetail donationDetail : donation.detail){
+    				String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = donationDetail.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + donationDetail.id );
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + donationDetail.id );
+    					}
+    				}
+    			}
+    		}
+    	}else if(col == 4){ // อื่นๆ
+    		List<OtherTransfer> others = models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(OtherTransfer other : others){
+    			for(OtherTransferDetail otherDetail : other.detail){
+    				String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = otherDetail.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + otherDetail.id );
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + otherDetail.id );
+    					}
+    				}
+    			}
+    		}
+    	}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+    }
+    
+
+    private static ArrayNode getTableRepairing(List<Repairing> rs, String selectedName) {
+		// TODO Auto-generated method stub
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	
+		for(Repairing r : rs){
+			for(RepairingDetail rd : r.detail){
+				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				if(key.equals(selectedName)){
+					key = rd.durableArticles.detail.fsn.descriptionDescription;
+					Integer value = listResult.get(key);
+					if(value == null){
+						listResult.put(key, 1);
+						ids.put(key,"" + rd.id);
+					}else{
+						listResult.put(key, value + 1);
+						ids.put(key,ids.get(key) + "," + rd.id );
+						//cost.put(key, rd.price);
+					}
+				}
+			}
+		}
+		int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+		return result;
+	}
+    
+    private static ArrayNode getTableRepairing(Date startDate, Date endDate, int col, String selectedName){
+    	//TODO
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	//HashMap<String,Double> cost = new HashMap<String,Double>();
+    	
+    	if(col == 1){ // ซ่อมแล้ว
+    		List<Repairing> repaireds = Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(Repairing r : repaireds){
+    			for(RepairingDetail rd : r.detail){
+    				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = rd.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + rd.id);
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + rd.id );
+    						//cost.put(key, rd.price);
+    					}
+    				}
+    			}
+    		}
+    	}else if(col == 2){ // กำลังซ่อม
+    		List<Repairing> repairings = Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.REPAIRING).findList();
+    		for(Repairing r : repairings){
+    			for(RepairingDetail rd : r.detail){
+    				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = rd.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + rd.id);
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + rd.id );
+    					}
+    				}
+    			}
+    		}
+    	}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			/*if(col == 1){
+				tr.add(arg0)
+			}*/
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+    }
+    
     private static List<Date> getYearDate(int row){
-    	int year = Calendar.getInstance().get(Calendar.YEAR)-(3-row);
+		int year = Calendar.getInstance().get(Calendar.YEAR)-(3-row);
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.WEEK_OF_YEAR, 1);
 		cal.set(Calendar.DAY_OF_WEEK, 1);
@@ -563,10 +1162,10 @@ public class Graph extends Controller {
 		d.add(startDate);
 		d.add(endDate);
 		return d;
-    }
-    
-    private static List<Date> getQuarterDate(int row){
-    	int year = Calendar.getInstance().get(Calendar.YEAR);
+	}
+
+	private static List<Date> getQuarterDate(int row){
+		int year = Calendar.getInstance().get(Calendar.YEAR);
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.MONTH, row*3);
 		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
@@ -580,10 +1179,10 @@ public class Graph extends Controller {
 		d.add(startDate);
 		d.add(endDate);
 		return d;
-    } 
-    
-    private static List<Date> getMonthDate(int row){
-    	int year = Calendar.getInstance().get(Calendar.YEAR);
+	}
+
+	private static List<Date> getMonthDate(int row){
+		int year = Calendar.getInstance().get(Calendar.YEAR);
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.MONTH, row);
 		cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH));
@@ -595,183 +1194,160 @@ public class Graph extends Controller {
 		d.add(startDate);
 		d.add(endDate);
 		return d;
-    }
-    
-    private static List<Double> getSumBalance(Date startDate,Date endDate){
-    	List<Double> d = new ArrayList<Double>();
-    	List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
-		double sum = 0;
-		for(models.durableArticles.Procurement p : ps){
-			for(models.durableArticles.ProcurementDetail pd : p.details){
-				sum+= pd.price * pd.quantity;
-			}
-		}
-		d.add(Double.valueOf(String.format("%.2f",sum)));
-		List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
-		double sum2 = 0;
-		for(models.durableGoods.Procurement p : pgs){
-			for(models.durableGoods.ProcurementDetail pd : p.details){
-				sum2+= pd.price * pd.quantity;
-			}
-		}
-		d.add(Double.valueOf(String.format("%.2f",sum2)));
-		return d;
-    }
-    
-    private static List<Integer> getSumProcurement(Date startDate, Date endDate){
-    	List<Integer> d = new ArrayList<Integer>();
-    	List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
-		List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().between("addDate", startDate, endDate).eq("status", ImportStatus.SUCCESS).findList();
-		d.add(ps.size());
-		d.add(pgs.size());
-		return d;
-    }
-    
-    private static int getSumRequisition(Date startDate, Date endDate){
-    	return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-    }
-    
-    private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps,String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	HashMap<String,Double> listResult = new HashMap<String,Double>();
-    	HashMap<String,String> ids = new HashMap<String,String>();
-		for(models.durableArticles.Procurement p : ps){
-			for(models.durableArticles.ProcurementDetail pd : p.details){
-				if(pd.fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
-					String key = pd.fsn.descriptionDescription;
-					Double value = listResult.get(key);
-					if(value == null){
-						if(pd.quantity * pd.price != 0){
-							listResult.put(key, pd.quantity * pd.price);
-							ids.put(key,""+pd.id);
-						}
-					}else{
-						listResult.put(key, listResult.get(key) + (pd.quantity * pd.price));
-						ids.put(key,ids.get(key)+","+pd.id);
-					}
-				}
-			}
-		}
-		int i=1;
-		for (String key : listResult.keySet()) {
-			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-			tr.add("" + i++);
-			tr.add(key);
-			tr.add(String.format("%.2f",listResult.get(key)));
-			tr.add(ids.get(key));
-			//tr.add(descriptionBtn);
-			result.add(tr);
-		}
-		return result;
-    }
-    
-    private static ArrayNode getTableBalanceGoods(List<models.durableGoods.Procurement> ps,String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	HashMap<String,Double> listResult = new HashMap<String,Double>();
-    	HashMap<String,String> ids = new HashMap<String,String>();
-    	for(models.durableGoods.Procurement p : ps){
-    		for(models.durableGoods.ProcurementDetail pd : p.details){
-    			MaterialCode c = MaterialCode.find.byId(pd.code);
-    			if(c.materialType.typeName.equals(selectedName)){
-    				String key = c.description;
-					Double value = listResult.get(key);
-					System.out.println(String.format("%s\t%.2f\n", key,value));
-					if(value == null){
-						if(pd.quantity * pd.price != 0){
-							listResult.put(key, pd.quantity * pd.price);
-							ids.put(key,""+pd.id);
-						}
-					}else{
-						listResult.put(key, listResult.get(key) + (pd.quantity * pd.price));
-						ids.put(key,ids.get(key)+","+pd.id);
-					}
-				}
+	}
+
+	private static List<String> getTransferKey(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
+    	List<String> list = new ArrayList<String>();
+    	for(InternalTransfer internal : internals){
+    		for(InternalTransferDetail internalDetail : internal.detail){
+    			String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
     		}
-    		
     	}
-    	int i=1;
-		for (String key : listResult.keySet()) {
-			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-			tr.add("" + i++);
-			tr.add(key);
-			tr.add(String.format("%.2f",listResult.get(key)));
-			tr.add(ids.get(key));
-			//tr.add(descriptionBtn);
-			result.add(tr);
-		}
-    	return result;
-    }
-    
-    private static ArrayNode getTableProcurementArticle(List<models.durableArticles.Procurement> ps,String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
-    	HashMap<String,String> ids = new HashMap<String,String>();
-		for(models.durableArticles.Procurement p : ps){
-			for(models.durableArticles.ProcurementDetail pd : p.details){
-				if(pd.fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
-					String key = pd.fsn.descriptionDescription;
-					Integer value = listResult.get(key);
-					if(value == null){
-						if(pd.quantity * pd.price != 0){
-							listResult.put(key, pd.quantity);
-							ids.put(key,""+pd.id);
-						}
-					}else{
-						listResult.put(key, listResult.get(key) + pd.quantity);
-						ids.put(key,ids.get(key)+","+pd.id);
-					}
-				}
-			}
-		}
-		int i=1;
-		for (String key : listResult.keySet()) {
-			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-			tr.add("" + i++);
-			tr.add(key);
-			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(ids.get(key));
-			//tr.add(descriptionBtn);
-			result.add(tr);
-		}
-		return result;
-    }
-    
-    private static ArrayNode getTableProcurementGoods(List<models.durableGoods.Procurement> ps,String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
-    	HashMap<String,String> ids = new HashMap<String,String>();
-    	for(models.durableGoods.Procurement p : ps){
-    		for(models.durableGoods.ProcurementDetail pd : p.details){
-    			MaterialCode c = MaterialCode.find.byId(pd.code);
-    			if(c.materialType.typeName.equals(selectedName)){
-    				String key = c.description;
-					Integer value = listResult.get(key);
-					System.out.println(String.format("%s\t%.2f\n", key,value));
-					if(value == null){
-						if(pd.quantity * pd.price != 0){
-							listResult.put(key, pd.quantity);
-							ids.put(key,""+pd.id);
-						}
-					}else{
-						listResult.put(key, listResult.get(key) + pd.quantity);
-						ids.put(key,ids.get(key)+","+pd.id);
-					}
-				}
+    	
+    	for(Auction auction : auctions){
+    		for(AuctionDetail auctionDetail : auction.detail){
+    			String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
     		}
-    		
     	}
-    	int i=1;
-		for (String key : listResult.keySet()) {
-			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-			tr.add("" + i++);
-			tr.add(key);
-			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(ids.get(key));
-			//tr.add(descriptionBtn);
-			result.add(tr);
-		}
-    	return result;
+    	
+    	for(Donation donation : donations){
+    		for(DonationDetail donationDetail : donation.detail){
+    			String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	
+    	for(OtherTransfer other : others){
+    		for(OtherTransferDetail otherDetail : other.detail){
+    			String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	
+    	return list;
     }
     
+    private static HashMap<String, Integer[]> getMapTransfer(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others, List<String> list){
+    	HashMap<String , Integer[]> map = new HashMap<String, Integer[]>();
+    	for(InternalTransfer internal : internals){
+    		for(InternalTransferDetail internalDetail : internal.detail){
+    			String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {1,0,0,0};
+    				map.put(key, newValue);
+    			}else{
+    				value[0] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	
+    	for(Auction auction : auctions){
+    		for(AuctionDetail auctionDetail : auction.detail){
+    			String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {0,1,0,0};
+    				map.put(key, newValue);
+    			}else{
+    				value[1] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	
+    	for(Donation donation : donations){
+    		for(DonationDetail donationDetail : donation.detail){
+    			String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {0,0,1,0};
+    				map.put(key, newValue);
+    			}else{
+    				value[2] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	
+    	for(OtherTransfer other : others){
+    		for(OtherTransferDetail otherDetail : other.detail){
+    			String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {0,0,0,1};
+    				map.put(key, newValue);
+    			}else{
+    				value[3] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	return map;
+    }
+    
+    private static HashMap<String, Integer[]> getMapRepairing(List<Repairing> repaireds, List<Repairing> repairings, List<String> list) {
+    	HashMap<String , Integer[]> map = new HashMap<String, Integer[]>();
+    	for(Repairing r : repaireds){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {1,0};
+    				map.put(key, newValue);
+    			}else{
+    				value[0] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	for(Repairing r : repairings){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {0,1};
+    				map.put(key, newValue);
+    			}else{
+    				value[1] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+		return map;
+	}
+
+	private static List<String> getRepairKey(List<Repairing> repaireds, List<Repairing> repairings){
+    	List<String> list = new ArrayList<String>();
+    	for(Repairing r : repaireds){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	
+    	for(Repairing r : repairings){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	return list;
+    }
     
 }
