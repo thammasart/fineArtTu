@@ -72,6 +72,8 @@
     		$('textarea').prop('disabled',true);		
     		$('#fixButton').hide();
     		$('#activate').val(1);
+    		$('#minNumber').prop('disabled',true); 
+    		
     	}
     	else
     	{
@@ -80,6 +82,7 @@
     		$('#fixButton').show();
     		$('textarea').prop('disabled',false);	
     		$('#activate').val(0);
+    		$('#minNumber').prop('disabled',false); 
     	}
     }
 </script>
@@ -170,7 +173,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >จำนวนขั้นต่ำสำหรับแจ้งเตือน</span>
-                                <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.minNumberToAlert" name="minNumberToAlert">
+                                <input id="minNumber" type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.minNumberToAlert" name="minNumberToAlert">
                             </div>
                       </div>
                 </div>

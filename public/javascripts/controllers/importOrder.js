@@ -237,24 +237,25 @@ function submitDetail(path){
 function getCommitteeTemplate(name){
 	name == 'ai' ? aiLists.push(i):eoLists.push(j);
 	var num = name == 'ai' ? i:j;
-	console.log(name == 'ai' ? 'i':'j');
+        setI(num);
+	//console.log(name == 'ai' ? 'i':'j');
 	var s = '<div id="'+name + num +'" style="margin-bottom:1%;display:inline-table">'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon">คำนำหน้าชื่อ</span>'+
-	'					    <input name="'+name+'PrefixName'+ num +'"  type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
+	'					    <input id="'+name+'PrefixName'+ num +'" name="'+name+'PrefixName'+ num +'"  type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
 	'					</div>'+
 	'				</div>'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon">ชื่อ</span>'+
-	'					    <input name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
+	'					    <input id="'+name+'FirstName'+ num +'" name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" onkeyup="mapInput(this.id)">'+
 	'					</div>'+
 	'				</div>'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon">สกุล</span>'+
-	'					    <input name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า">'+
+	'					    <input id="'+name+'LastName'+ num +'" name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า">'+
 	'					</div>'+
 	'				</div>'+
 	'				<div class="form-group" >'+
@@ -266,7 +267,7 @@ function getCommitteeTemplate(name){
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon" >ตำแหน่ง</span>'+
-	'					    <input name="'+name+'Position'+ num +'" type="text" class="form-control textAlignCenter  width150px"placeholder="ตามข้อมูลuser">'+
+	'					    <input id="'+name+'Position'+ num +'" name="'+name+'Position'+ num +'" type="text" class="form-control textAlignCenter  width150px"placeholder="ตามข้อมูลuser">'+
 	'					</div>'+
 	'				</div>'+
 	'				'+
@@ -296,6 +297,7 @@ function getCommitteeTemplate(name){
 	'				 <button type="button" onclick="removeDivCommittee(\''+name+'\','+ num +')">ลบ</button>'+
 	'			 </div> <!-- id ='+ name + num +' -->'
 	name == 'ai' ? i++ : j++;
+
 
 	return s;
 }
@@ -520,14 +522,15 @@ function loadOrderGood(data){
 
 
 function createAICommittee() {
-	var dv = document.createElement("div")
-	dv.innerHTML=getCommitteeTemplate('ai');
+    var dv = document.createElement("div")
+    dv.innerHTML=getCommitteeTemplate('ai');
     document.getElementById("ai_committee").appendChild(dv);
     document.getElementById("aiLists").value = aiLists.join();
     if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
     	$('#page1 input').prop('disabled', false);
 		$('#page1 select').prop('disabled', false);
     }
+    initAutoCompleteName();
 }
 
 function createEOCommittee(){
@@ -542,6 +545,7 @@ function createEOCommittee(){
     	$('#page1 input').prop('disabled', false);
 		$('#page1 select').prop('disabled', false);
     }
+    initAutoCompleteNameEo();
 }
 function removeDivCommittee(name,num){
 	if(name == 'ai'){
