@@ -15,6 +15,7 @@ var deleteModalInstanceCtrl = function($scope, $modalInstance){
     $scope.name = "Delete List(s).";
 
    $scope.ok = function () {
+        deleteBorrow();
         $modalInstance.close();
     };
 
@@ -51,6 +52,7 @@ function deleteBorrow(){
             var status = result["status"];
             if(status == "SUCCESS"){
                 var deleteList = [];
+                location.reload();
             }
             else{
                 alert('save detail error : ' + data["message"]);

@@ -114,6 +114,37 @@ public class ExportOrder extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
+    public static Result deleteRequisition(){
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            for (final JsonNode objNode : json.get("detail")) {
+                Long id = Long.parseLong(objNode.toString());
+                Requisition order = Requisition.find.byId(id);
+                if(order != null){
+                    if(order.status == ExportStatus.INIT){
+                        order.status = ExportStatus.DELETE;
+                        order.update();
+                    }
+                    else if(order.status == ExportStatus.SUCCESS){
+                        // ???????????????????????????????
+                        order.status = ExportStatus.DELETE;
+                        order.update();
+                    }
+                }
+            }
+            result.put("status", "SUCCESS");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result saveOrderDetail() {
         ObjectNode result = Json.newObject();
         try {

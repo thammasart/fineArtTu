@@ -104,22 +104,40 @@ public class ExportTransferInside extends Controller {
         return redirect(routes.ExportTransferInside.exportTransferInside());
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
-    public static Result deleteInternalTransfer(long id){
-        User user = User.find.byId(session().get("username"));
-        InternalTransfer inside = InternalTransfer.find.byId(id);
-        if(inside != null && inside.status == ExportStatus.INIT){
-            for(InternalTransferDetail detail : inside.detail){
-                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
-                    //ทำอะไรดี
-                    //detail.durableArticles.status = SuppliesStatus.NORMAL;
-                    detail.durableArticles.update();
+    public static Result deleteTransferInside(){
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            for (final JsonNode objNode : json.get("detail")) {
+                Long id = Long.parseLong(objNode.toString());
+                InternalTransfer inside = InternalTransfer.find.byId(id);
+                if(inside != null){
+                    if(inside.status == ExportStatus.INIT){
+                        inside.status = ExportStatus.DELETE;
+                        inside.update();
+                    }
+                    else if(inside.status == ExportStatus.SUCCESS){
+                        for(InternalTransferDetail detail : inside.detail){
+                            if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                                //?????????????????????????????????????????????????
+                                detail.durableArticles.update();
+                            }
+                        }
+                        inside.status = ExportStatus.DELETE;
+                        inside.update();
+                    }
                 }
             }
-            inside.status = ExportStatus.DELETE;
-            inside.update();
+            result.put("status", "SUCCESS");
         }
-        return redirect(routes.ExportTransferInside.exportTransferInside());
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)

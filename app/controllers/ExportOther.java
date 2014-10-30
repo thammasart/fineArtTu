@@ -118,21 +118,40 @@ public class ExportOther extends Controller {
         return redirect(routes.ExportOther.exportOther());
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
-    public static Result deleteOther(long id){
-        User user = User.find.byId(session().get("username"));
-        OtherTransfer other = OtherTransfer.find.byId(id);
-        if(other != null && other.status == ExportStatus.SUCCESS){
-            for(OtherTransferDetail detail : other.detail){
-                if(detail.durableArticles.status == SuppliesStatus.DONATED){
-                    detail.durableArticles.status = SuppliesStatus.NORMAL;
-                    detail.durableArticles.update();
+    public static Result deleteOtherTransfer(){
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            for (final JsonNode objNode : json.get("detail")) {
+                Long id = Long.parseLong(objNode.toString());
+                OtherTransfer other = OtherTransfer.find.byId(id);
+                if(other != null){
+                    if(other.status == ExportStatus.INIT){
+                        other.status = ExportStatus.DELETE;
+                        other.update();
+                    }
+                    else if(other.status == ExportStatus.SUCCESS){
+                        for(OtherTransferDetail detail : other.detail){
+                            if(detail.durableArticles.status == SuppliesStatus.OTHERTRANSFER){
+                                detail.durableArticles.status = SuppliesStatus.NORMAL;
+                                detail.durableArticles.update();
+                            }
+                        }
+                        other.status = ExportStatus.DELETE;
+                        other.update();
+                    }
                 }
             }
-            other.status = ExportStatus.DELETE;
-            other.update();
+            result.put("status", "SUCCESS");
         }
-        return redirect(routes.ExportOther.exportOther());
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)

@@ -46,9 +46,9 @@
       </thead>
       <tbody>
         @for(repair <- initList){
-          <tr>
-            <th> <input type="checkbox"/> </th>
-            <th>@repair.title</th>
+          <tr id="row@repair.id">
+            <th onclick="addDeleteList(@repair.id)" > <input type="checkbox" id="checkbox@repair.id" name="checkbox@repair.id"> </th>
+            <th onclick="addDeleteList(@repair.id)" >@repair.title</th>
             <th>@repair.number</th>
             <th>@repair.getDateOfSentToRepair()</th>
             <th>@repair.getCompanyToString()</th>
@@ -63,7 +63,7 @@
     </table>
   }
 
-    @if(!repairingList.isEmpty()) {
+  @if(!repairingList.isEmpty()) {
     <table class="table table-striped overlayTable">
       <thead>
         <tr>
@@ -77,10 +77,9 @@
       </thead>
       <tbody>
         @for(repair <- repairingList){
-          <tr>
-            <th> <input type="checkbox"/> </th>
-            <th>@repair.title</th>
-            <th>@repair.number</th>
+          <tr id="row@repair.id">
+            <th onclick="addDeleteList(@repair.id)" > <input type="checkbox" id="checkbox@repair.id" name="checkbox@repair.id"> </th>
+            <th onclick="addDeleteList(@repair.id)" >@repair.title</th>            <th>@repair.number</th>
             <th>@repair.getDateOfSentToRepair()</th>
             <th>@repair.getCompanyToString()</th>
             <th> 
@@ -107,9 +106,9 @@
     </thead>
     <tbody>
       @for(repair <- successList){
-        <tr>
-          <th> <input type="checkbox"/> </th>
-          <th>@repair.title</th>
+        <tr id="row@repair.id">
+          <th onclick="addDeleteList(@repair.id)" > <input type="checkbox" id="checkbox@repair.id" name="checkbox@repair.id"> </th>
+          <th onclick="addDeleteList(@repair.id)" >@repair.title</th>
           <th>@repair.number</th>
           <th>@repair.getDateOfSentToRepair()</th>
           <th>@repair.getCompanyToString()</th>

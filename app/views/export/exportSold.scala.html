@@ -1,7 +1,7 @@
 @(user : User, initList:List[models.durableArticles.Auction], successList:List[models.durableArticles.Auction])
 @header("exportSold")
 
-    <script src="@routes.Assets.at("javascripts/export/exportSold.js")"></script>
+  <script src="@routes.Assets.at("javascripts/export/exportSold.js")"></script>
 
 @nav(user)
 @headerTag("ระบบจัดการรายการจำหน่าย")
@@ -9,85 +9,87 @@
 <div class ="listWindowMaterial" ng-app="exportSoldApp" ng-Controller="exportDel">
 
 @cancelList()
-    <div class="tableHeaderBtnContainer">
+  <div class="tableHeaderBtnContainer">
 
-        <form>
-            <div class="searchS">
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-addon">ค้นหา</span>
-                        <input type="text" class="form-control" style="width:300px">
-                    </div>
-                </div>
-            </div>
+  <form>
+      <div class="searchS">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">ค้นหา</span>
+            <input type="text" class="form-control" style="width:300px">
+          </div>
+        </div>
+      </div>
 
-            <div>
-                <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportSold.exportCreateSold()">
-                    <button type="button" class="btn btn-success" style="width:100%">เพิ่มรายการจำหน่าย</button>
-                </a>
-                <button class="btn btn-danger width20p" ng-click="openDelModal()" style="float:right;">ลบรายการจำหน่าย</button>
-            </div>
-        </form>
-    </div>
+      <div>
+        <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportSold.exportCreateSold()">
+          <button type="button" class="btn btn-success" style="width:100%">เพิ่มรายการจำหน่าย</button>
+        </a>
+        <button class="btn btn-danger width20p" ng-click="openDelModal()" style="float:right;">ลบรายการจำหน่าย</button>
+      </div>
+    </form>
+  </div>
 
-    <table class="table table-striped overlayTable">
-        <thead>
-            <tr>
-                <th></th>
-                <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-                <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-                <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-                <th>สถาณประกอบการ<span class="glyphicon glyphicon-sort"></span></th>
-                <th>ทำรายการต่อ</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for(acution <- initList){
-                <tr>
-                    <th> <input type="checkbox"/> </th>
-                    <th>@acution.title</th>
-                    <th>@acution.contractNo</th>
-                    <th>@acution.getApproveDate()</th>
-                    <th>@acution.getCompanyToString()</th>
-                    <th>
-                        <a href="@routes.ExportSold.exportSoldAdd(acution.id)">
-                            <button class="btn btn-xs btn-primary" > ทำรายการต่อ</button> 
-                        </a>
-                    </th>
-                </tr>
-            }
-            </tr>
-        </tbody>
-    </table>
+  @if(!initList.isEmpty()) {
+  <table class="table table-striped overlayTable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>สถาณประกอบการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>ทำรายการต่อ</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(auction <- initList){
+        <tr id="row@auction.id">
+          <th onclick="addDeleteList(@auction.id)" > <input type="checkbox" id="checkbox@auction.id" name="checkbox@auction.id"> </th>
+          <th onclick="addDeleteList(@auction.id)" >@auction.title</th>
+          <th>@auction.contractNo</th>
+          <th>@auction.getApproveDate()</th>
+          <th>@auction.getCompanyToString()</th>
+          <th>
+            <a href="@routes.ExportSold.exportSoldAdd(auction.id)">
+              <button class="btn btn-xs btn-primary" > ทำรายการต่อ</button> 
+            </a>
+          </th>
+        </tr>
+      }
+      </tr>
+    </tbody>
+  </table>
+  }
 
-    <table class="table table-striped overlayTable">
-        <thead>
-            <tr>
-                <th></th>
-                <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-                <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-                <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-                <th>สถาณประกอบการ<span class="glyphicon glyphicon-sort"></span></th>
-                <th>รายละเอียด</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for(acution <- successList){
-                <tr>
-                    <th> <input type="checkbox"/> </th>
-                    <th>@acution.title</th>
-                    <th>@acution.contractNo</th>
-                    <th>@acution.getApproveDate()</th>
-                    <th>@acution.getCompanyToString()</th>
-                    <th>
-                        <a href="@routes.ExportSold.viewDetail(acution.id)">
-                            <button class="btn btn-xs btn-info" > รายละเอียด </button> 
-                        </a>
-                    </th>
-                </tr>
-            }
-        </tbody>
-    </table>
+  <table class="table table-striped overlayTable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>สถาณประกอบการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>รายละเอียด</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(auction <- successList){
+        <tr id="row@auction.id">
+          <th onclick="addDeleteList(@auction.id)" > <input type="checkbox" id="checkbox@auction.id" name="checkbox@auction.id"> </th>
+          <th onclick="addDeleteList(@auction.id)" >@auction.title</th>
+          <th>@auction.contractNo</th>
+          <th>@auction.getApproveDate()</th>
+          <th>@auction.getCompanyToString()</th>
+          <th>
+            <a href="@routes.ExportSold.viewDetail(auction.id)">
+              <button class="btn btn-xs btn-info" > รายละเอียด </button> 
+            </a>
+          </th>
+        </tr>
+      }
+    </tbody>
+  </table>
 
 </div> 
 
