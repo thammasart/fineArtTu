@@ -23,3 +23,38 @@ var deleteModalInstanceCtrl = function($scope, $modalInstance){
     };
 }
 
+var deleteList = [];
+
+function addDeleteList(code){
+    if(deleteList.indexOf(code) > -1){
+        deleteList.remove(code);
+        document.getElementById("row" + code).style.color = "";
+        document.getElementById("checkbox" + code).checked = false;
+    }
+    else{
+        deleteList.push(code);
+        document.getElementById("row" + code).style.color = "#cc3300";
+        document.getElementById("checkbox" + code).checked = true;
+    }
+}
+
+function deleteBorrow(){
+    var dataDetail = {};
+    dataDetail.detail = deleteList;
+    $.ajax({
+        url:'/export/borrow/deletes',
+        type: 'post',
+        data: JSON.stringify(dataDetail),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(result){
+            var status = result["status"];
+            if(status == "SUCCESS"){
+                var deleteList = [];
+            }
+            else{
+                alert('save detail error : ' + data["message"]);
+            }
+        }
+    });
+}

@@ -78,6 +78,7 @@ POST 	/export/repair/saveReceive 				controllers.ExportRepair.saveReceive(id:Lon
 GET 	/export/borrow 							controllers.ExportBorrow.exportBorrow()
 GET 	/export/borrow/add 						controllers.ExportBorrow.exportBorrowAdd(id:Long)
 GET 	/export/borrow/new 						controllers.ExportBorrow.exportCreateBorrow()
+POST 	/export/borrow/deletes 					controllers.ExportBorrow.deleteBorrow()
 POST 	/export/borrow/saveBorrow 				controllers.ExportBorrow.saveBorrow(id:Long)
 GET 	/export/borrow/cancelBorrow 			controllers.ExportBorrow.cancelBorrow(id:Long)
 POST 	/export/borrow/saveDetail 				controllers.ExportBorrow.saveBorrowDetail()

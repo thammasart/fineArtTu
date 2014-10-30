@@ -26,7 +26,7 @@
       <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportBorrow.exportCreateBorrow()">
         <button class="btn btn-success" style="width:100%">เพิ่มรายการยืม</button>
       </a>
-      <button class="btn btn-danger width20p" style="float:right;" ng-click="openDelModal()">ลบรายการยืม</button>
+      <button class="btn btn-danger width20p" style="float:right;" onclick="deleteBorrow()" ng-click="openDelModal()">ลบรายการยืม</button>
     </div>
 
   </div>
@@ -45,9 +45,9 @@
       </thead>
       <tbody>
         @for(borrow <- initList){
-          <tr>
-            <th> <input type="checkbox"/> </th>
-            <th>@borrow.title</th>
+          <tr id="row@borrow.id">
+            <th onclick="addDeleteList(@borrow.id)" > <input type="checkbox" id="checkbox@borrow.id"> </th>
+            <th onclick="addDeleteList(@borrow.id)" >@borrow.title</th>
             <th>@borrow.number</th>
             <th>@borrow.getDateOfStartBorrow()</th>
             <th>@borrow.getWithdrawerToString()</th>
@@ -76,9 +76,9 @@
       </thead>
       <tbody>
         @for(borrow <- borrowList){
-          <tr>
-            <th> <input type="checkbox"/> </th>
-            <th>@borrow.title</th>
+          <tr id="row@borrow.id">
+            <th onclick="addDeleteList(@borrow.id)" > <input type="checkbox" id="checkbox@borrow.id"> </th>
+            <th onclick="addDeleteList(@borrow.id)" >@borrow.title</th>
             <th>@borrow.number</th>
             <th>@borrow.getDateOfStartBorrow()</th>
             <th>@borrow.getWithdrawerToString()</th>
@@ -106,9 +106,9 @@
     </thead>
     <tbody>
       @for(borrow <- successList){
-        <tr>
-          <th> <input type="checkbox"/> </th>
-          <th>@borrow.title</th>
+        <tr id="row@borrow.id">
+          <th onclick="addDeleteList(@borrow.id)" > <input type="checkbox" id="checkbox@borrow.id"> </th>
+          <th onclick="addDeleteList(@borrow.id)" >@borrow.title</th>
           <th>@borrow.number</th>
           <th>@borrow.getDateOfStartBorrow()</th>
           <th>@borrow.getWithdrawerToString()</th>
