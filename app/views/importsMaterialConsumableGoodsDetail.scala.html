@@ -73,6 +73,9 @@
     		$('#fixButton').hide();
     		$('#activate').val(1);
     		$('#minNumber').prop('disabled',true); 
+    		$('#classifier').prop('disabled',true); 
+    		$('#description').prop('disabled',true); 
+
     		
     	}
     	else
@@ -83,6 +86,8 @@
     		$('textarea').prop('disabled',false);	
     		$('#activate').val(0);
     		$('#minNumber').prop('disabled',false); 
+    		$('#classifier').prop('disabled',false); 
+    		$('#description').prop('disabled',false); 
     	}
     }
 </script>
@@ -152,7 +157,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >  ชื่อวัสดุ</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.description" name="description" id="description">
+                                <input id="description" type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.description" name="description" id="description">
                                 <span class="alertText" id="descriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
@@ -164,7 +169,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >หน่วย</span>
-                                <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า"  value="@code.classifier" name="classifier">
+                                <input id="classifier" type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า"  value="@code.classifier" name="classifier">
                             </div>
                       </div>
                 </div>        
