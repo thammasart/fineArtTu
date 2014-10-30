@@ -5,6 +5,7 @@ var aiLists = [];
 var eoLists = [];
 var supplyList=[];
 var procumentDetailsTick = [];
+var procurementStatus = "null";
 
 
 $('document').ready(function(){
@@ -107,14 +108,24 @@ function setDetail(id,tab,page){
     			$('#brand').val(result["brand"]);
     			$('#serialNumber').val(result["serialNumber"]);
     			$('#code').val(result["code"]);
+    			procumentStatus = result["status"];
+    			if(procurementStatus == "UNCHANGE"){
+    				$('#editBtn2').prop('disabled',true);
+    			}else{
+    				$('#editBtn2').show();
+    			}
+    			$('#page2 input').prop('disabled', true);
+    			$('#isEditingOn').val('false');
     		}else if(page == 3){
+    			
+    				
     			if(tab == 1){
     				for(var i = 0; i < result.subDetails.length; i++){
     					var subDetails = $('#sub'+(i+1)+' :input');
     					$.each(subDetails, function(j, field) {
         					if(j<8){
         						$(field).val(result.subDetails[i][j]);
-        						console.log(result.subDetails[i][j]);
+        						//console.log(result.subDetails[i][j]);
         					}
         				});
     				}
@@ -128,8 +139,23 @@ function setDetail(id,tab,page){
         				});
     				}
     			}
+    			var isEditing = $('#isEditingOn').val();
+    			var isDisabled = true;
+    			if(isEditing == 'true'){
+    				isDisabled = false;
+    			}
+    			$('#spreadSupply input').prop('disabled', isDisabled);
+    			$('#spreadSupply select').prop('disabled', isDisabled);
     		}
-    	}
+    	},
+    	statusCode:{
+	    	500: function(response){
+	    		//console.log(response.responseText);
+	    		var mywindow = window.open('', 'my div', 'height=400,width=600');
+	            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+	            mywindow.document.write(response.responseText);
+	 	    }
+	    }
 	});
 	
 }
@@ -498,6 +524,10 @@ function createAICommittee() {
 	dv.innerHTML=getCommitteeTemplate('ai');
     document.getElementById("ai_committee").appendChild(dv);
     document.getElementById("aiLists").value = aiLists.join();
+    if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+    	$('#page1 input').prop('disabled', false);
+		$('#page1 select').prop('disabled', false);
+    }
 }
 
 function createEOCommittee(){
@@ -505,6 +535,13 @@ function createEOCommittee(){
 	dv.innerHTML=getCommitteeTemplate('eo');
     document.getElementById("eo_committee").appendChild(dv);
     document.getElementById("eoLists").value = eoLists.join();
+    if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+    	$('#page1 input').prop('disabled', true);
+		$('#page1 select').prop('disabled', true);
+    }else{
+    	$('#page1 input').prop('disabled', false);
+		$('#page1 select').prop('disabled', false);
+    }
 }
 function removeDivCommittee(name,num){
 	if(name == 'ai'){
