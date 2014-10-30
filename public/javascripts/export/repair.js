@@ -18,10 +18,13 @@ var repair = {
 
 var newDetail = [];	
 var oldDetail = [];
+var checkedDetail = [];
+var isViewDetail = false;
 
 var titleInHeader = "เพิ่มรายการส่งซ่อม";
 
 function addDetailButton(){
+	newDetail = [];
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
@@ -101,11 +104,26 @@ function findFSN(){
 	});
 }
 
-function getDetail(id){
+function addCheckedDetail(code){
+	if(!isViewDetail){
+		if(checkedDetail.indexOf(code) > -1){
+			checkedDetail.remove(code);
+			document.getElementById("detailRow" + code).style.color = "";
+			document.getElementById("detail" + code).checked = false;
+		}
+		else{
+			checkedDetail.push(code);
+			document.getElementById("detailRow" + code).style.color = "#cc3300";
+			document.getElementById("detail" + code).checked = true;
+		}
+	}
+}
+
+function getDetail(){
 	$.ajax({
 		type: "GET",
 		url: "/export/repair/loadDetail",
-		data: {'id': id},
+		data: {'id': repair.id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		    if(data["status"] == "SUCCESS"){
@@ -116,7 +134,9 @@ function getDetail(id){
 			   	destroyTable();
 				for (var i = 0; i < detailLength; i++) {
 					oldDetail.push(details[i].durableArticles.id);
-					s += '<tr>';
+					s += '<tr id="detailRow' + details[i].id + '">';
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')"> '+
+								' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
 					s += '	<th>'+(i+1)+'</th>';
 					s += '	<th>'+ details[i].durableArticles.code +'</th>';
 					if(details[i].durableArticles.detail){
@@ -130,6 +150,11 @@ function getDetail(id){
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
 			   	updateTable();
+
+			   	for (i = 0, len = checkedDetail.length; i < len; i++) {
+			   		document.getElementById("detail" + checkedDetail[i]).checked = true;
+    				document.getElementById("detailRow" + checkedDetail[i]).style.color = "#cc3300";
+				}
 		    }
 		    else{
 		    	alert("get detail error : " + data["message"]);
@@ -157,7 +182,31 @@ function saveDetail(){
 				document.getElementById("natureOfDamage").value = "";
 				addRepairButton();
 				newDetail = [];
-				getDetail(repair.id);
+				getDetail();
+			}
+			else{
+				alert('save detail error : ' + data["message"]);
+			}
+    	}
+	});
+}
+
+function deleteDetail(){
+	var dataDetail = {};
+	dataDetail.id = repair.id;
+	dataDetail.detail = checkedDetail;
+	$.ajax({
+		url:'/export/repair/deleteDetail',
+	    type: 'post',
+	    data: JSON.stringify(dataDetail),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+		    	var newDetail = [];	
+				var oldDetail = [];
+				getDetail();
 			}
 			else{
 				alert('save detail error : ' + data["message"]);
@@ -168,11 +217,12 @@ function saveDetail(){
 
 function init(id){
 	repair.id = id;
-	getDetail(id);
+	getDetail();
 	addRepairButton();
 }
 
 function initViewDetial(id){
+	isViewDetail = true;
 	document.getElementById("title").disabled = true;
 	document.getElementById("number").disabled = true;
 	document.getElementById("dateOfSentToRepair").disabled = true;
@@ -192,6 +242,7 @@ function initViewDetial(id){
 }
 
 function changeToEdit(){
+	isViewDetail = false;
 	document.getElementById("title").disabled = false;
 	document.getElementById("number").disabled = false;
 	document.getElementById("dateOfSentToRepair").disabled = false;
