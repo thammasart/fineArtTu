@@ -5,6 +5,7 @@ var aiLists = [];
 var eoLists = [];
 var supplyList=[];
 var procumentDetailsTick = [];
+var procurementStatus = "null";
 
 
 $('document').ready(function(){
@@ -107,14 +108,24 @@ function setDetail(id,tab,page){
     			$('#brand').val(result["brand"]);
     			$('#serialNumber').val(result["serialNumber"]);
     			$('#code').val(result["code"]);
+    			procumentStatus = result["status"];
+    			if(procurementStatus == "UNCHANGE"){
+    				$('#editBtn2').prop('disabled',true);
+    			}else{
+    				$('#editBtn2').show();
+    			}
+    			$('#page2 input').prop('disabled', true);
+    			$('#isEditingOn').val('false');
     		}else if(page == 3){
+    			
+    				
     			if(tab == 1){
     				for(var i = 0; i < result.subDetails.length; i++){
     					var subDetails = $('#sub'+(i+1)+' :input');
     					$.each(subDetails, function(j, field) {
         					if(j<8){
         						$(field).val(result.subDetails[i][j]);
-        						console.log(result.subDetails[i][j]);
+        						//console.log(result.subDetails[i][j]);
         					}
         				});
     				}
@@ -128,8 +139,23 @@ function setDetail(id,tab,page){
         				});
     				}
     			}
+    			var isEditing = $('#isEditingOn').val();
+    			var isDisabled = true;
+    			if(isEditing == 'true'){
+    				isDisabled = false;
+    			}
+    			$('#spreadSupply input').prop('disabled', isDisabled);
+    			$('#spreadSupply select').prop('disabled', isDisabled);
     		}
-    	}
+    	},
+    	statusCode:{
+	    	500: function(response){
+	    		//console.log(response.responseText);
+	    		var mywindow = window.open('', 'my div', 'height=400,width=600');
+	            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+	            mywindow.document.write(response.responseText);
+	 	    }
+	    }
 	});
 	
 }
@@ -211,24 +237,25 @@ function submitDetail(path){
 function getCommitteeTemplate(name){
 	name == 'ai' ? aiLists.push(i):eoLists.push(j);
 	var num = name == 'ai' ? i:j;
-	console.log(name == 'ai' ? 'i':'j');
+        setI(num);
+	//console.log(name == 'ai' ? 'i':'j');
 	var s = '<div id="'+name + num +'" style="margin-bottom:1%;display:inline-table">'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon">คำนำหน้าชื่อ</span>'+
-	'					    <input name="'+name+'PrefixName'+ num +'"  type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
+	'					    <input id="'+name+'PrefixName'+ num +'" name="'+name+'PrefixName'+ num +'"  type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
 	'					</div>'+
 	'				</div>'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon">ชื่อ</span>'+
-	'					    <input name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
+	'					    <input id="'+name+'FirstName'+ num +'" name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" onkeyup="mapInput(this.id)">'+
 	'					</div>'+
 	'				</div>'+
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon">สกุล</span>'+
-	'					    <input name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า">'+
+	'					    <input id="'+name+'LastName'+ num +'" name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า">'+
 	'					</div>'+
 	'				</div>'+
 	'				<div class="form-group" >'+
@@ -240,7 +267,7 @@ function getCommitteeTemplate(name){
 	'				<div class="form-group" >'+
 	'					<div class="input-group" >'+
 	'					    <span class="input-group-addon" >ตำแหน่ง</span>'+
-	'					    <input name="'+name+'Position'+ num +'" type="text" class="form-control textAlignCenter  width150px"placeholder="ตามข้อมูลuser">'+
+	'					    <input id="'+name+'Position'+ num +'" name="'+name+'Position'+ num +'" type="text" class="form-control textAlignCenter  width150px"placeholder="ตามข้อมูลuser">'+
 	'					</div>'+
 	'				</div>'+
 	'				'+
@@ -270,6 +297,7 @@ function getCommitteeTemplate(name){
 	'				 <button type="button" onclick="removeDivCommittee(\''+name+'\','+ num +')">ลบ</button>'+
 	'			 </div> <!-- id ='+ name + num +' -->'
 	name == 'ai' ? i++ : j++;
+
 
 	return s;
 }
@@ -494,10 +522,18 @@ function loadOrderGood(data){
 
 
 function createAICommittee() {
-	var dv = document.createElement("div")
-	dv.innerHTML=getCommitteeTemplate('ai');
+    var dv = document.createElement("div")
+    dv.innerHTML=getCommitteeTemplate('ai');
     document.getElementById("ai_committee").appendChild(dv);
     document.getElementById("aiLists").value = aiLists.join();
+    if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+    	$('#ai_committee input').prop('disabled', true);
+		$('#ai_committee select').prop('disabled', true);
+    }else{
+    	$('#ai_committee input').prop('disabled', false);
+		$('#ai_committee select').prop('disabled', false);
+    }
+    initAutoCompleteName();
 }
 
 function createEOCommittee(){
@@ -505,6 +541,14 @@ function createEOCommittee(){
 	dv.innerHTML=getCommitteeTemplate('eo');
     document.getElementById("eo_committee").appendChild(dv);
     document.getElementById("eoLists").value = eoLists.join();
+    if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+    	$('#eo_committee input').prop('disabled', true);
+		$('#eo_committee select').prop('disabled', true);
+    }else{
+    	$('#eo_committee input').prop('disabled', false);
+		$('#eo_committee select').prop('disabled', false);
+    }
+    initAutoCompleteNameEo();
 }
 function removeDivCommittee(name,num){
 	if(name == 'ai'){

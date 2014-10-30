@@ -15,6 +15,25 @@
 <body onload="document.saveOrderGood.title.focus()" ng-app="goodsCodeModule" ng-controller="autoCompleteGoods">
 @cancelList()
     <div class="detailWindow" id="page1">
+    
+    
+	@if(order.status.name == "SUCCESS"){
+		<button id="editBtn1" onclick="removeDisable1()">แก้ไข</button>
+	}
+	<input id="orderStatus" type="hidden" value="@order.status.name">
+	
+	<script>
+		function removeDisable1(){
+			if($('#orderStatus').val() == "SUCCESS"){
+				$('#editBtn1').hide();
+				$('#page1 input').prop('disabled', false);
+				$('#page1 select').prop('disabled', false);
+				$('#orderStatus').val('');
+			}
+		}
+	</script>
+    
+    
 	
         <form name="saveOrderGood" id="saveOrderGood" method="post" action="@routes.Import.saveNewGoodsOrder()" onsubmit="return submitButtonClicks()" enctype="multipart/form-data">
 	<input type="hidden" name="id" value="@order.id">
@@ -105,7 +124,7 @@
 		<input id="aiLists" type="hidden" name="aiLists" >
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-            <div class="well">
+            <div class="well" ng-init="findUser()">
 		<legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
 		<div class="form-inline marginBtm1" role="form" id="ai_committee" ></div> 
 
@@ -128,8 +147,8 @@
            
             </div>
                <div > 
-            	  <button style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage();reDisableRadio();">เพิ่มวัสดุ</button>
-                  <button class="btn btn-danger width200px" style="float:right;" type="button" ng-click="openCancleDel('/import/removeProcurementDetail2')">ลบวัสดุ</button>
+            	  <button id="add" style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage();reDisableRadio();">เพิ่มวัสดุ</button>
+                  <button id="del" class="btn btn-danger width200px" style="float:right;" type="button" ng-click="openCancleDel('/import/removeProcurementDetail2')">ลบวัสดุ</button>
               </div>
 
         </div>
@@ -186,6 +205,18 @@ $('input').prop("disabled",false);
      <!-- ------------------------------------------------------------------------------------------------------------------------ -->
       <!-- ------------------------------------------------------------------------------------------------------------------------ -->
 <div class="detailWindow" id="page2" >
+
+	<button id="editBtn2" onclick="removeDisable2()" hidden>แก้ไข</button>
+	<input id="isEditingOn" type="hidden" value="false">
+	<script>
+		function removeDisable2(){
+			$('#editBtn2').hide();
+			$('#isEditingOn').val('true');
+			$('#page2 input').prop('disabled', false);
+		}
+	</script>
+	
+
     <div class="well" ng-init="findGoods()">
 		
 		
@@ -345,6 +376,21 @@ $('input').prop("disabled",false);
 </div>
 
 <script>
+	
+	if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+		$('#page1 input').prop('disabled', true);
+		$('#page1 select').prop('disabled', true);
+		if($('#orderStatus').val() == "UNCHANGE"){
+			$('#editBtn1').prop('disabled', true);
+		}
+		
+		$('#add').hide();
+		$('#del').hide();
+		
+		$('#search').prop('disabled', false);
+	}
+
+
 	retriveProcurement(@order.id,2);
 </script>
     

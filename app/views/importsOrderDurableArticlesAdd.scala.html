@@ -8,12 +8,27 @@
     <script src="@routes.Assets.at("javascripts/controllers/importOrder.js")"></script>
     <script src="@routes.Assets.at("javascripts/controllers/fsnAutocomplete.js")"></script>
     <script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
-
+<body ng-app="fsnAutoComplete" ng-controller="getFsnName">
 @nav(user)
 @headerTagFull("เพิ่มรายการครุภัณฑ์จัดซื้อและนำเข้า")
-
 <div class="detailWindow" id="page1">
+	@if(order.status.name == "SUCCESS"){
+		<button id="editBtn1" onclick="removeDisable1()">แก้ไข</button>
+	}
+	<input id="orderStatus" type="hidden" value="@order.status.name">
+	
+	<script>
+		function removeDisable1(){
+			if($('#orderStatus').val() == "SUCCESS"){
+				$('#editBtn1').hide();
+				$('#page1 input').prop('disabled', false);
+				$('#page1 select').prop('disabled', false);
+				$('#orderStatus').val('');
+			}
+		}
+	</script>
 
+@cancelList()
     <form name="saveOrderArticle" id="saveOrderArticle" method="post" action="@routes.Import.saveNewArticlesOrder()" onsubmit="return submitButtonClickAr()" enctype="multipart/form-data">
 	<input type="hidden" name="id" value="@order.id">
      <div class="form-inline marginBtm1" role="form" align="left">
@@ -101,17 +116,19 @@
       
 
 
-		<input id="aiLists" type="hidden" name="aiLists" >
-		<input id="eoLists" type="hidden" name="eoLists" >
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-
-		<legend>คณะกรรมการเปิดซอง <button type="button" onclick="createEOCommittee()">เพิ่ม</button> </legend>
-        <div class="form-inline marginBtm1" role="form" id="eo_committee" style="display:inline-table"></div> <!--คณะกรรมการ-->
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-
-		<legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
-		<div class="form-inline marginBtm1" role="form" id="ai_committee"  style="display:inline-table"></div> 
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <div class="well" ng-init="findUser()">
+            <input id="aiLists" type="hidden" name="aiLists" >
+            <input id="eoLists" type="hidden" name="eoLists" >
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    
+            <legend>คณะกรรมการเปิดซอง <button type="button" onclick="createEOCommittee()">เพิ่ม</button> </legend>
+            <div class="form-inline marginBtm1" role="form" id="eo_committee" style="display:inline-table"></div> <!--คณะกรรมการ-->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    
+            <legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
+            <div class="form-inline marginBtm1" role="form" id="ai_committee"  style="display:inline-table"></div> 
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        </div>
 
 		
         <div class="well" >
@@ -123,14 +140,14 @@
                         <div class="form-group">
                             <div class="input-group">
                               <span class="input-group-addon">ค้นหา</span>
-                              <input type="text" class="form-control" style="width:300px">
+                              <input id="search" type="text" class="form-control" style="width:300px">
                             </div>
                           </div>
               
        </div>
              <div>
-                <button style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage()">เพิ่มครุภัณฑ์</button>
-                <button class="btn btn-danger width200px" style="float:right;" type="button" onclick="removeProcurementDetail('/import/removeProcurementDetail')">ลบครุภัณฑ์</button>
+                <button id="add" style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage()">เพิ่มครุภัณฑ์</button>
+                <button id="del" class="btn btn-danger width200px" style="float:right;" type="button" ng-click="openCancleDel('/import/removeProcurementDetail')">ลบครุภัณฑ์</button>
             </div>
         </div>
 
@@ -207,6 +224,15 @@
       
     
 <div class="detailWindow" id="page2" ng-app="fsnAutoComplete" ng-controller="getFsnName">
+	<button id="editBtn2" onclick="removeDisable2()" hidden>แก้ไข</button>
+	<input id="isEditingOn" type="hidden" value="false">
+	<script>
+		function removeDisable2(){
+			$('#editBtn2').hide();
+			$('#isEditingOn').val('true');
+			$('#page2 input').prop('disabled', false);
+		}
+	</script>
     <div class="well" ng-init="findFsn()">
 
         
@@ -362,6 +388,18 @@
 </div>
 
 <script>
+	if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+		$('#page1 input').prop('disabled', true);
+		$('#page1 select').prop('disabled', true);
+		if($('#orderStatus').val() == "UNCHANGE"){
+			$('#editBtn1').prop('disabled', true);
+		}
+		
+		$('#add').hide();
+		$('#del').hide();
+		
+		$('#search').prop('disabled', false);
+	}
 	retriveProcurement(@order.id,1);
 </script>
  

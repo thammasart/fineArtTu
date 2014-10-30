@@ -15,6 +15,8 @@ import models.durableArticles.InternalTransfer;
 import models.durableArticles.InternalTransferDetail;
 import models.durableArticles.OtherTransfer;
 import models.durableArticles.OtherTransferDetail;
+import models.durableArticles.Repairing;
+import models.durableArticles.RepairingDetail;
 import models.durableGoods.Procurement;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
@@ -100,6 +102,20 @@ public class Graph extends Controller {
     	thead.add(annotation1);
     	thead.add("วัสดุ");
     	thead.add(annotation2);
+    	result.add(thead);
+    	return result;
+    }
+    
+    private static ArrayNode getHeader(ArrayList<String> columns){
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	ArrayNode thead = JsonNodeFactory.instance.arrayNode();
+    	thead.add("type");
+    	for(String column : columns){
+    		ObjectNode annotation = Json.newObject();
+    		annotation.put("role", "annotation");
+    		thead.add(column);
+    		thead.add(annotation);
+    	}
     	result.add(thead);
     	return result;
     }
@@ -400,7 +416,6 @@ public class Graph extends Controller {
 			
 			result = getDetailTransferMap(d.get(0),d.get(1));
     	}else{
-    		//TODO
     		List<Date> d = null;
     		if(relation.equals("year")){
     			d = getYearDate(lRow);
@@ -416,19 +431,88 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getRepairing(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	ArrayList<String> columns = new ArrayList<String>();
+    	columns.add("ซ่อมแล้ว");
+    	columns.add("กำลังซ่อม");
+    	ArrayNode result = getHeader(columns);
     	if(row == -1 && col == -1){
-    		//TODO
+    		if(relation.equals("year")){
+    			for(int i=3; i>=0; i--){
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				
+    				List<Date> date = getYearDate((3-i));
+    				ArrayList<Integer> d = getSumRepair(date.get(0), date.get(1)); 
+    				year = year-i;
+    				tr.add(""+year);
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
+    				result.add(tr);
+    			}
+    		}else{
+    			int num = 12;
+    			if(relation.equals("quarter")) num = 4;
+    			for(int i=0; i<num; i++){
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				ArrayList<Integer> d;
+    				if(relation.equals("month")){
+    					List<Date> date = getMonthDate(i);
+        				d = getSumRepair(date.get(0), date.get(1));
+    					tr.add(new SimpleDateFormat("MMM",new Locale("th", "th")).format(cal.getTime()));
+    				}else{
+    					List<Date> date = getQuarterDate(i);
+        				d = getSumRepair(date.get(0), date.get(1));
+    					tr.add("Q"+(i+1));
+    				}
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
+    				result.add(tr);
+    			}
+    		}
     	}else if(page != 2){
-    		//TODO
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(row);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(row);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(row);
+    		}
+    		List<Repairing> rs = null;
+    		if(col == 1 || col == 2){
+    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    		}else if(col == 3 || col == 4){
+    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.REPAIRING).findList();
+    		}
+    		result = getDetailRepairingMap(rs);
     	}else{
     		//TODO
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(lRow);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(lRow);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(lRow);
+    		}
+    		
+    		List<Repairing> rs = null;
+    		if(lCol == 1 || lCol == 2){
+    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    		}else if(lCol == 3 || lCol == 4){
+    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.REPAIRING).findList();
+    		}
+    		result = getTableRepairing(rs, selectedName);
     	}
     	return result;
     }
     
-    
-    private static ArrayNode getRemain(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
+
+	private static ArrayNode getRemain(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	if(row == -1 && col == -1){
     		//TODO
@@ -481,6 +565,13 @@ public class Graph extends Controller {
 		sum += models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
 		sum += models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
 		return sum;
+	}
+	
+	private static ArrayList<Integer> getSumRepair(Date startDate, Date endDate){
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		result.add(models.durableArticles.Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		result.add(models.durableArticles.Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.REPAIRING).findList().size());
+		return result;
 	}
 
 	private static ArrayNode getDetailBalanceMapArticle(List<models.durableArticles.Procurement> ps){
@@ -646,7 +737,6 @@ public class Graph extends Controller {
     	listResult = getMapTransfer(internals, auctions, donations, others, list);
     	
     	for(String key : listResult.keySet()){
-    		System.out.println(key);
     		ArrayNode tr = JsonNodeFactory.instance.arrayNode();
     		tr.add(key);
     		tr.add(listResult.get(key)[0]);
@@ -656,6 +746,32 @@ public class Graph extends Controller {
     		result.add(tr);
     	}
     	
+		return result;
+	}
+    
+	private static ArrayNode getDetailRepairingMap(List<Repairing> rs) {
+		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+    	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
+    	for(Repairing r : rs){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer value = listResult.get(key);
+				if(value == null){
+					listResult.put(key, 1);
+				}else{
+					listResult.put(key, listResult.get(key) + 1);
+				}
+    		}
+    	}
+    	int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
 		return result;
 	}
 
@@ -839,7 +955,6 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getTableTransfer(Date startDate, Date endDate, int col, String selectedName){
-    	//TODO
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -931,6 +1046,103 @@ public class Graph extends Controller {
     	return result;
     }
     
+
+    private static ArrayNode getTableRepairing(List<Repairing> rs, String selectedName) {
+		// TODO Auto-generated method stub
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	
+		for(Repairing r : rs){
+			for(RepairingDetail rd : r.detail){
+				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				if(key.equals(selectedName)){
+					key = rd.durableArticles.detail.fsn.descriptionDescription;
+					Integer value = listResult.get(key);
+					if(value == null){
+						listResult.put(key, 1);
+						ids.put(key,"" + rd.id);
+					}else{
+						listResult.put(key, value + 1);
+						ids.put(key,ids.get(key) + "," + rd.id );
+						//cost.put(key, rd.price);
+					}
+				}
+			}
+		}
+		int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+		return result;
+	}
+    
+    private static ArrayNode getTableRepairing(Date startDate, Date endDate, int col, String selectedName){
+    	//TODO
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	//HashMap<String,Double> cost = new HashMap<String,Double>();
+    	
+    	if(col == 1){ // ซ่อมแล้ว
+    		List<Repairing> repaireds = Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		for(Repairing r : repaireds){
+    			for(RepairingDetail rd : r.detail){
+    				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = rd.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + rd.id);
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + rd.id );
+    						//cost.put(key, rd.price);
+    					}
+    				}
+    			}
+    		}
+    	}else if(col == 2){ // กำลังซ่อม
+    		List<Repairing> repairings = Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.REPAIRING).findList();
+    		for(Repairing r : repairings){
+    			for(RepairingDetail rd : r.detail){
+    				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    				if(key.equals(selectedName)){
+    					key = rd.durableArticles.detail.fsn.descriptionDescription;
+    					Integer value = listResult.get(key);
+    					if(value == null){
+    						listResult.put(key, 1);
+    						ids.put(key,"" + rd.id);
+    					}else{
+    						listResult.put(key, value + 1);
+    						ids.put(key,ids.get(key) + "," + rd.id );
+    					}
+    				}
+    			}
+    		}
+    	}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			/*if(col == 1){
+				tr.add(arg0)
+			}*/
+			tr.add(ids.get(key));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+    }
     
     private static List<Date> getYearDate(int row){
 		int year = Calendar.getInstance().get(Calendar.YEAR)-(3-row);
@@ -1083,6 +1295,59 @@ public class Graph extends Controller {
     		}
     	}
     	return map;
-    } 
+    }
+    
+    private static HashMap<String, Integer[]> getMapRepairing(List<Repairing> repaireds, List<Repairing> repairings, List<String> list) {
+    	HashMap<String , Integer[]> map = new HashMap<String, Integer[]>();
+    	for(Repairing r : repaireds){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {1,0};
+    				map.put(key, newValue);
+    			}else{
+    				value[0] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+    	for(Repairing r : repairings){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer[] value = map.get(key);
+    			if(value == null){
+    				Integer[] newValue = {0,1};
+    				map.put(key, newValue);
+    			}else{
+    				value[1] += 1;
+    				map.put(key, value);
+    			}
+    		}
+    	}
+		return map;
+	}
+
+	private static List<String> getRepairKey(List<Repairing> repaireds, List<Repairing> repairings){
+    	List<String> list = new ArrayList<String>();
+    	for(Repairing r : repaireds){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	
+    	for(Repairing r : repairings){
+    		for(RepairingDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			if(!list.contains(key)){
+    				list.add(key);
+    			}
+    		}
+    	}
+    	return list;
+    }
     
 }

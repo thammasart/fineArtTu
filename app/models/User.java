@@ -15,6 +15,7 @@ public class User extends Model{
 
 	public String departure;
 	public String position;
+        public String namePrefix;
 	public String firstName;
 	public String lastName;
 
