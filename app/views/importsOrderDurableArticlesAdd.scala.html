@@ -101,17 +101,19 @@
       
 
 
-		<input id="aiLists" type="hidden" name="aiLists" >
-		<input id="eoLists" type="hidden" name="eoLists" >
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-
-		<legend>คณะกรรมการเปิดซอง <button type="button" onclick="createEOCommittee()">เพิ่ม</button> </legend>
-        <div class="form-inline marginBtm1" role="form" id="eo_committee" style="display:inline-table"></div> <!--คณะกรรมการ-->
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-
-		<legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
-		<div class="form-inline marginBtm1" role="form" id="ai_committee"  style="display:inline-table"></div> 
-<!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <div class="well" ng-init="findUser()">
+            <input id="aiLists" type="hidden" name="aiLists" >
+            <input id="eoLists" type="hidden" name="eoLists" >
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    
+            <legend>คณะกรรมการเปิดซอง <button type="button" onclick="createEOCommittee()">เพิ่ม</button> </legend>
+            <div class="form-inline marginBtm1" role="form" id="eo_committee" style="display:inline-table"></div> <!--คณะกรรมการ-->
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+    
+            <legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
+            <div class="form-inline marginBtm1" role="form" id="ai_committee"  style="display:inline-table"></div> 
+    <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        </div>
 
 		
         <div class="well" >

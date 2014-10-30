@@ -508,6 +508,7 @@ function createEOCommittee(){
 	dv.innerHTML=getCommitteeTemplate('eo');
     document.getElementById("eo_committee").appendChild(dv);
     document.getElementById("eoLists").value = eoLists.join();
+    initAutoCompleteNameEo();
 }
 function removeDivCommittee(name,num){
 	if(name == 'ai'){

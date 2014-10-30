@@ -3,9 +3,18 @@ var submitStatus ;
 var fsnName=[];
 var fsnCode=[];
 
+
 var pathToRemove;
 var autoCompleteNum;
+
 var keyId;
+var keyIdEo;
+
+var prefixNameList= [];
+var nameList= [];
+var lastnameList= [];
+var positionList= [];
+var userAll=[];
 
 var desId;
 angular.module('fsnAutoComplete', ['ui.bootstrap'])
@@ -14,6 +23,30 @@ angular.module('fsnAutoComplete', ['ui.bootstrap'])
         $scope.fsnName=[];
         $scope.fsnCode=[];
 
+         function combine() { 
+            for(var i = 0; i < nameList.length ; i++){
+                userAll[i] = prefixNameList[i]+" "+nameList[i]+" "+lastnameList[i]+" "+positionList[i] ;     
+            }
+         } 
+        $scope.findUser=function(){
+            $http({method : 'GET',url : 'autocompleteImportOrderCommitee' })
+            .success(function(result){
+                $scope.name= result.name;
+                $scope.PrefixName = result.namePrefix;
+                $scope.lastname= result.lastname;
+                $scope.position= result.position;
+
+                code= result.code;
+
+                prefixNameList = $scope.PrefixName;
+                nameList = $scope.name;
+                lastnameList= $scope.lastname;
+                positionList= $scope.position;
+            
+                console.log(prefixNameList);
+                combine();
+            });
+        };
         $scope.openCancleDel = function(path){
             pathToRemove = path;
             var modalInstance = $modal.open({
@@ -96,6 +129,39 @@ function initAutoCompleteName () {
     })
     console.log(keyId);
 } 
+function initAutoCompleteNameEo () { 
+    keyIdEo = "eoFirstName"+autoCompleteNum;
+    $(function() {
+        $('#'+keyIdEo).autocomplete({
+          source: userAll
+        });
+    })
+    console.log(keyId);
+} 
+function mapInput(id){
+    var temp = id[id.length-1];
+    var type = id[0];
+    var id = document.getElementById(id).value ;
+    if(type =="a"){
+        for(var j = 0; j < userAll.length;j++){
+            if(id == userAll[j]){
+                document.getElementById("aiPrefixName"+temp).value = prefixNameList[j];            
+                document.getElementById("aiFirstName"+temp).value = nameList[j];            
+                document.getElementById("aiLastName"+temp).value = lastnameList[j];
+                document.getElementById("aiPosition"+temp).value = positionList[j];
+            }
+        }
+    }else {
+        for(var j = 0; j < userAll.length;j++){
+            if(id == userAll[j]){
+                document.getElementById("eoPrefixName"+temp).value = prefixNameList[j];            
+                document.getElementById("eoFirstName"+temp).value = nameList[j];            
+                document.getElementById("eoLastName"+temp).value = lastnameList[j];
+                document.getElementById("eoPosition"+temp).value = positionList[j];
+            }
+        }
+    }
+}
 function submitButtonClick(){
     
     submitStatus = true;
