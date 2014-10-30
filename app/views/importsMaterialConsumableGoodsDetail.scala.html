@@ -19,9 +19,9 @@
 <!-- =============================================================================================================================== -->
 
 
-<button onclick="changeValue();" class="btn btn-danger btn-lg width250px" style="margin-bottom:1%;">
+<button id="button" onclick="changeValue();" class="btn btn-danger btn-lg width250px" style="margin-bottom:1%;">
 	    	แก้ไขรายละเอียด
-	    </button>
+</button>
 	    
 	    <input id="activate" type="hidden" value=0>
 
@@ -65,21 +65,7 @@
     function changeValue()
     {
     	var value = $('#activate').val();
-    	
 
-    	if(value==0){
-    		$('#browse').prop('disabled',true); //fix only button 
-    		$('textarea').prop('disabled',true);		
-    		$('#fixButton').hide();
-    		$('#activate').val(1);
-    		$('#minNumber').prop('disabled',true); 
-    		$('#classifier').prop('disabled',true); 
-    		$('#description').prop('disabled',true); 
-
-    		
-    	}
-    	else
-    	{
     		var inputs = $('input');
     		$('#browse').prop('disabled',false); //fix only button 
     		$('#fixButton').show();
@@ -88,7 +74,8 @@
     		$('#minNumber').prop('disabled',false); 
     		$('#classifier').prop('disabled',false); 
     		$('#description').prop('disabled',false); 
-    	}
+    		$('#button').hide();
+    	
     }
 </script>
 	    
