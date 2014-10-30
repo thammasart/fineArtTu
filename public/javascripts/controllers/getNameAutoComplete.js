@@ -34,6 +34,7 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                 userAll[i] = nameList[i]+" "+lastnameList[i]+" "+positionList[i] ;     
             }
          } 
+
         $scope.findUser=function(){
             $http({method : 'GET',url : 'autocompleteExportCommitee' })
             .success(function(result){
