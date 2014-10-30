@@ -47,9 +47,9 @@
 
       <tbody>
         @for(requisition <- initList){
-          <tr>
-            <th> <input type="checkbox"/> </th>
-            <th>@requisition.title</th>
+          <tr id="row@requisition.id">
+            <th onclick="addDeleteList(@requisition.id)" > <input type="checkbox" id="checkbox@requisition.id" name="checkbox@requisition.id"> </th>
+            <th onclick="addDeleteList(@requisition.id)" >@requisition.title</th>
             <th>@requisition.number</th>
             <th>@requisition.approveDateToString()</th>
             <th>
@@ -75,9 +75,9 @@
     </thead>
     <tbody>
       @for(requisition <- successList){
-        <tr>
-          <th> <input type="checkbox"/> </th>
-          <th>@requisition.title</th>
+        <tr id="row@requisition.id">
+          <th onclick="addDeleteList(@requisition.id)" > <input type="checkbox" id="checkbox@requisition.id" name="checkbox@requisition.id"> </th>
+          <th onclick="addDeleteList(@requisition.id)" >@requisition.title</th>
           <th>@requisition.number</th>
           <th>@requisition.approveDateToString()</th>
           <th>

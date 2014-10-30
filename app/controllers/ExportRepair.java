@@ -138,21 +138,44 @@ public class ExportRepair extends Controller {
         return redirect(routes.ExportRepair.exportRepairing());
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
-    public static Result deleteRepairing(long id){
-        User user = User.find.byId(session().get("username"));
-        Repairing repair = Repairing.find.byId(id);
-        if(repair != null && repair.status == ExportStatus.INIT){
-            for(RepairingDetail detail : repair.detail){
-                if(detail.durableArticles.status == SuppliesStatus.REPAIRING){
-                    detail.durableArticles.status = SuppliesStatus.NORMAL;
-                    detail.durableArticles.update();
+    public static Result deleteRepairing(){
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            for (final JsonNode objNode : json.get("detail")) {
+                Long id = Long.parseLong(objNode.toString());
+                Repairing repair = Repairing.find.byId(id);
+                if(repair != null){
+                    if(repair.status == ExportStatus.INIT){
+                        repair.status = ExportStatus.DELETE;
+                        repair.update();
+                    }
+                    else if(repair.status == ExportStatus.REPAIRING){
+                        for(RepairingDetail detail : repair.detail){
+                            if(detail.durableArticles.status == SuppliesStatus.REPAIRING){
+                                detail.durableArticles.status = SuppliesStatus.NORMAL;
+                                detail.durableArticles.update();
+                            }
+                        }
+                        repair.status = ExportStatus.DELETE;
+                        repair.update();
+                    }
+                    else if(repair.status == ExportStatus.SUCCESS){
+                        repair.status = ExportStatus.DELETE;
+                        repair.update();
+                    }
                 }
             }
-            repair.status = ExportStatus.DELETE;
-            repair.update();
+            result.put("status", "SUCCESS");
         }
-        return redirect(routes.ExportRepair.exportRepairing());
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
     }
 
 
