@@ -9,12 +9,44 @@ var sourceCode=[];
 var sourceName=[];
 var pathToRemove;
 
+var prefixNameList= [];
+var nameList= [];
+var lastnameList= [];
+var positionList= [];
+var userAll= [] ;
+
+var keyId;
+var autoCompleteNum;
 angular.module('goodsCodeModule', ['ui.bootstrap'])
     .controller('autoCompleteGoods',function($scope,$http,$modal){
         
         $scope.goodsCode =[];
         $scope.goodsName =[];
         
+         function combine() { 
+            for(var i = 0; i < nameList.length ; i++){
+                userAll[i] = prefixNameList[i]+" "+nameList[i]+" "+lastnameList[i]+" "+positionList[i] ;     
+            }
+         } 
+        $scope.findUser=function(){
+            $http({method : 'GET',url : 'autocompleteImportOrderCommitee' })
+            .success(function(result){
+                $scope.name= result.name;
+                $scope.PrefixName = result.namePrefix;
+                $scope.lastname= result.lastname;
+                $scope.position= result.position;
+
+                code= result.code;
+
+                prefixNameList = $scope.PrefixName;
+                nameList = $scope.name;
+                lastnameList= $scope.lastname;
+                positionList= $scope.position;
+            
+                console.log(prefixNameList);
+                combine();
+            });
+        };
         $scope.openCancleDel = function(path){
             pathToRemove = path;
             var modalInstance = $modal.open({
@@ -82,6 +114,15 @@ var resultModalInstanceCtrl= function($scope, $modalInstance){
         $modalInstance.dismiss();
     };
 }
+function initAutoCompleteName () { 
+    keyId = "aiFirstName"+autoCompleteNum;
+    $(function() {
+        $('#'+keyId).autocomplete({
+          source: userAll
+        });
+    })
+    console.log(keyId);
+} 
 function mapDescriptionToCode(){
     var id = document.getElementById("description").value ;
     if(document.getElementById("typeOfGoods").value == 0){
@@ -120,6 +161,41 @@ function mapCodeToDescription(){
     document.getElementById("code").disabled = true;
  } 
 
+function mapInput(id){
+    temp = id[id.length-1];
+    var id = document.getElementById(id).value ;
+    for(var j = 0; j < userAll.length;j++){
+        if(id == userAll[j]){
+            document.getElementById("aiPrefixName"+temp).value = prefixNameList[j];            
+            document.getElementById("aiFirstName"+temp).value = nameList[j];            
+            document.getElementById("aiLastName"+temp).value = lastnameList[j];
+            document.getElementById("aiPosition"+temp).value = positionList[j];
+        }
+    }
+}
+function mapInput2(){
+    var id = document.getElementById("approverName").value ;
+    for(var j = 0; j < userAll.length;j++){
+        if(id == userAll[j]){
+            document.getElementById("approverName").value = nameList[j];            
+            document.getElementById("approverLastName").value = lastnameList[j];
+            document.getElementById("approverPosition").value = positionList[j];
+        }
+    }
+}
+function mapInput3(){
+    var id = document.getElementById("withdrawer").value ;
+    for(var j = 0; j < userAll.length;j++){
+        if(id == userAll[j]){
+            document.getElementById("withdrawer").value = nameList[j];            
+            document.getElementById("withdrawerLastname").value = lastnameList[j];
+            document.getElementById("withdrawerPosition").value = positionList[j];
+        }
+    }
+}
+function setI(num){
+   autoCompleteNum = num; 
+}
 function submitButtonClicks(){
     
     submitStatus = true;
