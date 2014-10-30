@@ -195,6 +195,37 @@ public class ExportRepair extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
+    public static Result deleteRepairingDetail() {
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            long id = Long.parseLong(json.get("id").asText());
+            Repairing repair = Repairing.find.byId(id);
+            if(repair != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    RepairingDetail detail = RepairingDetail.find.byId(id);
+                    if(detail != null && repair.equals(detail.repairing)){
+                        detail.delete();
+                    }
+                }
+                result.put("status", "SUCCESS");
+            }
+            else{
+                result.put("message","not Found repairing id:" + id);
+                result.put("status", "error");
+            }
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result loadRepairingDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;

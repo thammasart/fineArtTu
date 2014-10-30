@@ -171,6 +171,37 @@ public class ExportOther extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
+    public static Result deleteOtherDetail() {
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            long id = Long.parseLong(json.get("id").asText());
+            OtherTransfer other = OtherTransfer.find.byId(id);
+            if(other != null){
+                for (final JsonNode objNode : json.get("detail")) {
+                    id = Long.parseLong(objNode.toString());
+                    OtherTransferDetail detail = OtherTransferDetail.find.byId(id);
+                    if(detail != null && other.equals(detail.otherTransfer)){
+                        detail.delete();
+                    }
+                }
+                result.put("status", "SUCCESS");
+            }
+            else{
+                result.put("message","not Found other transfer id:" + id);
+                result.put("status", "error");
+            }
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result loadOtherDetail(long id) {
         ObjectNode result = Json.newObject();
         JsonNode json;

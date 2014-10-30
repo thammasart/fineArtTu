@@ -114,19 +114,20 @@
         </div>
         <div id="editDetail">
             <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มวัสดุ</button>
-            <button type="button" class="btn btn-danger width200px" style="float:right;">ลบวัสดุ</button>
+            <button type="button" class="btn btn-danger width200px" style="float:right;" onclick="deleteDetail()">ลบวัสดุ</button>
         </div> 
       </div>
 
       <table class="table table-striped overlayTable">
         <thead>
           <tr>
+            <th></th>
             <th>ลำดับ</th>
             <th>หมายเลขวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
             <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
             <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
             <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
-            <th>ผู้เบิก<span class="glyphicon glyphicon-sort"></span></th>
+            <th>ผู้เบิกวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
             <th>หมายเหตุ<span class="glyphicon glyphicon-sort"></span></th>
           </tr>
         </thead>
