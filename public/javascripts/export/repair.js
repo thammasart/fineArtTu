@@ -1,11 +1,11 @@
 $(function () {
-    $('#datePๅ').datetimepicker({
+    $('#dateP1').datetimepicker({
   	  language:'th'
     })
 });
 
 $(function () {
-    $('#dateP/').datetimepicker({
+    $('#dateP2').datetimepicker({
   	  language:'th'
     })
 });
