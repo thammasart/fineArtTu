@@ -11,7 +11,7 @@
 
 <div class="detailWindow">
 
-	    <button onclick="changeValue();" class="btn btn-danger btn-lg width250px" style="margin-bottom:1%;">
+	    <button id="button" onclick="changeValue();" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">
 	    	แก้ไขรายละเอียด
 	    </button>
 
@@ -40,22 +40,6 @@
     {
     	var value = $('#activate').val();
     	
-
-    	if(value==0){
-    		$('select').prop('disabled',true);
-    		$('textarea').prop('disabled',true);	
-    		
-    		$('#fixButton').hide();
-    		
-    		var inputs = $('input');
-    		$.each(inputs, function(i, input) {
-    		    var chosenField = $(input);
-    		    chosenField.prop('disabled',true);
-    		});
-    		$('#activate').val(1);
-    	}
-    	else
-    	{
     		var inputs = $('input');
     		
     		$('#fixButton').show();
@@ -67,7 +51,8 @@
     		    chosenField.prop('disabled',false);
     		});
     		$('#activate').val(0);
-    	}
+    		$('#button').hide();
+    	
     }
 </script>
 

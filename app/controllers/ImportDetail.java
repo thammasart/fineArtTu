@@ -188,7 +188,7 @@ public class ImportDetail extends Controller {
 		 
 		 FSN_Description fd = FSN_Description.find.byId(form.get("descriptionId"));
 		 fd.otherDetail = form.get("otherDetail");
-		 
+		 fd.classifier = form.get("classifier");
 		 
 		 MultipartFormData body = request().body().asMultipartFormData();
 	    	FilePart filePart = body.getFile("attachFile");
@@ -241,6 +241,12 @@ public class ImportDetail extends Controller {
 
 		 MaterialCode mc = MaterialCode.find.byId(form.get("code"));
 		 mc.otherDetail = form.get("otherDetail");
+		 mc.classifier = form.get("classifier");
+		 mc.description  = form.get("description");
+		 mc.minNumberToAlert = Integer.parseInt(form.get("minNumberToAlert"));
+
+		 
+		 
 		 
 		 MultipartFormData body = request().body().asMultipartFormData();
 	    	FilePart filePart = body.getFile("attachFile");
