@@ -74,10 +74,10 @@ function findFSN(){
 						s += '> </th>';
 						s += ' <th onclick="addNewDetai(' + allArticles[i].id + ')">'+ allArticles[i].code +'</th>';
 						if(allArticles[i].detail){
-							s += '	<th>' + allArticles[i].detail.fsn.descriptionDescription +'</th>';
-							s += '	<th>' + allArticles[i].detail.llifeTime + ' ปี / ' + allArticles[i].remainLifetimeToString +'</th>';
-							s += '	<th>' + allArticles[i].detail.price + ' / ' + allArticles[i].remainingPriceToString +'</th>';
-							s += '	<th>' + allArticles[i].id + ' : ' + allArticles[i].detail.procurement.checkDate + '</th>';
+							s += '	<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
+							s += '	<th>'+ allArticles[i].detail.price + ' / ' + allArticles[i].remainingPriceToString +'</th>';
+							s += '	<th>'+ allArticles[i].detail.llifeTime + ' ปี / ' + allArticles[i].remainLifetimeToString +'</th>';
+							s += '	<th>'+ allArticles[i].department + '</th>';
 						}
 						else{
 							s += '	<th>'+ 'ไม่มี' +'</th>';

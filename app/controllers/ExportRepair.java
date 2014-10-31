@@ -75,10 +75,16 @@ public class ExportRepair extends Controller {
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
         Repairing repair = Repairing.find.byId(id);
-        if(repair == null || repair.status != ExportStatus.SUCCESS ){
+        if(repair == null){
             return redirect(routes.ExportRepair.exportRepairing());
         }
-        return ok(exportRepairingViewDetail.render(user, repair));
+        else if(repair.status == ExportStatus.SUCCESS ){
+            return ok(exportRepairingViewDetail.render(user, repair));
+        }
+        else if(repair.status == ExportStatus.REPAIRING ){
+            return ok(exportRepairingViewDetail.render(user, repair));
+        }
+        return redirect(routes.ExportRepair.exportRepairing());
     }
 
     @Security.Authenticated(Secured.class)
