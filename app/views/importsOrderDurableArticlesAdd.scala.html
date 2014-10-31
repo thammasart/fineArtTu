@@ -12,9 +12,12 @@
 @nav(user)
 @headerTagFull("เพิ่มรายการครุภัณฑ์จัดซื้อและนำเข้า")
 <div class="detailWindow" id="page1">
+
+
 	@if(order.status.name == "SUCCESS"){
-		<button id="editBtn1" onclick="removeDisable1()">แก้ไข</button>
+		<button id="editBtn1" onclick="removeDisable1()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
 	}
+	
 	<input id="orderStatus" type="hidden" value="@order.status.name">
 	
 	<script>
@@ -24,6 +27,9 @@
 				$('#page1 input').prop('disabled', false);
 				$('#page1 select').prop('disabled', false);
 				$('#orderStatus').val('');
+				$('#b1').show();
+				$('#add').show();
+				$('#del').show();
 			}
 		}
 	</script>
@@ -207,8 +213,12 @@
             </a>
 	
 
-                <button form="saveOrderArticle" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="enable()" >
-                    ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+                <button id="b1" form="saveOrderArticle" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="enable()" >
+                    @if(order.status.name == "SUCCESS"){แก้ไข
+                    }else{
+                    ยืนยัน
+                    }
+                     <span class="glyphicon glyphicon-ok"></span>
                 </button>
         </div>
 
@@ -224,13 +234,17 @@
       
     
 <div class="detailWindow" id="page2" ng-app="fsnAutoComplete" ng-controller="getFsnName">
-	<button id="editBtn2" onclick="removeDisable2()" hidden>แก้ไข</button>
+
+	<button id="editBtn2" onclick="removeDisable2()" hidden class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
+	
+	
 	<input id="isEditingOn" type="hidden" value="false">
 	<script>
 		function removeDisable2(){
 			$('#editBtn2').hide();
 			$('#isEditingOn').val('true');
 			$('#page2 input').prop('disabled', false);
+			$('#b2').show();
 		}
 	</script>
     <div class="well" ng-init="findFsn()">
@@ -378,7 +392,7 @@
 	        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="showPage('2')">
 	            <span class="glyphicon glyphicon-chevron-left"></span> ย้อนกลับ
 	        </button>
-	        <button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('1');submitDetail('/import/saveNewArticlesOrderDetail')" >
+	        <button id="b2" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('1');submitDetail('/import/saveNewArticlesOrderDetail')" >
 	            ยืนยัน <span class="glyphicon glyphicon-ok"></span>
 	        </button>
         </div>
@@ -395,6 +409,7 @@
 			$('#editBtn1').prop('disabled', true);
 		}
 		
+		$('#b1').hide();
 		$('#add').hide();
 		$('#del').hide();
 		

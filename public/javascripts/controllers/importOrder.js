@@ -110,10 +110,12 @@ function setDetail(id,tab,page){
     			$('#code').val(result["code"]);
     			procumentStatus = result["status"];
     			if(procurementStatus == "UNCHANGE"){
-    				$('#editBtn2').prop('disabled',true);
+    				$('#editBtn2').prop('disabled',true);	
     			}else{
+    				$('#b2').text('แก้ไข ').append($('<span class="glyphicon glyphicon-ok"></span>'));
     				$('#editBtn2').show();
     			}
+    			$('#b2').hide();
     			$('#page2 input').prop('disabled', true);
     			$('#isEditingOn').val('false');
     		}else if(page == 3){
@@ -182,16 +184,20 @@ function clearPage(){
 	var fields6 = $('#page2 :input[type="radio"]');
 	$.each(fields2, function(i, field) {
 	    var dom = $(field);
-	    dom.val("");
+	    dom.val("").prop("disabled",false);
 	});
 	$.each(fields4, function(i, field) {
 		var dom = $(field);
-		dom.val(0);
+		dom.val(0).prop("disabled",false);
 	});
 	$.each(fields6, function(i, field) {
 		var dom = $(field);
-		dom.prop('checked', false);
+		dom.prop('checked', false).prop("disabled",false);
 	});
+	
+	$('#editBtn2').hide();
+	$('#b2').show();
+	$('#b2').text('ยืนยัน ').append($('<span class="glyphicon glyphicon-ok"></span>'));
 	
 }
 

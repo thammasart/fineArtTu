@@ -34,10 +34,10 @@
       <thead>
         <tr>
           <th></th>
-          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-          <th>วันที่เริ่มยืม<span class="glyphicon glyphicon-sort"></span></th>
-          <th>ผู้ยืม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ชื่อรายการ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่เริ่มยืม <span class="glyphicon glyphicon-sort"></span></th>
+          <th>ผู้ยืมครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
           <th>ทำรายการต่อ</th>
           </tr>
       </thead>
@@ -65,10 +65,10 @@
       <thead>
         <tr>
           <th></th>
-          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-          <th>วันที่เริ่มยืม<span class="glyphicon glyphicon-sort"></span></th>
-          <th>ผู้ยืม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ชื่อรายการ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่เริ่มยืม <span class="glyphicon glyphicon-sort"></span></th>
+          <th>ผู้ยืมครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
           <th>คืนครุภัณฑ์</th>
           </tr>
       </thead>
@@ -84,6 +84,9 @@
               <a href="@routes.ExportBorrow.returnFromBorrow(borrow.id)">
                 <button class="btn btn-xs btn-warning" > รับคืน </button> 
               </a>
+              <a href="@routes.ExportBorrow.viewDetail(borrow.id)">
+                <button class="btn btn-xs btn-info" > รายละเอียด </button> 
+              </a>
             </th>
           </tr>
         }
@@ -95,10 +98,10 @@
     <thead>
       <tr>
         <th></th>
-        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-        <th>วันที่เริ่มยืม<span class="glyphicon glyphicon-sort"></span></th>
-        <th>ผู้ยืม<span class="glyphicon glyphicon-sort"></span></th>
+        <th>ชื่อรายการ <span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่ <span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันที่เริ่มยืม <span class="glyphicon glyphicon-sort"></span></th>
+        <th>ผู้ยืมครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
         <th>รายละเอียด</th>
         </tr>
     </thead>

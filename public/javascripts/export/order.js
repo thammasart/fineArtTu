@@ -80,16 +80,16 @@ function getDetail(){
 		url: "/export/order/loadDetail",
 		data: {'id': requisition.id},
 		success: function(data){
-		   	//details = JSON.stringify(data);
-		    if(data["status"] == "SUCCESS"){
-			   	var tr = data["details"];
-			   	var arrayLength = tr.length;
-			   	var s = "";
-			   	destroyTable();
+			//details = JSON.stringify(data);
+			if(data["status"] == "SUCCESS"){
+				var tr = data["details"];
+				var arrayLength = tr.length;
+				var s = "";
+				destroyTable();
 				for (var i = 0; i < arrayLength; i++) {
 					s += '<tr id="detailRow' + tr[i].id + '">';
 					s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')">' +
-								' <input type="checkbox" id="detail' + tr[i].id + '"> </th>';
+					' <input type="checkbox" id="detail' + tr[i].id + '"> </th>';
 					s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')">'+(i+1)+'</th>';
 					if(tr[i].code){
 						s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')"> '+ tr[i].code.code +'</th>';
@@ -104,25 +104,24 @@ function getDetail(){
 						s += ' <th> null </th>';
 					}
 					if(tr[i].withdrawer){
-						s += '				<th>'+ tr[i].withdrawer.firstName + ' ' + tr[i].withdrawer.lastName +'</th>';
+						s += ' <th>'+ tr[i].withdrawer.firstName + ' ' + tr[i].withdrawer.lastName +'</th>';
 					}
 					else{
-						s += '				<th> null </th>';
+						s += ' <th> null </th>';
 					}
-					s += '				<th> </th>';
+					s += ' <th onclick="editDetail('+ tr[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" > แก้ไข </button> </th>';
 					s += '</tr>';
-			   	}
-			   	document.getElementById("detailInTable").innerHTML = s;
-			   	updateTable();
-
-			   	for (i = 0, len = checkedDetail.length; i < len; i++) {
-			   		document.getElementById("detail" + checkedDetail[i]).checked = true;
-    				document.getElementById("detailRow" + checkedDetail[i]).style.color = "#cc3300";
+				}
+				document.getElementById("detailInTable").innerHTML = s;
+				updateTable();
+				for (i = 0, len = checkedDetail.length; i < len; i++) {
+					document.getElementById("detail" + checkedDetail[i]).checked = true;
+					document.getElementById("detailRow" + checkedDetail[i]).style.color = "#cc3300";
 				}
 			}
 			else{
-		    	alert("get detail error : " + data["message"]);
-		    }
+				alert("get detail error : " + data["message"]);
+			}
 		}
 	});
 }
