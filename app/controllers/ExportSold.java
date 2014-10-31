@@ -102,21 +102,40 @@ public class ExportSold extends Controller {
         return redirect(routes.ExportSold.exportSold());
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
-    public static Result deleteAuction(long id){
-        User user = User.find.byId(session().get("username"));
-        Auction sold = Auction.find.byId(id);
-        if(sold != null && sold.status == ExportStatus.INIT){
-            for(AuctionDetail detail : sold.detail){
-                if(detail.durableArticles.status == SuppliesStatus.AUCTION){
-                    detail.durableArticles.status = SuppliesStatus.NORMAL;
-                    detail.durableArticles.update();
+    public static Result deleteAuction(){
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            for (final JsonNode objNode : json.get("detail")) {
+                Long id = Long.parseLong(objNode.toString());
+                Auction auction = Auction.find.byId(id);
+                if(auction != null){
+                    if(auction.status == ExportStatus.INIT){
+                        auction.status = ExportStatus.DELETE;
+                        auction.update();
+                    }
+                    else if(auction.status == ExportStatus.SUCCESS){
+                        for(AuctionDetail detail : auction.detail){
+                            if(detail.durableArticles.status == SuppliesStatus.AUCTION){
+                                detail.durableArticles.status = SuppliesStatus.NORMAL;
+                                detail.durableArticles.update();
+                            }
+                        }
+                        auction.status = ExportStatus.DELETE;
+                        auction.update();
+                    }
                 }
             }
-            sold.status = ExportStatus.DELETE;
-            sold.update();
+            result.put("status", "SUCCESS");
         }
-        return redirect(routes.ExportSold.exportSold());
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)

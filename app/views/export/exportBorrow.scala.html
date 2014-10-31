@@ -12,14 +12,12 @@
   <div class="tableHeaderBtnContainer">
 
     <div class="searchS">
-      <form>
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon">ค้นหา</span>
-            <input type="text" class="form-control" style="width:300px">
-          </div>
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon">ค้นหา</span>
+          <input type="text" class="form-control" style="width:300px">
         </div>
-      </form>
+      </div>
     </div>
     
     <div>
@@ -45,9 +43,9 @@
       </thead>
       <tbody>
         @for(borrow <- initList){
-          <tr>
-            <th> <input type="checkbox"/> </th>
-            <th>@borrow.title</th>
+          <tr id="row@borrow.id">
+            <th onclick="addDeleteList(@borrow.id)" > <input type="checkbox" id="checkbox@borrow.id" name="checkbox@borrow.id"> </th>
+            <th onclick="addDeleteList(@borrow.id)" >@borrow.title</th>
             <th>@borrow.number</th>
             <th>@borrow.getDateOfStartBorrow()</th>
             <th>@borrow.getWithdrawerToString()</th>
@@ -76,9 +74,9 @@
       </thead>
       <tbody>
         @for(borrow <- borrowList){
-          <tr>
-            <th> <input type="checkbox"/> </th>
-            <th>@borrow.title</th>
+          <tr id="row@borrow.id">
+            <th onclick="addDeleteList(@borrow.id)" > <input type="checkbox" id="checkbox@borrow.id"> </th>
+            <th onclick="addDeleteList(@borrow.id)" >@borrow.title</th>
             <th>@borrow.number</th>
             <th>@borrow.getDateOfStartBorrow()</th>
             <th>@borrow.getWithdrawerToString()</th>
@@ -106,9 +104,9 @@
     </thead>
     <tbody>
       @for(borrow <- successList){
-        <tr>
-          <th> <input type="checkbox"/> </th>
-          <th>@borrow.title</th>
+        <tr id="row@borrow.id">
+          <th onclick="addDeleteList(@borrow.id)" > <input type="checkbox" id="checkbox@borrow.id"> </th>
+          <th onclick="addDeleteList(@borrow.id)" >@borrow.title</th>
           <th>@borrow.number</th>
           <th>@borrow.getDateOfStartBorrow()</th>
           <th>@borrow.getWithdrawerToString()</th>

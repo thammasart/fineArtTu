@@ -19,9 +19,9 @@
 <!-- =============================================================================================================================== -->
 
 
-<button onclick="changeValue();" class="btn btn-danger btn-lg width250px" style="margin-bottom:1%;">
+<button id="button" onclick="changeValue();" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">
 	    	แก้ไขรายละเอียด
-	    </button>
+</button>
 	    
 	    <input id="activate" type="hidden" value=0>
 
@@ -65,22 +65,17 @@
     function changeValue()
     {
     	var value = $('#activate').val();
-    	
 
-    	if(value==0){
-    		$('#browse').prop('disabled',true); //fix only button 
-    		$('textarea').prop('disabled',true);		
-    		$('#fixButton').hide();
-    		$('#activate').val(1);
-    	}
-    	else
-    	{
     		var inputs = $('input');
     		$('#browse').prop('disabled',false); //fix only button 
     		$('#fixButton').show();
     		$('textarea').prop('disabled',false);	
     		$('#activate').val(0);
-    	}
+    		$('#minNumber').prop('disabled',false); 
+    		$('#classifier').prop('disabled',false); 
+    		$('#description').prop('disabled',false); 
+    		$('#button').hide();
+    	
     }
 </script>
 	    
@@ -149,7 +144,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >  ชื่อวัสดุ</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.description" name="description" id="description">
+                                <input id="description" type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.description" name="description" id="description">
                                 <span class="alertText" id="descriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
@@ -161,7 +156,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >หน่วย</span>
-                                <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า"  value="@code.classifier" name="classifier">
+                                <input id="classifier" type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า"  value="@code.classifier" name="classifier">
                             </div>
                       </div>
                 </div>        
@@ -170,7 +165,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >จำนวนขั้นต่ำสำหรับแจ้งเตือน</span>
-                                <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.minNumberToAlert" name="minNumberToAlert">
+                                <input id="minNumber" type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.minNumberToAlert" name="minNumberToAlert">
                             </div>
                       </div>
                 </div>
@@ -199,7 +194,7 @@
               </a>
               <a id="fixButton" href="@routes.Import.importsMaterial2("3")">
                   <button onclick="enableToSend();" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
-                      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+                      แก้ไข <span class="glyphicon glyphicon-ok"></span>
                   </button>
               </a>
 

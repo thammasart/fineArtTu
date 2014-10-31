@@ -5,6 +5,7 @@ var aiLists = [];
 var eoLists = [];
 var supplyList=[];
 var procumentDetailsTick = [];
+var procurementStatus = "null";
 
 
 $('document').ready(function(){
@@ -107,14 +108,25 @@ function setDetail(id,tab,page){
     			$('#brand').val(result["brand"]);
     			$('#serialNumber').val(result["serialNumber"]);
     			$('#code').val(result["code"]);
+    			procumentStatus = result["status"];
+    			if(procurementStatus == "UNCHANGE"){
+    				$('#editBtn2').prop('disabled',true);	
+    			}else{
+    				$('#b2').text('แก้ไข ').append($('<span class="glyphicon glyphicon-ok"></span>'));
+    				$('#editBtn2').show();
+    			}
+    			$('#page2 input').prop('disabled', true);
+    			$('#isEditingOn').val('false');
     		}else if(page == 3){
+    			
+    				
     			if(tab == 1){
     				for(var i = 0; i < result.subDetails.length; i++){
     					var subDetails = $('#sub'+(i+1)+' :input');
     					$.each(subDetails, function(j, field) {
         					if(j<8){
         						$(field).val(result.subDetails[i][j]);
-        						console.log(result.subDetails[i][j]);
+        						//console.log(result.subDetails[i][j]);
         					}
         				});
     				}
@@ -128,8 +140,23 @@ function setDetail(id,tab,page){
         				});
     				}
     			}
+    			var isEditing = $('#isEditingOn').val();
+    			var isDisabled = true;
+    			if(isEditing == 'true'){
+    				isDisabled = false;
+    			}
+    			$('#spreadSupply input').prop('disabled', isDisabled);
+    			$('#spreadSupply select').prop('disabled', isDisabled);
     		}
-    	}
+    	},
+    	statusCode:{
+	    	500: function(response){
+	    		//console.log(response.responseText);
+	    		var mywindow = window.open('', 'my div', 'height=400,width=600');
+	            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+	            mywindow.document.write(response.responseText);
+	 	    }
+	    }
 	});
 	
 }
@@ -156,16 +183,19 @@ function clearPage(){
 	var fields6 = $('#page2 :input[type="radio"]');
 	$.each(fields2, function(i, field) {
 	    var dom = $(field);
-	    dom.val("");
+	    dom.val("").prop("disabled",false);
 	});
 	$.each(fields4, function(i, field) {
 		var dom = $(field);
-		dom.val(0);
+		dom.val(0).prop("disabled",false);
 	});
 	$.each(fields6, function(i, field) {
 		var dom = $(field);
-		dom.prop('checked', false);
+		dom.prop('checked', false).prop("disabled",false);
 	});
+	
+	$('#editBtn2').hide();
+	$('#b2').text('ยืนยัน ').append($('<span class="glyphicon glyphicon-ok"></span>'));
 	
 }
 
@@ -500,6 +530,13 @@ function createAICommittee() {
     dv.innerHTML=getCommitteeTemplate('ai');
     document.getElementById("ai_committee").appendChild(dv);
     document.getElementById("aiLists").value = aiLists.join();
+    if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+    	$('#ai_committee input').prop('disabled', true);
+		$('#ai_committee select').prop('disabled', true);
+    }else{
+    	$('#ai_committee input').prop('disabled', false);
+		$('#ai_committee select').prop('disabled', false);
+    }
     initAutoCompleteName();
 }
 
@@ -508,6 +545,13 @@ function createEOCommittee(){
 	dv.innerHTML=getCommitteeTemplate('eo');
     document.getElementById("eo_committee").appendChild(dv);
     document.getElementById("eoLists").value = eoLists.join();
+    if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+    	$('#eo_committee input').prop('disabled', true);
+		$('#eo_committee select').prop('disabled', true);
+    }else{
+    	$('#eo_committee input').prop('disabled', false);
+		$('#eo_committee select').prop('disabled', false);
+    }
     initAutoCompleteNameEo();
 }
 function removeDivCommittee(name,num){

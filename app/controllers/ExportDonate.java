@@ -103,21 +103,40 @@ public class ExportDonate extends Controller {
         return redirect(routes.ExportDonate.exportDonate());
     }
 
+    @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
-    public static Result deleteDonation(long id){
-        User user = User.find.byId(session().get("username"));
-        Donation donate = Donation.find.byId(id);
-        if(donate != null && donate.status == ExportStatus.SUCCESS){
-            for(DonationDetail detail : donate.detail){
-                if(detail.durableArticles.status == SuppliesStatus.BORROW){
-                    detail.durableArticles.status = SuppliesStatus.NORMAL;
-                    detail.durableArticles.update();
+    public static Result deleteDonation(){
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            for (final JsonNode objNode : json.get("detail")) {
+                Long id = Long.parseLong(objNode.toString());
+                Donation donate = Donation.find.byId(id);
+                if(donate != null){
+                    if(donate.status == ExportStatus.INIT){
+                        donate.status = ExportStatus.DELETE;
+                        donate.update();
+                    }
+                    else if(donate.status == ExportStatus.SUCCESS){
+                        for(DonationDetail detail : donate.detail){
+                            if(detail.durableArticles.status == SuppliesStatus.DONATED){
+                                detail.durableArticles.status = SuppliesStatus.NORMAL;
+                                detail.durableArticles.update();
+                            }
+                        }
+                        donate.status = ExportStatus.DELETE;
+                        donate.update();
+                    }
                 }
             }
-            donate.status = ExportStatus.DELETE;
-            donate.update();
+            result.put("status", "SUCCESS");
         }
-        return redirect(routes.ExportDonate.exportDonate());
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
     }
 
     @BodyParser.Of(BodyParser.Json.class)

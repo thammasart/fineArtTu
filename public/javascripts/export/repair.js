@@ -1,11 +1,11 @@
 $(function () {
-    $('#datePๅ').datetimepicker({
+    $('#dateP1').datetimepicker({
   	  language:'th'
     })
 });
 
 $(function () {
-    $('#dateP/').datetimepicker({
+    $('#dateP2').datetimepicker({
   	  language:'th'
     })
 });
@@ -221,12 +221,30 @@ function init(id){
 	addRepairButton();
 }
 
+function initReceive(id){
+	isViewDetail = true;
+	document.getElementById("title").disabled = true;
+	document.getElementById("number").disabled = true;
+	document.getElementById("dateOfSentToRepair").disabled = true;
+	document.getElementById("approverFirstName").disabled = true;
+	document.getElementById("approverLastName").disabled = true;
+	document.getElementById("approverPosition").disabled = true;
+
+	document.getElementById("datepickerbuttonP1").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+	
+	init(id);
+	titleInHeader = "รับคืน";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
 function initViewDetial(id){
 	isViewDetail = true;
 	document.getElementById("title").disabled = true;
 	document.getElementById("number").disabled = true;
 	document.getElementById("dateOfSentToRepair").disabled = true;
 	document.getElementById("dateOfResiveFromRepair").disabled = true;
+	document.getElementById("repairCosts").disabled = true;
 	document.getElementById("approverFirstName").disabled = true;
 	document.getElementById("approverLastName").disabled = true;
 	document.getElementById("approverPosition").disabled = true;
@@ -247,6 +265,7 @@ function changeToEdit(){
 	document.getElementById("number").disabled = false;
 	document.getElementById("dateOfSentToRepair").disabled = false;
 	document.getElementById("dateOfResiveFromRepair").disabled = false;
+	document.getElementById("repairCosts").disabled = false;
 	document.getElementById("approverFirstName").disabled = false;
 	document.getElementById("approverLastName").disabled = false;
 	document.getElementById("approverPosition").disabled = false;
