@@ -37,10 +37,10 @@
       <thead>
         <tr>
           <th></th>
-          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-          <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>ร้านที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ชื่อรายการ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่อนุมัติ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>ร้านที่ส่งซ่อม <span class="glyphicon glyphicon-sort"></span></th>
           <th>ทำรายการต่อ</th>
           </tr>
       </thead>
@@ -68,10 +68,10 @@
       <thead>
         <tr>
           <th></th>
-          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-          <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-          <th>ร้านที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ชื่อรายการ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่อนุมัติ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>ร้านที่ส่งซ่อม <span class="glyphicon glyphicon-sort"></span></th>
           <th>คืนครุภัณฑ์</th>
           </tr>
       </thead>
@@ -79,12 +79,16 @@
         @for(repair <- repairingList){
           <tr id="row@repair.id">
             <th onclick="addDeleteList(@repair.id)" > <input type="checkbox" id="checkbox@repair.id" name="checkbox@repair.id"> </th>
-            <th onclick="addDeleteList(@repair.id)" >@repair.title</th>            <th>@repair.number</th>
+            <th onclick="addDeleteList(@repair.id)" >@repair.title</th>
+            <th>@repair.number</th>
             <th>@repair.getDateOfSentToRepair()</th>
             <th>@repair.getCompanyToString()</th>
             <th> 
               <a href="@routes.ExportRepair.receiveFromRepair(repair.id)">
                 <button class="btn btn-xs btn-warning" > รับคืน </button> 
+              </a>
+              <a href="@routes.ExportRepair.viewDetail(repair.id)">
+                <button class="btn btn-xs btn-info" > รายละเอียด </button> 
               </a>
             </th>
           </tr>
@@ -97,10 +101,10 @@
     <thead>
       <tr>
         <th></th>
-        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
-        <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
-        <th>ร้านที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th>
+        <th>ชื่อรายการ <span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่ <span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันที่อนุมัติ <span class="glyphicon glyphicon-sort"></span></th>
+        <th>ร้านที่ส่งซ่อม <span class="glyphicon glyphicon-sort"></span></th>
         <th>รายละเอียด</th>
         </tr>
     </thead>
