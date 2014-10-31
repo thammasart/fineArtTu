@@ -205,8 +205,15 @@ function submitDetail(path){
 	var data = {};
 	var fields1 = $('#page2 :input');
 	var fields2 = $('#spreadSupply :input');
-	if(fields2.length > 900){
-		for(var index = 0;index < fields2.length; index+=900){
+	var spreadLength = 9;
+	var maxLength;
+	if($('#typeOfGoods') != undefined){
+		spreadLength = 8
+	}
+	maxLength = spreadLength * 100;
+	
+	if(fields2.length > maxLength){
+		for(var index = 0;index < fields2.length; index+=maxLength){
 			data = {};
 			if(index == 0){
 				data['initFlag'] = "1";
@@ -214,12 +221,12 @@ function submitDetail(path){
 				data['initFlag'] = "0";
 			}
 			data['fracment'] = "true";
-			data['index'] = index/9;
+			data['index'] = index/spreadLength;
 			$.each(fields1,function(i,field){
 				var dom = $(field);
 				data[dom.attr('name')] = dom.val();
 			});
-			for(var i=index; i< index+900; i++){
+			for(var i=index; i< index+maxLength; i++){
 				var dom = $(fields2.get(i));
 				data[dom.attr('name')] = dom.val();
 			}
