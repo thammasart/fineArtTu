@@ -37,7 +37,7 @@ function addDeleteList(code){
         document.getElementById("row" + code).style.color = "#cc3300";
         document.getElementById("checkbox" + code).checked = true;
     }
-}
+}z
 
 function deleteDonate(){
     var dataDetail = {};

@@ -74,9 +74,9 @@
 
 
                   @for(fsn<- fsns){
-                    <tr>
-                    <th><input id="fsn.descriptionId" type="checkbox" onclick="addTick('@fsn.descriptionId','durableArticles','@fsn.descriptionDescription')"></th>
-                    <th>@fsn.descriptionId</th>
+                    <tr id="row@fsn.descriptionId">
+                    <th><input id="@fsn.descriptionId" type="checkbox" onclick="addTick('@fsn.descriptionId','durableArticles','@fsn.descriptionDescription')"></th>
+                    <th onclick="addTick('@fsn.descriptionId','durableArticles','@fsn.descriptionDescription')">@fsn.descriptionId</th>
                     <th>@fsn.descriptionDescription</th>
                     <th>@fsn.classifier</th>
                     <th>@fsn.typ.typeId</th>
@@ -160,9 +160,9 @@
             <tbody>
               @for(goodCode<- goodsCode){
 
-                  <tr>
-                  <th><input id="goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','consumableGoods','@goodCode.description')"></th>
-                  <th>@goodCode.code</th>
+                  <tr id="row@goodCode.code">
+                  <th><input id="@goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','consumableGoods','@goodCode.description')"></th>
+                  <th onclick="addTick('@goodCode.code','consumableGoods','@goodCode.description')">@goodCode.code</th>
                   <th>@goodCode.description</th>
                   <th>@goodCode.classifier</th>
                   <th>@goodCode.minNumberToAlert</th>
