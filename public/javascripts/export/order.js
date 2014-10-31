@@ -109,7 +109,7 @@ function getDetail(){
 					else{
 						s += ' <th> null </th>';
 					}
-					s += ' <th> </th>';
+					s += ' <th onclick="editDetail('+ tr[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" > แก้ไข </button> </th>';
 					s += '</tr>';
 				}
 				document.getElementById("detailInTable").innerHTML = s;
