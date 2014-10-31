@@ -11,7 +11,7 @@
 @headerTagFull("เพิ่มรายการโอนย้ายภายใน")
 
 @cancelExportAdd()
-
+@cancelList()
 <div class ="detailWindow" id="addWindows" >
   <form name="addTransferInside" method="post" action="@routes.ExportTransferInside.saveInternalTransfer(inside.id)" ng-init="findUser()" onsubmit="return submitButtonClick()">
 
@@ -84,7 +84,7 @@
         </div>
         <div>
           <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มครุภัณฑ์</button>
-          <button  type="button" class="btn btn-danger width200px" style="float:right;" onclick="deleteDetail()">ลบครุภัณฑ์</button>
+          <button  type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบครุภัณฑ์</button>
         </div> 
       </div>
 
@@ -98,6 +98,7 @@
             <th>สาขาวิชา<span class="glyphicon glyphicon-sort"></span></th>
             <th>ชั้น<span class="glyphicon glyphicon-sort"></span></th>
             <th>ห้อง<span class="glyphicon glyphicon-sort"></span></th>
+
           </tr>
         </thead>
         <tbody id="detailInTable">
@@ -109,7 +110,7 @@
 
     <div align="center" style="margin-bottom:1%;">
       <!--<a href="@routes.ExportTransferInside.cancelInternalTransfer(inside.id)">-->
-        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;"onclick="addId(@inside.id)" ng-click="openCancelModal('cancelInternalTransfer')">
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;"onclick="addId(@inside.id)" ng-click="openCancelModal('cancelInside')">
             <span class="glyphicon glyphicon-remove"></span> ยกเลิก
         </button>
       </a>

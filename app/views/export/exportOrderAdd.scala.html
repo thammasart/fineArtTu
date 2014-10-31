@@ -12,6 +12,7 @@
 
 
 @cancelExportAdd()
+@cancelList()
 <div class ="detailWindow" id="addWindows" >
   <form name="addOrder" method="post" action="@routes.ExportOrder.saveRequisition(requisition.id)" ng-init="findUser()" onsubmit="return submitButtonClick()">
     <div>
@@ -109,7 +110,7 @@
         </div>
         <div>
             <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มวัสดุ</button>
-            <button type="button" class="btn btn-danger width200px" style="float:right;" onclick="deleteDetail()">ลบวัสดุ</button>
+            <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบวัสดุ</button>
         </div> 
       </div>
 
