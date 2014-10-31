@@ -86,31 +86,32 @@ function getDetail(){
 			   	var arrayLength = tr.length;
 			   	var s = "";
 			   	destroyTable();
-				for (var i = 0; i < arrayLength; i++) {
-					s += '<tr id="detailRow' + tr[i].id + '">';
-					s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')">' +
-								' <input type="checkbox" id="detail' + tr[i].id + '"> </th>';
-					s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')">'+(i+1)+'</th>';
-					if(tr[i].code){
-						s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')"> '+ tr[i].code.code +'</th>';
-						s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')">'+ tr[i].code.description +'</th>';
-						s += ' <th>'+ tr[i].quantity+'</th>';
-						s += ' <th>'+ tr[i].code.classifier +'</th>';
+				for (var i = 0; i < length; i++) {
+					if((oldDetail.indexOf(allArticles[i].id) < 0)){
+						s += '<tr id="fsn' + allArticles[i].id + '" >';
+						s += '	<th onclick="addNewDetai(' + allArticles[i].id + ')"> ';
+						if(newDetail.indexOf(allArticles[i].id) > -1){
+							s += '<input type="checkbox" id="addDetail' + allArticles[i].id + '" checked';
+						}
+						else{
+							s += '<input type="checkbox" id="addDetail' + allArticles[i].id + '"';
+						}
+						s += '> </th>';
+						s += ' <th onclick="addNewDetai(' + allArticles[i].id + ')">'+ allArticles[i].code +'</th>';
+						if(allArticles[i].detail){
+							s += '	<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
+							s += '	<th>'+ allArticles[i].detail.price + ' / ' + allArticles[i].remainingPriceToString +'</th>';
+							s += '	<th>'+ allArticles[i].detail.llifeTime + ' ปี / ' + allArticles[i].remainLifetimeToString +'</th>';
+							s += '	<th>'+ allArticles[i].department + '</th>';
+						}
+						else{
+							s += '	<th>'+ 'ไม่มี' +'</th>';
+							s += '	<th>'+ 'ไม่มี' +'</th>';
+							s += '	<th>'+ 'ไม่มี' +'</th>';
+							s += '	<th>'+ allArticles[i].id + ' : ' + 'ไม่มี' +'</th>';
+						}
+						s += '</tr>';
 					}
-					else{
-						s += ' <th> null </th>';
-						s += ' <th> null </th>';
-						s += ' <th>'+tr[i].quantity+'</th>';
-						s += ' <th> null </th>';
-					}
-					if(tr[i].withdrawer){
-						s += '				<th>'+ tr[i].withdrawer.firstName + ' ' + tr[i].withdrawer.lastName +'</th>';
-					}
-					else{
-						s += '				<th> null </th>';
-					}
-					s += '				<th> </th>';
-					s += '</tr>';
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
 			   	updateTable();
