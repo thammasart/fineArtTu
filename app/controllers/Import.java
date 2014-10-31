@@ -1270,9 +1270,7 @@ public class Import extends Controller {
 			    			}
 			    			
 		    		}
-		    		System.out.println("After");
-		    		System.out.println(mc.remain);
-		    		System.out.println(mc.pricePerEach);
+
 	
 		    		///Calculateeeeeeeeeeeeeeeeeee
 		    	
