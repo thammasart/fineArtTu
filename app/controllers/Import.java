@@ -777,8 +777,10 @@ public class Import extends Controller {
     	articlesOrder.budgetType = form.get("budgetType");
     	articlesOrder.institute = form.get("institute");
     	articlesOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
-    	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"))
+    	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---")){
+    		System.out.println(form.get("institute"));
     		articlesOrder.company = Company.find.where().eq("nameEntrepreneur", form.get("institute")).findList().get(0);
+    	}
     	
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   AI 
     	
