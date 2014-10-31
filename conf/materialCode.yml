@@ -71,21 +71,29 @@
   description: กรรไกร 6"
   classifier:   เล่ม
   materialType: *cType001
+  minNumberToAlert: 10
+  remain: 10
 - &cCode002 !!models.MaterialCode
   code: '01002'
   description: กระดาษกาว 2 หน้า-บาง- 1" ครึ่ง
   classifier:   ม้วน
   materialType: *cType001
+  remain:      10
+  minNumberToAlert: 15
 - &cCode003 !!models.MaterialCode
   code: '01003'
   description: กระดาษกาว 2 หน้า-บาง-1"
   classifier:   ม้วน
   materialType: *cType001
+  remain : 20
+  minNumberToAlert: 15
 - &cCode004 !!models.MaterialCode
   code: '01004'
   description: กระดาษกาวย่น - 1"
   classifier:   ม้วน
   materialType: *cType001
+  remain: 15
+  minNumberToAlert: 10
 - &cCode005 !!models.MaterialCode
   code: '01005'
   description: กระดาษกาวย่น - 2"

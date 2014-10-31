@@ -1,13 +1,20 @@
 @(user : User ,borrow:models.durableArticles.Borrow)
 @header("exportBorrowAdd")
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/borrow.js")"></script>
-<body onload="init(@borrow.id)"> 
+<script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/exportBorrowAdd.js")"></script>
+
+<body onload="init(@borrow.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการยืม")
 
-<div id="addWindows" class ="detailWindow" >
+@cancelList()
+@cancelExportAdd()
+
+<div id="addWindows" class ="detailWindow" ng-init="findUser()">
   
   <form name="addSold" method="post" action="@routes.ExportBorrow.saveBorrow(borrow.id)">
     <div>
@@ -44,7 +51,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้ยืม:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.user!=null){value="@borrow.user.firstName"} name="withdrawerFirstName" id="withdrawerNmae" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.user!=null){value="@borrow.user.firstName"} name="withdrawerFirstName" id="withdrawerNmae" onkeyup="mapInput1()">
               <span class="alertText" id="withdrawerNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -103,7 +110,7 @@
         </div>
         <div>
           <button type="button" class="btn btn-success width200px" style="float:right;margin-left:1%;" onclick="addDetailButton()">เพิ่มครุภัณฑ์</button>
-          <button type="button" class="btn btn-danger width200px" style="float:right;" onclick="deleteDetail()">ลบครุภัณฑ์</button>
+          <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบครุภัณฑ์</button>
         </div> 
       </div>
 
@@ -124,11 +131,9 @@
 
 
     <div align="center" style="margin-bottom:1%;">
-      <a href="@routes.ExportBorrow.cancelBorrow(borrow.id)">
-        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="addId(borrow.id)" ng-click="openCancelModal('cancelBorrow')">
           <span class="glyphicon glyphicon-remove"></span> ยกเลิก
         </button>
-      </a>
         <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
           ยืนยัน <span class="glyphicon glyphicon-ok"></span>
         </button>
