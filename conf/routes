@@ -21,6 +21,7 @@ POST 	/export/order/saveRequisition 			controllers.ExportOrder.saveRequisition(i
 GET 	/export/order/cancelRequisition 		controllers.ExportOrder.cancelRequisition(id:Long)
 POST 	/export/order/saveDetail 				controllers.ExportOrder.saveOrderDetail()
 POST 	/export/order/deleteDetail 				controllers.ExportOrder.deleteOrderDetail()
+POST 	/export/order/editDetail 				controllers.ExportOrder.editOrderDetail()
 GET 	/export/order/loadDetail 				controllers.ExportOrder.loadOrderDetail(id:Long)
 GET 	/export/order/viewDetail 				controllers.ExportOrder.viewDetail(id:Long)
 
