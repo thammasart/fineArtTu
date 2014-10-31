@@ -56,7 +56,19 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                     });
                 });
                 $(function() {
+                    $( "#codeEdit" ).autocomplete({
+                      minLength:2,
+                      source: code
+                    });
+                });
+                $(function() {
                     $( "#groupCode" ).autocomplete({
+                      minLength:3,
+                      source: codeName
+                    });
+                });
+                $(function() {
+                    $( "#groupCodeEdit" ).autocomplete({
                       minLength:3,
                       source: codeName
                     });
@@ -88,6 +100,22 @@ var cancelModalInstanceCtrl = function($scope, $modalInstance){
 }
 function radioClick(rValue){
     document.getElementById("code").value = rValue;
+}
+function mapCodeNameToCodeEdit(){
+    var id = document.getElementById("groupCodeEdit").value ;
+    for(var j = 0; j <code.length;j++){
+        if(id == codeName[j]){
+            document.getElementById("codeEdit").value = code[j];            
+        }
+    }
+}
+function mapCodeToCodeNameEdit(){
+    var id = document.getElementById("codeEdit").value ;
+    for(var j = 0; j <code.length;j++){
+        if(id ==code[j]){
+            document.getElementById("groupCodeEdit").value = codeName[j];            
+        }
+    }
 }
 function mapCodeNameToCode(){
     var id = document.getElementById("groupCode").value ;
@@ -130,6 +158,11 @@ $(function() {
       source: userAll
     });
 });
+$(function() {
+    $( "#withdrawerEdit" ).autocomplete({
+      source: userAll
+    });
+});
 function mapInput3(){
     var id = document.getElementById("withdrawer").value ;
     for(var j = 0; j < userAll.length;j++){
@@ -137,6 +170,16 @@ function mapInput3(){
             document.getElementById("withdrawer").value = nameList[j];            
             document.getElementById("withdrawerLastname").value = lastnameList[j];
             document.getElementById("withdrawerPosition").value = positionList[j];
+        }
+    }
+}
+function mapInput4(){
+    var id = document.getElementById("withdrawerEdit").value ;
+    for(var j = 0; j < userAll.length;j++){
+        if(id == userAll[j]){
+            document.getElementById("withdrawerEdit").value = nameList[j];            
+            document.getElementById("withdrawerLastnameEdit").value = lastnameList[j];
+            document.getElementById("withdrawerPositionEdit").value = positionList[j];
         }
     }
 }

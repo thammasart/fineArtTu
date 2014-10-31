@@ -46,6 +46,7 @@ POST 	/export/donate/saveDetail 				controllers.ExportDonate.saveDonateDetail()
 POST 	/export/donate/deleteDetail 			controllers.ExportDonate.deleteDonateDetail()
 GET 	/export/donate/loadDetail 				controllers.ExportDonate.loadDonateDetail(id:Long)
 GET 	/export/donate/viewDetail 				controllers.ExportDonate.viewDetail(id:Long)
+GET 	/export/donate/autocompleteRepairCommitee               controllers.Export.autocompleteRepairCommitee()
 
 GET 	/export/sold 							controllers.ExportSold.exportSold()
 GET 	/export/sold/add 						controllers.ExportSold.exportSoldAdd(id:Long)
