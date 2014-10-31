@@ -34,20 +34,6 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                 userAll[i] = nameList[i]+" "+lastnameList[i]+" "+positionList[i] ;     
             }
          } 
-         $scope.openDeleteDetailModal = function(link) {
-             var cancelDetailModalInstance = $modal.open({
-                     templateUrl : 'cancelList.html',
-                     controller : cancelDetailModalCtrl,
-                     size : 'lg'
-             });
-         };
-
-         function combine() { 
-            for(var i = 0; i < nameList.length ; i++){
-                userAll[i] = nameList[i]+" "+lastnameList[i]+" "+positionList[i] ;     
-            }
-         } 
-
         $scope.findUser=function(){
             $http({method : 'GET',url : 'autocompleteExportCommitee' })
             .success(function(result){
@@ -100,17 +86,6 @@ var cancelModalInstanceCtrl = function($scope, $modalInstance){
         $modalInstance.dismiss();
     };
 }
-var cancelDetailModalCtrl= function($scope, $modalInstance){
-
-   $scope.ok = function () {
-        deleteDetail();
-        $modalInstance.close();
-    };
-
-    $scope.cancel = function () {
-        $modalInstance.dismiss();
-    };
-}
 function radioClick(rValue){
     document.getElementById("code").value = rValue;
 }
@@ -152,9 +127,6 @@ function mapInput2(){
 }
 $(function() {
     $( "#withdrawer" ).autocomplete({
-      source: userAll
-    });
-    $( "#withdrawerEdit" ).autocomplete({
       source: userAll
     });
 });
