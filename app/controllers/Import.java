@@ -1126,187 +1126,206 @@ public class Import extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result saveNewGoodsOrderDetail(){
     	RequestBody body = request().body();
-    	System.out.println(body);
+    	//System.out.println(body);
     	JsonNode json = body.asJson();
     	models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
     	models.durableGoods.ProcurementDetail procurementDetail = null;
-    	if(!json.get("procurementDetailId").asText().equals(""))
+    	if(!json.get("procurementDetailId").asText().equals("")){
     		procurementDetail = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(json.get("procurementDetailId").asText()));
+    	}else if(json.get("initFlag").asText().equals("0")){
+    		procurementDetail = procurement.details.get(procurement.details.size()-1); // get last procurementDetail
+    	}
     	
 
-	    	boolean editingMode = true;
-	    	
-	    	///Calculateeeeeeeeeeeeeeeeeee
-	    	double priceSub=-1;
-	    	int numSub=-1;
-	    	int typeSub=-1;
-	    	String codeSub="";
-	    	///Calculateeeeeeeeeeeeeeeeeee
-	    	
-	    	if(procurementDetail == null){ //new
-	    		procurementDetail = new models.durableGoods.ProcurementDetail();
-	    		editingMode = false;
-	    	}
-	    	///Calculateeeeeeeeeeeeeeeeeee
-	    	else{//not new
-	    		priceSub = procurementDetail.price;
-	    		numSub = procurementDetail.quantity;
-	    		typeSub = procurementDetail.typeOfDurableGoods;
-	    		codeSub = procurementDetail.code;
-	    	}
-	    	///Calculateeeeeeeeeeeeeeeeeee
-	    	
-	    	
-	    	if(editingMode == false || procurementDetail.status!=OrderDetailStatus.UNCHANGE)
-	    	{
+    	boolean editingMode = true;
+    	
+    	///Calculateeeeeeeeeeeeeeeeeee
+    	double priceSub=-1;
+    	int numSub=-1;
+    	int typeSub=-1;
+    	String codeSub="";
+    	///Calculateeeeeeeeeeeeeeeeeee
+    	
+    	if(procurementDetail == null){ //new
+    		procurementDetail = new models.durableGoods.ProcurementDetail();
+    		editingMode = false;
+    	}
+    	///Calculateeeeeeeeeeeeeeeeeee
+    	else{//not new
+    		priceSub = procurementDetail.price;
+    		numSub = procurementDetail.quantity;
+    		typeSub = procurementDetail.typeOfDurableGoods;
+    		codeSub = procurementDetail.code;
+    	}
+    	///Calculateeeeeeeeeeeeeeeeeee
+    	
+    	
+    	if(editingMode == false || procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+    	{
 
-		    	procurementDetail.description = json.get("description").asText();
-		    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
-		    	procurementDetail.price = Double.parseDouble(json.get("price").asText());
-		    	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
-		    	procurementDetail.remain = Integer.parseInt(json.get("quantity").asText());
-		    	
-		    	
-		    	
-		    	//procurementDetail.classifier = json.get("classifier").asText();
-		    	procurementDetail.seller =json.get("seller").asText();
-		    	procurementDetail.phone =json.get("phone").asText();
-		    	procurementDetail.brand = json.get("brand").asText();
-		    	procurementDetail.serialNumber = json.get("serialNumber").asText();
-		    	//procurementDetail.partOfPic = json.get("serialNumber").asText();
-		    	procurementDetail.procurement = procurement;
-		    	
-		    	String codeId = json.get("code").asText();
-		    	
-		    	
-		    	if(!codeId.equals("")){
-		    		procurementDetail.code = codeId; //fsn or code 5 number
-		    		procurementDetail.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
-		
-		    	}else{
-		    		System.out.println("\n\n Exception MaterialCode Not Found !!!! \n\n\n\n\n");
-		    	}
-		    	
-		    		///Calculateeeeeeeeeeeeeeeeeee
-		    		MaterialCode mc=null;
-		    		
-		    		System.out.println("Before");
+	    	procurementDetail.description = json.get("description").asText();
+	    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
+	    	procurementDetail.price = Double.parseDouble(json.get("price").asText());
+	    	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+	    	procurementDetail.remain = Integer.parseInt(json.get("quantity").asText());
+	    	
+	    	
+	    	
+	    	//procurementDetail.classifier = json.get("classifier").asText();
+	    	procurementDetail.seller =json.get("seller").asText();
+	    	procurementDetail.phone =json.get("phone").asText();
+	    	procurementDetail.brand = json.get("brand").asText();
+	    	procurementDetail.serialNumber = json.get("serialNumber").asText();
+	    	//procurementDetail.partOfPic = json.get("serialNumber").asText();
+	    	procurementDetail.procurement = procurement;
+	    	
+	    	String codeId = json.get("code").asText();
+	    	
+	    	
+	    	if(!codeId.equals("")){
+	    		procurementDetail.code = codeId; //fsn or code 5 number
+	    		procurementDetail.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
 	
-		    			
-		    		if(editingMode==false)//+ปกติ
-		    		{
-		    			if(procurementDetail.typeOfDurableGoods==0)	// เพิ่มตัวใหม่         /
-			    		{
-				    		mc= MaterialCode.find.byId(codeId);
-				    		System.out.println(mc.remain);
-				    		System.out.println(mc.pricePerEach);
-				    		
-			    			double sumPrice=mc.pricePerEach*mc.remain;
-			    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
-			    			
-			    			mc.remain=mc.remain+procurementDetail.quantity;
-			    			mc.pricePerEach=sumPrice/mc.remain;
-			    			mc.update();
-			    		}
-		    		}
-		    		else
-		    		{
-		    				if(procurementDetail.typeOfDurableGoods==1 && typeSub==0 )//เปลี่ยนจากสิ้นเปลืองเป็นคงทนถาวร จะลบออก /
-		    				{
-			    				mc= MaterialCode.find.byId(codeSub);
-			    	    		System.out.println(mc.remain);
-			    	    		System.out.println(mc.pricePerEach);
-					    		
-				    			double sumPrice=mc.pricePerEach*mc.remain;
-				    			sumPrice=sumPrice-(numSub*priceSub);
-				    			
-				    			mc.remain=mc.remain-numSub;
-				    			if(mc.remain>0)
-				    				mc.pricePerEach=sumPrice/mc.remain;
-				    			else
-				    				mc.pricePerEach=0;
-				    			mc.update();
-		    				}
-			    			
-			    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==0 )//เปลี่ยนค่าโดยที่วัสดุเป็นชนิดเดียวกัน /
-			    			{
-			    				mc= MaterialCode.find.byId(codeId);
-			    	    		System.out.println(mc.remain);
-			    	    		System.out.println(mc.pricePerEach);
-					    		
-				    			double sumPrice=mc.pricePerEach*mc.remain;
-				    			sumPrice=sumPrice-(numSub*priceSub);
-				    			
-				    			mc.remain=mc.remain-numSub;
-				    			if(mc.remain>0)
-				    				mc.pricePerEach=sumPrice/mc.remain;
-				    			else
-				    				mc.pricePerEach=0;
-				    			//////////////////////////////////////////
-				    			sumPrice=mc.pricePerEach*mc.remain;
-				    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
-				    			
-				    			mc.remain=mc.remain+procurementDetail.quantity;
-				    			
-				    			if(mc.remain>0)
-				    				mc.pricePerEach=sumPrice/mc.remain;
-				    			else
-				    				mc.pricePerEach=0;
-				    			mc.update();
-			    			}
-			    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==1 )//เปลี่ยนจากคงทนถาวรเป็นสิ้นเปลือง จะ+เพิ่ม /
-			    			{
-					    		mc= MaterialCode.find.byId(codeId);
-					    		System.out.println(mc.remain);
-					    		System.out.println(mc.pricePerEach);
-					    		
-				    			double sumPrice=mc.pricePerEach*mc.remain;
-				    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
-				    			
-				    			mc.remain=mc.remain+procurementDetail.quantity;
-				    			mc.pricePerEach=sumPrice/mc.remain;
-				    			mc.update();
-			    			}
-			    			
-		    		}
-		    		System.out.println("After");
+	    	}else{
+	    		System.out.println("\n\n Exception MaterialCode Not Found !!!! \n\n\n\n\n");
+	    	}
+	    	
+    		///Calculateeeeeeeeeeeeeeeeeee
+    		MaterialCode mc=null;
+    		
+    		System.out.println("Before");
+
+    			
+    		if(editingMode==false)//+ปกติ
+    		{
+    			if(procurementDetail.typeOfDurableGoods==0)	// เพิ่มตัวใหม่         /
+	    		{
+		    		mc= MaterialCode.find.byId(codeId);
 		    		System.out.println(mc.remain);
 		    		System.out.println(mc.pricePerEach);
+		    		
+	    			double sumPrice=mc.pricePerEach*mc.remain;
+	    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
+	    			
+	    			mc.remain=mc.remain+procurementDetail.quantity;
+	    			mc.pricePerEach=sumPrice/mc.remain;
+	    			mc.update();
+	    		}
+    		}
+    		else
+    		{
+    				if(procurementDetail.typeOfDurableGoods==1 && typeSub==0 )//เปลี่ยนจากสิ้นเปลืองเป็นคงทนถาวร จะลบออก /
+    				{
+	    				mc= MaterialCode.find.byId(codeSub);
+	    	    		System.out.println(mc.remain);
+	    	    		System.out.println(mc.pricePerEach);
+			    		
+		    			double sumPrice=mc.pricePerEach*mc.remain;
+		    			sumPrice=sumPrice-(numSub*priceSub);
+		    			
+		    			mc.remain=mc.remain-numSub;
+		    			if(mc.remain>0)
+		    				mc.pricePerEach=sumPrice/mc.remain;
+		    			else
+		    				mc.pricePerEach=0;
+		    			mc.update();
+    				}
+	    			
+	    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==0 )//เปลี่ยนค่าโดยที่วัสดุเป็นชนิดเดียวกัน /
+	    			{
+	    				mc= MaterialCode.find.byId(codeId);
+	    	    		System.out.println(mc.remain);
+	    	    		System.out.println(mc.pricePerEach);
+			    		
+		    			double sumPrice=mc.pricePerEach*mc.remain;
+		    			sumPrice=sumPrice-(numSub*priceSub);
+		    			
+		    			mc.remain=mc.remain-numSub;
+		    			if(mc.remain>0)
+		    				mc.pricePerEach=sumPrice/mc.remain;
+		    			else
+		    				mc.pricePerEach=0;
+		    			//////////////////////////////////////////
+		    			sumPrice=mc.pricePerEach*mc.remain;
+		    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
+		    			
+		    			mc.remain=mc.remain+procurementDetail.quantity;
+		    			
+		    			if(mc.remain>0)
+		    				mc.pricePerEach=sumPrice/mc.remain;
+		    			else
+		    				mc.pricePerEach=0;
+		    			mc.update();
+	    			}
+	    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==1 )//เปลี่ยนจากคงทนถาวรเป็นสิ้นเปลือง จะ+เพิ่ม /
+	    			{
+			    		mc= MaterialCode.find.byId(codeId);
+			    		System.out.println(mc.remain);
+			    		System.out.println(mc.pricePerEach);
+			    		
+		    			double sumPrice=mc.pricePerEach*mc.remain;
+		    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
+		    			
+		    			mc.remain=mc.remain+procurementDetail.quantity;
+		    			mc.pricePerEach=sumPrice/mc.remain;
+		    			mc.update();
+	    			}
+	    			
+    		}
+    		System.out.println("After");
+    		System.out.println(mc.remain);
+    		System.out.println(mc.pricePerEach);
+
+	    		///Calculateeeeeeeeeeeeeeeeeee
+	    	
+	    	if(!editingMode) procurementDetail.save();
+	    	else procurementDetail.update();
+	    	
+	    	int quantity = Integer.parseInt(json.get("quantity").asText());
+	    	int init = 1;
+	    	int halt = 100;
+	    	if(json.get("fracment").asText().equals("true")){
+	    		int index = Integer.parseInt(json.get("index").asText())+1;
+	    		if(quantity-index < 100){
+	    			init = index;
+	    			halt = quantity;
+	    		}else{
+	    			init = index;
+	    			halt = index+99;
+	    		}
+	    	}else{
+	    		init = 1;
+	    		halt = quantity;
+	    	}
 	
-		    		///Calculateeeeeeeeeeeeeeeeeee
+	    	for(int i=init;i<=halt;i++)
+	    	{	
+	    		DurableGoods goods;
+	    		if((i-1)<procurementDetail.subDetails.size()){
+	    			goods = procurementDetail.subDetails.get(i-1);
+	    			editingMode = true;
+	    		}
+	    		else{
+	    			goods = new DurableGoods();
+	    			editingMode = false;
+	    		}
 		    	
-		    	if(!editingMode) procurementDetail.save();
-		    	else procurementDetail.update();
-		    
-		
-		    	for(int i=1;i<=Integer.parseInt(json.get("quantity").asText());i++)
-		    	{	
-		    		DurableGoods goods;
-		    		if((i-1)<procurementDetail.subDetails.size()){
-		    			goods = procurementDetail.subDetails.get(i-1);
-		    			editingMode = true;
-		    		}
-		    		else{
-		    			goods = new DurableGoods();
-		    			editingMode = false;
-		    		}
-			    	
-			    	goods.department = json.get("goodDepartment"+i).asText();
-			    	goods.room = json.get("goodRoom"+i).asText();
-			    	goods.floorLevel = json.get("goodLevel"+i).asText();
-			    	goods.codes = json.get("goodFSNCode"+i).asText();
-			    	goods.title = json.get("goodPrefixName"+i).asText();			
-			    	goods.firstName = json.get("goodFirstName"+i).asText();		
-			    	goods.lastName = json.get("goodLastName"+i).asText();	
-			    	
-			    	goods.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
-			    	
-			    	goods.detail = procurementDetail;
-			    	
-			    	if(!editingMode) goods.save();
-			    	else goods.update();
-		    	}
-	    	}//end if(UNCHANGE)
+		    	goods.department = json.get("goodDepartment"+i).asText();
+		    	goods.room = json.get("goodRoom"+i).asText();
+		    	goods.floorLevel = json.get("goodLevel"+i).asText();
+		    	goods.codes = json.get("goodFSNCode"+i).asText();
+		    	goods.title = json.get("goodPrefixName"+i).asText();			
+		    	goods.firstName = json.get("goodFirstName"+i).asText();		
+		    	goods.lastName = json.get("goodLastName"+i).asText();	
+		    	
+		    	goods.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
+		    	
+		    	goods.detail = procurementDetail;
+		    	
+		    	if(!editingMode) goods.save();
+		    	else goods.update();
+	    	}
+    	}//end if(UNCHANGE)
 		
     	
     
@@ -1376,119 +1395,137 @@ public class Import extends Controller {
     	models.durableArticles.Procurement procurement = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
     	models.durableArticles.ProcurementDetail procurementDetail = null;
     	
-    	if(!json.get("procurementDetailId").asText().equals(""))
+    	if(!json.get("procurementDetailId").asText().equals("")){
     		procurementDetail = models.durableArticles.ProcurementDetail.find.byId(Long.parseLong(json.get("procurementDetailId").asText()));
+    	}else if(json.get("initFlag").asText().equals("0")){
+    		procurementDetail = procurement.details.get(procurement.details.size()-1); // get last procurementDetail
+    	}
     	
    
-	    	boolean editingMode = true;
+    	boolean editingMode = true;
+    	
+    	if(procurementDetail == null){
+    		procurementDetail = new models.durableArticles.ProcurementDetail();
+    		editingMode = false;
+    	}
+    	
+    	if(editingMode == false || procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+    	{
+	    	procurementDetail.description = json.get("description").asText();
+	    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
+	    	procurementDetail.price = Double.parseDouble(json.get("price").asText());
 	    	
-	    	if(procurementDetail == null){
-	    		procurementDetail = new models.durableArticles.ProcurementDetail();
-	    		editingMode = false;
+	    	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+	    	
+	    	if(procurementDetail.depreciationPrice == 0.0)
+	    		procurementDetail.depreciationPrice = procurementDetail.price*procurementDetail.quantity;
+	    	//procurementDetail.classifier = json.get("classifier").asText();
+	    	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
+	    	procurementDetail.alertTime = Double.parseDouble(json.get("alertTime").asText());
+	    	procurementDetail.seller =json.get("seller").asText();
+	    	procurementDetail.phone =json.get("phone").asText();
+	    	procurementDetail.brand = json.get("brand").asText();
+	    	procurementDetail.serialNumber = json.get("serialNumber").asText();
+	    	//procurementDetail.partOfPic = json.get("serialNumber").asText();
+	    	
+	    	procurementDetail.status =  OrderDetailStatus.INIT;
+	    	
+	    	procurementDetail.procurement = procurement;
+	    	
+	    	String fsnCode = json.get("fsnCode").asText();
+	    	if(!fsnCode.equals("")){
+	    		procurementDetail.fsn = FSN_Description.find.byId(fsnCode);
+	    	}else{
+	    		System.out.println("\n\n Exception FSN code not found in database!!!!!  \n\n\n\n");
 	    	}
 	    	
-	    	if(editingMode == false || procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+	    	if(!editingMode) procurementDetail.save();
+	    	else procurementDetail.update();
+	    	
+	    	
+	    	/*durableArticles.code = json.get("code").asText();
+	    	durableArticles.codeFromStock = json.get("codeFromStock").asText();
+	    	durableArticles.status = SuppliesStatus.NORMAL;
+	    	durableArticles.detail = procurementDetail;*/
+	    	int quantity = Integer.parseInt(json.get("quantity").asText());
+	    	int init = 1;
+	    	int halt = 100;
+	    	if(json.get("fracment").asText().equals("true")){
+	    		int index = Integer.parseInt(json.get("index").asText())+1;
+	    		if(quantity-index < 100){
+	    			init = index;
+	    			halt = quantity;
+	    		}else{
+	    			init = index;
+	    			halt = index+99;
+	    		}
+	    	}else{
+	    		init = 1;
+	    		halt = quantity;
+	    	}
+	    	for(int i=init;i<=halt;i++)
 	    	{
-		    	procurementDetail.description = json.get("description").asText();
-		    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
-		    	procurementDetail.price = Double.parseDouble(json.get("price").asText());
-		    	
-		    	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
-		    	
-		    	if(procurementDetail.depreciationPrice == 0.0)
-		    	procurementDetail.depreciationPrice = procurementDetail.price*procurementDetail.quantity;
-		    	//procurementDetail.classifier = json.get("classifier").asText();
-		    	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
-		    	procurementDetail.alertTime = Double.parseDouble(json.get("alertTime").asText());
-		    	procurementDetail.seller =json.get("seller").asText();
-		    	procurementDetail.phone =json.get("phone").asText();
-		    	procurementDetail.brand = json.get("brand").asText();
-		    	procurementDetail.serialNumber = json.get("serialNumber").asText();
-		    	//procurementDetail.partOfPic = json.get("serialNumber").asText();
-		    	
-		    	procurementDetail.status =  OrderDetailStatus.INIT;
-		    	
-		    	procurementDetail.procurement = procurement;
-		    	
-		    	String fsnCode = json.get("fsnCode").asText();
-		    	if(!fsnCode.equals("")){
-		    		procurementDetail.fsn = FSN_Description.find.byId(fsnCode);
-		    	}else{
-		    		System.out.println("\n\n Exception FSN code not found in database!!!!!  \n\n\n\n");
+	    		DurableArticles dA;
+	    		if((i-1)<procurementDetail.subDetails.size()){
+	    			dA = procurementDetail.subDetails.get(i-1);
+	    			editingMode = true; 
+	    		}
+	    		else{
+		    		dA = new DurableArticles();
+		    		editingMode = false;
 		    	}
 		    	
-		    	if(!editingMode) procurementDetail.save();
-		    	else procurementDetail.update();
+		    	dA.status = SuppliesStatus.INIT;
+		    	dA.department = json.get("articleDepartment"+i).asText();
+		    	dA.room = json.get("articleRoom"+i).asText();
+		    	dA.floorLevel = json.get("articleLevel"+i).asText();
+		    	dA.code = json.get("articleFSNCode"+i).asText();
+		    	dA.title = json.get("articlePrefixName"+i).asText();			
+		    	dA.firstName = json.get("articleFirstName"+i).asText();		
+		    	dA.lastName = json.get("articleLastName"+i).asText();			
+		    	dA.codeFromStock = json.get("articleStock"+i).asText(); 
+		    
+		    	dA.detail = procurementDetail;
 		    	
-		    	
-		    	/*durableArticles.code = json.get("code").asText();
-		    	durableArticles.codeFromStock = json.get("codeFromStock").asText();
-		    	durableArticles.status = SuppliesStatus.NORMAL;
-		    	durableArticles.detail = procurementDetail;*/
-		    	
-		    	for(int i=1;i<=Integer.parseInt(json.get("quantity").asText());i++)
-		    	{
-		    		DurableArticles dA;
-		    		if((i-1)<procurementDetail.subDetails.size()){
-		    			dA = procurementDetail.subDetails.get(i-1);
-		    			editingMode = true; 
-		    		}
-		    		else{
-			    		dA = new DurableArticles();
-			    		editingMode = false;
-			    	}
-			    	
-			    	dA.status = SuppliesStatus.INIT;
-			    	dA.department = json.get("articleDepartment"+i).asText();
-			    	dA.room = json.get("articleRoom"+i).asText();
-			    	dA.floorLevel = json.get("articleLevel"+i).asText();
-			    	dA.code = json.get("articleFSNCode"+i).asText();
-			    	dA.title = json.get("articlePrefixName"+i).asText();			
-			    	dA.firstName = json.get("articleFirstName"+i).asText();		
-			    	dA.lastName = json.get("articleLastName"+i).asText();			
-			    	dA.codeFromStock = json.get("articleStock"+i).asText(); 
-			    
-			    	dA.detail = procurementDetail;
-			    	
-			    	if(!editingMode) dA.save();
-			    	else dA.update();
-		    	}
+		    	if(!editingMode) dA.save();
+		    	else dA.update();
 	    	}
+    	}
 	
 	    	
-	    	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
-	    	ObjectNode result = Json.newObject();
-	    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
-	    	
-	    	int i=0;
-	    	int count=0;
-	    	for(models.durableArticles.ProcurementDetail p : procurementDetails){
-	    		
-	    		if(p.status != OrderDetailStatus.DELETE)
-	    		{
-		    		FSN_Description newFsn = FSN_Description.find.byId(p.fsn.descriptionId);
-		    		ObjectNode item = Json.newObject();
-		    		item.put("id", p.id);
-		    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
-					else item.put("fsn", "null");
-		    		item.put("description", p.description);
-		    		item.put("quantity", p.quantity);
-		    		item.put("classifier", "อัน");
-		    		item.put("price", p.price);
-		    		item.put("priceNoVat", p.priceNoVat);
-		    		item.put("lifeTime", p.llifeTime);
-		    		item.put("fileName", p.fsn.fileName);
-		    		item.put("fileType", p.fsn.fileType);
-		    		item.put("path", p.fsn.path);
-		
-		    		jsonArray.insert(i++, item);
-	    		}
-	    		else
-	    			count++;
-	    	}
-	    	result.put("type", "article");
-	    	result.put("length",(procurementDetails.size()-count));
-		    result.put("data",jsonArray);
+    	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
+    	ObjectNode result = Json.newObject();
+    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+    	
+    	int i=0;
+    	int count=0;
+    	for(models.durableArticles.ProcurementDetail p : procurementDetails){
+    		
+    		if(p.status != OrderDetailStatus.DELETE)
+    		{
+	    		FSN_Description newFsn = FSN_Description.find.byId(p.fsn.descriptionId);
+	    		ObjectNode item = Json.newObject();
+	    		item.put("id", p.id);
+	    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+				else item.put("fsn", "null");
+	    		item.put("description", p.description);
+	    		item.put("quantity", p.quantity);
+	    		item.put("classifier", "อัน");
+	    		item.put("price", p.price);
+	    		item.put("priceNoVat", p.priceNoVat);
+	    		item.put("lifeTime", p.llifeTime);
+	    		item.put("fileName", p.fsn.fileName);
+	    		item.put("fileType", p.fsn.fileType);
+	    		item.put("path", p.fsn.path);
+	
+	    		jsonArray.insert(i++, item);
+    		}
+    		else
+    			count++;
+    	}
+    	result.put("type", "article");
+    	result.put("length",(procurementDetails.size()-count));
+	    result.put("data",jsonArray);
     	return ok(result);
     }
     

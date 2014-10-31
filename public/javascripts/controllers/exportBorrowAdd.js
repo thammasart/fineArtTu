@@ -54,12 +54,12 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                 combine();
 
                 $(function() {
-                    $( "#recieveFirstName" ).autocomplete({
+                    $( "#withdrawerNmae" ).autocomplete({
                       source: userAll
                     });
                 });
                 $(function() {
-                    $( "#approverFirstName" ).autocomplete({
+                    $( "#approverName" ).autocomplete({
                       source: userAll
                     });
                 });
@@ -90,20 +90,20 @@ var cancelDetailModalCtrl= function($scope, $modalInstance){
     };
 }
 function mapInput1(){
-    var id = document.getElementById("recieveFirstName").value ;
+    var id = document.getElementById("withdrawerNmae").value ;
     for(var j = 0; j < userAll.length;j++){
         if(id == userAll[j]){
-            document.getElementById("recieveFirstName").value = nameList[j];            
-            document.getElementById("recieveLastName").value = lastnameList[j];
-            document.getElementById("recievePosition").value = positionList[j];
+            document.getElementById("withdrawerNmae").value = nameList[j];            
+            document.getElementById("withdrawerLastname").value = lastnameList[j];
+            document.getElementById("withdrawerPosition").value = positionList[j];
         }
     }
 }
 function mapInput2(){
-    var id = document.getElementById("approverFirstName").value ;
+    var id = document.getElementById("approverName").value ;
     for(var j = 0; j < userAll.length;j++){
         if(id == userAll[j]){
-            document.getElementById("approverFirstName").value = nameList[j];            
+            document.getElementById("approverName").value = nameList[j];            
             document.getElementById("approverLastName").value = lastnameList[j];
             document.getElementById("approverPosition").value = positionList[j];
         }

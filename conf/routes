@@ -68,6 +68,7 @@ POST 	/export/other/saveDetail 				controllers.ExportOther.saveOtherDetail()
 POST 	/export/other/deleteDetail 				controllers.ExportOther.deleteOtherDetail()
 GET 	/export/other/loadDetail 				controllers.ExportOther.loadOtherDetail(id:Long)
 GET 	/export/other/viewDetail 				controllers.ExportOther.viewDetail(id:Long)
+GET 	/export/other/autocompleteRepairCommitee 		controllers.Export.autocompleteRepairCommitee()
 
 GET 	/export/repair 							controllers.ExportRepair.exportRepairing()
 GET 	/export/repair/add 						controllers.ExportRepair.exportRepairingAdd(id:Long)
@@ -94,6 +95,7 @@ GET 	/export/borrow/loadDetail 				controllers.ExportBorrow.loadBorrowDetail(id:
 GET 	/export/borrow/viewDetail 				controllers.ExportBorrow.viewDetail(id:Long)
 GET 	/export/borrow/return 					controllers.ExportBorrow.returnFromBorrow(id:Long)
 POST 	/export/borrow/saveReturn 				controllers.ExportBorrow.saveReturn(id:Long)
+GET 	/export/borrow/autocompleteRepairCommitee 		controllers.Export.autocompleteRepairCommitee()
 
 GET     /export/order/autocompleteExportCommitee              controllers.Export.autocompleteExportCommitee()
 GET     /export/repair/autocompleteRepairCommitee             controllers.Export.autocompleteRepairCommitee()

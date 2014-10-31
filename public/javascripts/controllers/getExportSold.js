@@ -20,12 +20,30 @@ angular.module('exportModule', ['ui.bootstrap'])
          });
         exportLink = link;
      };
+     $scope.openDeleteDetailModal = function(link) {
+         var cancelDetailModalInstance = $modal.open({
+                 templateUrl : 'cancelList.html',
+                 controller : cancelDetailModalCtrl,
+                 size : 'lg'
+         });
+     };
 
 });
 var cancelModalInstanceCtrl = function($scope, $modalInstance){
 
    $scope.ok = function () {
         window.location.href = exportLink + "?id="+exportId ;
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
+var cancelDetailModalCtrl= function($scope, $modalInstance){
+
+   $scope.ok = function () {
+        deleteDetail();
         $modalInstance.close();
     };
 
