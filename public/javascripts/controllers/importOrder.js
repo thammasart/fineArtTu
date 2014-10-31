@@ -196,42 +196,91 @@ function clearPage(){
 }
 
 function submitDetail(path){
-	var data = {}
+	var data = {};
 	var fields1 = $('#page2 :input');
-	var fields2 = $('#page3 :input');
-	$.each(fields1,function(i,field){
-		var dom = $(field);
-		data[dom.attr('name')] = dom.val();
-	});
-	$.each(fields2,function(i,field){
-		var dom = $(field);
-		data[dom.attr('name')] = dom.val();
-	});
-	
-	$.ajax({
-		url: path,
-	    type: 'post',
-	    data: JSON.stringify(data),
-	    contentType: 'application/json',
-	    dataType: 'json',
-    	success: function(result){
-    		if(result["type"] == "article"){
-    			loadOrderArticle(result);
-    		}else{
-    			loadOrderGood(result);
-    		}
-    		$('#procurementDetailId').val("");
-    	},
-	    statusCode:{
-	    	500: function(response){
-	    		//console.log(response.responseText);
-	    		
-	    		var mywindow = window.open('', 'my div', 'height=400,width=600');
-	            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
-	            mywindow.document.write(response.responseText);
-	 	    }
-	    }
-	});
+	var fields2 = $('#spreadSupply :input');
+	if(fields2.length > 900){
+		for(var index = 0;index < fields2.length; index+=900){
+			data = {};
+			if(index == 0){
+				data['initFlag'] = "1";
+			}else{
+				data['initFlag'] = "0";
+			}
+			data['fracment'] = "true";
+			data['index'] = index/9;
+			$.each(fields1,function(i,field){
+				var dom = $(field);
+				data[dom.attr('name')] = dom.val();
+			});
+			for(var i=index; i< index+900; i++){
+				var dom = $(fields2.get(i));
+				data[dom.attr('name')] = dom.val();
+			}
+			$.ajax({
+				url: path,
+				type: 'post',
+				data: JSON.stringify(data),
+				contentType: 'application/json',
+				dataType: 'json',
+				success: function(result){
+					if(result["type"] == "article"){
+						loadOrderArticle(result);
+					}else{
+						loadOrderGood(result);
+					}
+					$('#procurementDetailId').val("");
+				},
+				async:   false,
+				statusCode:{
+					500: function(response){
+						//console.log(response.responseText);
+						
+						var mywindow = window.open('', 'my div', 'height=400,width=600');
+						/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+						mywindow.document.write(response.responseText);
+					}
+				}
+			});
+		}
+	}else{
+		data['fracment'] = "false";
+		data['initFlag'] = "-1";
+		$.each(fields1,function(i,field){
+			var dom = $(field);
+			data[dom.attr('name')] = dom.val();
+		});
+		console.log(fields2.length);
+		$.each(fields2,function(i,field){
+			var dom = $(field);
+			data[dom.attr('name')] = dom.val();
+		});
+		
+		$.ajax({
+			url: path,
+			type: 'post',
+			data: JSON.stringify(data),
+			contentType: 'application/json',
+			dataType: 'json',
+			success: function(result){
+				if(result["type"] == "article"){
+					loadOrderArticle(result);
+				}else{
+					loadOrderGood(result);
+				}
+				$('#procurementDetailId').val("");
+			},
+			statusCode:{
+				500: function(response){
+					//console.log(response.responseText);
+					
+					var mywindow = window.open('', 'my div', 'height=400,width=600');
+					/*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+					mywindow.document.write(response.responseText);
+				}
+			}
+		});
+	}
 }
 
 function getCommitteeTemplate(name){
