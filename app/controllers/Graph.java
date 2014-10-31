@@ -11,6 +11,7 @@ import models.durableArticles.Auction;
 import models.durableArticles.AuctionDetail;
 import models.durableArticles.Donation;
 import models.durableArticles.DonationDetail;
+import models.durableArticles.DurableArticles;
 import models.durableArticles.InternalTransfer;
 import models.durableArticles.InternalTransferDetail;
 import models.durableArticles.OtherTransfer;
@@ -44,6 +45,7 @@ public class Graph extends Controller {
 	             "#83A1BF","#C28FC2","#7ACCC2","#CCCC70","#A385E0",
 	             "#F0AB66","#B96A6A","#84BEA1","#99ACCA","#898BCD"};
 	private static String descriptionBtn = "<button class='btn btn-xs btn-info' onclick='desc()' > รายละเอียด</button>";
+	private static String[] department = {"สาขาวิชาการละคอน","สาขาวิชาศิลปะการออกแบบพัสตราภรณ์","สาขาวิชาศิลปะการออกแบบอุตสาหกรรม","สำนักงานเลขานุการ"};
 
     public static Result index() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
@@ -216,10 +218,10 @@ public class Graph extends Controller {
     		}
     		if(lCol == 1 || lCol == 2){
     			List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
-    			result = getTableBalanceArticle(ps,selectedName);
+    			result = getTableBalanceArticle(ps, selectedName, col);
     		}else if(lCol == 3 || lCol == 4){
     			List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
-    			result = getTableBalanceGoods(ps,selectedName);
+    			result = getTableBalanceGoods(ps, selectedName);
     		}
     	}
     	return result;
@@ -575,20 +577,74 @@ public class Graph extends Controller {
 	}
 
 	private static ArrayNode getDetailBalanceMapArticle(List<models.durableArticles.Procurement> ps){
-    	ArrayNode result = ps.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
-    	HashMap<String,Double> listResult = new HashMap<String,Double>();
+		ArrayList<String> columns = new ArrayList<String>();
+		columns.add("ละคอน");
+		columns.add("พัสตราภรณ์");
+		columns.add("อุตสาหกรรม");
+		columns.add("อื่นๆ");
+    	ArrayNode result = ps.size() > 0 ? getDetailHeader(columns) : JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Double[]> listResult = new HashMap<String,Double[]>();
 		for(models.durableArticles.Procurement p : ps){
 			for(models.durableArticles.ProcurementDetail pd : p.details){
 				String key = pd.fsn.typ.groupClass.group.groupDescription;
-				Double value = listResult.get(key);
-				if(value == null){
-					if(pd.quantity * pd.price != 0){
-						listResult.put(key, pd.quantity * pd.price);
-					}else{
-						listResult.put(key, pd.price);
+				for(DurableArticles d : pd.subDetails){
+					Double[] value = listResult.get(key);
+					if(d.department != null){
+						if(d.department.equals("สาขาวิชาการละคอน")){
+							if(value == null){
+								listResult.put(key, new Double[] {pd.price, 0.0, 0.0, 0.0});
+								/*if(pd.quantity * pd.price != 0){
+									listResult.put(key, new Double[] {pd.quantity * pd.price, 0.0, 0.0, 0.0});
+								}else{
+									listResult.put(key, new Double[] {pd.price, 0.0, 0.0, 0.0});
+								}*/
+							}else{
+								value = listResult.get(key);
+								value[0] = listResult.get(key)[0] + pd.price;
+								listResult.put(key, value);
+							}
+						}else if(d.department.equals("สาขาวิชาศิลปะการออกแบบพัสตราภรณ์")){
+							if(value == null){
+								listResult.put(key, new Double[] {0.0, pd.price, 0.0, 0.0});
+								/*if(pd.quantity * pd.price != 0){
+									listResult.put(key, new Double[] {0.0, pd.quantity * pd.price, 0.0, 0.0});
+								}else{
+									listResult.put(key, new Double[] {0.0, pd.price, 0.0, 0.0});
+								}*/
+							}else{
+								value = listResult.get(key);
+								value[1] = listResult.get(key)[1] + pd.price;
+								listResult.put(key, value);
+							}
+						}else if(d.department.equals("สาขาวิชาศิลปะการออกแบบอุตสาหกรรม")){
+							if(value == null){
+								listResult.put(key, new Double[] {0.0, 0.0, pd.price, 0.0});
+								/*if(pd.quantity * pd.price != 0){
+									listResult.put(key, new Double[] {0.0, 0.0, pd.quantity * pd.price, 0.0});
+								}else{
+									listResult.put(key, new Double[] {0.0, 0.0, pd.price, 0.0});
+								}*/
+							}else{
+								value = listResult.get(key);
+								value[2] = listResult.get(key)[2] + pd.price;
+								listResult.put(key, value);
+							}
+						}else{
+							if(value == null){
+								listResult.put(key, new Double[] {0.0, 0.0, 0.0, pd.price});
+								/*if(pd.quantity * pd.price != 0){
+									listResult.put(key, new Double[] {0.0, 0.0, 0.0, pd.quantity * pd.price});
+								}else{
+									listResult.put(key, new Double[] {0.0, 0.0, 0.0, pd.price});
+								}*/
+							}else{
+								value = listResult.get(key);
+								value[3] = listResult.get(key)[3] + pd.price;
+								listResult.put(key, value);
+							}
+						}
+						
 					}
-				}else{
-					listResult.put(key, listResult.get(key) + (pd.price * pd.quantity));
 				}
 			}
 		}
@@ -596,9 +652,13 @@ public class Graph extends Controller {
 		for (String key : listResult.keySet()) {
 			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
 			tr.add(key);
-			tr.add(listResult.get(key));
-			tr.add(colors[i++]);
-			tr.add(key);
+			tr.add(listResult.get(key)[0]);
+			tr.add(listResult.get(key)[1]);
+			tr.add(listResult.get(key)[2]);
+			tr.add(listResult.get(key)[3]);
+			//tr.add(listResult.get(key));
+			//tr.add(colors[i++]);
+			//tr.add(key);
 			result.add(tr);
 		}
 		return result;
@@ -775,23 +835,28 @@ public class Graph extends Controller {
 		return result;
 	}
 
-	private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps, String selectedName){
+	private static ArrayNode getTableBalanceArticle(List<models.durableArticles.Procurement> ps, String selectedName, int col){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
     	HashMap<String,String> ids = new HashMap<String,String>();
+    	System.out.println(department[col-1]);
 		for(models.durableArticles.Procurement p : ps){
 			for(models.durableArticles.ProcurementDetail pd : p.details){
-				if(pd.fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
-					String key = pd.fsn.descriptionDescription;
-					Double value = listResult.get(key);
-					if(value == null){
-						if(pd.quantity * pd.price != 0){
-							listResult.put(key, pd.quantity * pd.price);
-							ids.put(key,""+pd.id);
+				for(DurableArticles d : pd.subDetails){
+					if(department[col-1].equals(d.department)){
+						if(pd.fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
+							String key = pd.fsn.descriptionDescription;
+							Double value = listResult.get(key);
+							if(value == null){
+								if(pd.quantity * pd.price != 0){
+									listResult.put(key, pd.price);
+									ids.put(key,""+d.id);
+								}
+							}else{
+								listResult.put(key, listResult.get(key) + pd.price);
+								ids.put(key,ids.get(key)+","+d.id);
+							}
 						}
-					}else{
-						listResult.put(key, listResult.get(key) + (pd.quantity * pd.price));
-						ids.put(key,ids.get(key)+","+pd.id);
 					}
 				}
 			}

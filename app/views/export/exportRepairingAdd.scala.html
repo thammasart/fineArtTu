@@ -5,13 +5,15 @@
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/export/repair.js")"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
-<body onload="init(@repair.id)"> 
+  <body onload="init(@repair.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการส่งซ่อม")
 
-<div id="addWindows" class ="detailWindow" ng-app="userAccountModule" ng-controller="autoCompleteUserController">
+<div id="addWindows" class ="detailWindow" >
   
+@cancelExportAdd()
+@cancelList()
   <form onsubmit=" return submitButtonClick()"name="addSold" method="post" action="@routes.ExportRepair.saveRepairing(repair.id)" ng-init="findUser()">
     <div>
 
@@ -94,7 +96,7 @@
         </div>
         <div>
           <button type="button" class="btn btn-success width200px" style="float:right;margin-left:1%;" onclick="addDetailButton()">เพิ่มครุภัณฑ์</button>
-          <button type="button" class="btn btn-danger width200px" style="float:right;" onclick="deleteDetail()">ลบครุภัณฑ์</button>
+          <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบครุภัณฑ์</button>
         </div> 
       </div>
 
@@ -116,11 +118,9 @@
 
 
     <div align="center" style="margin-bottom:1%;">
-      <a href="@routes.ExportRepair.cancelRepairing(repair.id)">
-        <button  type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+        <button  type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="addId(repair.id)" ng-click="openCancelModal('cancelRepairing')">
           <span class="glyphicon glyphicon-remove"></span> ยกเลิก
         </button>
-      </a>
         <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
           ยืนยัน <span class="glyphicon glyphicon-ok"></span>
         </button>
@@ -188,7 +188,7 @@
     </div>
   </div>
 
-  <div align="center" style="margin-bottom:1%;">
+  <div align="right" style="margin-bottom:1%; margin-right:3%;">
 
     <button class="btn btn-danger btn-lg width250px" onclick="addRepairButton()" style="margin-top:1%;margin-right:1%;">
         <span class="glyphicon glyphicon-remove"></span> ยกเลิก

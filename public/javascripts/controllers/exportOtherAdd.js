@@ -13,8 +13,8 @@ var exportId;
     exportId = id;
  } 
 var desId;
-angular.module('userAccountModule', ['ui.bootstrap'])
-    .controller('autoCompleteUserController',function($scope,$http,$modal){
+angular.module('exportOtherApp', ['ui.bootstrap'])
+    .controller('exportOtherCtrl',function($scope,$http,$modal){
         
         $scope.name= [];
         $scope.lastname= [];
@@ -49,14 +49,12 @@ angular.module('userAccountModule', ['ui.bootstrap'])
          } 
 
         $scope.findUser=function(){
-            $http({method : 'GET',url : 'autocompleteExportCommitee' })
+            $http({method : 'GET',url : 'autocompleteRepairCommitee' })
             .success(function(result){
                 $scope.name= result.name;
                 $scope.lastname= result.lastname;
                 $scope.position= result.position;
 
-                code= result.code;
-                codeName= result.codeName;
                 nameList = $scope.name ;
                 lastnameList= $scope.lastname;
                 positionList= $scope.position;
@@ -64,19 +62,7 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                 combine();
 
                 $(function() {
-                    $( "#code" ).autocomplete({
-                      minLength:2,
-                      source: code
-                    });
-                });
-                $(function() {
-                    $( "#groupCode" ).autocomplete({
-                      minLength:3,
-                      source: codeName
-                    });
-                });
-                $(function() {
-                    $( "#firstName" ).autocomplete({
+                    $( "#recieveFirstName" ).autocomplete({
                       source: userAll
                     });
                 });
@@ -110,9 +96,6 @@ var cancelDetailModalCtrl= function($scope, $modalInstance){
     $scope.cancel = function () {
         $modalInstance.dismiss();
     };
-}
-function radioClick(rValue){
-    document.getElementById("code").value = rValue;
 }
 function mapCodeNameToCode(){
     var id = document.getElementById("groupCode").value ;
@@ -166,53 +149,53 @@ function mapInput3(){
     }
 }
 
-function submitButtonClick(){
-    
-    submitStatus = true;
-    if(document.getElementById("title").value==""){
-        document.getElementById("titleAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("titleAlert").style.display= "none";
-
-    if(document.getElementById("number").value ==""){
-        document.getElementById("numberAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("numberAlert").style.display= "none";
-
-    if(document.getElementById("date").value ==""){
-        document.getElementById("dateAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("dateAlert").style.display= "none";
-
-    if(document.getElementById("firstName").value==""){
-        document.getElementById("firstNameAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("firstNameAlert").style.display= "none";
-
-    if(document.getElementById("lastName").value ==""){
-        document.getElementById("lastNameAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("lastNameAlert").style.display= "none";
-
-    if(document.getElementById("position").value ==""){
-        document.getElementById("positionAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("positionAlert").style.display= "none";
-
-    if(document.getElementById("approverName").value==""){
-        document.getElementById("approverNameAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("approverNameAlert").style.display= "none";
-
-    if(document.getElementById("approverLastName").value ==""){
-        document.getElementById("approverLastNameAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("approverLastNameAlert").style.display= "none";
-
-    if(document.getElementById("approverPosition").value ==""){
-        document.getElementById("approverPositionAlert").style.display = "table-row";
-        submitStatus = false;
-    }else  document.getElementById("approverPositionAlert").style.display= "none";
-
-    return submitStatus;
-}
+//function submitButtonClick(){
+//    
+//    submitStatus = true;
+//    if(document.getElementById("title").value==""){
+//        document.getElementById("titleAlert").style.display = "table-row";
+//        submitStatus = false;
+//    }else  document.getElementById("titleAlert").style.display= "none";
+//
+//    if(document.getElementById("number").value ==""){
+//        document.getElementById("numberAlert").style.display = "table-row";
+//        submitStatus = false;
+//    }else  document.getElementById("numberAlert").style.display= "none";
+//
+//    if(document.getElementById("date").value ==""){
+//        document.getElementById("dateAlert").style.display = "table-row";
+//        submitStatus = false;
+//    }else  document.getElementById("dateAlert").style.display= "none";
+//
+//    if(document.getElementById("firstName").value==""){
+//        document.getElementById("firstNameAlert").style.display = "table-row";
+//        submitStatus = false;
+//    }else  document.getElementById("firstNameAlert").style.display= "none";
+//
+//    if(document.getElementById("lastName").value ==""){
+//        document.getElementById("lastNameAlert").style.display = "table-row";
+//        submitStatus = false;
+//    }else  document.getElementById("lastNameAlert").style.display= "none";
+//
+//    if(document.getElementById("position").value ==""){
+//        document.getElementById("positionAlert").style.display = "table-row";
+//        submitStatus = false;
+//    }else  document.getElementById("positionAlert").style.display= "none";
+//
+//    if(document.getElementById("approverName").value==""){
+//        document.getElementById("approverNameAlert").style.display = "table-row";
+//        submitStatus = false;
+//    }else  document.getElementById("approverNameAlert").style.display= "none";
+//
+//    if(document.getElementById("approverLastName").value ==""){
+//        document.getElementById("approverLastNameAlert").style.display = "table-row";
+//        submitStatus = false;
+//    }else  document.getElementById("approverLastNameAlert").style.display= "none";
+//
+//    if(document.getElementById("approverPosition").value ==""){
+//        document.getElementById("approverPositionAlert").style.display = "table-row";
+//        submitStatus = false;
+//    }else  document.getElementById("approverPositionAlert").style.display= "none";
+//
+//    return submitStatus;
+//}

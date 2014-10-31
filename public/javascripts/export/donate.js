@@ -118,7 +118,7 @@ function getDetail(){
 	$.ajax({
 		type: "GET",
 		url: "/export/donate/loadDetail",
-		data: {'id': donate.id},
+		data: {'id': donation.id},
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		    if(data["status"] == "SUCCESS"){

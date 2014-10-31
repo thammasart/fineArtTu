@@ -24,8 +24,16 @@ public class Application extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result home(){
+        List<MaterialCode> mc = MaterialCode.find.all();
+        List<MaterialCode> mcAlert = new ArrayList<MaterialCode>(); 
         User user = User.find.byId(request().username());
-    	return ok(home.render(user));
+
+        for(MaterialCode material : mc){
+            if(material.minNumberToAlert != 0 && material.minNumberToAlert >= material.remain){
+                mcAlert.add(material);
+            }
+        }
+    	return ok(home.render(user,mcAlert));
     }
 
     @Security.Authenticated(Secured.class)
