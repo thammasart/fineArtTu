@@ -1376,119 +1376,137 @@ public class Import extends Controller {
     	models.durableArticles.Procurement procurement = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("procurementId").asText()));
     	models.durableArticles.ProcurementDetail procurementDetail = null;
     	
-    	if(!json.get("procurementDetailId").asText().equals(""))
+    	if(!json.get("procurementDetailId").asText().equals("")){
     		procurementDetail = models.durableArticles.ProcurementDetail.find.byId(Long.parseLong(json.get("procurementDetailId").asText()));
+    	}if(json.get("initFlag").asText().equals("0")){
+    		procurementDetail = procurement.details.get(procurement.details.size()-1); // get last procurementDetail
+    	}
     	
    
-	    	boolean editingMode = true;
+    	boolean editingMode = true;
+    	
+    	if(procurementDetail == null){
+    		procurementDetail = new models.durableArticles.ProcurementDetail();
+    		editingMode = false;
+    	}
+    	
+    	if(editingMode == false || procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+    	{
+	    	procurementDetail.description = json.get("description").asText();
+	    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
+	    	procurementDetail.price = Double.parseDouble(json.get("price").asText());
 	    	
-	    	if(procurementDetail == null){
-	    		procurementDetail = new models.durableArticles.ProcurementDetail();
-	    		editingMode = false;
+	    	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
+	    	
+	    	if(procurementDetail.depreciationPrice == 0.0)
+	    	procurementDetail.depreciationPrice = procurementDetail.price*procurementDetail.quantity;
+	    	//procurementDetail.classifier = json.get("classifier").asText();
+	    	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
+	    	procurementDetail.alertTime = Double.parseDouble(json.get("alertTime").asText());
+	    	procurementDetail.seller =json.get("seller").asText();
+	    	procurementDetail.phone =json.get("phone").asText();
+	    	procurementDetail.brand = json.get("brand").asText();
+	    	procurementDetail.serialNumber = json.get("serialNumber").asText();
+	    	//procurementDetail.partOfPic = json.get("serialNumber").asText();
+	    	
+	    	procurementDetail.status =  OrderDetailStatus.INIT;
+	    	
+	    	procurementDetail.procurement = procurement;
+	    	
+	    	String fsnCode = json.get("fsnCode").asText();
+	    	if(!fsnCode.equals("")){
+	    		procurementDetail.fsn = FSN_Description.find.byId(fsnCode);
+	    	}else{
+	    		System.out.println("\n\n Exception FSN code not found in database!!!!!  \n\n\n\n");
 	    	}
 	    	
-	    	if(editingMode == false || procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+	    	if(!editingMode) procurementDetail.save();
+	    	else procurementDetail.update();
+	    	
+	    	
+	    	/*durableArticles.code = json.get("code").asText();
+	    	durableArticles.codeFromStock = json.get("codeFromStock").asText();
+	    	durableArticles.status = SuppliesStatus.NORMAL;
+	    	durableArticles.detail = procurementDetail;*/
+	    	int quantity = Integer.parseInt(json.get("quantity").asText());
+	    	int init = 1;
+	    	int halt = 100;
+	    	if(json.get("fracment").asText().equals("true")){
+	    		int index = Integer.parseInt(json.get("index").asText())+1;
+	    		if(quantity-index < 100){
+	    			init = index;
+	    			halt = quantity;
+	    		}else{
+	    			init = index;
+	    			halt = index+99;
+	    		}
+	    	}else{
+	    		init = 1;
+	    		halt = quantity;
+	    	}
+	    	for(int i=init;i<=halt;i++)
 	    	{
-		    	procurementDetail.description = json.get("description").asText();
-		    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
-		    	procurementDetail.price = Double.parseDouble(json.get("price").asText());
-		    	
-		    	procurementDetail.quantity = Integer.parseInt(json.get("quantity").asText());
-		    	
-		    	if(procurementDetail.depreciationPrice == 0.0)
-		    	procurementDetail.depreciationPrice = procurementDetail.price*procurementDetail.quantity;
-		    	//procurementDetail.classifier = json.get("classifier").asText();
-		    	procurementDetail.llifeTime = Double.parseDouble(json.get("llifeTime").asText());
-		    	procurementDetail.alertTime = Double.parseDouble(json.get("alertTime").asText());
-		    	procurementDetail.seller =json.get("seller").asText();
-		    	procurementDetail.phone =json.get("phone").asText();
-		    	procurementDetail.brand = json.get("brand").asText();
-		    	procurementDetail.serialNumber = json.get("serialNumber").asText();
-		    	//procurementDetail.partOfPic = json.get("serialNumber").asText();
-		    	
-		    	procurementDetail.status =  OrderDetailStatus.INIT;
-		    	
-		    	procurementDetail.procurement = procurement;
-		    	
-		    	String fsnCode = json.get("fsnCode").asText();
-		    	if(!fsnCode.equals("")){
-		    		procurementDetail.fsn = FSN_Description.find.byId(fsnCode);
-		    	}else{
-		    		System.out.println("\n\n Exception FSN code not found in database!!!!!  \n\n\n\n");
+	    		DurableArticles dA;
+	    		if((i-1)<procurementDetail.subDetails.size()){
+	    			dA = procurementDetail.subDetails.get(i-1);
+	    			editingMode = true; 
+	    		}
+	    		else{
+		    		dA = new DurableArticles();
+		    		editingMode = false;
 		    	}
 		    	
-		    	if(!editingMode) procurementDetail.save();
-		    	else procurementDetail.update();
+		    	dA.status = SuppliesStatus.INIT;
+		    	dA.department = json.get("articleDepartment"+i).asText();
+		    	dA.room = json.get("articleRoom"+i).asText();
+		    	dA.floorLevel = json.get("articleLevel"+i).asText();
+		    	dA.code = json.get("articleFSNCode"+i).asText();
+		    	dA.title = json.get("articlePrefixName"+i).asText();			
+		    	dA.firstName = json.get("articleFirstName"+i).asText();		
+		    	dA.lastName = json.get("articleLastName"+i).asText();			
+		    	dA.codeFromStock = json.get("articleStock"+i).asText(); 
+		    
+		    	dA.detail = procurementDetail;
 		    	
-		    	
-		    	/*durableArticles.code = json.get("code").asText();
-		    	durableArticles.codeFromStock = json.get("codeFromStock").asText();
-		    	durableArticles.status = SuppliesStatus.NORMAL;
-		    	durableArticles.detail = procurementDetail;*/
-		    	
-		    	for(int i=1;i<=Integer.parseInt(json.get("quantity").asText());i++)
-		    	{
-		    		DurableArticles dA;
-		    		if((i-1)<procurementDetail.subDetails.size()){
-		    			dA = procurementDetail.subDetails.get(i-1);
-		    			editingMode = true; 
-		    		}
-		    		else{
-			    		dA = new DurableArticles();
-			    		editingMode = false;
-			    	}
-			    	
-			    	dA.status = SuppliesStatus.INIT;
-			    	dA.department = json.get("articleDepartment"+i).asText();
-			    	dA.room = json.get("articleRoom"+i).asText();
-			    	dA.floorLevel = json.get("articleLevel"+i).asText();
-			    	dA.code = json.get("articleFSNCode"+i).asText();
-			    	dA.title = json.get("articlePrefixName"+i).asText();			
-			    	dA.firstName = json.get("articleFirstName"+i).asText();		
-			    	dA.lastName = json.get("articleLastName"+i).asText();			
-			    	dA.codeFromStock = json.get("articleStock"+i).asText(); 
-			    
-			    	dA.detail = procurementDetail;
-			    	
-			    	if(!editingMode) dA.save();
-			    	else dA.update();
-		    	}
+		    	if(!editingMode) dA.save();
+		    	else dA.update();
 	    	}
+    	}
 	
 	    	
-	    	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
-	    	ObjectNode result = Json.newObject();
-	    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
-	    	
-	    	int i=0;
-	    	int count=0;
-	    	for(models.durableArticles.ProcurementDetail p : procurementDetails){
-	    		
-	    		if(p.status != OrderDetailStatus.DELETE)
-	    		{
-		    		FSN_Description newFsn = FSN_Description.find.byId(p.fsn.descriptionId);
-		    		ObjectNode item = Json.newObject();
-		    		item.put("id", p.id);
-		    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
-					else item.put("fsn", "null");
-		    		item.put("description", p.description);
-		    		item.put("quantity", p.quantity);
-		    		item.put("classifier", "อัน");
-		    		item.put("price", p.price);
-		    		item.put("priceNoVat", p.priceNoVat);
-		    		item.put("lifeTime", p.llifeTime);
-		    		item.put("fileName", p.fsn.fileName);
-		    		item.put("fileType", p.fsn.fileType);
-		    		item.put("path", p.fsn.path);
-		
-		    		jsonArray.insert(i++, item);
-	    		}
-	    		else
-	    			count++;
-	    	}
-	    	result.put("type", "article");
-	    	result.put("length",(procurementDetails.size()-count));
-		    result.put("data",jsonArray);
+    	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
+    	ObjectNode result = Json.newObject();
+    	ArrayNode jsonArray = JsonNodeFactory.instance.arrayNode();
+    	
+    	int i=0;
+    	int count=0;
+    	for(models.durableArticles.ProcurementDetail p : procurementDetails){
+    		
+    		if(p.status != OrderDetailStatus.DELETE)
+    		{
+	    		FSN_Description newFsn = FSN_Description.find.byId(p.fsn.descriptionId);
+	    		ObjectNode item = Json.newObject();
+	    		item.put("id", p.id);
+	    		if(p.fsn != null) item.put("fsn", p.fsn.descriptionId);
+				else item.put("fsn", "null");
+	    		item.put("description", p.description);
+	    		item.put("quantity", p.quantity);
+	    		item.put("classifier", "อัน");
+	    		item.put("price", p.price);
+	    		item.put("priceNoVat", p.priceNoVat);
+	    		item.put("lifeTime", p.llifeTime);
+	    		item.put("fileName", p.fsn.fileName);
+	    		item.put("fileType", p.fsn.fileType);
+	    		item.put("path", p.fsn.path);
+	
+	    		jsonArray.insert(i++, item);
+    		}
+    		else
+    			count++;
+    	}
+    	result.put("type", "article");
+    	result.put("length",(procurementDetails.size()-count));
+	    result.put("data",jsonArray);
     	return ok(result);
     }
     

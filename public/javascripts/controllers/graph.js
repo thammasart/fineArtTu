@@ -87,7 +87,7 @@ function selectionHandler(){
 		getData('column');
 	}else if(state['page']==1){
 		var col = 3;
-		if(state['mode'] == 'transfer'){
+		if(state['mode'] == 'transfer' || state['mode'] == 'balance'){
 			console.log(data.getFormattedValue(object.row, 0));
 			col = 0;
 		}
@@ -147,7 +147,7 @@ function setData(obj,chart){
 				colors: color,
 				isStacked: true,
 			};
-		if(state['mode'] == 'transfer'){
+		if(state['mode'] == 'transfer' || state['mode'] == 'balance'){
 			newOption.legend = { position: "top" };
 		}
 		chart2.draw(data, newOption);

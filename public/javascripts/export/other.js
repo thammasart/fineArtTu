@@ -129,7 +129,7 @@ function getDetail(){
 				for (var i = 0; i < detailLength; i++) {
 					oldDetail.push(details[i].durableArticles.id);
 					s += '<tr id="detailRow' + details[i].id + '">';
-					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')"' +
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">' +
 								' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
 					s += '	<th>'+(i+1)+'</th>';
 					s += '	<th>'+ details[i].durableArticles.code +'</th>';
