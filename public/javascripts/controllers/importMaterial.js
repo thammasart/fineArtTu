@@ -68,11 +68,16 @@ function addTick(name,type,description)
 		if(durableArticlesTick.indexOf(materialsName) > -1){
 			durableArticlesTick.remove(materialsName);
 			durableArticlesNameTick.remove(description);
+			document.getElementById("row" + name).style.color = "";
+			document.getElementById(name).checked = false;
 		}else{
 			durableArticlesTick.push(materialsName);
 			durableArticlesNameTick.push(description);
+			document.getElementById("row" + name).style.color = "#cc3300";
+			document.getElementById(name).checked = true;
 		}
 	}
+	/*
 	else if(type=='durableGoods')
 	{
 		materialsName = name;
@@ -80,12 +85,17 @@ function addTick(name,type,description)
 		if(durableGoodsTick.indexOf(materialsName) > -1){
 			durableGoodsTick.remove(materialsName);
 			durableGoodsNameTick.remove(description);
+			document.getElementById("row" + name).style.color = "";
+			document.getElementById(name).checked = false;
 		}else{
 			durableGoodsTick.push(materialsName);
 			durableGoodsNameTick.push(description);
+			document.getElementById("row" + name).style.color = "#cc3300";
+			document.getElementById(name).checked = true;
 		}
 		
 	}
+	*/
 	else
 	{
 		materialsName = name;
@@ -93,14 +103,19 @@ function addTick(name,type,description)
 		if(consumableGoodsTick.indexOf(materialsName) > -1){
 			consumableGoodsTick.remove(materialsName);
 			consumableGoodsNameTick.remove(description);
+			document.getElementById("row" + name).style.color = "";
+			document.getElementById(name).checked = false;
 		}else{
 			consumableGoodsTick.push(materialsName);
 			consumableGoodsNameTick.push(description);
+			document.getElementById("row" + name).style.color = "#cc3300";
+			document.getElementById(name).checked = true;
 		}
 		
 	}
 	
 }//end func
+
 
 function removeMaterialCode(type){
 	var sendData;

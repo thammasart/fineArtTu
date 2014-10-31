@@ -475,7 +475,8 @@ public class Import extends Controller {
 	   		 int cantDel=0;
 	   		for(int i=0;i<codeInList.length;i++){
 	   			code = MaterialCode.find.byId(codeInList[i]);
-	   			int x = models.durableGoods.ProcurementDetail.find.where().eq("code", code).findRowCount();
+	   			
+	   			int x = models.durableGoods.ProcurementDetail.find.where().eq("code", code.code).findRowCount();
 	   			
 	   			if(x==0)
 	   			{

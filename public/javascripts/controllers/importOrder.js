@@ -437,11 +437,18 @@ function setValueBelow(name,num){
 function addTick(name){
 	var procumentDetailName = name;
 	console.log(procumentDetailsTick);
-	if(procumentDetailsTick.indexOf(procumentDetailName) > -1){
-		procumentDetailsTick.remove(procumentDetailName);
-	}else{
-		procumentDetailsTick.push(procumentDetailName);
-	}
+	
+
+		if(procumentDetailsTick.indexOf(procumentDetailName) > -1){
+			procumentDetailsTick.remove(procumentDetailName);
+			document.getElementById("row"+name).style.color = "";
+			document.getElementById("check"+name).checked = false;
+		}else{
+			procumentDetailsTick.push(procumentDetailName);
+			document.getElementById("row"+name).style.color = "#cc3300";
+			document.getElementById("check"+name).checked = true;
+		}
+	
 }
 
 function removeProcurementDetail(path){
@@ -473,9 +480,9 @@ function removeProcurementDetail(path){
 function loadOrderArticle(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
-		divTable += '				<tr id='+i+'>'+
-		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
-		'                    <th>'+ data['data'][i].id +'</th>'+
+		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
+		'                    <th><input id="check'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
+		'                    <th onclick="addTick('+ data['data'][i].id +')">'+ data['data'][i].id +'</th>'+
 		'                    <th>'+ data['data'][i].fsn +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
@@ -502,9 +509,9 @@ function loadOrderArticle(data){
 function loadOrderGood(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
-		divTable += '				<tr id='+i+'>'+
-		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
-		'                    <th>'+ data['data'][i].code +'</th>'+
+		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
+		'                    <th><input id="check'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
+		'                    <th onclick="addTick('+ data['data'][i].id +')">'+ data['data'][i].code +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
