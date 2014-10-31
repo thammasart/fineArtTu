@@ -154,6 +154,9 @@ $(function() {
     $( "#withdrawer" ).autocomplete({
       source: userAll
     });
+    $( "#withdrawerEdit" ).autocomplete({
+      source: userAll
+    });
 });
 function mapInput3(){
     var id = document.getElementById("withdrawer").value ;

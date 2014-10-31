@@ -11,14 +11,11 @@ var requisition = {
 };
 
 var detail = {
-	'code' : "00000",
-	'quantity' : 0,
-	'description' : "des",
-  	'withdrawerNmae' : "",
-  	'withdrawerLastname' : "",
-  	'withdrawerPosition' : "",
-  	'requisitionId': -1
 };
+
+var detailEdit = {};
+
+var details = [];
 
 var checkedDetail = [];
 var isViewDetail = false;
@@ -33,6 +30,7 @@ function addDetailButton(){
 	document.getElementById("withdrawerPosition").value = ''
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
+	document.getElementById("editDetailWindows").style.display = "none";
 	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการเบิกจ่าย";
 	document.getElementById("code").focus();
 }
@@ -40,7 +38,27 @@ function addDetailButton(){
 function addOrderButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("editDetailWindows").style.display = "none";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
+function editDetail(code){
+	document.getElementById("addWindows").style.display = "none";
+	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("editDetailWindows").style.display = "block";
+	document.getElementById("titleInHeader").innerHTML = "แก้ไขรายละเอียดการเบิกจ่าย";
+	for(i = 0, len = details.length; i < len; i++){
+		if(details[i].id == code){
+			detailEdit = details[i];
+		}
+	}
+	detailEdit.id = code;
+	document.getElementById("codeEdit").value = detailEdit.code.code;
+	document.getElementById("groupCodeEdit").value = detailEdit.code.description;
+	document.getElementById("quantityEdit").value = detailEdit.quantity;
+  	document.getElementById("withdrawerEdit").value = detailEdit.withdrawer.firstName;
+  	document.getElementById("withdrawerLastnameEdit").value = detailEdit.withdrawer.lastName;
+  	document.getElementById("withdrawerPositionEdit").value = detailEdit.withdrawer.position;
 }
 
 function update(){
@@ -49,14 +67,23 @@ function update(){
 }
 
 function updateDetail(){
-	detail.quantity = document.getElementById("quantity").value;
 	//detail.description = document.getElementById("description").value;
 	detail.code = document.getElementById("code").value;
+	detail.quantity = document.getElementById("quantity").value;
   	detail.withdrawerNmae = document.getElementById("withdrawer").value;
   	detail.withdrawerLastname = document.getElementById("withdrawerLastname").value;
   	detail.withdrawerPosition = document.getElementById("withdrawerPosition").value;
   	detail.requisitionId = requisition.id;
+}
 
+function updateEditDetail(){
+	//detail.description = document.getElementById("description").value;
+	detailEdit.code = document.getElementById("codeEdit").value;
+	detailEdit.quantity = document.getElementById("quantityEdit").value;
+  	detailEdit.withdrawerNmae = document.getElementById("withdrawerEdit").value;
+  	detailEdit.withdrawerLastname = document.getElementById("withdrawerLastnameEdit").value;
+  	detailEdit.withdrawerPosition = document.getElementById("withdrawerPositionEdit").value;
+  	detailEdit.requisitionId = requisition.id;
 }
 
 function addCheckedDetail(code){
@@ -83,6 +110,7 @@ function getDetail(){
 			//details = JSON.stringify(data);
 			if(data["status"] == "SUCCESS"){
 				var tr = data["details"];
+				details = data["details"];; 
 				var arrayLength = tr.length;
 				var s = "";
 				destroyTable();
@@ -131,7 +159,28 @@ function saveDetail(){
 	$.ajax({
 		url:'/export/order/saveDetail',
 	    type: 'post',
-	    data: JSON.stringify(detail),
+	    data: JSON.stringify(detailEdit),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+	    		addOrderButton()
+	    		getDetail();
+	    	}
+	    	else{
+	    		alert('save detail error : ' + result["message"]);
+	    	}
+    	}
+	});
+}
+
+function saveEditDetail(){
+	updateEditDetail();
+	$.ajax({
+		url:'/export/order/editDetail',
+	    type: 'post',
+	    data: JSON.stringify(detailEdit),
 	    contentType: 'application/json',
 	    dataType: 'json',
     	success: function(result){
