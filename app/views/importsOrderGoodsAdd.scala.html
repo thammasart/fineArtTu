@@ -18,7 +18,7 @@
     
     
 	@if(order.status.name == "SUCCESS"){
-		<button id="editBtn1" onclick="removeDisable1()">แก้ไข</button>
+		<button id="editBtn1" onclick="removeDisable1()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
 	}
 	<input id="orderStatus" type="hidden" value="@order.status.name">
 	
@@ -29,6 +29,9 @@
 				$('#page1 input').prop('disabled', false);
 				$('#page1 select').prop('disabled', false);
 				$('#orderStatus').val('');
+				$('#b1').show();
+				$('#add').show();
+				$('#del').show();
 			}
 		}
 	</script>
@@ -193,7 +196,11 @@ $('input').prop("disabled",false);
                 </button>
             </a>
                 <button form="saveOrderGood" type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;"  onclick="enable()">
-                    ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+                    @if(order.status.name == "SUCCESS"){แก้ไข
+                    }else{
+                    ยืนยัน
+                    }
+                    <span class="glyphicon glyphicon-ok"></span>
                 </button>
         </div>
         
@@ -206,13 +213,14 @@ $('input').prop("disabled",false);
       <!-- ------------------------------------------------------------------------------------------------------------------------ -->
 <div class="detailWindow" id="page2" >
 
-	<button id="editBtn2" onclick="removeDisable2()" hidden>แก้ไข</button>
+	<button id="editBtn2" onclick="removeDisable2()" hidden class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
 	<input id="isEditingOn" type="hidden" value="false">
 	<script>
 		function removeDisable2(){
 			$('#editBtn2').hide();
 			$('#isEditingOn').val('true');
 			$('#page2 input').prop('disabled', false);
+			$('#b2').show();
 		}
 	</script>
 	
@@ -367,7 +375,7 @@ $('input').prop("disabled",false);
             <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="showPage('2')">
 	            <span class="glyphicon glyphicon-chevron-left"></span> ย้อนกลับ
 	        </button>
- 		<button class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('1');submitDetail('/import/saveNewGoodsOrderDetail')" >
+ 		<button id="b2" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('1');submitDetail('/import/saveNewGoodsOrderDetail')" >
 	            ยืนยัน <span class="glyphicon glyphicon-ok"></span>
 	        </button>
         </div>
@@ -386,6 +394,7 @@ $('input').prop("disabled",false);
 		
 		$('#add').hide();
 		$('#del').hide();
+		$('#b1').hide();
 		
 		$('#search').prop('disabled', false);
 	}

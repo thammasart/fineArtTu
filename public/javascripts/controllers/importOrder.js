@@ -115,6 +115,7 @@ function setDetail(id,tab,page){
     				$('#b2').text('แก้ไข ').append($('<span class="glyphicon glyphicon-ok"></span>'));
     				$('#editBtn2').show();
     			}
+    			$('#b2').hide();
     			$('#page2 input').prop('disabled', true);
     			$('#isEditingOn').val('false');
     		}else if(page == 3){
@@ -195,6 +196,7 @@ function clearPage(){
 	});
 	
 	$('#editBtn2').hide();
+	$('#b2').show();
 	$('#b2').text('ยืนยัน ').append($('<span class="glyphicon glyphicon-ok"></span>'));
 	
 }
