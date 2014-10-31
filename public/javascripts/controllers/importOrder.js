@@ -112,7 +112,7 @@ function setDetail(id,tab,page){
     			if(procurementStatus == "UNCHANGE"){
     				$('#editBtn2').prop('disabled',true);	
     			}else{
-    				$('#b2').text('แก้ไข /');
+    				$('#b2').text('แก้ไข ').append($('<span class="glyphicon glyphicon-ok"></span>'));
     				$('#editBtn2').show();
     			}
     			$('#page2 input').prop('disabled', true);
@@ -195,7 +195,7 @@ function clearPage(){
 	});
 	
 	$('#editBtn2').hide();
-	$('#b2').text('ยืนยัน /');
+	$('#b2').text('ยืนยัน ').append($('<span class="glyphicon glyphicon-ok"></span>'));
 	
 }
 
