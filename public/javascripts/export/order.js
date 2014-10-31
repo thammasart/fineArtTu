@@ -10,8 +10,7 @@ var requisition = {
 	'number': ""
 };
 
-var detail = {
-};
+var detail = {};
 
 var detailEdit = {};
 
@@ -159,7 +158,7 @@ function saveDetail(){
 	$.ajax({
 		url:'/export/order/saveDetail',
 	    type: 'post',
-	    data: JSON.stringify(detailEdit),
+	    data: JSON.stringify(detail),
 	    contentType: 'application/json',
 	    dataType: 'json',
     	success: function(result){

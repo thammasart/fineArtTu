@@ -207,9 +207,10 @@ function submitDetail(path){
 	var fields2 = $('#spreadSupply :input');
 	var spreadLength = 9;
 	var maxLength;
-	if($('#typeOfGoods') != undefined){
+	if(document.getElementById('typeOfGoods') != null){
 		spreadLength = 8
 	}
+	console.log(spreadLength);
 	maxLength = spreadLength * 100;
 	
 	if(fields2.length > maxLength){
