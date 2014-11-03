@@ -304,6 +304,7 @@ function getDescription(className, ids){
 
 function backToTable(){
 	$('#description').hide();
+	$('#description').html("");
 	$('#tablePane').show();
 }
 
@@ -313,6 +314,7 @@ $(document).on('shown.bs.tab', 'a[href="#relation"]', function (e) {
 	state['page'] = 0;
 	state['selectedName'] = 'default';
 	drawChart();
+	backToTable();
 });
 
 $(document).on('shown.bs.tab', 'a[href="#tracking"]', function (e) {
