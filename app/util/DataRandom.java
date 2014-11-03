@@ -204,7 +204,6 @@ public class DataRandom {
 		d.department = department[rand.nextInt(department.length)];
 		d.room = randomString(4);
 		d.floorLevel = randomString(2);
-		d.code = pd.code;
 		d.codes = pd.code;
 		d.title = randomString();
 		d.firstName = randomString();
