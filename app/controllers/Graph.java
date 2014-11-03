@@ -1505,7 +1505,7 @@ public class Graph extends Controller {
 			MaterialCode m = MaterialCode.find.byId(id);
 			if(d!=null){
 				result += "<div class=\"well\">";
-				result += "code : " + d.code + "<br>";
+				result += "code : " + d.codes + "<br>";
 				result += "ชื่อวัสดุ : " + d.detail.description + "<br>";
 				result += "คำนำหน้า : " + d.title + "<br>";
 				result += "firstName : " + d.firstName + "<br>";
