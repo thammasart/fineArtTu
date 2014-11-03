@@ -264,6 +264,49 @@ var setOption = function(obj) {
 		options[k] = obj[k];
 }
 
+function getDescription(className, ids){
+	$.ajax({
+		url:'/graphDescription',
+	    type: 'post',
+	    data: JSON.stringify({"className" : className, "ids" : ids}),
+	    contentType: 'application/json',
+	    dataType: 'json',
+	    statusCode:{
+	    	200: function(response){
+	    		document.getElementById('description').innerHTML = response.responseText;
+	    		$('#tablePane').hide();
+	    		$('#description').show();
+	    		
+	    		$('.myBtn').on('click', function(e) {
+
+    			    $header = $(this);
+    			    //getting the next element
+    			    $content = $header.next();
+    			    //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+    			    $content.slideToggle(500);
+
+	    		});
+	    		
+	    		//console.log(response.responseText);
+	    		/*var mywindow = window.open('', 'my div', 'height=400,width=600');
+	            optional stylesheet //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+	            mywindow.document.write(response.responseText);*/
+	 	    },
+	    	500: function(response){
+	    		//console.log(response.responseText);
+	    		var mywindow = window.open('', 'my div', 'height=400,width=600');
+	            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+	            mywindow.document.write(response.responseText);
+	 	    }
+	    }
+	});
+}
+
+function backToTable(){
+	$('#description').hide();
+	$('#tablePane').show();
+}
+
 $(document).on('shown.bs.tab', 'a[href="#relation"]', function (e) {
 	state['clickedItem'] = {'row':-1 , 'column':-1};
 	state['lastSelected'] = state['clickedItem'];

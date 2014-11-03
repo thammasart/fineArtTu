@@ -8,3 +8,12 @@
 	background: grey;
 	float:left;
 }
+.myBtn{
+	background: #e5e5e5;
+	box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.067);
+	display: inline-block;
+}
+.myBtn:hover{
+	background: #f0f0f0;
+	text-decoration: none;
+}

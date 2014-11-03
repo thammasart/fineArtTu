@@ -119,7 +119,6 @@ function setDetail(id,tab,page){
     			$('#page2 input').prop('disabled', true);
     			$('#isEditingOn').val('false');
     		}else if(page == 3){
-    			
     				
     			if(tab == 1){
     				for(var i = 0; i < result.subDetails.length; i++){
@@ -198,7 +197,7 @@ function clearPage(){
 	$('#editBtn2').hide();
 	$('#b2').show();
 	$('#b2').text('ยืนยัน ').append($('<span class="glyphicon glyphicon-ok"></span>'));
-	
+	$('#procurementDetailId').val("");
 }
 
 function submitDetail(path){
