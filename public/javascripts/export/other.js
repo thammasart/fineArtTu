@@ -208,6 +208,88 @@ function deleteDetail(){
 	});
 }
 
+function add_FF_committree(){
+	var i = parseInt(document.getElementById("numberOf_FF_committee").value);
+	destroyTable();
+
+	var table = document.getElementById("FF_committee_table");
+    var tr = table.insertRow();
+    tr.id = 'FF'+i;
+
+	var s = '<th> <input name="FF_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input name="FF_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input name="FF_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input name="FF_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> ';
+	   s += '  <select name="FF_cType'+i+'" class="form-control textAlignCenter width175px">';
+	   s += '    <option>---เลือก---</option>';
+	   s += '    <option>ข้าราชการ</option>';
+	   s += '    <option>พนักงานมหาลัย</option>';
+	   s += '  </select>';
+	   s += '</th>';
+	   s += '<th> ';
+	   s += '  <select name="FF_cPosition'+i+'" class="form-control textAlignCenter width175px">';
+	   s += '    <option>---เลือก---</option>';
+	   s += '    <option>ประธานกรรมการ</option>';
+	   s += '    <option>กรรมการ</option>';
+	   s += '    <option>กรรมการและเลขานุการ</option>';
+	   s += '  </select>';
+	   s += '</th> ';
+	   s += '<th> <button type="button" class="btn btn btn-danger" onclick="delete_FF_committree('+i+')"> ลบ </button> </th>';
+
+	document.getElementById(tr.id).innerHTML = s;
+	updateTable();
+	i++;
+	document.getElementById("numberOf_FF_committee").value = i;
+}
+
+function delete_FF_committree(num){
+	destroyTable();
+	document.getElementById("FF"+num).remove();
+	updateTable();
+}
+
+function add_D_committree(){
+	var i = parseInt(document.getElementById("numberOf_D_committee").value);
+	destroyTable();
+
+	var table = document.getElementById("D_committee_table");
+    var tr = table.insertRow();
+    tr.id = 'D'+i;
+
+    var s = '<th> <input name="D_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input name="D_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input name="D_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input name="D_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> ';
+	   s += '  <select name="D_cType'+i+'" class="form-control textAlignCenter width175px">';
+	   s += '    <option>---เลือก---</option>';
+	   s += '    <option>ข้าราชการ</option>';
+	   s += '    <option>พนักงานมหาลัย</option>';
+	   s += '  </select>';
+	   s += '</th>';
+	   s += '<th> ';
+	   s += '  <select name="D_cPosition'+i+'" class="form-control textAlignCenter width175px">';
+	   s += '    <option>---เลือก---</option>';
+	   s += '    <option>ประธานกรรมการ</option>';
+	   s += '    <option>กรรมการ</option>';
+	   s += '    <option>กรรมการและเลขานุการ</option>';
+	   s += '  </select>';
+	   s += '</th> ';
+	   s += '<th> <button type="button" class="btn btn btn-danger" onclick="delete_D_committree('+i+')"> ลบ </button> </th>';
+
+	document.getElementById(tr.id).innerHTML = s;
+	updateTable();
+	i++;
+	document.getElementById("numberOf_D_committee").value = i;
+}
+
+function delete_D_committree(num){
+	destroyTable();
+	document.getElementById("D"+num).remove();
+	updateTable();
+}
+
 function init(id){
 	other.id = id;
 	addOtherButton();

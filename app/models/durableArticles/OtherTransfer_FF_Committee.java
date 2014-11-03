@@ -4,7 +4,7 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 import models.type.CommitteeType;
-import models.Committee;
+import models.User;
 
 @Entity
 @Table (name = "other_transfer_ff_committee")
@@ -14,7 +14,7 @@ public class OtherTransfer_FF_Committee extends Model{
 	public long id;
 
 	@ManyToOne
-	public Committee committee;	// กรรมการ
+	public User user;	// กรรมการ
 	@ManyToOne
 	public OtherTransfer otherTransfer; // การโอนย้ายข้ามหน่ายงาน
 	
