@@ -597,10 +597,12 @@ function createAICommittee() {
     document.getElementById("ai_committee").appendChild(dv);
     document.getElementById("aiLists").value = aiLists.join();
     if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
-    	$('#ai_committee input').prop('disabled', true);
+    	$('#ai_committee :input').prop('disabled', true);
+    	$('#AiButton').prop('disabled', true);
 		$('#ai_committee select').prop('disabled', true);
     }else{
     	$('#ai_committee input').prop('disabled', false);
+    	$('#AiButton').prop('disabled', false);
 		$('#ai_committee select').prop('disabled', false);
     }
     initAutoCompleteName();
@@ -612,10 +614,12 @@ function createEOCommittee(){
     document.getElementById("eo_committee").appendChild(dv);
     document.getElementById("eoLists").value = eoLists.join();
     if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
-    	$('#eo_committee input').prop('disabled', true);
+    	$('#eo_committee :input').prop('disabled', true);
+    	$('#EoButton').prop('disabled', true);
 		$('#eo_committee select').prop('disabled', true);
     }else{
     	$('#eo_committee input').prop('disabled', false);
+    	$('#EoButton').prop('disabled', false);
 		$('#eo_committee select').prop('disabled', false);
     }
     initAutoCompleteNameEo();

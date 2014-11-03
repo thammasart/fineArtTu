@@ -24,7 +24,7 @@
 		function removeDisable1(){
 			if($('#orderStatus').val() == "SUCCESS"){
 				$('#editBtn1').hide();
-				$('#page1 input').prop('disabled', false);
+				$('#page1 :input').prop('disabled', false);
 				$('#page1 select').prop('disabled', false);
 				$('#orderStatus').val('');
 				$('#b1').show();
@@ -127,11 +127,11 @@
             <input id="eoLists" type="hidden" name="eoLists" >
     <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     
-            <legend>คณะกรรมการเปิดซอง <button type="button" onclick="createEOCommittee()">เพิ่ม</button> </legend>
+            <legend>คณะกรรมการเปิดซอง <button id="AiButton" type="button" onclick="createEOCommittee()">เพิ่ม</button> </legend>
             <div class="form-inline marginBtm1" role="form" id="eo_committee" style="display:inline-table"></div> <!--คณะกรรมการ-->
     <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     
-            <legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
+            <legend>คณะกรรมการตรวจรับ <button id="EoButton" type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
             <div class="form-inline marginBtm1" role="form" id="ai_committee"  style="display:inline-table"></div> 
     <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
         </div>
