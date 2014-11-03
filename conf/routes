@@ -189,6 +189,7 @@ POST    /Admin/saveEditUser								controllers.Application.saveEditUser()
 
 GET     /graph           								controllers.Graph.index()
 POST    /graph           								controllers.Graph.getData()
+POST	/graphDescription								controllers.Graph.getDescription
 
 GET		/option/CalculateDepreciate						controllers.Option.optionCalculateDepreciate()
 GET     /option/CalculatingDepreciate					controllers.Option.optionCalculatingDepreciate()

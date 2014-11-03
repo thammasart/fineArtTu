@@ -100,9 +100,7 @@
                     <select class="form-control textAlignCenter  width300px" name="institute" value="@order.institute">
                         <option>---เลือก---</option>
                         @for(company <- companies){
-                        	<option @if(order.institute ==company.nameEntrepreneur ){ selected}>
-                        		@company.nameEntrepreneur
-                        	</option>
+                        	<option @if(order.institute ==company.nameEntrepreneur ){ selected}>@company.nameEntrepreneur</option>
                         }
                     </select>
             </div>
