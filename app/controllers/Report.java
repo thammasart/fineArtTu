@@ -33,6 +33,11 @@ public class Report  extends Controller {
         List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.all();                    //ครุภัณฑ์
         return ok(reportDurableArticles.render(user,da));
     }
+    @Security.Authenticated(Secured.class)
+        public static Result reportDurableArticlesPrint() {
+        List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.all();                    //ครุภัณฑ์
+        return ok(reportDurableArticlesPrint.render(da));
+    }
 
     @Security.Authenticated(Secured.class)
         public static Result reportRemainingMaterialConclusion() {

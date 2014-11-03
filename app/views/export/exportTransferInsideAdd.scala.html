@@ -48,7 +48,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(inside.approver != null){ value="@inside.approver.firstName" } name="approverFirstName" id="approverFirstName" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(inside.approver != null){ value="@inside.approver.firstName" } name="approverFirstName" id="approverFirstName" onclick="mapInput2()">
               <span class="alertText" id="approverFirstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
