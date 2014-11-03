@@ -136,7 +136,7 @@ function initAutoCompleteNameEo () {
           source: userAll
         });
     })
-    console.log(keyId);
+    console.log(keyIdEo);
 } 
 function mapInput(id){
     var temp = id[id.length-1];

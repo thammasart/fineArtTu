@@ -299,12 +299,11 @@ function submitDetail(path){
 function getCommitteeTemplate(name){
 	
 	
-	name == 'ai' ? aiLists.push(i):eoLists.push(j);
+	
 	var num = name == 'ai' ? i:j;
         setI(num);
         console.log(name == 'ai' ? 'i':'j');
-	var s = '<tr id="'+name + num +'">'+
-	'				<th>'+
+	var s ='				<th>'+
 	'					    <input id="'+name+'PrefixName'+ num +'" name="'+name+'PrefixName'+ num +'"  type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า">'+
 	'				</th>'+
 	'				<th>'+
@@ -338,8 +337,7 @@ function getCommitteeTemplate(name){
 	'				 </th>'+
 	'				 <th>'+
 	'				 <button type="button" class="btn btn btn-danger" onclick="removeDivCommittee(\''+name+'\','+ num +')">ลบ</button>'+
-	'				 </th>'+
-	'			 </tr> <!-- id ='+ name + num +' -->'
+	'				 </th>';
 	name == 'ai' ? i++ : j++;
 	
 	
@@ -573,8 +571,22 @@ function loadOrderGood(data){
 
 function createAICommittee() {
     destroyTable();
-    document.getElementById("ai_committee").innerHTML += getCommitteeTemplate('ai');
+    
+    var table=document.getElementById("ai_committee");
+    var tr = table.insertRow();
+    
+    name = 'ai'
+    aiLists.push(i);
+    var num =i;
+    
+    tr.id=name+num;
+    
+    console.log(tr.id);
+    
+    document.getElementById(tr.id).innerHTML += getCommitteeTemplate(name);
+    
     updateTable();
+    
     document.getElementById("aiLists").value = aiLists.join();
     
     if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
@@ -591,14 +603,28 @@ function createAICommittee() {
 
 function createEOCommittee(){
 	/*
-	var dv = document.createElement("tbody")
+	var dv = document.createElement("tr")
 	dv.innerHTML=getCommitteeTemplate('eo');
     document.getElementById("eo_committee").appendChild(dv);
     */
     destroyTable();
-    document.getElementById("eo_committee").innerHTML += getCommitteeTemplate('eo');
+    
+    var table=document.getElementById("eo_committee");
+    var tr = table.insertRow();
+    
+    name = 'eo'
+    eoLists.push(j);
+    var num = j;
+    
+    tr.id=name+num;
+    
+    console.log(tr.id);
+    
+    document.getElementById(tr.id).innerHTML += getCommitteeTemplate(name);
+    
     updateTable();
-    document.getElementById("eoLists").value = aiLists.join();
+    
+    document.getElementById("eoLists").value = eoLists.join();
 
     if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
     	$('#eo_committee :input').prop('disabled', true);
@@ -609,9 +635,12 @@ function createEOCommittee(){
     	$('#EoButton').prop('disabled', false);
 		$('#eo_committee select').prop('disabled', false);
     }
+    
     initAutoCompleteNameEo();
+    
 }
 function removeDivCommittee(name,num){
+	destroyTable();
 	if(name == 'ai'){
 		aiLists.remove(num);
 		document.getElementById("ai"+num).remove();
@@ -621,6 +650,7 @@ function removeDivCommittee(name,num){
 		document.getElementById("eo"+num).remove();
 		document.getElementById("eoLists").value = eoLists.join();
 	}
+	updateTable();
 }
 function submitToNext(){
     
