@@ -2642,181 +2642,181 @@
   llifeTime:   4
 - &durableArticle001    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0001-01
+  code:             ศก.พ.57.7125-001-0001(01/05)
   codeFromStock:    codeFromStock1
   status:           NORMAL
   detail:           *procurementDetail01
 - &durableArticle002    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0001-02
+  code:             ศก.พ.57.7125-001-0001(02/05)
   codeFromStock:    codeFromStock2
   status:           NORMAL
   detail:           *procurementDetail01
 - &durableArticle003    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0001-03
+  code:             ศก.พ.57.7125-001-0001(03/05)
   codeFromStock:    codeFromStock3
   status:           NORMAL
   detail:           *procurementDetail01
 - &durableArticle004    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0001-04
+  code:             ศก.พ.57.7125-001-0001(04/05)
   codeFromStock:    codeFromStock4
   status:           NORMAL
   detail:           *procurementDetail01
 - &durableArticle005    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0001-05
+  code:             ศก.พ.57.7125-001-0001(05/05)
   codeFromStock:    codeFromStock5
   status:           NORMAL
   detail:           *procurementDetail01
 - &durableArticle006    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0004-01
+  code:             ศก.พ.57.7125-001-0004(01/04)
   codeFromStock:    codeFromStock6
   status:           NORMAL
   detail:           *procurementDetail02
 - &durableArticle007    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0004-02
+  code:             ศก.พ.57.7125-001-0004(02/04)
   codeFromStock:    codeFromStock7
   status:           NORMAL
   detail:           *procurementDetail02
 - &durableArticle008    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0004-03
+  code:             ศก.พ.57.7125-001-0004(03/04)
   codeFromStock:    codeFromStock8
   status:           NORMAL
   detail:           *procurementDetail02
 - &durableArticle009    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0004-04
+  code:             ศก.พ.57.7125-001-0004(04/04)
   codeFromStock:    codeFromStock9
   status:           NORMAL
   detail:           *procurementDetail02
 - &durableArticle010    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0002-01
+  code:             ศก.พ.57.7125-001-0002(01/04)
   codeFromStock:    codeFromStock10
   status:           NORMAL
   detail:           *procurementDetail03
 - &durableArticle011    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0002-02
+  code:             ศก.พ.57.7125-001-0002(02/04)
   codeFromStock:    codeFromStock11
   status:           NORMAL
   detail:           *procurementDetail03
 - &durableArticle012    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0002-03
+  code:             ศก.พ.57.7125-001-0002(03/04)
   codeFromStock:    codeFromStock12
   status:           NORMAL
   detail:           *procurementDetail03
 - &durableArticle013    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาการละคอน
-  code:             ศก.พ.57.7125-001-0002-04
+  code:             ศก.พ.57.7125-001-0002(04/04)
   codeFromStock:    codeFromStock13
   status:           NORMAL
   detail:           *procurementDetail03
 - &durableArticle014    !!models.durableArticles.DurableArticles
   department:       สำนักงานเลขานุการ
-  code:             ศก.พ.57.7125-001-0003-01
+  code:             ศก.พ.57.7125-001-0003(01/14)
   codeFromStock:    codeFromStock14
   status:           NORMAL
   detail:           *procurementDetail04
 - &durableArticle015    !!models.durableArticles.DurableArticles
   department:       สำนักงานเลขานุการ
-  code:             ศก.พ.57.7125-001-0003-02
+  code:             ศก.พ.57.7125-001-0003(02/14)
   codeFromStock:    codeFromStock15
   status:           NORMAL
   detail:           *procurementDetail04
 - &durableArticle016    !!models.durableArticles.DurableArticles
   department:       สำนักงานเลขานุการ
-  code:             ศก.พ.57.7125-001-0003-03
+  code:             ศก.พ.57.7125-001-0003(03/14)
   codeFromStock:    codeFromStock16
   status:           NORMAL
   detail:           *procurementDetail04
 - &durableArticle017    !!models.durableArticles.DurableArticles
   department:       สำนักงานเลขานุการ
-  code:             ศก.พ.57.7125-001-0003-04
+  code:             ศก.พ.57.7125-001-0003(04/14)
   codeFromStock:    codeFromStock17
   status:           NORMAL
   detail:           *procurementDetail04
 - &durableArticle018    !!models.durableArticles.DurableArticles
   department:       สำนักงานเลขานุการ
-  code:             ศก.พ.57.7125-001-0002-05
+  code:             ศก.พ.57.7125-001-0003(05/14)
   codeFromStock:    codeFromStock18
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle019    !!models.durableArticles.DurableArticles
   department:       สำนักงานเลขานุการ
-  code:             ศก.พ.57.7125-001-0002-06
+  code:             ศก.พ.57.7125-001-0003(06/14)
   codeFromStock:    codeFromStock19
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle020    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0002-07
+  code:             ศก.พ.57.7125-001-0003(07/14)
   codeFromStock:    codeFromStock20
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle021    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0002-08
+  code:             ศก.พ.57.7125-001-0003(08/14)
   codeFromStock:    codeFromStock21
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle022    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0002-09
+  code:             ศก.พ.57.7125-001-0003(09/14)
   codeFromStock:    codeFromStock22
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle023    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0002-10
+  code:             ศก.พ.57.7125-001-0003(10/14)
   codeFromStock:    codeFromStock23
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle024    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0002-11
+  code:             ศก.พ.57.7125-001-0003(11/14)
   codeFromStock:   สำนักงานเลขานุการ
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle025    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0002-12
+  code:             ศก.พ.57.7125-001-0003(12/14)
   codeFromStock:    codeFromStock25
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle026    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0002-13
+  code:             ศก.พ.57.7125-001-0003(13/14)
   codeFromStock:    codeFromStock26
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle027    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0002-14
+  code:             ศก.พ.57.7125-001-0003(14/14)
   codeFromStock:    codeFromStock27
   status:           NORMAL
   detail:           *procurementDetail05
 - &durableArticle028    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0004-05
+  code:             ศก.พ.57.7125-001-0004(05/07)
   codeFromStock:    codeFromStock28
   status:           NORMAL
   detail:           *procurementDetail06
 - &durableArticle029    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0004-06
+  code:             ศก.พ.57.7125-001-0004(06/07)
   codeFromStock:    codeFromStock29
   status:           NORMAL
   detail:           *procurementDetail06
 - &durableArticle030    !!models.durableArticles.DurableArticles
   department:       สาขาวิชาศิลปะการออกแบบพัสตราภรณ์
-  code:             ศก.พ.57.7125-001-0004-07
+  code:             ศก.พ.57.7125-001-0004(07/07)
   codeFromStock:    codeFromStock30
   status:           NORMAL
   detail:           *procurementDetail06
