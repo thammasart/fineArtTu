@@ -127,9 +127,29 @@
 		<input id="aiLists" type="hidden" name="aiLists" >
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
-            <div class="well" ng-init="findUser()">
-		<legend>คณะกรรมการตรวจรับ <button id="AiButton" type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
-		<div class="form-inline marginBtm1" role="form" id="ai_committee" ></div> 
+        <div class="well" ng-init="findUser()">
+             <h3 style ="text-align:left;">คณะกรรมการตรวจรับ <button id="AiButton" type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" onclick="createAICommittee()">เพิ่มกรรมการตรวจรับ</button> </h3>
+			
+			
+			<table class="table table-striped overlayTable" style="margin-bottom:3%;">
+		        <thead>
+		          <tr>
+		            <th style ="text-align:center;"> คำนำหน้า </th>
+		            <th style ="text-align:center;"> ชื่อ </th>
+		            <th style ="text-align:center;"> นามสกุล </th>
+		            <th style ="text-align:center;"> หมายเลขบัตรประจำคัวประชาชน </th>
+		            <th style ="text-align:center;"> ตำแหน่ง </th>
+		            <th style ="text-align:center;"> ประเภทกรรมการ </th>
+		            <th style ="text-align:center;"> ตำแหน่งในคณะกรรมการ </th>
+		            <th style ="text-align:center;">ลบ </th>
+		          </tr>
+		        </thead>
+		        <tbody class="form-inline marginBtm1" role="form" id="ai_committee">
+		
+		        </tbody>
+	      	</table>
+
+			<!--<div class="form-inline marginBtm1" role="form" id="ai_committee" ></div> -->
 			
             </div>
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
