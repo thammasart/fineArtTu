@@ -241,10 +241,42 @@ function deleteDetail(){
 	});
 }
 
+function add_FF_committree(){
+	var i = 0;
+	destroyTable()
+	var s = document.getElementById("FF_committee_detail").innerHTML;
+	s += '<tr>';
+    s += '    <th> <input type="text" class="form-control textAlignCenter width75px"> </th>';
+    s += '    <th> <input type="text" class="form-control textAlignCenter width175px"> </th>';
+    s += '    <th> <input type="text" class="form-control textAlignCenter width175px"> </th>';
+    s += '    <th> <input type="text" class="form-control textAlignCenter width175px">';
+    s += '    <th> ';
+	s += '		<select " class="form-control textAlignCenter width175px">';
+	s += '			<option>---เลือก---</option>';
+	s += '			<option>ข้าราชการ</option>';
+	s += '			<option>พนักงานมหาลัย</option>';
+	s += '		</select>';
+	s += '	  </th>';
+    s += '    <th> ';
+	s += '		<select " class="form-control textAlignCenter width175px">';
+	s += '			<option>---เลือก---</option>';
+	s += '			<option>ประธานกรรมการ</option>';
+	s += '			<option>กรรมการ</option>';
+	s += '			<option>กรรมการและเลขานุการ</option>';
+	s += '		</select>';
+	s += '	  </th> ';
+	s += '    <th> <button type="button" class="btn btn btn-danger" onclick="delete_FF_committree()"> ลบ </button> </th>';
+    s += '</tr>';
+	document.getElementById("FF_committee_detail").innerHTML = s;
+	updateTable();
+}
+
 function init(id){
 	auction.id = id;
 	getDetail();
 	addSoldButton();
+
+	add_FF_committree();
 }
 
 function initViewDetial(id){

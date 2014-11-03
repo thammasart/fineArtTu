@@ -5,11 +5,17 @@ function addTick(name, nameEntrepreneur) {
 	if (institutesTick.indexOf(instituteName) > -1) {
 		institutesTick.remove(instituteName);
 		institutesNameTick.remove(nameEntrepreneur);
+		document.getElementById("row" + name).style.color = "";
+		document.getElementById(name).checked = false;
 	} else {
 		institutesTick.push(instituteName);
 		institutesNameTick.push(nameEntrepreneur);
+		document.getElementById("row" + name).style.color = "#cc3300";
+		document.getElementById(name).checked = true;
+
 	}
 }
+
 
 function removeInstitute() {
 	var institutesTickList = {
@@ -30,15 +36,6 @@ function checkAll(){
 	});
 }
 
-function isCheckAll(){
-	var check = $("#checkAll").prop("checked");
-	var checkLists = $(getTable(0)).find('.checkLists');
-	$.each(checkLists,function(i,field){
-		if(!field.checked){
-			$("#checkAll").prop("checked",false);
-		}
-	});
-}
 
 angular.module('importsInstituteApp', [ 'ui.bootstrap' ]).controller(
 		'importsInstituteCtrl', function($scope, $modal) {

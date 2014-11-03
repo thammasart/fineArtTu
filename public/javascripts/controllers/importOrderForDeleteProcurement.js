@@ -51,17 +51,24 @@ function addTick(name,type,title)
 {
 	
 	var procurementID;
-	
 	if(type=='durableArticles')
 	{
 		procurementID = name;
 		console.log(durableArticlesProcurementTick);
 		if(durableArticlesProcurementTick.indexOf(procurementID) > -1){
+			
 			durableArticlesProcurementTick.remove(procurementID);
 			durableArticlesProcurementNameTick.remove(title);
+			document.getElementById("row" + name).style.color = "";
+			document.getElementById("check"+name).checked = false;
+			
+			
 		}else{
 			durableArticlesProcurementTick.push(procurementID);
 			durableArticlesProcurementNameTick.push(title);
+			document.getElementById("row" + name).style.color = "#cc3300";
+			document.getElementById("check"+name).checked = true;
+
 		}
 	}
 	else if(type=='goods')
@@ -71,9 +78,13 @@ function addTick(name,type,title)
 		if(goodsProcurementTick.indexOf(procurementID) > -1){
 			goodsProcurementTick.remove(procurementID);
 			goodsProcurementNameTick.remove(title);
+			document.getElementById("row2" + name).style.color = "";
+			document.getElementById("check2"+name).checked = false;
 		}else{
 			goodsProcurementTick.push(procurementID);
 			goodsProcurementNameTick.push(title);
+			document.getElementById("row2" + name).style.color = "#cc3300";
+			document.getElementById("check2"+name).checked = true;
 		}
 		
 	}

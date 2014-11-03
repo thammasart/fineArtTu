@@ -475,7 +475,8 @@ public class Import extends Controller {
 	   		 int cantDel=0;
 	   		for(int i=0;i<codeInList.length;i++){
 	   			code = MaterialCode.find.byId(codeInList[i]);
-	   			int x = models.durableGoods.ProcurementDetail.find.where().eq("code", code).findRowCount();
+	   			
+	   			int x = models.durableGoods.ProcurementDetail.find.where().eq("code", code.code).findRowCount();
 	   			
 	   			if(x==0)
 	   			{
@@ -1185,100 +1186,111 @@ public class Import extends Controller {
 	    	
 	    	
 	    	if(!codeId.equals("")){
+	    		
 	    		procurementDetail.code = codeId; //fsn or code 5 number
 	    		procurementDetail.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
 	
+	    		MaterialCode mc=null;
+	    		
+	    		System.out.println("Before");
+	    		
+		    		if(editingMode==false)//+ปกติ
+		    		{
+		    			if(procurementDetail.typeOfDurableGoods==0)	// เพิ่มตัวใหม่         /
+			    		{
+				    		mc= MaterialCode.find.byId(codeId);
+				    		System.out.println(mc.remain);
+				    		System.out.println(mc.pricePerEach);
+				    		
+			    			double sumPrice=mc.pricePerEach*mc.remain;
+			    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
+			    			
+			    			mc.remain=mc.remain+procurementDetail.quantity;
+			    			mc.pricePerEach=sumPrice/mc.remain;
+			    			mc.update();
+			    			
+			    			System.out.println("After");
+			    			System.out.println(mc.remain);
+				    		System.out.println(mc.pricePerEach);
+			    		}
+		    		}
+		    		else
+		    		{
+		    				if(procurementDetail.typeOfDurableGoods==1 && typeSub==0 )//เปลี่ยนจากสิ้นเปลืองเป็นคงทนถาวร จะลบออก /
+		    				{
+			    				mc= MaterialCode.find.byId(codeSub);
+			    	    		System.out.println(mc.remain);
+			    	    		System.out.println(mc.pricePerEach);
+					    		
+				    			double sumPrice=mc.pricePerEach*mc.remain;
+				    			sumPrice=sumPrice-(numSub*priceSub);
+				    			
+				    			mc.remain=mc.remain-numSub;
+				    			if(mc.remain>0)
+				    				mc.pricePerEach=sumPrice/mc.remain;
+				    			else
+				    				mc.pricePerEach=0;
+				    			mc.update();
+				    			
+				    			System.out.println("After");
+				    			System.out.println(mc.remain);
+					    		System.out.println(mc.pricePerEach);
+		    				}
+			    			
+			    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==0 )//เปลี่ยนค่าโดยที่วัสดุเป็นชนิดเดียวกัน /
+			    			{
+			    				mc= MaterialCode.find.byId(codeId);
+			    	    		System.out.println(mc.remain);
+			    	    		System.out.println(mc.pricePerEach);
+					    		
+				    			double sumPrice=mc.pricePerEach*mc.remain;
+				    			sumPrice=sumPrice-(numSub*priceSub);
+				    			
+				    			mc.remain=mc.remain-numSub;
+				    			if(mc.remain>0)
+				    				mc.pricePerEach=sumPrice/mc.remain;
+				    			else
+				    				mc.pricePerEach=0;
+				    			//////////////////////////////////////////
+				    			sumPrice=mc.pricePerEach*mc.remain;
+				    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
+				    			
+				    			mc.remain=mc.remain+procurementDetail.quantity;
+				    			
+				    			if(mc.remain>0)
+				    				mc.pricePerEach=sumPrice/mc.remain;
+				    			else
+				    				mc.pricePerEach=0;
+				    			mc.update();
+				    			
+				    			System.out.println("After");
+				    			System.out.println(mc.remain);
+					    		System.out.println(mc.pricePerEach);
+			    			}
+			    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==1 )//เปลี่ยนจากคงทนถาวรเป็นสิ้นเปลือง จะ+เพิ่ม /
+			    			{
+					    		mc= MaterialCode.find.byId(codeId);
+					    		System.out.println(mc.remain);
+					    		System.out.println(mc.pricePerEach);
+					    		
+				    			double sumPrice=mc.pricePerEach*mc.remain;
+				    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
+				    			
+				    			mc.remain=mc.remain+procurementDetail.quantity;
+				    			mc.pricePerEach=sumPrice/mc.remain;
+				    			mc.update();
+				    			
+				    			System.out.println("After");
+				    			System.out.println(mc.remain);
+					    		System.out.println(mc.pricePerEach);
+			    			}
+			    			
+		    		}
+
 	    	}else{
 	    		System.out.println("\n\n Exception MaterialCode Not Found !!!! \n\n\n\n\n");
 	    	}
 	    	
-    		///Calculateeeeeeeeeeeeeeeeeee
-    		MaterialCode mc=null;
-    		
-    		System.out.println("Before");
-
-    			
-    		if(editingMode==false)//+ปกติ
-    		{
-    			if(procurementDetail.typeOfDurableGoods==0)	// เพิ่มตัวใหม่         /
-	    		{
-		    		mc= MaterialCode.find.byId(codeId);
-		    		System.out.println(mc.remain);
-		    		System.out.println(mc.pricePerEach);
-		    		
-	    			double sumPrice=mc.pricePerEach*mc.remain;
-	    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
-	    			
-	    			mc.remain=mc.remain+procurementDetail.quantity;
-	    			mc.pricePerEach=sumPrice/mc.remain;
-	    			mc.update();
-	    		}
-    		}
-    		else
-    		{
-    				if(procurementDetail.typeOfDurableGoods==1 && typeSub==0 )//เปลี่ยนจากสิ้นเปลืองเป็นคงทนถาวร จะลบออก /
-    				{
-	    				mc= MaterialCode.find.byId(codeSub);
-	    	    		System.out.println(mc.remain);
-	    	    		System.out.println(mc.pricePerEach);
-			    		
-		    			double sumPrice=mc.pricePerEach*mc.remain;
-		    			sumPrice=sumPrice-(numSub*priceSub);
-		    			
-		    			mc.remain=mc.remain-numSub;
-		    			if(mc.remain>0)
-		    				mc.pricePerEach=sumPrice/mc.remain;
-		    			else
-		    				mc.pricePerEach=0;
-		    			mc.update();
-    				}
-	    			
-	    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==0 )//เปลี่ยนค่าโดยที่วัสดุเป็นชนิดเดียวกัน /
-	    			{
-	    				mc= MaterialCode.find.byId(codeId);
-	    	    		System.out.println(mc.remain);
-	    	    		System.out.println(mc.pricePerEach);
-			    		
-		    			double sumPrice=mc.pricePerEach*mc.remain;
-		    			sumPrice=sumPrice-(numSub*priceSub);
-		    			
-		    			mc.remain=mc.remain-numSub;
-		    			if(mc.remain>0)
-		    				mc.pricePerEach=sumPrice/mc.remain;
-		    			else
-		    				mc.pricePerEach=0;
-		    			//////////////////////////////////////////
-		    			sumPrice=mc.pricePerEach*mc.remain;
-		    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
-		    			
-		    			mc.remain=mc.remain+procurementDetail.quantity;
-		    			
-		    			if(mc.remain>0)
-		    				mc.pricePerEach=sumPrice/mc.remain;
-		    			else
-		    				mc.pricePerEach=0;
-		    			mc.update();
-	    			}
-	    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==1 )//เปลี่ยนจากคงทนถาวรเป็นสิ้นเปลือง จะ+เพิ่ม /
-	    			{
-			    		mc= MaterialCode.find.byId(codeId);
-			    		System.out.println(mc.remain);
-			    		System.out.println(mc.pricePerEach);
-			    		
-		    			double sumPrice=mc.pricePerEach*mc.remain;
-		    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
-		    			
-		    			mc.remain=mc.remain+procurementDetail.quantity;
-		    			mc.pricePerEach=sumPrice/mc.remain;
-		    			mc.update();
-	    			}
-	    			
-    		}
-    		System.out.println("After");
-    		System.out.println(mc.remain);
-    		System.out.println(mc.pricePerEach);
-
-	    		///Calculateeeeeeeeeeeeeeeeeee
 	    	
 	    	if(!editingMode) procurementDetail.save();
 	    	else procurementDetail.update();
@@ -1311,7 +1323,7 @@ public class Import extends Controller {
 	    			goods = new DurableGoods();
 	    			editingMode = false;
 	    		}
-		    	
+	    		goods.status = SuppliesStatus.NORMAL;
 		    	goods.department = json.get("goodDepartment"+i).asText();
 		    	goods.room = json.get("goodRoom"+i).asText();
 		    	goods.floorLevel = json.get("goodLevel"+i).asText();
@@ -1477,7 +1489,7 @@ public class Import extends Controller {
 		    		editingMode = false;
 		    	}
 		    	
-		    	dA.status = SuppliesStatus.INIT;
+		    	dA.status = SuppliesStatus.NORMAL;
 		    	dA.department = json.get("articleDepartment"+i).asText();
 		    	dA.room = json.get("articleRoom"+i).asText();
 		    	dA.floorLevel = json.get("articleLevel"+i).asText();

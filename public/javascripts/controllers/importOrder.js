@@ -297,70 +297,52 @@ function submitDetail(path){
 }
 
 function getCommitteeTemplate(name){
+	
+	
 	name == 'ai' ? aiLists.push(i):eoLists.push(j);
 	var num = name == 'ai' ? i:j;
         setI(num);
-	//console.log(name == 'ai' ? 'i':'j');
-	var s = '<div id="'+name + num +'" style="margin-bottom:1%;display:inline-table">'+
-	'				<div class="form-group" >'+
-	'					<div class="input-group" >'+
-	'					    <span class="input-group-addon">คำนำหน้าชื่อ</span>'+
-	'					    <input id="'+name+'PrefixName'+ num +'" name="'+name+'PrefixName'+ num +'"  type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
-	'					</div>'+
-	'				</div>'+
-	'				<div class="form-group" >'+
-	'					<div class="input-group" >'+
-	'					    <span class="input-group-addon">ชื่อ</span>'+
-	'					    <input id="'+name+'FirstName'+ num +'" name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" onkeyup="mapInput(this.id)">'+
-	'					</div>'+
-	'				</div>'+
-	'				<div class="form-group" >'+
-	'					<div class="input-group" >'+
-	'					    <span class="input-group-addon">สกุล</span>'+
-	'					    <input id="'+name+'LastName'+ num +'" name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter  width125px"placeholder="ใส่ค่า">'+
-	'					</div>'+
-	'				</div>'+
-	'				<div class="form-group" >'+
-	'					<div class="input-group" >'+
-	'					    <span class="input-group-addon">หมายเลขบัตรประจำตัวประชาชน</span>'+
-	'					    <input name="'+name+'PersonalID'+ num +'" type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า">'+
-	'					</div>'+
-	'				</div>'+
-	'				<div class="form-group" >'+
-	'					<div class="input-group" >'+
-	'					    <span class="input-group-addon" >ตำแหน่ง</span>'+
-	'					    <input id="'+name+'Position'+ num +'" name="'+name+'Position'+ num +'" type="text" class="form-control textAlignCenter  width150px"placeholder="ตามข้อมูลuser">'+
-	'					</div>'+
-	'				</div>'+
+        console.log(name == 'ai' ? 'i':'j');
+	var s = '<tr id="'+name + num +'">'+
+	'				<th>'+
+	'					    <input id="'+name+'PrefixName'+ num +'" name="'+name+'PrefixName'+ num +'"  type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า">'+
+	'				</th>'+
+	'				<th>'+
+	'					    <input id="'+name+'FirstName'+ num +'" name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า" onkeyup="mapInput(this.id)">'+
+	'				</th>'+
+	'				<th>'+
+	'					    <input id="'+name+'LastName'+ num +'" name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า">'+
+	'				</th>'+
+	'				<th>'+
+	'					    <input name="'+name+'PersonalID'+ num +'" type="text" class="form-control textAlignCenter width325px" placeholder="ใส่ค่า">'+
+	'				</th>'+
+	'				<th>'+
+	'					    <input id="'+name+'Position'+ num +'" name="'+name+'Position'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ตามข้อมูลuser">'+
+	'				</th>'+
 	'				'+
-	'				'+
-	'				<div class="form-group" role="form">'+
-	'				    <div class="input-group">'+
-	'						<span class="input-group-addon">ประเภทกรรมการ</span>'+
-	'						<select name="'+name+'CommitteeType'+ num +'" class="form-control textAlignCenter  width150px">'+
+	'				<th>'+
+	'						<select name="'+name+'CommitteeType'+ num +'" class="form-control textAlignCenter width175px">'+
 	'						  <option>---เลือก---</option>'+
 	'						  <option>ข้าราชการ</option>'+
 	'						  <option>พนักงานมหาลัย</option>'+
 	'						</select>'+
-	'				    </div>'+
-	'				</div>'+
+	'				</th>'+
 	'				'+
-	'				<div class="form-group" role="form">'+
-	'					<div class="input-group">'+
-	'						<span class="input-group-addon">ตำแหน่งในคณะกรรมการ</span>'+
-	'						<select name="'+name+'CommitteePosition'+ num +'" class="form-control textAlignCenter  width200px">'+
+	'				<th>'+
+	'						<select name="'+name+'CommitteePosition'+ num +'"class="form-control textAlignCenter width175px">'+
 	'						  <option>---เลือก---</option>'+
 	'						  <option>ประธานกรรมการ</option>'+
 	'						  <option>กรรมการ</option>'+
 	'						  <option>กรรมการและเลขานุการ</option>'+
 	'						</select>'+
-	'					</div>'+
-	'				 </div>'+
-	'				 <button type="button" onclick="removeDivCommittee(\''+name+'\','+ num +')">ลบ</button>'+
-	'			 </div> <!-- id ='+ name + num +' -->'
+	'				 </th>'+
+	'				 <th>'+
+	'				 <button type="button" class="btn btn btn-danger" onclick="removeDivCommittee(\''+name+'\','+ num +')">ลบ</button>'+
+	'				 </th>'+
+	'			 </tr> <!-- id ='+ name + num +' -->'
 	name == 'ai' ? i++ : j++;
-
-
+	
+	
 	return s;
 }
 
@@ -369,7 +351,6 @@ function preSpread(name){
         var val = document.getElementById("code").value;
         var years = document.getElementById("years").value;
 	document.getElementById("fixNumber").value=num;
-	
 	var ss = "";
 	for(k=1;k<=num;k++)
 	{
@@ -493,11 +474,18 @@ function setValueBelow(name,num){
 function addTick(name){
 	var procumentDetailName = name;
 	console.log(procumentDetailsTick);
-	if(procumentDetailsTick.indexOf(procumentDetailName) > -1){
-		procumentDetailsTick.remove(procumentDetailName);
-	}else{
-		procumentDetailsTick.push(procumentDetailName);
-	}
+	
+
+		if(procumentDetailsTick.indexOf(procumentDetailName) > -1){
+			procumentDetailsTick.remove(procumentDetailName);
+			document.getElementById("row"+name).style.color = "";
+			document.getElementById("check"+name).checked = false;
+		}else{
+			procumentDetailsTick.push(procumentDetailName);
+			document.getElementById("row"+name).style.color = "#cc3300";
+			document.getElementById("check"+name).checked = true;
+		}
+	
 }
 
 function removeProcurementDetail(path){
@@ -529,9 +517,9 @@ function removeProcurementDetail(path){
 function loadOrderArticle(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
-		divTable += '				<tr id='+i+'>'+
-		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
-		'                    <th>'+ data['data'][i].id +'</th>'+
+		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
+		'                    <th><input id="check'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
+		'                    <th onclick="addTick('+ data['data'][i].id +')">'+ data['data'][i].id +'</th>'+
 		'                    <th>'+ data['data'][i].fsn +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
@@ -558,9 +546,9 @@ function loadOrderArticle(data){
 function loadOrderGood(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
-		divTable += '				<tr id='+i+'>'+
-		'                    <th><input id="'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
-		'                    <th>'+ data['data'][i].code +'</th>'+
+		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
+		'                    <th><input id="check'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
+		'                    <th onclick="addTick('+ data['data'][i].id +')">'+ data['data'][i].code +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
@@ -584,30 +572,41 @@ function loadOrderGood(data){
 
 
 function createAICommittee() {
-    var dv = document.createElement("div")
-    dv.innerHTML=getCommitteeTemplate('ai');
-    document.getElementById("ai_committee").appendChild(dv);
+    destroyTable();
+    document.getElementById("ai_committee").innerHTML += getCommitteeTemplate('ai');
+    updateTable();
     document.getElementById("aiLists").value = aiLists.join();
+    
     if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
-    	$('#ai_committee input').prop('disabled', true);
+    	$('#ai_committee :input').prop('disabled', true);
+    	$('#AiButton').prop('disabled', true);
 		$('#ai_committee select').prop('disabled', true);
     }else{
     	$('#ai_committee input').prop('disabled', false);
+    	$('#AiButton').prop('disabled', false);
 		$('#ai_committee select').prop('disabled', false);
     }
     initAutoCompleteName();
 }
 
 function createEOCommittee(){
-	var dv = document.createElement("div")
+	/*
+	var dv = document.createElement("tbody")
 	dv.innerHTML=getCommitteeTemplate('eo');
     document.getElementById("eo_committee").appendChild(dv);
-    document.getElementById("eoLists").value = eoLists.join();
+    */
+    destroyTable();
+    document.getElementById("eo_committee").innerHTML += getCommitteeTemplate('eo');
+    updateTable();
+    document.getElementById("eoLists").value = aiLists.join();
+
     if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
-    	$('#eo_committee input').prop('disabled', true);
+    	$('#eo_committee :input').prop('disabled', true);
+    	$('#EoButton').prop('disabled', true);
 		$('#eo_committee select').prop('disabled', true);
     }else{
     	$('#eo_committee input').prop('disabled', false);
+    	$('#EoButton').prop('disabled', false);
 		$('#eo_committee select').prop('disabled', false);
     }
     initAutoCompleteNameEo();

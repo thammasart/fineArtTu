@@ -250,7 +250,7 @@ public class ExportOrder extends Controller {
                 return ok(result);
             }
             if(result.get("status") == null){
-                newDetail.save();
+                newDetail.update();
                 result.put("status", "SUCCESS");
             }
         }
