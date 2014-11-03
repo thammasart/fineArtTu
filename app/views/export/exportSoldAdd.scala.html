@@ -162,6 +162,48 @@
            </div>
       </div>
 
+    <div class="well" >
+      <h3 style ="text-align:left;">คณะกรรมการสอบข้อเท็จจริง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" onclick="add_FF_committree()">เพิ่มกรรมการ</button> </h3>
+ 
+       <table class="table table-striped overlayTable" style="margin-bottom:3%;">
+        <thead>
+          <tr>
+            <th style ="text-align:center;" id="FF_namePrefix" > คำนำหน้า </th>
+            <th style ="text-align:center;" id="FF_firstName" > ชื่อ </th>
+            <th style ="text-align:center;" id="FF_lastName" > นามสกุล </th>
+            <th style ="text-align:center;" id="FF_positon" > ตำแหน่ง </th>
+            <th style ="text-align:center;" id="FF_committeeType" > ประเภทกรรมการ </th>
+            <th style ="text-align:center;" id="FF_positonInCommittree" > ตำแหน่งในคณกรรมการ </th>
+            <th style ="text-align:center;" id="FF_delete" ></th>
+          </tr>
+        </thead>
+        <tbody id="FF_committee_detail">
+
+        </tbody>
+      </table>
+    </div> 
+
+    <div class="well" >
+      <h3 style ="text-align:left;">คณะกรรมการประเมิณราคากลาง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" onclick="">เพิ่มกรรมการ</button> </h3>
+
+      <table class="table table-striped overlayTable" style="margin-bottom:3%;">
+        <thead>
+          <tr>
+            <th style ="text-align:center;" id="E_namePrefix" > คำนำหน้า </th>
+            <th style ="text-align:center;" id="E_firstName" > ชื่อ </th>
+            <th style ="text-align:center;" id="E_lastName" > นามสกุล </th>
+            <th style ="text-align:center;" id="E_positon" > ตำแหน่ง </th>
+            <th style ="text-align:center;" id="E_committeeType" > ประเภทกรรมการ </th>
+            <th style ="text-align:center;" id="E_positonInCommittree" > ตำแหน่งในคณกรรมการth>
+            <th style ="text-align:center;" id="E_delete" ></th>
+          </tr>
+        </thead>
+        <tbody id="E_committee_detail">
+
+        </tbody>
+      </table>
+    </div> 
+
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group">
