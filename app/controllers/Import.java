@@ -1323,7 +1323,7 @@ public class Import extends Controller {
 	    			goods = new DurableGoods();
 	    			editingMode = false;
 	    		}
-		    	
+	    		goods.status = SuppliesStatus.NORMAL;
 		    	goods.department = json.get("goodDepartment"+i).asText();
 		    	goods.room = json.get("goodRoom"+i).asText();
 		    	goods.floorLevel = json.get("goodLevel"+i).asText();
@@ -1489,7 +1489,7 @@ public class Import extends Controller {
 		    		editingMode = false;
 		    	}
 		    	
-		    	dA.status = SuppliesStatus.INIT;
+		    	dA.status = SuppliesStatus.NORMAL;
 		    	dA.department = json.get("articleDepartment"+i).asText();
 		    	dA.room = json.get("articleRoom"+i).asText();
 		    	dA.floorLevel = json.get("articleLevel"+i).asText();
