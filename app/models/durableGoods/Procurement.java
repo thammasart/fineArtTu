@@ -98,7 +98,7 @@ public class Procurement extends Model{
 				System.out.println(subDetail.department);
 				System.out.println(subDetail.room);
 				System.out.println(subDetail.floorLevel);
-				System.out.println(subDetail.code);
+				System.out.println(subDetail.codes);
 				System.out.println(subDetail.title);
 				System.out.println(subDetail.firstName);
 				System.out.println(subDetail.lastName);

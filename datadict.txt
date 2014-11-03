@@ -65,3 +65,9 @@ lifetime			อายุการใช้งาน
 alert time			เวลาแจ้งเตือน
 serial number		หมายเลขเครื่อง
 details				รายละเอียด
+
+(Acceotance Inspection)		AI_committee	คณะกรรมการตรวจรับ 
+(Envelop Opening)			EO_committee	คณะกรรมการเปิดซอง 
+(Fact-Finding)				FF_committee	คณะกรรมการสอบข้อเทจจริง 
+(Disposal)					D_committee		คณะกรรมการจำหน่าย 
+(Evaluation)				E_committee		คณะกรรมการประเมิณราคากลาง 

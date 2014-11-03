@@ -18,7 +18,9 @@ import models.durableArticles.OtherTransfer;
 import models.durableArticles.OtherTransferDetail;
 import models.durableArticles.Repairing;
 import models.durableArticles.RepairingDetail;
+import models.durableGoods.DurableGoods;
 import models.durableGoods.Procurement;
+import models.durableGoods.Requisition;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
 
@@ -53,6 +55,7 @@ public class Graph extends Controller {
     }
     
     @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
     public static Result getData() {
       RequestBody body = request().body();
       JsonNode json = body.asJson();
@@ -92,7 +95,44 @@ public class Graph extends Controller {
       return ok(result);
     }
     
-    private static ArrayNode getHeader(){
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
+    public static Result getDescription() {
+    	RequestBody body = request().body();
+        JsonNode json = body.asJson();
+        
+        String className = json.get("className").asText();
+        String[] ids = json.get("ids").asText().split(",");
+        String result = "no data";
+        
+        if(className.equals("durableArticle")){
+        	result = getArticleHTML(ids);
+        }else if(className.equals("materialCode")){
+        	result = getGoodsHTML(ids);
+        }else if(className.equals("procurementDurableArticle")){
+        	result = getProcurementArticleHTML(ids);
+        }else if(className.equals("procurementMaterialCode")){
+        	result = getProcurementMaterialHTML(ids);
+        }else if(className.equals("requisition")){
+        	result = getRequisitionHTML(ids);
+        }else if(className.equals("internalTransfer")){
+        	result = getInternalTransferHTML(ids);
+        }else if(className.equals("auction")){
+        	result = getAuctionHTML(ids);
+        }else if(className.equals("donate")){
+        	result = getDonationHTML(ids);
+        }else if(className.equals("otherTransfer")){
+        	result = getOtherTransferHTML(ids);
+        }else if(className.equals("repair")){
+        	result = getRepairHTML(ids);
+        }
+        
+    	return ok(result);
+    }
+    
+    
+
+	private static ArrayNode getHeader(){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	ArrayNode thead = JsonNodeFactory.instance.arrayNode();
     	ObjectNode annotation1 = Json.newObject();
@@ -369,7 +409,12 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getTransfer(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = getDetailHeader();
+    	ArrayList<String> columns = new ArrayList<String>();
+    	columns.add("โอนย้ายภายใน");
+    	columns.add("จำหน่าย");
+    	columns.add("บริจาค");
+    	columns.add("อื่นๆ");
+    	ArrayNode result = getHeader(columns);
     	if(row == -1 && col == -1){
     		if(relation.equals("year")){
     			for(int i=3; i>=0; i--){
@@ -377,12 +422,17 @@ public class Graph extends Controller {
     				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
     				
     				List<Date> date = getYearDate((3-i));
-    				int d = getSumTransfer(date.get(0), date.get(1)); 
+    				ArrayList<Integer> d = getSumTransfer(date.get(0), date.get(1)); 
     				year = year-i;
     				tr.add(""+year);
-    				tr.add(d);
-    				tr.add(colors[3-i]);
-    				tr.add(d);
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
+    				tr.add(d.get(2));
+    				tr.add(d.get(2));
+    				tr.add(d.get(3));
+    				tr.add(d.get(3));
     				result.add(tr);
     			}
     		}else{
@@ -390,7 +440,7 @@ public class Graph extends Controller {
     			if(relation.equals("quarter")) num = 4;
     			for(int i=0; i<num; i++){
     				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-    				int d;
+    				ArrayList<Integer> d;
     				if(relation.equals("month")){
     					List<Date> date = getMonthDate(i);
         				d = getSumTransfer(date.get(0), date.get(1));
@@ -400,9 +450,14 @@ public class Graph extends Controller {
         				d = getSumTransfer(date.get(0), date.get(1));
     					tr.add("Q"+(i+1));
     				}
-    				tr.add(d);
-    				tr.add(colors[i]);
-    				tr.add(d);
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
+    				tr.add(d.get(2));
+    				tr.add(d.get(2));
+    				tr.add(d.get(3));
+    				tr.add(d.get(3));
     				result.add(tr);
     			}
     		}
@@ -416,7 +471,19 @@ public class Graph extends Controller {
     			d = getQuarterDate(row);
     		}
 			
-			result = getDetailTransferMap(d.get(0),d.get(1));
+    		if(col == 1 || col == 2){
+    			List<InternalTransfer> rs = InternalTransfer.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList(); 
+    			result = getDetailInternalTranfersMap(rs);
+    		}else if(col == 3 || col == 4){
+    			List<Auction> rs = Auction.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = getDetailAuctionTranfersMap(rs);
+    		}else if(col == 5 || col == 6){
+    			List<Donation> rs = Donation.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = getDetailDonationTranfersMap(rs);
+    		}else if(col == 7 || col == 8){
+    			List<OtherTransfer> rs = OtherTransfer.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = getDetailOtherTranfersMap(rs);
+    		}
     	}else{
     		List<Date> d = null;
     		if(relation.equals("year")){
@@ -427,12 +494,24 @@ public class Graph extends Controller {
     			d = getQuarterDate(lRow);
     		}
     		
-    		result = getTableTransfer(d.get(0), d.get(1), col, selectedName);
+    		if(col == 1 || col == 2){
+    			List<InternalTransfer> rs = InternalTransfer.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList(); 
+    			result = getTableInternalTranfers(rs, selectedName);
+    		}else if(col == 3 || col == 4){
+    			List<Auction> rs = Auction.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = getTableAuctionTranfers(rs, selectedName);
+    		}else if(col == 5 || col == 6){
+    			List<Donation> rs = Donation.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = getTableDonationTranfers(rs, selectedName);
+    		}else if(col == 7 || col == 8){
+    			List<OtherTransfer> rs = OtherTransfer.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = gettableOtherTranfers(rs, selectedName);
+    		}    		
     	}
     	return result;
     }
     
-    private static ArrayNode getRepairing(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
+	private static ArrayNode getRepairing(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayList<String> columns = new ArrayList<String>();
     	columns.add("ซ่อมแล้ว");
     	columns.add("กำลังซ่อม");
@@ -492,7 +571,6 @@ public class Graph extends Controller {
     		}
     		result = getDetailRepairingMap(rs);
     	}else{
-    		//TODO
     		List<Date> d = null;
     		if(relation.equals("year")){
     			d = getYearDate(lRow);
@@ -560,13 +638,13 @@ public class Graph extends Controller {
 		return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
 	}
 
-	private static int getSumTransfer(Date startDate, Date endDate){
-		int sum = 0;
-		sum += models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-		sum += models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-		sum += models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-		sum += models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
-		return sum;
+	private static ArrayList<Integer> getSumTransfer(Date startDate, Date endDate){
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		result.add(models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		result.add(models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		result.add(models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		result.add(models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		return result;
 	}
 	
 	private static ArrayList<Integer> getSumRepair(Date startDate, Date endDate){
@@ -648,7 +726,6 @@ public class Graph extends Controller {
 				}
 			}
 		}
-		int i=0;
 		for (String key : listResult.keySet()) {
 			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
 			tr.add(key);
@@ -780,7 +857,111 @@ public class Graph extends Controller {
 		return result;
     }
     
-    private static ArrayNode getDetailTransferMap(Date startDate, Date endDate) {
+    private static ArrayNode getDetailInternalTranfersMap(List<InternalTransfer> rs) {
+		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+    	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
+    	for(InternalTransfer r : rs){
+    		for(InternalTransferDetail rd : r.detail){
+    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer value = listResult.get(key);
+				if(value == null){
+					listResult.put(key, 1);
+				}else{
+					listResult.put(key, listResult.get(key) + 1);
+				}
+    		}
+    	}
+    	int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+		return result;
+	}
+    
+    private static ArrayNode getDetailAuctionTranfersMap(List<Auction> rs) {
+		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+		HashMap<String, Integer> listResult = new HashMap<String,Integer>();
+		for(Auction r : rs){
+			for(AuctionDetail rd : r.detail){
+				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				Integer value = listResult.get(key);
+				if(value == null){
+					listResult.put(key, 1);
+				}else{
+					listResult.put(key, listResult.get(key) + 1);
+				}
+			}
+		}
+		int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+		return result;
+	}
+
+	private static ArrayNode getDetailDonationTranfersMap(List<Donation> rs) {
+		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+		HashMap<String, Integer> listResult = new HashMap<String,Integer>();
+		for(Donation r : rs){
+			for(DonationDetail rd : r.detail){
+				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				Integer value = listResult.get(key);
+				if(value == null){
+					listResult.put(key, 1);
+				}else{
+					listResult.put(key, listResult.get(key) + 1);
+				}
+			}
+		}
+		int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+		return result;
+	}
+
+	private static ArrayNode getDetailOtherTranfersMap(List<OtherTransfer> rs) {
+		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+		HashMap<String, Integer> listResult = new HashMap<String,Integer>();
+		for(OtherTransfer r : rs){
+			for(OtherTransferDetail rd : r.detail){
+				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				Integer value = listResult.get(key);
+				if(value == null){
+					listResult.put(key, 1);
+				}else{
+					listResult.put(key, listResult.get(key) + 1);
+				}
+			}
+		}
+		int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+		return result;
+	}
+
+	/*private static ArrayNode getDetailTransferMap(Date startDate, Date endDate) {
     	ArrayList<String> columnName = new ArrayList<String>();
     	columnName.add("โอนย้ายภายใน");
     	columnName.add("จำหน่าย");
@@ -807,7 +988,7 @@ public class Graph extends Controller {
     	}
     	
 		return result;
-	}
+	}*/
     
 	private static ArrayNode getDetailRepairingMap(List<Repairing> rs) {
 		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
@@ -867,7 +1048,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%.2f",listResult.get(key)));
-			tr.add(ids.get(key));
+			tr.add(getDescriptionButton("durableArticle", ids.get(key)));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -880,20 +1061,22 @@ public class Graph extends Controller {
     	HashMap<String,String> ids = new HashMap<String,String>();
     	for(models.durableGoods.Procurement p : ps){
     		for(models.durableGoods.ProcurementDetail pd : p.details){
-    			MaterialCode c = MaterialCode.find.byId(pd.code);
-    			if(c.materialType.typeName.equals(selectedName)){
-    				String key = c.description;
-					Double value = listResult.get(key);
-					if(value == null){
-						if(pd.quantity * pd.price != 0){
-							listResult.put(key, pd.quantity * pd.price);
-							ids.put(key,""+pd.id);
-						}
-					}else{
-						listResult.put(key, listResult.get(key) + (pd.quantity * pd.price));
-						ids.put(key,ids.get(key)+","+pd.id);
-					}
-				}
+    			for(DurableGoods d : pd.subDetails){
+    				MaterialCode c = MaterialCode.find.byId(pd.code);
+    				if(c.materialType.typeName.equals(selectedName)){
+    					String key = c.description;
+    					Double value = listResult.get(key);
+    					if(value == null){
+    						if(pd.quantity * pd.price != 0){
+    							listResult.put(key, pd.price);
+    							ids.put(key,"" + d.id);
+    						}
+    					}else{
+    						listResult.put(key, listResult.get(key) + pd.price);
+    						ids.put(key,ids.get(key) + "," + d.id);
+    					}
+    				}
+    			}
     		}
     		
     	}
@@ -903,7 +1086,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%.2f",listResult.get(key)));
-			tr.add(ids.get(key));
+			tr.add(getDescriptionButton("materialCode", ids.get(key)));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -937,7 +1120,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(ids.get(key));
+			tr.add(getDescriptionButton("procurementDurableArticle", ids.get(key)));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -974,7 +1157,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(ids.get(key));
+			tr.add(getDescriptionButton("procurementMaterialCode", ids.get(key)));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1012,14 +1195,14 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(ids.get(key));
+			tr.add(getDescriptionButton("requisition", ids.get(key)));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
     	return result;
     }
     
-    private static ArrayNode getTableTransfer(Date startDate, Date endDate, int col, String selectedName){
+    /*private static ArrayNode getTableTransfer(Date startDate, Date endDate, int col, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -1109,11 +1292,142 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
     	return result;
-    }
+    }*/
     
 
-    private static ArrayNode getTableRepairing(List<Repairing> rs, String selectedName) {
-		// TODO Auto-generated method stub
+    private static ArrayNode getTableInternalTranfers(List<InternalTransfer> rs, String selectedName) {
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	for(InternalTransfer internal : rs){
+			for(InternalTransferDetail internalDetail : internal.detail){
+				String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				if(key.equals(selectedName)){
+					key = internalDetail.durableArticles.detail.fsn.descriptionDescription;
+					Integer value = listResult.get(key);
+					if(value == null){
+						listResult.put(key, 1);
+						ids.put(key,"" + internalDetail.id);
+					}else{
+						listResult.put(key, value + 1);
+						ids.put(key,ids.get(key) + "," + internalDetail.id );
+					}
+				}
+			}
+		}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(getDescriptionButton("internalTransfer", ids.get(key)));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+	}
+
+	private static ArrayNode getTableAuctionTranfers(List<Auction> rs, String selectedName) {
+		ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+		for(Auction auction	: rs){
+			for(AuctionDetail auctionDetail : auction.detail){
+				String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				if(key.equals(selectedName)){
+					key = auctionDetail.durableArticles.detail.fsn.descriptionDescription;
+					Integer value = listResult.get(key);
+					if(value == null){
+						listResult.put(key, 1);
+						ids.put(key,"" + auctionDetail.id );
+					}else{
+						listResult.put(key, value + 1);
+						ids.put(key,ids.get(key) + "," + auctionDetail.id );
+					}
+				}
+			}
+		}
+		int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(getDescriptionButton("auction", ids.get(key)));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+		return result;
+	}
+
+	private static ArrayNode getTableDonationTranfers(List<Donation> rs, String selectedName) {
+		ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	for(Donation donation : rs){
+			for(DonationDetail donationDetail : donation.detail){
+				String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				if(key.equals(selectedName)){
+					key = donationDetail.durableArticles.detail.fsn.descriptionDescription;
+					Integer value = listResult.get(key);
+					if(value == null){
+						listResult.put(key, 1);
+						ids.put(key,"" + donationDetail.id );
+					}else{
+						listResult.put(key, value + 1);
+						ids.put(key,ids.get(key) + "," + donationDetail.id );
+					}
+				}
+			}
+		}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(getDescriptionButton("donate", ids.get(key)));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+		return result;
+	}
+
+	private static ArrayNode gettableOtherTranfers(List<OtherTransfer> rs, String selectedName) {
+		ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	for(OtherTransfer other : rs){
+			for(OtherTransferDetail otherDetail : other.detail){
+				String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				if(key.equals(selectedName)){
+					key = otherDetail.durableArticles.detail.fsn.descriptionDescription;
+					Integer value = listResult.get(key);
+					if(value == null){
+						listResult.put(key, 1);
+						ids.put(key,"" + otherDetail.id );
+					}else{
+						listResult.put(key, value + 1);
+						ids.put(key,ids.get(key) + "," + otherDetail.id );
+					}
+				}
+			}
+		}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(getDescriptionButton("otherTransfer", ids.get(key)));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+		return result;
+	}
+
+	private static ArrayNode getTableRepairing(List<Repairing> rs, String selectedName) {
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -1141,15 +1455,174 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(ids.get(key));
+			tr.add(getDescriptionButton("repair", ids.get(key)));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
 		return result;
 	}
+	
+	private static String getArticleHTML(String[] ids) {
+		String result = "<div>";
+		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(String id: ids){
+			DurableArticles d = DurableArticles.find.byId(Long.valueOf(id));
+			if(d!=null){
+				result += "<div class=\"well\">";
+				result += "id : " + d.id + "<br>";
+				result += "code : " + d.code + "<br>";
+				result += "ชื่อครุภัณฑ์ : " + d.detail.fsn.descriptionDescription + "<br>";
+				result += "คำนำหน้า : " + d.title + "<br>";
+				result += "firstName : " + d.firstName + "<br>";
+				result += "lastName : " + d.lastName + "<br>";
+				result += "department : " + d.department + "<br>";
+				result += "floorLevel : " + d.floorLevel + "<br>";
+				result += "room : " + d.room + "<br>";
+				String expandable = "";
+				expandable += "price : " + d.detail.price + "<br>";
+				expandable += "จำนวนนำเข้า : " + d.detail.quantity + "<br>";
+				expandable += "brand : " + d.detail.brand + "<br>";
+				expandable += "phone : " + d.detail.phone + "<br>";
+				expandable += "pic : <img src=\"" + d.detail.partOfPic + "\"><br>";
+				expandable += "contractNo : " + d.detail.procurement.contractNo + "<br>";
+				expandable += "budgetType : " + d.detail.procurement.budgetType + "<br>";
+				expandable += "addDate : " + d.detail.procurement.getAddDate() + "<br>";
+				expandable += "checkDate : " + d.detail.procurement.getCheckDate() + "<br>";
+				
+				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
+				result += "</div>";
+			}
+		}
+		result += "</div>";
+		return result;
+	}
+	
+	private static String getGoodsHTML(String[] ids) {
+		String result = "<div>";
+		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(String id: ids){
+			DurableGoods d = DurableGoods.find.byId(Long.valueOf(id));
+			MaterialCode m = MaterialCode.find.byId(id);
+			if(d!=null){
+				result += "<div class=\"well\">";
+				result += "code : " + d.codes + "<br>";
+				result += "ชื่อวัสดุ : " + d.detail.description + "<br>";
+				result += "คำนำหน้า : " + d.title + "<br>";
+				result += "firstName : " + d.firstName + "<br>";
+				result += "lastName : " + d.lastName + "<br>";
+				result += "department : " + d.department + "<br>";
+				result += "floorLevel : " + d.floorLevel + "<br>";
+				result += "room : " + d.room + "<br>";
+				String expandable = "";
+				expandable += "price : " + d.detail.price + "<br>";
+				expandable += "จำนวนนำเข้า : " + d.detail.quantity + "<br>";
+				expandable += "brand : " + d.detail.brand + "<br>";
+				expandable += "phone : " + d.detail.phone + "<br>";
+				expandable += "pic : <img src=\"" + d.detail.partOfPic + "\"><br>";
+				expandable += "fsn : " + d.detail.code + "<br>";
+				expandable += "contractNo : " + d.detail.procurement.contractNo + "<br>";
+				expandable += "budgetType : " + d.detail.procurement.budgetType + "<br>";
+				expandable += "addDate : " + d.detail.procurement.getAddDate() + "<br>";
+				expandable += "checkDate : " + d.detail.procurement.getCheckDate() + "<br>";
+				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
+				result += "</div>";
+			}
+		}
+		result += "</div>";
+		return result;
+	}
+
+	private static String getProcurementArticleHTML(String[] ids) {
+		String result = "<div>";
+		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(String id: ids){
+			models.durableArticles.ProcurementDetail pd = models.durableArticles.ProcurementDetail.find.byId(Long.valueOf(id));
+			if(pd!=null){
+				result += "<div class=\"well\">";
+				result += "description : " + pd.description + "<br>";
+				result += "alertTime : " + pd.alertTime + "<br>";
+				result += "brand : " + pd.brand + "<br>";
+				result += "price : " + pd.price + "<br>";
+				result += "phone : " + pd.phone + "<br>";
+				result += "quantity : " + pd.quantity + "<br>";
+				result += "seller : " + pd.seller + "<br>";
+				result += "serialNumber : " + pd.serialNumber + "<br>";
+				result += "priceNoVat : " + pd.priceNoVat + "<br>";
+				result += "pic : <img src=\"" + pd.fsn.path + "\"><br>";
+				
+				String expandable = "";
+				expandable += "contractNo : " + pd.procurement.contractNo + "<br>";
+				expandable += "budgetType : " + pd.procurement.budgetType + "<br>";
+				expandable += "addDate : " + pd.procurement.getAddDate() + "<br>";
+				expandable += "checkDate : " + pd.procurement.getCheckDate() + "<br>";
+				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
+				result += "</div>";
+			}
+		}
+		result += "</div>";
+		return result;
+	}
+
+	private static String getProcurementMaterialHTML(String[] ids) {
+		String result = "<div>";
+		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(String id: ids){
+			models.durableGoods.ProcurementDetail pd = models.durableGoods.ProcurementDetail.find.byId(Long.valueOf(id));
+			if(pd!=null){
+				result += "<div class=\"well\">";
+				result += "description : " + pd.description + "<br>";
+				result += "brand : " + pd.brand + "<br>";
+				result += "price : " + pd.price + "<br>";
+				result += "phone : " + pd.phone + "<br>";
+				result += "quantity : " + pd.quantity + "<br>";
+				result += "seller : " + pd.seller + "<br>";
+				result += "serialNumber : " + pd.serialNumber + "<br>";
+				result += "priceNoVat : " + pd.priceNoVat + "<br>";
+				
+				String expandable = "";
+				expandable += "contractNo : " + pd.procurement.contractNo + "<br>";
+				expandable += "budgetType : " + pd.procurement.budgetType + "<br>";
+				expandable += "addDate : " + pd.procurement.getAddDate() + "<br>";
+				expandable += "checkDate : " + pd.procurement.getCheckDate() + "<br>";
+				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
+				result += "</div>";
+			}
+		}
+		result += "</div>";
+		return result;
+	}
+
+	private static String getRequisitionHTML(String[] ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static String getInternalTransferHTML(String[] ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static String getAuctionHTML(String[] ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static String getDonationHTML(String[] ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static String getOtherTransferHTML(String[] ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static String getRepairHTML(String[] ids) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
-    private static ArrayNode getTableRepairing(Date startDate, Date endDate, int col, String selectedName){
-    	//TODO
+    /*private static ArrayNode getTableRepairing(Date startDate, Date endDate, int col, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -1199,17 +1672,28 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			/*if(col == 1){
+			if(col == 1){
 				tr.add(arg0)
-			}*/
+			}
 			tr.add(ids.get(key));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
     	return result;
-    }
+    }*/
     
-    private static List<Date> getYearDate(int row){
+    private static String getExpandableHTML(String header,String content){
+		String result = "";
+		result += "<div class=\"collapse-group\">";
+		result += "<div class=\"myBtn\" data-toggle=\"collapse\">"+header+"</div>";
+		result += "<div class='collapse'>";
+			result += content;
+		result += "</div>";
+		result += "</div>";
+		return result;
+	}
+
+	private static List<Date> getYearDate(int row){
 		int year = Calendar.getInstance().get(Calendar.YEAR)-(3-row);
 		cal.set(Calendar.YEAR, year);
 		cal.set(Calendar.WEEK_OF_YEAR, 1);
@@ -1260,8 +1744,12 @@ public class Graph extends Controller {
 		d.add(endDate);
 		return d;
 	}
+	
+	private static String getDescriptionButton(String className,String ids){
+		return "<button class='btn btn-xs btn-info' onclick='getDescription(\""+ className +"\", \""+ ids + "\")' >รายละเอียด</button>";
+	}
 
-	private static List<String> getTransferKey(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
+	/*private static List<String> getTransferKey(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
     	List<String> list = new ArrayList<String>();
     	for(InternalTransfer internal : internals){
     		for(InternalTransferDetail internalDetail : internal.detail){
@@ -1300,9 +1788,9 @@ public class Graph extends Controller {
     	}
     	
     	return list;
-    }
+    }*/
     
-    private static HashMap<String, Integer[]> getMapTransfer(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others, List<String> list){
+    /*private static HashMap<String, Integer[]> getMapTransfer(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others, List<String> list){
     	HashMap<String , Integer[]> map = new HashMap<String, Integer[]>();
     	for(InternalTransfer internal : internals){
     		for(InternalTransferDetail internalDetail : internal.detail){
@@ -1360,9 +1848,9 @@ public class Graph extends Controller {
     		}
     	}
     	return map;
-    }
+    }*/
     
-    private static HashMap<String, Integer[]> getMapRepairing(List<Repairing> repaireds, List<Repairing> repairings, List<String> list) {
+    /*private static HashMap<String, Integer[]> getMapRepairing(List<Repairing> repaireds, List<Repairing> repairings, List<String> list) {
     	HashMap<String , Integer[]> map = new HashMap<String, Integer[]>();
     	for(Repairing r : repaireds){
     		for(RepairingDetail rd : r.detail){
@@ -1391,9 +1879,9 @@ public class Graph extends Controller {
     		}
     	}
 		return map;
-	}
+	}*/
 
-	private static List<String> getRepairKey(List<Repairing> repaireds, List<Repairing> repairings){
+	/*private static List<String> getRepairKey(List<Repairing> repaireds, List<Repairing> repairings){
     	List<String> list = new ArrayList<String>();
     	for(Repairing r : repaireds){
     		for(RepairingDetail rd : r.detail){
@@ -1413,6 +1901,6 @@ public class Graph extends Controller {
     		}
     	}
     	return list;
-    }
+    }*/
     
 }

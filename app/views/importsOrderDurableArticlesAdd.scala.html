@@ -24,7 +24,7 @@
 		function removeDisable1(){
 			if($('#orderStatus').val() == "SUCCESS"){
 				$('#editBtn1').hide();
-				$('#page1 input').prop('disabled', false);
+				$('#page1 :input').prop('disabled', false);
 				$('#page1 select').prop('disabled', false);
 				$('#orderStatus').val('');
 				$('#b1').show();
@@ -97,9 +97,7 @@
                     <select class="form-control textAlignCenter  width300px" name="institute">
                         <option>---เลือก---</option>
                         @for(company <- companies){
-                        	<option @if(order.institute != null && order.institute ==company.nameEntrepreneur ){ selected}>
-                        		@company.nameEntrepreneur
-                        	</option>
+                        	<option @if(order.institute != null && order.institute ==company.nameEntrepreneur ){ selected}>@company.nameEntrepreneur</option>
                         }
                     </select>
             </div>
@@ -127,12 +125,44 @@
             <input id="eoLists" type="hidden" name="eoLists" >
     <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     
-            <legend>คณะกรรมการเปิดซอง <button type="button" onclick="createEOCommittee()">เพิ่ม</button> </legend>
-            <div class="form-inline marginBtm1" role="form" id="eo_committee" style="display:inline-table"></div> <!--คณะกรรมการ-->
+           
+            <h3 style ="text-align:left;">คณะกรรมการเปิดซอง <button id="EoButton" type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" onclick="createEOCommittee()">เพิ่มกรรมการเปิดซอง</button> </h3>
+            <table class="table table-striped overlayTable" style="margin-bottom:3%;">
+		        <thead>
+		          <tr>
+		            <th style ="text-align:center;"> คำนำหน้า </th>
+		            <th style ="text-align:center;"> ชื่อ </th>
+		            <th style ="text-align:center;"> นามสกุล </th>
+		            <th style ="text-align:center;"> หมายเลขบัตรประจำคัวประชาชน </th>
+		            <th style ="text-align:center;"> ตำแหน่ง </th>
+		            <th style ="text-align:center;"> ประเภทกรรมการ </th>
+		            <th style ="text-align:center;"> ตำแหน่งในคณะกรรมการ </th>
+		            <th style ="text-align:center;">ลบ </th>
+		          </tr>
+		        </thead>
+		        <tbody class="form-inline marginBtm1" role="form" id="eo_committee">
+		
+		        </tbody>
+	      	</table>
     <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-    
-            <legend>คณะกรรมการตรวจรับ <button type="button" onclick="createAICommittee()">เพิ่ม</button> </legend>
-            <div class="form-inline marginBtm1" role="form" id="ai_committee"  style="display:inline-table"></div> 
+            <h3 style ="text-align:left;">คณะกรรมการตรวจรับ <button id="AiButton" type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" onclick="createAICommittee()">เพิ่มกรรมการตรวจรับ</button> </h3>
+			<table class="table table-striped overlayTable" style="margin-bottom:3%;">
+		        <thead>
+		          <tr>
+		            <th style ="text-align:center;"> คำนำหน้า </th>
+		            <th style ="text-align:center;"> ชื่อ </th>
+		            <th style ="text-align:center;"> นามสกุล </th>
+		            <th style ="text-align:center;"> หมายเลขบัตรประจำคัวประชาชน </th>
+		            <th style ="text-align:center;"> ตำแหน่ง </th>
+		            <th style ="text-align:center;"> ประเภทกรรมการ </th>
+		            <th style ="text-align:center;"> ตำแหน่งในคณะกรรมการ </th>
+		            <th style ="text-align:center;">ลบ </th>
+		          </tr>
+		        </thead>
+		        <tbody class="form-inline marginBtm1" role="form" id="ai_committee">
+		
+		        </tbody>
+	      	</table>
     <!-- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------->
         </div>
 
