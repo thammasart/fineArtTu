@@ -216,26 +216,26 @@ function add_FF_committree(){
     var tr = table.insertRow();
     tr.id = 'FF'+i;
 
-	var s = '<th> <input name="FF_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input name="FF_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input name="FF_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input name="FF_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	var s = '<th> <input id="FF_namePrefix'+i+'" name="FF_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input id="FF_firstName'+i+'" name="FF_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input id="FF_lastName'+i+'" name="FF_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input id="FF_position'+i+'" name="FF_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
 	   s += '<th> ';
-	   s += '  <select name="FF_cType'+i+'" class="form-control textAlignCenter width175px">';
+	   s += '  <select id="FF_cType'+i+'" name="FF_cType'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ข้าราชการ</option>';
 	   s += '    <option>พนักงานมหาลัย</option>';
 	   s += '  </select>';
 	   s += '</th>';
 	   s += '<th> ';
-	   s += '  <select name="FF_cPosition'+i+'" class="form-control textAlignCenter width175px">';
+	   s += '  <select id="FF_cPosition'+i+'" name="FF_cPosition'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ประธานกรรมการ</option>';
 	   s += '    <option>กรรมการ</option>';
 	   s += '    <option>กรรมการและเลขานุการ</option>';
 	   s += '  </select>';
 	   s += '</th> ';
-	   s += '<th> <button type="button" class="btn btn btn-danger" onclick="delete_FF_committree('+i+')"> ลบ </button> </th>';
+	   s += '<th> <button type="button" class="btn btn btn-danger" id="FF_delete'+i+'" onclick="delete_FF_committree('+i+')"> ลบ </button> </th>';
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();
@@ -257,37 +257,31 @@ function add_D_committree(){
     var tr = table.insertRow();
     tr.id = 'D'+i;
 
-    var s = '<th> <input name="D_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input name="D_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input name="D_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input name="D_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+    var s = '<th> <input id="D_namePrefix'+i+'" name="D_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input id="D_firstName'+i+'" name="D_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input id="D_lastName'+i+'" name="D_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th> <input id="D_position'+i+'" name="D_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
 	   s += '<th> ';
-	   s += '  <select name="D_cType'+i+'" class="form-control textAlignCenter width175px">';
+	   s += '  <select id="D_cType'+i+'" name="D_cType'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ข้าราชการ</option>';
 	   s += '    <option>พนักงานมหาลัย</option>';
 	   s += '  </select>';
 	   s += '</th>';
 	   s += '<th> ';
-	   s += '  <select name="D_cPosition'+i+'" class="form-control textAlignCenter width175px">';
+	   s += '  <select id="D_cPosition'+i+'" name="D_cPosition'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ประธานกรรมการ</option>';
 	   s += '    <option>กรรมการ</option>';
 	   s += '    <option>กรรมการและเลขานุการ</option>';
 	   s += '  </select>';
 	   s += '</th> ';
-	   s += '<th> <button type="button" class="btn btn btn-danger" onclick="delete_D_committree('+i+')"> ลบ </button> </th>';
+	   s += '<th> <button type="button" class="btn btn btn-danger" id="D_delete'+i+'" onclick="delete_D_committree('+i+')"> ลบ </button> </th>';
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();
 	i++;
 	document.getElementById("numberOf_D_committee").value = i;
-}
-
-function delete_D_committree(num){
-	destroyTable();
-	document.getElementById("D"+num).remove();
-	updateTable();
 }
 
 function init(id){
@@ -315,9 +309,38 @@ function initViewDetial(id){
 	document.getElementById("datepickerbutton").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
 	document.getElementById("saveExport").style.display = "none";
+	document.getElementById("FF_add").style.display = "none";
+	document.getElementById("D_add").style.display = "none";
+	
 	init(id);
 	titleInHeader = "แสดงรายละเอียดการการบริจาค";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+
+	var i;
+	i = parseInt(document.getElementById("numberOf_FF_committee").value);
+	if(i > 0 ){
+		for(j=0; j<i; j++){
+			document.getElementById("FF_namePrefix"+j.toString()).disabled = true;
+			document.getElementById("FF_firstName"+j.toString()).disabled = true;
+			document.getElementById("FF_lastName"+j.toString()).disabled = true;
+			document.getElementById("FF_position"+j.toString()).disabled = true;
+			document.getElementById("FF_cType"+j.toString()).disabled = true;
+			document.getElementById("FF_cPosition"+j.toString()).disabled = true;
+			document.getElementById("FF_delete"+j.toString()).style.display = "none";
+		}
+	}
+	i = parseInt(document.getElementById("numberOf_D_committee").value);
+	if(i > 0 ){
+		for(j=0; j<i; j++){
+			document.getElementById("D_namePrefix"+j.toString()).disabled = true;
+			document.getElementById("D_firstName"+j.toString()).disabled = true;
+			document.getElementById("D_lastName"+j.toString()).disabled = true;
+			document.getElementById("D_position"+j.toString()).disabled = true;
+			document.getElementById("D_cType"+j.toString()).disabled = true;
+			document.getElementById("D_cPosition"+j.toString()).disabled = true;
+			document.getElementById("D_delete"+j.toString()).style.display = "none";
+		}
+	}
 }
 
 function changeToEdit(){
@@ -330,6 +353,35 @@ function changeToEdit(){
 	document.getElementById("editDetail").style.display = "block";
 	document.getElementById("saveExport").style.display = "block";
 	document.getElementById("changeToEditButton").style.display = "none";
+	document.getElementById("FF_add").style.display = "block";
+	document.getElementById("D_add").style.display = "block";
+
 	titleInHeader = "แก้ไขรายละเอียดการการบริจาค";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+
+	var i;
+	i = parseInt(document.getElementById("numberOf_FF_committee").value);
+	if(i > 0 ){
+		for(j=0; j<i; j++){
+			document.getElementById("FF_namePrefix"+j.toString()).disabled = false;
+			document.getElementById("FF_firstName"+j.toString()).disabled = false;
+			document.getElementById("FF_lastName"+j.toString()).disabled = false;
+			document.getElementById("FF_position"+j.toString()).disabled = false;
+			document.getElementById("FF_cType"+j.toString()).disabled = false;
+			document.getElementById("FF_cPosition"+j.toString()).disabled = false;
+			document.getElementById("FF_delete"+j.toString()).style.display = "block";
+		}
+	}
+	i = parseInt(document.getElementById("numberOf_D_committee").value);
+	if(i > 0 ){
+		for(j=0; j<i; j++){
+			document.getElementById("D_namePrefix"+j.toString()).disabled = false;
+			document.getElementById("D_firstName"+j.toString()).disabled = false;
+			document.getElementById("D_lastName"+j.toString()).disabled = false;
+			document.getElementById("D_position"+j.toString()).disabled = false;
+			document.getElementById("D_cType"+j.toString()).disabled = false;
+			document.getElementById("D_cPosition"+j.toString()).disabled = false;
+			document.getElementById("D_delete"+j.toString()).style.display = "block";
+		}
+	}
 }
