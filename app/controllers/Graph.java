@@ -1483,7 +1483,7 @@ public class Graph extends Controller {
 				expandable += "จำนวนนำเข้า : " + d.detail.quantity + "<br>";
 				expandable += "brand : " + d.detail.brand + "<br>";
 				expandable += "phone : " + d.detail.phone + "<br>";
-				expandable += "pic : <img src=\"" + d.detail.partOfPic + "\"><br>";
+				expandable += "pic : <img src=\"" + d.detail.fsn.path + "\"><br>";
 				expandable += "contractNo : " + d.detail.procurement.contractNo + "<br>";
 				expandable += "budgetType : " + d.detail.procurement.budgetType + "<br>";
 				expandable += "addDate : " + d.detail.procurement.getAddDate() + "<br>";

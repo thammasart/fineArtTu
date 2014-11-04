@@ -32,7 +32,6 @@ public class ProcurementDetail extends Model{
 	public String phone; // ยี่ห้อ
 	public String brand; // ยี่ห้อ
 	public String serialNumber; //หมายเลขเครื่อง
-	public String partOfPic; // รูปภาพ
 	public OrderDetailStatus status;
 	
 	
