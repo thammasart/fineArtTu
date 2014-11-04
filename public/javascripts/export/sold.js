@@ -249,18 +249,18 @@ function add_FF_committree(){
     var tr = table.insertRow();
     tr.id = 'FF'+i;
 
-	var s = '<th> <input id="FF_namePrefix'+i+'" name="FF_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="FF_firstName'+i+'" name="FF_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="FF_lastName'+i+'" name="FF_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="FF_position'+i+'" name="FF_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> ';
+	var s = '<th style ="text-align:center;" > <input id="FF_namePrefix'+i+'" name="FF_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="FF_firstName'+i+'" name="FF_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="FF_lastName'+i+'" name="FF_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="FF_position'+i+'" name="FF_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > ';
 	   s += '  <select id="FF_cType'+i+'" name="FF_cType'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ข้าราชการ</option>';
 	   s += '    <option>พนักงานมหาลัย</option>';
 	   s += '  </select>';
 	   s += '</th>';
-	   s += '<th> ';
+	   s += '<th style ="text-align:center;" > ';
 	   s += '  <select id="FF_cPosition'+i+'" name="FF_cPosition'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ประธานกรรมการ</option>';
@@ -268,7 +268,7 @@ function add_FF_committree(){
 	   s += '    <option>กรรมการและเลขานุการ</option>';
 	   s += '  </select>';
 	   s += '</th> ';
-	   s += '<th> <button type="button" class="btn btn btn-danger" id="FF_delete'+i+'" onclick="delete_FF_committree('+i+')"> ลบ </button> </th>';
+	   s += '<th style ="text-align:center;" > <button type="button" class="btn btn btn-danger" id="FF_delete'+i+'" onclick="delete_FF_committree('+i+')"> ลบ </button> </th>';
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();
@@ -290,18 +290,18 @@ function add_E_committree(){
     var tr = table.insertRow();
     tr.id = 'E'+i;
 
-    var s = '<th> <input id="E_namePrefix'+i+'" name="E_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="E_firstName'+i+'" name="E_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="E_lastName'+i+'" name="E_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="E_position'+i+'" name="E_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> ';
+    var s = '<th style ="text-align:center;" > <input id="E_namePrefix'+i+'" name="E_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="E_firstName'+i+'" name="E_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="E_lastName'+i+'" name="E_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="E_position'+i+'" name="E_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > ';
 	   s += '  <select id="E_cType'+i+'" name="E_cType'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '	  <option>---เลือก---</option>';
 	   s += '	  <option>ข้าราชการ</option>';
 	   s += '	  <option>พนักงานมหาลัย</option>';
 	   s += '  </select>';
 	   s += '</th>';
-	   s += '<th> ';
+	   s += '<th style ="text-align:center;" > ';
 	   s += '  <select id="E_cPosition'+i+'" name="E_cPosition'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ประธานกรรมการ</option>';
@@ -309,7 +309,7 @@ function add_E_committree(){
 	   s += '    <option>กรรมการและเลขานุการ</option>';
 	   s += '  </select>';
 	   s += '</th> ';
-	   s += '<th> <button type="button" class="btn btn btn-danger" id="E_delete'+i+'" onclick="delete_E_committree('+i+')"> ลบ </button> </th>';
+	   s += '<th style ="text-align:center;" > <button type="button" class="btn btn btn-danger" id="E_delete'+i+'" onclick="delete_E_committree('+i+')"> ลบ </button> </th>';
   
 	document.getElementById('E'+i).innerHTML = s;
 	updateTable();
@@ -331,18 +331,18 @@ function add_D_committree(){
     var tr = table.insertRow();
     tr.id = 'D'+i;
 
-    var s = '<th> <input id="D_namePrefix'+i+'" name="D_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="D_firstName'+i+'" name="D_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="D_lastName'+i+'" name="D_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="D_position'+i+'" name="D_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> ';
+    var s = '<th style ="text-align:center;" > <input id="D_namePrefix'+i+'" name="D_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="D_firstName'+i+'" name="D_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="D_lastName'+i+'" name="D_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="D_position'+i+'" name="D_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > ';
 	   s += '  <select id="D_cType'+i+'" name="D_cType'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ข้าราชการ</option>';
 	   s += '    <option>พนักงานมหาลัย</option>';
 	   s += '  </select>';
 	   s += '</th>';
-	   s += '<th> ';
+	   s += '<th style ="text-align:center;" > ';
 	   s += '  <select id="D_cPosition'+i+'" name="D_cPosition'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ประธานกรรมการ</option>';
@@ -350,7 +350,7 @@ function add_D_committree(){
 	   s += '    <option>กรรมการและเลขานุการ</option>';
 	   s += '  </select>';
 	   s += '</th> ';
-	   s += '<th> <button type="button" class="btn btn btn-danger" id="D_delete'+i+'" onclick="delete_D_committree('+i+')"> ลบ </button> </th>';
+	   s += '<th style ="text-align:center;" > <button type="button" class="btn btn btn-danger" id="D_delete'+i+'" onclick="delete_D_committree('+i+')"> ลบ </button> </th>';
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();

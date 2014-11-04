@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import models.type.CommitteeType;
 import models.Committee;
+import models.User;
 
 @Entity
 @Table (name = "durable__goods_eo_committee")
@@ -16,7 +17,7 @@ public class AI_Committee extends Model{
 	public String committeePosition; // ตำแหน่งในคณกรรมการ
 
 	@ManyToOne
-	public Committee committee;	// กรรมการ
+	public User committee;	// กรรมการ
 	@ManyToOne
 	public Procurement procurement;	// การจัดซื้อ
 	

@@ -86,7 +86,8 @@
                         <option @if(order.budgetType != null && order.budgetType.contains("คลัง")) { selected }>งบคลัง</option>
                         <option @if(order.budgetType != null && order.budgetType.contains("พิเศษ")) { selected }>งบพิเศษ</option>
                         <option @if(order.budgetType != null && order.budgetType.contains("ค่าธรรมเนียม")) { selected }>งบกองทุนค่าธรรมเนียม</option>
-                        <option @if(order.budgetType != null && order.budgetType.contains("อื่นๆ")) { selected }>อื่นๆ</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("บริจาค")) { selected }>งบบริจาค</option>
+                        <option @if(order.budgetType != null && order.budgetType.contains("อุทกภัย")) { selected }>งบอุทกภัย</option>
                     </select>
             </div>
         </div>
@@ -133,11 +134,10 @@
 		            <th style ="text-align:center;"> คำนำหน้า </th>
 		            <th style ="text-align:center;"> ชื่อ </th>
 		            <th style ="text-align:center;"> นามสกุล </th>
-		            <th style ="text-align:center;"> หมายเลขบัตรประจำคัวประชาชน </th>
 		            <th style ="text-align:center;"> ตำแหน่ง </th>
 		            <th style ="text-align:center;"> ประเภทกรรมการ </th>
 		            <th style ="text-align:center;"> ตำแหน่งในคณะกรรมการ </th>
-		            <th style ="text-align:center;">ลบ </th>
+		            <th style ="text-align:center;"> ลบ </th>
 		          </tr>
 		        </thead>
 		        <tbody class="form-inline marginBtm1" role="form" id="eo_committee">
@@ -152,11 +152,10 @@
 		            <th style ="text-align:center;"> คำนำหน้า </th>
 		            <th style ="text-align:center;"> ชื่อ </th>
 		            <th style ="text-align:center;"> นามสกุล </th>
-		            <th style ="text-align:center;"> หมายเลขบัตรประจำคัวประชาชน </th>
 		            <th style ="text-align:center;"> ตำแหน่ง </th>
 		            <th style ="text-align:center;"> ประเภทกรรมการ </th>
 		            <th style ="text-align:center;"> ตำแหน่งในคณะกรรมการ </th>
-		            <th style ="text-align:center;">ลบ </th>
+		            <th style ="text-align:center;"> ลบ </th>
 		          </tr>
 		        </thead>
 		        <tbody class="form-inline marginBtm1" role="form" id="ai_committee">

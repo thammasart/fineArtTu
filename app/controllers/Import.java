@@ -377,7 +377,7 @@ public class Import extends Controller {
         
         code = newCode.code;
         code = Character.toString(code.charAt(0))+Character.toString(code.charAt(1));
-        System.out.println(code);
+        //System.out.println(code);
         newCode.materialType = MaterialType.find.byId(code);   //connect link
         //newCode.materialType = code[0]+code[1];
 
@@ -505,7 +505,7 @@ public class Import extends Controller {
 	   		 
     	}
     	else{
-    		System.out.println(type);
+    		//System.out.println(type);
     		
         		tab="2";
         		flash("notSelect2","เลือกรหัสวัสดุที่ต้องการจะลบ");
@@ -568,10 +568,9 @@ public class Import extends Controller {
     		models.durableArticles.Procurement pa = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").asText()));
     		for(models.durableArticles.AI_Committee ai : pa.aiCommittee){
     			ArrayNode aiItem = JsonNodeFactory.instance.arrayNode();
-    			aiItem.add(ai.committee.title);
+    			aiItem.add(ai.committee.namePrefix);
     			aiItem.add(ai.committee.firstName);
     			aiItem.add(ai.committee.lastName);
-    			aiItem.add(ai.committee.identificationNo);
     			aiItem.add(ai.committee.position);
     			aiItem.add(ai.employeesType);
     			aiItem.add(ai.committeePosition);
@@ -581,14 +580,13 @@ public class Import extends Controller {
     		
     		for(models.durableArticles.EO_Committee eo : pa.eoCommittee){
     			ArrayNode eoItem = JsonNodeFactory.instance.arrayNode();
-    			eoItem.add(eo.committee.title);
+    			eoItem.add(eo.committee.namePrefix);
     			eoItem.add(eo.committee.firstName);
     			eoItem.add(eo.committee.lastName);
-    			eoItem.add(eo.committee.identificationNo);
     			eoItem.add(eo.committee.position);
     			eoItem.add(eo.employeesType);
-    			System.out.println(eo.employeesType);
-    			System.out.println(eo.committeePosition);
+    			//System.out.println(eo.employeesType);
+    			//System.out.println(eo.committeePosition);
     			eoItem.add(eo.committeePosition);
     			eoArray.add(eoItem);
     		}
@@ -619,10 +617,9 @@ public class Import extends Controller {
     		models.durableGoods.Procurement pg = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").asText()));
     		for(models.durableGoods.AI_Committee ai : pg.aiCommittee){
     			ArrayNode aiItem = JsonNodeFactory.instance.arrayNode();
-    			aiItem.add(ai.committee.title);
+    			aiItem.add(ai.committee.namePrefix);
     			aiItem.add(ai.committee.firstName);
     			aiItem.add(ai.committee.lastName);
-    			aiItem.add(ai.committee.identificationNo);
     			aiItem.add(ai.committee.position);
     			aiItem.add(ai.employeesType);
     			aiItem.add(ai.committeePosition);
@@ -768,7 +765,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveNewArticlesOrder(){
     	DynamicForm form = Form.form().bindFromRequest();
-    	System.out.println(Form.form(models.durableArticles.Procurement.class).bindFromRequest());
+    	//System.out.println(Form.form(models.durableArticles.Procurement.class).bindFromRequest());
     	
     	//models.durableArticles.Procurement articlesOrder = Form.form(models.durableArticles.Procurement.class).bindFromRequest().get();
     	models.durableArticles.Procurement articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(form.get("id")));
@@ -779,7 +776,7 @@ public class Import extends Controller {
     	articlesOrder.institute = form.get("institute");
     	articlesOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
     	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---")){
-    		System.out.println(form.get("institute"));
+    		//System.out.println(form.get("institute"));
     		articlesOrder.company = Company.find.where().eq("nameEntrepreneur", form.get("institute")).findList().get(0);
     	}
     	
@@ -808,21 +805,25 @@ public class Import extends Controller {
 	    	for(int i=0;i<temp.length;i++)
 	    	{
 	    		System.out.println("inlist is: "+temp[i]);
-	    		String pId=form.get("aiPersonalID"+temp[i]);
-	    		Committee cmt = Committee.find.byId(pId);
+	    		String pTitle=form.get("aiPrefixName"+temp[i]);
+	    		String pName=form.get("aiFirstName"+temp[i]);
+	    		String pLastName=form.get("aiLastName"+temp[i]);
+	    		String pPosition = form.get("aiPosition"+temp[i]);
 	    		
+	    		User cmt = User.find.where().eq("namePrefix",pTitle).eq("firstName",pName).eq("lastName", pLastName).eq("position", pPosition).findUnique(); 
+	    		/*
 	    		if(cmt==null)
 	    		{
 	    			System.out.println("innnnn");
-			        cmt = new Committee();
-			        cmt.title = form.get("aiPrefixName"+temp[i]);		
+			        cmt = new User();
+			        cmt.namePrefix = form.get("aiPrefixName"+temp[i]);		
 			        cmt.firstName = form.get("aiFirstName"+temp[i]);
 			        cmt.lastName = form.get("aiLastName"+temp[i]);
-			        cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
 			        cmt.position = form.get("aiPosition"+temp[i]);			
 		
 			        cmt.save();
 	    		}
+	    		*/
 		        AI_Committee ai_cmt;
 		        if(i<articlesOrder.aiCommittee.size()){
 		        	ai_cmt = articlesOrder.aiCommittee.get(i);
@@ -850,21 +851,27 @@ public class Import extends Controller {
     	if(!a.equals(""))
     	{
 	    	for(int i=0;i<temp.length;i++)
-	    	{
-	    		String pId=form.get("eoPersonalID"+temp[i]);
-	    		Committee cmt = Committee.find.byId(pId);
+	    	{	
+	    		System.out.println("inlist is: "+temp[i]);
+	    		String pTitle=form.get("eoPrefixName"+temp[i]);
+	    		String pName=form.get("eoFirstName"+temp[i]);
+	    		String pLastName=form.get("eoLastName"+temp[i]);
+	    		String pPosition = form.get("eoPosition"+temp[i]);
 	    		
+	    		User cmt = User.find.where().eq("namePrefix",pTitle).eq("firstName",pName).eq("lastName", pLastName).eq("position", pPosition).findUnique();   		
+
+	    		/*
 	    		if(cmt==null)
 	    		{
-			        cmt = new Committee();
-			        cmt.title = form.get("eoPrefixName"+temp[i]);		
+			        cmt = new User();
+			        cmt.namePrefix = form.get("eoPrefixName"+temp[i]);		
 			        cmt.firstName = form.get("eoFirstName"+temp[i]);
 			        cmt.lastName = form.get("eoLastName"+temp[i]);
-			        cmt.identificationNo = form.get("eoPersonalID"+temp[i]);
 			        cmt.position = form.get("eoPosition"+temp[i]);			
 		
 			        cmt.save();
 	    		}
+	    		*/
 	    		
 	    		EO_Committee eo_cmt;
 	    		if(i<articlesOrder.eoCommittee.size()){
@@ -901,7 +908,7 @@ public class Import extends Controller {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
-    	System.out.println(articlesOrder.checkDate.toLocaleString());
+    	//System.out.println(articlesOrder.checkDate.toLocaleString());
         
     	
     	/////////////////////////////////////////////////////////////////////////////////////
@@ -969,9 +976,9 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveNewGoodsOrder(){
     	DynamicForm form = Form.form().bindFromRequest();
-    	System.out.println(Form.form(models.durableGoods.Procurement.class).bindFromRequest());
+    	//System.out.println(Form.form(models.durableGoods.Procurement.class).bindFromRequest());
     	
-    	System.out.println(Long.parseLong(form.get("id")));
+    	//System.out.println(Long.parseLong(form.get("id")));
     	models.durableGoods.Procurement goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(form.get("id")));
     	goodsOrder.title = form.get("title");
     	goodsOrder.contractNo = form.get("contractNo");
@@ -994,9 +1001,9 @@ public class Import extends Controller {
     	String[] temp = form.get("aiLists").split(",");
     	String a=form.get("aiLists");
     	
-    	System.out.println("Let me see");
-    	System.out.println(a);
-    	System.out.println(temp.length);
+    	//System.out.println("Let me see");
+    	//System.out.println(a);
+    	//System.out.println(temp.length);
     	
     	boolean editingMode = true;
     	
@@ -1006,22 +1013,23 @@ public class Import extends Controller {
 	    		
 	    		System.out.println("inlist is: "+temp[i]);
 
+		    	String pTitle=form.get("aiPrefixName"+temp[i]);
+	    		String pName=form.get("aiFirstName"+temp[i]);
+	    		String pLastName=form.get("aiLastName"+temp[i]);
+	    		String pPosition = form.get("aiPosition"+temp[i]);
 	    		
-	    		
-		    	String pId=form.get("aiPersonalID"+temp[i]);
+	    		User cmt = User.find.where().eq("namePrefix",pTitle).eq("firstName",pName).eq("lastName", pLastName).eq("position", pPosition).findUnique();   		
 		    	
-		    	System.out.println(pId);
-		    	
-		    	Committee cmt = Committee.find.byId(pId);
+	    		/*
 		    	if(cmt==null){
-			    	cmt = new Committee();
-			    	cmt.title = form.get("aiPrefixName"+temp[i]);
+			    	cmt = new User();
+			    	cmt.namePrefix = form.get("aiPrefixName"+temp[i]);
 			    	cmt.firstName = form.get("aiFirstName"+temp[i]);
 			    	cmt.lastName = form.get("aiLastName"+temp[i]);
-			    	cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
 			    	cmt.position = form.get("aiPosition"+temp[i]);
 			    	cmt.save();
 		    	}
+		    	*/
 		    	
 			    models.durableGoods.AI_Committee ai_cmt;
 			    if(i<goodsOrder.aiCommittee.size()){
@@ -1058,7 +1066,7 @@ public class Import extends Controller {
     		// TODO Auto-generated catch block
     		e.printStackTrace();
     	}
-    	System.out.println(goodsOrder.checkDate.toLocaleString());
+    	//System.out.println(goodsOrder.checkDate.toLocaleString());
     	
         
     	
@@ -1191,12 +1199,13 @@ public class Import extends Controller {
 	    		procurementDetail.typeOfDurableGoods = Integer.parseInt(json.get("typeOfGoods").asText());
 	
 	    		MaterialCode mc=null;
+	    		FSN_Description fsn = null;
 	    		
 	    		System.out.println("Before");
 	    		
 		    		if(editingMode==false)//+ปกติ
 		    		{
-		    			if(procurementDetail.typeOfDurableGoods==0)	// เพิ่มตัวใหม่         /
+		    			if(procurementDetail.typeOfDurableGoods==0)	//จำนวนวัสดุสิ้นเปลือง    
 			    		{
 				    		mc= MaterialCode.find.byId(codeId);
 				    		System.out.println(mc.remain);
@@ -1213,14 +1222,34 @@ public class Import extends Controller {
 			    			System.out.println(mc.remain);
 				    		System.out.println(mc.pricePerEach);
 			    		}
+		    			else//เพิ่มจำนวนวัสดุคงทนถาวร
+		    			{
+		    				fsn= FSN_Description.find.byId(codeId);
+				    		System.out.println(fsn.remain);
+				    		System.out.println(fsn.pricePerEach);
+				    		
+				    		double sumPrice=fsn.pricePerEach*fsn.remain;
+				    		sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
+				    		
+				    		fsn.remain = fsn.remain+procurementDetail.quantity;
+				    		fsn.pricePerEach=sumPrice/fsn.remain;
+				    		fsn.update();
+				    		
+			    			System.out.println("After");
+			    			System.out.println(fsn.remain);
+				    		System.out.println(fsn.pricePerEach);
+		    			}
 		    		}
 		    		else
 		    		{
-		    				if(procurementDetail.typeOfDurableGoods==1 && typeSub==0 )//เปลี่ยนจากสิ้นเปลืองเป็นคงทนถาวร จะลบออก /
+		    				if(procurementDetail.typeOfDurableGoods==1 && typeSub==0 )//เปลี่ยนจากสิ้นเปลืองเป็นคงทนถาวร จะลบออก / และเพิ่มคงทนถาวร
 		    				{
+		    					///////////////////////////ลดสิ้นเปลือง
 			    				mc= MaterialCode.find.byId(codeSub);
+			    				/*สิ้นเปลือง
 			    	    		System.out.println(mc.remain);
 			    	    		System.out.println(mc.pricePerEach);
+			    	    		*/
 					    		
 				    			double sumPrice=mc.pricePerEach*mc.remain;
 				    			sumPrice=sumPrice-(numSub*priceSub);
@@ -1232,9 +1261,29 @@ public class Import extends Controller {
 				    				mc.pricePerEach=0;
 				    			mc.update();
 				    			
+				    			/*สิ้นเปลือง
 				    			System.out.println("After");
 				    			System.out.println(mc.remain);
 					    		System.out.println(mc.pricePerEach);
+					    		*/
+				    			//////////////////////////จบลดสิ้นเปลือง
+				    			//////////////////////////เพิ่มคงทนถาวร
+				    			fsn=FSN_Description.find.byId(codeId);
+			    	    		System.out.println(fsn.remain);
+			    	    		System.out.println(fsn.pricePerEach);
+			    	    		
+			    	    		sumPrice=fsn.pricePerEach*fsn.remain;
+			    	    		sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
+			    	    		
+			    	    		fsn.remain = fsn.remain+procurementDetail.quantity;
+			    	    		fsn.pricePerEach=sumPrice/fsn.remain;
+			    	    		fsn.update();
+			    	    		
+			    	    		System.out.println("After");
+				    			System.out.println(fsn.remain);
+					    		System.out.println(fsn.pricePerEach);
+					    		
+
 		    				}
 			    			
 			    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==0 )//เปลี่ยนค่าโดยที่วัสดุเป็นชนิดเดียวกัน /
@@ -1267,11 +1316,45 @@ public class Import extends Controller {
 				    			System.out.println(mc.remain);
 					    		System.out.println(mc.pricePerEach);
 			    			}
-			    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==1 )//เปลี่ยนจากคงทนถาวรเป็นสิ้นเปลือง จะ+เพิ่ม /
+			    			else if(procurementDetail.typeOfDurableGoods==1 && typeSub==1 )
 			    			{
+			    				fsn= FSN_Description.find.byId(codeId);
+			    	    		System.out.println(fsn.remain);
+			    	    		System.out.println(fsn.pricePerEach);
+					    		
+				    			double sumPrice=fsn.pricePerEach*fsn.remain;
+				    			sumPrice=sumPrice-(numSub*priceSub);
+				    			
+				    			fsn.remain=fsn.remain-numSub;
+				    			
+				    			if(fsn.remain>0)
+				    				fsn.pricePerEach=sumPrice/fsn.remain;
+				    			else
+				    				fsn.pricePerEach=0;
+				    			//////////////////////////////////////////
+				    			sumPrice=fsn.pricePerEach*fsn.remain;
+				    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
+				    			
+				    			fsn.remain=fsn.remain+procurementDetail.quantity;
+				    			
+				    			if(fsn.remain>0)
+				    				fsn.pricePerEach=sumPrice/fsn.remain;
+				    			else
+				    				fsn.pricePerEach=0;
+				    			fsn.update();
+				    			
+				    			System.out.println("After");
+				    			System.out.println(fsn.remain);
+					    		System.out.println(fsn.pricePerEach);
+			    			}
+			    			else if(procurementDetail.typeOfDurableGoods==0 && typeSub==1 )//เปลี่ยนจากคงทนถาวรเป็นสิ้นเปลือง จะ+เพิ่มสิ้นเปลือง /และลบวันดุคงทนถาวร
+			    			{
+			    				//////////////////////////เพิ่มสิ้นเปลือง
 					    		mc= MaterialCode.find.byId(codeId);
+					    		/*
 					    		System.out.println(mc.remain);
 					    		System.out.println(mc.pricePerEach);
+					    		*/
 					    		
 				    			double sumPrice=mc.pricePerEach*mc.remain;
 				    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
@@ -1280,9 +1363,36 @@ public class Import extends Controller {
 				    			mc.pricePerEach=sumPrice/mc.remain;
 				    			mc.update();
 				    			
+				    			/*
 				    			System.out.println("After");
 				    			System.out.println(mc.remain);
 					    		System.out.println(mc.pricePerEach);
+					    		*/
+					    		//////////////////////////จบเพิ่มสิ้นเปลือง
+				    			
+				    			////////////////////////// ลบคงทนถาวร
+				    			fsn = FSN_Description.find.byId(codeSub);
+				    			System.out.println(fsn.remain);
+				    			System.out.println(fsn.pricePerEach);
+				    			
+				    			sumPrice = fsn.pricePerEach*fsn.remain;
+				    			sumPrice = sumPrice-(numSub*priceSub);
+				    			
+				    			fsn.remain=fsn.remain-numSub;
+				    			
+				    			
+				    			if(fsn.remain>0)
+				    				fsn.pricePerEach=sumPrice/fsn.remain;
+				    			else
+				    				fsn.pricePerEach=0;
+				    			
+				    			fsn.update();
+				    			
+				    			System.out.println("After");
+				    			System.out.println(fsn.remain);
+					    		System.out.println(fsn.pricePerEach);
+				    			////////////////////////// จบลบคงทนถาวร
+
 			    			}
 			    			
 		    		}
@@ -1675,6 +1785,21 @@ public class Import extends Controller {
 	    						
 	    						mc.update();
 	    					}
+	    					else
+	    					{
+	    						FSN_Description fsn = FSN_Description.find.byId(pd.code);
+	    						
+	    						double sumPrice=fsn.pricePerEach*fsn.remain;
+	    						sumPrice=sumPrice-(pd.quantity*pd.price);
+	    						fsn.remain=fsn.remain-pd.quantity;
+	    						
+	    						if(fsn.remain>0)
+	    							fsn.pricePerEach=sumPrice/fsn.remain;
+	    						else
+	    							fsn.pricePerEach=0;
+	    						
+	    						fsn.update();
+	    					}
 	    					
 	    					for(DurableGoods d:pd.subDetails)
 	    					{
@@ -1798,7 +1923,7 @@ public class Import extends Controller {
         		pc = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
         		if(pc.status!=OrderDetailStatus.UNCHANGE)
         		{
-					if(pc.typeOfDurableGoods==0)
+					if(pc.typeOfDurableGoods==0)//สิ้นเปลือง
 					{
 						MaterialCode mc=MaterialCode.find.byId(pc.code);
 						
@@ -1811,6 +1936,21 @@ public class Import extends Controller {
 							mc.pricePerEach=0;
 						
 						mc.update();
+					}
+					else//คงทนถาวร
+					{
+						FSN_Description fsn = FSN_Description.find.byId(pc.code);
+						
+						double sumPrice=fsn.pricePerEach*fsn.remain;
+						sumPrice=sumPrice-(pc.quantity*pc.price);
+						fsn.remain=fsn.remain-pc.quantity;
+						if(fsn.remain>0)
+							fsn.pricePerEach=sumPrice/fsn.remain;
+						else
+							fsn.pricePerEach=0;
+						
+						fsn.update();
+		
 					}
 
 	        		procurement = models.durableGoods.Procurement.find.byId(pc.procurement.id);
