@@ -303,23 +303,20 @@ function getCommitteeTemplate(name){
 	var num = name == 'ai' ? i:j;
         setI(num);
         console.log(name == 'ai' ? 'i':'j');
-	var s ='				<th>'+
-	'					    <input id="'+name+'PrefixName'+ num +'" name="'+name+'PrefixName'+ num +'"  type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า">'+
+	var s ='				<th style ="text-align:center;">'+
+	'					    <input id="'+name+'PrefixName'+ num +'" name="'+name+'PrefixName'+ num +'"  type="text"  class="form-control textAlignCenter width75px" placeholder="ใส่ค่า">'+
 	'				</th>'+
-	'				<th>'+
+	'				<th style ="text-align:center;">'+
 	'					    <input id="'+name+'FirstName'+ num +'" name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า" onkeyup="mapInput(this.id)">'+
 	'				</th>'+
-	'				<th>'+
+	'				<th style ="text-align:center;">'+
 	'					    <input id="'+name+'LastName'+ num +'" name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า">'+
 	'				</th>'+
-	'				<th>'+
-	'					    <input name="'+name+'PersonalID'+ num +'" type="text" class="form-control textAlignCenter width325px" placeholder="ใส่ค่า">'+
-	'				</th>'+
-	'				<th>'+
+	'				<th style ="text-align:center;">'+
 	'					    <input id="'+name+'Position'+ num +'" name="'+name+'Position'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ตามข้อมูลuser">'+
 	'				</th>'+
 	'				'+
-	'				<th>'+
+	'				<th style ="text-align:center;">'+
 	'						<select name="'+name+'CommitteeType'+ num +'" class="form-control textAlignCenter width175px">'+
 	'						  <option>---เลือก---</option>'+
 	'						  <option>ข้าราชการ</option>'+
@@ -327,8 +324,8 @@ function getCommitteeTemplate(name){
 	'						</select>'+
 	'				</th>'+
 	'				'+
-	'				<th>'+
-	'						<select name="'+name+'CommitteePosition'+ num +'"class="form-control textAlignCenter width175px">'+
+	'				<th style ="text-align:center;">'+
+	'						<select name="'+name+'CommitteePosition'+ num +'" class="form-control textAlignCenter width175px">'+
 	'						  <option>---เลือก---</option>'+
 	'						  <option>ประธานกรรมการ</option>'+
 	'						  <option>กรรมการ</option>'+

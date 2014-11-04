@@ -568,10 +568,9 @@ public class Import extends Controller {
     		models.durableArticles.Procurement pa = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").asText()));
     		for(models.durableArticles.AI_Committee ai : pa.aiCommittee){
     			ArrayNode aiItem = JsonNodeFactory.instance.arrayNode();
-    			aiItem.add(ai.committee.title);
+    			aiItem.add(ai.committee.namePrefix);
     			aiItem.add(ai.committee.firstName);
     			aiItem.add(ai.committee.lastName);
-    			aiItem.add(ai.committee.identificationNo);
     			aiItem.add(ai.committee.position);
     			aiItem.add(ai.employeesType);
     			aiItem.add(ai.committeePosition);
@@ -581,10 +580,9 @@ public class Import extends Controller {
     		
     		for(models.durableArticles.EO_Committee eo : pa.eoCommittee){
     			ArrayNode eoItem = JsonNodeFactory.instance.arrayNode();
-    			eoItem.add(eo.committee.title);
+    			eoItem.add(eo.committee.namePrefix);
     			eoItem.add(eo.committee.firstName);
     			eoItem.add(eo.committee.lastName);
-    			eoItem.add(eo.committee.identificationNo);
     			eoItem.add(eo.committee.position);
     			eoItem.add(eo.employeesType);
     			//System.out.println(eo.employeesType);
@@ -619,10 +617,9 @@ public class Import extends Controller {
     		models.durableGoods.Procurement pg = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").asText()));
     		for(models.durableGoods.AI_Committee ai : pg.aiCommittee){
     			ArrayNode aiItem = JsonNodeFactory.instance.arrayNode();
-    			aiItem.add(ai.committee.title);
+    			aiItem.add(ai.committee.namePrefix);
     			aiItem.add(ai.committee.firstName);
     			aiItem.add(ai.committee.lastName);
-    			aiItem.add(ai.committee.identificationNo);
     			aiItem.add(ai.committee.position);
     			aiItem.add(ai.employeesType);
     			aiItem.add(ai.committeePosition);
@@ -808,21 +805,25 @@ public class Import extends Controller {
 	    	for(int i=0;i<temp.length;i++)
 	    	{
 	    		System.out.println("inlist is: "+temp[i]);
-	    		String pId=form.get("aiPersonalID"+temp[i]);
-	    		Committee cmt = Committee.find.byId(pId);
+	    		String pTitle=form.get("aiPrefixName"+temp[i]);
+	    		String pName=form.get("aiFirstName"+temp[i]);
+	    		String pLastName=form.get("aiLastName"+temp[i]);
+	    		String pPosition = form.get("aiPosition"+temp[i]);
 	    		
+	    		User cmt = User.find.where().eq("namePrefix",pTitle).eq("firstName",pName).eq("lastName", pLastName).eq("position", pPosition).findUnique(); 
+	    		/*
 	    		if(cmt==null)
 	    		{
 	    			System.out.println("innnnn");
-			        cmt = new Committee();
-			        cmt.title = form.get("aiPrefixName"+temp[i]);		
+			        cmt = new User();
+			        cmt.namePrefix = form.get("aiPrefixName"+temp[i]);		
 			        cmt.firstName = form.get("aiFirstName"+temp[i]);
 			        cmt.lastName = form.get("aiLastName"+temp[i]);
-			        cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
 			        cmt.position = form.get("aiPosition"+temp[i]);			
 		
 			        cmt.save();
 	    		}
+	    		*/
 		        AI_Committee ai_cmt;
 		        if(i<articlesOrder.aiCommittee.size()){
 		        	ai_cmt = articlesOrder.aiCommittee.get(i);
@@ -850,21 +851,27 @@ public class Import extends Controller {
     	if(!a.equals(""))
     	{
 	    	for(int i=0;i<temp.length;i++)
-	    	{
-	    		String pId=form.get("eoPersonalID"+temp[i]);
-	    		Committee cmt = Committee.find.byId(pId);
+	    	{	
+	    		System.out.println("inlist is: "+temp[i]);
+	    		String pTitle=form.get("eoPrefixName"+temp[i]);
+	    		String pName=form.get("eoFirstName"+temp[i]);
+	    		String pLastName=form.get("eoLastName"+temp[i]);
+	    		String pPosition = form.get("eoPosition"+temp[i]);
 	    		
+	    		User cmt = User.find.where().eq("namePrefix",pTitle).eq("firstName",pName).eq("lastName", pLastName).eq("position", pPosition).findUnique();   		
+
+	    		/*
 	    		if(cmt==null)
 	    		{
-			        cmt = new Committee();
-			        cmt.title = form.get("eoPrefixName"+temp[i]);		
+			        cmt = new User();
+			        cmt.namePrefix = form.get("eoPrefixName"+temp[i]);		
 			        cmt.firstName = form.get("eoFirstName"+temp[i]);
 			        cmt.lastName = form.get("eoLastName"+temp[i]);
-			        cmt.identificationNo = form.get("eoPersonalID"+temp[i]);
 			        cmt.position = form.get("eoPosition"+temp[i]);			
 		
 			        cmt.save();
 	    		}
+	    		*/
 	    		
 	    		EO_Committee eo_cmt;
 	    		if(i<articlesOrder.eoCommittee.size()){
@@ -1006,22 +1013,23 @@ public class Import extends Controller {
 	    		
 	    		System.out.println("inlist is: "+temp[i]);
 
+		    	String pTitle=form.get("aiPrefixName"+temp[i]);
+	    		String pName=form.get("aiFirstName"+temp[i]);
+	    		String pLastName=form.get("aiLastName"+temp[i]);
+	    		String pPosition = form.get("aiPosition"+temp[i]);
 	    		
-	    		
-		    	String pId=form.get("aiPersonalID"+temp[i]);
+	    		User cmt = User.find.where().eq("namePrefix",pTitle).eq("firstName",pName).eq("lastName", pLastName).eq("position", pPosition).findUnique();   		
 		    	
-		    	System.out.println(pId);
-		    	
-		    	Committee cmt = Committee.find.byId(pId);
+	    		/*
 		    	if(cmt==null){
-			    	cmt = new Committee();
-			    	cmt.title = form.get("aiPrefixName"+temp[i]);
+			    	cmt = new User();
+			    	cmt.namePrefix = form.get("aiPrefixName"+temp[i]);
 			    	cmt.firstName = form.get("aiFirstName"+temp[i]);
 			    	cmt.lastName = form.get("aiLastName"+temp[i]);
-			    	cmt.identificationNo = form.get("aiPersonalID"+temp[i]);
 			    	cmt.position = form.get("aiPosition"+temp[i]);
 			    	cmt.save();
 		    	}
+		    	*/
 		    	
 			    models.durableGoods.AI_Committee ai_cmt;
 			    if(i<goodsOrder.aiCommittee.size()){
@@ -1776,6 +1784,21 @@ public class Import extends Controller {
 	    							mc.pricePerEach=0;
 	    						
 	    						mc.update();
+	    					}
+	    					else
+	    					{
+	    						FSN_Description fsn = FSN_Description.find.byId(pd.code);
+	    						
+	    						double sumPrice=fsn.pricePerEach*fsn.remain;
+	    						sumPrice=sumPrice-(pd.quantity*pd.price);
+	    						fsn.remain=fsn.remain-pd.quantity;
+	    						
+	    						if(fsn.remain>0)
+	    							fsn.pricePerEach=sumPrice/fsn.remain;
+	    						else
+	    							fsn.pricePerEach=0;
+	    						
+	    						fsn.update();
 	    					}
 	    					
 	    					for(DurableGoods d:pd.subDetails)
