@@ -254,6 +254,10 @@ public class ExportBorrow extends Controller {
                     id = Long.parseLong(objNode.toString());
                     BorrowDetail detail = BorrowDetail.find.byId(id);
                     if(detail != null && borrow.equals(detail.borrow)){
+                        if(detail.durableArticles.status == SuppliesStatus.BORROW){
+                            detail.durableArticles.status = SuppliesStatus.NORMAL;
+                            detail.durableArticles.update();
+                        }
                         detail.delete();
                     }
                 }

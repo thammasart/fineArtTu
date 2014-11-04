@@ -236,6 +236,10 @@ public class ExportRepair extends Controller {
                     id = Long.parseLong(objNode.toString());
                     RepairingDetail detail = RepairingDetail.find.byId(id);
                     if(detail != null && repair.equals(detail.repairing)){
+                        if(detail.durableArticles.status == SuppliesStatus.REPAIRING){
+                            detail.durableArticles.status = SuppliesStatus.NORMAL;
+                            detail.durableArticles.update();
+                        }
                         detail.delete();
                     }
                 }

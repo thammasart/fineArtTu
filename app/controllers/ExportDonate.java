@@ -80,6 +80,7 @@ public class ExportDonate extends Controller {
             donate.contractNo = f.get("contractNo");
             donate.setApproveDate(f.get("approveDate"));
 
+            List<Donation_FF_Committee> ffCommittee = donate.ffCommittee;
             String numbetOfcommittee = f.get("numberOf_FF_committee");
             if(numbetOfcommittee != null){
                 int count = Integer.parseInt(numbetOfcommittee);
@@ -91,13 +92,31 @@ public class ExportDonate extends Controller {
 
                     List<User> users = User.find.where().eq("firstName",committeeFirstNmae).eq("lastName",committeeLastNmae).eq("position",committeePosition).findList();
                     if(users.size() == 1){
-                        Donation_FF_Committee newCommittee = new Donation_FF_Committee();
-                        newCommittee.user = users.get(0);
-                        newCommittee.donation = donate;
-                        newCommittee.save();
+                        int index = 0;
+                        for(Donation_FF_Committee committee : ffCommittee){
+                            if(committee.user.equals(users.get(0))){
+                                committee.employeesType = f.get("FF_cType" + num);
+                                committee.committeePosition = f.get("FF_cPosition" + num);
+                                committee.update();
+                                break;
+                            }
+                            index++;
+                        }
+                        if(index < ffCommittee.size()){
+                            ffCommittee.remove(index);
+                        }
+                        else{
+                            Donation_FF_Committee newCommittee = new Donation_FF_Committee();
+                            newCommittee.user = users.get(0);
+                            newCommittee.donation = donate;
+                            newCommittee.employeesType = f.get("FF_cType" + num);
+                            newCommittee.committeePosition = f.get("FF_cPosition" + num);
+                            newCommittee.save();
+                        }
                     }
                 }
             }
+            List<Donation_D_Committee> dCommittee = donate.dCommittee;
             numbetOfcommittee = f.get("numberOf_D_committee");
             if(numbetOfcommittee != null){
                 int count = Integer.parseInt(numbetOfcommittee);
@@ -109,12 +128,36 @@ public class ExportDonate extends Controller {
 
                     List<User> users = User.find.where().eq("firstName",committeeFirstNmae).eq("lastName",committeeLastNmae).eq("position",committeePosition).findList();
                     if(users.size() == 1){
-                        Donation_D_Committee newCommittee = new Donation_D_Committee();
-                        newCommittee.user = users.get(0);
-                        newCommittee.donation = donate;
-                        newCommittee.save();
+                        int index = 0;
+                        for(Donation_D_Committee committee : dCommittee){
+                            if(committee.user.equals(users.get(0))){
+                                committee.employeesType = f.get("D_cType" + num);
+                                committee.committeePosition = f.get("D_cPosition" + num);
+                                committee.update();
+                                break;
+                            }
+                            index++;
+                        }
+                        if(index < ffCommittee.size()){
+                            ffCommittee.remove(index);
+                        }
+                        else{
+                            Donation_D_Committee newCommittee = new Donation_D_Committee();
+                            newCommittee.user = users.get(0);
+                            newCommittee.donation = donate;
+                            newCommittee.employeesType = f.get("D_cType" + num);
+                            newCommittee.committeePosition = f.get("D_cPosition" + num);
+                            newCommittee.save();
+                        }
                     }
                 }
+            }
+
+            for(Donation_FF_Committee committee : ffCommittee){
+                committee.delete();
+            }
+            for(Donation_D_Committee committee : dCommittee){
+                committee.delete();
             }
 
             donate.status = ExportStatus.SUCCESS;
@@ -225,6 +268,10 @@ public class ExportDonate extends Controller {
                     id = Long.parseLong(objNode.toString());
                     DonationDetail detail = DonationDetail.find.byId(id);
                     if(detail != null && donate.equals(detail.donation)){
+                        if(detail.durableArticles.status == SuppliesStatus.DONATED){
+                            detail.durableArticles.status = SuppliesStatus.NORMAL;
+                            detail.durableArticles.update();
+                        }
                         detail.delete();
                     }
                 }

@@ -77,26 +77,26 @@
           <tbody id="FF_committee_table">
             @for((committee, index) <- auction.ffCommittee.zipWithIndex ){
               <tr id="FF@index">
-                <th> <input name="FF_namePrefix@index" id="FF_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
-                <th> <input name="FF_firstName@index" id="FF_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> <input name="FF_lastName@index" id="FF_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> <input name="FF_position@index" id="FF_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> 
-                  <select name="FF_cType@index" id="FF_cType@index" value="@committee.employeesType" class="form-control textAlignCenter width175px">
-                    <option>---เลือก---</option>
-                    <option>ข้าราชการ</option>
-                    <option>พนักงานมหาลัย</option>
+                <th style ="text-align:center;" > <input name="FF_namePrefix@index" id="FF_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
+                <th style ="text-align:center;" > <input name="FF_firstName@index" id="FF_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > <input name="FF_lastName@index" id="FF_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > <input name="FF_position@index" id="FF_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > 
+                  <select name="FF_cType@index" id="FF_cType@index" class="form-control textAlignCenter width175px">
+                    <option @if(committee.employeesType == null){selected} >---เลือก---</option>
+                    <option @if(committee.employeesType.equals("ข้าราชการ")){selected} >ข้าราชการ</option>
+                    <option @if(committee.employeesType.equals("พนักงานมหาลัย")){selected} >พนักงานมหาลัย</option>
                   </select>
                 </th>
-                <th> 
-                  <select name="FF_cPosition@index" id="FF_cPosition@index" value="@committee.committeePosition" class="form-control textAlignCenter width175px">
-                    <option>---เลือก---</option>
-                    <option>ประธานกรรมการ</option>
-                    <option>กรรมการ</option>
-                    <option>กรรมการและเลขานุการ</option>
+                <th style ="text-align:center;" > 
+                  <select name="FF_cPosition@index" id="FF_cPosition@index" class="form-control textAlignCenter width175px">
+                    <option @if(committee.committeePosition == null){selected} >---เลือก---</option>
+                    <option @if(committee.committeePosition.equals("ประธานกรรมการ")){selected} >ประธานกรรมการ</option>
+                    <option @if(committee.committeePosition.equals("กรรมการ")){selected} >กรรมการ</option>
+                    <option @if(committee.committeePosition.equals("กรรมการและเลขานุการ")){selected} >กรรมการและเลขานุการ</option>
                   </select>
                 </th> 
-                <th> <button type="button" class="btn btn btn-danger" id="FF_delete@index" onclick="delete_FF_committree('@index')"> ลบ </button> </th>
+                <th style ="text-align:center;" > <button type="button" class="btn btn btn-danger" id="FF_delete@index" onclick="delete_FF_committree('@index')"> ลบ </button> </th>
               </tr>
             }
           </tbody>
@@ -119,26 +119,25 @@
           <tbody id="E_committee_table">
             @for((committee, index) <- auction.eCommittee.zipWithIndex ){
               <tr id="E@index">
-                <th> <input name="E_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
-                <th> <input name="E_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> <input name="E_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> <input name="E_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> 
-                  <select name="E_cType@index" class="form-control textAlignCenter width175px">
-                    <option>---เลือก---</option>
-                    <option>ข้าราชการ</option>
-                    <option>พนักงานมหาลัย</option>
+                <th style ="text-align:center;" > <input id="E_namePrefix@index" name="E_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
+                <th style ="text-align:center;" > <input id="E_firstName@index" name="E_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > <input id="E_lastName@index" name="E_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > <input id="E_position@index" name="E_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > 
+                  <select id="E_cType@index" name="E_cType@index" class="form-control textAlignCenter width175px">
+                    <option @if(committee.employeesType == null){selected} >---เลือก---</option>
+                    <option @if(committee.employeesType.equals("ข้าราชการ")){selected} >ข้าราชการ</option>
+                    <option @if(committee.employeesType.equals("พนักงานมหาลัย")){selected} >พนักงานมหาลัย</option>
                   </select>
                 </th>
-                <th> 
-                  <select name="E_cPosition@index" class="form-control textAlignCenter width175px">
-                    <option>---เลือก---</option>
-                    <option>ประธานกรรมการ</option>
-                    <option>กรรมการ</option>
-                    <option>กรรมการและเลขานุการ</option>
-                  </select>
+                <th style ="text-align:center;" > 
+                  <select id="E_cPosition@index" name="E_cPosition@index" class="form-control textAlignCenter width175px">
+                    <option @if(committee.committeePosition == null){selected} >---เลือก---</option>
+                    <option @if(committee.committeePosition.equals("ประธานกรรมการ")){selected} >ประธานกรรมการ</option>
+                    <option @if(committee.committeePosition.equals("กรรมการ")){selected} >กรรมการ</option>
+                    <option @if(committee.committeePosition.equals("กรรมการและเลขานุการ")){selected} >กรรมการและเลขานุการ</option>
                 </th> 
-                <th> <button type="button" class="btn btn btn-danger" id="E_delete@index" onclick="delete_E_committree('@index')"> ลบ </button> </th>
+                <th style ="text-align:center;" > <button type="button" class="btn btn btn-danger" id="E_delete@index" onclick="delete_E_committree('@index')"> ลบ </button> </th>
               </tr>
             }
           </tbody>
@@ -161,26 +160,26 @@
           <tbody id="D_committee_table">
             @for((committee, index) <- auction.dCommittee.zipWithIndex ){
               <tr id="D@index">
-                <th> <input name="D_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
-                <th> <input name="D_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> <input name="D_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> <input name="D_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> 
-                  <select name="D_cType@index" class="form-control textAlignCenter width175px">
-                    <option>---เลือก---</option>
-                    <option>ข้าราชการ</option>
-                    <option>พนักงานมหาลัย</option>
+                <th style ="text-align:center;" > <input id="D_namePrefix@index" name="D_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
+                <th style ="text-align:center;" > <input id="D_firstName@index" name="D_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > <input id="D_lastName@index" name="D_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > <input id="D_position@index" name="D_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > 
+                  <select id="D_cType@index" name="D_cType@index" class="form-control textAlignCenter width175px">
+                    <option @if(committee.employeesType == null){selected} >---เลือก---</option>
+                    <option @if(committee.employeesType.equals("ข้าราชการ")){selected} >ข้าราชการ</option>
+                    <option @if(committee.employeesType.equals("พนักงานมหาลัย")){selected} >พนักงานมหาลัย</option>
                   </select>
                 </th>
-                <th> 
-                  <select name="D_cPosition@index" class="form-control textAlignCenter width175px">
-                    <option>---เลือก---</option>
-                    <option>ประธานกรรมการ</option>
-                    <option>กรรมการ</option>
-                    <option>กรรมการและเลขานุการ</option>
+                <th style ="text-align:center;" > 
+                  <select id="D_cPosition@index" name="D_cPosition@index" class="form-control textAlignCenter width175px">
+                    <option @if(committee.committeePosition == null){selected} >---เลือก---</option>
+                    <option @if(committee.committeePosition.equals("ประธานกรรมการ")){selected} >ประธานกรรมการ</option>
+                    <option @if(committee.committeePosition.equals("กรรมการ")){selected} >กรรมการ</option>
+                    <option @if(committee.committeePosition.equals("กรรมการและเลขานุการ")){selected} >กรรมการและเลขานุการ</option>
                   </select>
                 </th> 
-                <th> <button type="button" class="btn btn btn-danger" id="D_delete@index" onclick="delete_D_committree('@index')"> ลบ </button> </th>
+                <th style ="text-align:center;" > <button type="button" class="btn btn btn-danger" id="D_delete@index" onclick="delete_D_committree('@index')"> ลบ </button> </th>
               </tr>
             }
           </tbody>
