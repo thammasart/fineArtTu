@@ -58,7 +58,7 @@
 
       <div class="well" >
         <h3 style ="text-align:left;">คณะกรรมการสอบข้อเท็จจริง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" id="FF_add" onclick="add_FF_committree()">เพิ่มกรรมการ</button> </h3>
-        <input type="setTimeoutplay:none;" value="@auction.ffCommittee.size()" name="numberOf_FF_committee" id="numberOf_FF_committee">
+        <input type="setTimeoutplay:none;" value="@auction.ffCommittee.size()" name="numberOf_FF_committee" id="numberOf_FF_committee" hidden>
         <table class="table table-striped overlayTable" style="margin-bottom:3%;">
           <thead>
             <tr>
@@ -75,7 +75,7 @@
             @for((committee, index) <- auction.ffCommittee.zipWithIndex ){
               <tr id="FF@index">
                 <th style ="text-align:center;" > <input name="FF_namePrefix@index" id="FF_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
-                <th style ="text-align:center;" > <input name="FF_firstName@index" id="FF_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > <input name="FF_firstName@index" id="FF_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px" onkeyup="mapInputFF(this.id)"> </th>
                 <th style ="text-align:center;" > <input name="FF_lastName@index" id="FF_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
                 <th style ="text-align:center;" > <input name="FF_position@index" id="FF_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
                 <th style ="text-align:center;" > 

@@ -59,6 +59,7 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                       source: userAll,
                       focus: function(event, ui) {
                           $("input#recieveFirstName").val(ui.item.label);
+                          mapInput1();
                       },
                       select: function(event, ui) {
                          $("#searchform button").click(); 
@@ -75,7 +76,7 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                       },
                       select: function(event, ui) {
                          $("#searchform button").click(); 
-                         setTimeout(mapInput2,20);
+                         setTimeout(mapInput2,100);
                       }
                     });
                 });
@@ -112,6 +113,7 @@ function mapInput1(){
             document.getElementById("recieveFirstName").value = nameList[j];            
             document.getElementById("recieveLastName").value = lastnameList[j];
             document.getElementById("recievePosition").value = positionList[j];
+            break;
         }
     }
 }
@@ -123,6 +125,7 @@ function mapInput2(){
             document.getElementById("approverLastName").value = lastnameList[j];
             document.getElementById("approverPosition").value = positionList[j];
             autoNameTemp = nameList[j];
+            break;
         }
     }
 }
