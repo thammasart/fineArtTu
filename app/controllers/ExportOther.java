@@ -81,7 +81,7 @@ public class ExportOther extends Controller {
             other.description = f.get("description");
             other.update();
 
-            String firstName = f.get("approverFirstName");
+            String firstName = f.get("approverName");
             String lastName = f.get("approverLastName");
             String position = f.get("approverPosition");
             List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();

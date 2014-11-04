@@ -74,7 +74,7 @@ public class ExportDonate extends Controller {
         User user = User.find.byId(session().get("username"));
         Donation donate = Donation.find.byId(id);
 
-        if(donate != null && donate.status == ExportStatus.INIT ){
+        if(donate != null && (donate.status == ExportStatus.INIT || donate.status == ExportStatus.SUCCESS) ){
             DynamicForm f = Form.form().bindFromRequest();
             donate.title = f.get("title");
             donate.contractNo = f.get("contractNo");
