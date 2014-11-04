@@ -64,11 +64,10 @@ public class Procurement extends Model{
 		for(AI_Committee a: aiCommittee)
 		{
 			System.out.println("AIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII_COMITTTEEE");
-			System.out.println(a.committee.title);
+			System.out.println(a.committee.namePrefix);
 			System.out.println(a.committee.firstName);
 			System.out.println(a.committee.lastName);
 			
-			System.out.println(a.committee.identificationNo);
 			System.out.println(a.committee.position);
 			System.out.println(a.employeesType);
 			System.out.println(a.committeePosition);

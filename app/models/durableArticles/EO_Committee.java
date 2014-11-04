@@ -5,6 +5,7 @@ import javax.persistence.*;
 
 import models.type.CommitteeType;
 import models.Committee;
+import models.User;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -19,7 +20,7 @@ public class EO_Committee extends Model{
 
 	@JsonBackReference
 	@ManyToOne
-	public Committee committee;	// กรรมการ
+	public User committee;	// กรรมการ
 	@JsonBackReference
 	@ManyToOne
 	public Procurement procurement;	// การจัดซื้อ
