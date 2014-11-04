@@ -58,6 +58,7 @@ POST 	/export/sold/saveDetail 				controllers.ExportSold.saveAuctionDetail()
 POST 	/export/sold/deleteDetail 				controllers.ExportSold.deleteAuctionDetail()
 GET 	/export/sold/loadDetail 				controllers.ExportSold.loadAuctionDetail(id:Long)
 GET 	/export/sold/viewDetail 				controllers.ExportSold.viewDetail(id:Long)
+GET 	/export/sold/autocompleteImportOrderCommitee            controllers.Import.autocompleteImportOrderCommitee()
 
 GET 	/export/other 							controllers.ExportOther.exportOther()
 GET 	/export/other/add 						controllers.ExportOther.exportOtherAdd(id:Long)

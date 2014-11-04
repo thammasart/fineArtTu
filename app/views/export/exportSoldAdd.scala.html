@@ -1,6 +1,8 @@
 @(user : User ,auction:models.durableArticles.Auction)
 @header("exportSoldAdd")
 
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+ <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/sold.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getExportSold.js")"></script>
 <body onload="init(@auction.id)" ng-app="exportModule" ng-controller="exportSoldCtrl"> 
@@ -11,7 +13,7 @@
 @cancelExportAdd()
 @cancelList()
 
-<div id="addWindows" class ="detailWindow" >
+<div id="addWindows" class ="detailWindow" ng-init="findUser()">
   
   <form name="addSold" method="post" action="@routes.ExportSold.saveAuction(auction.id)" onsubmit="return submitButtonClick()">
     <div>
@@ -56,7 +58,7 @@
 
       <div class="well" >
         <h3 style ="text-align:left;">คณะกรรมการสอบข้อเท็จจริง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" id="FF_add" onclick="add_FF_committree()">เพิ่มกรรมการ</button> </h3>
-        <input type="number" style="display:none;" value="@auction.ffCommittee.size()" name="numberOf_FF_committee" id="numberOf_FF_committee">
+        <input type="setTimeoutplay:none;" value="@auction.ffCommittee.size()" name="numberOf_FF_committee" id="numberOf_FF_committee">
         <table class="table table-striped overlayTable" style="margin-bottom:3%;">
           <thead>
             <tr>
