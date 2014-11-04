@@ -21,6 +21,7 @@ import models.durableArticles.RepairingDetail;
 import models.durableGoods.DurableGoods;
 import models.durableGoods.Procurement;
 import models.durableGoods.Requisition;
+import models.fsnNumber.FSN_Description;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
 
@@ -1137,7 +1138,6 @@ public class Graph extends Controller {
     			if(c.materialType.typeName.equals(selectedName)){
     				String key = c.description;
 					Integer value = listResult.get(key);
-					System.out.println(String.format("%s\t%.2f\n", key,value));
 					if(value == null){
 						if(pd.quantity != 0){
 							listResult.put(key, pd.quantity);
@@ -1483,7 +1483,9 @@ public class Graph extends Controller {
 				expandable += "จำนวนนำเข้า : " + d.detail.quantity + "<br>";
 				expandable += "brand : " + d.detail.brand + "<br>";
 				expandable += "phone : " + d.detail.phone + "<br>";
-				expandable += "pic : <img src=\"" + d.detail.fsn.path + "\"><br>";
+
+				expandable += "pic : <img style=\"width:80px;\" src=\"/assets/"+ d.detail.fsn.path + "\"><br>";
+
 				expandable += "contractNo : " + d.detail.procurement.contractNo + "<br>";
 				expandable += "budgetType : " + d.detail.procurement.budgetType + "<br>";
 				expandable += "addDate : " + d.detail.procurement.getAddDate() + "<br>";
@@ -1502,8 +1504,15 @@ public class Graph extends Controller {
 		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(String id: ids){
 			DurableGoods d = DurableGoods.find.byId(Long.valueOf(id));
-			MaterialCode m = MaterialCode.find.byId(id);
+			MaterialCode m = null;
+			FSN_Description fsn = null;
 			if(d!=null){
+				if(d.typeOfDurableGoods == 0){
+					m = MaterialCode.find.byId(d.codes);
+				}else{
+					fsn = FSN_Description.find.byId(d.codes);
+				}
+				
 				result += "<div class=\"well\">";
 				result += "code : " + d.codes + "<br>";
 				result += "ชื่อวัสดุ : " + d.detail.description + "<br>";
@@ -1518,7 +1527,8 @@ public class Graph extends Controller {
 				expandable += "จำนวนนำเข้า : " + d.detail.quantity + "<br>";
 				expandable += "brand : " + d.detail.brand + "<br>";
 				expandable += "phone : " + d.detail.phone + "<br>";
-				expandable += "pic : <img src=\"" + d.detail.partOfPic + "\"><br>";
+				String path = d.typeOfDurableGoods == 0 ? m.path: fsn.path;
+				expandable += "pic : <img style=\"width:80px;\" src=\"/assets/" + path + "\"><br>";
 				expandable += "fsn : " + d.detail.code + "<br>";
 				expandable += "contractNo : " + d.detail.procurement.contractNo + "<br>";
 				expandable += "budgetType : " + d.detail.procurement.budgetType + "<br>";
@@ -1548,7 +1558,10 @@ public class Graph extends Controller {
 				result += "seller : " + pd.seller + "<br>";
 				result += "serialNumber : " + pd.serialNumber + "<br>";
 				result += "priceNoVat : " + pd.priceNoVat + "<br>";
-				result += "pic : <img src=\"" + pd.fsn.path + "\"><br>";
+				result += "pic : <img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\"><br>";
+				System.out.println(pd.fsn.path);
+				result += "picname : " + pd.fsn.fileName + "><br>";
+				result += "pictype : " + pd.fsn.fileType + "><br>";
 				
 				String expandable = "";
 				expandable += "contractNo : " + pd.procurement.contractNo + "<br>";
@@ -1568,7 +1581,15 @@ public class Graph extends Controller {
 		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(String id: ids){
 			models.durableGoods.ProcurementDetail pd = models.durableGoods.ProcurementDetail.find.byId(Long.valueOf(id));
+			MaterialCode m = null;
+			FSN_Description fsn = null;
 			if(pd!=null){
+				if(pd.typeOfDurableGoods == 0){
+					m = MaterialCode.find.byId(pd.code);
+				}else{
+					fsn = FSN_Description.find.byId(pd.code);
+				}
+
 				result += "<div class=\"well\">";
 				result += "description : " + pd.description + "<br>";
 				result += "brand : " + pd.brand + "<br>";
@@ -1580,6 +1601,8 @@ public class Graph extends Controller {
 				result += "priceNoVat : " + pd.priceNoVat + "<br>";
 				
 				String expandable = "";
+				String path = pd.typeOfDurableGoods == 0 ? m.path: fsn.path;
+				expandable += "pic : <img style=\"width:80px;\" src=\"/assets/" + path + "\"><br>";
 				expandable += "contractNo : " + pd.procurement.contractNo + "<br>";
 				expandable += "budgetType : " + pd.procurement.budgetType + "<br>";
 				expandable += "addDate : " + pd.procurement.getAddDate() + "<br>";

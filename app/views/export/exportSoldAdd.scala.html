@@ -33,32 +33,12 @@
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" align="right" role="form">
-        <div class="form-group" style="float:right" id="summaryTable">
-<!--           <div class="input-group width300px">
-            <span class="input-group-addon width100px">ราคารวม</span>
-            <input type="text" class="form-control width150px" value="1080000" disabled>
-            <span class="input-group-addon" > บาท </span>
-          </div>
-          <div class="input-group width300px">
-            <span class="input-group-addon width100px">งบคลัง</span>
-            <input type="text" class="form-control width150px" value="1080000" disabled>
-            <span class="input-group-addon" > บาท </span>
-          </div>
-          <div class="input-group width300px">
-            <span class="input-group-addon width100px">งบประจำปี</span>
-            <input type="text" class="form-control width150px" value="1080000" disabled>
-            <span class="input-group-addon" > บาท </span>
-          </div> -->
-        </div>
-      </div>
-
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
             <input type="text" class="form-control width300px" value="@auction.getApproveDate()" id="approveDate" name="approveDate" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+            <span class="input-group-addon width25px" id="initViewDetial"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
             <span class="alertText" id="approveDateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -72,168 +52,142 @@
             <span class="alertText" id="soldDestinationAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
-           <div class="form-inline" role="form" >
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >เลขที่</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="buildingNo">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >หมู่</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="village">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >ซอย</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="alley">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >ถนน</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="road">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >ตำบล</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="parish">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >อำเภอ</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="district">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >จังหวัด</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="province">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >เบอร์โทร</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="telephoneNumber">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >Fax</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="fax">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >รหัสไปรษณีย์</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="postCode">
-                    </div>
-              </div>
-           </div>
-           <div class="form-inline marginBtm1" role="form">
-              <div class="form-group" >
-                    <div class="input-group" >
-                        <span class="input-group-addon width250px" >e-mail</span>
-                        <input type="text" class="form-control textAlignLeft  width300px" name="email">
-                    </div>
-              </div>
-           </div>
       </div>
 
-    <div class="well" >
-      <h3 style ="text-align:left;">คณะกรรมการสอบข้อเท็จจริง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" onclick="add_FF_committree()">เพิ่มกรรมการ</button> </h3>
- 
-       <table class="table table-striped overlayTable" style="margin-bottom:3%;">
-        <thead>
-          <tr>
-            <th style ="text-align:center;" id="FF_namePrefix" > คำนำหน้า </th>
-            <th style ="text-align:center;" id="FF_firstName" > ชื่อ </th>
-            <th style ="text-align:center;" id="FF_lastName" > นามสกุล </th>
-            <th style ="text-align:center;" id="FF_positon" > ตำแหน่ง </th>
-            <th style ="text-align:center;" id="FF_committeeType" > ประเภทกรรมการ </th>
-            <th style ="text-align:center;" id="FF_positonInCommittree" > ตำแหน่งในคณกรรมการ </th>
-            <th style ="text-align:center;" id="FF_delete" ></th>
-          </tr>
-        </thead>
-        <tbody id="FF_committee_detail">
+      <div class="well" >
+        <h3 style ="text-align:left;">คณะกรรมการสอบข้อเท็จจริง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" id="FF_add" onclick="add_FF_committree()">เพิ่มกรรมการ</button> </h3>
+        <input type="number" style="display:none;" value="@auction.ffCommittee.size()" name="numberOf_FF_committee" id="numberOf_FF_committee">
+        <table class="table table-striped overlayTable" style="margin-bottom:3%;">
+          <thead>
+            <tr>
+              <th style ="text-align:center;" > คำนำหน้า </th>
+              <th style ="text-align:center;" > ชื่อ </th>
+              <th style ="text-align:center;" > นามสกุล </th>
+              <th style ="text-align:center;" > ตำแหน่ง </th>
+              <th style ="text-align:center;" > ประเภทกรรมการ </th>
+              <th style ="text-align:center;" > ตำแหน่งในคณกรรมการ </th>
+              <th style ="text-align:center;" ></th>
+            </tr>
+          </thead>
+          <tbody id="FF_committee_table">
+            @for((committee, index) <- auction.ffCommittee.zipWithIndex ){
+              <tr id="FF@index">
+                <th> <input name="FF_namePrefix@index" id="FF_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
+                <th> <input name="FF_firstName@index" id="FF_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th> <input name="FF_lastName@index" id="FF_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th> <input name="FF_position@index" id="FF_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th> 
+                  <select name="FF_cType@index" id="FF_cType@index" value="@committee.employeesType" class="form-control textAlignCenter width175px">
+                    <option>---เลือก---</option>
+                    <option>ข้าราชการ</option>
+                    <option>พนักงานมหาลัย</option>
+                  </select>
+                </th>
+                <th> 
+                  <select name="FF_cPosition@index" id="FF_cPosition@index" value="@committee.committeePosition" class="form-control textAlignCenter width175px">
+                    <option>---เลือก---</option>
+                    <option>ประธานกรรมการ</option>
+                    <option>กรรมการ</option>
+                    <option>กรรมการและเลขานุการ</option>
+                  </select>
+                </th> 
+                <th> <button type="button" class="btn btn btn-danger" id="FF_delete@index" onclick="delete_FF_committree('@index')"> ลบ </button> </th>
+              </tr>
+            }
+          </tbody>
+        </table>
 
-        </tbody>
-      </table>
-    </div> 
+        <h3 style ="text-align:left;">คณะกรรมการประเมิณราคากลาง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" id="E_add" onclick="add_E_committree()">เพิ่มกรรมการ</button> </h3>
+        <input type="number" style="display:none;" value="@auction.eCommittee.size()" name="numberOf_E_committee" id="numberOf_E_committee">
+        <table class="table table-striped overlayTable" style="margin-bottom:3%;" >
+          <thead>
+            <tr>
+              <th style ="text-align:center;" > คำนำหน้า </th>
+              <th style ="text-align:center;" > ชื่อ </th>
+              <th style ="text-align:center;" > นามสกุล </th>
+              <th style ="text-align:center;" > ตำแหน่ง </th>
+              <th style ="text-align:center;" > ประเภทกรรมการ </th>
+              <th style ="text-align:center;" > ตำแหน่งในคณกรรมการ </th>
+              <th style ="text-align:center;" ></th>
+            </tr>
+          </thead>
+          <tbody id="E_committee_table">
+            @for((committee, index) <- auction.eCommittee.zipWithIndex ){
+              <tr id="E@index">
+                <th> <input name="E_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
+                <th> <input name="E_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th> <input name="E_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th> <input name="E_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th> 
+                  <select name="E_cType@index" class="form-control textAlignCenter width175px">
+                    <option>---เลือก---</option>
+                    <option>ข้าราชการ</option>
+                    <option>พนักงานมหาลัย</option>
+                  </select>
+                </th>
+                <th> 
+                  <select name="E_cPosition@index" class="form-control textAlignCenter width175px">
+                    <option>---เลือก---</option>
+                    <option>ประธานกรรมการ</option>
+                    <option>กรรมการ</option>
+                    <option>กรรมการและเลขานุการ</option>
+                  </select>
+                </th> 
+                <th> <button type="button" class="btn btn btn-danger" id="E_delete@index" onclick="delete_E_committree('@index')"> ลบ </button> </th>
+              </tr>
+            }
+          </tbody>
+        </table>
 
-    <div class="well" >
-      <h3 style ="text-align:left;">คณะกรรมการประเมิณราคากลาง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" onclick="">เพิ่มกรรมการ</button> </h3>
-
-      <table class="table table-striped overlayTable" style="margin-bottom:3%;">
-        <thead>
-          <tr>
-            <th style ="text-align:center;" id="E_namePrefix" > คำนำหน้า </th>
-            <th style ="text-align:center;" id="E_firstName" > ชื่อ </th>
-            <th style ="text-align:center;" id="E_lastName" > นามสกุล </th>
-            <th style ="text-align:center;" id="E_positon" > ตำแหน่ง </th>
-            <th style ="text-align:center;" id="E_committeeType" > ประเภทกรรมการ </th>
-            <th style ="text-align:center;" id="E_positonInCommittree" > ตำแหน่งในคณกรรมการth>
-            <th style ="text-align:center;" id="E_delete" ></th>
-          </tr>
-        </thead>
-        <tbody id="E_committee_detail">
-
-        </tbody>
-      </table>
-    </div> 
-
-      <div class="form-inline marginBtm1" role="form">
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon width250px">คณะกรรมการสอบข้อเท็จจริง</span>
-            <input type="text" class="form-control width300px">
-          </div>
-        </div>
-      <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
-      
+        <h3 style ="text-align:left;">คณะกรรมการจำหน่าย <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" id="D_add" onclick="add_D_committree()">เพิ่มกรรมการ</button> </h3>
+        <input type="number" style="display:none;" value="@auction.dCommittee.size()" name="numberOf_D_committee" id="numberOf_D_committee">
+        <table class="table table-striped overlayTable" style="margin-bottom:3%;">
+          <thead>
+            <tr>
+              <th style ="text-align:center;" > คำนำหน้า </th>
+              <th style ="text-align:center;" > ชื่อ </th>
+              <th style ="text-align:center;" > นามสกุล </th>
+              <th style ="text-align:center;" > ตำแหน่ง </th>
+              <th style ="text-align:center;" > ประเภทกรรมการ </th>
+              <th style ="text-align:center;" > ตำแหน่งในคณกรรมการ </th>
+              <th style ="text-align:center;" ></th>
+            </tr>
+          </thead>
+          <tbody id="D_committee_table">
+            @for((committee, index) <- auction.dCommittee.zipWithIndex ){
+              <tr id="D@index">
+                <th> <input name="D_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
+                <th> <input name="D_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th> <input name="D_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th> <input name="D_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th> 
+                  <select name="D_cType@index" class="form-control textAlignCenter width175px">
+                    <option>---เลือก---</option>
+                    <option>ข้าราชการ</option>
+                    <option>พนักงานมหาลัย</option>
+                  </select>
+                </th>
+                <th> 
+                  <select name="D_cPosition@index" class="form-control textAlignCenter width175px">
+                    <option>---เลือก---</option>
+                    <option>ประธานกรรมการ</option>
+                    <option>กรรมการ</option>
+                    <option>กรรมการและเลขานุการ</option>
+                  </select>
+                </th> 
+                <th> <button type="button" class="btn btn btn-danger" id="D_delete@index" onclick="delete_D_committree('@index')"> ลบ </button> </th>
+              </tr>
+            }
+          </tbody>
+        </table>
       </div>
-      <div class="form-inline marginBtm1" role="form">
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon width250px">คณะกรรมการประเมิณราคากลาง</span>
-            <input type="text" class="form-control width300px">
-          </div>
-        </div>
-        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
-      </div>
 
-      <div class="form-inline marginBtm1" role="form">
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon width250px">คณะกรรมการจำหน่าย</span>
-            <input type="text" class="form-control width300px">
-          </div>
-        </div>
-        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>เพิ่ม</button>
-      </div>
+    </div>
 
+    <div class="form-inline marginBtm1" role="form">
+      <div class="form-group" id="summaryTable">
+
+      </div>
     </div>
 
     <div class="well" >

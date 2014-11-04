@@ -128,6 +128,7 @@ GET             /report                                                         
 GET             /report/RemainingMaterial                                       controllers.Report.reportRemainingMaterial()
 GET             /report/RemainingMaterialConclusion                             controllers.Report.reportRemainingMaterialConclusion()
 GET             /report/DurableArticles                                         controllers.Report.reportDurableArticles()
+GET             /report/DurableArticles/print                                   controllers.Report.reportDurableArticlesPrint()
 GET             /report/ImportDurableArticles                                   controllers.Report.reportImportDurableArticles()
 GET             /report/exportDurableArticles                                   controllers.Report.reportExportDurableArticles()
 GET             /report/exchangeDurableArticles                                 controllers.Report.reportExchangeDurableArticles()

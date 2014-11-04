@@ -79,6 +79,44 @@ public class ExportDonate extends Controller {
             donate.title = f.get("title");
             donate.contractNo = f.get("contractNo");
             donate.setApproveDate(f.get("approveDate"));
+
+            String numbetOfcommittee = f.get("numberOf_FF_committee");
+            if(numbetOfcommittee != null){
+                int count = Integer.parseInt(numbetOfcommittee);
+                for(int i=0; i<count; i++){
+                    String num  = Integer.toString(i); 
+                    String committeeFirstNmae = f.get("FF_firstName" + num);
+                    String committeeLastNmae = f.get("FF_lastName" + num);
+                    String committeePosition = f.get("FF_position" + num);
+
+                    List<User> users = User.find.where().eq("firstName",committeeFirstNmae).eq("lastName",committeeLastNmae).eq("position",committeePosition).findList();
+                    if(users.size() == 1){
+                        Donation_FF_Committee newCommittee = new Donation_FF_Committee();
+                        newCommittee.user = users.get(0);
+                        newCommittee.donation = donate;
+                        newCommittee.save();
+                    }
+                }
+            }
+            numbetOfcommittee = f.get("numberOf_D_committee");
+            if(numbetOfcommittee != null){
+                int count = Integer.parseInt(numbetOfcommittee);
+                for(int i=0; i<count; i++){
+                    String num  = Integer.toString(i); 
+                    String committeeFirstNmae = f.get("D_firstName" + num);
+                    String committeeLastNmae = f.get("D_lastName" + num);
+                    String committeePosition = f.get("D_position" + num);
+
+                    List<User> users = User.find.where().eq("firstName",committeeFirstNmae).eq("lastName",committeeLastNmae).eq("position",committeePosition).findList();
+                    if(users.size() == 1){
+                        Donation_D_Committee newCommittee = new Donation_D_Committee();
+                        newCommittee.user = users.get(0);
+                        newCommittee.donation = donate;
+                        newCommittee.save();
+                    }
+                }
+            }
+
             donate.status = ExportStatus.SUCCESS;
             donate.update();
 

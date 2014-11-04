@@ -4,7 +4,7 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 import models.type.CommitteeType;
-import models.Committee;
+import models.User;
 
 @Entity
 @Table (name = "donation_d_committee")
@@ -12,9 +12,11 @@ public class Donation_D_Committee extends Model{
 
 	@Id
 	public long id;
+	public String employeesType; // ประเภทกรรมการ - ประเภทบุคลากร
+	public String committeePosition; // ตำแหน่งในคณกรรมการ
 
 	@ManyToOne
-	public Committee committee;	// กรรมการ
+	public User user;	// กรรมการ
 	@ManyToOne
 	public Donation donation; // การบริจาค
 	

@@ -9,9 +9,26 @@
 
 <div class="listWindow">
 
-            <legend>
-                สรุปครุภัณฑ์
-            </legend>
+            <div class="tableHeaderBtnContainer">
+                <button class="btn btn-primary"onclick="printLink('http://localhost:9000/report/DurableArticles/print')"> Print </button>
+                <button class="btn btn-info"onclick="printTable()"> Print Table</button>
+            </div>
+                <legend >
+                    สรุปครุภัณฑ์
+                </legend>
+            <script>
+                function printLink(url){
+                    var w = window.open(url);
+                    w.print();
+                }
+                function printTable(){
+                    var divToPrint = document.getElementById("printTable");
+                    newWin= window.open("");
+                    newWin.document.write(divToPrint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                }
+            </script>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
                         <form>
@@ -38,9 +55,10 @@
         </div>
 
         <div >
-            <table class="table table-striped overlayTable" align="center">
+            <table class="table table-striped overlayTable table-condensed" align="center" id="printTable">
                 <thead>
                     <tr>
+                        <th style="text-align:center">ลำดับ</th>
                         <th style="text-align:center">กลุ่มที่</th>
                         <th style="text-align:center">ประเภท</th>
                         <th style="text-align:center">ชนิด</th>
@@ -52,18 +70,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                @for(dal <- da){
-                    <tr>
-                        <th style="text-align:center">41</th>
-                        <th style="text-align:center">20</th>
-                        <th style="text-align:center">03</th>
-                        <th style="text-align:center">0001</th>
-                        <th style="text-align:center">-</th>
+                <script>
+                    var flag = 1;
+                </script>
+                @for((dal,index) <- da.zipWithIndex){
+                    <!-->
+                    <tr id="row@index">
+                        <th style="text-align:center">@{index+1}</th>
+                        <th id="gr@index"style="text-align:center"></th>
+                        <th id="ty@index"style="text-align:center"></th>
+                        <th id="cl@index"style="text-align:center"></th>
+                        <th id="de@index"style="text-align:center"></th>
+                        <th id="sp@index"style="text-align:center"></th>
                         <th style="text-align:center">@dal.detail.fsn.typ.groupClass.classDescription</th>
-                        <th style="text-align:center">@dal.code</th>
+                        <th id="code@index"style="text-align:center">@dal.code</th>
                         <th style="text-align:center">@dal.detail.procurement.getAddDate()</th>
                     </tr>
+                    <script>
+                     var code = document.getElementById("code@index").innerHTML;  
+                     document.getElementById("gr@index").innerHTML =code[code.length-20]+code[code.length-19];
+                     document.getElementById("ty@index").innerHTML =code[code.length-18]+code[code.length-17];
+                     document.getElementById("cl@index").innerHTML =code[code.length-15]+code[code.length-14]+code[code.length-13];
+                     document.getElementById("de@index").innerHTML =code[code.length-11]+code[code.length-10]+code[code.length-9]+code[code.length-8];
+                     document.getElementById("sp@index").innerHTML = "("+code[code.length-6]+code[code.length-5]+"/"+code[code.length-3]+code[code.length-2]+")";
+                      
+                     if(parseInt(document.getElementById("de@index").innerHTML) != parseInt(document.getElementById("de@{index-1}").innerHTML) || parseInt(document.getElementById("sp@index").innerHTML[5]) != parseInt(document.getElementById("sp@{index-1}").innerHTML[5])){
+                         flag = flag * -1; 
+                     }
+                     var row = document.getElementById("row@index");
+                     if(flag>0){
+                             row.className ="info";
+                     }else{
+                             row.className ="active";
+                     }
+                    </script>
                 }
+                    <script>
+                        document.getElementById("row0").className = "info";
+                    </script>
                 </tbody>
             </table>
         </div> 

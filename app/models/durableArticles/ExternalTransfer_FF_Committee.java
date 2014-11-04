@@ -12,6 +12,8 @@ public class ExternalTransfer_FF_Committee extends Model{
 
 	@Id
 	public long id;
+	public String employeesType; // ประเภทกรรมการ - ประเภทบุคลากร
+	public String committeePosition; // ตำแหน่งในคณกรรมการ
 
 	@ManyToOne
 	public Committee committee;	// กรรมการ

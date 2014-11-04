@@ -60,7 +60,15 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                 });
                 $(function() {
                     $( "#approverFirstName" ).autocomplete({
-                      source: userAll
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#approverFirstName").val(ui.item.label);
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         mapInput2();
+                      }
+                    
                     });
                 });
             });
