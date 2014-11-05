@@ -307,7 +307,7 @@ function getCommitteeTemplate(name){
 	'					    <input id="'+name+'PrefixName'+ num +'" name="'+name+'PrefixName'+ num +'"  type="text"  class="form-control textAlignCenter width75px" placeholder="ใส่ค่า">'+
 	'				</th>'+
 	'				<th style ="text-align:center;">'+
-	'					    <input id="'+name+'FirstName'+ num +'" name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า" onkeyup="mapInput(this.id)">'+
+	'					    <input id="'+name+'FirstName'+ num +'" name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า" onkeyup="mapInput(this.id,13)">'+
 	'				</th>'+
 	'				<th style ="text-align:center;">'+
 	'					    <input id="'+name+'LastName'+ num +'" name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า">'+
