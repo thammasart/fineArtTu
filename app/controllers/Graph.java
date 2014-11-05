@@ -738,7 +738,7 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
 		if(result.size() <= 1){
-			result.add(getEmptyMpaDetail());
+			result.add(getEmptyMapDetail());
 		}
 		return result;
     }
@@ -748,9 +748,17 @@ public class Graph extends Controller {
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
 		for(models.durableGoods.Procurement p : ps){
 			for(models.durableGoods.ProcurementDetail pd : p.details){
-				MaterialCode c = MaterialCode.find.byId(pd.code);
-				String key = c.materialType.typeName;
-				Double value = listResult.get(key);
+				String key = "";
+				Double value = null;
+				if(pd.typeOfDurableGoods == 1){
+					FSN_Description fsn = FSN_Description.find.byId(pd.code);
+					key = fsn.typ.groupClass.group.groupDescription;
+					value = listResult.get(key);
+				}else{
+					MaterialCode c = MaterialCode.find.byId(pd.code);
+					key = c.materialType.typeName;
+					value = listResult.get(key);
+				}
 				if(value == null){
 					if(pd.quantity * pd.price != 0){
 						listResult.put(key, pd.quantity * pd.price);
@@ -772,7 +780,7 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
 		if(result.size() <= 1){
-			result.add(getEmptyMpaDetail());
+			result.add(getEmptyMapDetail());
 		}
     	return result;
     }
@@ -803,7 +811,7 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
 		if(result.size() <= 1){
-			result.add(getEmptyMpaDetail());
+			result.add(getEmptyMapDetail());
 		}
 		return result;
     }
@@ -813,9 +821,17 @@ public class Graph extends Controller {
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
 		for(models.durableGoods.Procurement p : ps){
 			for(models.durableGoods.ProcurementDetail pd : p.details){
-				MaterialCode c = MaterialCode.find.byId(pd.code);
-				String key = c.materialType.typeName;
-				Integer value = listResult.get(key);
+				String key = "";
+				Integer value = null;
+				if(pd.typeOfDurableGoods == 1){
+					FSN_Description fsn = FSN_Description.find.byId(pd.code);
+					key = fsn.typ.groupClass.group.groupDescription;
+					value = listResult.get(key);
+				}else{
+					MaterialCode c = MaterialCode.find.byId(pd.code);
+					key = c.materialType.typeName;
+					value = listResult.get(key);
+				}
 				if(value == null){
 					if(pd.quantity != 0){
 						listResult.put(key, pd.quantity);
@@ -835,7 +851,7 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
 		if(result.size() <= 1){
-			result.add(getEmptyMpaDetail());
+			result.add(getEmptyMapDetail());
 		}
     	return result;
     }
@@ -866,7 +882,7 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
 		if(result.size() <= 1){
-			result.add(getEmptyMpaDetail());
+			result.add(getEmptyMapDetail());
 		}
 		return result;
     }
@@ -895,12 +911,12 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
 		if(result.size() <= 1){
-			result.add(getEmptyMpaDetail());
+			result.add(getEmptyMapDetail());
 		}
 		return result;
 	}
     
-    private static ArrayNode getEmptyMpaDetail(){
+    private static ArrayNode getEmptyMapDetail(){
     	ArrayNode tr = JsonNodeFactory.instance.arrayNode();
 		tr.add("ไม่มีข้อมูล");
 		tr.add(0);
@@ -933,7 +949,7 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
 		if(result.size() <= 1){
-			result.add(getEmptyMpaDetail());
+			result.add(getEmptyMapDetail());
 		}
 		return result;
 	}
@@ -962,7 +978,7 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
 		if(result.size() <= 1){
-			result.add(getEmptyMpaDetail());
+			result.add(getEmptyMapDetail());
 		}
 		return result;
 	}
@@ -991,7 +1007,7 @@ public class Graph extends Controller {
 			result.add(tr);
 		}
 		if(result.size() <= 1){
-			result.add(getEmptyMpaDetail());
+			result.add(getEmptyMapDetail());
 		}
 		return result;
 	}
@@ -1096,20 +1112,30 @@ public class Graph extends Controller {
     	for(models.durableGoods.Procurement p : ps){
     		for(models.durableGoods.ProcurementDetail pd : p.details){
     			for(DurableGoods d : pd.subDetails){
-    				MaterialCode c = MaterialCode.find.byId(pd.code);
-    				if(c.materialType.typeName.equals(selectedName)){
-    					String key = c.description;
-    					Double value = listResult.get(key);
-    					if(value == null){
-    						if(pd.quantity * pd.price != 0){
-    							listResult.put(key, pd.price);
-    							ids.put(key,"" + d.id);
-    						}
-    					}else{
-    						listResult.put(key, listResult.get(key) + pd.price);
-    						ids.put(key,ids.get(key) + "," + d.id);
+    				String key = "";
+    				Double value = null;
+    				if(pd.typeOfDurableGoods == 1){
+    					FSN_Description fsn = FSN_Description.find.byId(pd.code);
+    					if(fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
+    						key = fsn.descriptionDescription;
+							value = listResult.get(key);
+    					}
+    				}else{
+    					MaterialCode c = MaterialCode.find.byId(pd.code);
+    					if(c.materialType.typeName.equals(selectedName)){
+    						key = c.description;
+    						value = listResult.get(key);
     					}
     				}
+					if(value == null){
+						if(pd.quantity * pd.price != 0){
+							listResult.put(key, pd.price);
+							ids.put(key,"" + d.id);
+						}
+					}else{
+						listResult.put(key, listResult.get(key) + pd.price);
+						ids.put(key,ids.get(key) + "," + d.id);
+					}
     			}
     		}
     		
@@ -1167,19 +1193,29 @@ public class Graph extends Controller {
     	HashMap<String,String> ids = new HashMap<String,String>();
     	for(models.durableGoods.Procurement p : ps){
     		for(models.durableGoods.ProcurementDetail pd : p.details){
-    			MaterialCode c = MaterialCode.find.byId(pd.code);
-    			if(c.materialType.typeName.equals(selectedName)){
-    				String key = c.description;
-					Integer value = listResult.get(key);
-					if(value == null){
-						if(pd.quantity != 0){
-							listResult.put(key, pd.quantity);
-							ids.put(key,""+pd.id);
-						}
-					}else{
-						listResult.put(key, listResult.get(key) + pd.quantity);
-						ids.put(key,ids.get(key)+","+pd.id);
+    			String key = "";
+				Integer value = null;
+				if(pd.typeOfDurableGoods == 1){
+					FSN_Description fsn = FSN_Description.find.byId(pd.code);
+					if(fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
+						key = fsn.descriptionDescription;
+						value = listResult.get(key);
 					}
+				}else{
+					MaterialCode c = MaterialCode.find.byId(pd.code);
+					if(c.materialType.typeName.equals(selectedName)){
+						key = c.description;
+						value = listResult.get(key);
+					}
+				}
+				if(value == null){
+					if(pd.quantity != 0){
+						listResult.put(key, pd.quantity);
+						ids.put(key,"" + pd.id);
+					}
+				}else{
+					listResult.put(key, listResult.get(key) + pd.quantity);
+					ids.put(key,ids.get(key) + "," + pd.id);
 				}
     		}
     		
@@ -1509,6 +1545,7 @@ public class Graph extends Controller {
 				result += getDetailLabel("department", d.department);
 				result += getDetailLabel("floorLevel", d.floorLevel);
 				result += getDetailLabel("room", d.room);
+				
 				String expandable = "";
 				expandable += getDetailLabel("price", String.valueOf(d.detail.price));
 				expandable += getDetailLabel("จำนวนนำเข้า", String.valueOf(d.detail.quantity));
@@ -1519,7 +1556,6 @@ public class Graph extends Controller {
 				expandable += getDetailLabel("budgetType", d.detail.procurement.budgetType);
 				expandable += getDetailLabel("addDate", d.detail.procurement.getAddDate());
 				expandable += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
-
 				
 				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
 				result += "</div>";
@@ -1829,7 +1865,7 @@ public class Graph extends Controller {
 			result += getDetailLabel("id", String.valueOf(inDetail.id));
 			result += getDetailLabel("รายการ/เรื่อง", inDetail.otherTransfer.title);
 			result += getDetailLabel("หมายเลขใบรายการ", inDetail.otherTransfer.number);
-			result += getDetailLabel("สาเหตุการอนย้าย", inDetail.otherTransfer.description);
+			result += getDetailLabel("สาเหตุการโอนย้าย", inDetail.otherTransfer.description);
 			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(inDetail.otherTransfer.approveDate));
 			//TODO ผู้รับผิดชอบ
 			result += getDetailLabel("ผู้อนุมัติ", "pending");//String.format("%s %s %s", inDetail.otherTransfer.approver.namePrefix, inDetail.otherTransfer.approver.firstName, inDetail.otherTransfer.approver.lastName ));
@@ -1855,8 +1891,41 @@ public class Graph extends Controller {
 	}
 
 	private static String getRepairHTML(String[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		/*for(int i=0; i<ids.length; i++){
+			String id = ids[i];
+			String detailsCodes = "";
+			RepairingDetail rd = RepairingDetail.find.byId(Long.valueOf(id));
+			OtherTransfer in = inDetail.otherTransfer; 
+			result += "<div class=\"well\">";
+			
+			result += getDetailLabel("id", String.valueOf(inDetail.id));
+			result += getDetailLabel("รายการ/เรื่อง", inDetail.otherTransfer.title);
+			result += getDetailLabel("หมายเลขใบรายการ", inDetail.otherTransfer.number);
+			result += getDetailLabel("สาเหตุการโอนย้าย", inDetail.otherTransfer.description);
+			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(inDetail.otherTransfer.approveDate));
+			//TODO ผู้รับผิดชอบ
+			result += getDetailLabel("ผู้อนุมัติ", "pending");//String.format("%s %s %s", inDetail.otherTransfer.approver.namePrefix, inDetail.otherTransfer.approver.firstName, inDetail.otherTransfer.approver.lastName ));
+			result += getDetailLabel("ผู้รับผิดชอบ", "pending");//String.format("%s %s %s", inDetail.otherTransfer., inDetail.otherTransfer.approver.firstName, inDetail.otherTransfer.approver.lastName ));
+			result += getExpandableHTML("คณะกรรมการสอบข้อเท็จจรืง", "pending");
+			result += getExpandableHTML("คณะกรรมการจำหน่าย", "pending");
+			for(; i<ids.length; i++){
+				id = ids[i];
+				OtherTransferDetail newDetail = OtherTransferDetail.find.byId(Long.valueOf(id));
+				if(newDetail.otherTransfer.equals(in)){
+					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+				}else{
+					i--;
+					break;
+				}
+			}
+			
+			result += getExpandableHTML("รายการโอนย้าย", detailsCodes);
+			result += "</div>";
+		}
+		result += "</div>";*/
+		return result;
 	}
     
     /*private static ArrayNode getTableRepairing(Date startDate, Date endDate, int col, String selectedName){

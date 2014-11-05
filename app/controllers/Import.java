@@ -670,6 +670,7 @@ public class Import extends Controller {
 	        			consumableGoodCode= MaterialCode.find.byId(p.code);
 	    			
 	    			ObjectNode item = Json.newObject();
+	    			item.put("typeOfGood", p.typeOfDurableGoods);
 	        		item.put("id", p.id);
 	        		if(p.code!="") item.put("code", p.code);
 	        		else item.put("code", "null");
@@ -765,6 +766,8 @@ public class Import extends Controller {
 	    			subDetail.add(subDetailItem);
 	    		}
 	    		result.put("id", pgd.id);
+	    		
+	    		result.put("typeOfGood", pgd.typeOfDurableGoods);
 	    		result.put("description", pgd.description);
 	    		result.put("code", pgd.code);
 	    		result.put("price", pgd.price);
@@ -1696,7 +1699,19 @@ public class Import extends Controller {
     		articlesOrder = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
     		
     		if(articlesOrder.status ==ImportStatus.INIT)
+    		{
     		articlesOrder.status = ImportStatus.CANCEL;
+	    		for(models.durableArticles.ProcurementDetail pd :articlesOrder.details)
+				{
+	    			pd.status= OrderDetailStatus.DELETE;
+	    			for(DurableArticles d:pd.subDetails)
+					{
+						d.status = SuppliesStatus.DELETE;
+						d.update();
+					}		
+					pd.update();
+				}
+    		}
     		
         	articlesOrder.update();
         	tab="1";
@@ -1705,7 +1720,65 @@ public class Import extends Controller {
     		goodsOrder = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").toString()));
     		
     		if(goodsOrder.status ==ImportStatus.INIT)
+    		{
     		goodsOrder.status = ImportStatus.CANCEL;
+	    		for(models.durableGoods.ProcurementDetail pd :goodsOrder.details)
+				{
+	    			pd.status= OrderDetailStatus.DELETE;
+	    			if(pd.typeOfDurableGoods==0)
+					{
+						MaterialCode mc=MaterialCode.find.byId(pd.code);
+						
+						System.out.println("Before");
+						System.out.println(mc.remain);
+						System.out.println(mc.pricePerEach);
+						
+						double sumPrice=mc.pricePerEach*mc.remain;
+						sumPrice=sumPrice-(pd.quantity*pd.price);
+						mc.remain=mc.remain-pd.quantity;
+						if(mc.remain>0)
+							mc.pricePerEach=sumPrice/mc.remain;
+						else
+							mc.pricePerEach=0;
+						
+						System.out.println("After");
+						System.out.println(mc.remain);
+						System.out.println(mc.pricePerEach);
+						
+						mc.update();
+					}
+					else
+					{
+						FSN_Description fsn = FSN_Description.find.byId(pd.code);
+						
+						System.out.println("Before");
+						System.out.println(fsn.remain);
+						System.out.println(fsn.pricePerEach);
+						
+						double sumPrice=fsn.pricePerEach*fsn.remain;
+						sumPrice=sumPrice-(pd.quantity*pd.price);
+						fsn.remain=fsn.remain-pd.quantity;
+						
+						if(fsn.remain>0)
+							fsn.pricePerEach=sumPrice/fsn.remain;
+						else
+							fsn.pricePerEach=0;
+						
+						System.out.println("After");
+						System.out.println(fsn.remain);
+						System.out.println(fsn.pricePerEach);
+						
+						fsn.update();
+					}
+					
+					for(DurableGoods d:pd.subDetails)
+					{
+						d.status = SuppliesStatus.DELETE;
+						d.update();
+					}		
+					pd.update();
+				}
+			}
     		
     		goodsOrder.update();
     		tab="2";
