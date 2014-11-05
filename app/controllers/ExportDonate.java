@@ -56,7 +56,8 @@ public class ExportDonate extends Controller {
         if(donate == null || donate.status != ExportStatus.INIT){
             return redirect(routes.ExportDonate.exportDonate());
         }
-        return ok(exportDonateAdd.render(user, donate));
+        List<Company> allCompany = Company.find.all();
+        return ok(exportDonateAdd.render(user, donate, allCompany));
     }
 
     @Security.Authenticated(Secured.class)
@@ -66,7 +67,8 @@ public class ExportDonate extends Controller {
         if(donate == null || donate.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportDonate.exportDonate());
         }
-        return ok(exportDonateViewDetail.render(user, donate));
+        List<Company> allCompany = Company.find.all();
+        return ok(exportDonateViewDetail.render(user, donate, allCompany));
     }
     
     @Security.Authenticated(Secured.class)
@@ -79,6 +81,14 @@ public class ExportDonate extends Controller {
             donate.title = f.get("title");
             donate.contractNo = f.get("contractNo");
             donate.setApproveDate(f.get("approveDate"));
+
+            // save donate destination
+            String donateDestination = f.get("donateDestination");
+            long companyId = Long.parseLong(donateDestination);
+            Company company = Company.find.byId(companyId);
+            if(company != null){
+                donate.company = company;
+            }
 
             // save FF committee
             List<Donation_FF_Committee> ffCommittee = donate.ffCommittee;

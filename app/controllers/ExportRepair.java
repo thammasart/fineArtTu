@@ -57,7 +57,8 @@ public class ExportRepair extends Controller {
         if(repair == null || repair.status != ExportStatus.INIT ){
             return redirect(routes.ExportRepair.exportRepairing());
         }
-        return ok(exportRepairingAdd.render(user, repair));
+        List<Company> allCompany = Company.find.all();
+        return ok(exportRepairingAdd.render(user, repair, allCompany));
     }
 
     @Security.Authenticated(Secured.class)
@@ -67,22 +68,24 @@ public class ExportRepair extends Controller {
         if(repair == null || repair.status != ExportStatus.REPAIRING){
             return redirect(routes.ExportRepair.exportRepairing());
         }
+        List<Company> allCompany = Company.find.all();
         repair.dateOfReceiveFromRepair = new Date();
-        return ok(exportRepairingReceive.render(user, repair));
+        return ok(exportRepairingReceive.render(user, repair, allCompany));
     }
 
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
         Repairing repair = Repairing.find.byId(id);
+        List<Company> allCompany = Company.find.all();
         if(repair == null){
             return redirect(routes.ExportRepair.exportRepairing());
         }
         else if(repair.status == ExportStatus.SUCCESS ){
-            return ok(exportRepairingViewDetail.render(user, repair));
+            return ok(exportRepairingViewDetail.render(user, repair, allCompany));
         }
         else if(repair.status == ExportStatus.REPAIRING ){
-            return ok(exportRepairingViewDetail.render(user, repair));
+            return ok(exportRepairingViewDetail.render(user, repair, allCompany));
         }
         return redirect(routes.ExportRepair.exportRepairing());
     }
@@ -95,6 +98,26 @@ public class ExportRepair extends Controller {
         	DynamicForm f = Form.form().bindFromRequest();
             repair.title = f.get("title");
             repair.number = f.get("number");
+
+            // save repair shop
+            String repairShop = f.get("repairShop");
+            long companyId = Long.parseLong(repairShop);
+            Company company = Company.find.byId(companyId);
+            if(company != null){
+                repair.company = company;
+            }
+
+            // save dateOfSentToRepair
+            repair.setDateOfSentToRepair(f.get("dateOfSentToRepair"));
+
+            // save approver
+            String firstName = f.get("approverFirstName");
+            String lastName = f.get("approverLastName");
+            String position = f.get("approverPosition");
+            List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            if(employees.size() == 1){
+                repair.approver = employees.get(0);
+            }
 
             //edit status durableArticles to REPAIRING
             if(repair.status == ExportStatus.INIT || repair.status == ExportStatus.REPAIRING){

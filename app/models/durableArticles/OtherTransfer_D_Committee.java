@@ -6,6 +6,8 @@ import javax.persistence.*;
 import models.type.CommitteeType;
 import models.User;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table (name = "other_transfer_d_committee")
 public class OtherTransfer_D_Committee extends Model{
@@ -17,6 +19,8 @@ public class OtherTransfer_D_Committee extends Model{
 
 	@ManyToOne
 	public User user;	// กรรมการ
+	
+	@JsonBackReference
 	@ManyToOne
 	public OtherTransfer otherTransfer; // การโอนย้ายข้ามหน่ายงาน
 	

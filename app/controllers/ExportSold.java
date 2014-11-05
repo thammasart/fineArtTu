@@ -56,7 +56,8 @@ public class ExportSold extends Controller {
         if(sold == null || sold.status != ExportStatus.INIT){
             return redirect(routes.ExportSold.exportSold());
         }
-        return ok(exportSoldAdd.render(user, sold));
+        List<Company> allCompany = Company.find.all();
+        return ok(exportSoldAdd.render(user, sold, allCompany));
     }
 
     @Security.Authenticated(Secured.class)
@@ -66,7 +67,8 @@ public class ExportSold extends Controller {
         if(sold == null || sold.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportSold.exportSold());
         }
-        return ok(exportSoldViewDetail.render(user, sold));
+        List<Company> allCompany = Company.find.all();
+        return ok(exportSoldViewDetail.render(user, sold, allCompany));
     }
 
     @Security.Authenticated(Secured.class)
@@ -79,6 +81,14 @@ public class ExportSold extends Controller {
             auction.contractNo = f.get("contractNo");
             auction.setApproveDate(f.get("approveDate"));
 
+            // save sold destination
+            String soldDestination = f.get("soldDestination");
+            long companyId = Long.parseLong(soldDestination);
+            Company company = Company.find.byId(companyId);
+            if(company != null){
+                auction.company = company;
+            }
+            
             // save FF committee
             List<Auction_FF_Committee> ffCommittee = auction.ffCommittee;
             String numbetOfcommittee = f.get("numberOf_FF_committee");

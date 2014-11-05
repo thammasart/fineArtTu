@@ -88,7 +88,7 @@ public class ExportOrder extends Controller {
                 req.user = employees.get(0);
             }
 
-            // save withdrawer
+            // save approver
             firstName = f.get("approverFirstName");
             lastName = f.get("approverLastName");
             position = f.get("approverPosition");

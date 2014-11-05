@@ -103,6 +103,7 @@ public class ExportBorrow extends Controller {
             String lastName = f.get("withdrawerLastName");
             String position = f.get("withdrawerPosition");
             List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            System.out.println(firstName + " : " + lastName + " : " + position);
             if(employees.size() == 1){
                 borrow.user = employees.get(0);
                 borrow.update();
@@ -113,6 +114,7 @@ public class ExportBorrow extends Controller {
             lastName = f.get("approverLastName");
             position = f.get("approverPosition");
             employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            System.out.println(firstName + " : " + lastName + " : " + position);
             if(employees.size() == 1){
                 borrow.approver = employees.get(0);
                 borrow.update();
