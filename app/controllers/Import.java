@@ -670,6 +670,7 @@ public class Import extends Controller {
 	        			consumableGoodCode= MaterialCode.find.byId(p.code);
 	    			
 	    			ObjectNode item = Json.newObject();
+	    			item.put("typeOfGood", p.typeOfDurableGoods);
 	        		item.put("id", p.id);
 	        		if(p.code!="") item.put("code", p.code);
 	        		else item.put("code", "null");
