@@ -55,12 +55,28 @@ angular.module('userAccountModule', ['ui.bootstrap'])
 
                 $(function() {
                     $( "#withdrawerNmae" ).autocomplete({
-                      source: userAll
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#withdrawerNmae").val(ui.item.label);
+                          mapInput1();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapInput1,200);
+                      }
                     });
                 });
                 $(function() {
                     $( "#approverName" ).autocomplete({
-                      source: userAll
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#approverName").val(ui.item.label);
+                          mapInput2();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapInput2,200);
+                      }
                     });
                 });
             });

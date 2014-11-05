@@ -1,6 +1,8 @@
 @(user : User, donation : models.durableArticles.Donation)
 @header("exportDonateAdd")
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/donate.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getExportDonate.js")"></script>
 <body onload="init(@donation.id)" ng-app="exportModule" ng-controller="exportDonateCtrl"> 

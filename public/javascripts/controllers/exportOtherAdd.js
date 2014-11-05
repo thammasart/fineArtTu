@@ -1,8 +1,10 @@
 var submitStatus = true;
 var nameList= [];
+var prefixNameList=[];
 var lastnameList= [];
 var positionList= [];
 var userAll= [] ;
+var userAllP= [] ;
 var code = [];
 var codeName = [];
 
@@ -32,6 +34,7 @@ angular.module('exportOtherApp', ['ui.bootstrap'])
          function combine() { 
             for(var i = 0; i < nameList.length ; i++){
                 userAll[i] = nameList[i]+" "+lastnameList[i]+" "+positionList[i] ;     
+                userAllP[i] = prefixNameList[i] + " " +  nameList[i]+" "+lastnameList[i]+" "+positionList[i] ;     
             }
          } 
          $scope.openDeleteDetailModal = function(link) {
@@ -49,13 +52,17 @@ angular.module('exportOtherApp', ['ui.bootstrap'])
          } 
 
         $scope.findUser=function(){
-            $http({method : 'GET',url : 'autocompleteRepairCommitee' })
+            $http({method : 'GET',url : 'autocompleteImportOrderCommitee' })
             .success(function(result){
                 $scope.name= result.name;
+                $scope.PrefixName = result.namePrefix;
                 $scope.lastname= result.lastname;
                 $scope.position= result.position;
 
-                nameList = $scope.name ;
+                code= result.code;
+
+                prefixNameList = $scope.PrefixName;
+                nameList = $scope.name;
                 lastnameList= $scope.lastname;
                 positionList= $scope.position;
             
@@ -63,18 +70,61 @@ angular.module('exportOtherApp', ['ui.bootstrap'])
 
                 $(function() {
                     $( "#recieveFirstName" ).autocomplete({
-                      source: userAll
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#recieveFirstName").val(ui.item.label);
+                          mapInput1();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapInput1,200);
+                      }
                     });
                 });
                 $(function() {
                     $( "#approverName" ).autocomplete({
-                      source: userAll
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#approverName").val(ui.item.label);
+                          mapInput2();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapInput2,200);
+                      }
                     });
                 });
             });
         };
     }
 );
+function initAutocomplete(key,number) { 
+       $(function() {
+           $( "#"+key+"_firstName"+number ).autocomplete({
+             source: userAll,
+             focus: function(event, ui) {
+                 $("input#"+key+"_firstName"+number).val(ui.item.label);
+             },
+             select: function(event, ui) {
+                $("#searchform button").click(); 
+                setTimeout(mapInputCommittee(key,number),100);
+             }
+           });
+       });
+} 
+function mapInputCommittee(key,num){
+    var id = document.getElementById(key+"_firstName"+num).value ;
+        for(var j = 0; j < userAll.length;j++){
+            if(id == userAll[j]){
+                document.getElementById(key+"_namePrefix"+num).value = prefixNameList[j];            
+                document.getElementById(key+"_lastName"+num).value = lastnameList[j];
+                document.getElementById(key+"_position"+num).value = positionList[j];
+                document.getElementById(key+"_firstName"+num).value = nameList[j];            
+                setTimeout(function(){ document.getElementById(key+"_firstName"+num).value = nameList[j];},500);
+                break;
+            }
+        }
+}
 var cancelModalInstanceCtrl = function($scope, $modalInstance){
 
    $scope.ok = function () {
