@@ -101,7 +101,11 @@ function setDetail(id,tab,page){
     		    }else{
     		    	$radios.filter('[value=0]').prop('checked', true);
     		    }
-    			$('#typeOfGoods').val(result["typeOfGoods"]);
+    		    if(result["typeOfGoods"] == undefined){
+    		    	$('#typeOfGoods').val(0);
+    		    }else{
+    		    	$('#typeOfGoods').val(result["typeOfGoods"]);
+    		    }
     			
     			$('#procurementDetailId').val(result["id"]);
     			$('#description').val(result["description"]);
@@ -756,3 +760,4 @@ function submitButtonClickAr(){
 
     return submitStatus;
 }
+

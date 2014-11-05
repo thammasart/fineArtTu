@@ -766,6 +766,8 @@ public class Import extends Controller {
 	    			subDetail.add(subDetailItem);
 	    		}
 	    		result.put("id", pgd.id);
+	    		
+	    		result.put("typeOfGood", pgd.typeOfDurableGoods);
 	    		result.put("description", pgd.description);
 	    		result.put("code", pgd.code);
 	    		result.put("price", pgd.price);
