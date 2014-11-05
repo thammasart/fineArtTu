@@ -383,24 +383,38 @@ function preSpread(name){
 		var v15='	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ห้อง</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width75px" name="'+name+'Room'+k+'" id="'+name+'Room'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width75px" name="'+name+'Room'+k+'" id="'+name+'Room'+k+(val.length==5? '" value="คลังพัสดุ">':'" value="">')+
 		'	                </div>'+
 		'	            </div>'+
 		'	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >ชั้น</span>'+
-		'	                    <input type="text" class="form-control textAlignCenter  width50px" name="'+name+'Level'+k+'" id="'+name+'Level'+k+'">'+
+		'	                    <input type="text" class="form-control textAlignCenter  width50px" name="'+name+'Level'+k+'" id="'+name+'Level'+k+(val.length==5? '" value="2">':'" value="">')+
 		'	                </div>'+
-		'	            </div>'+
-		'	        	<div class="form-group" >'+
+		'	            </div>';
+if(val.length >5)
+{
+		var v15x='	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  '+
 						(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
 						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="ศก.'+years+"-"+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
 		'	                </div>'+
-		'	            </div>'+
-		'	            <div class="form-group" >'+
+		'	            </div>';
+}
+else
+{
+	var v15x='	        	<div class="form-group" >'+
+	'	                <div class="input-group" >'+
+	'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
+	'	                    <input type="text" class="form-control textAlignCenter  '+
+	' 							name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+val+'">'+
+	'	                </div>'+
+	'	            </div>';
+}
+		
+		var v16='	            <div class="form-group" >'+
 		'	                <div class="input-group" >'+
 		'	                    <span class="input-group-addon" >คำนำหน้าชื่อ</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  width100px"placeholder="ใส่ค่า" name="'+name+'PrefixName'+k+'" id="'+name+'PrefixName'+k+'">'+
@@ -433,9 +447,9 @@ var v3 ='	            <button onclick="setValueBelow(\''+name+'\','+ k +')">ต�
 		'	        </div>  '+
 		'		</div>'
 if(name=='article')
-	v=v+v1+v15+v2+v3;
+	v=v+v1+v15+v15x+v16+v2+v3;
 else
-	v=v+v1+v15+v3;
+	v=v+v1+v15+v15x+v16+v3;
 
 		
 		

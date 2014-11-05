@@ -568,18 +568,43 @@ public class Import extends Controller {
     		models.durableArticles.Procurement pa = models.durableArticles.Procurement.find.byId(Long.parseLong(json.get("id").asText()));
     		for(models.durableArticles.AI_Committee ai : pa.aiCommittee){
     			ArrayNode aiItem = JsonNodeFactory.instance.arrayNode();
+    			
+    			if(ai.committee==null)
+    			{
+    			aiItem.add("");
+    			aiItem.add("");
+    			aiItem.add("");
+    			aiItem.add("");
+    			aiItem.add("");
+    			aiItem.add("");
+    			}
+    			else
+    			{
     			aiItem.add(ai.committee.namePrefix);
     			aiItem.add(ai.committee.firstName);
     			aiItem.add(ai.committee.lastName);
     			aiItem.add(ai.committee.position);
     			aiItem.add(ai.employeesType);
     			aiItem.add(ai.committeePosition);
+    			}
     			aiArray.add(aiItem);
     		}
     		result.put("ai", aiArray);
     		
     		for(models.durableArticles.EO_Committee eo : pa.eoCommittee){
     			ArrayNode eoItem = JsonNodeFactory.instance.arrayNode();
+    			
+    			if(eo.committee==null)
+    			{
+    			eoItem.add("");
+    			eoItem.add("");
+    			eoItem.add("");
+    			eoItem.add("");
+    			eoItem.add("");
+    			eoItem.add("");
+    			}
+    			else
+    			{
     			eoItem.add(eo.committee.namePrefix);
     			eoItem.add(eo.committee.firstName);
     			eoItem.add(eo.committee.lastName);
@@ -588,6 +613,7 @@ public class Import extends Controller {
     			//System.out.println(eo.employeesType);
     			//System.out.println(eo.committeePosition);
     			eoItem.add(eo.committeePosition);
+    			}
     			eoArray.add(eoItem);
     		}
     		result.put("eo", eoArray);

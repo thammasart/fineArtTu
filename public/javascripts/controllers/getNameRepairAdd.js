@@ -6,12 +6,13 @@ var userAll= [] ;
 
 var exportLink;
 var exportId;
-
- function addId(id) { 
-    exportId = id;
- } 
-
+var autoNameTemp;
 var desId;
+
+function addId(id) { 
+   exportId = id;
+} 
+
 angular.module('userAccountModule', ['ui.bootstrap'])
     .controller('autoCompleteUserController',function($scope,$http,$modal){
         
@@ -55,7 +56,15 @@ angular.module('userAccountModule', ['ui.bootstrap'])
 
                 $(function() {
                     $( "#recieveFirstName" ).autocomplete({
-                      source: userAll
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#recieveFirstName").val(ui.item.label);
+                          mapInput1();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapInput1,100);
+                      }
                     });
                 });
                 $(function() {
@@ -63,12 +72,12 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                       source: userAll,
                       focus: function(event, ui) {
                           $("input#approverFirstName").val(ui.item.label);
+                          mapInput2();
                       },
                       select: function(event, ui) {
                          $("#searchform button").click(); 
-                         mapInput2();
+                         setTimeout(mapInput2,100);
                       }
-                    
                     });
                 });
             });
@@ -104,6 +113,7 @@ function mapInput1(){
             document.getElementById("recieveFirstName").value = nameList[j];            
             document.getElementById("recieveLastName").value = lastnameList[j];
             document.getElementById("recievePosition").value = positionList[j];
+            break;
         }
     }
 }
@@ -114,6 +124,8 @@ function mapInput2(){
             document.getElementById("approverFirstName").value = nameList[j];            
             document.getElementById("approverLastName").value = lastnameList[j];
             document.getElementById("approverPosition").value = positionList[j];
+            autoNameTemp = nameList[j];
+            break;
         }
     }
 }

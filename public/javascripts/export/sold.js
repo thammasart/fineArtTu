@@ -272,6 +272,7 @@ function add_FF_committree(){
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();
+        initAutocomplete(i);
 	i++;
 	document.getElementById("numberOf_FF_committee").value = i;
 }

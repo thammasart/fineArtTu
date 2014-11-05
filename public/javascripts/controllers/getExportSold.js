@@ -1,8 +1,15 @@
 var submitStatus = true;
 
-
+var set;
 var exportLink;
 var exportId;
+
+var prefixNameList=[];
+var nameList=[];
+var lastnameList=[];
+var positionList=[];
+
+var userAll=[];
 
  function addId(id) { 
     exportId = id;
@@ -28,7 +35,73 @@ angular.module('exportModule', ['ui.bootstrap'])
          });
      };
 
+         function combine() { 
+            for(var i = 0; i < nameList.length ; i++){
+                userAll[i] = prefixNameList[i]+" "+nameList[i]+" "+lastnameList[i]+" "+positionList[i] ;     
+            }
+         } 
+        $scope.findUser=function(){
+            $http({method : 'GET',url : 'autocompleteImportOrderCommitee' })
+            .success(function(result){
+                $scope.name= result.name;
+                $scope.PrefixName = result.namePrefix;
+                $scope.lastname= result.lastname;
+                $scope.position= result.position;
+
+                code= result.code;
+
+                prefixNameList = $scope.PrefixName;
+                nameList = $scope.name;
+                lastnameList= $scope.lastname;
+                positionList= $scope.position;
+            
+                combine();
+                $(function() {
+                    $( "#FF_firstName0" ).autocomplete({
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#FF_firstName0").val(ui.item.label);
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapInputFF("FF_firstName0"),200);
+                      }
+                    });
+                });
+            });
+        };
+
 });
+
+ function initAutocomplete(number) { 
+        $(function() {
+            $( "#FF_firstName"+number ).autocomplete({
+              source: userAll,
+              focus: function(event, ui) {
+                  $("input#FF_firstName"+number).val(ui.item.label);
+                  mapInputFF("FF_firstName"+number);
+              },
+              select: function(event, ui) {
+                 $("#searchform button").click(); 
+                 setTimeout(mapInputFF("FF_firstName"+number),100);
+              }
+            });
+        });
+ } 
+function mapInputFF(id){
+    var temp = id[id.length-1];
+    var id = document.getElementById(id).value ;
+        for(var j = 0; j < userAll.length;j++){
+            if(id == userAll[j]){
+                document.getElementById("FF_namePrefix"+temp).value = prefixNameList[j];            
+                document.getElementById("FF_lastName"+temp).value = lastnameList[j];
+                document.getElementById("FF_position"+temp).value = positionList[j];
+                document.getElementById("FF_firstName"+temp).value = nameList[j];            
+                setTimeout(function(){ document.getElementById("FF_firstName"+temp).value = nameList[j];},1000);
+                break;
+            }
+        }
+}
 var cancelModalInstanceCtrl = function($scope, $modalInstance){
 
    $scope.ok = function () {

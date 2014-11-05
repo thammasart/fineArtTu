@@ -77,8 +77,6 @@ public class Graph extends Controller {
       
       ArrayNode result=null;
       
-      System.out.println(String.format("%d %d / %d %d / %d", row,column,lastClickedRow, lastClickedColumn,page));
-      
 	  if(mode.equals("balance")){
 		  result = getBalance(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("procurement")){
@@ -495,16 +493,16 @@ public class Graph extends Controller {
     			d = getQuarterDate(lRow);
     		}
     		
-    		if(col == 1 || col == 2){
+    		if(lCol == 1 || lCol == 2){
     			List<InternalTransfer> rs = InternalTransfer.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList(); 
     			result = getTableInternalTranfers(rs, selectedName);
-    		}else if(col == 3 || col == 4){
+    		}else if(lCol == 3 || lCol == 4){
     			List<Auction> rs = Auction.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
     			result = getTableAuctionTranfers(rs, selectedName);
-    		}else if(col == 5 || col == 6){
+    		}else if(lCol == 5 || lCol == 6){
     			List<Donation> rs = Donation.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
     			result = getTableDonationTranfers(rs, selectedName);
-    		}else if(col == 7 || col == 8){
+    		}else if(lCol == 7 || lCol == 8){
     			List<OtherTransfer> rs = OtherTransfer.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
     			result = gettableOtherTranfers(rs, selectedName);
     		}    		
@@ -739,6 +737,9 @@ public class Graph extends Controller {
 			//tr.add(key);
 			result.add(tr);
 		}
+		if(result.size() <= 1){
+			result.add(getEmptyMpaDetail());
+		}
 		return result;
     }
     
@@ -770,6 +771,9 @@ public class Graph extends Controller {
 			tr.add(key);
 			result.add(tr);
 		}
+		if(result.size() <= 1){
+			result.add(getEmptyMpaDetail());
+		}
     	return result;
     }
     
@@ -797,6 +801,9 @@ public class Graph extends Controller {
 			tr.add(colors[i++]);
 			tr.add(key);
 			result.add(tr);
+		}
+		if(result.size() <= 1){
+			result.add(getEmptyMpaDetail());
 		}
 		return result;
     }
@@ -827,6 +834,9 @@ public class Graph extends Controller {
 			tr.add(key);
 			result.add(tr);
 		}
+		if(result.size() <= 1){
+			result.add(getEmptyMpaDetail());
+		}
     	return result;
     }
     
@@ -855,6 +865,9 @@ public class Graph extends Controller {
 			tr.add(key);
 			result.add(tr);
 		}
+		if(result.size() <= 1){
+			result.add(getEmptyMpaDetail());
+		}
 		return result;
     }
     
@@ -881,8 +894,20 @@ public class Graph extends Controller {
 			tr.add(key);
 			result.add(tr);
 		}
+		if(result.size() <= 1){
+			result.add(getEmptyMpaDetail());
+		}
 		return result;
 	}
+    
+    private static ArrayNode getEmptyMpaDetail(){
+    	ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+		tr.add("ไม่มีข้อมูล");
+		tr.add(0);
+		tr.add(colors[0]);
+		tr.add("ไม่มีข้อมูล");
+		return tr;
+    }
     
     private static ArrayNode getDetailAuctionTranfersMap(List<Auction> rs) {
 		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
@@ -906,6 +931,9 @@ public class Graph extends Controller {
 			tr.add(colors[i++]);
 			tr.add(key);
 			result.add(tr);
+		}
+		if(result.size() <= 1){
+			result.add(getEmptyMpaDetail());
 		}
 		return result;
 	}
@@ -933,6 +961,9 @@ public class Graph extends Controller {
 			tr.add(key);
 			result.add(tr);
 		}
+		if(result.size() <= 1){
+			result.add(getEmptyMpaDetail());
+		}
 		return result;
 	}
 
@@ -958,6 +989,9 @@ public class Graph extends Controller {
 			tr.add(colors[i++]);
 			tr.add(key);
 			result.add(tr);
+		}
+		if(result.size() <= 1){
+			result.add(getEmptyMpaDetail());
 		}
 		return result;
 	}
@@ -1021,7 +1055,6 @@ public class Graph extends Controller {
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
     	HashMap<String,String> ids = new HashMap<String,String>();
-    	System.out.println(department[col-1]);
 		for(models.durableArticles.Procurement p : ps){
 			for(models.durableArticles.ProcurementDetail pd : p.details){
 				for(DurableArticles d : pd.subDetails){
@@ -1174,9 +1207,7 @@ public class Graph extends Controller {
     			if(c.materialType.typeName.equals(selectedName)){
     				String key = c.description;
 					Integer value = listResult.get(key);
-					System.out.println(String.format("%s\t%.2f\n", key,value));
 					if(value == null){
-						System.out.println(key);
 						if(rd.quantity  != 0){
 							listResult.put(key, rd.quantity);
 							ids.put(key,"" + rd.id);
@@ -1332,7 +1363,7 @@ public class Graph extends Controller {
 		ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
-		for(Auction auction	: rs){
+    	for(Auction auction : rs){
 			for(AuctionDetail auctionDetail : auction.detail){
 				String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
 				if(key.equals(selectedName)){
@@ -1464,32 +1495,31 @@ public class Graph extends Controller {
 	
 	private static String getArticleHTML(String[] ids) {
 		String result = "<div>";
-		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(String id: ids){
 			DurableArticles d = DurableArticles.find.byId(Long.valueOf(id));
 			if(d!=null){
 				result += "<div class=\"well\">";
-				result += "id : " + d.id + "<br>";
-				result += "code : " + d.code + "<br>";
-				result += "ชื่อครุภัณฑ์ : " + d.detail.fsn.descriptionDescription + "<br>";
-				result += "คำนำหน้า : " + d.title + "<br>";
-				result += "firstName : " + d.firstName + "<br>";
-				result += "lastName : " + d.lastName + "<br>";
-				result += "department : " + d.department + "<br>";
-				result += "floorLevel : " + d.floorLevel + "<br>";
-				result += "room : " + d.room + "<br>";
+				result += getDetailLabel("id", String.valueOf(d.id));
+				result += getDetailLabel("code", d.code);
+				result += getDetailLabel("ชื่อครุภัณฑ์", d.detail.fsn.descriptionDescription);
+				result += getDetailLabel("คำนำหน้า", d.title);
+				result += getDetailLabel("firstName", d.firstName);
+				result += getDetailLabel("lastName", d.lastName);
+				result += getDetailLabel("department", d.department);
+				result += getDetailLabel("floorLevel", d.floorLevel);
+				result += getDetailLabel("room", d.room);
 				String expandable = "";
-				expandable += "price : " + d.detail.price + "<br>";
-				expandable += "จำนวนนำเข้า : " + d.detail.quantity + "<br>";
-				expandable += "brand : " + d.detail.brand + "<br>";
-				expandable += "phone : " + d.detail.phone + "<br>";
+				expandable += getDetailLabel("price", String.valueOf(d.detail.price));
+				expandable += getDetailLabel("จำนวนนำเข้า", String.valueOf(d.detail.quantity));
+				expandable += getDetailLabel("brand", d.detail.brand);
+				expandable += getDetailLabel("phone", d.detail.phone);
+				expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ d.detail.fsn.path + "\">");
+				expandable += getDetailLabel("contractNo", d.detail.procurement.contractNo);
+				expandable += getDetailLabel("budgetType", d.detail.procurement.budgetType);
+				expandable += getDetailLabel("addDate", d.detail.procurement.getAddDate());
+				expandable += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
 
-				expandable += "pic : <img style=\"width:80px;\" src=\"/assets/"+ d.detail.fsn.path + "\"><br>";
-
-				expandable += "contractNo : " + d.detail.procurement.contractNo + "<br>";
-				expandable += "budgetType : " + d.detail.procurement.budgetType + "<br>";
-				expandable += "addDate : " + d.detail.procurement.getAddDate() + "<br>";
-				expandable += "checkDate : " + d.detail.procurement.getCheckDate() + "<br>";
 				
 				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
 				result += "</div>";
@@ -1501,7 +1531,7 @@ public class Graph extends Controller {
 	
 	private static String getGoodsHTML(String[] ids) {
 		String result = "<div>";
-		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(String id: ids){
 			DurableGoods d = DurableGoods.find.byId(Long.valueOf(id));
 			MaterialCode m = null;
@@ -1514,26 +1544,26 @@ public class Graph extends Controller {
 				}
 				
 				result += "<div class=\"well\">";
-				result += "code : " + d.codes + "<br>";
-				result += "ชื่อวัสดุ : " + d.detail.description + "<br>";
-				result += "คำนำหน้า : " + d.title + "<br>";
-				result += "firstName : " + d.firstName + "<br>";
-				result += "lastName : " + d.lastName + "<br>";
-				result += "department : " + d.department + "<br>";
-				result += "floorLevel : " + d.floorLevel + "<br>";
-				result += "room : " + d.room + "<br>";
+				result += getDetailLabel("code", d.codes);
+				result += getDetailLabel("ชื่อวัสดุ", d.detail.description);
+				result += getDetailLabel("คำนำหน้า", d.title);
+				result += getDetailLabel("firstName", d.firstName);
+				result += getDetailLabel("lastName", d.lastName);
+				result += getDetailLabel("department", d.department);
+				result += getDetailLabel("floorLevel", d.floorLevel);
+				result += getDetailLabel("room", d.room);
 				String expandable = "";
-				expandable += "price : " + d.detail.price + "<br>";
-				expandable += "จำนวนนำเข้า : " + d.detail.quantity + "<br>";
-				expandable += "brand : " + d.detail.brand + "<br>";
-				expandable += "phone : " + d.detail.phone + "<br>";
+				expandable += getDetailLabel("price", String.valueOf(d.detail.price));
+				expandable += getDetailLabel("จำนวนนำเข้า", String.valueOf(d.detail.quantity));
+				expandable += getDetailLabel("brand", d.detail.brand);
+				expandable += getDetailLabel("phone", d.detail.phone);
 				String path = d.typeOfDurableGoods == 0 ? m.path: fsn.path;
-				expandable += "pic : <img style=\"width:80px;\" src=\"/assets/" + path + "\"><br>";
-				expandable += "fsn : " + d.detail.code + "<br>";
-				expandable += "contractNo : " + d.detail.procurement.contractNo + "<br>";
-				expandable += "budgetType : " + d.detail.procurement.budgetType + "<br>";
-				expandable += "addDate : " + d.detail.procurement.getAddDate() + "<br>";
-				expandable += "checkDate : " + d.detail.procurement.getCheckDate() + "<br>";
+				expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
+				expandable += getDetailLabel("fsn", d.detail.code);
+				expandable += getDetailLabel("contractNo", d.detail.procurement.contractNo);
+				expandable += getDetailLabel("budgetType", d.detail.procurement.budgetType);
+				expandable += getDetailLabel("addDate", d.detail.procurement.getAddDate());
+				expandable += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
 				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
 				result += "</div>";
 			}
@@ -1544,31 +1574,43 @@ public class Graph extends Controller {
 
 	private static String getProcurementArticleHTML(String[] ids) {
 		String result = "<div>";
-		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(String id: ids){
 			models.durableArticles.ProcurementDetail pd = models.durableArticles.ProcurementDetail.find.byId(Long.valueOf(id));
 			if(pd!=null){
 				result += "<div class=\"well\">";
-				result += "description : " + pd.description + "<br>";
-				result += "alertTime : " + pd.alertTime + "<br>";
-				result += "brand : " + pd.brand + "<br>";
-				result += "price : " + pd.price + "<br>";
-				result += "phone : " + pd.phone + "<br>";
-				result += "quantity : " + pd.quantity + "<br>";
-				result += "seller : " + pd.seller + "<br>";
-				result += "serialNumber : " + pd.serialNumber + "<br>";
-				result += "priceNoVat : " + pd.priceNoVat + "<br>";
-				result += "pic : <img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\"><br>";
-				System.out.println(pd.fsn.path);
-				result += "picname : " + pd.fsn.fileName + "><br>";
-				result += "pictype : " + pd.fsn.fileType + "><br>";
+				result += getDetailLabel("description", pd.description);
+				result += getDetailLabel("alertTime", String.valueOf(pd.alertTime));
+				result += getDetailLabel("brand", pd.brand);
+				result += getDetailLabel("price", String.valueOf(pd.price));
+				result += getDetailLabel("phone", pd.phone);
+				result += getDetailLabel("quantity", String.valueOf(pd.quantity));
+				result += getDetailLabel("seller", pd.seller);
+				result += getDetailLabel("serialNumber", pd.serialNumber);
+				result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
+				result += getDetailLabel("pic", "<img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\">");
 				
 				String expandable = "";
-				expandable += "contractNo : " + pd.procurement.contractNo + "<br>";
-				expandable += "budgetType : " + pd.procurement.budgetType + "<br>";
-				expandable += "addDate : " + pd.procurement.getAddDate() + "<br>";
-				expandable += "checkDate : " + pd.procurement.getCheckDate() + "<br>";
+				expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\">");
+				expandable += getDetailLabel("contractNo", pd.procurement.contractNo);
+				expandable += getDetailLabel("budgetType", pd.procurement.budgetType);
+				expandable += getDetailLabel("addDate", pd.procurement.getAddDate());
+				expandable += getDetailLabel("checkDate", pd.procurement.getCheckDate());
 				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
+				
+				expandable = "";
+				for(models.durableArticles.EO_Committee eo : pd.procurement.eoCommittee){
+					expandable += getDetailCommitteeLabel(eo.committeePosition, String.format("%s %s %s", eo.committee.namePrefix, eo.committee.firstName, eo.committee.lastName));
+				}
+				result += getExpandableHTML("คณะกรรมการเปิดซอง", expandable);
+				
+				expandable = "";
+				for(models.durableArticles.AI_Committee ai : pd.procurement.aiCommittee){
+					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
+				}
+				result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
+				
+				
 				result += "</div>";
 			}
 		}
@@ -1578,7 +1620,7 @@ public class Graph extends Controller {
 
 	private static String getProcurementMaterialHTML(String[] ids) {
 		String result = "<div>";
-		result += "<button onclick=\"backToTable()\">ย้อนกลับ</button>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(String id: ids){
 			models.durableGoods.ProcurementDetail pd = models.durableGoods.ProcurementDetail.find.byId(Long.valueOf(id));
 			MaterialCode m = null;
@@ -1591,23 +1633,30 @@ public class Graph extends Controller {
 				}
 
 				result += "<div class=\"well\">";
-				result += "description : " + pd.description + "<br>";
-				result += "brand : " + pd.brand + "<br>";
-				result += "price : " + pd.price + "<br>";
-				result += "phone : " + pd.phone + "<br>";
-				result += "quantity : " + pd.quantity + "<br>";
-				result += "seller : " + pd.seller + "<br>";
-				result += "serialNumber : " + pd.serialNumber + "<br>";
-				result += "priceNoVat : " + pd.priceNoVat + "<br>";
+				result += getDetailLabel("description", pd.description);
+				result += getDetailLabel("brand", pd.brand);
+				result += getDetailLabel("price", String.valueOf(pd.price));
+				result += getDetailLabel("phone", pd.phone);
+				result += getDetailLabel("quantity", String.valueOf(pd.quantity));
+				result += getDetailLabel("seller", pd.seller);
+				result += getDetailLabel("serialNumber", pd.serialNumber);
+				result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
 				
 				String expandable = "";
 				String path = pd.typeOfDurableGoods == 0 ? m.path: fsn.path;
-				expandable += "pic : <img style=\"width:80px;\" src=\"/assets/" + path + "\"><br>";
-				expandable += "contractNo : " + pd.procurement.contractNo + "<br>";
-				expandable += "budgetType : " + pd.procurement.budgetType + "<br>";
-				expandable += "addDate : " + pd.procurement.getAddDate() + "<br>";
-				expandable += "checkDate : " + pd.procurement.getCheckDate() + "<br>";
+				expandable += getDetailLabel("pic", "<img style=\"w);dth:80px;\" src=\"/assets/" + path + "\">");
+				expandable += getDetailLabel("contractNo", pd.procurement.contractNo);
+				expandable += getDetailLabel("budgetType", pd.procurement.budgetType);
+				expandable += getDetailLabel("addDate", pd.procurement.getAddDate());
+				expandable += getDetailLabel("checkDate", pd.procurement.getCheckDate());
 				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
+				
+				expandable = "";
+				for(models.durableGoods.AI_Committee ai : pd.procurement.aiCommittee){
+					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
+				}
+				result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
+				
 				result += "</div>";
 			}
 		}
@@ -1616,28 +1665,193 @@ public class Graph extends Controller {
 	}
 
 	private static String getRequisitionHTML(String[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(String id: ids){
+			models.consumable.RequisitionDetail rd = models.consumable.RequisitionDetail.find.byId(Long.valueOf(id));
+			result += "<div class=\"well\">";
+			
+			result += getDetailLabel("id", String.valueOf(rd.id));
+			result += getDetailLabel("รายการ/เรื่อง", rd.requisition.title);
+			result += getDetailLabel("หมายเลขใบรายการ", rd.requisition.number);
+			result += getDetailLabel("ชื่อพัสดุ", rd.description);
+			result += getDetailLabel("จำนวน", String.valueOf(rd.quantity));
+			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(rd.requisition.approveDate));
+			result += getDetailLabel("ผู้อนุมัติ", String.format("%s %s %s", rd.requisition.approver.namePrefix, rd.requisition.approver.firstName, rd.requisition.approver.lastName ));
+			result += getDetailLabel("ผู้เบิก", String.format("%s %s %s",  rd.requisition.user.namePrefix, rd.requisition.user.firstName, rd.requisition.user.lastName));
+			result += "</div>";
+		}
+		result += "</div>";
+		return result;
 	}
 
 	private static String getInternalTransferHTML(String[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(int i=0; i<ids.length; i++){
+			String id = ids[i];
+			String detailsCodes = "";
+			InternalTransferDetail inDetail = InternalTransferDetail.find.byId(Long.valueOf(id));
+			InternalTransfer in = inDetail.internalTransfer; 
+			result += "<div class=\"well\">";
+			
+			result += getDetailLabel("id", String.valueOf(inDetail.id));
+			result += getDetailLabel("รายการ/เรื่อง", inDetail.internalTransfer.title);
+			result += getDetailLabel("หมายเลขใบรายการ", inDetail.internalTransfer.number);
+			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(inDetail.internalTransfer.approveDate));
+			//TODO ผู้รับผิดชอบ
+			result += getDetailLabel("ผู้อนุมัติ", "pending");//String.format("%s %s %s", inDetail.internalTransfer.approver.namePrefix, inDetail.internalTransfer.approver.firstName, inDetail.internalTransfer.approver.lastName ));
+			result += getDetailLabel("ผู้รับผิดชอบ", "pending");//String.format("%s %s %s", inDetail.internalTransfer., inDetail.internalTransfer.approver.firstName, inDetail.internalTransfer.approver.lastName ));
+			for(; i<ids.length; i++){
+				id = ids[i];
+				InternalTransferDetail newDetail = InternalTransferDetail.find.byId(Long.valueOf(id));
+				if(newDetail.internalTransfer.equals(in)){
+					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+					detailsCodes += getDetailLabel("ย้ายไปสาขา", newDetail.department,"margin-left:2%");
+					detailsCodes += getDetailLabel("ย้ายไปห้อง", newDetail.room, "margin-left:2%");
+					detailsCodes += getDetailLabel("ย้ายไปชั้น", newDetail.floorLevel, "margin-left:2%");
+					/*detailsCodes += getDetailLabel("ย้ายสาขาไปยัง", newDetail.durableArticles.department+"->"+newDetail.department,"margin-left:3%");
+					detailsCodes += getDetailLabel("ย้ายห้องไปยัง", newDetail.durableArticles.room+"->"+newDetail.room, "margin-left:3%");
+					detailsCodes += getDetailLabel("ย้ายชั้นไปยัง", newDetail.durableArticles.floorLevel+"->"+newDetail.floorLevel, "margin-left:3%");*/
+				}else{
+					i--;
+					break;
+				}
+			}
+			
+			result += getExpandableHTML("รายการโอนย้าย", detailsCodes);
+			result += "</div>";
+		}
+		result += "</div>";
+		return result;
 	}
 
 	private static String getAuctionHTML(String[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		Auction a = null;
+		for(int i=0;i<ids.length;i++){
+			String id = ids[i];
+			String expandable = "";
+			String detailsCodes = ""; 
+			AuctionDetail ad = AuctionDetail.find.byId(Long.valueOf(id));
+			a = ad.auction;
+			result += "<div class=\"well\">";
+			
+			result += getDetailLabel("id", String.valueOf(ad.id));
+			result += getDetailLabel("รายการ/เรื่อง", ad.auction.title);
+			result += getDetailLabel("หมายเลขใบรายการ", ad.auction.contractNo);
+			result += getDetailLabel("ราคารวม", String.valueOf(ad.auction.totalPrice));
+			//result += getDetailLabel("หมายเลขใบรายการ", ad.auction.dCommittee.);
+			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(ad.auction.approveDate));
+			//TODO ผู้รับผิดชอบ
+			result += getDetailLabel("ผู้อนุมัติ", "pending");//String.format("%s %s %s", inDetail.internalTransfer.approver.namePrefix, inDetail.internalTransfer.approver.firstName, inDetail.internalTransfer.approver.lastName ));
+			result += getDetailLabel("ผู้รับผิดชอบ", "pending");//String.format("%s %s %s", inDetail.internalTransfer., inDetail.internalTransfer.approver.firstName, inDetail.internalTransfer.approver.lastName ));
+			expandable = "";
+			expandable += getDetailLabel("ชื่อสถานประกอบการ", "pending", "width:18%;");
+			result += getExpandableHTML("สถานที่จำหน่าย", expandable);
+			//TODO committee
+			result += getExpandableHTML("คณะกรรมการสอบข้อเท็จจรืง", "pending");
+			result += getExpandableHTML("คณะกรรมการปรเมินราคากลาง", "pending");
+			result += getExpandableHTML("คณะกรรมการจำหน่าย", "pending");
+			for(;i<ids.length;i++){
+				id = ids[i];
+				AuctionDetail newAd = AuctionDetail.find.byId(Long.valueOf(id));
+				if(newAd.auction.equals(a)){
+					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newAd.durableArticles.code);
+				}else{
+					i--;
+					break;
+				}
+			}
+			result += getExpandableHTML("รายการจำหน่าย", detailsCodes); 
+			result += "</div>";
+		}
+				
+		result += "</div>";
+		return result;
 	}
 
 	private static String getDonationHTML(String[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		Donation d = null;
+		for(int i=0;i<ids.length;i++){
+			String id = ids[i];
+			String expandable = "";
+			String detailsCodes = ""; 
+			DonationDetail ad = DonationDetail.find.byId(Long.valueOf(id));
+			d = ad.donation;
+			result += "<div class=\"well\">";
+			
+			result += getDetailLabel("id", String.valueOf(ad.id));
+			result += getDetailLabel("รายการ/เรื่อง", ad.donation.title);
+			result += getDetailLabel("หมายเลขใบรายการ", ad.donation.contractNo);
+			//result += getDetailLabel("หมายเลขใบรายการ", ad.donation.dCommittee.);
+			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(ad.donation.approveDate));
+			//TODO ผู้รับผิดชอบ
+			result += getDetailLabel("ผู้อนุมัติ", "pending");//String.format("%s %s %s", inDetail.internalTransfer.approver.namePrefix, inDetail.internalTransfer.approver.firstName, inDetail.internalTransfer.approver.lastName ));
+			result += getDetailLabel("ผู้รับผิดชอบ", "pending");//String.format("%s %s %s", inDetail.internalTransfer., inDetail.internalTransfer.approver.firstName, inDetail.internalTransfer.approver.lastName ));
+			expandable = "";
+			expandable += getDetailLabel("ชื่อสถานประกอบการ", "pending", "width:18%;");
+			result += getExpandableHTML("สถานที่จำหน่าย", expandable);
+			//TODO committee
+			result += getExpandableHTML("คณะกรรมการสอบข้อเท็จจรืง", "pending");
+			result += getExpandableHTML("คณะกรรมการจำหน่าย", "pending");
+			for(;i<ids.length;i++){
+				id = ids[i];
+				DonationDetail newAd = DonationDetail.find.byId(Long.valueOf(id));
+				if(newAd.donation.equals(d)){
+					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newAd.durableArticles.code);
+				}else{
+					i--;
+					break;
+				}
+			}
+			result += getExpandableHTML("รายการจำหน่าย", detailsCodes); 
+			result += "</div>";
+		}
+				
+		result += "</div>";
+		return result;
 	}
 
 	private static String getOtherTransferHTML(String[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(int i=0; i<ids.length; i++){
+			String id = ids[i];
+			String detailsCodes = "";
+			OtherTransferDetail inDetail = OtherTransferDetail.find.byId(Long.valueOf(id));
+			OtherTransfer in = inDetail.otherTransfer; 
+			result += "<div class=\"well\">";
+			
+			result += getDetailLabel("id", String.valueOf(inDetail.id));
+			result += getDetailLabel("รายการ/เรื่อง", inDetail.otherTransfer.title);
+			result += getDetailLabel("หมายเลขใบรายการ", inDetail.otherTransfer.number);
+			result += getDetailLabel("สาเหตุการอนย้าย", inDetail.otherTransfer.description);
+			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(inDetail.otherTransfer.approveDate));
+			//TODO ผู้รับผิดชอบ
+			result += getDetailLabel("ผู้อนุมัติ", "pending");//String.format("%s %s %s", inDetail.otherTransfer.approver.namePrefix, inDetail.otherTransfer.approver.firstName, inDetail.otherTransfer.approver.lastName ));
+			result += getDetailLabel("ผู้รับผิดชอบ", "pending");//String.format("%s %s %s", inDetail.otherTransfer., inDetail.otherTransfer.approver.firstName, inDetail.otherTransfer.approver.lastName ));
+			result += getExpandableHTML("คณะกรรมการสอบข้อเท็จจรืง", "pending");
+			result += getExpandableHTML("คณะกรรมการจำหน่าย", "pending");
+			for(; i<ids.length; i++){
+				id = ids[i];
+				OtherTransferDetail newDetail = OtherTransferDetail.find.byId(Long.valueOf(id));
+				if(newDetail.otherTransfer.equals(in)){
+					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+				}else{
+					i--;
+					break;
+				}
+			}
+			
+			result += getExpandableHTML("รายการโอนย้าย", detailsCodes);
+			result += "</div>";
+		}
+		result += "</div>";
+		return result;
 	}
 
 	private static String getRepairHTML(String[] ids) {
@@ -1708,14 +1922,36 @@ public class Graph extends Controller {
     private static String getExpandableHTML(String header,String content){
 		String result = "";
 		result += "<div class=\"collapse-group\">";
-		result += "<div class=\"myBtn\" data-toggle=\"collapse\">"+header+"</div>";
+		result += "<div class=\"myBtn\" data-toggle=\"collapse\">"+header+"&nbsp<span class=\"glyphicon glyphicon-chevron-right\"></span></div>";
 		result += "<div class='collapse'>";
 			result += content;
 		result += "</div>";
 		result += "</div>";
 		return result;
 	}
-
+    
+    private static String getDetailLabel(String label, String content){
+    	return "<div class=\"form-inline\">" +
+    			"<div class=\"form-group detailLabel\" align=\"right\">"+ label + "&nbsp:</div>" +
+    			"<div class=\"form-group detailContent\">" + content + "</div></div>";
+    }
+    
+    private static String getDetailLabel(String label, String content,String style){
+    	return "<div class=\"form-inline\">" +
+    			"<div class=\"form-group detailLabel committee\" style=\"" +style + "\" align=\"right\">"+ label + "&nbsp:</div>" +
+    			"<div class=\"form-group detailContent\">" + content + "</div></div>";
+    }
+    
+    private static String getDetailCommitteeLabel(String label, String content){
+    	return "<div class=\"form-inline\">" +
+    			"<div class=\"form-group detailLabel committee\" align=\"right\">"+ label + "&nbsp:</div>" +
+    			"<div class=\"form-group detailContent\">" + content + "</div></div>";
+    }
+    
+	private static String getDescriptionButton(String className,String ids){
+		return "<button class='btn btn-xs btn-info' onclick='getDescription(\""+ className +"\", \""+ ids + "\")' >รายละเอียด</button>";
+	}
+	
 	private static List<Date> getYearDate(int row){
 		int year = Calendar.getInstance().get(Calendar.YEAR)-(3-row);
 		cal.set(Calendar.YEAR, year);
@@ -1768,11 +2004,7 @@ public class Graph extends Controller {
 		return d;
 	}
 	
-	private static String getDescriptionButton(String className,String ids){
-		return "<button class='btn btn-xs btn-info' onclick='getDescription(\""+ className +"\", \""+ ids + "\")' >รายละเอียด</button>";
-	}
-
-	/*private static List<String> getTransferKey(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
+	/*private static List<String> getTransferKey(List<otherTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
     	List<String> list = new ArrayList<String>();
     	for(InternalTransfer internal : internals){
     		for(InternalTransferDetail internalDetail : internal.detail){

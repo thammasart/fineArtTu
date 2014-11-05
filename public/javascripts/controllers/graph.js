@@ -147,7 +147,7 @@ function setData(obj,chart){
 				colors: color,
 				isStacked: true,
 			};
-		if(state['mode'] == 'transfer' || state['mode'] == 'balance'){
+		if(state['mode'] == 'balance'){
 			newOption.legend = { position: "top" };
 		}
 		chart2.draw(data, newOption);
@@ -282,6 +282,18 @@ function getDescription(className, ids){
     			    $header = $(this);
     			    //getting the next element
     			    $content = $header.next();
+    			    if($content.is(":hidden")){
+    			    	// change to expand arrow
+    			    	console.log($header.text());
+    			    	$header.find("span").remove();
+    			    	$header.append($('<span class="glyphicon glyphicon-chevron-down"></span>'));
+    			    	
+    			    }else{
+    			    	// change to collapse arrow
+    			    	console.log($header.text());
+    			    	$header.find("span").remove();
+    			    	$header.append($('<span class="glyphicon glyphicon-chevron-right"></span>'));
+    			    }
     			    //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
     			    $content.slideToggle(500);
 
