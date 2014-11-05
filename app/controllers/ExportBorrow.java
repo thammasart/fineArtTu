@@ -91,13 +91,14 @@ public class ExportBorrow extends Controller {
     public static Result saveBorrow(long id) {
         User user = User.find.byId(session().get("username"));
         Borrow borrow = Borrow.find.byId(id);
-        if(borrow != null && borrow.status == ExportStatus.INIT){
+        if(borrow != null && (borrow.status == ExportStatus.INIT || borrow.status == ExportStatus.BORROW || borrow.status == ExportStatus.SUCCESS) ){
             DynamicForm f = Form.form().bindFromRequest();
             borrow.title = f.get("title");
             borrow.number = f.get("number");
             borrow.setDateOfStartBorrow(f.get("dateOfStartBorrow"));
             borrow.update();
 
+            // save withdrawer
             String firstName = f.get("withdrawerFirstName");
             String lastName = f.get("withdrawerLastName");
             String position = f.get("withdrawerPosition");
@@ -106,11 +107,8 @@ public class ExportBorrow extends Controller {
                 borrow.user = employees.get(0);
                 borrow.update();
             }
-            else{
-                System.out.println(firstName + '\t' + lastName + '\t' + position);
-                return redirect(routes.ExportBorrow.exportBorrowAdd(id));
-            }
 
+            // save approver
             firstName = f.get("approverFirstName");
             lastName = f.get("approverLastName");
             position = f.get("approverPosition");
@@ -119,16 +117,23 @@ public class ExportBorrow extends Controller {
                 borrow.approver = employees.get(0);
                 borrow.update();
             }
-            else{
-                return redirect(routes.ExportBorrow.exportBorrowAdd(id));
-            }
-            for(BorrowDetail detail : borrow.detail){
-                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
-                    detail.durableArticles.status = SuppliesStatus.BORROW;
-                    detail.durableArticles.update();
+
+            //edit status durableArticles to BORROW
+            if(borrow.status == ExportStatus.INIT || borrow.status == ExportStatus.BORROW){
+                for(BorrowDetail detail : borrow.detail){
+                    if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                        detail.durableArticles.status = SuppliesStatus.BORROW;
+                        detail.durableArticles.update();
+                    }
                 }
+                borrow.status = ExportStatus.BORROW;
             }
-            borrow.status = ExportStatus.BORROW;
+
+            // save dateOfEndBorrow
+            if(borrow.status == ExportStatus.SUCCESS){
+                borrow.setDateOfEndBorrow(f.get("dateOfEndBorrow"));    
+            }
+
             borrow.update();
         }
         return redirect(routes.ExportBorrow.exportBorrow());

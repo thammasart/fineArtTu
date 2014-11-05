@@ -91,17 +91,32 @@ public class ExportRepair extends Controller {
     public static Result saveRepairing(long id) {
         User user = User.find.byId(session().get("username"));
         Repairing repair = Repairing.find.byId(id);
-        if(repair != null && repair.status == ExportStatus.INIT){
+        if(repair != null && (repair.status == ExportStatus.INIT || repair.status == ExportStatus.REPAIRING ||repair.status == ExportStatus.SUCCESS) ){
         	DynamicForm f = Form.form().bindFromRequest();
             repair.title = f.get("title");
             repair.number = f.get("number");
-            for(RepairingDetail detail : repair.detail){
-                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
-                    detail.durableArticles.status = SuppliesStatus.REPAIRING;
-                    detail.durableArticles.update();
+
+            //edit status durableArticles to REPAIRING
+            if(repair.status == ExportStatus.INIT || repair.status == ExportStatus.REPAIRING){
+                for(RepairingDetail detail : repair.detail){
+                    if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                        detail.durableArticles.status = SuppliesStatus.REPAIRING;
+                        detail.durableArticles.update();
+                    }
                 }
+                repair.status = ExportStatus.REPAIRING;
             }
-            repair.status = ExportStatus.REPAIRING;
+
+            // save dateOfResiveFromRepair and repairCosts
+            if(repair.status == ExportStatus.SUCCESS){
+                repair.setDateOfReceiveFromRepair(f.get("dateOfResiveFromRepair"));
+                String repairCosts = f.get("repairCosts");
+                if(repairCosts == null){
+                    repairCosts = "0.00";
+                }
+                repair.repairCosts = Double.parseDouble(repairCosts);
+            }
+
             repair.update();
         }
         return redirect(routes.ExportRepair.exportRepairing());

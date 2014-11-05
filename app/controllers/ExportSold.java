@@ -79,6 +79,7 @@ public class ExportSold extends Controller {
             auction.contractNo = f.get("contractNo");
             auction.setApproveDate(f.get("approveDate"));
 
+            // save FF committee
             List<Auction_FF_Committee> ffCommittee = auction.ffCommittee;
             String numbetOfcommittee = f.get("numberOf_FF_committee");
             if(numbetOfcommittee != null){
@@ -115,6 +116,7 @@ public class ExportSold extends Controller {
                     }
                 }
             }
+            // save E committee
             List<Auction_E_Committee> eCommittee = auction.eCommittee;
             numbetOfcommittee = f.get("numberOf_E_committee");
             if(numbetOfcommittee != null){
@@ -151,6 +153,7 @@ public class ExportSold extends Controller {
                     }
                 }
             }
+            // save D committee
             List<Auction_D_Committee> dCommittee = auction.dCommittee;
             numbetOfcommittee = f.get("numberOf_D_committee");
             if(numbetOfcommittee != null){
@@ -188,6 +191,7 @@ public class ExportSold extends Controller {
                 }
             }
 
+            // delete committee when edit
             for(Auction_FF_Committee committee : ffCommittee){
                 committee.delete();
             }
@@ -198,15 +202,17 @@ public class ExportSold extends Controller {
                 committee.delete();
             }
 
-            auction.status = ExportStatus.SUCCESS;
-            auction.update();
-
+            // update status durableArticles to AUCTION
             for(AuctionDetail detail : auction.detail){
                 if(detail.durableArticles.status == SuppliesStatus.NORMAL){
                     detail.durableArticles.status = SuppliesStatus.AUCTION;
                     detail.durableArticles.update();
                 }
             }
+
+            // update status donantion
+            auction.status = ExportStatus.SUCCESS;
+            auction.update();
         }
         return redirect(routes.ExportSold.exportSold());
     }

@@ -73,30 +73,34 @@ public class ExportOrder extends Controller {
         User user = User.find.byId(session().get("username"));
         Requisition req = Requisition.find.byId(id);
 
-        DynamicForm f = Form.form().bindFromRequest();
+        if(req != null && (req.status == ExportStatus.INIT || req.status == ExportStatus.SUCCESS) ){
+            DynamicForm f = Form.form().bindFromRequest();
+            req.title = f.get("title");
+            req.number = f.get("number");
+            req.setApproveDate(f.get("approveDate"));
 
-        req.title = f.get("title");
-        req.number = f.get("number");
-        req.setApproveDate(f.get("approveDate"));
+            // save withdrawer
+            String firstName = f.get("firstName");
+            String lastName = f.get("lastName");
+            String position = f.get("position");
+            List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            if(employees.size() == 1){
+                req.user = employees.get(0);
+            }
 
-        String firstName = f.get("firstName");
-        String lastName = f.get("lastName");
-        String position = f.get("position");
-        List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-        if(employees.size() == 1){
-            req.user = employees.get(0);
-//            System.out.println("user :" + req.user.username);
+            // save withdrawer
+            firstName = f.get("approverFirstName");
+            lastName = f.get("approverLastName");
+            position = f.get("approverPosition");
+            employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            if(employees.size() == 1){
+                req.approver = employees.get(0);
+            }
+
+            // updatae status Requisition
+            req.status = ExportStatus.SUCCESS;
+            req.update();
         }
-        firstName = f.get("approverFirstName");
-        lastName = f.get("approverLastName");
-        position = f.get("approverPosition");
-        employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-        if(employees.size() == 1){
-            req.approver = employees.get(0);
-//            System.out.println("appover :" + req.approver.username);
-        }
-        req.status = ExportStatus.SUCCESS;
-        req.update();
 
         return redirect(routes.ExportOrder.exportOrder());
     }

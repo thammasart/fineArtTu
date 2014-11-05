@@ -80,6 +80,7 @@ public class ExportDonate extends Controller {
             donate.contractNo = f.get("contractNo");
             donate.setApproveDate(f.get("approveDate"));
 
+            // save FF committee
             List<Donation_FF_Committee> ffCommittee = donate.ffCommittee;
             String numbetOfcommittee = f.get("numberOf_FF_committee");
             if(numbetOfcommittee != null){
@@ -116,6 +117,7 @@ public class ExportDonate extends Controller {
                     }
                 }
             }
+            // save D committee
             List<Donation_D_Committee> dCommittee = donate.dCommittee;
             numbetOfcommittee = f.get("numberOf_D_committee");
             if(numbetOfcommittee != null){
@@ -153,6 +155,7 @@ public class ExportDonate extends Controller {
                 }
             }
 
+            // delete committee when edit
             for(Donation_FF_Committee committee : ffCommittee){
                 committee.delete();
             }
@@ -160,15 +163,17 @@ public class ExportDonate extends Controller {
                 committee.delete();
             }
 
-            donate.status = ExportStatus.SUCCESS;
-            donate.update();
-
+            // update status durableArticles to DONATED
             for(DonationDetail detail : donate.detail){
                 if(detail.durableArticles.status == SuppliesStatus.NORMAL){
                     detail.durableArticles.status = SuppliesStatus.DONATED;
                     detail.durableArticles.update();
                 }
             }
+
+            // update status donantion
+            donate.status = ExportStatus.SUCCESS;
+            donate.update();
         }
         return redirect(routes.ExportDonate.exportDonate());
     }
