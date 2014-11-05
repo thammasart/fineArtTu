@@ -1,4 +1,4 @@
-@(user : User ,auction:models.durableArticles.Auction)
+@(user : User ,auction:models.durableArticles.Auction, allCompany:List[models.Company])
 @header("exportSoldAdd")
 
  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
@@ -50,7 +50,12 @@
         <div class="form-group">
           <div class="input-group">
             <span class="input-group-addon width250px">บริษัท-ร้านค้า ที่จำหน่วยไป</span>
-            <input type="text" class="form-control width300px" name="soldDestination" id="soldDestination">
+            <select class="form-control textAlignCenter  width300px" name="soldDestination" id="soldDestination">
+              <option value="-1">---เลือก---</option>
+              @for(company <- allCompany){
+                <option value="@company.id" @if(company.equals(auction.company)){selected}>@company.nameEntrepreneur</option>
+              }
+            </select>
             <span class="alertText" id="soldDestinationAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>

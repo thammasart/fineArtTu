@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import models.Company;
 import models.type.ExportStatus;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table (name = "external_transfer")
 public class ExternalTransfer extends Model{
@@ -26,9 +28,12 @@ public class ExternalTransfer extends Model{
 
 	@ManyToOne
 	public Company company; // หน่ายงานที่รับจำหน่าย
-	@OneToMany
+	
+	@JsonBackReference
+	@OneToMany(mappedBy="exTransfer")
 	public List<ExternalTransfer_FF_Committee> ffCommittee = new ArrayList<ExternalTransfer_FF_Committee>(); // คณะกรรมการสอบข้อเท็จจริง
-	@OneToMany
+	@JsonBackReference
+	@OneToMany(mappedBy="exTransfer")
 	public List<ExternalTransfer_D_Committee> dCommittee = new ArrayList<ExternalTransfer_D_Committee>(); // คณะกรรมการจำหน่าย
 
 	public String getApproveDate(){

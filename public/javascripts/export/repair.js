@@ -242,6 +242,7 @@ function initViewDetial(id){
 	isViewDetail = true;
 	document.getElementById("title").disabled = true;
 	document.getElementById("number").disabled = true;
+	document.getElementById("repairShop").disabled = true;
 	document.getElementById("dateOfSentToRepair").disabled = true;
 	document.getElementById("dateOfResiveFromRepair").disabled = true;
 	document.getElementById("repairCosts").disabled = true;
@@ -263,6 +264,7 @@ function changeToEdit(){
 	isViewDetail = false;
 	document.getElementById("title").disabled = false;
 	document.getElementById("number").disabled = false;
+	document.getElementById("repairShop").disabled = false;
 	document.getElementById("dateOfSentToRepair").disabled = false;
 	document.getElementById("dateOfResiveFromRepair").disabled = false;
 	document.getElementById("repairCosts").disabled = false;

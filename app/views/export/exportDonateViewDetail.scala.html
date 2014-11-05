@@ -1,4 +1,4 @@
-@(user : User, donation : models.durableArticles.Donation)
+@(user : User, donation : models.durableArticles.Donation, allCompany:List[models.Company])
 @header("exportDonateViewDetail")
 
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/donate.js")"></script>
@@ -52,12 +52,17 @@
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">หน่วยงานที่โอนย้าย</span>
-            <input type="text" class="form-control width300px">
+            <select class="form-control textAlignCenter  width300px" name="donateDestination" id="donateDestination">
+              <option value="-1">---เลือก---</option>
+              @for(company <- allCompany){
+                <option value="@company.id" @if(company.equals(donation.company)){selected}>@company.nameEntrepreneur</option>
+              }
+            </select>
           </div>
         </div>
       </div>
 
- <div class="well" >
+      <div class="well" >
         <h3 style ="text-align:left;">คณะกรรมการสอบข้อเท็จจริง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" id="FF_add" onclick="add_FF_committree()">เพิ่มกรรมการ</button> </h3>
         <input type="number" style="display:none;" value="@donation.ffCommittee.size()" name="numberOf_FF_committee" id="numberOf_FF_committee">
         <table class="table table-striped overlayTable" style="margin-bottom:3%;">

@@ -6,6 +6,8 @@ import javax.persistence.*;
 import models.type.CommitteeType;
 import models.Committee;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table (name = "ex_transfer_ff_committee")
 public class ExternalTransfer_FF_Committee extends Model{
@@ -17,6 +19,8 @@ public class ExternalTransfer_FF_Committee extends Model{
 
 	@ManyToOne
 	public Committee committee;	// กรรมการ
+	
+	@JsonBackReference
 	@ManyToOne
 	public ExternalTransfer exTransfer; // การโอนย้ายข้ามหน่ายงาน
 	
