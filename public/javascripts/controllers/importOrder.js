@@ -421,7 +421,8 @@ else
 	'	                <div class="input-group" >'+
 	'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
 	'	                    <input type="text" class="form-control textAlignCenter  '+
-	' 							name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+val+'">'+
+								(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
+	' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
 	'	                </div>'+
 	'	            </div>';
 }
