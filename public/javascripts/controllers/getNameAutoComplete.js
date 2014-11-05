@@ -8,7 +8,6 @@ var codeName = [];
 
 var exportLink;
 var exportId;
-
  function addId(id) { 
     exportId = id;
  } 
@@ -52,35 +51,81 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                 $(function() {
                     $( "#code" ).autocomplete({
                       minLength:2,
-                      source: code
+                      source: code,
+                      focus: function(event, ui) {
+                          $("input#code").val(ui.item.label);
+                        mapCodeToCodeName();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapCodeToCodeName,100);
+                      }
                     });
                 });
                 $(function() {
                     $( "#codeEdit" ).autocomplete({
                       minLength:2,
-                      source: code
+                      source: code,
+                      focus: function(event, ui) {
+                          $("input#codeEdit").val(ui.item.label);
+                        mapCodeToCodeNameEdit();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapCodeToCodeNameEdit,100);
+                      }
                     });
                 });
                 $(function() {
                     $( "#groupCode" ).autocomplete({
                       minLength:3,
-                      source: codeName
+                      source: codeName,
+                      focus: function(event, ui) {
+                          $("input#groupCode").val(ui.item.label);
+                        mapCodeNameToCode();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapCodeNameToCode,100);
+                      }
                     });
                 });
                 $(function() {
                     $( "#groupCodeEdit" ).autocomplete({
                       minLength:3,
-                      source: codeName
+                      source: codeName,
+                      focus: function(event, ui) {
+                          $("input#groupCodeEdit").val(ui.item.label);
+                        mapCodeNameToCodeEdit();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapCodeNameToCodeEdit,100);
+                      }
                     });
                 });
                 $(function() {
                     $( "#firstName" ).autocomplete({
-                      source: userAll
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#firstName").val(ui.item.label);
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapInput,100);
+                      }
                     });
                 });
                 $(function() {
                     $( "#approverName" ).autocomplete({
-                      source: userAll
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#approverName").val(ui.item.label);
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapInput2,100);
+                      }
                     });
                 });
             });
@@ -155,14 +200,32 @@ function mapInput2(){
 }
 $(function() {
     $( "#withdrawer" ).autocomplete({
-      source: userAll
+          source: userAll,
+          focus: function(event, ui) {
+              $("input#withdrawer").val(ui.item.label);
+            mapInput3();
+          },
+          select: function(event, ui) {
+             $("#searchform button").click(); 
+             setTimeout(mapInput3,100);
+          }
     });
 });
 $(function() {
     $( "#withdrawerEdit" ).autocomplete({
-      source: userAll
+          source: userAll,
+          focus: function(event, ui) {
+              $("input#withdrawerEdit").val(ui.item.label);
+            mapInput4();
+          },
+          select: function(event, ui) {
+             $("#searchform button").click(); 
+             setTimeout(mapInput4,100);
+          }
     });
 });
+var set3;
+var set4;
 function mapInput3(){
     var id = document.getElementById("withdrawer").value ;
     for(var j = 0; j < userAll.length;j++){

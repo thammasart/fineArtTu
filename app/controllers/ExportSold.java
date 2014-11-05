@@ -73,11 +73,131 @@ public class ExportSold extends Controller {
     public static Result saveAuction(long id){
         User user = User.find.byId(session().get("username"));
         Auction auction = Auction.find.byId(id);
-        if(auction != null && auction.status == ExportStatus.INIT){
+        if(auction != null && (auction.status == ExportStatus.INIT || auction.status == ExportStatus.SUCCESS) ){
             DynamicForm f = Form.form().bindFromRequest();
             auction.title = f.get("title");
             auction.contractNo = f.get("contractNo");
             auction.setApproveDate(f.get("approveDate"));
+
+            List<Auction_FF_Committee> ffCommittee = auction.ffCommittee;
+            String numbetOfcommittee = f.get("numberOf_FF_committee");
+            if(numbetOfcommittee != null){
+                int count = Integer.parseInt(numbetOfcommittee);
+                for(int i=0; i<count; i++){
+                    String num  = Integer.toString(i); 
+                    String committeeFirstNmae = f.get("FF_firstName" + num);
+                    String committeeLastNmae = f.get("FF_lastName" + num);
+                    String committeePosition = f.get("FF_position" + num);
+
+                    List<User> users = User.find.where().eq("firstName",committeeFirstNmae).eq("lastName",committeeLastNmae).eq("position",committeePosition).findList();
+                    if(users.size() == 1){
+                        int index = 0;
+                        for(Auction_FF_Committee committee : ffCommittee){
+                            if(committee.user.equals(users.get(0))){
+                                committee.employeesType = f.get("FF_cType" + num);
+                                committee.committeePosition = f.get("FF_cPosition" + num);
+                                committee.update();
+                                break;
+                            }
+                            index++;
+                        }
+                        if(index < ffCommittee.size()){
+                            ffCommittee.remove(index);
+                        }
+                        else{
+                            Auction_FF_Committee newCommittee = new Auction_FF_Committee();
+                            newCommittee.user = users.get(0);
+                            newCommittee.auction = auction;
+                            newCommittee.employeesType = f.get("FF_cType" + num);
+                            newCommittee.committeePosition = f.get("FF_cPosition" + num);
+                            newCommittee.save();
+                        }
+                    }
+                }
+            }
+            List<Auction_E_Committee> eCommittee = auction.eCommittee;
+            numbetOfcommittee = f.get("numberOf_E_committee");
+            if(numbetOfcommittee != null){
+                int count = Integer.parseInt(numbetOfcommittee);
+                for(int i=0; i<count; i++){
+                    String num  = Integer.toString(i); 
+                    String committeeFirstNmae = f.get("E_firstName" + num);
+                    String committeeLastNmae = f.get("E_lastName" + num);
+                    String committeePosition = f.get("E_position" + num);
+
+                    List<User> users = User.find.where().eq("firstName",committeeFirstNmae).eq("lastName",committeeLastNmae).eq("position",committeePosition).findList();
+                    if(users.size() == 1){
+                        int index = 0;
+                        for(Auction_E_Committee committee : eCommittee){
+                            if(committee.user.equals(users.get(0))){
+                                committee.employeesType = f.get("E_cType" + num);
+                                committee.committeePosition = f.get("E_cPosition" + num);
+                                committee.update();
+                                break;
+                            }
+                            index++;
+                        }
+                        if(index < ffCommittee.size()){
+                            ffCommittee.remove(index);
+                        }
+                        else{
+                            Auction_E_Committee newCommittee = new Auction_E_Committee();
+                            newCommittee.user = users.get(0);
+                            newCommittee.auction = auction;
+                            newCommittee.employeesType = f.get("E_cType" + num);
+                            newCommittee.committeePosition = f.get("E_cPosition" + num);
+                            newCommittee.save();
+                        }
+                    }
+                }
+            }
+            List<Auction_D_Committee> dCommittee = auction.dCommittee;
+            numbetOfcommittee = f.get("numberOf_D_committee");
+            if(numbetOfcommittee != null){
+                int count = Integer.parseInt(numbetOfcommittee);
+                for(int i=0; i<count; i++){
+                    String num  = Integer.toString(i); 
+                    String committeeFirstNmae = f.get("D_firstName" + num);
+                    String committeeLastNmae = f.get("D_lastName" + num);
+                    String committeePosition = f.get("D_position" + num);
+
+                    List<User> users = User.find.where().eq("firstName",committeeFirstNmae).eq("lastName",committeeLastNmae).eq("position",committeePosition).findList();
+                    if(users.size() == 1){
+                        int index = 0;
+                        for(Auction_D_Committee committee : dCommittee){
+                            if(committee.user.equals(users.get(0))){
+                                committee.employeesType = f.get("D_cType" + num);
+                                committee.committeePosition = f.get("D_cPosition" + num);
+                                committee.update();
+                                break;
+                            }
+                            index++;
+                        }
+                        if(index < ffCommittee.size()){
+                            ffCommittee.remove(index);
+                        }
+                        else{
+                            Auction_D_Committee newCommittee = new Auction_D_Committee();
+                            newCommittee.user = users.get(0);
+                            newCommittee.auction = auction;
+                            newCommittee.employeesType = f.get("D_cType" + num);
+                            newCommittee.committeePosition = f.get("D_cPosition" + num);
+                            newCommittee.save();
+                        }
+                    }
+                }
+            }
+
+            for(Auction_FF_Committee committee : ffCommittee){
+                committee.delete();
+            }
+            for(Auction_E_Committee committee : eCommittee){
+                committee.delete();
+            }
+            for(Auction_D_Committee committee : dCommittee){
+                committee.delete();
+            }
+
             auction.status = ExportStatus.SUCCESS;
             auction.update();
 
@@ -189,6 +309,10 @@ public class ExportSold extends Controller {
                     id = Long.parseLong(objNode.toString());
                     AuctionDetail detail = AuctionDetail.find.byId(id);
                     if(detail != null && auction.equals(detail.auction)){
+                        if(detail.durableArticles.status == SuppliesStatus.AUCTION){
+                            detail.durableArticles.status = SuppliesStatus.NORMAL;
+                            detail.durableArticles.update();
+                        }
                         detail.delete();
                     }
                 }

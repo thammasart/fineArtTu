@@ -73,7 +73,7 @@ public class ExportOther extends Controller {
     public static Result saveOther(long id){
         User user = User.find.byId(session().get("username"));
         OtherTransfer other = OtherTransfer.find.byId(id);
-        if(other != null && other.status == ExportStatus.INIT){
+        if(other != null && (other.status == ExportStatus.INIT || other.status == ExportStatus.SUCCESS) ){
             DynamicForm f = Form.form().bindFromRequest();
             other.title = f.get("title");
             other.number = f.get("number");
@@ -89,9 +89,85 @@ public class ExportOther extends Controller {
                 other.approver = employees.get(0);
                 other.update();
             }
-            else{
-                System.out.println(firstName + '\t' + lastName + '\t' + position);
-                return redirect(routes.ExportOther.exportOtherAdd(id));
+
+            List<OtherTransfer_FF_Committee> ffCommittee = other.ffCommittee;
+            String numbetOfcommittee = f.get("numberOf_FF_committee");
+            if(numbetOfcommittee != null){
+                int count = Integer.parseInt(numbetOfcommittee);
+                for(int i=0; i<count; i++){
+                    String num  = Integer.toString(i); 
+                    String committeeFirstNmae = f.get("FF_firstName" + num);
+                    String committeeLastNmae = f.get("FF_lastName" + num);
+                    String committeePosition = f.get("FF_position" + num);
+
+                    List<User> users = User.find.where().eq("firstName",committeeFirstNmae).eq("lastName",committeeLastNmae).eq("position",committeePosition).findList();
+                    if(users.size() == 1){
+                        int index = 0;
+                        for(OtherTransfer_FF_Committee committee : ffCommittee){
+                            if(committee.user.equals(users.get(0))){
+                                committee.employeesType = f.get("FF_cType" + num);
+                                committee.committeePosition = f.get("FF_cPosition" + num);
+                                committee.update();
+                                break;
+                            }
+                            index++;
+                        }
+                        if(index < ffCommittee.size()){
+                            ffCommittee.remove(index);
+                        }
+                        else{
+                            OtherTransfer_FF_Committee newCommittee = new OtherTransfer_FF_Committee();
+                            newCommittee.user = users.get(0);
+                            newCommittee.otherTransfer = other;
+                            newCommittee.employeesType = f.get("FF_cType" + num);
+                            newCommittee.committeePosition = f.get("FF_cPosition" + num);
+                            newCommittee.save();
+                        }
+                    }
+                }
+            }
+            List<OtherTransfer_D_Committee> dCommittee = other.dCommittee;
+            numbetOfcommittee = f.get("numberOf_D_committee");
+            if(numbetOfcommittee != null){
+                int count = Integer.parseInt(numbetOfcommittee);
+                for(int i=0; i<count; i++){
+                    String num  = Integer.toString(i); 
+                    String committeeFirstNmae = f.get("D_firstName" + num);
+                    String committeeLastNmae = f.get("D_lastName" + num);
+                    String committeePosition = f.get("D_position" + num);
+
+                    List<User> users = User.find.where().eq("firstName",committeeFirstNmae).eq("lastName",committeeLastNmae).eq("position",committeePosition).findList();
+                    if(users.size() == 1){
+                        int index = 0;
+                        for(OtherTransfer_D_Committee committee : dCommittee){
+                            if(committee.user.equals(users.get(0))){
+                                committee.employeesType = f.get("D_cType" + num);
+                                committee.committeePosition = f.get("D_cPosition" + num);
+                                committee.update();
+                                break;
+                            }
+                            index++;
+                        }
+                        if(index < ffCommittee.size()){
+                            ffCommittee.remove(index);
+                        }
+                        else{
+                            OtherTransfer_D_Committee newCommittee = new OtherTransfer_D_Committee();
+                            newCommittee.user = users.get(0);
+                            newCommittee.otherTransfer = other;
+                            newCommittee.employeesType = f.get("D_cType" + num);
+                            newCommittee.committeePosition = f.get("D_cPosition" + num);
+                            newCommittee.save();
+                        }
+                    }
+                }
+            }
+
+            for(OtherTransfer_FF_Committee committee : ffCommittee){
+                committee.delete();
+            }
+            for(OtherTransfer_D_Committee committee : dCommittee){
+                committee.delete();
             }
 
             for(OtherTransferDetail detail : other.detail){
@@ -202,6 +278,10 @@ public class ExportOther extends Controller {
                     id = Long.parseLong(objNode.toString());
                     OtherTransferDetail detail = OtherTransferDetail.find.byId(id);
                     if(detail != null && other.equals(detail.otherTransfer)){
+                        if(detail.durableArticles.status == SuppliesStatus.OTHERTRANSFER){
+                            detail.durableArticles.status = SuppliesStatus.NORMAL;
+                            detail.durableArticles.update();
+                        }
                         detail.delete();
                     }
                 }

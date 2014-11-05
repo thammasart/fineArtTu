@@ -1519,6 +1519,7 @@ public class Graph extends Controller {
 				expandable += getDetailLabel("budgetType", d.detail.procurement.budgetType);
 				expandable += getDetailLabel("addDate", d.detail.procurement.getAddDate());
 				expandable += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
+
 				
 				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
 				result += "</div>";
@@ -1599,13 +1600,13 @@ public class Graph extends Controller {
 				
 				expandable = "";
 				for(models.durableArticles.EO_Committee eo : pd.procurement.eoCommittee){
-					expandable += getDetailCommitteeLabel(eo.committeePosition, String.format("%s %s %s", eo.committee.title, eo.committee.firstName, eo.committee.lastName));
+					expandable += getDetailCommitteeLabel(eo.committeePosition, String.format("%s %s %s", eo.committee.namePrefix, eo.committee.firstName, eo.committee.lastName));
 				}
 				result += getExpandableHTML("คณะกรรมการเปิดซอง", expandable);
 				
 				expandable = "";
 				for(models.durableArticles.AI_Committee ai : pd.procurement.aiCommittee){
-					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.title, ai.committee.firstName, ai.committee.lastName));
+					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
 				}
 				result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
 				
@@ -1652,7 +1653,7 @@ public class Graph extends Controller {
 				
 				expandable = "";
 				for(models.durableGoods.AI_Committee ai : pd.procurement.aiCommittee){
-					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.title, ai.committee.firstName, ai.committee.lastName));
+					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
 				}
 				result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
 				

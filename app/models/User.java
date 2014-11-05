@@ -14,10 +14,10 @@ public class User extends Model{
 	public String password;
 
 	public String departure;
-	public String position;
-        public String namePrefix;
-	public String firstName;
-	public String lastName;
+	public String position;		//ตำแหน่ง
+    public String namePrefix;   //คำนำหน้าชื่อ
+	public String firstName;	//ชื่อ
+	public String lastName;		//นามสกุล
 
 	@ManyToOne
 	public UserStatus status;

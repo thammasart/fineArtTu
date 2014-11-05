@@ -24,7 +24,26 @@
                               </div>
                         </form>
                 </div>
-               <div class="form-inline" role="form"  style="float:right;">
+               <div class="form-group marginBtm1" role="form">
+                    <div class="input-group" style="float:right;">
+                      <span class="input-group-addon width150px marginLeft2">ประเภทงบประมาณ</span>
+                        <select class="form-control textAlignCenter  width300px">
+                          <option>---เลือก---</option>
+                          <option>งบพิเศษ</option>
+                          <option>งบคลัง</option>
+                        </select>
+                    </div>
+                    <div class="input-group"style="float:right;">
+                      <span class="input-group-addon width150px">ประเภทวัสดุ</span>
+                        <select class="form-control textAlignCenter  width300px" id="MaterialTypeSelect" onchange="setKeySearch(this.value)">
+                          <option>ทั้งหมด</option>
+                     @for(mtl <-mt){
+                          <option value="@mtl.typeName" >@mtl.typeName</option>
+                     }
+                        </select>
+                   </div>
+              </div>
+               <!--<div class="form-inline" role="form"  style="float:right;">
                   <div class="form-group" >
                       <div class="input-group date width190px" id="start-picker">
                           <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="birthInputBoxShow"placeholder="จากวันที่" disabled>
@@ -47,29 +66,10 @@
                             $('#end-picker').datetimepicker()
                         });
                     </script>
-               </div>
+               </div>-->
         </div>
 
            <div class="tableHeaderBtnContainer">
-               <div class="form-group marginBtm1" role="form">
-                    <div class="input-group" style="float:right;">
-                      <span class="input-group-addon width150px marginLeft2">ประเภทงบประมาณ</span>
-                        <select class="form-control textAlignCenter  width300px">
-                          <option>---เลือก---</option>
-                          <option>งบพิเศษ</option>
-                          <option>งบคลัง</option>
-                        </select>
-                    </div>
-                    <div class="input-group"style="float:right;">
-                      <span class="input-group-addon width150px">ประเภทวัสดุ</span>
-                        <select class="form-control textAlignCenter  width300px" id="MaterialTypeSelect" onchange="setKeySearch(this.value)">
-                          <option>ทั้งหมด</option>
-                     @for(mtl <-mt){
-                          <option value="@mtl.typeName" >@mtl.typeName</option>
-                     }
-                        </select>
-                   </div>
-              </div>
            </div>
         <div >
             <table class="table table-striped overlayTable" align="center">
