@@ -272,7 +272,7 @@ function add_FF_committree(){
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();
-        initAutocomplete(i);
+        initAutocomplete("FF",i);
 	i++;
 	document.getElementById("numberOf_FF_committee").value = i;
 }
@@ -314,6 +314,7 @@ function add_E_committree(){
   
 	document.getElementById('E'+i).innerHTML = s;
 	updateTable();
+        initAutocomplete("E",i);
 	i++;
 	document.getElementById("numberOf_E_committee").value = i;
 }
@@ -355,6 +356,7 @@ function add_D_committree(){
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();
+        initAutocomplete("D",i);
 	i++;
 	document.getElementById("numberOf_D_committee").value = i;
 }
