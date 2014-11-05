@@ -124,7 +124,14 @@ function initAutoCompleteName () {
     keyId = "aiFirstName"+autoCompleteNum;
     $(function() {
         $('#'+keyId).autocomplete({
-          source: userAll
+              source: userAll,
+              focus: function(event, ui) {
+                  $("input#"+keyId).val(ui.item.label);
+              },
+              select: function(event, ui) {
+                 $("#searchform button").click(); 
+                 setTimeout(mapInput(keyId),200);
+              }
         });
     })
     console.log(keyId);
@@ -133,22 +140,38 @@ function initAutoCompleteNameEo () {
     keyIdEo = "eoFirstName"+autoCompleteNum;
     $(function() {
         $('#'+keyIdEo).autocomplete({
-          source: userAll
+              source: userAll,
+              focus: function(event, ui) {
+                  $("input#"+keyIdEo).val(ui.item.label);
+              },
+              select: function(event, ui) {
+                 $("#searchform button").click(); 
+                 setTimeout(mapInput(keyIdEo),200);
+              }
         });
     })
-    console.log(keyIdEo);
+    console.log("keyEo="+keyIdEo);
 } 
+function mapAi(j,temp){
+        setTimeout(function(){document.getElementById("aiFirstName"+temp).value = nameList[j];},200);
+}
+function mapEo(j,temp){
+        setTimeout(function(){document.getElementById("eoFirstName"+temp).value = nameList[j];},200);
+}
 function mapInput(id){
     var temp = id[id.length-1];
     var type = id[0];
+    console.log("temp="+temp+"  type="+type+"  id="+id);
     var id = document.getElementById(id).value ;
     if(type =="a"){
         for(var j = 0; j < userAll.length;j++){
             if(id == userAll[j]){
                 document.getElementById("aiPrefixName"+temp).value = prefixNameList[j];            
-                document.getElementById("aiFirstName"+temp).value = nameList[j];            
+                console.log("aiFirstName"+temp);
+                //document.getElementById("aiFirstName"+temp).value = nameList[j];            
                 document.getElementById("aiLastName"+temp).value = lastnameList[j];
                 document.getElementById("aiPosition"+temp).value = positionList[j];
+                mapAi(j,temp);
             }
         }
     }else {
@@ -158,6 +181,7 @@ function mapInput(id){
                 document.getElementById("eoFirstName"+temp).value = nameList[j];            
                 document.getElementById("eoLastName"+temp).value = lastnameList[j];
                 document.getElementById("eoPosition"+temp).value = positionList[j];
+                mapEo(j,temp);
             }
         }
     }

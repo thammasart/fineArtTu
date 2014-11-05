@@ -61,18 +61,34 @@ angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
 
                 $(function() {
                     $( "#groupId" ).autocomplete({
-                              source: function( request, response ) {
-                                      var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
-                                      response( $.grep( availableId, function( item ){
-                                          return matcher.test( item );
-                                      }) );
-                              }
+                          source: function( request, response ) {
+                                  var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+                                  response( $.grep( availableId, function( item ){
+                                      return matcher.test( item );
+                                  }) );
+                          },
+                          focus: function(event, ui) {
+                              $("input#groupId").val(ui.item.label);
+                            matchIDToDes();
+                          },
+                          select: function(event, ui) {
+                             $("#searchform button").click(); 
+                             setTimeout(matchIDToDes,100);
+                          }
                     });
                 });
                 $(function() {
                         $( "#groupDes" ).autocomplete({
                               minLength:2,
-                              source: availableDes
+                              source: availableDes,
+                              focus: function(event, ui) {
+                                  $("input#groupDes").val(ui.item.label);
+                                matchDesToID();
+                              },
+                              select: function(event, ui) {
+                                 $("#searchform button").click(); 
+                                 setTimeout(matchDesToID,100);
+                              }
                         });
                 });
 
@@ -84,6 +100,14 @@ angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
                                       response( $.grep( availableClassId, function( item ){
                                           return matcher.test( item );
                                       }) );
+                              },
+                              focus: function(event, ui) {
+                                  $("input#classId").val(ui.item.label);
+                                matchClassIdToDes();
+                              },
+                              select: function(event, ui) {
+                                 $("#searchform button").click(); 
+                                 setTimeout(matchClassIdToDes,100);
                               }
                         });
                 });
@@ -91,7 +115,15 @@ angular.module('materialConsumableGoodsAddFsn', ['ui.bootstrap'])
                 $(function() {
                         $( "#classDescription" ).autocomplete({
                               minLength:3,
-                              source: availableClassDes
+                              source: availableClassDes,
+                              focus: function(event, ui) {
+                                  $("input#classDescription").val(ui.item.label);
+                                matchClassDesToId();
+                              },
+                              select: function(event, ui) {
+                                 $("#searchform button").click(); 
+                                 setTimeout(matchClassDesToId,100);
+                              }
                         });
                 });
 
