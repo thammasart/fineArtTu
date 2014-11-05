@@ -1829,7 +1829,7 @@ public class Graph extends Controller {
 			result += getDetailLabel("id", String.valueOf(inDetail.id));
 			result += getDetailLabel("รายการ/เรื่อง", inDetail.otherTransfer.title);
 			result += getDetailLabel("หมายเลขใบรายการ", inDetail.otherTransfer.number);
-			result += getDetailLabel("สาเหตุการอนย้าย", inDetail.otherTransfer.description);
+			result += getDetailLabel("สาเหตุการโอนย้าย", inDetail.otherTransfer.description);
 			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(inDetail.otherTransfer.approveDate));
 			//TODO ผู้รับผิดชอบ
 			result += getDetailLabel("ผู้อนุมัติ", "pending");//String.format("%s %s %s", inDetail.otherTransfer.approver.namePrefix, inDetail.otherTransfer.approver.firstName, inDetail.otherTransfer.approver.lastName ));
@@ -1855,8 +1855,41 @@ public class Graph extends Controller {
 	}
 
 	private static String getRepairHTML(String[] ids) {
-		// TODO Auto-generated method stub
-		return null;
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		/*for(int i=0; i<ids.length; i++){
+			String id = ids[i];
+			String detailsCodes = "";
+			RepairingDetail rd = RepairingDetail.find.byId(Long.valueOf(id));
+			OtherTransfer in = inDetail.otherTransfer; 
+			result += "<div class=\"well\">";
+			
+			result += getDetailLabel("id", String.valueOf(inDetail.id));
+			result += getDetailLabel("รายการ/เรื่อง", inDetail.otherTransfer.title);
+			result += getDetailLabel("หมายเลขใบรายการ", inDetail.otherTransfer.number);
+			result += getDetailLabel("สาเหตุการโอนย้าย", inDetail.otherTransfer.description);
+			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(inDetail.otherTransfer.approveDate));
+			//TODO ผู้รับผิดชอบ
+			result += getDetailLabel("ผู้อนุมัติ", "pending");//String.format("%s %s %s", inDetail.otherTransfer.approver.namePrefix, inDetail.otherTransfer.approver.firstName, inDetail.otherTransfer.approver.lastName ));
+			result += getDetailLabel("ผู้รับผิดชอบ", "pending");//String.format("%s %s %s", inDetail.otherTransfer., inDetail.otherTransfer.approver.firstName, inDetail.otherTransfer.approver.lastName ));
+			result += getExpandableHTML("คณะกรรมการสอบข้อเท็จจรืง", "pending");
+			result += getExpandableHTML("คณะกรรมการจำหน่าย", "pending");
+			for(; i<ids.length; i++){
+				id = ids[i];
+				OtherTransferDetail newDetail = OtherTransferDetail.find.byId(Long.valueOf(id));
+				if(newDetail.otherTransfer.equals(in)){
+					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+				}else{
+					i--;
+					break;
+				}
+			}
+			
+			result += getExpandableHTML("รายการโอนย้าย", detailsCodes);
+			result += "</div>";
+		}
+		result += "</div>";*/
+		return result;
 	}
     
     /*private static ArrayNode getTableRepairing(Date startDate, Date endDate, int col, String selectedName){

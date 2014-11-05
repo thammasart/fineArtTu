@@ -95,6 +95,14 @@ function setDetail(id,tab,page){
 	    dataType: 'json',
     	success: function(result){
     		if(page == 2){
+    			var $radios = $('input:radio[name=goodsRadio]');
+    		    if(result["typeOfGoods"] == 1) {
+    		        $radios.filter('[value=1]').prop('checked', true);
+    		    }else{
+    		    	$radios.filter('[value=0]').prop('checked', true);
+    		    }
+    			$('#typeOfGoods').val(result["typeOfGoods"]);
+    			
     			$('#procurementDetailId').val(result["id"]);
     			$('#description').val(result["description"]);
     			$('#code').val(result["code"]);
