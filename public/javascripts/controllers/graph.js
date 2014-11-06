@@ -19,6 +19,8 @@ var requisitionThead = '<tr><th>ลำดับที่<span class="glyphicon g
 var transferThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่โอนย้าย<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var repairingThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var repairedThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th><th>ราคา<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
+var repairedThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th><th>ราคา<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
+var remainThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่คงเหลือ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var options = {
 		title : 'เปรียบเทียบการใช้งบประมาณรายเดือน',
 		chartArea : {'left':'8%','width':'75%','height':'75%'},
@@ -168,6 +170,8 @@ function setData(obj,chart){
 			}else{
 				setDataTableColumn("trackingTable", repairingThead).rows.add(obj).draw();
 			}*/
+		}else if(state['mode'] == 'remain'){
+			setDataTableColumn("trackingTable", remainThead).rows.add(obj).draw();
 		}
 		$('#graph-tab a[href="#tracking"]').tab('show');
 	}
@@ -206,7 +210,7 @@ function drawChart() {
 	// Create the data table.
 	load();
 	//myRandom();
-	if(state['mode'] == 'requisition'){
+	if(state['mode'] == 'requisition' || state['mode'] == 'remain'){
 		getData('column');
 	}else{
 		getData('line');
