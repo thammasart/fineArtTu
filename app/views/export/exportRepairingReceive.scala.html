@@ -5,7 +5,7 @@
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/export/repair.js")"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
-<body onload="initReceive(@repair.id)"> 
+<!-- <body onload="in(@repair.id)"> -->
 
 @nav(user)
 @headerTagFull("รับคืน")
@@ -126,18 +126,28 @@
         </div> 
       </div>
 
+      <input value="@repair.detail.size()" name="numberOfDetail" id="numberOfDetail" hidden>
+
       <table class="table table-striped overlayTable" style="margin-bottom:3%;">
         <thead>
             <tr>
-              <th></th>
-              <th>ลำดับ</th>
-              <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
-              <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-              <th>ลักษณะการชำรุด ของครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+              <th style="text-align:center;">ลำดับ</th>
+              <th style="text-align:center;">FSN <span class="glyphicon glyphicon-sort"></span></th>
+              <th style="text-align:center;">ชื่อครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
+              <th style="text-align:center;">ลักษณะการชำรุด ของครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
+              <th style="text-align:center;">ราคาซ่อม</th>
             </tr>
         </thead>
         <tbody id="detailInTable">
-
+          @for((detail,index) <- repair.detail.zipWithIndex){
+            </tr>
+              <th>@index</th>
+              <th>@detail.durableArticles.code</th>
+              <th>@detail.durableArticles.detail.fsn.descriptionDescription</th>
+              <th>@detail.description</th>
+              <th style="text-align:center;" ><input type="text" class="form-control textAlignCenter width175px"  value="0.00" onkeyup="getTotalPrice()"onkeydown="getTotalPrice()" id="price@index" name="price@index" ></th>
+            </tr>
+          }
         </tbody>
       </table>
     </div>  <!--end well-->
@@ -156,77 +166,5 @@
   </form>
 
 </div> 
-
-<div id="addDetailWindows" class="detailWindow">
-  <form name="addDetail">
-
-
-
-  </form>  
-
-  <div class="well" >
-    <h2 style ="text-align:center;">เลือกครุภัณฑ์</h2>
-
-    <div class="form-inline marginBtm1" role="form" align="center">
-      <div class="form-group" >
-        <div class="input-group" >
-          <span class="input-group-addon width250px" >ค้นหารหัสFSN</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
-        </div>
-      </div>
-      <div class="form-group" >
-        <div class="input-group" >
-          <span class="input-group-addon width250px" >ค้นหาชื่อครุภัณฑ์</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
-        </div>
-      </div>
-      <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
-    </div>
-
-    <table class="table table-striped overlayTable">
-      <thead>
-        <tr>
-          <th> <input type="checkbox"/> </th>
-          <th>หมายเลขครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
-          <th>รายละเอียดครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
-          <th>ราคาต่อหน่วย <span class="glyphicon glyphicon-sort"></span></th>
-          <th>อายุการใช้งาน <span class="glyphicon glyphicon-sort"></span></th>
-          <th>ที่อยู่ สาขาวิชา <span class="glyphicon glyphicon-sort"></span></th>
-        </tr>
-      </thead>
-      
-      <tbody id="searchResultTable">
-
-      </tbody>
-    </table>
-
-  </div>
-
-  <div class="well">
-    <h2>
-        ลักษณะการชำรุด
-    </h2>
-    <div class="form-inline marginBtm1" role="form">
-      <div class="form-group">
-        <div class="input-group">
-          <textarea class="form-control " id="natureOfDamage" name="natureOfDamage" rows="2" cols="50"></textarea>
-              <span class="alertText" id="natureOfDamageAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div align="right" style="margin-bottom:1%; margin-right:3%;">
-
-    <button class="btn btn-danger btn-lg width250px" onclick="addrepairButton()" style="margin-top:1%;margin-right:1%;">
-        <span class="glyphicon glyphicon-remove"></span> ยกเลิก
-    </button>
-    <button class="btn btn-success btn-lg width250px" onclick="submitButtonJsClick()" style=" margin-top:1%;">
-      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
-    </button>
-
-  </div>
-
-</div>   <!--listWindowMaterial--> 
 
 @footerFull()

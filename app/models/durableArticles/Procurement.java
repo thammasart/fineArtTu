@@ -43,6 +43,8 @@ public class Procurement extends Model{
 	public String fileType;
 	public String path;
 	
+	public String barCode;
+	
 	public int yearStatus=0;
 	
 	public int testDay=0;

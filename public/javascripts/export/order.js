@@ -11,14 +11,10 @@ var requisition = {
 };
 
 var detail = {};
-
 var detailEdit = {};
-
 var details = [];
-
 var checkedDetail = [];
 var isViewDetail = false;
-
 var titleInHeader = "เพิ่มรายการเบิกจ่าย";
 
 function addDetailButton(){
@@ -75,16 +71,6 @@ function updateDetail(){
   	detail.requisitionId = requisition.id;
 }
 
-function updateEditDetail(){
-	//detail.description = document.getElementById("description").value;
-	detailEdit.code = document.getElementById("codeEdit").value;
-	detailEdit.quantity = document.getElementById("quantityEdit").value;
-  	detailEdit.withdrawerNmae = document.getElementById("withdrawerEdit").value;
-  	detailEdit.withdrawerLastname = document.getElementById("withdrawerLastnameEdit").value;
-  	detailEdit.withdrawerPosition = document.getElementById("withdrawerPositionEdit").value;
-  	detailEdit.requisitionId = requisition.id;
-}
-
 function addCheckedDetail(code){
 	if(!isViewDetail){
 		if(checkedDetail.indexOf(code) > -1){
@@ -108,35 +94,35 @@ function getDetail(){
 		success: function(data){
 			//details = JSON.stringify(data);
 			if(data["status"] == "SUCCESS"){
-				var tr = data["details"];
-				details = data["details"];; 
-				var arrayLength = tr.length;
+				details = data["details"]; 
+				var arrayLength = details.length;
 				var s = "";
 				destroyTable();
 				for (var i = 0; i < arrayLength; i++) {
-					s += '<tr id="detailRow' + tr[i].id + '">';
-					s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')">' +
-					' <input type="checkbox" id="detail' + tr[i].id + '"> </th>';
-					s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')">'+(i+1)+'</th>';
-					if(tr[i].code){
-						s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')"> '+ tr[i].code.code +'</th>';
-						s += ' <th onclick="addCheckedDetail(' + tr[i].id + ')">'+ tr[i].code.description +'</th>';
-						s += ' <th>'+ tr[i].quantity+'</th>';
-						s += ' <th>'+ tr[i].code.classifier +'</th>';
+					s += '<tr id="detailRow' + details[i].id + '">';
+					s += ' <th onclick="addCheckedDetail(' + details[i].id + ')">' +
+					' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
+					s += ' <th onclick="addCheckedDetail(' + details[i].id + ')">'+(i+1)+'</th>';
+					if(details[i].code){
+						s += ' <th onclick="addCheckedDetail(' + details[i].id + ')"> '+ details[i].code.code +'</th>';
+						s += ' <th onclick="addCheckedDetail(' + details[i].id + ')">'+ details[i].code.description +'</th>';
+						s += ' <th>'+ details[i].quantity+'</th>';
+						s += ' <th>'+ details[i].code.classifier +'</th>';
 					}
 					else{
 						s += ' <th> null </th>';
 						s += ' <th> null </th>';
-						s += ' <th>'+tr[i].quantity+'</th>';
+						s += ' <th>'+details[i].quantity+'</th>';
 						s += ' <th> null </th>';
 					}
-					if(tr[i].withdrawer){
-						s += ' <th>'+ tr[i].withdrawer.firstName + ' ' + tr[i].withdrawer.lastName +'</th>';
+					if(details[i].withdrawer){
+						s += ' <th>'+ details[i].withdrawer.firstName + ' ' + details[i].withdrawer.lastName +'</th>';
 					}
 					else{
 						s += ' <th> null </th>';
 					}
-					s += ' <th onclick="editDetail('+ tr[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" > แก้ไข </button> </th>';
+					s += ' <th>'+details[i].description+'</th>';
+					s += ' <th onclick="editDetail('+ details[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" > แก้ไข </button> </th>';
 					s += '</tr>';
 				}
 				document.getElementById("detailInTable").innerHTML = s;
@@ -175,7 +161,13 @@ function saveDetail(){
 }
 
 function saveEditDetail(){
-	updateEditDetail();
+	detailEdit.code = document.getElementById("codeEdit").value;
+	detailEdit.quantity = document.getElementById("quantityEdit").value;
+  	detailEdit.withdrawerNmae = document.getElementById("withdrawerEdit").value;
+  	detailEdit.withdrawerLastname = document.getElementById("withdrawerLastnameEdit").value;
+  	detailEdit.withdrawerPosition = document.getElementById("withdrawerPositionEdit").value;
+  	detailEdit.requisitionId = requisition.id;
+
 	$.ajax({
 		url:'/export/order/editDetail',
 	    type: 'post',

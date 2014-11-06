@@ -1,8 +1,10 @@
 package models.durableArticles;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Date;
+import java.util.TimeZone;
 
 import play.db.ebean.*;
 import javax.persistence.*;
@@ -27,10 +29,74 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 	public String lastName;			//สกุล
 	public String codeFromStock; 	//รหัสจากคลัง
 	public SuppliesStatus status; 	// สถานะ
+	
+	public String barCode; 			//รหัสบาร์โค๊ด
 
 	@ManyToOne
 	public ProcurementDetail detail;
 
+	
+	/*int day,int month,int year*/
+	public double getDepreciationPrice()
+	{
+		/////////////////////////////////////////////////////////////////////////
+        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+  
+        int day = localCalendar.get(Calendar.DATE);
+        int month = localCalendar.get(Calendar.MONTH) + 1;
+        int year = localCalendar.get(Calendar.YEAR);
+        /////////////////////////////////////////////////////////////////////////
+        int addDateDay = this.detail.procurement.getDay();
+        int addDateMonth = this.detail.procurement.getMonth();
+        int addDateYear = this.detail.procurement.getYear();
+		
+		System.out.println("Welcome To Hell");
+		System.out.println("Item   :"+addDateDay+"/"+addDateMonth+"/"+addDateYear);
+		System.out.println("Current:"+day+"/"+month+"/"+year);
+		System.out.println(this.detail.price+"  "+this.detail.llifeTime);
+		
+		double depreciationPrice=this.detail.price;
+		
+		double depreciationOfYear = this.detail.price/this.detail.llifeTime;
+		///////////////////////////////////////////////////////////////////////////////// depreciationOfYear 
+		double depreciationOfMonth = depreciationOfYear/12;
+		
+		for(int i =0;i<year-addDateYear;i++)
+		{
+			if(depreciationPrice-depreciationOfYear>1.0)
+			{
+			depreciationPrice=depreciationPrice-depreciationOfYear;
+			System.out.println("reduce:"+i+":"+depreciationOfYear);
+			}
+			else break;
+		}
+		
+		if(day>15)
+			month++;
+		if(addDateDay>15)
+			addDateMonth++;
+		
+		for(int i =0;i<month-addDateMonth;i++)
+		{
+			if(depreciationPrice-depreciationOfMonth>1.0)
+			{
+			depreciationPrice=depreciationPrice-depreciationOfMonth;
+			System.out.println("reduce:"+i+":"+depreciationOfMonth);
+			}
+			else{
+				depreciationPrice=1.0;
+				break;
+			}
+		}
+			
+		
+		
+		return depreciationPrice;
+	}
+	
+	
+	
+	
 	public int getRemainMonthLifetime(){
 		Date now = new Date();
 		Date addDate = new Date();
