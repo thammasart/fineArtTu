@@ -990,6 +990,25 @@ public class Import extends Controller {
 			System.out.println("c: "+articlesOrder.yearStatus);
 		}
 		
+		if(articlesOrder.status == ImportStatus.INIT)	//genBarcode
+		{
+			articlesOrder.barCode = "i01";
+			String hex = Integer.toHexString((int)articlesOrder.id);
+		    
+			if(hex.length()==1)
+				hex="00000"+hex;
+			else if(hex.length()==2)
+				hex="0000"+hex;
+			else if(hex.length()==3)
+				hex="000"+hex;
+			else if(hex.length()==4)
+				hex="00"+hex;
+			else if(hex.length()==5)
+				hex="0"+hex;
+
+		    articlesOrder.barCode=articlesOrder.barCode+hex;
+		}
+		
 		
 		
         articlesOrder.status = ImportStatus.SUCCESS;      
@@ -1132,7 +1151,24 @@ public class Import extends Controller {
     	
     	} 
     	
-    	
+		if(goodsOrder.status == ImportStatus.INIT)	//genBarcode
+		{
+			goodsOrder.barCode = "i02";
+			String hex = Integer.toHexString((int)goodsOrder.id);
+		    
+			if(hex.length()==1)
+				hex="00000"+hex;
+			else if(hex.length()==2)
+				hex="0000"+hex;
+			else if(hex.length()==3)
+				hex="000"+hex;
+			else if(hex.length()==4)
+				hex="00"+hex;
+			else if(hex.length()==5)
+				hex="0"+hex;
+
+			goodsOrder.barCode=goodsOrder.barCode+hex;
+		}
     	
     	
     	
@@ -1140,7 +1176,8 @@ public class Import extends Controller {
     	goodsOrder.status = ImportStatus.SUCCESS;        
     	goodsOrder.update();
     	
-    	for(models.durableGoods.ProcurementDetail pd:goodsOrder.details) 	//เพิ่มจำนวนวัสดุให้กับclassหมายเลขวัสดุสิ้นเปลือง
+    	/*
+    	for(models.durableGoods.ProcurementDetail pd:goodsOrder.details) 	//เพิ่มจำนวนวัสดุให้กับclassหมายเลขวัสดุสิ้นเปลือง อะไรก็ไม่รู้
     	{
     		if(pd.typeOfDurableGoods==0)
     		{
@@ -1151,13 +1188,15 @@ public class Import extends Controller {
     			List<models.durableGoods.ProcurementDetail> details = models.durableGoods.ProcurementDetail.find.where().eq("code", pd.code).eq("procurement.status", ImportStatus.SUCCESS).findList();
     			for(models.durableGoods.ProcurementDetail detail : details){
     				mc.remain += detail.quantity;
+    				System.out.println("innnnn");
     			}
-    			System.out.println("Let me see"+mc.code);
+    			System.out.println("Save new good order"+mc.code);
     			System.out.println(mc.remain);
     			mc.update();
     		}
     	}
     	//System.out.println(goodsOrder);
+    	 */
 
         return redirect(routes.Import.importsOrder2("2"));
     }
@@ -1475,7 +1514,33 @@ public class Import extends Controller {
 		    	
 		    	goods.detail = procurementDetail;
 		    	
-		    	if(!editingMode) goods.save();
+		    	if(!editingMode){ 
+		    		goods.save();
+		    		
+		    		if(goods.typeOfDurableGoods==1)
+		    		{
+		    		goods.barCode="A";	
+		    		String hex = Integer.toHexString((int)goods.id);
+					if(hex.length()==1)
+						hex="0000000"+hex;
+					else if(hex.length()==2)
+						hex="000000"+hex;
+					else if(hex.length()==3)
+						hex="00000"+hex;
+					else if(hex.length()==4)
+						hex="0000"+hex;
+					else if(hex.length()==5)
+						hex="000"+hex;
+					else if(hex.length()==6)
+						hex="00"+hex;
+					else if(hex.length()==7)
+						hex="0"+hex;
+					
+					goods.barCode=goods.barCode+hex;
+					System.out.println(goods.barCode);
+					goods.update();
+		    		}
+		    	}
 		    	else goods.update();
 	    	}
     	}//end if(UNCHANGE)
@@ -1626,8 +1691,8 @@ public class Import extends Controller {
 	    		else{
 		    		dA = new DurableArticles();
 		    		editingMode = false;
-		    	}
-		    	
+		    	}			
+	    		
 		    	dA.status = SuppliesStatus.NORMAL;
 		    	dA.department = json.get("articleDepartment"+i).asText();
 		    	dA.room = json.get("articleRoom"+i).asText();
@@ -1640,8 +1705,32 @@ public class Import extends Controller {
 		    
 		    	dA.detail = procurementDetail;
 		    	
-		    	if(!editingMode) dA.save();
+		    	if(!editingMode){
+		    		dA.save();
+		    		
+		    		dA.barCode="A";	
+		    		String hex = Integer.toHexString((int)dA.id);
+					if(hex.length()==1)
+						hex="0000000"+hex;
+					else if(hex.length()==2)
+						hex="000000"+hex;
+					else if(hex.length()==3)
+						hex="00000"+hex;
+					else if(hex.length()==4)
+						hex="0000"+hex;
+					else if(hex.length()==5)
+						hex="000"+hex;
+					else if(hex.length()==6)
+						hex="00"+hex;
+					else if(hex.length()==7)
+						hex="0"+hex;
+					
+					dA.barCode=dA.barCode+hex;
+		    		dA.update();
+		    	}
 		    	else dA.update();
+		    	
+		    	
 	    	}
     	}
 	
