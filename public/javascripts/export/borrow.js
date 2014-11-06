@@ -220,6 +220,27 @@ function init(id){
 	addBorrowButton();
 }
 
+function initReturn(id){
+	isViewDetail = true;
+	document.getElementById("title").disabled = true;
+	document.getElementById("number").disabled = true;
+	document.getElementById("dateOfStartBorrow").disabled = true;
+	document.getElementById("withdrawerNmae").disabled = true;
+	document.getElementById("withdrawerLastname").disabled = true;
+	document.getElementById("withdrawerPosition").disabled = true;
+	document.getElementById("approverName").disabled = true;
+	document.getElementById("approverLastName").disabled = true;
+	document.getElementById("approverPosition").disabled = true;
+
+	document.getElementById("datepickerbuttonP2").style.display = "none";
+	document.getElementById("editDetail").style.display = "none";
+	document.getElementById("saveExport").style.display = "none";
+	
+	init(id);
+	titleInHeader = "รับคืน";
+	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
 function initViewDetial(id){
 	isViewDetail = true;
 	document.getElementById("title").disabled = true;

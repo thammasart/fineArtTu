@@ -257,18 +257,18 @@ function add_D_committree(){
     var tr = table.insertRow();
     tr.id = 'D'+i;
 
-    var s = '<th> <input id="D_namePrefix'+i+'" name="D_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="D_firstName'+i+'" name="D_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="D_lastName'+i+'" name="D_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> <input id="D_position'+i+'" name="D_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
-	   s += '<th> ';
+    var s = '<th style ="text-align:center;" > <input id="D_namePrefix'+i+'" name="D_namePrefix'+i+'" type="text" class="form-control textAlignCenter width75px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="D_firstName'+i+'" name="D_firstName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="D_lastName'+i+'" name="D_lastName'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > <input id="D_position'+i+'" name="D_position'+i+'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า"> </th>';
+	   s += '<th style ="text-align:center;" > ';
 	   s += '  <select id="D_cType'+i+'" name="D_cType'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ข้าราชการ</option>';
 	   s += '    <option>พนักงานมหาลัย</option>';
 	   s += '  </select>';
 	   s += '</th>';
-	   s += '<th> ';
+	   s += '<th style ="text-align:center;" > ';
 	   s += '  <select id="D_cPosition'+i+'" name="D_cPosition'+i+'" class="form-control textAlignCenter width175px">';
 	   s += '    <option>---เลือก---</option>';
 	   s += '    <option>ประธานกรรมการ</option>';
@@ -276,7 +276,7 @@ function add_D_committree(){
 	   s += '    <option>กรรมการและเลขานุการ</option>';
 	   s += '  </select>';
 	   s += '</th> ';
-	   s += '<th> <button type="button" class="btn btn btn-danger" id="D_delete'+i+'" onclick="delete_D_committree('+i+')"> ลบ </button> </th>';
+	   s += '<th style ="text-align:center;" > <button type="button" class="btn btn btn-danger" id="D_delete'+i+'" onclick="delete_D_committree('+i+')"> ลบ </button> </th>';
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();
@@ -305,6 +305,7 @@ function initViewDetial(id){
 	document.getElementById("title").disabled = true;
 	document.getElementById("contractNo").disabled = true;
 	document.getElementById("approveDate").disabled = true;
+	document.getElementById("donateDestination").disabled = true;
 
 	document.getElementById("datepickerbutton").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
@@ -348,6 +349,7 @@ function changeToEdit(){
 	document.getElementById("title").disabled = false;
 	document.getElementById("contractNo").disabled = false;
 	document.getElementById("approveDate").disabled = false;
+	document.getElementById("donateDestination").disabled = false;
 
 	document.getElementById("datepickerbutton").style.display = "table-cell";
 	document.getElementById("editDetail").style.display = "block";

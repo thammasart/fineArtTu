@@ -40,6 +40,9 @@ public class Procurement extends Model{
 	public String fileName;
 	public String fileType;
 	public String path;
+	
+	public String barCode;
+	
 	@ManyToOne
 	public Company company; 				// บริษัทที่ทำการซื้อ
 

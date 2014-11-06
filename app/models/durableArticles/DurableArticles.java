@@ -27,10 +27,26 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 	public String lastName;			//สกุล
 	public String codeFromStock; 	//รหัสจากคลัง
 	public SuppliesStatus status; 	// สถานะ
+	
+	public String barCode; 			//รหัสบาร์โค๊ด
 
 	@ManyToOne
 	public ProcurementDetail detail;
 
+	
+	
+	public double getDepreciationPrice(int day,int month,int year)
+	{
+		double depreciationPrice=0;
+		
+		
+		
+		return depreciationPrice;
+	}
+	
+	
+	
+	
 	public int getRemainMonthLifetime(){
 		Date now = new Date();
 		Date addDate = new Date();
