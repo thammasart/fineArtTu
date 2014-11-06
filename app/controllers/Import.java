@@ -643,12 +643,24 @@ public class Import extends Controller {
     		models.durableGoods.Procurement pg = models.durableGoods.Procurement.find.byId(Long.parseLong(json.get("id").asText()));
     		for(models.durableGoods.AI_Committee ai : pg.aiCommittee){
     			ArrayNode aiItem = JsonNodeFactory.instance.arrayNode();
+    			if(ai.committee==null)
+    			{
+    			aiItem.add("");
+    			aiItem.add("");
+    			aiItem.add("");
+    			aiItem.add("");
+    			aiItem.add("");
+    			aiItem.add("");
+    			}
+    			else
+    			{
     			aiItem.add(ai.committee.namePrefix);
     			aiItem.add(ai.committee.firstName);
     			aiItem.add(ai.committee.lastName);
     			aiItem.add(ai.committee.position);
     			aiItem.add(ai.employeesType);
     			aiItem.add(ai.committeePosition);
+    			}
     			aiArray.add(aiItem);
     		}
     		result.put("ai", aiArray);
