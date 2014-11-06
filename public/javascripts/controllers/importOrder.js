@@ -102,7 +102,7 @@ function setDetail(id,tab,page){
     	success: function(result){
     		if(page == 2){
     			var $radios = $('input:radio[name=goodsRadio]');
-    		    if(result["typeOfGoods"] == 1) {
+    		    if(result["typeOfGood"] == 1) {
     		        $radios.filter('[value=1]').prop('checked', true);
     		    }else{
     		    	$radios.filter('[value=0]').prop('checked', true);
