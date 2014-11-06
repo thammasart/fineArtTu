@@ -18,10 +18,21 @@ var repair = {
 
 var newDetail = [];	
 var oldDetail = [];
+var details = [];
+var detailEdit = {};
 var checkedDetail = [];
 var isViewDetail = false;
 
 var titleInHeader = "เพิ่มรายการส่งซ่อม";
+
+function getTotalPrice(){
+	numberOfDetail =  parseInt(document.getElementById("numberOfDetail").value);
+	totle = 0.00;
+	for(i = 0, len = numberOfDetail; i < len; i++){
+		totle += parseFloat(document.getElementById("price"+i.toString()).value);
+	}
+	document.getElementById("repairCosts").value = totle;
+}
 
 function addDetailButton(){
 	newDetail = [];
@@ -30,6 +41,7 @@ function addDetailButton(){
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
+	document.getElementById("editDetailWindows").style.display = "none";
 	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการส่งซ่อม";
 	document.getElementById("fsnCode").focus();
 }
@@ -37,7 +49,34 @@ function addDetailButton(){
 function addRepairButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("editDetailWindows").style.display = "none";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
+function editDetail(code){
+	document.getElementById("addWindows").style.display = "none";
+	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("editDetailWindows").style.display = "block";
+	document.getElementById("titleInHeader").innerHTML = "แก้ไขรายละเอียดการเบิกจ่าย";
+	for(i = 0, len = details.length; i < len; i++){
+		if(details[i].id == code){
+			detailEdit = details[i];
+		}
+	}
+	detailEdit.id = code;
+
+	document.getElementById("edit_fsn_Number").innerHTML = detailEdit.durableArticles.code;
+    document.getElementById("edit_fsn_description").innerHTML = detailEdit.durableArticles.detail.fsn.descriptionDescription;
+    document.getElementById("edit_price").innerHTML = detailEdit.durableArticles.detail.price;
+    document.getElementById("edit_llifeTime").innerHTML = detailEdit.durableArticles.detail.llifeTime;
+    document.getElementById("edit_department").innerHTML = detailEdit.durableArticles.department;
+    document.getElementById("edit_description").value = detailEdit.description ;
+    document.getElementById("edit_description").focus();
+
+	if(document.getElementById("edit_cost")){
+		document.getElementById("edit_cost").value = detailEdit.price;
+		document.getElementById("edit_cost").focus();
+	}
 }
 
 function addNewDetai(code){
@@ -124,10 +163,11 @@ function getDetail(){
 		type: "GET",
 		url: "/export/repair/loadDetail",
 		data: {'id': repair.id},
+		async:   false,
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		    if(data["status"] == "SUCCESS"){
-			   	var details = data["details"];
+			   	details = data["details"];
 			   	var detailLength = details.length;
 			   	var s = "";
 			   	oldDetail = [];
@@ -146,6 +186,10 @@ function getDetail(){
 						s += '	<th>'+ 'ไม่มี' +'</th>';
 					}
 					s += '	<th>'+ details[i].description +'</th>';
+					if(details[i].repairing.status == "SUCCESS"){
+						s += '<th style="text-align:center;" >'+ details[i].price +'</th>';
+					}
+					s += '  <th onclick="editDetail('+ details[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" id="edit'+i+'"> แก้ไข </button> </th>';
 					s += '</tr>';
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
@@ -191,6 +235,39 @@ function saveDetail(){
 	});
 }
 
+function saveEditDetail(){
+	detailEdit.description = document.getElementById("edit_description").value;
+	detailEdit.repairingId = repair.id;
+	if(document.getElementById("edit_cost")){
+		detailEdit.cost = document.getElementById("edit_cost").value;
+	}
+
+	$.ajax({
+		url:'/export/repair/editDetail',
+	    type: 'post',
+	    data: JSON.stringify(detailEdit),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+	    		addRepairButton()
+	    		getDetail();
+	    		if(document.getElementById("edit_cost")){
+	    			totle = 0;
+					for(i=0; i<details.length; i++){
+						totle += details[i].price;
+					}
+					document.getElementById("repairCosts").value = totle;
+				}
+	    	}
+	    	else{
+	    		alert('save detail error : ' + result["message"]);
+	    	}
+    	}
+	});
+}
+
 function deleteDetail(){
 	var dataDetail = {};
 	dataDetail.id = repair.id;
@@ -225,6 +302,7 @@ function initReceive(id){
 	isViewDetail = true;
 	document.getElementById("title").disabled = true;
 	document.getElementById("number").disabled = true;
+	document.getElementById("repairShop").disabled = true;
 	document.getElementById("dateOfSentToRepair").disabled = true;
 	document.getElementById("approverFirstName").disabled = true;
 	document.getElementById("approverLastName").disabled = true;
@@ -258,6 +336,10 @@ function initViewDetial(id){
 	init(id);
 	titleInHeader = "แสดงรายละเอียดการส่งซ่อม";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+
+	for(i=0; i< details.length; i++){
+		document.getElementById("edit"+i).style.display = "none";
+	}
 }
 
 function changeToEdit(){
@@ -280,6 +362,10 @@ function changeToEdit(){
 
 	titleInHeader = "แก้ไขรายละเอียดการส่งซ่อม";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+
+	for(i=0; i< details.length; i++){
+		document.getElementById("edit"+i).style.display = "block";
+	}
 }
 
 function submitButtonJsClick(){

@@ -157,6 +157,12 @@ public class ExportRepair extends Controller {
             if(repairCosts == null){
                 repairCosts = "0.00";
             }
+            int numberOfDetail = Integer.parseInt(f.get("numberOfDetail"));
+            for(int i=0; i<numberOfDetail; i++){
+                RepairingDetail detail = repair.detail.get(i);
+                detail.price = Double.parseDouble(f.get("price"+Integer.toString(i)));
+                detail.update();
+            }
             repair.repairCosts = Double.parseDouble(repairCosts);
             for(RepairingDetail detail : repair.detail){
                 if(detail.durableArticles.status == SuppliesStatus.REPAIRING){
@@ -257,6 +263,46 @@ public class ExportRepair extends Controller {
             result.put("status", "error");
         }
 
+        return ok(result);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
+    public static Result editRepairingDetail() {
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+            RepairingDetail repairDetail = RepairingDetail.find.byId((new Long(json.get("id").asText())));
+            Repairing repair = Repairing.find.byId(new Long(json.get("repairingId").asText()));
+            if( repairDetail != null && repair != null 
+                && (repair.status == ExportStatus.INIT ||repair.status == ExportStatus.SUCCESS) ){
+                repairDetail.description = json.get("description").asText();
+                repairDetail.update();
+                if(json.get("cost") != null){
+                    repairDetail.price = Double.parseDouble(json.get("cost").asText());
+                    repairDetail.update();
+
+                    int total = 0;
+                    for( RepairingDetail detail : repair.detail){
+                        total += detail.price;
+                    }
+                    repair.repairCosts = total;
+                    repair.update();
+                }
+                result.put("status", "SUCCESS");
+
+            }
+            else{
+                result.put("message", "ไม่สามารถแก้ไข รายละเอียดการส่งซ่อม id:" + json.get("repairingId") + " ได้");
+                result.put("status", "error");
+                return ok(result);
+            }
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
         return ok(result);
     }
 

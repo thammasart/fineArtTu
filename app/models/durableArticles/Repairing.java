@@ -127,6 +127,10 @@ public class Repairing extends Model{
 		return result;
 	}
 
+	public boolean isSuccess(){
+		return this.status == ExportStatus.SUCCESS;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Repairing> find = new Finder(Long.class,Repairing.class);
 }
