@@ -71,13 +71,29 @@ angular.module('fsnAutoComplete', ['ui.bootstrap'])
                 $(function() {
                     $( "#description" ).autocomplete({
                       minLength:2,
-                      source: fsnName
+                      source: fsnName,
+                      focus: function(event, ui) {
+                          $("input#description").val(ui.item.label);
+                          mapDesToCode();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapDesToCode,200);
+                      }
                     });
                 });
                 $(function() {
                     $( "#code" ).autocomplete({
                       minLength:2,
-                      source: fsnCode
+                      source: fsnCode,
+                      focus: function(event, ui) {
+                          $("input#code").val(ui.item.label);
+                          mapCodeToDes();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapCodeToDes,200);
+                      }
                     });
                 });
             });
@@ -120,35 +136,59 @@ var resultModalInstanceCtrl= function($scope, $modalInstance){
 function setI(num){
    autoCompleteNum = num; 
 }
-function initAutoCompleteName () { 
-    keyId = "aiFirstName"+autoCompleteNum;
-    $(function() {
-        $('#'+keyId).autocomplete({
-          source: userAll
-        });
-    })
-    console.log(keyId);
-} 
 function initAutoCompleteNameEo () { 
     keyIdEo = "eoFirstName"+autoCompleteNum;
     $(function() {
         $('#'+keyIdEo).autocomplete({
-          source: userAll
+              source: userAll,
+              focus: function(event, ui) {
+                  $("input#"+keyIdEo).val(ui.item.label);
+              },
+              select: function(event, ui) {
+                 $("#searchform button").click(); 
+                 setTimeout(mapInput(keyIdEo,99),200);
+              }
         });
     })
-    console.log(keyIdEo);
+    console.log("keyEo="+keyIdEo);
 } 
-function mapInput(id){
+function initAutoCompleteName () { 
+    keyId = "aiFirstName"+autoCompleteNum;
+    $(function() {
+        $('#'+keyId).autocomplete({
+              source: userAll,
+              focus: function(event, ui) {
+                  $("input#"+keyId).val(ui.item.label);
+              },
+              select: function(event, ui) {
+                 $("#searchform button").click(); 
+                 setTimeout(mapInput(keyId,88),200);
+              }
+        });
+    })
+    console.log(keyId);
+} 
+function mapAi(j,temp){
+        setTimeout(function(){document.getElementById("aiFirstName"+temp).value = nameList[j];},200);
+}
+function mapEo(j,temp){
+        setTimeout(function(){document.getElementById("eoFirstName"+temp).value = nameList[j];},200);
+}
+        
+function mapInput(id,form){
     var temp = id[id.length-1];
     var type = id[0];
+    console.log("temp="+temp+"  type="+type+"  id="+id + " form"+form); 
     var id = document.getElementById(id).value ;
     if(type =="a"){
         for(var j = 0; j < userAll.length;j++){
             if(id == userAll[j]){
                 document.getElementById("aiPrefixName"+temp).value = prefixNameList[j];            
+                console.log("aiFirstName"+temp);
                 document.getElementById("aiFirstName"+temp).value = nameList[j];            
                 document.getElementById("aiLastName"+temp).value = lastnameList[j];
                 document.getElementById("aiPosition"+temp).value = positionList[j];
+                mapAi(j,temp);
             }
         }
     }else {
@@ -158,6 +198,7 @@ function mapInput(id){
                 document.getElementById("eoFirstName"+temp).value = nameList[j];            
                 document.getElementById("eoLastName"+temp).value = lastnameList[j];
                 document.getElementById("eoPosition"+temp).value = positionList[j];
+                mapEo(j,temp);
             }
         }
     }

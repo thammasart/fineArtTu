@@ -334,7 +334,7 @@ function getCommitteeTemplate(name){
 	'					    <input id="'+name+'PrefixName'+ num +'" name="'+name+'PrefixName'+ num +'"  type="text"  class="form-control textAlignCenter width75px" placeholder="ใส่ค่า">'+
 	'				</th>'+
 	'				<th style ="text-align:center;">'+
-	'					    <input id="'+name+'FirstName'+ num +'" name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า" onkeyup="mapInput(this.id)">'+
+	'					    <input id="'+name+'FirstName'+ num +'" name="'+name+'FirstName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า" onkeyup="mapInput(this.id,13)">'+
 	'				</th>'+
 	'				<th style ="text-align:center;">'+
 	'					    <input id="'+name+'LastName'+ num +'" name="'+name+'LastName'+ num +'" type="text" class="form-control textAlignCenter width175px" placeholder="ใส่ค่า">'+
@@ -369,6 +369,8 @@ function getCommitteeTemplate(name){
 }
 
 function preSpread(name){
+        var e = document.getElementById("budgetType");
+        var budgetType = e.options[e.selectedIndex].value;
 		var num = document.getElementById("quantity").value;
         var val = document.getElementById("code").value;
         var years = document.getElementById("years").value;
@@ -426,7 +428,7 @@ if(val.length >5)
 		'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  '+
 						(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
-						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="ศก.'+years+"-"+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
+						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="ศก.'+budgetType+years[years.length-2]+years[years.length-1]+"-"+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
 		'	                </div>'+
 		'	            </div>';
 }

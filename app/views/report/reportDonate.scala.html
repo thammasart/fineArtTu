@@ -1,8 +1,8 @@
-@(user : User , ad : List[models.durableArticles.AuctionDetail])
+@(user : User , dond : List[models.durableArticles.DonationDetail])
 @header("รายงาน")
 
 @nav(user)
-@headerTag("รายการโอนย้าย")
+@headerTag("รายการบริจาค")
 
 
 @sideMenu(user)
@@ -10,7 +10,7 @@
 <div class="listWindow">
 
             <legend>
-                รายการโอนย้าย
+                รายการบริจาค
             </legend>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
@@ -69,25 +69,23 @@
                         <th style="text-align:center">รายการ</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">หน่วยนับ</th>
-                        <th style="text-align:center">ราคา/หน่วย</th>
-                        <th style="text-align:center">วันที่</th>
+                        <th style="text-align:center">วันที่บริจาค</th>
                         <th style="text-align:center">ที่เก็บ-เดิม</th>
-                        <th style="text-align:center">ที่เก็บ-ใหม่</th>
-                        <th style="text-align:center">โอนจาก</th>
+                        <th style="text-align:center">บริจาคให้</th>
+                        <th style="text-align:center">บริจาคโดย</th>
                         <th style="text-align:center">ประเภทงบประมาณ</th>
                     </tr>
                 </thead>
                 <tbody>
-                @for((detail,index)<-ad.zipWithIndex){
+                @for((detail,index)<-dond.zipWithIndex){
                     <tr>
                         <th style="text-align:center">@{index+1}</th>
                         <th style="text-align:center">@detail.durableArticles.detail.fsn.descriptionDescription</th>
                         <th style="text-align:center">@detail.durableArticles.code</th>
                         <th style="text-align:center">@detail.durableArticles.detail.fsn.classifier</th>
-                        <th style="text-align:center">@detail.price</th>
-                        <th style="text-align:center">@detail.auction.getApproveDate()</th>
+                        <th style="text-align:center">@detail.donation.getApproveDate()</th>
                         <th style="text-align:center">@detail.durableArticles.room</th>
-                        <th style="text-align:center">@detail.auction.company.nameEntrepreneur</th>
+                        <th style="text-align:center">@detail.donation.company.nameEntrepreneur</th>
                         <th style="text-align:center">@detail.durableArticles.department</th>
                         <th style="text-align:center">@detail.durableArticles.detail.procurement.budgetType</th>
                     </tr>

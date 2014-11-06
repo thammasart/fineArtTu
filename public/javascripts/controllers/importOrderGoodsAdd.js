@@ -77,13 +77,29 @@ angular.module('goodsCodeModule', ['ui.bootstrap'])
                 $(function() {
                     $( "#description" ).autocomplete({
                       minLength:2,
-                      source: sourceName
+                      source: sourceName,
+                      focus: function(event, ui) {
+                          $("input#description").val(ui.item.label);
+                          mapDescriptionToCode();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapDescriptionToCode,100);
+                      }
                     });
                 });
                 $(function() {
                     $( "#code" ).autocomplete({
                       minLength:2,
-                      source: sourceCode
+                      source: sourceCode,
+                      focus: function(event, ui) {
+                          $("input#code").val(ui.item.label);
+                          mapCodeToDescription();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapCodeToDescription,100);
+                      }
                     });
                 });
              };
@@ -118,7 +134,14 @@ function initAutoCompleteName () {
     keyId = "aiFirstName"+autoCompleteNum;
     $(function() {
         $('#'+keyId).autocomplete({
-          source: userAll
+              source: userAll,
+              focus: function(event, ui) {
+                  $("input#"+keyId).val(ui.item.label);
+              },
+              select: function(event, ui) {
+                 $("#searchform button").click(); 
+                 setTimeout(mapInput(keyId,88),200);
+              }
         });
     })
     console.log(keyId);
@@ -161,6 +184,9 @@ function mapCodeToDescription(){
     document.getElementById("code").disabled = true;
  } 
 
+function mapAi(j,temp){
+        setTimeout(function(){document.getElementById("aiFirstName"+temp).value = nameList[j];},200);
+}
 function mapInput(id){
     temp = id[id.length-1];
     var id = document.getElementById(id).value ;
@@ -170,6 +196,7 @@ function mapInput(id){
             document.getElementById("aiFirstName"+temp).value = nameList[j];            
             document.getElementById("aiLastName"+temp).value = lastnameList[j];
             document.getElementById("aiPosition"+temp).value = positionList[j];
+            mapAi(j,temp);
         }
     }
 }

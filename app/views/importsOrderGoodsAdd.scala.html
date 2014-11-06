@@ -85,12 +85,12 @@
        <div class="form-inline" role="form" align="left">
             <div class="input-group marginBtm1">
                 <span class="input-group-addon width250px">ประเภทงบประมาณ</span>
-                    <select class="form-control textAlignCenter  width300px" name="budgetType" value="@order.budgetType">
-                        <option @if(order.budgetType != null && order.budgetType.contains("คลัง")) { selected }>งบคลัง</option>
-                        <option @if(order.budgetType != null && order.budgetType.contains("พิเศษ")) { selected }>งบพิเศษ</option>
-                        <option @if(order.budgetType != null && order.budgetType.contains("ค่าธรรมเนียม")) { selected }>งบกองทุนค่าธรรมเนียม</option>
-                        <option @if(order.budgetType != null && order.budgetType.contains("บริจาค")) { selected }>งบบริจาค</option>
-                        <option @if(order.budgetType != null && order.budgetType.contains("อุทกภัย")) { selected }>งบอุทกภัย</option>
+                    <select class="form-control textAlignCenter  width300px" name="budgetType" id="budgetType" value="@order.budgetType">
+                        <option value="ค." @if(order.budgetType != null && order.budgetType.contains("คลัง")) { selected }>งบคลัง</option>
+                        <option value="พ." @if(order.budgetType != null && order.budgetType.contains("พิเศษ")) { selected }>งบพิเศษ</option>
+                        <option value="กธ."@if(order.budgetType != null && order.budgetType.contains("ค่าธรรมเนียม")) { selected }>งบกองทุนค่าธรรมเนียม</option>
+                        <option value="บ." @if(order.budgetType != null && order.budgetType.contains("บริจาค")) { selected }>งบบริจาค</option>
+                        <option value="อ." @if(order.budgetType != null && order.budgetType.contains("อุทกภัย")) { selected }>งบอุทกภัย</option>
                     </select>
             </div>
         </div>
@@ -262,16 +262,16 @@ $('input').prop("disabled",false);
         <div class="form-inline marginBtm1" role="form" align="left" >
                 <div class="form-group" >
                     <div class="input-group" >
-                        <span class="input-group-addon width250px" >ชื่อวัสดุ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description" id="description"onkeyup="mapDescriptionToCode()" disabled>
-                        <span class="alertText" id="descriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
+                        <span class="input-group-addon width250px" >รหัสวัสดุ</span>
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="code" id="code" onkeyup="mapCodeToDescription()" disabled>
+                        <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
                 <div class="form-group" >
                     <div class="input-group" >
-                        <span class="input-group-addon width250px" >รหัสวัสดุ</span>
-                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="code" id="code" onkeyup="mapCodeToDescription()" disabled>
-                        <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
+                        <span class="input-group-addon width250px" >ชื่อวัสดุ</span>
+                        <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description" id="description"onkeyup="mapDescriptionToCode()" disabled>
+                        <span class="alertText" id="descriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
         </div>

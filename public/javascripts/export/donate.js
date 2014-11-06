@@ -239,6 +239,7 @@ function add_FF_committree(){
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();
+        initAutocomplete("FF",i);
 	i++;
 	document.getElementById("numberOf_FF_committee").value = i;
 }
@@ -280,6 +281,7 @@ function add_D_committree(){
 
 	document.getElementById(tr.id).innerHTML = s;
 	updateTable();
+        initAutocomplete("D",i);
 	i++;
 	document.getElementById("numberOf_D_committee").value = i;
 }
