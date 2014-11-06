@@ -49,9 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-       
-              
-
+       			
 				@for(articleOrder <- articleOrders){
 					@if( articleOrder.getCurrentYear() == articleOrder.yearStatus ){
 						@for(subOrders <- articleOrder.details){

@@ -23,6 +23,8 @@ public class DurableGoods extends Model{	// ครุภัณฑ์
 	public int remain; // จำนวนปัจจุบัน, ยอดคงเหลือ
     public int typeOfDurableGoods;//คงทนถาวร = 1 / false = 0 
     
+    public String barCode; 			//รหัสบาร์โค๊ด
+    
     public SuppliesStatus status;
 	
 /*
