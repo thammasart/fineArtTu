@@ -79,6 +79,13 @@ function retriveProcurement(id,tab){
     	}
 	});
 }
+function disableEditingOn(){
+	$('#isEditingOn').val('false');
+	$('#page2 input').prop('disabled', true);
+	$('#spreadSupply input').prop('disabled', true);
+	$('#spreadSupply select').prop('disabled', true);
+	$('#editBtn2').show();
+}
 function setDetail(id,tab,page){
 	var obj = {
 			"id" : id,
@@ -86,7 +93,6 @@ function setDetail(id,tab,page){
 	};
 	page = page||2;
 	showPage(page);
-	
 	$.ajax({
 		url:'/import/order/retriveProcurementDetail',
 	    type: 'post',
@@ -137,7 +143,11 @@ function setDetail(id,tab,page){
     					var subDetails = $('#sub'+(i+1)+' :input');
     					$.each(subDetails, function(j, field) {
         					if(j<8){
-        						$(field).val(result.subDetails[i][j]);
+        						if($('#isEditingOn').val() == 'false'){
+        							$(field).val(result.subDetails[i][j]);
+        						}else if(j != 3){
+        							$(field).val(result.subDetails[i][j]);
+        						}
         						//console.log(result.subDetails[i][j]);
         					}
         				});
@@ -147,7 +157,11 @@ function setDetail(id,tab,page){
     					var subDetails = $('#sub'+(i+1)+' :input');
     					$.each(subDetails, function(j, field) {
         					if(j<8){
-        						$(field).val(result.subDetails[i][j]);
+        						if($('#isEditingOn').val() == 'false'){
+        							$(field).val(result.subDetails[i][j]);
+        						}else if(j != 3){
+        							$(field).val(result.subDetails[i][j]);
+        						}
         					}
         				});
     				}
@@ -170,6 +184,7 @@ function setDetail(id,tab,page){
 	 	    }
 	    }
 	});
+	
 	
 }
 function cancelStatus(id,typeOfOrder){
@@ -557,7 +572,7 @@ function loadOrderArticle(data){
 		
 		
 		divTable +='</th>'+
-		'                    <th> <button type="button" class="btn btn-xs btn-info" onclick="setDetail('+data['data'][i].id + ',1)" > รายละเอียด</button></th>'+
+		'                    <th> <button type="button" class="btn btn-xs btn-info" onclick="disableEditingOn();setDetail('+data['data'][i].id + ',1);" > รายละเอียด</button></th>'+
 		'                </tr>';
 	}
 	destroyTable();
