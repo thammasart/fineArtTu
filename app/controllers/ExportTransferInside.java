@@ -73,13 +73,24 @@ public class ExportTransferInside extends Controller {
     public static Result saveInternalTransfer(long id){
         User user = User.find.byId(session().get("username"));
         InternalTransfer inside = InternalTransfer.find.byId(id);
-        if(inside != null && inside.status == ExportStatus.INIT){
+        if(inside != null && (inside.status == ExportStatus.INIT || inside.status == ExportStatus.SUCCESS) ){
             DynamicForm f = Form.form().bindFromRequest();
             inside.title = f.get("title");
             inside.number = f.get("number");
             inside.setApproveDate(f.get("approveDate"));
+
+            // save approver
+            String firstName = f.get("approverFirstName");
+            String lastName = f.get("approverLastName");
+            String position = f.get("approverPosition");
+            List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+            if(employees.size() == 1){
+                inside.approver = employees.get(0);
+            }
+
             inside.status = ExportStatus.SUCCESS;
             inside.update();
+
 
             for(InternalTransferDetail detail : inside.detail){
                 if(detail.durableArticles.status == SuppliesStatus.NORMAL){

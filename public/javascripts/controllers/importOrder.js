@@ -95,6 +95,18 @@ function setDetail(id,tab,page){
 	    dataType: 'json',
     	success: function(result){
     		if(page == 2){
+    			var $radios = $('input:radio[name=goodsRadio]');
+    		    if(result["typeOfGoods"] == 1) {
+    		        $radios.filter('[value=1]').prop('checked', true);
+    		    }else{
+    		    	$radios.filter('[value=0]').prop('checked', true);
+    		    }
+    		    if(result["typeOfGoods"] == undefined){
+    		    	$('#typeOfGoods').val(0);
+    		    }else{
+    		    	$('#typeOfGoods').val(result["typeOfGoods"]);
+    		    }
+    			
     			$('#procurementDetailId').val(result["id"]);
     			$('#description').val(result["description"]);
     			$('#code').val(result["code"]);
@@ -409,7 +421,8 @@ else
 	'	                <div class="input-group" >'+
 	'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
 	'	                    <input type="text" class="form-control textAlignCenter  '+
-	' 							name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+val+'">'+
+								(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
+	' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
 	'	                </div>'+
 	'	            </div>';
 }
@@ -748,3 +761,4 @@ function submitButtonClickAr(){
 
     return submitStatus;
 }
+

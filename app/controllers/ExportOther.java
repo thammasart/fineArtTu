@@ -81,7 +81,8 @@ public class ExportOther extends Controller {
             other.description = f.get("description");
             other.update();
 
-            String firstName = f.get("approverFirstName");
+            // save approver
+            String firstName = f.get("approverName");
             String lastName = f.get("approverLastName");
             String position = f.get("approverPosition");
             List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
@@ -90,6 +91,7 @@ public class ExportOther extends Controller {
                 other.update();
             }
 
+            // save FF committee
             List<OtherTransfer_FF_Committee> ffCommittee = other.ffCommittee;
             String numbetOfcommittee = f.get("numberOf_FF_committee");
             if(numbetOfcommittee != null){
@@ -126,6 +128,8 @@ public class ExportOther extends Controller {
                     }
                 }
             }
+
+            // save D committee
             List<OtherTransfer_D_Committee> dCommittee = other.dCommittee;
             numbetOfcommittee = f.get("numberOf_D_committee");
             if(numbetOfcommittee != null){
@@ -163,6 +167,7 @@ public class ExportOther extends Controller {
                 }
             }
 
+            // delete committee when edit
             for(OtherTransfer_FF_Committee committee : ffCommittee){
                 committee.delete();
             }
@@ -170,13 +175,15 @@ public class ExportOther extends Controller {
                 committee.delete();
             }
 
+            // updatae status durableArticles to OTHERTRANSFER
             for(OtherTransferDetail detail : other.detail){
                 if(detail.durableArticles.status == SuppliesStatus.NORMAL ){
                     detail.durableArticles.status = SuppliesStatus.OTHERTRANSFER;
                     detail.durableArticles.update();
                 }
             }
-
+            
+            // updatae status OtherTransfer
             other.status = ExportStatus.SUCCESS;
             other.update();
         }
