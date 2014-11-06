@@ -133,6 +133,10 @@ GET             /report/DurableArticles/print                                   
 GET             /report/ImportDurableArticles                                   controllers.Report.reportImportDurableArticles()
 GET             /report/exportDurableArticles                                   controllers.Report.reportExportDurableArticles()
 GET             /report/exchangeDurableArticles                                 controllers.Report.reportExchangeDurableArticles()
+GET             /report/Auction                                                 controllers.Report.reportAuction()
+GET             /report/Donate                                                  controllers.Report.reportDonate()
+GET             /report/Repair                                                  controllers.Report.reportRepair()
+GET             /report/Borrow                                                  controllers.Report.reportBorrow()
 
 GET		/import/material						controllers.Import.importsMaterial()
 GET		/import/material2						controllers.Import.importsMaterial2(tab :String)

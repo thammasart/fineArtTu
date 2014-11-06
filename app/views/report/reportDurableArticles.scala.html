@@ -94,7 +94,7 @@
                      document.getElementById("de@index").innerHTML =code[code.length-11]+code[code.length-10]+code[code.length-9]+code[code.length-8];
                      document.getElementById("sp@index").innerHTML = "("+code[code.length-6]+code[code.length-5]+"/"+code[code.length-3]+code[code.length-2]+")";
                       
-                     if(parseInt(document.getElementById("de@index").innerHTML) != parseInt(document.getElementById("de@{index-1}").innerHTML) || parseInt(document.getElementById("sp@index").innerHTML[5]) != parseInt(document.getElementById("sp@{index-1}").innerHTML[5])){
+                     if(parseInt(document.getElementById("gr@index").innerHTML) != parseInt(document.getElementById("gr@{index-1}").innerHTML) ){
                          flag = flag * -1; 
                      }
                      var row = document.getElementById("row@index");

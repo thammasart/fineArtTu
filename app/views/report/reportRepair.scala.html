@@ -1,8 +1,8 @@
-@(user : User , ad : List[models.durableArticles.AuctionDetail])
+@(user : User , repair : List[models.durableArticles.RepairingDetail])
 @header("รายงาน")
 
 @nav(user)
-@headerTag("รายการโอนย้าย")
+@headerTag("รายการส่งซ่อม")
 
 
 @sideMenu(user)
@@ -10,7 +10,7 @@
 <div class="listWindow">
 
             <legend>
-                รายการโอนย้าย
+                รายการส่งซ่อม
             </legend>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
@@ -66,31 +66,44 @@
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">เลขที่ใบซ่อม</th>
                         <th style="text-align:center">รายการ</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">หน่วยนับ</th>
-                        <th style="text-align:center">ราคา/หน่วย</th>
-                        <th style="text-align:center">วันที่</th>
+                        <th style="text-align:center">วันที่ส่งซ่อม</th>
+                        <th style="text-align:center">วันที่รับคืน</th>
                         <th style="text-align:center">ที่เก็บ-เดิม</th>
-                        <th style="text-align:center">ที่เก็บ-ใหม่</th>
-                        <th style="text-align:center">โอนจาก</th>
-                        <th style="text-align:center">ประเภทงบประมาณ</th>
+                        <th style="text-align:center">ซ่อมที่</th>
+                        <th style="text-align:center">ส่งซ่อมโดยโดย</th>
+                        <th style="text-align:center">ประเภทการชำรุด</th>
+                        <th style="text-align:center">สถาณะปัจจุบัญ</th>
+                        <th style="text-align:center">ราคาซ่อม/รวม</th>
                     </tr>
                 </thead>
                 <tbody>
-                @for((detail,index)<-ad.zipWithIndex){
-                    <tr>
+                @for((repairs,index)<-repair.zipWithIndex){
+                    <tr id="tr@index">
                         <th style="text-align:center">@{index+1}</th>
-                        <th style="text-align:center">@detail.durableArticles.detail.fsn.descriptionDescription</th>
-                        <th style="text-align:center">@detail.durableArticles.code</th>
-                        <th style="text-align:center">@detail.durableArticles.detail.fsn.classifier</th>
-                        <th style="text-align:center">@detail.price</th>
-                        <th style="text-align:center">@detail.auction.getApproveDate()</th>
-                        <th style="text-align:center">@detail.durableArticles.room</th>
-                        <th style="text-align:center">@detail.auction.company.nameEntrepreneur</th>
-                        <th style="text-align:center">@detail.durableArticles.department</th>
-                        <th style="text-align:center">@detail.durableArticles.detail.procurement.budgetType</th>
+                        <th style="text-align:center">@repairs.repairing.number</th>
+                        <th style="text-align:center">@repairs.durableArticles.detail.fsn.descriptionDescription</th>
+                        <th style="text-align:center">@repairs.durableArticles.code</th>
+                        <th style="text-align:center">@repairs.durableArticles.detail.fsn.classifier</th>
+                        <th style="text-align:center">@repairs.repairing.getDateOfSentToRepair()</th>
+                        <th style="text-align:center">@repairs.repairing.getDateOfReceiveFromRepair()</th>
+                        <th style="text-align:center">@repairs.durableArticles.room</th>
+                        <th style="text-align:center">@repairs.repairing.company.nameEntrepreneur</th>
+                        <th style="text-align:center">@repairs.durableArticles.department</th>
+                        <th style="text-align:center">@repairs.description</th>
+                        <th id="rStatus@index" style="text-align:center">@repairs.repairing.status</th>
+                        <th style="text-align:center">@repairs.price</th>
                     </tr>
+                    <script>
+                        if(document.getElementById("rStatus@index").innerHTML == "SUCCESS"){
+                            document.getElementById("tr@index").style.color = "darkgreen";
+                        }else{
+                            document.getElementById("tr@index").style.color = "darkred";
+                        }
+                    </script>
                 }
                 </tbody>
             </table>
