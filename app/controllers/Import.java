@@ -1251,7 +1251,7 @@ public class Import extends Controller {
     	///Calculateeeeeeeeeeeeeeeeeee
     	
     	
-    	if(editingMode == false || procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+    	if(procurementDetail.status!=OrderDetailStatus.UNCHANGE)
     	{
 
 	    	procurementDetail.description = json.get("description").asText();
@@ -1505,6 +1505,16 @@ public class Import extends Controller {
 	    	for(int i=init;i<=halt;i++)
 	    	{	
 	    		DurableGoods goods;
+	    		if(procurementDetail.subDetails.size()>procurementDetail.quantity){
+	    			for(int j=procurementDetail.subDetails.size()-1; j>=0; j--){
+	    				DurableGoods g = procurementDetail.subDetails.get(j);
+	    				g.status = SuppliesStatus.DELETE; 
+	    				g.detail = null;
+	    				g.update();
+	    				procurementDetail.subDetails.remove(j);
+	    			}
+	    			procurementDetail.update();
+	    		}
 	    		if((i-1)<procurementDetail.subDetails.size()){
 	    			goods = procurementDetail.subDetails.get(i-1);
 	    			editingMode = true;
@@ -1639,7 +1649,7 @@ public class Import extends Controller {
     		editingMode = false;
     	}
     	
-    	if(editingMode == false || procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+    	if(procurementDetail.status!=OrderDetailStatus.UNCHANGE)
     	{
 	    	procurementDetail.description = json.get("description").asText();
 	    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
@@ -1671,6 +1681,7 @@ public class Import extends Controller {
 	    	
 	    	if(!editingMode) procurementDetail.save();
 	    	else procurementDetail.update();
+	    
 	    	
 	    	
 	    	/*durableArticles.code = json.get("code").asText();
@@ -1696,6 +1707,18 @@ public class Import extends Controller {
 	    	for(int i=init;i<=halt;i++)
 	    	{
 	    		DurableArticles dA;
+	    		if(procurementDetail.subDetails.size() > procurementDetail.quantity){
+	    			for(int j=procurementDetail.subDetails.size()-1; j>=0; j--){
+	    				if(procurementDetail.subDetails.size() > procurementDetail.quantity){
+	    					DurableArticles a = procurementDetail.subDetails.get(j);
+	    					a.detail = null;
+	    					a.status = SuppliesStatus.DELETE;
+	    					a.update();
+	    					procurementDetail.subDetails.remove(j);
+	    				}
+	    			}
+	    			procurementDetail.update();
+	    		}
 	    		if((i-1)<procurementDetail.subDetails.size()){
 	    			dA = procurementDetail.subDetails.get(i-1);
 	    			editingMode = true; 

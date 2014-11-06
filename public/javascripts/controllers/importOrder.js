@@ -107,10 +107,10 @@ function setDetail(id,tab,page){
     		    }else{
     		    	$radios.filter('[value=0]').prop('checked', true);
     		    }
-    		    if(result["typeOfGoods"] == undefined){
+    		    if(result["typeOfGood"] == undefined){
     		    	$('#typeOfGoods').val(0);
     		    }else{
-    		    	$('#typeOfGoods').val(result["typeOfGoods"]);
+    		    	$('#typeOfGoods').val(result["typeOfGood"]);
     		    }
     			
     			$('#procurementDetailId').val(result["id"]);
