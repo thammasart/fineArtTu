@@ -2523,4 +2523,40 @@ public class Import extends Controller {
         return ok(result);
         
     }
+    
+    @Security.Authenticated(Secured.class)
+    @BodyParser.Of(BodyParser.Json.class)
+	public static Result getDurableArticleBarcode(){
+    	RequestBody body = request().body();
+    	JsonNode json = body.asJson();
+    	String id = json.get("id").asText();
+    	ObjectNode result = Json.newObject();
+    	models.durableArticles.ProcurementDetail ps = models.durableArticles.ProcurementDetail.find.byId(Long.valueOf(id));
+    	ArrayNode arr = JsonNodeFactory.instance.arrayNode();
+    	for(DurableArticles d : ps.subDetails){
+    		arr.add(d.barCode);
+    	}
+    	result.put("barcode", arr);
+    	return ok(result);
+    }
+    
+    @Security.Authenticated(Secured.class)
+    @BodyParser.Of(BodyParser.Json.class)
+	public static Result getDutableGoodsBarcode(){
+    	RequestBody body = request().body();
+    	JsonNode json = body.asJson();
+    	String id = json.get("id").asText();
+    	ObjectNode result = Json.newObject();
+    	models.durableGoods.ProcurementDetail ps = models.durableGoods.ProcurementDetail.find.byId(Long.valueOf(id));
+    	if(ps.typeOfDurableGoods == 1){
+    		ArrayNode arr = JsonNodeFactory.instance.arrayNode();
+    		for(DurableGoods d : ps.subDetails){
+    			arr.add(d.barCode);
+    		}
+    		result.put("barcode", arr);
+    	}else{
+    		result.put("barcode", "none");
+    	}
+    	return ok(result);
+    }
 }

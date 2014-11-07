@@ -156,7 +156,7 @@ public class ExportOrder extends Controller {
             JsonNode json = body.asJson();
             RequisitionDetail newDetail = new RequisitionDetail();
             Requisition requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
-            if(requisition != null && requisition.status == ExportStatus.INIT){
+            if(requisition != null && (requisition.status == ExportStatus.INIT || requisition.status == ExportStatus.SUCCESS)){
                 newDetail.requisition = requisition;
             }
             else{
@@ -182,6 +182,9 @@ public class ExportOrder extends Controller {
             else{
                 newDetail.quantity = quantity;
             }
+
+            newDetail.description = json.get("description").asText();
+
             String firstName = json.get("withdrawerNmae").asText();
             String lastName = json.get("withdrawerLastname").asText();
             String position = json.get("withdrawerPosition").asText();
@@ -215,11 +218,11 @@ public class ExportOrder extends Controller {
             JsonNode json = body.asJson();
             RequisitionDetail newDetail = RequisitionDetail.find.byId((new Long(json.get("id").toString())));
             Requisition requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
-            if(newDetail != null && requisition != null && requisition.status == ExportStatus.INIT){
+            if(newDetail != null && requisition != null && (requisition.status == ExportStatus.INIT || requisition.status == ExportStatus.SUCCESS) ){
                 newDetail.requisition = requisition;
             }
             else{
-                result.put("message", "ไม่สามารถเพิ่มรายการเบิกใรก ใบเบิก เลขที่" + json.get("requisitionId") + "ได้");
+                result.put("message", "ไม่สามารถเพิ่มรายการเบิกใรก ใบเบิก เลขที่ " + json.get("requisitionId") + " ได้");
                 result.put("status", "error");
                 return ok(result);
             }
@@ -241,6 +244,9 @@ public class ExportOrder extends Controller {
             else{
                 newDetail.quantity = quantity;
             }
+
+            newDetail.description = json.get("description").asText();
+
             String firstName = json.get("withdrawerNmae").asText();
             String lastName = json.get("withdrawerLastname").asText();
             String position = json.get("withdrawerPosition").asText();
