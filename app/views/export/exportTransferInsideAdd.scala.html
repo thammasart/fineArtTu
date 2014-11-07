@@ -98,7 +98,7 @@
             <th>สาขาวิชา<span class="glyphicon glyphicon-sort"></span></th>
             <th>ชั้น<span class="glyphicon glyphicon-sort"></span></th>
             <th>ห้อง<span class="glyphicon glyphicon-sort"></span></th>
-
+            <th></th>
           </tr>
         </thead>
         <tbody id="detailInTable">
@@ -228,4 +228,100 @@
   </div>
 </div>  
 
-@footerFull()
+<div class="detailWindow" id="editDetailWindows">
+  <div class="well" >
+    <h2 style ="text-align:center;">ข้อมูลครุภัณฑ์</h2>
+
+    <table class="table table-striped overlayTable">
+      <thead>
+        <tr>
+          <th>หมายเลขครุภัณฑ์ </th>
+          <th>รายละเอียดครุภัณฑ์ </th>
+          <th>ราคาต่อหน่วย </th>
+          <th>อายุการใช้งาน </th>
+          <th>ที่อยู่ สาขาวิชา </th>
+        </tr>
+      </thead>
+
+      <tbody id="searchResultTable">
+        <tr>
+          <th id="edit_fsn_Number"> - </th>
+          <th id="edit_fsn_description"> - </th>
+          <th id="edit_price"> - </th>
+          <th id="edit_llifeTime"> - </th>
+          <th id="edit_department"> - </th>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  
+  <div class="well">
+    <h2> ย้ายไปที่ </h2>
+    <div class="form-inline marginBtm1" align="left">
+      <div class="form-group"style="width:365px" >
+        <div class="input-group"> 
+          <span class="input-group-addon">สาขา</span>
+          <select class="form-control textAlignCenter  width300px" name="edit_sentToDepartment" id="edit_sentToDepartment">
+            <option>สาขาวิชาการละคอน</option>
+            <option>สาขาวิชาศิลปะการออกแบบพัสตราภรณ์</option>
+            <option>สาขาวิชาศิลปะการออกแบบอุตสาหกรรม</option>
+            <option>สำนักงานเลขานุการ</option>
+            <option>ห้องพัสดุ</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" >
+        <div class="input-group" style="width:131px">
+          <span class="input-group-addon" >ห้อง</span>
+          <input type="text" class="form-control textAlignCenter  width75px" name="edit_room" id="edit_room">
+          <span class="alertText" id="roomAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+      <div class="form-group" style="width:250px">
+        <div class="input-group" >
+          <span class="input-group-addon" >ชั้น</span>
+          <input type="text" class="form-control textAlignCenter  width50px" name="edit_floorLevel" id="edit_floorLevel">
+          <span class="alertText" id="floorLevelAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+    </div> 
+    
+    <h2> ผู้รับผิดชอบ </h2>
+    <div class="form-inline marginBtm1" role="form">
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon width125px">ชื่อ</span>
+            <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="edit_firstName" id="edit_firstName" onkeyup="mapInput1()">
+            <span class="alertText" id="recieveFirstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon width125px">นามสกุล</span>
+            <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="edit_lastName" id="edit_lastName">
+            <span class="alertText" id="recieveLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon width125px">ตำแหน่ง</span>
+            <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="edit_position" id="edit_position">
+            <span class="alertText" id="recievePositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div align="right" style="margin-bottom:1%; margin-right:3%;">
+    <button  type="button" class="btn btn-danger btn-lg width250px" onclick="addInternalTransferButton()" style="margin-top:1%;margin-right:1%;">
+      <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+    </button>
+    <button  type="button" class="btn btn-success btn-lg width250px" onclick="saveEditDetail()" style=" margin-top:1%;">
+      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+    </button>
+  </div>
+</div> 
+
+@footerFull() 
