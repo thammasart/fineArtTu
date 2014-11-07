@@ -12,6 +12,8 @@ var internalTransfer = {
 
 var newDetail = [];	
 var oldDetail = [];
+var details = [];
+var detailEdit = {};
 var checkedDetail = [];
 var isViewDetail = false;
 
@@ -24,6 +26,7 @@ function addDetailButton(){
 	updateTable();
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
+	document.getElementById("editDetailWindows").style.display = "none";
 	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการโอนย้ายภายใน";
 	document.getElementById("fsnCode").focus();
 }
@@ -31,7 +34,45 @@ function addDetailButton(){
 function addInternalTransferButton(){
 	document.getElementById("addWindows").style.display = "block";
 	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("editDetailWindows").style.display = "none";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+}
+
+function editDetail(code){
+	document.getElementById("addWindows").style.display = "none";
+	document.getElementById("addDetailWindows").style.display = "none";
+	document.getElementById("editDetailWindows").style.display = "block";
+	document.getElementById("titleInHeader").innerHTML = "แก้ไขรายละเอียดการโอนย้ายภายใน";
+	for(i = 0, len = details.length; i < len; i++){
+		if(details[i].id == code){
+			detailEdit = details[i];
+		}
+	}
+	detailEdit.id = code;
+
+	document.getElementById("edit_fsn_Number").innerHTML = detailEdit.durableArticles.code;
+    document.getElementById("edit_fsn_description").innerHTML = detailEdit.durableArticles.detail.fsn.descriptionDescription;
+    document.getElementById("edit_price").innerHTML = detailEdit.durableArticles.detail.price;
+    document.getElementById("edit_llifeTime").innerHTML = detailEdit.durableArticles.detail.llifeTime;
+    document.getElementById("edit_department").innerHTML = detailEdit.durableArticles.department;
+
+	var x  = document.getElementById("edit_sentToDepartment");
+	for (var i = 0; i < x.length; i++) {
+         if(detailEdit.department == x.options[i].value){
+         	x.options[i].selected = "true";
+         }
+    }
+    document.getElementById("edit_room").value = detailEdit.room ;
+    document.getElementById("edit_floorLevel").value = detailEdit.floorLevel;
+    document.getElementById("edit_firstName").value = detailEdit.recieverFirstName;
+    document.getElementById("edit_lastName").value = detailEdit.recieverLastName;
+    document.getElementById("edit_position").value = detailEdit.recieverPosition;
+    // document.getElementById("edit_description").focus();
+
+	if(document.getElementById("edit_cost")){
+		document.getElementById("edit_cost").value = detailEdit.price;
+		document.getElementById("edit_cost").focus();
+	}
 }
 
 function addNewDetai(code){
@@ -56,6 +97,7 @@ function findFSN(){
 		type: "GET",
 		url: "/export/searchFSN",
 		data: {'code': fsnCode, 'description' : des},
+		async:   false,
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		    if(data["status"] == "SUCCESS"){
@@ -120,15 +162,15 @@ function getDetail(){
 		type: "GET",
 		url: "/export/transferInside/loadDetail",
 		data: {'id': internalTransfer.id},
+		async:   false,
 		success: function(data){
 		   	//alert(JSON.stringify(data));
 		    if(data["status"] == "SUCCESS"){
-			   	var details = data["details"];
-			   	var detailLength = details.length;
-			   	var s = "";
+			   	details = data["details"];
+			   	s = "";
 			   	oldDetail = [];
 			   	destroyTable();
-				for (var i = 0; i < detailLength; i++) {
+				for (var i = 0; i < details.length; i++) {
 					oldDetail.push(details[i].durableArticles.id);
 					s += '<tr  id="detailRow' + details[i].id + '">';
 					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">' +
@@ -144,9 +186,13 @@ function getDetail(){
 					s += '	<th>'+ details[i].department +'</th>';
 					s += '	<th>'+ details[i].floorLevel +'</th>';
 					s += '	<th>'+ details[i].room +'</th>';
-					s += '</tr >';
+					s += '  <th onclick="editDetail('+ details[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" id="edit'+i+'"> แก้ไข </button> </th>';
+					s += '</tr>';
 			   	}
-			   	document.getElementById("detailInTable").innerHTML = s;
+			   	
+			   	if(document.getElementById("detailInTable")){
+			   		document.getElementById("detailInTable").innerHTML = s;
+			   	}
 			   	updateTable();
 
 			   	for (i = 0, len = checkedDetail.length; i < len; i++) {
@@ -167,6 +213,10 @@ function saveDetail(){
 	dataDetail.department = document.getElementById("department").value;
 	dataDetail.room = document.getElementById("room").value;
 	dataDetail.floorLevel = document.getElementById("floorLevel").value;
+	dataDetail.recieveFirstName = document.getElementById("recieveFirstName").value;
+	dataDetail.recieveLastName = document.getElementById("recieveLastName").value;
+	dataDetail.recievePosition = document.getElementById("recievePosition").value;
+
 	dataDetail.detail = newDetail;
 	$.ajax({
 		url:'/export/transferInside/saveDetail',
@@ -182,12 +232,16 @@ function saveDetail(){
 				document.getElementById("department").value = "";
 				document.getElementById("room").value = "";
 				document.getElementById("floorLevel").value = "";
+				document.getElementById("recieveFirstName").value = "";
+				document.getElementById("recieveLastName").value = "";
+				document.getElementById("recievePosition").value = "";
+
 				addInternalTransferButton();
 				newDetail = [];
 				getDetail();
 			}
 			else{
-				alert('save detail error : ' + data["message"]);
+				alert('save detail error : ' + result["message"]);
 			}
     	}
 	});
@@ -217,13 +271,46 @@ function deleteDetail(){
 	});
 }
 
+function saveEditDetail(){
+	detailEdit.department  = document.getElementById("edit_sentToDepartment").value;
+	detailEdit.room  = document.getElementById("edit_room").value;
+    detailEdit.floorLevel = document.getElementById("edit_floorLevel").value;
+    detailEdit.recieverFirstName = document.getElementById("edit_firstName").value;
+    detailEdit.recieverLastName = document.getElementById("edit_lastName").value;
+    detailEdit.recieverPosition = document.getElementById("edit_position").value;
+    detailEdit.transferInsideId = internalTransfer.id;
+	$.ajax({
+		url:'/export/transferInside/editDetail',
+	    type: 'post',
+	    data: JSON.stringify(detailEdit),
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		var status = result["status"];
+		    if(status == "SUCCESS"){
+	    		addInternalTransferButton();
+	    		getDetail();
+    			document.getElementById("edit_sentToDepartment").value = '';
+				document.getElementById("edit_room").value = '';
+			    document.getElementById("edit_floorLevel").value = '';
+			    document.getElementById("edit_firstName").value = '';
+			    document.getElementById("edit_lastName").value = '';
+			    document.getElementById("edit_position").value = '';
+	    	}
+	    	else{
+	    		alert('save detail error : ' + result["message"]);
+	    	}
+    	}
+	});
+}
+
 function init(id){
 	internalTransfer.id = id;
 	addInternalTransferButton();
 	getDetail();
 }
 
-function initViewDetial(id){
+function initViewDetail(id){
 	isViewDetail = true;
 	document.getElementById("title").disabled = true;
 	document.getElementById("number").disabled = true;
@@ -239,6 +326,10 @@ function initViewDetial(id){
 	init(id);
 	titleInHeader = "แสดงรายละเอียดการโอนย้ายภายใน";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+
+	for(i=0; i< details.length; i++){
+		document.getElementById("edit"+i).style.display = "none";
+	}
 }
 
 function changeToEdit(){
@@ -257,6 +348,10 @@ function changeToEdit(){
 
 	titleInHeader = "แก้ไขรายละเอียดการโอนย้ายภายใน";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+
+	for(i=0; i< details.length; i++){
+		document.getElementById("edit"+i).style.display = "block";
+	}
 }
 
 function submitButtonAddClick(){
