@@ -183,6 +183,7 @@ GET		/import/order/createGoodsAdd	    			controllers.Import.createImportsOrderGo
 GET		/import/order/GoodsAdd	    					controllers.Import.importsOrderGoodsAdd(id : Long)
 POST 	/import/saveNewGoodsOrder						controllers.Import.saveNewGoodsOrder()
 POST	/import/order/getDurableArticleBarcode			controllers.Import.getDurableArticleBarcode()
+POST	/import/order/getDutableGoodsBarcode			controllers.Import.getDutableGoodsBarcode()
 
 GET     /editUser                                       controllers.Application.editUser()
 

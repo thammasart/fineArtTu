@@ -103,6 +103,7 @@ function setDetail(id,tab,page){
     		if(page == 2){
     			var $radios = $('input:radio[name=goodsRadio]');
     		    if(result["typeOfGood"] == 1) {
+    		    	$('#getBarcodeGoods').show();
     		        $radios.filter('[value=1]').prop('checked', true);
     		    }else{
     		    	$radios.filter('[value=0]').prop('checked', true);
@@ -136,6 +137,7 @@ function setDetail(id,tab,page){
     			$('#b2').hide();
     			$('#page2 input').prop('disabled', true);
     			$('#isEditingOn').val('false');
+    			$('#getBarcodeArticle').show();
     		}else if(page == 3){
     				
     			if(tab == 1){
@@ -779,7 +781,7 @@ function submitButtonClickAr(){
     return submitStatus;
 }
 
-function getDurableBarcode(){
+function getDurableArticleBarcode(){
 	$.ajax({
 		url: '/import/order/getDurableArticleBarcode',
 	    type: 'post',
@@ -788,6 +790,23 @@ function getDurableBarcode(){
 	    dataType: 'json',
     	success: function(result){
     		printBarcode(result['barcode']);
+    	}
+	});
+}
+
+function getDutableGoodsBarcode(){
+	$.ajax({
+		url: '/import/order/getDutableGoodsBarcode',
+	    type: 'post',
+	    data: JSON.stringify( {"id" : $('#procurementDetailId').val()}), ////
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		if(result['barcode'] != 'none'){
+    			printBarcode(result['barcode']);
+    		}else{
+    			alert("not Found");
+    		}
     	}
 	});
 }
