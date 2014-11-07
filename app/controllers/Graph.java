@@ -2267,11 +2267,9 @@ public class Graph extends Controller {
     
     private static String getExpandableHTML(String header,String content){
 		String result = "";
-		result += "<div class=\"collapse-group\">";
-		result += "<div class=\"myBtn\" data-toggle=\"collapse\">"+header+"&nbsp<span class=\"glyphicon glyphicon-chevron-right\"></span></div>";
+		result += "<div class=\"myBtn\">"+header+"&nbsp<span class=\"glyphicon glyphicon-chevron-right\"></span></div>";
 		result += "<div class='collapse'>";
 			result += content;
-		result += "</div>";
 		result += "</div>";
 		return result;
 	}

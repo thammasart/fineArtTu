@@ -1,79 +1,81 @@
 @(user : User) 
-@header("ระบบติดตามและตรวจสอบ") 
-@nav(user)
-@headerTag("ระบบติดตามและตรวจสอบ") 
-@sideMenu(user)
-
-<script type="text/javascript" src="@routes.Assets.at("javascripts/jsapi.js")"></script>
-<script src="@routes.Assets.at("javascripts/controllers/graph.js")"></script>
-
-<div class="listWindow">
-	<div class="tableHeaderBtnContainer">
-            <div class="searchS">
-                <form>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">ค้นหา</span> <input type="text"
-                                class="form-control" style="width: 300px">
-                        </div>
-                    </div>
-                </form>
-            </div>
-	</div>
-	<ul class="nav nav-tabs" role="tablist" id="graph-tab"
-		style="height: 42px; margin-bottom: 10px;">
-		<li class="active"><a href="#relation" role="tab" data-toggle="tab">ความสัมพันธ์</a></li>
-		<li><a href="#tracking" role="tab" data-toggle="tab">ติดตามและตรวจสอบ</a></li>
-	</ul>
-	<div class="tab-content">
-		<div class="tab-pane fade in active" id="relation">
-			<div class="graph-content">
-	            <div id="dash-top" align="center" style="width:80%;float:left;">
-	                <button type="button" class="btn btn-primary active" onclick="setRelation('year',this)">รายปี</button>
-	                <button type="button" class="btn btn-primary" onclick="setRelation('quarter',this)">รายไตรมาส</button>
-	                <button type="button" class="btn btn-primary" onclick="setRelation('month',this)">รายเดือน</button>
+<div id="noPrintDiv">
+	@header("ระบบติดตามและตรวจสอบ") 
+	@nav(user)
+	@headerTag("ระบบติดตามและตรวจสอบ") 
+	@sideMenu(user)
+	<script type="text/javascript" src="@routes.Assets.at("javascripts/jsapi.js")"></script>
+	<script src="@routes.Assets.at("javascripts/controllers/graph.js")"></script>
+	
+	<div class="listWindow">
+		<div class="tableHeaderBtnContainer">
+	            <div class="searchS">
+	                <form>
+	                    <div class="form-group">
+	                        <div class="input-group">
+	                            <span class="input-group-addon">ค้นหา</span> <input type="text"
+	                                class="form-control" style="width: 300px">
+	                        </div>
+	                    </div>
+	                </form>
 	            </div>
-				<div class="well" style="width:20%;height:100%;float:right;" align="center">
-					<div class="btn-group-vertical">
-						<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue  active" onclick="setMode('balance',this)">การใช้งบประมาณ</button>
-						<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('procurement',this)">จำนวนนำเข้า</button>
-						<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('requisition',this)">จำนวนเบิกจ่าย</button>
-						<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('transfer',this)">จำนวนโอนย้าย</button>
-						<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('repairing',this)">จำนวนส่งซ่อม</button>
-						<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('remain',this)">จำนวนคงเหลือ</button>
+		</div>
+		<ul class="nav nav-tabs" role="tablist" id="graph-tab"
+			style="height: 42px; margin-bottom: 10px;">
+			<li class="active"><a href="#relation" role="tab" data-toggle="tab">ความสัมพันธ์</a></li>
+			<li><a href="#tracking" role="tab" data-toggle="tab">ติดตามและตรวจสอบ</a></li>
+		</ul>
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="relation">
+				<div class="graph-content">
+		            <div id="dash-top" align="center" style="width:80%;float:left;">
+		                <button type="button" class="btn btn-primary active" onclick="setRelation('year',this)">รายปี</button>
+		                <button type="button" class="btn btn-primary" onclick="setRelation('quarter',this)">รายไตรมาส</button>
+		                <button type="button" class="btn btn-primary" onclick="setRelation('month',this)">รายเดือน</button>
+		            </div>
+					<div class="well" style="width:20%;height:100%;float:right;" align="center">
+						<div class="btn-group-vertical">
+							<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue  active" onclick="setMode('balance',this)">การใช้งบประมาณ</button>
+							<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('procurement',this)">จำนวนนำเข้า</button>
+							<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('requisition',this)">จำนวนเบิกจ่าย</button>
+							<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('transfer',this)">จำนวนโอนย้าย</button>
+							<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('repairing',this)">จำนวนส่งซ่อม</button>
+							<button type="button" style="margin-bottom:10%; width:160px;"class="btn btn-primary btn-block shadowLightBlue" onclick="setMode('remain',this)">จำนวนคงเหลือ</button>
+						</div>
 					</div>
+					<div id="graph-container" class="graph-container"></div>
+					<!-- right pane content is option item where user choose -->
 				</div>
-				<div id="graph-container" class="graph-container"></div>
-				<!-- right pane content is option item where user choose -->
 			</div>
-		</div>
-		<!-- ========================================== tab2 ============================================ -->
-		<div class="tab-pane fade" id="tracking">
-			<div class="adminUserinfoTableContainer" id="tablePane">
-				<table class="table table-striped overlayTable" id="trackingTable">
-					<thead>
-						<tr>
-							<th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th>
-						</tr>
-					</thead>
-					<tbody>
-					</tbody>
-				</table>
+			<!-- ========================================== tab2 ============================================ -->
+			<div class="tab-pane fade" id="tracking">
+				<div class="adminUserinfoTableContainer" id="tablePane">
+					<table class="table table-striped overlayTable" id="trackingTable">
+						<thead>
+							<tr>
+								<th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<div id="description">
+					
+				</div>		
 			</div>
-			<div id="description">
-				
-			</div>		
+	
 		</div>
-
+		
+		<script>
+			$(function() {
+				$('#graph-tab a[href="#relation"]').tab('show');
+			})
+		</script>
+		<!--end tab content-->
+	
 	</div>
-	<script>
-		$(function() {
-			$('#graph-tab a[href="#relation"]').tab('show');
-		})
-	</script>
-	<!--end tab content-->
-
+	@footer()
 </div>
+<div id="printDiv" style="display: none;"></div>
 
-
-@footer()

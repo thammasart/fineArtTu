@@ -32,3 +32,11 @@
 .detailLabel.committee{
 	width: 17%;
 }
+@media print{
+	#printDiv{display: block;}
+	#noPrintDiv{display: none;}
+	table, th, td {border: 1px solid black !important;}
+	td:last-child {display:none}
+	th:last-child {display:none}
+	thead {display: table-header-group;}
+}

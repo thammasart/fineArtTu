@@ -175,6 +175,7 @@ function setData(obj,chart){
 		}
 		$('#graph-tab a[href="#tracking"]').tab('show');
 	}
+	//document.getElementById('printDiv').innerHTML = document.getElementById('graph-container').innerHTML;
 }
 
 function myRandom() {
@@ -316,21 +317,23 @@ function getDescription(className, ids){
 	 	    }
 	    }
 	});
+	state['page'] = 3;
 }
 
 function backToTable(){
 	$('#description').hide();
 	$('#description').html("");
 	$('#tablePane').show();
+	state['page'] == 2;
 }
 
 $(document).on('shown.bs.tab', 'a[href="#relation"]', function (e) {
+	backToTable();
 	state['clickedItem'] = {'row':-1 , 'column':-1};
 	state['lastSelected'] = state['clickedItem'];
 	state['page'] = 0;
 	state['selectedName'] = 'default';
 	drawChart();
-	backToTable();
 });
 
 $(document).on('shown.bs.tab', 'a[href="#tracking"]', function (e) {
@@ -339,6 +342,29 @@ $(document).on('shown.bs.tab', 'a[href="#tracking"]', function (e) {
 		setDataTableColumn("trackingTable",defaultThead);
 	}
 });
+window.onbeforeprint = function() {
+	destroyTable();
+    if(state['page'] == 0 || state['page'] == 1){
+    	document.getElementById('printDiv').innerHTML = document.getElementById('graph-container').innerHTML;
+    }else if(state['page'] == 2){
+    	document.getElementById('printDiv').innerHTML = document.getElementById('tablePane').innerHTML;
+    	var $header = $('#printDiv');
+    	$header.find("span").remove();
+    }else if(state['page'] == 3){
+    	document.getElementById('printDiv').innerHTML = document.getElementById('description').innerHTML;
+    	var $header = $('#printDiv');
+    	$header.find("button").remove();
+    	$header.find(".collapse").css('display','block');
+    }
+    $('#printDiv').show();
+};
+
+window.onafterprint = function() {
+	updateTable();
+	$('#printDiv').hide();
+};
+
+
 /*
 '<tr>
 <th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th>
