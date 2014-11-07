@@ -139,6 +139,7 @@ GET             /report/Auction                                                 
 GET             /report/Donate                                                  controllers.Report.reportDonate()
 GET             /report/Repair                                                  controllers.Report.reportRepair()
 GET             /report/Borrow                                                  controllers.Report.reportBorrow()
+GET             /report/Other                                                   controllers.Report.reportOther()
 
 GET		/import/material						controllers.Import.importsMaterial()
 GET		/import/material2						controllers.Import.importsMaterial2(tab :String)

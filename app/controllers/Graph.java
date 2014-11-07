@@ -9,6 +9,8 @@ import views.html.*;
 import models.*;
 import models.durableArticles.Auction;
 import models.durableArticles.AuctionDetail;
+import models.durableArticles.Borrow;
+import models.durableArticles.BorrowDetail;
 import models.durableArticles.Donation;
 import models.durableArticles.DonationDetail;
 import models.durableArticles.DurableArticles;
@@ -88,6 +90,8 @@ public class Graph extends Controller {
 		  result = getTransfer(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("repairing")){
 		  result = getRepairing(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
+	  }else if(mode.equals("borrow")){
+		  result = getBorrow(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }else if(mode.equals("remain")){
 		  result = getRemain(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
 	  }
@@ -125,6 +129,8 @@ public class Graph extends Controller {
         	result = getOtherTransferHTML(ids);
         }else if(className.equals("repair")){
         	result = getRepairHTML(ids);
+        }else if(className.equals("borrow")){
+        	result = getBorrowHTML(ids);
         }else if(className.equals("remain")){
         	if(ids.length < 2){
         		if(json.get("ids").asText().charAt(0) == '/'){
@@ -575,7 +581,7 @@ public class Graph extends Controller {
     		}
     		List<Repairing> rs = null;
     		if(col == 1 || col == 2){
-    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			rs = Repairing.find.where().between("dateOfReceiveFromRepair", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
     		}else if(col == 3 || col == 4){
     			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.REPAIRING).findList();
     		}
@@ -592,7 +598,7 @@ public class Graph extends Controller {
     		
     		List<Repairing> rs = null;
     		if(lCol == 1 || lCol == 2){
-    			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			rs = Repairing.find.where().between("dateOfReceiveFromRepair", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
     		}else if(lCol == 3 || lCol == 4){
     			rs = Repairing.find.where().between("dateOfSentToRepair", d.get(0), d.get(1)).eq("status", ExportStatus.REPAIRING).findList();
     		}
@@ -601,6 +607,88 @@ public class Graph extends Controller {
     	return result;
     }
     
+
+	private static ArrayNode getBorrow(String relation, int row, int col, int page, int lRow, int lCol, String selectedName) {
+		ArrayList<String> columns = new ArrayList<String>();
+    	columns.add("รับคืนเรียบร้อย");
+    	columns.add("ถูกยืม");
+    	ArrayNode result = getHeader(columns);
+    	if(row == -1 && col == -1){
+    		if(relation.equals("year")){
+    			for(int i=3; i>=0; i--){
+    				int year = Calendar.getInstance().get(Calendar.YEAR);
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				
+    				List<Date> date = getYearDate((3-i));
+    				ArrayList<Integer> d = getSumBorrow(date.get(0), date.get(1)); 
+    				year = year-i;
+    				tr.add(""+year);
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
+    				result.add(tr);
+    			}
+    		}else{
+    			int num = 12;
+    			if(relation.equals("quarter")) num = 4;
+    			for(int i=0; i<num; i++){
+    				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+    				ArrayList<Integer> d;
+    				if(relation.equals("month")){
+    					List<Date> date = getMonthDate(i);
+        				d = getSumRepair(date.get(0), date.get(1));
+    					tr.add(new SimpleDateFormat("MMM",new Locale("th", "th")).format(cal.getTime()));
+    				}else{
+    					List<Date> date = getQuarterDate(i);
+        				d = getSumRepair(date.get(0), date.get(1));
+    					tr.add("Q"+(i+1));
+    				}
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
+    				result.add(tr);
+    			}
+    		}
+    	}else if(page != 2){
+    		//TODO borrow map
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(row);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(row);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(row);
+    		}
+    		List<models.durableArticles.Borrow> bs = null;
+    		if(col == 1 || col == 2){
+    			bs = models.durableArticles.Borrow.find.where().between("dateOfEndBorrow", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    		}else if(col == 3 || col == 4){
+    			bs = models.durableArticles.Borrow.find.where().between("dateOfStartBorrow", d.get(0), d.get(1)).eq("status", ExportStatus.BORROW).findList();
+    		}
+    		result = getDetailBorrowMap(bs);
+    	}else{
+    		//TODO borrow table
+    		List<Date> d = null;
+    		if(relation.equals("year")){
+    			d = getYearDate(lRow);
+    		}else if(relation.equals("month")){
+    			d = getMonthDate(lRow);
+    		}else if(relation.equals("quarter")){
+    			d = getQuarterDate(lRow);
+    		}
+    		
+    		List<models.durableArticles.Borrow> bs = null;
+    		if(lCol == 1 || lCol == 2){
+    			bs = models.durableArticles.Borrow.find.where().between("dateOfEndBorrow", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    		}else if(lCol == 3 || lCol == 4){
+    			bs = models.durableArticles.Borrow.find.where().between("dateOfStartBorrow", d.get(0), d.get(1)).eq("status", ExportStatus.BORROW).findList();
+    		}
+    		result = getTableBorrow(bs, selectedName);
+    	}
+    	return result;
+	}
 
 	private static ArrayNode getRemain(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
     	ArrayNode result = getDetailHeader();
@@ -654,7 +742,6 @@ public class Graph extends Controller {
     		//[unchange]rs.addAll(models.durableGoods.DurableGoods.find.where().le("detail.procurement.addDate", d.get(0)).eq("detail.procurement.status", ImportStatus.UNCHANGE).eq("typeOfDurableGoods", 0).findList());
 			result = getDetailRemainMap(ps,rs);
     	}else{
-    		//TODO
     		List<Date> d = null;
     		if(relation.equals("year")){
     			d = getYearDate(lRow);
@@ -715,13 +802,19 @@ public class Graph extends Controller {
 	
 	private static ArrayList<Integer> getSumRepair(Date startDate, Date endDate){
 		ArrayList<Integer> result = new ArrayList<Integer>();
-		result.add(models.durableArticles.Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		result.add(models.durableArticles.Repairing.find.where().between("dateOfReceiveFromRepair", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
 		result.add(models.durableArticles.Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.REPAIRING).findList().size());
 		return result;
 	}
 
+	private static ArrayList<Integer> getSumBorrow(Date startDate, Date endDate) {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+		result.add(models.durableArticles.Borrow.find.where().between("dateOfEndBorrow", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		result.add(models.durableArticles.Borrow.find.where().between("dateOfStartBorrow", startDate, endDate).eq("status", ExportStatus.BORROW).findList().size());
+		return result;
+	}
+
 	private static int getSumRemain(Date endDate) {
-		// TODO Sum Remain
 		int remainGoods = models.durableGoods.DurableGoods.find.where().le("detail.procurement.addDate", endDate).eq("detail.procurement.status", ImportStatus.SUCCESS).eq("typeOfDurableGoods", 0).findList().size();
 		//[unchange]remainGoods += models.durableGoods.DurableGoods.find.where().le("detail.procurement.addDate", endDate).eq("detail.procurement.status", ImportStatus.UNCHANGE).eq("typeOfDurableGoods", 0).findList().size();
 		List<models.consumable.RequisitionDetail> rs = models.consumable.RequisitionDetail.find.where().le("requisition.approveDate", endDate).eq("requisition.status", ExportStatus.SUCCESS).findList();
@@ -822,7 +915,7 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailBalanceMapGoods(List<models.durableGoods.Procurement> ps){
-    	ArrayNode result = ps.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+    	ArrayNode result = getDetailHeader();
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
 		for(models.durableGoods.Procurement p : ps){
 			for(models.durableGoods.ProcurementDetail pd : p.details){
@@ -864,7 +957,7 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailProcurementMapArticle(List<models.durableArticles.Procurement> ps){
-    	ArrayNode result = ps.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+    	ArrayNode result = getDetailHeader();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
 		for(models.durableArticles.Procurement p : ps){
 			for(models.durableArticles.ProcurementDetail pd : p.details){
@@ -895,7 +988,7 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailProcurementMapGoods(List<models.durableGoods.Procurement> ps){
-    	ArrayNode result = ps.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+    	ArrayNode result = getDetailHeader();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
 		for(models.durableGoods.Procurement p : ps){
 			for(models.durableGoods.ProcurementDetail pd : p.details){
@@ -935,7 +1028,7 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailRequisitionMap(List<models.consumable.Requisition> rs){
-    	ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+    	ArrayNode result = getDetailHeader();
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
     	for(models.consumable.Requisition r : rs){
     		for(models.consumable.RequisitionDetail rd : r.details){
@@ -966,7 +1059,7 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailInternalTranfersMap(List<InternalTransfer> rs) {
-		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+		ArrayNode result = getDetailHeader();
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
     	for(InternalTransfer r : rs){
     		for(InternalTransferDetail rd : r.detail){
@@ -995,7 +1088,7 @@ public class Graph extends Controller {
 	}
     
     private static ArrayNode getDetailAuctionTranfersMap(List<Auction> rs) {
-		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+		ArrayNode result = getDetailHeader();
 		HashMap<String, Integer> listResult = new HashMap<String,Integer>();
 		for(Auction r : rs){
 			for(AuctionDetail rd : r.detail){
@@ -1024,7 +1117,7 @@ public class Graph extends Controller {
 	}
 
 	private static ArrayNode getDetailDonationTranfersMap(List<Donation> rs) {
-		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+		ArrayNode result = getDetailHeader();
 		HashMap<String, Integer> listResult = new HashMap<String,Integer>();
 		for(Donation r : rs){
 			for(DonationDetail rd : r.detail){
@@ -1053,7 +1146,7 @@ public class Graph extends Controller {
 	}
 
 	private static ArrayNode getDetailOtherTranfersMap(List<OtherTransfer> rs) {
-		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+		ArrayNode result = getDetailHeader();
 		HashMap<String, Integer> listResult = new HashMap<String,Integer>();
 		for(OtherTransfer r : rs){
 			for(OtherTransferDetail rd : r.detail){
@@ -1111,11 +1204,40 @@ public class Graph extends Controller {
 	}*/
     
 	private static ArrayNode getDetailRepairingMap(List<Repairing> rs) {
-		ArrayNode result = rs.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+		ArrayNode result =  getDetailHeader();
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
     	for(Repairing r : rs){
     		for(RepairingDetail rd : r.detail){
     			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+    			Integer value = listResult.get(key);
+				if(value == null){
+					listResult.put(key, 1);
+				}else{
+					listResult.put(key, listResult.get(key) + 1);
+				}
+    		}
+    	}
+    	int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+		if(result.size() <= 1){
+			result.add(getEmptyMapDetail());
+		}
+		return result;
+	}
+
+	private static ArrayNode getDetailBorrowMap(List<models.durableArticles.Borrow> bs) {
+		ArrayNode result = getDetailHeader();
+    	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
+    	for(models.durableArticles.Borrow b : bs){
+    		for(models.durableArticles.BorrowDetail bd : b.detail){
+    			String key = bd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
     			Integer value = listResult.get(key);
 				if(value == null){
 					listResult.put(key, 1);
@@ -1669,6 +1791,40 @@ public class Graph extends Controller {
 		return result;
 	}
 	
+	private static ArrayNode getTableBorrow(List<models.durableArticles.Borrow> bs, String selectedName) {
+		ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+		for(models.durableArticles.Borrow b : bs){
+			for(models.durableArticles.BorrowDetail bd : b.detail){
+				String key = bd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
+				if(key.equals(selectedName)){
+					key = bd.durableArticles.detail.fsn.descriptionDescription;
+					Integer value = listResult.get(key);
+					if(value == null){
+						listResult.put(key, 1);
+						ids.put(key,"" + bd.id);
+					}else{
+						listResult.put(key, value + 1);
+						ids.put(key,ids.get(key) + "," + bd.id );
+						//cost.put(key, rd.price);
+					}
+				}
+			}
+		}
+		int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(getDescriptionButton("borrow", ids.get(key)));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+		return result;
+	}
+
 	private static ArrayNode getTableRemain(List<ProcurementDetail> ps, List<models.consumable.Requisition> rs, String selectedName) {
 		// TODO Auto-generated method stub
 		ArrayNode result = JsonNodeFactory.instance.arrayNode();
@@ -2122,20 +2278,19 @@ public class Graph extends Controller {
 			result += getDetailLabel("id", String.valueOf(rd.id));
 			result += getDetailLabel("รายการ/เรื่อง", rd.repairing.title);
 			result += getDetailLabel("หมายเลขใบรายการ", rd.repairing.number);
-			result += getDetailLabel("ร้านค้าที่ส่งซ่อม", "pending");
+			result += getDetailLabel("ร้านค้าที่ส่งซ่อม", r.company.nameEntrepreneur);
 			result += getDetailLabel("วันที่ส่งซ่อม", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(rd.repairing.dateOfSentToRepair));
 			if(rd.repairing.dateOfReceiveFromRepair != null){
 				result += getDetailLabel("วันที่รับคืน", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(rd.repairing.dateOfReceiveFromRepair));
 			}
-			//TODO ผู้รับผิดชอบ
-			result += getDetailLabel("ผู้อนุมัติ", "pending");//String.format("%s %s %s", rd.repairing.approver.namePrefix, rd.repairing.approver.firstName, rd.repairing.approver.lastName ));
+			result += getDetailLabel("ผู้อนุมัติ",String.format("%s %s %s", rd.repairing.approver.namePrefix, rd.repairing.approver.firstName, rd.repairing.approver.lastName ));
+			detailsCodes += getDetailLabel("ราคาส่งซ่อม", String.valueOf(r.repairCosts));
 			for(; i<ids.length; i++){
 				id = ids[i];
 				RepairingDetail newDetail = RepairingDetail.find.byId(Long.valueOf(id));
 				if(newDetail.repairing.equals(r)){
 					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
 					detailsCodes += getDetailLabel("ลักษณะการชำรุด", newDetail.description);
-					detailsCodes += getDetailLabel("ราคาส่งซ่อม", "pending");
 				}else{
 					i--;
 					break;
@@ -2149,6 +2304,45 @@ public class Graph extends Controller {
 		return result;
 	}
 	
+	private static String getBorrowHTML(String[] ids) {
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(int i=0; i<ids.length; i++){
+			String id = ids[i];
+			String detailsCodes = "";
+			BorrowDetail bd = BorrowDetail.find.byId(Long.valueOf(id));
+			Borrow b = bd.borrow; 
+			result += "<div class=\"well\">";
+			
+			result += getDetailLabel("id", String.valueOf(bd.id));
+			result += getDetailLabel("รายการ/เรื่อง", bd.borrow.title);
+			result += getDetailLabel("หมายเลขใบรายการ", bd.borrow.number);
+			result += getDetailLabel("ผู้ยืม", String.format("%s %s %s", b.user.namePrefix, b.user.firstName, b.user.lastName));
+			result += getDetailLabel("ผู้อนุมัติ", String.format("%s %s %s", b.approver.namePrefix, b.approver.firstName, b.approver.lastName ));
+			result += getDetailLabel("วันที่ยืม", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(b.dateOfStartBorrow));
+			if(b.dateOfEndBorrow != null){
+				result += getDetailLabel("วันที่รับคืน", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(b.dateOfEndBorrow));
+			}
+			//TODO ผู้รับผิดชอบ
+			for(; i<ids.length; i++){
+				id = ids[i];
+				BorrowDetail newDetail = BorrowDetail.find.byId(Long.valueOf(id));
+				if(newDetail.borrow.equals(b)){
+					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+					detailsCodes += getDetailLabel("รายละเอียดเพิ่มเติม", "pending");//newDetail.description);
+				}else{
+					i--;
+					break;
+				}
+			}
+			
+			result += getExpandableHTML("รายการส่งซ่อม", detailsCodes);
+			result += "</div>";
+		}
+		result += "</div>";
+		return result;
+	}
+
 	private static String getRemainHTML(String[] ids1, String[] ids2) {
 		// TODO Auto-generated method stub
 		String result = "<div>";
@@ -2212,7 +2406,7 @@ public class Graph extends Controller {
     	//HashMap<String,Double> cost = new HashMap<String,Double>();
     	
     	if(col == 1){ // ซ่อมแล้ว
-    		List<Repairing> repaireds = Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
+    		List<Repairing> repaireds = Repairing.find.where().between("dateOfReceiveFromRepair", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
     		for(Repairing r : repaireds){
     			for(RepairingDetail rd : r.detail){
     				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
@@ -2231,7 +2425,7 @@ public class Graph extends Controller {
     			}
     		}
     	}else if(col == 2){ // กำลังซ่อม
-    		List<Repairing> repairings = Repairing.find.where().between("dateOfSentToRepair", startDate, endDate).eq("status", ExportStatus.REPAIRING).findList();
+    		List<Repairing> repairings = Repairing.find.where().between("dateOfReceiveFromRepair", startDate, endDate).eq("status", ExportStatus.REPAIRING).findList();
     		for(Repairing r : repairings){
     			for(RepairingDetail rd : r.detail){
     				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;

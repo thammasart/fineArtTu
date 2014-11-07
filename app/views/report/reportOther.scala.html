@@ -1,16 +1,14 @@
-@(user : User , borrow : List[models.durableArticles.BorrowDetail])
+@(user : User , ot: List[models.durableArticles.OtherTransferDetail])
 @header("รายงาน")
 
 @nav(user)
-@headerTag("รายการยืม/คืน")
-
-
+@headerTag("รายการโอย้ายอื่นๆ")
 @sideMenu(user)
 
 <div class="listWindow">
 
             <legend>
-                รายการยืม/คืน
+                รายการโอย้ายอื่นๆ
             </legend>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
@@ -70,28 +68,26 @@
                         <th style="text-align:center">รายการ</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">หน่วยนับ</th>
-                        <th style="text-align:center">วันที่ยืม</th>
-                        <th style="text-align:center">วันที่รับคืน</th>
+                        <th style="text-align:center">วันที่โอน</th>
                         <th style="text-align:center">ที่เก็บ-เดิม</th>
-                        <th style="text-align:center">ยืมโดย</th>
-                        <th style="text-align:center">หมายเหตุการยืม</th>
-                        <th style="text-align:center">สถาณะปัจจุบัญ</th>
+                        <th style="text-align:center">ผู้อนุมัติ</th>
+                        <th style="text-align:center">รายละเอียดการโอน</th>
+                        <th style="text-align:center">สถาณะใบโอน</th>
                     </tr>
                 </thead>
                 <tbody>
-                @for((borrows,index)<-borrow.zipWithIndex){
+                @for((others,index)<-ot.zipWithIndex){
                     <tr id="tr@index">
                         <th style="text-align:center">@{index+1}</th>
-                        <th style="text-align:center">@borrows.borrow.number</th>
-                        <th style="text-align:center">@borrows.durableArticles.detail.fsn.descriptionDescription</th>
-                        <th style="text-align:center">@borrows.durableArticles.code</th>
-                        <th style="text-align:center">@borrows.durableArticles.detail.fsn.classifier</th>
-                        <th style="text-align:center">@borrows.borrow.getDateOfStartBorrow()</th>
-                        <th style="text-align:center">@borrows.borrow.getDateOfEndBorrow()</th>
-                        <th style="text-align:center">@borrows.durableArticles.room</th>
-                        <th style="text-align:center">@borrows.borrow.user.firstName</th>
-                        <th style="text-align:center">@borrows.description</th>
-                        <th id="rStatus@index" style="text-align:center">@borrows.borrow.status</th>
+                        <th style="text-align:center">@others.otherTransfer.number</th>
+                        <th style="text-align:center">@others.durableArticles.detail.fsn.descriptionDescription</th>
+                        <th style="text-align:center">@others.durableArticles.code</th>
+                        <th style="text-align:center">@others.durableArticles.detail.fsn.classifier</th>
+                        <th style="text-align:center">@others.otherTransfer.getApproveDate()</th>
+                        <th style="text-align:center">@others.durableArticles.room</th>
+                        <th style="text-align:center">others.otherTransfer.approver.firstName</th>
+                        <th style="text-align:center">@others.otherTransfer.description</th>
+                        <th id="rStatus@index" style="text-align:center">@others.otherTransfer.status</th>
                     </tr>
                     <script>
                         if(document.getElementById("rStatus@index").innerHTML == "SUCCESS"){

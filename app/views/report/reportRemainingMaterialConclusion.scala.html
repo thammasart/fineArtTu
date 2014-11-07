@@ -1,4 +1,4 @@
-@(user : User , mc: List[MaterialCode], mt:List[MaterialType])
+@(user : User , mc: List[MaterialCode], mt:List[MaterialType], dg:List[models.durableGoods.DurableGoods])
 @header("รายงาน")
     <script src="@routes.Assets.at("javascripts/report.js")"></script>
 
@@ -72,6 +72,9 @@
            <div class="tableHeaderBtnContainer">
            </div>
         <div >
+            <legend>
+                วัสดุสิ้นเปลือง
+            </legend>
             <table class="table table-striped overlayTable" align="center">
                 <thead>
                     <tr>
@@ -98,6 +101,38 @@
                     <script>
                         document.getElementById("pt@index").innerHTML =  parseFloat(document.getElementById("re@index").innerHTML) * parseFloat(document.getElementById("pr@index").innerHTML) ;
                     </script>
+                    </tr>
+                }
+                </tbody>
+            </table>
+
+            <legend>
+                วัสดุคงทนถาวร
+            </legend>
+            <table class="table table-striped overlayTable" align="center">
+                <thead>
+                    <tr>
+                        <th style="text-align:center"> ลำดับที่</th>
+                        <th style="text-align:center"> รายการ </th>
+                        <th style="text-align:center"> หน่วย </th>
+                        <th style="text-align:center"> ปริมาณ </th>
+                        <th style="text-align:center"> ราคา/หน่วย </th>
+                        <th style="text-align:center"> จำนวนเงิน </th>
+                        <th style="text-align:center"> หมายเหตุ</th>
+                    </tr>
+                </thead>
+                <tbody>
+               @for((dgs,index) <-dg.zipWithIndex){
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@dgs.detail.description</th>
+                        <th style="text-align:center">@dgs.detail.getClassifier()</th>
+                        <th style="text-align:center" id="red@index">@dgs.detail.remain</th>
+                        <th style="text-align:center" id="prd@index">@dgs.detail.price</th>
+                        <th style="text-align:center" id="ptd@index">256.80</th>
+                        <th style="text-align:center">@dgs.detail.getGroupeType()</th>
+                        <script>
+                            document.getElementById("ptd@index").innerHTML =  parseFloat(document.getElementById("red@index").innerHTML) * parseFloat(document.getElementById("prd@index").innerHTML) ;
+                        </script>
                     </tr>
                 }
                 </tbody>

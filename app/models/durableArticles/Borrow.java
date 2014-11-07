@@ -26,7 +26,7 @@ public class Borrow extends Model{
 	public ExportStatus status;
 	
 	@ManyToOne
-	public User user; // ผู้ส่งซ่อมซ่อม
+	public User user; // ผู้ยืม
 	@ManyToOne
 	public User approver; // ผู้อนุมัติ
 
