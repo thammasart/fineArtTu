@@ -51,6 +51,7 @@ function editDetail(code){
 	document.getElementById("codeEdit").value = detailEdit.code.code;
 	document.getElementById("groupCodeEdit").value = detailEdit.code.description;
 	document.getElementById("quantityEdit").value = detailEdit.quantity;
+	document.getElementById("descriptionEdit").value = detailEdit.description;
   	document.getElementById("withdrawerEdit").value = detailEdit.withdrawer.firstName;
   	document.getElementById("withdrawerLastnameEdit").value = detailEdit.withdrawer.lastName;
   	document.getElementById("withdrawerPositionEdit").value = detailEdit.withdrawer.position;
@@ -62,9 +63,9 @@ function update(){
 }
 
 function updateDetail(){
-	//detail.description = document.getElementById("description").value;
 	detail.code = document.getElementById("code").value;
 	detail.quantity = document.getElementById("quantity").value;
+	detail.description = document.getElementById("description").value;
   	detail.withdrawerNmae = document.getElementById("withdrawer").value;
   	detail.withdrawerLastname = document.getElementById("withdrawerLastname").value;
   	detail.withdrawerPosition = document.getElementById("withdrawerPosition").value;
@@ -91,6 +92,7 @@ function getDetail(){
 		type: "GET",
 		url: "/export/order/loadDetail",
 		data: {'id': requisition.id},
+		async:   false,
 		success: function(data){
 			//details = JSON.stringify(data);
 			if(data["status"] == "SUCCESS"){
@@ -122,7 +124,7 @@ function getDetail(){
 						s += ' <th> null </th>';
 					}
 					s += ' <th>'+details[i].description+'</th>';
-					s += ' <th onclick="editDetail('+ details[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" > แก้ไข </button> </th>';
+					s += ' <th onclick="editDetail('+ details[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" id="edit'+i+'"> แก้ไข </button> </th>';
 					s += '</tr>';
 				}
 				document.getElementById("detailInTable").innerHTML = s;
@@ -163,6 +165,7 @@ function saveDetail(){
 function saveEditDetail(){
 	detailEdit.code = document.getElementById("codeEdit").value;
 	detailEdit.quantity = document.getElementById("quantityEdit").value;
+	detailEdit.description = document.getElementById("descriptionEdit").value;
   	detailEdit.withdrawerNmae = document.getElementById("withdrawerEdit").value;
   	detailEdit.withdrawerLastname = document.getElementById("withdrawerLastnameEdit").value;
   	detailEdit.withdrawerPosition = document.getElementById("withdrawerPositionEdit").value;
@@ -222,7 +225,7 @@ function initViewDetial(id){
 	isViewDetail = true;
 	document.getElementById("title").disabled = true;
 	document.getElementById("number").disabled = true;
-	document.getElementById("approveDate").disabled = true;
+	document.getElementById("date").disabled = true;
 	document.getElementById("firstName").disabled = true;
 	document.getElementById("lastName").disabled = true;
 	document.getElementById("position").disabled = true;
@@ -237,13 +240,17 @@ function initViewDetial(id){
 	init(id);
 	titleInHeader = "แสดงรายละเอียดการเบิกจ่าย";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+
+	for(i=0; i< details.length; i++){
+		document.getElementById("edit"+i).style.display = "none";
+	}
 }
 
 function changeToEdit(){
 	isViewDetail = false;
 	document.getElementById("title").disabled = false;
 	document.getElementById("number").disabled = false;
-	document.getElementById("approveDate").disabled = false;
+	document.getElementById("date").disabled = false;
 	document.getElementById("firstName").disabled = false;
 	document.getElementById("lastName").disabled = false;
 	document.getElementById("position").disabled = false;
@@ -258,6 +265,10 @@ function changeToEdit(){
 
 	titleInHeader = "แก้ไขรายละเอียดการเบิกจ่าย";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
+
+	for(i=0; i< details.length; i++){
+		document.getElementById("edit"+i).style.display = "block";
+	}
 }
 
 
