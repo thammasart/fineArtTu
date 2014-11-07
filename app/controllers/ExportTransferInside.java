@@ -162,6 +162,9 @@ public class ExportTransferInside extends Controller {
             String room = json.get("room").asText();
             String floorLevel = json.get("floorLevel").asText();
             InternalTransfer inside = InternalTransfer.find.byId(id);
+            String recieverFirstName = json.get("recieveFirstName").asText();
+            String recieverLastName = json.get("recieveLastName").asText();
+            String recieverposition = json.get("recievePosition").asText();
             if(inside != null){
                 for (final JsonNode objNode : json.get("detail")) {
                     id = Long.parseLong(objNode.toString());
@@ -173,6 +176,9 @@ public class ExportTransferInside extends Controller {
                         newDetail.department = department;
                         newDetail.room = room;
                         newDetail.floorLevel = floorLevel;
+                        newDetail.recieverFirstName = recieverFirstName;
+                        newDetail.recieverLastName = recieverLastName;
+                        newDetail.recieverposition = recieverposition;
                         newDetail.save();
                     }
                 }
@@ -181,6 +187,40 @@ public class ExportTransferInside extends Controller {
             else{
                 result.put("message","not Found transferInside id:" + id);
                 result.put("status", "error");
+            }
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
+    }
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
+    public static Result editTransferInsideDetail() {
+        ObjectNode result = Json.newObject();
+        try {
+            RequestBody body = request().body();
+            JsonNode json = body.asJson();
+
+            InternalTransferDetail insideDetail = InternalTransferDetail.find.byId((new Long(json.get("id").asText())));
+            InternalTransfer inside = InternalTransfer.find.byId(new Long(json.get("transferInsideId").asText()));
+            if( insideDetail != null && inside != null 
+                && (inside.status == ExportStatus.INIT ||inside.status == ExportStatus.SUCCESS) ){
+                insideDetail.department = json.get("department").asText();
+                insideDetail.room = json.get("room").asText();
+                insideDetail.floorLevel = json.get("floorLevel").asText();
+                insideDetail.recieverFirstName = json.get("recieverFirstName").asText();
+                insideDetail.recieverLastName = json.get("recieverLastName").asText();
+                insideDetail.recieverposition = json.get("recieverPosition").asText();
+                insideDetail.update();
+                result.put("status", "SUCCESS");
+            }
+            else{
+                result.put("message", "ไม่สามารถแก้ไข รายละเอียดการส่งซ่อม id:" + json.get("repairingId") + " ได้");
+                result.put("status", "error");
+                return ok(result);
             }
         }
         catch(Exception e){

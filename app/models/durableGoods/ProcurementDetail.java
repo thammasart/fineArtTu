@@ -11,6 +11,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import models.MaterialCode;
 import models.type.OrderDetailStatus;
 
+import models.fsnNumber.FSN_Description;
+
 
 @Entity
 @Table (name = "durable_goods_procurement_detail")
@@ -49,4 +51,13 @@ public class ProcurementDetail extends Model{
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,ProcurementDetail> find = new Finder(Long.class,ProcurementDetail.class);
+        
+        public String getClassifier(){
+            FSN_Description  fsn = FSN_Description.find.byId(this.code);           
+            return fsn.classifier;
+        }
+        public String getGroupeType(){
+            FSN_Description  fsn = FSN_Description.find.byId(this.code);           
+            return fsn.typ.groupClass.group.groupDescription;
+        }
 }

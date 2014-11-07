@@ -14,6 +14,10 @@ public class InternalTransferDetail extends Model{
 	public String room;	//ห้อง
 	public String floorLevel; //ชั้น
 
+	public String recieverFirstName;
+	public String recieverLastName;
+	public String recieverposition;
+
 	@ManyToOne
 	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการโอนย่าย
 
