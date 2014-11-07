@@ -2526,7 +2526,7 @@ public class Import extends Controller {
     
     @Security.Authenticated(Secured.class)
     @BodyParser.Of(BodyParser.Json.class)
-	public static Result getDurableBarcode(){
+	public static Result getDurableArticleBarcode(){
     	RequestBody body = request().body();
     	JsonNode json = body.asJson();
     	String id = json.get("id").asText();

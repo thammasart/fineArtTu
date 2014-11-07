@@ -779,3 +779,16 @@ function submitButtonClickAr(){
     return submitStatus;
 }
 
+function getDurableBarcode(){
+	$.ajax({
+		url: '/import/order/getDurableArticleBarcode',
+	    type: 'post',
+	    data: JSON.stringify( {"id" : $('#procurementDetailId').val()}), ////
+	    contentType: 'application/json',
+	    dataType: 'json',
+    	success: function(result){
+    		printBarcode(result['barcode']);
+    	}
+	});
+}
+

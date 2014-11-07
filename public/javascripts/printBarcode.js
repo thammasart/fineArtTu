@@ -1,9 +1,9 @@
-var url = "localhost/TSC-PHP.php";
+var url = "http://localhost/TSC-PHP.php";
 
 function printBarcode(code){
 	if(code instanceof Array){
-		$.get(url, { 'colors[]' : code });
+		$.get(url, { 'code[]' : code });
 	}else{
-		$.get(url, { 'colors[]' : [code] });
+		$.get(url, { 'code[]' : [code] });
 	}
 }
