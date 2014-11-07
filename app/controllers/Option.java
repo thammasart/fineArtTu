@@ -61,7 +61,7 @@ public class Option extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         
         List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status",ImportStatus.SUCCESS).findList(); 
-        /*
+    
         for(models.durableArticles.Procurement p:ps)
         {
         	if(p.getCurrentYear() == p.yearStatus)
@@ -85,16 +85,17 @@ public class Option extends Controller {
     	p.update();
         }
         /////////////////////////////////////////Testtttttttt
-        */
+  
         
         
+        /*
         List<models.durableArticles.DurableArticles> d = DurableArticles.find.all();
         for(models.durableArticles.DurableArticles ds:d)
         {
         	System.out.println(ds.getDepreciationPrice());
         	break;
         }
-
+*/
         
         
         return ok(optionCalculateDepreciate.render(user,ps));

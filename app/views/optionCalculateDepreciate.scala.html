@@ -60,7 +60,7 @@
 	                    <th>@subOrders.quantity</th>
 	                    <th>@articleOrder.round(subOrders.getSumablePrice(),2)</th>
 	                    <th>@subOrders.llifeTime</th>
-	                    <th>@articleOrder.round(subOrders.getSumablePrice()/subOrders.llifeTime,2)</th> <!-- ค่าเสื่อมต่อปี -->
+	                    <th>@articleOrder.round(subOrders.getAnnualDepricate(),2)</th> <!-- ค่าเสื่อมต่อปี -->
 	
 	                    
 	                    <!-- ค่าเสือมสะสม -->
