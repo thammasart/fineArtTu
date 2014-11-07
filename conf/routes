@@ -33,6 +33,7 @@ POST 	/export/transferInside/saveInside 		controllers.ExportTransferInside.saveI
 GET 	/export/transferInside/cancelInside 	controllers.ExportTransferInside.cancelInternalTransfer(id:Long)
 POST 	/export/transferInside/saveDetail 		controllers.ExportTransferInside.saveTransferInsideDetail()
 POST 	/export/transferInside/deleteDetail 	controllers.ExportTransferInside.deleteTransferInsideDetail()
+POST 	/export/transferInside/editDetail 		controllers.ExportTransferInside.editTransferInsideDetail()
 GET 	/export/transferInside/loadDetail 		controllers.ExportTransferInside.loadTransferInsideDetail(id:Long)
 GET 	/export/transferInside/viewDetail 		controllers.ExportTransferInside.viewDetail(id:Long)
 

@@ -1,17 +1,17 @@
 @(user : User, inside:models.durableArticles.InternalTransfer)
-@header("exportTransferInsideViewDetail")
+@header("exportTransferInsideAdd")
 
   <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/internalTransfer.js")"></script>
   <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
-<body onload="initViewDetial(@inside.id)"ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
+<body onload="initViewDetail(@inside.id)"ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการโอนย้ายภายใน")
 
 @cancelExportAdd()
-
+@cancelList()
 <div class="detailWindow"  id="changeToEditButton">
       <button onclick="changeToEdit();" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">
         แก้ไขรายละเอียด
@@ -44,9 +44,7 @@
           <div class="input-group" id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
             <input type="text" class="form-control width300px" value="@inside.getApproveDate()" id="approveDate"  name="approveDate" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px" id="datepickerbutton">
-              <span class="datepickerbutton glyphicon glyphicon-calendar"></span>
-            </span>
+            <span class="input-group-addon width25px" id="datepickerbutton"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
               <span class="alertText" id="approveDateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -56,7 +54,7 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(inside.approver != null){ value="@inside.approver.firstName" } name="approverFirstName" id="approverFirstName" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" autocomplete="off" @if(inside.approver != null){ value="@inside.approver.firstName" } name="approverFirstName" id="approverFirstName" onclick="mapInput2()">
               <span class="alertText" id="approverFirstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -92,7 +90,7 @@
         </div>
         <div id="editDetail">
           <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มครุภัณฑ์</button>
-          <button  type="button" class="btn btn-danger width200px" style="float:right;" onclick="deleteDetail()">ลบครุภัณฑ์</button>
+          <button  type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบครุภัณฑ์</button>
         </div> 
       </div>
 
@@ -106,6 +104,7 @@
             <th>สาขาวิชา<span class="glyphicon glyphicon-sort"></span></th>
             <th>ชั้น<span class="glyphicon glyphicon-sort"></span></th>
             <th>ห้อง<span class="glyphicon glyphicon-sort"></span></th>
+            <th></th>
           </tr>
         </thead>
         <tbody id="detailInTable">
@@ -115,9 +114,9 @@
 
     </div> <!-- end well -->
 
-    <div align="center" style="margin-bottom:1%;" id="saveExport">
+    <div align="center" style="margin-bottom:1%;">
       <!--<a href="@routes.ExportTransferInside.cancelInternalTransfer(inside.id)">-->
-        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;"onclick="addId(@inside.id)" ng-click="openCancelModal('cancelInternalTransfer')">
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;"onclick="addId(@inside.id)" ng-click="openCancelModal('cancelInside')">
             <span class="glyphicon glyphicon-remove"></span> ยกเลิก
         </button>
       </a>
@@ -225,7 +224,7 @@
               </div>
     </div>
 
-  <div align="right" style="margin-bottom:1%; margin-right:3%;">
+  <div align="right" style="margin-bottom:1%; margin-right:3%;" id="saveExport">
     <button  type="button" class="btn btn-danger btn-lg width250px" onclick="addInternalTransferButton()" style="margin-top:1%;margin-right:1%;">
       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
     </button>
@@ -235,4 +234,100 @@
   </div>
 </div>  
 
-@footerFull()
+<div class="detailWindow" id="editDetailWindows">
+  <div class="well" >
+    <h2 style ="text-align:center;">ข้อมูลครุภัณฑ์</h2>
+
+    <table class="table table-striped overlayTable">
+      <thead>
+        <tr>
+          <th>หมายเลขครุภัณฑ์ </th>
+          <th>รายละเอียดครุภัณฑ์ </th>
+          <th>ราคาต่อหน่วย </th>
+          <th>อายุการใช้งาน </th>
+          <th>ที่อยู่ สาขาวิชา </th>
+        </tr>
+      </thead>
+
+      <tbody id="searchResultTable">
+        <tr>
+          <th id="edit_fsn_Number"> - </th>
+          <th id="edit_fsn_description"> - </th>
+          <th id="edit_price"> - </th>
+          <th id="edit_llifeTime"> - </th>
+          <th id="edit_department"> - </th>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  
+  <div class="well">
+    <h2> ย้ายไปที่ </h2>
+    <div class="form-inline marginBtm1" align="left">
+      <div class="form-group"style="width:365px" >
+        <div class="input-group"> 
+          <span class="input-group-addon">สาขา</span>
+          <select class="form-control textAlignCenter  width300px" name="edit_sentToDepartment" id="edit_sentToDepartment">
+            <option>สาขาวิชาการละคอน</option>
+            <option>สาขาวิชาศิลปะการออกแบบพัสตราภรณ์</option>
+            <option>สาขาวิชาศิลปะการออกแบบอุตสาหกรรม</option>
+            <option>สำนักงานเลขานุการ</option>
+            <option>ห้องพัสดุ</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group" >
+        <div class="input-group" style="width:131px">
+          <span class="input-group-addon" >ห้อง</span>
+          <input type="text" class="form-control textAlignCenter  width75px" name="edit_room" id="edit_room">
+          <span class="alertText" id="roomAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+      <div class="form-group" style="width:250px">
+        <div class="input-group" >
+          <span class="input-group-addon" >ชั้น</span>
+          <input type="text" class="form-control textAlignCenter  width50px" name="edit_floorLevel" id="edit_floorLevel">
+          <span class="alertText" id="floorLevelAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+    </div> 
+    
+    <h2> ผู้รับผิดชอบ </h2>
+    <div class="form-inline marginBtm1" role="form">
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon width125px">ชื่อ</span>
+            <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="edit_firstName" id="edit_firstName" onkeyup="mapInput1()">
+            <span class="alertText" id="recieveFirstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon width125px">นามสกุล</span>
+            <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="edit_lastName" id="edit_lastName">
+            <span class="alertText" id="recieveLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+            <span class="input-group-addon width125px">ตำแหน่ง</span>
+            <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="edit_position" id="edit_position">
+            <span class="alertText" id="recievePositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div align="right" style="margin-bottom:1%; margin-right:3%;">
+    <button  type="button" class="btn btn-danger btn-lg width250px" onclick="addInternalTransferButton()" style="margin-top:1%;margin-right:1%;">
+      <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+    </button>
+    <button  type="button" class="btn btn-success btn-lg width250px" onclick="saveEditDetail()" style=" margin-top:1%;">
+      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+    </button>
+  </div>
+</div> 
+
+@footerFull() 
