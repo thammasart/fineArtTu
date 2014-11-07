@@ -118,4 +118,14 @@ public class Report  extends Controller {
         }
         return ok(reportBorrow.render(user,bd));
     }
+    @Security.Authenticated(Secured.class)
+        public static Result reportOther() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        List<OtherTransfer> other = OtherTransfer.find.all();
+        List<OtherTransferDetail> otherD = new ArrayList<OtherTransferDetail>();
+        for(OtherTransfer ot : other){
+            otherD.addAll(ot.detail);
+        }
+        return ok(reportOther.render(user,otherD));
+    }
 }
