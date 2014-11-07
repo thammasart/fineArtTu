@@ -14,6 +14,7 @@ import models.fsnNumber.*;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Report  extends Controller {
 
@@ -46,8 +47,19 @@ public class Report  extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<MaterialCode> mc = MaterialCode.find.all();
         List<MaterialType> mt = MaterialType.find.all();
+        List<DurableGoods> dg = DurableGoods.find.where().eq("typeOfDurableGoods",1).findList();
+        List<DurableGoods> dList = new ArrayList<DurableGoods>();
+    	HashMap<String, DurableGoods> listResult = new HashMap<String,DurableGoods>();
+
+        for(DurableGoods each : dg){
+            listResult.put(each.detail.code,each);
+        }
+
+        for(String each : listResult.keySet()){
+            dList.add(listResult.get(each));
+        }
         
-        return ok(reportRemainingMaterialConclusion.render(user,mc,mt));
+        return ok(reportRemainingMaterialConclusion.render(user,mc,mt,dList));
     }
     
     @Security.Authenticated(Secured.class)
