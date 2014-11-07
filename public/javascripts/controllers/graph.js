@@ -19,7 +19,7 @@ var requisitionThead = '<tr><th>ลำดับที่<span class="glyphicon g
 var transferThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่โอนย้าย<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var repairingThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var repairedThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th><th>ราคา<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
-var repairedThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่ส่งซ่อม<span class="glyphicon glyphicon-sort"></span></th><th>ราคา<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
+var borrowThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่ถูกยืม<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var remainThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่คงเหลือ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var options = {
 		title : 'เปรียบเทียบการใช้งบประมาณรายเดือน',
@@ -52,7 +52,8 @@ var mode = {
 	repairing : 'เปรียบเทียบจำนวนการส่งซ่อม',
 	remain : 'เปรียบเทียบจำนวนคงเหลือ',
 	transfer : 'เปรียบเทียบจำนวนการโอนย้าย',
-	remain : 'เปรียบเทียบจำนวนคงเหลือ'
+	remain : 'เปรียบเทียบจำนวนคงเหลือ',
+	borrow : 'เปรียบเทียบจำนวนการยืม'
 };
 var relationBtn = null;
 var relation = {
@@ -170,6 +171,8 @@ function setData(obj,chart){
 			}else{
 				setDataTableColumn("trackingTable", repairingThead).rows.add(obj).draw();
 			}*/
+		}else if(state['mode'] == 'borrow'){
+			setDataTableColumn("trackingTable", borrowThead).rows.add(obj).draw();
 		}else if(state['mode'] == 'remain'){
 			setDataTableColumn("trackingTable", remainThead).rows.add(obj).draw();
 		}
