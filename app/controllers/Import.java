@@ -1004,7 +1004,7 @@ public class Import extends Controller {
 		
 		if(articlesOrder.status == ImportStatus.INIT)	//genBarcode
 		{
-			articlesOrder.barCode = "i01";
+			articlesOrder.barCode = "I01";
 			String hex = Integer.toHexString((int)articlesOrder.id);
 		    
 			if(hex.length()==1)
@@ -1165,7 +1165,7 @@ public class Import extends Controller {
     	
 		if(goodsOrder.status == ImportStatus.INIT)	//genBarcode
 		{
-			goodsOrder.barCode = "i02";
+			goodsOrder.barCode = "I02";
 			String hex = Integer.toHexString((int)goodsOrder.id);
 		    
 			if(hex.length()==1)
@@ -1541,7 +1541,7 @@ public class Import extends Controller {
 		    		
 		    		if(goods.typeOfDurableGoods==1)
 		    		{
-		    		goods.barCode="A";	
+		    		goods.barCode="G";	
 		    		String hex = Integer.toHexString((int)goods.id);
 					if(hex.length()==1)
 						hex="0000000"+hex;
