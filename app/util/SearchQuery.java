@@ -215,10 +215,10 @@ public class SearchQuery {
 			}
 			for(InternalTransferDetail ind : in.detail){
 				if(ind.code!=null && ind.code.contains(query) || 
-						ind.department!=null && ind.department.contains(query) || 
-						ind.recieverposition!=null && ind.recieverposition.contains(query) ||
-						ind.recieverFirstName!=null && ind.recieverFirstName.contains(query) || 
-						ind.recieverLastName!=null && ind.recieverLastName.contains(query) || 
+						ind.newDepartment!=null && ind.newDepartment.contains(query) || 
+						ind.newPosition!=null && ind.newPosition.contains(query) ||
+						ind.newFirstName!=null && ind.newFirstName.contains(query) || 
+						ind.newLastName!=null && ind.newLastName.contains(query) || 
 						ind.durableArticles!=null && (ind.durableArticles.barCode!=null && ind.durableArticles.barCode.contains(query)||
 						ind.durableArticles.code!=null && ind.durableArticles.code.contains(query) || 
 						ind.durableArticles.detail!=null && ind.durableArticles.detail.fsn!=null && ind.durableArticles.detail.fsn.descriptionDescription.contains(query))){

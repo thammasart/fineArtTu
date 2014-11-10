@@ -2123,9 +2123,9 @@ public class Graph extends Controller {
 				InternalTransferDetail newDetail = InternalTransferDetail.find.byId(Long.valueOf(id));
 				if(newDetail.internalTransfer.equals(in)){
 					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
-					detailsCodes += getDetailLabel("ย้ายไปสาขา", newDetail.department,"margin-left:2%");
-					detailsCodes += getDetailLabel("ย้ายไปห้อง", newDetail.room, "margin-left:2%");
-					detailsCodes += getDetailLabel("ย้ายไปชั้น", newDetail.floorLevel, "margin-left:2%");
+					detailsCodes += getDetailLabel("ย้ายไปสาขา", newDetail.newDepartment,"margin-left:2%");
+					detailsCodes += getDetailLabel("ย้ายไปห้อง", newDetail.newRoom, "margin-left:2%");
+					detailsCodes += getDetailLabel("ย้ายไปชั้น", newDetail.newFloorLevel, "margin-left:2%");
 					/*detailsCodes += getDetailLabel("ย้ายสาขาไปยัง", newDetail.durableArticles.department+"->"+newDetail.department,"margin-left:3%");
 					detailsCodes += getDetailLabel("ย้ายห้องไปยัง", newDetail.durableArticles.room+"->"+newDetail.room, "margin-left:3%");
 					detailsCodes += getDetailLabel("ย้ายชั้นไปยัง", newDetail.durableArticles.floorLevel+"->"+newDetail.floorLevel, "margin-left:3%");*/

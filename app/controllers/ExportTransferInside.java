@@ -88,38 +88,25 @@ public class ExportTransferInside extends Controller {
                 inside.approver = employees.get(0);
             }
 
-            inside.status = ExportStatus.SUCCESS;
-            inside.update();
-
-
-            for(InternalTransferDetail detail : inside.detail){
-                if(detail.durableArticles.status == SuppliesStatus.NORMAL){
-                    String oldDepartment = detail.durableArticles.department;
-                    String oldRoom = detail.durableArticles.room;
-                    String oldFloorLevel = detail.durableArticles.floorLevel;
-                    String oldRecieverFirstName = detail.durableArticles.firstName;
-                    String oldRecieverLastName = detail.durableArticles.lastName;
-
-                    detail.durableArticles.department = detail.department;
-                    detail.durableArticles.room = detail.room;
-                    detail.durableArticles.floorLevel = detail.floorLevel;
-                    detail.durableArticles.firstName = detail.recieverFirstName;
-                    detail.durableArticles.lastName = detail.recieverLastName;
-                    detail.durableArticles.update();
-
-                    detail.department = oldDepartment;
-                    detail.room = oldRoom;
-                    detail.floorLevel = oldFloorLevel;
-                    detail.recieverFirstName = oldRecieverFirstName;
-                    detail.recieverLastName = oldRecieverLastName;
+            // update detail durableArticles
+            if(inside.status == ExportStatus.INIT){
+                inside.status = ExportStatus.SUCCESS;
+                for(InternalTransferDetail detail : inside.detail){
+                    detail.status = ExportStatus.SUCCESS;
                     detail.update();
 
-                    //ทำอะไรดี
-                    //detail.durableArticles.status = SuppliesStatus.TRANSFERED;
-                    //detail.durableArticles.update();
+                    InternalTransferDetail temp = InternalTransferDetail.find.where().eq("durableArticles",detail.durableArticles).eq("status", ExportStatus.SUCCESS).orderBy("approveDate desc").findList().get(0);
+                    detail.durableArticles.department = temp.newDepartment;
+                    detail.durableArticles.room = temp.newRoom;
+                    detail.durableArticles.floorLevel = temp.newFloorLevel;
+                    detail.durableArticles.firstName = temp.newFirstName;
+                    detail.durableArticles.lastName = temp.newLastName;
+                    detail.durableArticles.update();
+
                 }
             }
 
+            inside.update();
         }
         return redirect(routes.ExportTransferInside.exportTransferInside());
     }
@@ -152,8 +139,24 @@ public class ExportTransferInside extends Controller {
                     }
                     else if(inside.status == ExportStatus.SUCCESS){
                         for(InternalTransferDetail detail : inside.detail){
-                            if(detail.durableArticles.status == SuppliesStatus.NORMAL){
-                                //?????????????????????????????????????????????????
+                            detail.status = ExportStatus.DELETE;
+                            detail.update();
+
+                            List<InternalTransferDetail> temp = InternalTransferDetail.find.where().eq("durableArticles",detail.durableArticles).eq("status", ExportStatus.SUCCESS).orderBy("approveDate desc").findList();
+                            if(temp.size() > 0){
+                                detail.durableArticles.department = temp.get(0).newDepartment;
+                                detail.durableArticles.room = temp.get(0).newRoom;
+                                detail.durableArticles.floorLevel = temp.get(0).newFloorLevel;
+                                detail.durableArticles.firstName = temp.get(0).newFirstName;
+                                detail.durableArticles.lastName = temp.get(0).newLastName;
+                                detail.durableArticles.update();
+                            }
+                            else{
+                                detail.durableArticles.department = detail.firstDepartment;
+                                detail.durableArticles.room = detail.firstRoom;
+                                detail.durableArticles.floorLevel = detail.firstFloorLevel;
+                                detail.durableArticles.firstName = detail.firstFirstName;
+                                detail.durableArticles.lastName = detail.firstLastName;
                                 detail.durableArticles.update();
                             }
                         }
@@ -193,13 +196,41 @@ public class ExportTransferInside extends Controller {
                         InternalTransferDetail newDetail = new InternalTransferDetail();
                         newDetail.durableArticles = durableArticles;
                         newDetail.internalTransfer = inside;
-                        newDetail.department = department;
-                        newDetail.room = room;
-                        newDetail.floorLevel = floorLevel;
-                        newDetail.recieverFirstName = recieverFirstName;
-                        newDetail.recieverLastName = recieverLastName;
-                        newDetail.recieverposition = recieverposition;
+                        newDetail.status = inside.status;
+                        newDetail.approveDate = inside.approveDate;                        
+
+                        newDetail.newDepartment = department;
+                        newDetail.newRoom = room;
+                        newDetail.newFloorLevel = floorLevel;
+                        newDetail.newFirstName = recieverFirstName;
+                        newDetail.newLastName = recieverLastName;
+                        newDetail.newPosition = recieverposition;
+                        
+                        List<InternalTransferDetail> temp = InternalTransferDetail.find.where().eq("durableArticles",durableArticles).findList();
+                        if(temp.size() == 0){
+                            newDetail.firstDepartment = durableArticles.department;
+                            newDetail.firstRoom = durableArticles.room;
+                            newDetail.firstFloorLevel = durableArticles.floorLevel;
+                            newDetail.firstFirstName = durableArticles.firstName;
+                            newDetail.firstLastName = durableArticles.lastName;
+                        }else{
+                            newDetail.firstDepartment = temp.get(0).firstDepartment;
+                            newDetail.firstRoom = temp.get(0).firstRoom;
+                            newDetail.firstFloorLevel = temp.get(0).firstFloorLevel;
+                            newDetail.firstFirstName = temp.get(0).firstFirstName;
+                            newDetail.firstLastName = temp.get(0).firstLastName;
+                        }
                         newDetail.save();
+
+                        if(inside.status == ExportStatus.SUCCESS){
+                            newDetail = InternalTransferDetail.find.where().eq("durableArticles",durableArticles).eq("status", ExportStatus.SUCCESS).orderBy("approveDate desc").findList().get(0);
+                            durableArticles.department = newDetail.firstDepartment;
+                            durableArticles.room = newDetail.firstRoom;
+                            durableArticles.floorLevel = newDetail.firstFloorLevel;
+                            durableArticles.firstName = newDetail.firstFirstName;
+                            durableArticles.lastName = newDetail.firstLastName;
+                            durableArticles.update();
+                        }
                     }
                 }
                 result.put("status", "SUCCESS");
@@ -226,15 +257,24 @@ public class ExportTransferInside extends Controller {
 
             InternalTransferDetail insideDetail = InternalTransferDetail.find.byId((new Long(json.get("id").asText())));
             InternalTransfer inside = InternalTransfer.find.byId(new Long(json.get("transferInsideId").asText()));
-            if( insideDetail != null && inside != null 
-                && (inside.status == ExportStatus.INIT ||inside.status == ExportStatus.SUCCESS) ){
-                insideDetail.department = json.get("department").asText();
-                insideDetail.room = json.get("room").asText();
-                insideDetail.floorLevel = json.get("floorLevel").asText();
-                insideDetail.recieverFirstName = json.get("recieverFirstName").asText();
-                insideDetail.recieverLastName = json.get("recieverLastName").asText();
-                insideDetail.recieverposition = json.get("recieverPosition").asText();
-                insideDetail.update();
+            if( insideDetail != null && inside != null ){
+                    insideDetail.newDepartment = json.get("department").asText();
+                    insideDetail.newRoom = json.get("room").asText();
+                    insideDetail.newFloorLevel = json.get("floorLevel").asText();
+                    insideDetail.newFirstName = json.get("newFirstName").asText();
+                    insideDetail.newLastName = json.get("newLastName").asText();
+                    insideDetail.newPosition = json.get("newPosition").asText();
+                    insideDetail.update();
+                    
+                if(insideDetail.status == ExportStatus.SUCCESS){
+                    InternalTransferDetail temp = InternalTransferDetail.find.where().eq("durableArticles",insideDetail.durableArticles).eq("status", ExportStatus.SUCCESS).orderBy("approveDate desc").findList().get(0);
+                    insideDetail.durableArticles.department = temp.newDepartment;
+                    insideDetail.durableArticles.room = temp.newRoom;
+                    insideDetail.durableArticles.floorLevel = temp.newFloorLevel;
+                    insideDetail.durableArticles.firstName = temp.newFirstName;
+                    insideDetail.durableArticles.lastName = temp.newLastName;
+                    insideDetail.durableArticles.update();
+                }
                 result.put("status", "SUCCESS");
             }
             else{
