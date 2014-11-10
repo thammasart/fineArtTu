@@ -124,8 +124,8 @@ function setDataTableColumn(id,innerThead){
 }
 
 function setSearchBox(searchBox,numTable){
-	$(searchBox).on( 'keyup change', function () {
-		array[numTable].search( searchBox.value ).draw();
+	$('#'+searchBox).on( 'keyup change', function () {
+		array[numTable].search( $('#'+searchBox).val()).draw();
 	});
 }
 

@@ -8,26 +8,6 @@
 	<script src="@routes.Assets.at("javascripts/controllers/graph.js")"></script>
 	
 	<div class="listWindow">
-		<div class="tableHeaderBtnContainer">
-	            <div class="searchS" id="normalSearch">
-	                <div>
-	                    <div class="form-group">
-	                        <div class="input-group">
-	                            <span class="input-group-addon">ค้นหา</span> <input type="text" class="form-control" style="width: 300px">
-	                        </div>
-	                    </div>
-	                </div>
-	            </div>
-	            
-	            <div id="advanceSearch" style="float:left;width:350px;display:none;">
-					<div class="form-group">
-						<div class="input-group">
-							<span class="input-group-addon">ค้นหา</span>
-							<input id="search" type="text" class="form-control" style="width: 300px" onkeyup="search(event)">
-						</div>
-					</div>
-	            </div>
-		</div>
 		<ul class="nav nav-tabs" role="tablist" id="graph-tab"
 			style="height: 42px; margin-bottom: 10px;">
 			<li class="active"><a href="#relation" role="tab" data-toggle="tab">ความสัมพันธ์</a></li>
@@ -58,6 +38,18 @@
 			</div>
 			<!-- ========================================== tab2 ============================================ -->
 			<div class="tab-pane fade" id="tracking">
+				<div class="tableHeaderBtnContainer">
+		            <div class="searchS" id="normalSearch">
+		                <div>
+		                    <div class="form-group">
+		                        <div class="input-group">
+		                            <span class="input-group-addon">ค้นหา</span>
+		                            <input id="search" type="text" class="form-control" style="width: 300px" onkeyup="search(event)">
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+				</div>
 				<div class="adminUserinfoTableContainer" id="tablePane">
 					<table class="table table-striped overlayTable" id="trackingTable">
 						<thead>

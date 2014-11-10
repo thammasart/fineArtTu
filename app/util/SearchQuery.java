@@ -181,8 +181,8 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<Requisition> getRequisition(String query){
-		Set<Requisition> set = Requisition.find.where().ilike("title", "%"+query+"%").findSet();
-		set.addAll(Requisition.find.where().ilike("number", "%"+query+"%").findSet());
+		Set<Requisition> set = Requisition.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
+		set.addAll(Requisition.find.where().eq("status", ExportStatus.SUCCESS).ilike("number", "%"+query+"%").findSet());
 		List<Requisition> rs = Requisition.find.where().eq("status", ExportStatus.SUCCESS).findList();
 		for(Requisition r : rs){
 			if(dateValidator(r.approveDate, query) || userValidator(r.approver, query) || userValidator(r.user, query)){
@@ -205,8 +205,8 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<InternalTransfer> getInternalTransfer(String query){
-		Set<InternalTransfer> set = InternalTransfer.find.where().ilike("title", query).findSet();
-		set.addAll(InternalTransfer.find.where().ilike("number", query).findSet());
+		Set<InternalTransfer> set = InternalTransfer.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", query).findSet();
+		set.addAll(InternalTransfer.find.where().eq("status", ExportStatus.SUCCESS).ilike("number", query).findSet());
 		List<InternalTransfer> internals = InternalTransfer.find.where().eq("status", ExportStatus.SUCCESS).findList();
 		for(InternalTransfer in : internals){
 			if(dateValidator(in.approveDate, query) || userValidator(in.approver, query)){
@@ -232,9 +232,9 @@ public class SearchQuery {
 	}
 
 	public static ArrayList<Donation> getDonations(String query){
-		Set<Donation> set = Donation.find.where().ilike("title", "%"+query+"%").findSet();
-		set.addAll(Donation.find.where().ilike("contractNo", "%"+query+"%").findSet());
-		set.addAll(Donation.find.where().ilike("company.nameEntrepreneur", "%"+query+"%").findSet());
+		Set<Donation> set = Donation.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
+		set.addAll(Donation.find.where().eq("status", ExportStatus.SUCCESS).ilike("contractNo", "%"+query+"%").findSet());
+		set.addAll(Donation.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.nameEntrepreneur", "%"+query+"%").findSet());
 		
 		List<Donation> ds = Donation.find.where().eq("status", ExportStatus.SUCCESS).findList();
 		for(Donation d : ds){
@@ -275,12 +275,12 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<Auction> getAuction(String query){
-		Set<Auction> set = Auction.find.where().ilike("title", "%"+query+"%").findSet();
-		set.addAll(Auction.find.where().ilike("contractNo", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().ilike("company.nameEntrepreneur", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().ilike("soldDestination", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().ilike("telephoneNumber", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().ilike("email", "%"+query+"%").findSet());
+		Set<Auction> set = Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("contractNo", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.nameEntrepreneur", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("soldDestination", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("telephoneNumber", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("email", "%"+query+"%").findSet());
 		
 		List<Auction> as = Auction.find.where().eq("status",ExportStatus.SUCCESS).findList();
 		for(Auction a : as){
@@ -327,9 +327,9 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<OtherTransfer> getOtherTransfer(String query){
-		Set<OtherTransfer> set = OtherTransfer.find.where().ilike("title", "%"+query+"%").findSet();
-		set.addAll(OtherTransfer.find.where().ilike("number", "%"+query+"%").findSet());
-		set.addAll(OtherTransfer.find.where().ilike("description", "%"+query+"%").findSet());
+		Set<OtherTransfer> set = OtherTransfer.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
+		set.addAll(OtherTransfer.find.where().eq("status", ExportStatus.SUCCESS).ilike("number", "%"+query+"%").findSet());
+		set.addAll(OtherTransfer.find.where().eq("status", ExportStatus.SUCCESS).ilike("description", "%"+query+"%").findSet());
 		
 		List<OtherTransfer> os = OtherTransfer.find.where().eq("status",ExportStatus.SUCCESS).findList();
 		for(OtherTransfer o : os){
@@ -368,8 +368,10 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<Borrow> getBorrow(String query){
-		Set<Borrow> set = Borrow.find.where().ilike("title", "%"+query+"%").findSet();
-		set.addAll(Borrow.find.where().ilike("number", "%"+query+"%").findSet());
+		Set<Borrow> set = Borrow.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
+		set.addAll(Borrow.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet());
+		set.addAll(Borrow.find.where().eq("status", ExportStatus.SUCCESS).ilike("number", "%"+query+"%").findSet());
+		set.addAll(Borrow.find.where().eq("status", ExportStatus.BORROW).ilike("number", "%"+query+"%").findSet());
 		
 		List<Borrow> bs = Borrow.find.where().eq("status",ExportStatus.SUCCESS).findList();
 		bs.addAll(Borrow.find.where().eq("status",ExportStatus.BORROW).findList());
@@ -394,9 +396,12 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<Repairing> getRepair(String query){
-		Set<Repairing> set = Repairing.find.where().ilike("title", "%"+query+"%").findSet();
-		set.addAll(Repairing.find.where().ilike("number", "%"+query+"%").findSet());
-		set.addAll(Repairing.find.where().ilike("company.nameEntrepreneur", "%"+query+"%").findSet());
+		Set<Repairing> set = Repairing.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
+		set.addAll(Repairing.find.where().eq("status", ExportStatus.REPAIRING).ilike("title", "%"+query+"%").findSet());
+		set.addAll(Repairing.find.where().eq("status", ExportStatus.SUCCESS).ilike("number", "%"+query+"%").findSet());
+		set.addAll(Repairing.find.where().eq("status", ExportStatus.REPAIRING).ilike("number", "%"+query+"%").findSet());
+		set.addAll(Repairing.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.nameEntrepreneur", "%"+query+"%").findSet());
+		set.addAll(Repairing.find.where().eq("status", ExportStatus.REPAIRING).ilike("company.nameEntrepreneur", "%"+query+"%").findSet());
 		
 		List<Repairing> rs = Repairing.find.where().eq("status",ExportStatus.SUCCESS).findList();
 		rs.addAll(Repairing.find.where().eq("status",ExportStatus.REPAIRING).findList());
