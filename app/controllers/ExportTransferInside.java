@@ -94,9 +94,29 @@ public class ExportTransferInside extends Controller {
 
             for(InternalTransferDetail detail : inside.detail){
                 if(detail.durableArticles.status == SuppliesStatus.NORMAL){
+                    String oldDepartment = detail.durableArticles.department;
+                    String oldRoom = detail.durableArticles.room;
+                    String oldFloorLevel = detail.durableArticles.floorLevel;
+                    String oldRecieverFirstName = detail.durableArticles.firstName;
+                    String oldRecieverLastName = detail.durableArticles.lastName;
+
+                    detail.durableArticles.department = detail.department;
+                    detail.durableArticles.room = detail.room;
+                    detail.durableArticles.floorLevel = detail.floorLevel;
+                    detail.durableArticles.firstName = detail.recieverFirstName;
+                    detail.durableArticles.lastName = detail.recieverLastName;
+                    detail.durableArticles.update();
+
+                    detail.department = oldDepartment;
+                    detail.room = oldRoom;
+                    detail.floorLevel = oldFloorLevel;
+                    detail.recieverFirstName = oldRecieverFirstName;
+                    detail.recieverLastName = oldRecieverLastName;
+                    detail.update();
+
                     //ทำอะไรดี
                     //detail.durableArticles.status = SuppliesStatus.TRANSFERED;
-                    detail.durableArticles.update();
+                    //detail.durableArticles.update();
                 }
             }
 
