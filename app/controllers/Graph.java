@@ -35,6 +35,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
@@ -145,6 +148,43 @@ public class Graph extends Controller {
         	}else{
         		result = getRemainHTML(ids[0].split(","),ids[1].split(","));
         	}
+        }
+        if(result.equals("no data")){
+        	result = "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button><br/>" + result;
+        }
+        
+    	return ok(result);
+    }
+    
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
+    public static Result getDescriptionQuery() {
+    	RequestBody body = request().body();
+        JsonNode json = body.asJson();
+        
+        String className = json.get("className").asText();
+        String query = json.get("query").asText();
+        String result = "no data";
+        
+        if(className.equals("user")){
+        	result = getUserHTML(query);
+        }else if(className.equals("company")){
+        	result = getCompanyHTML(query);
+        }else if(className.equals("procurementDurableArticle")){
+        	result = getProcurementArticleHTML(query);
+        }else if(className.equals("procurementMaterialCode")){
+        	result = getProcurementGoodsHTML(query);
+        }else if(className.equals("requisition")){
+        }else if(className.equals("internalTransfer")){
+        }else if(className.equals("auction")){
+        }else if(className.equals("donate")){
+        }else if(className.equals("otherTransfer")){
+        }else if(className.equals("repair")){
+        }else if(className.equals("borrow")){
+        }
+        
+        if(result.equals("no data")){
+        	result = "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button><br/>" + result;
         }
         
     	return ok(result);
@@ -1178,35 +1218,6 @@ public class Graph extends Controller {
 		return result;
 	}
 
-	/*private static ArrayNode getDetailTransferMap(Date startDate, Date endDate) {
-    	ArrayList<String> columnName = new ArrayList<String>();
-    	columnName.add("โอนย้ายภายใน");
-    	columnName.add("จำหน่าย");
-    	columnName.add("บริจาค");
-    	columnName.add("อื่นๆ");
-    	ArrayNode result = getDetailHeader(columnName);
-    	HashMap<String, Integer[]> listResult = new HashMap<String, Integer[]>();
-    	List<InternalTransfer> internals = models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
-    	List<Auction> auctions = models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
-    	List<Donation> donations = models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
-    	List<OtherTransfer> others = models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
-    	
-    	List<String> list = getTransferKey(internals, auctions, donations, others);
-    	listResult = getMapTransfer(internals, auctions, donations, others, list);
-    	
-    	for(String key : listResult.keySet()){
-    		ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-    		tr.add(key);
-    		tr.add(listResult.get(key)[0]);
-    		tr.add(listResult.get(key)[1]);
-    		tr.add(listResult.get(key)[2]);
-    		tr.add(listResult.get(key)[3]);
-    		result.add(tr);
-    	}
-    	
-		return result;
-	}*/
-    
 	private static ArrayNode getDetailRepairingMap(List<Repairing> rs) {
 		ArrayNode result =  getDetailHeader();
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
@@ -1356,7 +1367,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%.2f",listResult.get(key)));
-			tr.add(getDescriptionButton("durableArticle", ids.get(key)));
+			tr.add(getDescriptionButton("durableArticle", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1408,7 +1419,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%.2f",listResult.get(key)));
-			tr.add(getDescriptionButton("materialCode", ids.get(key)));
+			tr.add(getDescriptionButton("materialCode", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1442,7 +1453,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("procurementDurableArticle", ids.get(key)));
+			tr.add(getDescriptionButton("procurementDurableArticle", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1492,7 +1503,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("procurementMaterialCode", ids.get(key)));
+			tr.add(getDescriptionButton("procurementMaterialCode", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1528,105 +1539,12 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("requisition", ids.get(key)));
+			tr.add(getDescriptionButton("requisition", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
     	return result;
     }
-    
-    /*private static ArrayNode getTableTransfer(Date startDate, Date endDate, int col, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
-    	HashMap<String,String> ids = new HashMap<String,String>();
-    	
-    	if(col == 1){ // โอนย้ายภายใน
-    		List<InternalTransfer> internals = models.durableArticles.InternalTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
-    		for(InternalTransfer internal : internals){
-    			for(InternalTransferDetail internalDetail : internal.detail){
-    				String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    				if(key.equals(selectedName)){
-    					key = internalDetail.durableArticles.detail.fsn.descriptionDescription;
-    					Integer value = listResult.get(key);
-    					if(value == null){
-    						listResult.put(key, 1);
-    						ids.put(key,"" + internalDetail.id);
-    					}else{
-    						listResult.put(key, value + 1);
-    						ids.put(key,ids.get(key) + "," + internalDetail.id );
-    					}
-    				}
-    			}
-    		}
-    		
-    	}else if(col == 2){ // จำหน่าย
-    		List<Auction> auctions = models.durableArticles.Auction.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
-    		for(Auction auction	: auctions){
-    			for(AuctionDetail auctionDetail : auction.detail){
-    				String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    				if(key.equals(selectedName)){
-    					key = auctionDetail.durableArticles.detail.fsn.descriptionDescription;
-    					Integer value = listResult.get(key);
-    					if(value == null){
-    						listResult.put(key, 1);
-    						ids.put(key,"" + auctionDetail.id );
-    					}else{
-    						listResult.put(key, value + 1);
-    						ids.put(key,ids.get(key) + "," + auctionDetail.id );
-    					}
-    				}
-    			}
-    		}
-    	}else if(col == 3){ // บริจาค
-    		List<Donation> donations = models.durableArticles.Donation.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
-    		for(Donation donation : donations){
-    			for(DonationDetail donationDetail : donation.detail){
-    				String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    				if(key.equals(selectedName)){
-    					key = donationDetail.durableArticles.detail.fsn.descriptionDescription;
-    					Integer value = listResult.get(key);
-    					if(value == null){
-    						listResult.put(key, 1);
-    						ids.put(key,"" + donationDetail.id );
-    					}else{
-    						listResult.put(key, value + 1);
-    						ids.put(key,ids.get(key) + "," + donationDetail.id );
-    					}
-    				}
-    			}
-    		}
-    	}else if(col == 4){ // อื่นๆ
-    		List<OtherTransfer> others = models.durableArticles.OtherTransfer.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
-    		for(OtherTransfer other : others){
-    			for(OtherTransferDetail otherDetail : other.detail){
-    				String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    				if(key.equals(selectedName)){
-    					key = otherDetail.durableArticles.detail.fsn.descriptionDescription;
-    					Integer value = listResult.get(key);
-    					if(value == null){
-    						listResult.put(key, 1);
-    						ids.put(key,"" + otherDetail.id );
-    					}else{
-    						listResult.put(key, value + 1);
-    						ids.put(key,ids.get(key) + "," + otherDetail.id );
-    					}
-    				}
-    			}
-    		}
-    	}
-    	int i=1;
-		for (String key : listResult.keySet()) {
-			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-			tr.add("" + i++);
-			tr.add(key);
-			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(ids.get(key));
-			//tr.add(descriptionBtn);
-			result.add(tr);
-		}
-    	return result;
-    }*/
-    
 
     private static ArrayNode getTableInternalTranfers(List<InternalTransfer> rs, String selectedName) {
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
@@ -1654,7 +1572,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("internalTransfer", ids.get(key)));
+			tr.add(getDescriptionButton("internalTransfer", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1687,7 +1605,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("auction", ids.get(key)));
+			tr.add(getDescriptionButton("auction", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1720,7 +1638,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("donate", ids.get(key)));
+			tr.add(getDescriptionButton("donate", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1753,7 +1671,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("otherTransfer", ids.get(key)));
+			tr.add(getDescriptionButton("otherTransfer", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1788,7 +1706,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("repair", ids.get(key)));
+			tr.add(getDescriptionButton("repair", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1822,7 +1740,7 @@ public class Graph extends Controller {
 			tr.add("" + i++);
 			tr.add(key);
 			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("borrow", ids.get(key)));
+			tr.add(getDescriptionButton("borrow", ids.get(key), "/graphDescription"));
 			//tr.add(descriptionBtn);
 			result.add(tr);
 		}
@@ -1896,44 +1814,105 @@ public class Graph extends Controller {
 				tr.add("" + i++);
 				tr.add(key);
 				tr.add(String.format("%d",listResult.get(key)));
-				tr.add(getDescriptionButton("remain", ids.get(key)[0]+"/"+ids.get(key)[1]));
+				tr.add(getDescriptionButton("remain", ids.get(key)[0]+"/"+ids.get(key)[1], "/graphDescription"));
 				//tr.add(descriptionBtn);
 				result.add(tr);
 		}
     	return result;
 	}
 
+	private static String getUserHTML(String query){
+		ArrayList<User> us = util.SearchQuery.getUsers(query);
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(User u : us){
+			result += "<div class=\"well\">";
+			result += getDetailLabel("คำนำหน้าชื่อ", u.namePrefix);
+			result += getDetailLabel("ชื่อ", u.firstName);
+			result += getDetailLabel("สกุล", u.lastName);
+			result += getDetailLabel("ตำแหน่ง", u.position);
+			result += getDetailLabel("สาขา", u.departure);
+			result += getDetailLabel("username", u.username);
+			result += "</div>";
+		}
+		result += "</div>";
+		return result;
+	}
+	
+	private static String getCompanyHTML(String query){
+		ArrayList<Company> cs = util.SearchQuery.getCompanies(query);
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(Company c : cs){
+			result += "<div class=\"well\">";
+			result += getDetailLabel("ชื่อสถานประกอบการ", c.nameEntrepreneur, "width:18%");
+			result += getDetailLabel("ประเภทผู้ประกอบการ", c.typeEntrepreneur, "width:18%");
+			result += getDetailLabel("ประเภทผู้ค้า", c.typedealer, "width:18%");
+			result += getDetailLabel("ชื่อผู้ค้า", c.nameDealer, "width:18%");
+			result += getDetailLabel("เงื่อนไขการชำระเงิน", c.payCodition, "width:18%");
+			result += getDetailLabel("ระยะเวลาการชำระเงิน", String.valueOf(c.payPeriod), "width:18%");
+			result += getDetailLabel("ระยะเวลาการจัดส่ง", String.valueOf(c.sendPeriod), "width:18%");
+			result += getDetailLabel("รายละเอียดเพิ่มเติม", c.otherDetail, "width:18%");
+			result += getExpandableHTML("ประเภทครุภัณฑ์", c.durableArticlesType);
+			result += getExpandableHTML("ประเภทวัสดุคงทนถาวร", c.consumableGoodsType );
+			result += getExpandableHTML("ประเภทวัสดุสิ้นเปลือง", c.durableGoodsType);
+			result += "</div>";
+		}
+		result += "</div>";
+		return result;
+	}
+	
 	private static String getArticleHTML(String[] ids) {
 		String result = "<div>";
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
-		for(String id: ids){
+		for(int i=0; i<ids.length; i++){
+			String id = ids[i];
 			DurableArticles d = DurableArticles.find.byId(Long.valueOf(id));
-			if(d!=null){
-				result += "<div class=\"well\">";
-				result += getDetailLabel("id", String.valueOf(d.id));
-				result += getDetailLabel("code", d.code);
-				result += getDetailLabel("ชื่อครุภัณฑ์", d.detail.fsn.descriptionDescription);
-				result += getDetailLabel("คำนำหน้า", d.title);
-				result += getDetailLabel("firstName", d.firstName);
-				result += getDetailLabel("lastName", d.lastName);
-				result += getDetailLabel("department", d.department);
-				result += getDetailLabel("floorLevel", d.floorLevel);
-				result += getDetailLabel("room", d.room);
-				
-				String expandable = "";
-				expandable += getDetailLabel("price", String.valueOf(d.detail.price));
-				expandable += getDetailLabel("จำนวนนำเข้า", String.valueOf(d.detail.quantity));
-				expandable += getDetailLabel("brand", d.detail.brand);
-				expandable += getDetailLabel("phone", d.detail.phone);
-				expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ d.detail.fsn.path + "\">");
-				expandable += getDetailLabel("contractNo", d.detail.procurement.contractNo);
-				expandable += getDetailLabel("budgetType", d.detail.procurement.budgetType);
-				expandable += getDetailLabel("addDate", d.detail.procurement.getAddDate());
-				expandable += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
-				
-				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
-				result += "</div>";
+			models.durableArticles.ProcurementDetail pd = d.detail;
+			result += "<div class=\"well\">";
+			result += getDetailLabel("checkDate", d.detail.procurement.title);
+			result += getDetailLabel("contractNo", d.detail.procurement.contractNo);
+			result += getDetailLabel("budgetType", d.detail.procurement.budgetType);
+			result += getDetailLabel("addDate", d.detail.procurement.getAddDate());
+			result += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
+			result += getDetailLabel("description", pd.description);
+			result += getDetailLabel("alertTime", String.valueOf(pd.alertTime));
+			result += getDetailLabel("brand", pd.brand);
+			result += getDetailLabel("price", String.valueOf(pd.price));
+			result += getDetailLabel("phone", pd.phone);
+			result += getDetailLabel("quantity", String.valueOf(pd.quantity));
+			result += getDetailLabel("seller", pd.seller);
+			result += getDetailLabel("serialNumber", pd.serialNumber);
+			result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
+			result += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ d.detail.fsn.path + "\">");
+			String expandable = "";
+			for(models.durableArticles.EO_Committee eo : pd.procurement.eoCommittee){
+				if(eo.committee != null){
+					expandable += getDetailCommitteeLabel(eo.committeePosition, String.format("%s %s %s", eo.committee.namePrefix, eo.committee.firstName, eo.committee.lastName));
+				}
 			}
+			result += getExpandableHTML("คณะกรรมการเปิดซอง", expandable);
+			
+			expandable = "";
+			for(models.durableArticles.AI_Committee ai : pd.procurement.aiCommittee){
+				if(ai.committee != null){
+					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
+				}
+			}
+			result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
+			String newDetail = "";
+			for(;i<ids.length;i++){
+				id = ids[i];
+				d = DurableArticles.find.byId(Long.valueOf(id));
+				if(d.detail.equals(pd)){
+					newDetail += getDetailLabel("หมายเลขพัสดุ", d.code);
+				}else{
+					i--;
+					break;
+				}
+			}
+			result += getExpandableHTML("รายละเอียดครุภัณฑ์", newDetail);
+			result += "</div>";
 		}
 		result += "</div>";
 		return result;
@@ -1942,41 +1921,98 @@ public class Graph extends Controller {
 	private static String getGoodsHTML(String[] ids) {
 		String result = "<div>";
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
-		for(String id: ids){
+		for(int i=0; i<ids.length; i++){
+			String id = ids[i];
 			DurableGoods d = DurableGoods.find.byId(Long.valueOf(id));
 			MaterialCode m = null;
 			FSN_Description fsn = null;
 			if(d!=null){
+				models.durableGoods.ProcurementDetail pd = d.detail;
 				if(d.typeOfDurableGoods == 0){
 					m = MaterialCode.find.byId(d.detail.code);
 				}else{
 					fsn = FSN_Description.find.byId(d.detail.code);
 				}
-				
 				result += "<div class=\"well\">";
-				result += getDetailLabel("code", d.codes);
-				result += getDetailLabel("ชื่อวัสดุ", d.detail.description);
-				result += getDetailLabel("คำนำหน้า", d.title);
-				result += getDetailLabel("firstName", d.firstName);
-				result += getDetailLabel("lastName", d.lastName);
-				result += getDetailLabel("department", d.department);
-				result += getDetailLabel("floorLevel", d.floorLevel);
-				result += getDetailLabel("room", d.room);
-				String expandable = "";
-				expandable += getDetailLabel("price", String.valueOf(d.detail.price));
-				expandable += getDetailLabel("จำนวนนำเข้า", String.valueOf(d.detail.quantity));
-				expandable += getDetailLabel("brand", d.detail.brand);
-				expandable += getDetailLabel("phone", d.detail.phone);
+				result += getDetailLabel("checkDate", d.detail.procurement.title);
+				result += getDetailLabel("contractNo", d.detail.procurement.contractNo);
+				result += getDetailLabel("budgetType", d.detail.procurement.budgetType);
+				result += getDetailLabel("addDate", d.detail.procurement.getAddDate());
+				result += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
+				result += getDetailLabel("description", pd.description);
+				result += getDetailLabel("remain", String.valueOf(pd.remain));
+				result += getDetailLabel("brand", pd.brand);
+				result += getDetailLabel("price", String.valueOf(pd.price));
+				result += getDetailLabel("phone", pd.phone);
+				result += getDetailLabel("quantity", String.valueOf(pd.quantity));
+				result += getDetailLabel("seller", pd.seller);
+				result += getDetailLabel("serialNumber", pd.serialNumber);
+				result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
 				String path = d.typeOfDurableGoods == 0 ? m.path: fsn.path;
-				expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
-				expandable += getDetailLabel("fsn", d.detail.code);
-				expandable += getDetailLabel("contractNo", d.detail.procurement.contractNo);
-				expandable += getDetailLabel("budgetType", d.detail.procurement.budgetType);
-				expandable += getDetailLabel("addDate", d.detail.procurement.getAddDate());
-				expandable += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
-				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
+				result += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
+				String expandable = "";
+				for(;i<ids.length;i++){
+					id = ids[i];
+					d = DurableGoods.find.byId(Long.valueOf(id));
+					if(d.detail.equals(pd) && pd.typeOfDurableGoods == 1){
+						expandable += getDetailLabel("หมายเลขวัสดุ", d.codes); 
+					}else if(pd.typeOfDurableGoods == 0){
+						continue;
+					}else{
+						--i;
+						break;
+					}
+				}
+				if(pd.typeOfDurableGoods == 1) result += getExpandableHTML("รายละเอียดวัสดุ", expandable);
 				result += "</div>";
 			}
+		}
+		result += "</div>";
+		return result;
+	}
+
+	private static String getProcurementArticleHTML(String query) {
+		List<models.durableArticles.Procurement> ps = util.SearchQuery.getDurableArticleProcurement(query);
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(models.durableArticles.Procurement p : ps){
+			result += "<div class=\"well\">";
+			result += getDetailLabel("checkDate", p.title);
+			result += getDetailLabel("contractNo", p.contractNo);
+			result += getDetailLabel("budgetType", p.budgetType);
+			result += getDetailLabel("addDate", p.getAddDate());
+			result += getDetailLabel("checkDate", p.getCheckDate());
+			String expandable = "";
+			for(models.durableArticles.EO_Committee eo : p.eoCommittee){
+				if(eo.committee != null){
+					expandable += getDetailCommitteeLabel(eo.committeePosition, String.format("%s %s %s", eo.committee.namePrefix, eo.committee.firstName, eo.committee.lastName));
+				}
+			}
+			result += getExpandableHTML("คณะกรรมการเปิดซอง", expandable);
+			
+			expandable = "";
+			for(models.durableArticles.AI_Committee ai : p.aiCommittee){
+				if(ai.committee != null){
+					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
+				}
+			}
+			result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
+			
+			for(models.durableArticles.ProcurementDetail pd : p.details){
+				expandable = "";
+				expandable += getDetailLabel("description", pd.description);
+				expandable += getDetailLabel("alertTime", String.valueOf(pd.alertTime));
+				expandable += getDetailLabel("brand", pd.brand);
+				expandable += getDetailLabel("price", String.valueOf(pd.price));
+				expandable += getDetailLabel("phone", pd.phone);
+				expandable += getDetailLabel("quantity", String.valueOf(pd.quantity));
+				expandable += getDetailLabel("seller", pd.seller);
+				expandable += getDetailLabel("serialNumber", pd.serialNumber);
+				expandable += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
+				expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\">");
+				result += getExpandableHTML("รายละเอียดเพิ่มเติม" + pd.fsn.descriptionDescription, expandable);
+			}
+			result += "</div>";
 		}
 		result += "</div>";
 		return result;
@@ -1985,48 +2021,98 @@ public class Graph extends Controller {
 	private static String getProcurementArticleHTML(String[] ids) {
 		String result = "<div>";
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
-		for(String id: ids){
+		models.durableArticles.Procurement p = null; 
+		for(int i=0; i<ids.length; i++){
+			String id = ids[i];
 			models.durableArticles.ProcurementDetail pd = models.durableArticles.ProcurementDetail.find.byId(Long.valueOf(id));
-			if(pd!=null){
-				result += "<div class=\"well\">";
-				result += getDetailLabel("description", pd.description);
-				result += getDetailLabel("alertTime", String.valueOf(pd.alertTime));
-				result += getDetailLabel("brand", pd.brand);
-				result += getDetailLabel("price", String.valueOf(pd.price));
-				result += getDetailLabel("phone", pd.phone);
-				result += getDetailLabel("quantity", String.valueOf(pd.quantity));
-				result += getDetailLabel("seller", pd.seller);
-				result += getDetailLabel("serialNumber", pd.serialNumber);
-				result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
-				result += getDetailLabel("pic", "<img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\">");
-				
-				String expandable = "";
-				expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\">");
-				expandable += getDetailLabel("contractNo", pd.procurement.contractNo);
-				expandable += getDetailLabel("budgetType", pd.procurement.budgetType);
-				expandable += getDetailLabel("addDate", pd.procurement.getAddDate());
-				expandable += getDetailLabel("checkDate", pd.procurement.getCheckDate());
-				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
-				
-				expandable = "";
-				for(models.durableArticles.EO_Committee eo : pd.procurement.eoCommittee){
-					if(eo.committee != null){
-						expandable += getDetailCommitteeLabel(eo.committeePosition, String.format("%s %s %s", eo.committee.namePrefix, eo.committee.firstName, eo.committee.lastName));
-					}
+			p = pd.procurement;
+			result += "<div class=\"well\">";
+			result += getDetailLabel("title", p.title);
+			result += getDetailLabel("contractNo", p.contractNo);
+			result += getDetailLabel("budgetType", p.budgetType);
+			result += getDetailLabel("addDate", p.getAddDate());
+			result += getDetailLabel("checkDate", p.getCheckDate());
+			result += getDetailLabel("description", pd.description);
+			result += getDetailLabel("alertTime", String.valueOf(pd.alertTime));
+			result += getDetailLabel("brand", pd.brand);
+			result += getDetailLabel("price", String.valueOf(pd.price));
+			result += getDetailLabel("phone", pd.phone);
+			result += getDetailLabel("quantity", String.valueOf(pd.quantity));
+			result += getDetailLabel("seller", pd.seller);
+			result += getDetailLabel("serialNumber", pd.serialNumber);
+			result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
+			result += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\">");
+			String expandable = "";
+			for(models.durableArticles.EO_Committee eo : pd.procurement.eoCommittee){
+				if(eo.committee != null){
+					expandable += getDetailCommitteeLabel(eo.committeePosition, String.format("%s %s %s", eo.committee.namePrefix, eo.committee.firstName, eo.committee.lastName));
 				}
-				result += getExpandableHTML("คณะกรรมการเปิดซอง", expandable);
-				
-				expandable = "";
-				for(models.durableArticles.AI_Committee ai : pd.procurement.aiCommittee){
-					if(ai.committee != null){
-						expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
-					}
-				}
-				result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
-				
-				
-				result += "</div>";
 			}
+			result += getExpandableHTML("คณะกรรมการเปิดซอง", expandable);
+			
+			expandable = "";
+			for(models.durableArticles.AI_Committee ai : pd.procurement.aiCommittee){
+				if(ai.committee != null){
+					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
+				}
+			}
+			result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
+			String newDetail = "";
+			for(DurableArticles d : pd.subDetails){
+				newDetail += getDetailLabel("หมายเลขพัสดุ", d.code);
+			}
+			result += getExpandableHTML("รายละเอียดครุภัณฑ์", newDetail);
+			result += "</div>";
+		}
+		result += "</div>";
+		return result;
+	}
+	
+	private static String getProcurementGoodsHTML(String query) {
+		List<models.durableGoods.Procurement> ps = util.SearchQuery.getDurableGoodsProcurement(query);
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(models.durableGoods.Procurement p : ps){
+			result += "<div class=\"well\">";
+			result += getDetailLabel("checkDate", p.title);
+			result += getDetailLabel("contractNo", p.contractNo);
+			result += getDetailLabel("budgetType", p.budgetType);
+			result += getDetailLabel("addDate", p.getAddDate());
+			result += getDetailLabel("checkDate", p.getCheckDate());
+			String expandable = "";
+			
+			expandable = "";
+			for(models.durableGoods.AI_Committee ai : p.aiCommittee){
+				if(ai.committee != null){
+					expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
+				}
+			}
+			result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
+			MaterialCode m = null;
+			FSN_Description fsn = null;
+					
+			for(models.durableGoods.ProcurementDetail pd : p.details){
+				expandable = "";
+				expandable += getDetailLabel("description", pd.description);
+				expandable += getDetailLabel("remain", String.valueOf(pd.remain));
+				expandable += getDetailLabel("brand", pd.brand);
+				expandable += getDetailLabel("price", String.valueOf(pd.price));
+				expandable += getDetailLabel("phone", pd.phone);
+				expandable += getDetailLabel("quantity", String.valueOf(pd.quantity));
+				expandable += getDetailLabel("seller", pd.seller);
+				expandable += getDetailLabel("serialNumber", pd.serialNumber);
+				expandable += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
+				if(pd.typeOfDurableGoods == 0){
+					m = MaterialCode.find.byId(pd.code);
+					expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ m.path + "\">");
+					result += getExpandableHTML("รายละเอียดเพิ่มเติม" + m.description , expandable);
+				}else{
+					fsn = FSN_Description.find.byId(pd.code);
+					expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ fsn.path + "\">");
+					result += getExpandableHTML("รายละเอียดเพิ่มเติม" + fsn.descriptionDescription , expandable);
+				}
+			}
+			result += "</div>";
 		}
 		result += "</div>";
 		return result;
@@ -2035,7 +2121,8 @@ public class Graph extends Controller {
 	private static String getProcurementMaterialHTML(String[] ids) {
 		String result = "<div>";
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
-		for(String id: ids){
+		for(int i=0; i<ids.length; i++){
+			String id = ids[i];
 			models.durableGoods.ProcurementDetail pd = models.durableGoods.ProcurementDetail.find.byId(Long.valueOf(id));
 			MaterialCode m = null;
 			FSN_Description fsn = null;
@@ -2047,7 +2134,13 @@ public class Graph extends Controller {
 				}
 
 				result += "<div class=\"well\">";
+				result += getDetailLabel("checkDate", pd.procurement.title);
+				result += getDetailLabel("contractNo", pd.procurement.contractNo);
+				result += getDetailLabel("budgetType", pd.procurement.budgetType);
+				result += getDetailLabel("addDate", pd.procurement.getAddDate());
+				result += getDetailLabel("checkDate", pd.procurement.getCheckDate());
 				result += getDetailLabel("description", pd.description);
+				result += getDetailLabel("remain", String.valueOf(pd.remain));
 				result += getDetailLabel("brand", pd.brand);
 				result += getDetailLabel("price", String.valueOf(pd.price));
 				result += getDetailLabel("phone", pd.phone);
@@ -2055,24 +2148,20 @@ public class Graph extends Controller {
 				result += getDetailLabel("seller", pd.seller);
 				result += getDetailLabel("serialNumber", pd.serialNumber);
 				result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
-				
-				String expandable = "";
 				String path = pd.typeOfDurableGoods == 0 ? m.path: fsn.path;
-				expandable += getDetailLabel("pic", "<img style=\"w);dth:80px;\" src=\"/assets/" + path + "\">");
-				expandable += getDetailLabel("contractNo", pd.procurement.contractNo);
-				expandable += getDetailLabel("budgetType", pd.procurement.budgetType);
-				expandable += getDetailLabel("addDate", pd.procurement.getAddDate());
-				expandable += getDetailLabel("checkDate", pd.procurement.getCheckDate());
-				result += getExpandableHTML("รายละเอียดใบรายการ", expandable);
-				
-				expandable = "";
-				for(models.durableGoods.AI_Committee ai : pd.procurement.aiCommittee){
-					if(ai.committee!=null){
-						expandable += getDetailCommitteeLabel(ai.committeePosition, String.format("%s %s %s", ai.committee.namePrefix, ai.committee.firstName, ai.committee.lastName));
+				result += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
+				String expandable = "";
+				for(DurableGoods d : pd.subDetails){
+					if(pd.typeOfDurableGoods == 1){
+						expandable += getDetailLabel("หมายเลขวัสดุ", d.codes); 
+					}else if(pd.typeOfDurableGoods == 0){
+						continue;
+					}else{
+						--i;
+						break;
 					}
 				}
-				result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
-				
+				if(pd.typeOfDurableGoods == 1) result += getExpandableHTML("รายละเอียดวัสดุ", expandable);
 				result += "</div>";
 			}
 		}
@@ -2404,72 +2493,12 @@ public class Graph extends Controller {
 		return result;
 	}
     
-    /*private static ArrayNode getTableRepairing(Date startDate, Date endDate, int col, String selectedName){
-    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
-    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
-    	HashMap<String,String> ids = new HashMap<String,String>();
-    	//HashMap<String,Double> cost = new HashMap<String,Double>();
-    	
-    	if(col == 1){ // ซ่อมแล้ว
-    		List<Repairing> repaireds = Repairing.find.where().between("dateOfReceiveFromRepair", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList();
-    		for(Repairing r : repaireds){
-    			for(RepairingDetail rd : r.detail){
-    				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    				if(key.equals(selectedName)){
-    					key = rd.durableArticles.detail.fsn.descriptionDescription;
-    					Integer value = listResult.get(key);
-    					if(value == null){
-    						listResult.put(key, 1);
-    						ids.put(key,"" + rd.id);
-    					}else{
-    						listResult.put(key, value + 1);
-    						ids.put(key,ids.get(key) + "," + rd.id );
-    						//cost.put(key, rd.price);
-    					}
-    				}
-    			}
-    		}
-    	}else if(col == 2){ // กำลังซ่อม
-    		List<Repairing> repairings = Repairing.find.where().between("dateOfReceiveFromRepair", startDate, endDate).eq("status", ExportStatus.REPAIRING).findList();
-    		for(Repairing r : repairings){
-    			for(RepairingDetail rd : r.detail){
-    				String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    				if(key.equals(selectedName)){
-    					key = rd.durableArticles.detail.fsn.descriptionDescription;
-    					Integer value = listResult.get(key);
-    					if(value == null){
-    						listResult.put(key, 1);
-    						ids.put(key,"" + rd.id);
-    					}else{
-    						listResult.put(key, value + 1);
-    						ids.put(key,ids.get(key) + "," + rd.id );
-    					}
-    				}
-    			}
-    		}
-    	}
-    	int i=1;
-		for (String key : listResult.keySet()) {
-			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-			tr.add("" + i++);
-			tr.add(key);
-			tr.add(String.format("%d",listResult.get(key)));
-			if(col == 1){
-				tr.add(arg0)
-			}
-			tr.add(ids.get(key));
-			//tr.add(descriptionBtn);
-			result.add(tr);
-		}
-    	return result;
-    }*/
-    
     private static String getExpandableHTML(String header,String content){
 		String result = "";
-		result += "<div class=\"myBtn\">"+header+"&nbsp<span class=\"glyphicon glyphicon-chevron-right\"></span></div>";
+		result += "<div style=\"width:100%\"><div class=\"myBtn\">"+header+"&nbsp<span class=\"glyphicon glyphicon-chevron-right\"></span></div>";
 		result += "<div class='collapse'>";
-			result += content;
-		result += "</div>";
+		result += content;
+		result += "</div></div>";
 		return result;
 	}
     
@@ -2491,8 +2520,8 @@ public class Graph extends Controller {
     			"<div class=\"form-group detailContent\">" + content + "</div></div>";
     }
     
-	private static String getDescriptionButton(String className,String ids){
-		return "<button class='btn btn-xs btn-info' onclick='getDescription(\""+ className +"\", \""+ ids + "\")' >รายละเอียด</button>";
+	private static String getDescriptionButton(String className,String ids, String path){
+		return "<button class='btn btn-xs btn-info' onclick='getDescription(\""+ className +"\", \""+ ids + "\",\""+path+"\")' >รายละเอียด</button>";
 	}
 	
 	private static List<Date> getYearDate(int row){
@@ -2565,219 +2594,52 @@ public class Graph extends Controller {
 		String ids = "";
 		int i=1;
 		if(q1.size()>0){
-			for(User u : q1){
-				if(ids.equals("")){
-					ids += u.username;
-				}else{
-					ids += ","+u.username;
-				}
-			}
-			result.add(getSearchTableRow(i++, names[0], q1.size(), "user", ids));
+			result.add(getSearchTableRow(i++, names[0], q1.size(), "user", query));
 		}
 		if(q2.size()>0){
-			for(Company c : q2){
-				if(ids.equals("")){
-					ids += c.id;
-				}else{
-					ids += "," + c.id;
-				} 
-			}
-			result.add(getSearchTableRow(i++, names[1], q2.size(), "company", ids));
+			result.add(getSearchTableRow(i++, names[1], q2.size(), "company", query));
 		}
 		if(q3.size()>0){
-			result.add(getSearchTableRow(i++, names[2], q3.size(), "procurementDurableArticle", ids));
+			result.add(getSearchTableRow(i++, names[2], q3.size(), "procurementDurableArticle", query));
 		}
 		if(q4.size()>0){
-			result.add(getSearchTableRow(i++, names[3], q4.size(), "procurementMaterialCode", ids));
+			result.add(getSearchTableRow(i++, names[3], q4.size(), "procurementMaterialCode", query));
 		}
 		if(q5.size()>0){
-			result.add(getSearchTableRow(i++, names[4], q5.size(), "requisition", ids));
+			result.add(getSearchTableRow(i++, names[4], q5.size(), "requisition", query));
 		}
 		if(q6.size()>0){
-			result.add(getSearchTableRow(i++, names[5], q6.size(), "internalTransfer", ids));
+			result.add(getSearchTableRow(i++, names[5], q6.size(), "internalTransfer", query));
 		}
 		if(q7.size()>0){
-			result.add(getSearchTableRow(i++, names[6], q7.size(), "auction", ids));
+			result.add(getSearchTableRow(i++, names[6], q7.size(), "auction", query));
 		}
 		if(q8.size()>0){
-			result.add(getSearchTableRow(i++, names[7], q8.size(), "donate", ids));
+			result.add(getSearchTableRow(i++, names[7], q8.size(), "donate", query));
 		}
 		if(q9.size()>0){
-			result.add(getSearchTableRow(i++, names[8], q9.size(), "otherTransfer", ids));
+			result.add(getSearchTableRow(i++, names[8], q9.size(), "otherTransfer", query));
 		}
 		if(q10.size()>0){
-			result.add(getSearchTableRow(i++, names[9], q10.size(), "repair", ids));
+			result.add(getSearchTableRow(i++, names[9], q10.size(), "repair", query));
 		}
 		if(q11.size()>0){
-			result.add(getSearchTableRow(i++, names[10], q11.size(), "borrow", ids));
+			result.add(getSearchTableRow(i++, names[10], q11.size(), "borrow", query));
 		}
 		/*if(q12.size()>0){
-			result.add(getSearchTableRow(i++, names[11], q12.size(), "remain", ids));
+			result.add(getSearchTableRow(i++, names[11], q12.size(), "remain", query));
 		}*/
 		return result;
 	}
 
-	private static ArrayNode getSearchTableRow(int index, String name, int size, String className, String ids ){
+	private static ArrayNode getSearchTableRow(int index, String name, int size, String className, String query ){
 		ArrayNode tr = JsonNodeFactory.instance.arrayNode();
 		tr.add(index+"");
 		tr.add(name);
 		tr.add(size + "");
-		tr.add(getDescriptionButton(className, ids));
+		tr.add(getDescriptionButton(className, query, "/graphDescriptionQuery"));
 		return tr;
 	}
 	
-	/*private static List<String> getTransferKey(List<otherTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
-    	List<String> list = new ArrayList<String>();
-    	for(InternalTransfer internal : internals){
-    		for(InternalTransferDetail internalDetail : internal.detail){
-    			String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			if(!list.contains(key)){
-    				list.add(key);
-    			}
-    		}
-    	}
-    	
-    	for(Auction auction : auctions){
-    		for(AuctionDetail auctionDetail : auction.detail){
-    			String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			if(!list.contains(key)){
-    				list.add(key);
-    			}
-    		}
-    	}
-    	
-    	for(Donation donation : donations){
-    		for(DonationDetail donationDetail : donation.detail){
-    			String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			if(!list.contains(key)){
-    				list.add(key);
-    			}
-    		}
-    	}
-    	
-    	for(OtherTransfer other : others){
-    		for(OtherTransferDetail otherDetail : other.detail){
-    			String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			if(!list.contains(key)){
-    				list.add(key);
-    			}
-    		}
-    	}
-    	
-    	return list;
-    }*/
-    
-    /*private static HashMap<String, Integer[]> getMapTransfer(List<InternalTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others, List<String> list){
-    	HashMap<String , Integer[]> map = new HashMap<String, Integer[]>();
-    	for(InternalTransfer internal : internals){
-    		for(InternalTransferDetail internalDetail : internal.detail){
-    			String key = internalDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			Integer[] value = map.get(key);
-    			if(value == null){
-    				Integer[] newValue = {1,0,0,0};
-    				map.put(key, newValue);
-    			}else{
-    				value[0] += 1;
-    				map.put(key, value);
-    			}
-    		}
-    	}
-    	
-    	for(Auction auction : auctions){
-    		for(AuctionDetail auctionDetail : auction.detail){
-    			String key = auctionDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			Integer[] value = map.get(key);
-    			if(value == null){
-    				Integer[] newValue = {0,1,0,0};
-    				map.put(key, newValue);
-    			}else{
-    				value[1] += 1;
-    				map.put(key, value);
-    			}
-    		}
-    	}
-    	
-    	for(Donation donation : donations){
-    		for(DonationDetail donationDetail : donation.detail){
-    			String key = donationDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			Integer[] value = map.get(key);
-    			if(value == null){
-    				Integer[] newValue = {0,0,1,0};
-    				map.put(key, newValue);
-    			}else{
-    				value[2] += 1;
-    				map.put(key, value);
-    			}
-    		}
-    	}
-    	
-    	for(OtherTransfer other : others){
-    		for(OtherTransferDetail otherDetail : other.detail){
-    			String key = otherDetail.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			Integer[] value = map.get(key);
-    			if(value == null){
-    				Integer[] newValue = {0,0,0,1};
-    				map.put(key, newValue);
-    			}else{
-    				value[3] += 1;
-    				map.put(key, value);
-    			}
-    		}
-    	}
-    	return map;
-    }*/
-    
-    /*private static HashMap<String, Integer[]> getMapRepairing(List<Repairing> repaireds, List<Repairing> repairings, List<String> list) {
-    	HashMap<String , Integer[]> map = new HashMap<String, Integer[]>();
-    	for(Repairing r : repaireds){
-    		for(RepairingDetail rd : r.detail){
-    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			Integer[] value = map.get(key);
-    			if(value == null){
-    				Integer[] newValue = {1,0};
-    				map.put(key, newValue);
-    			}else{
-    				value[0] += 1;
-    				map.put(key, value);
-    			}
-    		}
-    	}
-    	for(Repairing r : repairings){
-    		for(RepairingDetail rd : r.detail){
-    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			Integer[] value = map.get(key);
-    			if(value == null){
-    				Integer[] newValue = {0,1};
-    				map.put(key, newValue);
-    			}else{
-    				value[1] += 1;
-    				map.put(key, value);
-    			}
-    		}
-    	}
-		return map;
-	}*/
-
-	/*private static List<String> getRepairKey(List<Repairing> repaireds, List<Repairing> repairings){
-    	List<String> list = new ArrayList<String>();
-    	for(Repairing r : repaireds){
-    		for(RepairingDetail rd : r.detail){
-    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			if(!list.contains(key)){
-    				list.add(key);
-    			}
-    		}
-    	}
-    	
-    	for(Repairing r : repairings){
-    		for(RepairingDetail rd : r.detail){
-    			String key = rd.durableArticles.detail.fsn.typ.groupClass.group.groupDescription;
-    			if(!list.contains(key)){
-    				list.add(key);
-    			}
-    		}
-    	}
-    	return list;
-    }*/
-    
+	    
 }
