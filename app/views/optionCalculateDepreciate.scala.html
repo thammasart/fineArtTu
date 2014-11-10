@@ -1,4 +1,4 @@
-@(user : User,articleOrders : List[models.durableArticles.Procurement])
+@(user : User,articleOrders : List[models.durableArticles.Procurement], year : Integer)
 
 @import java.text.SimpleDateFormat
 @import java.util.Locale
@@ -11,23 +11,28 @@
 
 
 <div class="listWindow">
-
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
-                        <form>
                             <div class="form-group">
                                 <div class="input-group">
                                   <span class="input-group-addon">ค้นหา</span>
-                                  <input type="text" class="form-control" style="width:300px">
+                                  <input type="text" class="form-control" style="width:250px">
                                 </div>
                               </div>
-                        </form>
                 </div>
-                 <div>
-                    <a style="float:right;margin-left:1%;" class="width20p" href="@routes.Option.optionCalculatingDepreciate()">
-                    <button class="btn btn-success" style="width:100%;">ดำเนินการคำนวณค่าเสื่อม</button>
-                    </a>	
-                </div>
+                 <form role="form" method="post" action="@routes.Option.optionCalculatingDepreciate()" name="calculatingDepreciateForm">
+                     <div>
+                        <div style="width:15%; float:right; margin-left:1%;">
+                            <button class="btn btn-success" style="width:100%;" type="submit">คำนวณค่าเสื่อม</button>
+                        </div>
+                        <div class="form-group"style="width:200px;float:right;">
+                           <div class="input-group">
+                               <span class="input-group-addon">ปีที่</span>
+                               <input type="number" class="form-control" name="years" onkeypress="validateNumberKey(event)" size="4" maxlength="4" value="@year">
+                           </div>
+                        </div>
+                    </div>
+                 </form>
         </div>
 
         <div class="adminUserinfoTableContainer">
@@ -50,46 +55,38 @@
                 </thead>
                 <tbody>
        			
-				@for(articleOrder <- articleOrders){
-					@if( articleOrder.getCurrentYear() == articleOrder.yearStatus ){
-						@for(subOrders <- articleOrder.details){
-	                    <tr>
-	                    <th>@articleOrder.getAddDate()</th>
-	                    <th>@subOrders.description</th>
-	                    <th>@subOrders.fsn.descriptionId</th>
-	                    <th>@subOrders.quantity</th>
-	                    <th>@articleOrder.round(subOrders.getSumablePrice(),2)</th>
-	                    <th>@subOrders.llifeTime</th>
-	                    <th>@articleOrder.round(subOrders.getAnnualDepricate(),2)</th> <!-- ค่าเสื่อมต่อปี -->
-	
-	                    
-	                    <!-- ค่าเสือมสะสม -->
-	                    @if( ( subOrders.getSumablePrice()-subOrders.getTotalDepreciationPrice() ) <=1.0){
-	                    <th>@(subOrders.getSumablePrice()-1.0)</th>
-	                    }else{
-	                    <th>@articleOrder.round(subOrders.getTotalDepreciationPrice(),2)</th>
-	                    }
-	
-	                    <!-- ค่าเสือมประจำปี -->
-	                    @if( subOrders.getTotalDepreciationPrice()==0 ){
-	                    	<th>@articleOrder.round(  ( (subOrders.getSumablePrice()/subOrders.llifeTime) * (articleOrder.getFirstYearDepreciation(articleOrder.getDay(),articleOrder.getMonth()) ) ),2)</th>
-	                    	@subOrders.getDepreciationOfYear(((subOrders.getSumablePrice()/subOrders.llifeTime)*(articleOrder.getFirstYearDepreciation(articleOrder.getDay(),articleOrder.getMonth()))))
-	                    }else{
-	                    	@if( (subOrders.depreciationPrice-(subOrders.getSumablePrice/subOrders.llifeTime))>=1.0 ){
-	                    	<th>@articleOrder.round(subOrders.getSumablePrice()/subOrders.llifeTime,2)</th>
-	                    	 @subOrders.getDepreciationOfYear(subOrders.getSumablePrice()/subOrders.llifeTime)
-	                    	}else{
-	                    	<th>@articleOrder.round((subOrders.depreciationPrice-1),2)</th>	<!-- last year -->
-	                    	@subOrders.getDepreciationOfYear(subOrders.depreciationPrice-1)
-	                   		}
-	                   	}
-	                  
-	                    
-	                    
-	                    <th>@articleOrder.round(subOrders.depreciationPrice,2)</th>
-	                    </tr>
-	                    }
-	                } 
+                @for((articleOrder,index) <- articleOrders.zipWithIndex){
+                        @for((subOrders,index2) <- articleOrder.details.zipWithIndex){
+                            <tr>
+                            <th>@articleOrder.getAddDate()</th>
+                            <th>@subOrders.description</th>
+                            <th>@subOrders.fsn.descriptionId</th>
+                            <th>@subOrders.quantity</th>
+                            <th>@articleOrder.round(subOrders.getSumablePrice(),2)</th>
+                            <th>@subOrders.llifeTime</th>
+                            <th>@articleOrder.round(subOrders.getAnnualDepricate(),2)</th> <!-- ค่าเสื่อมต่อปี -->
+        
+                            
+                            <!-- ค่าเสือมสะสม -->
+                            <th id="temp2@index@index2"></th>
+        
+                            <!-- ค่าเสือมประจำปี -->
+                                <th id="temp0@index@index2"></th>
+                          
+                            
+                            
+                            <!--<th>@articleOrder.round(subOrders.depreciationPrice,2)</th>-->
+                            <th id="temp1@index@index2">@subOrders.getTotalDepricate(year)</th>
+                            </tr>
+                            <script>
+                                var temp = document.getElementById("temp1@index@index2").innerHTML;
+                                temp = temp.substr(1,temp.length-2);
+                                temp = temp.split(",");
+                                document.getElementById("temp2@index@index2").innerHTML = temp[2];
+                                document.getElementById("temp0@index@index2").innerHTML = temp[0];
+                                document.getElementById("temp1@index@index2").innerHTML = temp[1];
+                            </script>
+                        }
                  }
 
                 </tbody>

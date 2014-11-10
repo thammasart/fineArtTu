@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Collections.*;
 
 public class Report  extends Controller {
 
@@ -63,9 +64,28 @@ public class Report  extends Controller {
     }
     
     @Security.Authenticated(Secured.class)
-        public static Result reportImportDurableArticles() {
+    public static Result reportImportDurableArticles() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportImportDurableArticle.render(user));
+        List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.all();                    //ครุภัณฑ์
+        List<models.durableArticles.DurableArticles> dList = new ArrayList<models.durableArticles.DurableArticles>();
+    	HashMap<String,models.durableArticles.DurableArticles> listResult = new HashMap<String,models.durableArticles.DurableArticles>();
+    	HashMap<String,Integer> listCount = new HashMap<String,Integer>();
+        List<Integer> count = new ArrayList<Integer>();
+
+        for(models.durableArticles.DurableArticles each : da){
+            listResult.put(each.detail.fsn.typ.groupClass.classId,each);
+            if(listCount.get(each) == null){
+                System.out.println("a");
+                listCount.put(each.detail.fsn.typ.groupClass.classId,0);
+            }else{
+                listCount.put(each.detail.fsn.typ.groupClass.classId,listCount.get(each)+1);
+            }
+        }
+        for(String each : listResult.keySet()){
+            dList.add(listResult.get(each));
+            count.add(listCount.get(each));
+        }
+        return ok(reportImportDurableArticle.render(user,dList,count));
     }
     @Security.Authenticated(Secured.class)
         public static Result reportExportDurableArticles() {

@@ -203,9 +203,9 @@ POST    /graph           								controllers.Graph.getData()
 POST	/graphDescription								controllers.Graph.getDescription
 
 GET		/option/CalculateDepreciate						controllers.Option.optionCalculateDepreciate()
-GET     /option/CalculatingDepreciate					controllers.Option.optionCalculatingDepreciate()
+POST     /option/CalculatingDepreciate				                	controllers.Option.optionCalculatingDepreciate()
 GET		/option/IncomingBalance							controllers.Option.optionIncomingBalance()
-GET		/option/ChangeTax								controllers.Option.optionChangeTax()
+GET		/option/ChangeTax							controllers.Option.optionChangeTax()
 POST	/option/DoChangeTax								controllers.Option.optionChangeTax()
 
 # Map static resources from the /public folder to the /assets URL path

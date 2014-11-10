@@ -20,6 +20,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import javax.persistence.ManyToOne;
 import javax.swing.JOptionPane;
@@ -52,53 +54,21 @@ public class Option extends Controller {
     public static Result optionCalculateDepreciate() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<models.durableArticles.Procurement> p = models.durableArticles.Procurement.find.where().eq("status",ImportStatus.SUCCESS).findList();
-        
-        return ok(optionCalculateDepreciate.render(user,p));
+        Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
+        int year = localCalendar.get(Calendar.YEAR)+543;
+        return ok(optionCalculateDepreciate.render(user,p,year));
     }
 	
-	@Security.Authenticated(Secured.class)
+    @Security.Authenticated(Secured.class)
     public static Result optionCalculatingDepreciate() {
+        DynamicForm f = Form.form().bindFromRequest();
+        String temp = f.get("years");
+        int year = Integer.parseInt(temp);
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         
         List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status",ImportStatus.SUCCESS).findList(); 
-    
-        for(models.durableArticles.Procurement p:ps)
-        {
-        	if(p.getCurrentYear() == p.yearStatus)
-        	{
-	        	for(models.durableArticles.ProcurementDetail pd:p.details)
-	        	{
-	        		pd.depreciationPrice = pd.depreciationPrice-pd.depreciationOfYear;
-	        		System.out.println(pd.depreciationPrice);
-	        		pd.update();
-	        	}
-	        	p.yearStatus++;
-	        	p.update();
-        	}
-        	
-        }
         
-        /////////////////////////////////////////Testtttttttt
-        for(models.durableArticles.Procurement p:ps)
-        {
-    	p.testDay++;
-    	p.update();
-        }
-        /////////////////////////////////////////Testtttttttt
-  
-        
-        
-        /*
-        List<models.durableArticles.DurableArticles> d = DurableArticles.find.all();
-        for(models.durableArticles.DurableArticles ds:d)
-        {
-        	System.out.println(ds.getDepreciationPrice());
-        	break;
-        }
-*/
-        
-        
-        return ok(optionCalculateDepreciate.render(user,ps));
+        return ok(optionCalculateDepreciate.render(user,ps,year));
     }
 	
 	
