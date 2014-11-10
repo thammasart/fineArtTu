@@ -13,12 +13,12 @@
 @cancelExportAdd()
 @cancelList()
 
-<div class="detailWindow">
+<div class ="detailWindow" id="addWindows" >
+  <div>
     <button class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button> 
     <button id="changeToEditButton" onclick="changeToEdit()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
-</div>
+  </div>
 
-<div class ="detailWindow" id="addWindows" >
   <form name="addTransferInside" method="post" action="@routes.ExportTransferInside.saveInternalTransfer(inside.id)" ng-init="findUser()" onsubmit="return submitButtonClick()">
 
     <div>

@@ -10,13 +10,12 @@
 @nav(user)
 @headerTagFull("เพิ่มรายการส่งซ่อม")
 
-<div class="detailWindow">
+<div id="addWindows" class ="detailWindow" ng-app="userAccountModule" ng-controller="autoCompleteUserController">
+  <div>
     <button class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button> 
     <button id="changeToEditButton" onclick="changeToEdit()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
-</div>
+  </div>
 
-<div id="addWindows" class ="detailWindow" ng-app="userAccountModule" ng-controller="autoCompleteUserController">
-  
   <form onsubmit=" return submitButtonClick()"name="addSold" method="post" action="@routes.ExportRepair.saveRepairing(repair.id)" ng-init="findUser()">
     <div>
 

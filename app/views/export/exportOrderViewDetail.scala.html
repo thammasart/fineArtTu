@@ -12,12 +12,14 @@
 
 @cancelExportAdd()
 @cancelList()
-<div class="detailWindow">
-    <button class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button> 
-    <button id="changeToEditButton" onclick="changeToEdit()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
-</div>
 
 <div class ="detailWindow" id="addWindows" >
+  <div>
+    <button class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button> 
+    <button id="changeToEditButton" onclick="changeToEdit()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
+  </div>
+
+
   <form name="addOrder" method="post" action="@routes.ExportOrder.saveRequisition(requisition.id)" ng-init="findUser()" onsubmit="return submitButtonClick()">
     <div>
 
