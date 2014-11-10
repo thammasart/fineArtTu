@@ -12,7 +12,7 @@ var color = ['#7B9CDE','#EA8871','#FFC266','#70C074','#C266C2',
 '#83A1BF','#C28FC2','#7ACCC2','#CCCC70','#A385E0',
 '#F0AB66','#B96A6A','#84BEA1','#99ACCA','#898BCD'];
 var materialNames = ['สนง','ยานพหนะและขนส่ง','ไฟฟ้าและวิทยุ','คอมฯ','การศึกษา','งานบ้านงานครัว','ดนตรี','โฆษณาและเผยแพร่','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง','ก่อสร้าง']
-var defaultThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวน<span class="glyphicon glyphicon-sort"></span></th><th>สถานะ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>'
+var defaultThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวน<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>'
 var balanceThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>งบประมาณที่ใช้<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var procurementThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่นำเข้า<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
 var requisitionThead = '<tr><th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th><th>รายการ<span class="glyphicon glyphicon-sort"></span></th><th>จำนวนที่เบิกวัสดุ<span class="glyphicon glyphicon-sort"></span></th><th>รายละเอียด</span></th></tr>';
@@ -38,7 +38,7 @@ var years = [ '2010', '2011', '2012', '2013', '2014' ];
 var state = {
 	'relation' : 'year',
 	'mode' : 'balance',
-	'previousMode' : 'balance',
+	'request' : 'default',
 	'page' : 0,
 	'clickedItem' : {'row':-1,'column':-1},
 	'selectedName' : 'default',
@@ -156,7 +156,9 @@ function setData(obj,chart){
 		chart2.draw(data, newOption);
 	}else if(chart == "table"){
 		clearTable(0);
-		if(state['mode'] == 'balance'){
+		if(state['request'] == 'search'){
+			setDataTableColumn("trackingTable", defaultThead).rows.add(obj).draw();
+		}else if(state['mode'] == 'balance'){
 			setDataTableColumn("trackingTable", balanceThead).rows.add(obj).draw();
 		}else if(state['mode'] == 'procurement'){
 			setDataTableColumn("trackingTable", procurementThead).rows.add(obj).draw();
@@ -331,7 +333,10 @@ function backToTable(){
 }
 
 $(document).on('shown.bs.tab', 'a[href="#relation"]', function (e) {
+	$('#advanceSearch').hide();
+	$('#normalSearch').show();
 	backToTable();
+	state['request'] = "default";
 	state['clickedItem'] = {'row':-1 , 'column':-1};
 	state['lastSelected'] = state['clickedItem'];
 	state['page'] = 0;
@@ -341,10 +346,27 @@ $(document).on('shown.bs.tab', 'a[href="#relation"]', function (e) {
 
 $(document).on('shown.bs.tab', 'a[href="#tracking"]', function (e) {
 	if(state['page']!=2){
+		state['request'] = "search";
 		clearTable(0);
 		setDataTableColumn("trackingTable",defaultThead);
+		$('#advanceSearch').show();
+		$('#normalSearch').hide();
+	}else{
+		$('#advanceSearch').hide();
+		$('#normalSearch').show();
 	}
 });
+
+function search(event){
+    if(event.keyCode == 13){
+    	console.log("asd");
+    	state['request'] = "search";
+		state['query'] = $('#search').val();
+		getData('table');
+		$('#search').val("");
+    }
+};
+
 window.onbeforeprint = function() {
 	destroyTable();
     if(state['page'] == 0 || state['page'] == 1){

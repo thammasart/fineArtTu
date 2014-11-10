@@ -9,15 +9,23 @@
 	
 	<div class="listWindow">
 		<div class="tableHeaderBtnContainer">
-	            <div class="searchS">
-	                <form>
+	            <div class="searchS" id="normalSearch">
+	                <div>
 	                    <div class="form-group">
 	                        <div class="input-group">
-	                            <span class="input-group-addon">ค้นหา</span> <input type="text"
-	                                class="form-control" style="width: 300px">
+	                            <span class="input-group-addon">ค้นหา</span> <input type="text" class="form-control" style="width: 300px">
 	                        </div>
 	                    </div>
-	                </form>
+	                </div>
+	            </div>
+	            
+	            <div id="advanceSearch" style="float:left;width:350px;display:none;">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon">ค้นหา</span>
+							<input id="search" type="text" class="form-control" style="width: 300px" onkeyup="search(event)">
+						</div>
+					</div>
 	            </div>
 		</div>
 		<ul class="nav nav-tabs" role="tablist" id="graph-tab"
