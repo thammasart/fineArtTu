@@ -21,14 +21,12 @@ import models.durableArticles.OtherTransferDetail;
 import models.durableArticles.Repairing;
 import models.durableArticles.RepairingDetail;
 import models.durableGoods.DurableGoods;
-import models.durableGoods.Procurement;
-import models.durableGoods.ProcurementDetail;
-import models.durableGoods.Requisition;
+import models.consumable.Requisition;
+import models.consumable.RequisitionDetail;
 import models.fsnNumber.FSN_Description;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -77,24 +75,30 @@ public class Graph extends Controller {
       int lastClickedRow = last.get("row").asInt();
       int lastClickedColumn = last.get("column").asInt();
       
-      
       ArrayNode result=null;
-      
-	  if(mode.equals("balance")){
-		  result = getBalance(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("procurement")){
-		  result = getProcurement(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("requisition")){
-		  result = getRequisition(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("transfer")){
-		  result = getTransfer(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("repairing")){
-		  result = getRepairing(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("borrow")){
-		  result = getBorrow(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }else if(mode.equals("remain")){
-		  result = getRemain(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
-	  }
+      String request = json.get("request").asText();
+      if(request.equals("search")){
+    	  
+    	  String query = json.get("query").asText();
+    	  result = getSearchResult(query);
+    	  
+      }else{
+		  if(mode.equals("balance")){
+			  result = getBalance(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
+		  }else if(mode.equals("procurement")){
+			  result = getProcurement(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
+		  }else if(mode.equals("requisition")){
+			  result = getRequisition(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
+		  }else if(mode.equals("transfer")){
+			  result = getTransfer(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
+		  }else if(mode.equals("repairing")){
+			  result = getRepairing(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
+		  }else if(mode.equals("borrow")){
+			  result = getBorrow(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
+		  }else if(mode.equals("remain")){
+			  result = getRemain(relation,row,column,page,lastClickedRow,lastClickedColumn,selectedName);
+		  }
+      }
 	  
       return ok(result);
     }
@@ -407,7 +411,7 @@ public class Graph extends Controller {
     		}else if(relation.equals("quarter")){
     			d = getQuarterDate(row);
     		}
-			List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+			List<Requisition> rs = Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
 			result = getDetailRequisitionMap(rs);
     	}else{
     		List<Date> d = null;
@@ -418,7 +422,7 @@ public class Graph extends Controller {
     		}else if(relation.equals("quarter")){
     			d = getQuarterDate(lRow);
     		}
-			List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+			List<Requisition> rs = Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
 			result = getTableRequisition( rs , selectedName );
     	}
     	return result;
@@ -738,7 +742,7 @@ public class Graph extends Controller {
     			d = getQuarterDate(row);
     		}
     		List<models.durableGoods.ProcurementDetail> ps =  models.durableGoods.ProcurementDetail.find.where().le("procurement.addDate", d.get(1)).eq("procurement.status", ImportStatus.SUCCESS).eq("typeOfDurableGoods", 0).findList();
-    		List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().le("approveDate", d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    		List<Requisition> rs = Requisition.find.where().le("approveDate", d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
     		//[unchange]rs.addAll(models.durableGoods.DurableGoods.find.where().le("detail.procurement.addDate", d.get(0)).eq("detail.procurement.status", ImportStatus.UNCHANGE).eq("typeOfDurableGoods", 0).findList());
 			result = getDetailRemainMap(ps,rs);
     	}else{
@@ -751,7 +755,7 @@ public class Graph extends Controller {
     			d = getQuarterDate(lRow);
     		}
     		List<models.durableGoods.ProcurementDetail> ps =  models.durableGoods.ProcurementDetail.find.where().le("procurement.addDate", d.get(1)).eq("procurement.status", ImportStatus.SUCCESS).eq("typeOfDurableGoods", 0).findList();
-    		List<models.consumable.Requisition> rs = models.consumable.Requisition.find.where().le("approveDate", d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    		List<Requisition> rs = Requisition.find.where().le("approveDate", d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
 			result = getTableRemain( ps, rs , selectedName );
     	}
     	return result;
@@ -788,7 +792,7 @@ public class Graph extends Controller {
 	}
 
 	private static int getSumRequisition(Date startDate, Date endDate){
-		return models.consumable.Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+		return Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
 	}
 
 	private static ArrayList<Integer> getSumTransfer(Date startDate, Date endDate){
@@ -817,8 +821,8 @@ public class Graph extends Controller {
 	private static int getSumRemain(Date endDate) {
 		int remainGoods = models.durableGoods.DurableGoods.find.where().le("detail.procurement.addDate", endDate).eq("detail.procurement.status", ImportStatus.SUCCESS).eq("typeOfDurableGoods", 0).findList().size();
 		//[unchange]remainGoods += models.durableGoods.DurableGoods.find.where().le("detail.procurement.addDate", endDate).eq("detail.procurement.status", ImportStatus.UNCHANGE).eq("typeOfDurableGoods", 0).findList().size();
-		List<models.consumable.RequisitionDetail> rs = models.consumable.RequisitionDetail.find.where().le("requisition.approveDate", endDate).eq("requisition.status", ExportStatus.SUCCESS).findList();
-		for(models.consumable.RequisitionDetail r : rs){
+		List<RequisitionDetail> rs = RequisitionDetail.find.where().le("requisition.approveDate", endDate).eq("requisition.status", ExportStatus.SUCCESS).findList();
+		for(RequisitionDetail r : rs){
 			remainGoods -= r.quantity;
 		}
 		return remainGoods;
@@ -1027,11 +1031,11 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getDetailRequisitionMap(List<models.consumable.Requisition> rs){
+    private static ArrayNode getDetailRequisitionMap(List<Requisition> rs){
     	ArrayNode result = getDetailHeader();
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
-    	for(models.consumable.Requisition r : rs){
-    		for(models.consumable.RequisitionDetail rd : r.details){
+    	for(Requisition r : rs){
+    		for(RequisitionDetail rd : r.details){
     			String key = rd.code.materialType.typeName;
     			Integer value = listResult.get(key);
 				if(value == null){
@@ -1261,7 +1265,7 @@ public class Graph extends Controller {
 		return result;
 	}
 
-	private static ArrayNode getDetailRemainMap(List<ProcurementDetail> ps, List<models.consumable.Requisition> rs) {
+	private static ArrayNode getDetailRemainMap(List<models.durableGoods.ProcurementDetail> ps, List<Requisition> rs) {
 		ArrayNode result = ps.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
 		for(models.durableGoods.ProcurementDetail pd : ps){
@@ -1284,8 +1288,8 @@ public class Graph extends Controller {
 				listResult.put(key, listResult.get(key) + pd.quantity);
 			}
 		}
-    	for(models.consumable.Requisition r : rs){
-    		for(models.consumable.RequisitionDetail rd : r.details){
+    	for(Requisition r : rs){
+    		for(RequisitionDetail rd : r.details){
     			String key = rd.code.materialType.typeName;
     			Integer value = listResult.get(key);
 				if(value == null){
@@ -1495,12 +1499,12 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getTableRequisition(List<models.consumable.Requisition> rs, String selectedName){
+    private static ArrayNode getTableRequisition(List<Requisition> rs, String selectedName){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
-    	for(models.consumable.Requisition r : rs){
-    		for(models.consumable.RequisitionDetail rd : r.details){
+    	for(Requisition r : rs){
+    		for(RequisitionDetail rd : r.details){
     			MaterialCode c = rd.code;
     			if(c.materialType.typeName.equals(selectedName)){
     				String key = c.description;
@@ -1825,7 +1829,7 @@ public class Graph extends Controller {
 		return result;
 	}
 
-	private static ArrayNode getTableRemain(List<ProcurementDetail> ps, List<models.consumable.Requisition> rs, String selectedName) {
+	private static ArrayNode getTableRemain(List<models.durableGoods.ProcurementDetail> ps, List<Requisition> rs, String selectedName) {
 		// TODO Auto-generated method stub
 		ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
@@ -1860,8 +1864,8 @@ public class Graph extends Controller {
 				}
 			}
 		}
-    	for(models.consumable.Requisition r : rs){
-    		for(models.consumable.RequisitionDetail rd : r.details){
+    	for(Requisition r : rs){
+    		for(RequisitionDetail rd : r.details){
     			MaterialCode c = rd.code;
     			if(c.materialType.typeName.equals(selectedName)){
     				String key = c.description;
@@ -2080,7 +2084,7 @@ public class Graph extends Controller {
 		String result = "<div>";
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(String id: ids){
-			models.consumable.RequisitionDetail rd = models.consumable.RequisitionDetail.find.byId(Long.valueOf(id));
+			RequisitionDetail rd = RequisitionDetail.find.byId(Long.valueOf(id));
 			result += "<div class=\"well\">";
 			
 			result += getDetailLabel("id", String.valueOf(rd.id));
@@ -2378,7 +2382,7 @@ public class Graph extends Controller {
 		for(int i=0; i<ids2.length; i++){
 			String id = ids2[i];
 			String detailsCodes = "";
-			models.consumable.RequisitionDetail r = models.consumable.RequisitionDetail.find.byId(Long.valueOf(id));
+			RequisitionDetail r = RequisitionDetail.find.byId(Long.valueOf(id));
 			if(r.withdrawer!=null){
 				String key = String.format("%s %s %s", r.withdrawer.namePrefix, r.withdrawer.firstName, r.withdrawer.lastName );
 				Integer value = withdrawer.get(key);
@@ -2541,6 +2545,85 @@ public class Graph extends Controller {
 		d.add(startDate);
 		d.add(endDate);
 		return d;
+	}
+	
+	private static ArrayNode getSearchResult(String query){
+		ArrayNode result = JsonNodeFactory.instance.arrayNode();
+		List<User> q1 = util.SearchQuery.getUsers(query);
+		List<Company> q2 = util.SearchQuery.getCompanies(query);
+		List<models.durableArticles.Procurement> q3 = util.SearchQuery.getDurableArticleProcurement(query);
+		List<models.durableGoods.Procurement> q4 = util.SearchQuery.getDurableGoodsProcurement(query);
+		List<Requisition> q5 = util.SearchQuery.getRequisition(query);
+		List<InternalTransfer> q6 = util.SearchQuery.getInternalTransfer(query);
+		List<Auction> q7 = util.SearchQuery.getAuction(query);
+		List<Donation> q8 = util.SearchQuery.getDonations(query);
+		List<OtherTransfer> q9 = util.SearchQuery.getOtherTransfer(query);
+		List<Repairing> q10 = util.SearchQuery.getRepair(query);
+		List<Borrow> q11 = util.SearchQuery.getBorrow(query);
+		List<MaterialCode> q12 = util.SearchQuery.getMaterialCodes(query);
+		String[] names = {"ผู้ใช้","สถานประกอบการ","นำเข้าครุภัณฑ์","นำเข้าวัสดุ","เบิกจ่ายวัสดุ","โอนย้ายภายใน","จำหน่าย","บริจาค","โอนย้ายอื่นๆ","ส่งซ่อม","ขอยืม","คงเหลือ"};
+		String ids = "";
+		int i=1;
+		if(q1.size()>0){
+			for(User u : q1){
+				if(ids.equals("")){
+					ids += u.username;
+				}else{
+					ids += ","+u.username;
+				}
+			}
+			result.add(getSearchTableRow(i++, names[0], q1.size(), "user", ids));
+		}
+		if(q2.size()>0){
+			for(Company c : q2){
+				if(ids.equals("")){
+					ids += c.id;
+				}else{
+					ids += "," + c.id;
+				} 
+			}
+			result.add(getSearchTableRow(i++, names[1], q2.size(), "company", ids));
+		}
+		if(q3.size()>0){
+			result.add(getSearchTableRow(i++, names[2], q3.size(), "procurementDurableArticle", ids));
+		}
+		if(q4.size()>0){
+			result.add(getSearchTableRow(i++, names[3], q4.size(), "procurementMaterialCode", ids));
+		}
+		if(q5.size()>0){
+			result.add(getSearchTableRow(i++, names[4], q5.size(), "requisition", ids));
+		}
+		if(q6.size()>0){
+			result.add(getSearchTableRow(i++, names[5], q6.size(), "internalTransfer", ids));
+		}
+		if(q7.size()>0){
+			result.add(getSearchTableRow(i++, names[6], q7.size(), "auction", ids));
+		}
+		if(q8.size()>0){
+			result.add(getSearchTableRow(i++, names[7], q8.size(), "donate", ids));
+		}
+		if(q9.size()>0){
+			result.add(getSearchTableRow(i++, names[8], q9.size(), "otherTransfer", ids));
+		}
+		if(q10.size()>0){
+			result.add(getSearchTableRow(i++, names[9], q10.size(), "repair", ids));
+		}
+		if(q11.size()>0){
+			result.add(getSearchTableRow(i++, names[10], q11.size(), "borrow", ids));
+		}
+		/*if(q12.size()>0){
+			result.add(getSearchTableRow(i++, names[11], q12.size(), "remain", ids));
+		}*/
+		return result;
+	}
+
+	private static ArrayNode getSearchTableRow(int index, String name, int size, String className, String ids ){
+		ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+		tr.add(index+"");
+		tr.add(name);
+		tr.add(size + "");
+		tr.add(getDescriptionButton(className, ids));
+		return tr;
 	}
 	
 	/*private static List<String> getTransferKey(List<otherTransfer> internals, List<Auction> auctions, List<Donation> donations, List<OtherTransfer> others){
