@@ -82,19 +82,21 @@ function selectionHandler(){
 	}else{
 		chart2.setSelection(chart2.getSelection()[0]);
 	}
-	state['lastSelected'] = state['clickedItem'];
-	state['clickedItem'] = object;
-	if(state['page'] == 0){
-		state['page'] = 1;
-		getData('column');
-	}else if(state['page']==1){
-		var col = 3;
-		if(state['mode'] == 'transfer' || state['mode'] == 'balance'){
-			col = 0;
+	if(object.row != null){
+		state['lastSelected'] = state['clickedItem'];
+		state['clickedItem'] = object;
+		if(state['page'] == 0){
+			state['page'] = 1;
+			getData('column');
+		}else if(state['page']==1){
+			var col = 3;
+			if(state['mode'] == 'transfer' || state['mode'] == 'balance'){
+				col = 0;
+			}
+			state['page'] = 2;
+			state['selectedName'] = data.getFormattedValue(object.row, col);
+			getData('table');
 		}
-		state['page'] = 2;
-		state['selectedName'] = data.getFormattedValue(object.row, col);
-		getData('table');
 	}
 }
 
@@ -176,7 +178,6 @@ function setData(obj,chart){
 		}else if(state['mode'] == 'remain'){
 			setDataTableColumn("trackingTable", remainThead).rows.add(obj).draw();
 		}
-		setSearchBox("inTableSearch",0);
 		setSearchBox("search",0);
 		
 		$('#graph-tab a[href="#tracking"]').tab('show');
@@ -359,6 +360,7 @@ function search(event){
     if(event.keyCode == 13){
     	state['request'] = "search";
 		state['query'] = $('#search').val();
+		backToTable();
 		getData('table');
 		$('#search').val("");
     }
