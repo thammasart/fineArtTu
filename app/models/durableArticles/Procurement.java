@@ -83,9 +83,6 @@ public class Procurement extends Model{
 		return now.getYear()+1900+543+testDay; 
 	}
 	
-
-	
-	
 	public double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 	    long factor = (long) Math.pow(10, places);

@@ -1885,15 +1885,16 @@ public class Graph extends Controller {
     		}
     		
     	}
+    	//TODO
     	int i=1;
 		for (String key : listResult.keySet()) {
-			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-			tr.add("" + i++);
-			tr.add(key);
-			tr.add(String.format("%d",listResult.get(key)));
-			tr.add(getDescriptionButton("remain", ids.get(key)[0]+"/"+ids.get(key)[1]));
-			//tr.add(descriptionBtn);
-			result.add(tr);
+				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+				tr.add("" + i++);
+				tr.add(key);
+				tr.add(String.format("%d",listResult.get(key)));
+				tr.add(getDescriptionButton("remain", ids.get(key)[0]+"/"+ids.get(key)[1]));
+				//tr.add(descriptionBtn);
+				result.add(tr);
 		}
     	return result;
 	}

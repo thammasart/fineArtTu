@@ -8,6 +8,7 @@
     <script src="@routes.Assets.at("javascripts/controllers/importOrder.js")"></script>
     <script src="@routes.Assets.at("javascripts/controllers/fsnAutocomplete.js")"></script>
     <script src="@routes.Assets.at("javascripts/controllers/submit.js")"></script>
+    <script src="@routes.Assets.at("javascripts/printBarcode.js")"></script>
 <body ng-app="fsnAutoComplete" ng-controller="getFsnName">
 @nav(user)
 @headerTagFull("เพิ่มรายการครุภัณฑ์จัดซื้อและนำเข้า")
@@ -15,9 +16,9 @@
 
 
 	@if(order.status.name == "SUCCESS"){
+		<button onclick="printBarcode('@order.barCode')" class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button> 
 		<button id="editBtn1" onclick="removeDisable1()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
 	}
-	<button onclick="printBarcode()">ปริ้นบาร์โค้ด</button> 
 	
 	<input id="orderStatus" type="hidden" value="@order.status.name">
 	
@@ -265,8 +266,8 @@
     
 <div class="detailWindow" id="page2" ng-app="fsnAutoComplete" ng-controller="getFsnName">
 
+	<button id="getBarcodeArticle" onclick="getDurableArticleBarcode()" class="btn btn-info btn-lg width250px" style="margin-bottom:1%;display: none">ปริ้นบาร์โค้ด</button>
 	<button id="editBtn2" onclick="removeDisable2()" hidden class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
-	
 	
 	<input id="isEditingOn" type="hidden" value="false">
 	<script>
