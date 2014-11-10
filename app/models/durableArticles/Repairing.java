@@ -131,6 +131,10 @@ public class Repairing extends Model{
 		return this.status == ExportStatus.SUCCESS;
 	}
 
+	public String getBarcode(){
+		return String.format("E05%06X", this.id);
+	}
+
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Repairing> find = new Finder(Long.class,Repairing.class);
 }

@@ -47,7 +47,7 @@
       <tbody>
         @for(repair <- initList){
           <tr id="row@repair.id">
-            <th onclick="addDeleteList(@repair.id)" > <input type="checkbox" id="checkbox@repair.id" name="checkbox@repair.id"> </th>
+            <th onclick="addDeleteList(@repair.id)" > <span hidden>@repair.getBarcode()</span> <input type="checkbox" id="checkbox@repair.id" name="checkbox@repair.id"> </th>
             <th onclick="addDeleteList(@repair.id)" >@repair.title</th>
             <th>@repair.number</th>
             <th>@repair.getDateOfSentToRepair()</th>
@@ -78,7 +78,7 @@
       <tbody>
         @for(repair <- repairingList){
           <tr id="row@repair.id">
-            <th onclick="addDeleteList(@repair.id)" > <input type="checkbox" id="checkbox@repair.id" name="checkbox@repair.id"> </th>
+            <th onclick="addDeleteList(@repair.id)" > <span hidden>@repair.getBarcode()</span> <input type="checkbox" id="checkbox@repair.id" name="checkbox@repair.id"> </th>
             <th onclick="addDeleteList(@repair.id)" >@repair.title</th>
             <th>@repair.number</th>
             <th>@repair.getDateOfSentToRepair()</th>

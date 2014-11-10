@@ -84,6 +84,10 @@ public class Requisition extends Model{
 		}
 	}
 
+	public String getBarcode(){
+		return String.format("E01%06X", this.id);
+	}
+
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Requisition> find = new Finder(Long.class,Requisition.class);
 }

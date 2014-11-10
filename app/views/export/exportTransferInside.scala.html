@@ -46,7 +46,7 @@
       <tbody>
         @for(transferInside <- initList){
           <tr id="row@transferInside.id">
-            <th onclick="addDeleteList(@transferInside.id)" > <input type="checkbox" id="checkbox@transferInside.id" name="checkbox@transferInside.id"> </th>
+            <th onclick="addDeleteList(@transferInside.id)" > <span hidden>@transferInside.getBarcode()</span> <input type="checkbox" id="checkbox@transferInside.id" name="checkbox@transferInside.id"> </th>
             <th onclick="addDeleteList(@transferInside.id)" >@transferInside.title</th>
             <th>@transferInside.number</th>
             <th>@transferInside.getApproveDate()</th>
@@ -75,7 +75,7 @@
     <tbody>
       @for(transferInside <- successList){
         <tr id="row@transferInside.id">
-          <th onclick="addDeleteList(@transferInside.id)" > <input type="checkbox" id="checkbox@transferInside.id" name="checkbox@transferInside.id"> </th>
+          <th onclick="addDeleteList(@transferInside.id)" > <span hidden>@transferInside.getBarcode()</span> <input type="checkbox" id="checkbox@transferInside.id" name="checkbox@transferInside.id"> </th>
           <th onclick="addDeleteList(@transferInside.id)" >@transferInside.title</th>
           <th>@transferInside.number</th>
           <th>@transferInside.getApproveDate()</th>

@@ -91,6 +91,10 @@ public class Donation extends Model{ // บริจาค
 		return result;
 	}
 
+	public String getBarcode(){
+		return String.format("E04%06X", this.id);
+	}
+
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Donation> find = new Finder(Long.class,Donation.class);
 }

@@ -120,6 +120,10 @@ public class Borrow extends Model{
 		return result;
 	}
 
+	public String getBarcode(){
+		return String.format("E06%06X", this.id);
+	} 
+
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Borrow> find = new Finder(Long.class,Borrow.class);
 }
