@@ -28,9 +28,6 @@ public class InternalTransferDetail extends Model{
 	public String newLastName; // นามสกุลผู้ดูแลใหม่
 	public String newPosition; // ตำแหน่งผู้ดูแลใหม่
 
-	public Date approveDate;
-	public ExportStatus status;
-
 	@ManyToOne
 	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการโอนย่าย
 

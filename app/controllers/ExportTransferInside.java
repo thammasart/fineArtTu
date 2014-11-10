@@ -91,11 +91,9 @@ public class ExportTransferInside extends Controller {
             // update detail durableArticles
             if(inside.status == ExportStatus.INIT){
                 inside.status = ExportStatus.SUCCESS;
+                inside.update();
                 for(InternalTransferDetail detail : inside.detail){
-                    detail.status = ExportStatus.SUCCESS;
-                    detail.update();
-
-                    InternalTransferDetail temp = InternalTransferDetail.find.where().eq("durableArticles",detail.durableArticles).eq("status", ExportStatus.SUCCESS).orderBy("approveDate desc").findList().get(0);
+                    InternalTransferDetail temp = InternalTransferDetail.find.where().eq("durableArticles",detail.durableArticles).eq("internalTransfer.status", ExportStatus.SUCCESS).orderBy("internalTransfer.approveDate desc").findList().get(0);
                     detail.durableArticles.department = temp.newDepartment;
                     detail.durableArticles.room = temp.newRoom;
                     detail.durableArticles.floorLevel = temp.newFloorLevel;
@@ -133,16 +131,11 @@ public class ExportTransferInside extends Controller {
                 Long id = Long.parseLong(objNode.toString());
                 InternalTransfer inside = InternalTransfer.find.byId(id);
                 if(inside != null){
-                    if(inside.status == ExportStatus.INIT){
-                        inside.status = ExportStatus.DELETE;
-                        inside.update();
-                    }
-                    else if(inside.status == ExportStatus.SUCCESS){
+                    inside.status = ExportStatus.DELETE;
+                    inside.update();
+                    if(inside.status == ExportStatus.SUCCESS){
                         for(InternalTransferDetail detail : inside.detail){
-                            detail.status = ExportStatus.DELETE;
-                            detail.update();
-
-                            List<InternalTransferDetail> temp = InternalTransferDetail.find.where().eq("durableArticles",detail.durableArticles).eq("status", ExportStatus.SUCCESS).orderBy("approveDate desc").findList();
+                            List<InternalTransferDetail> temp = InternalTransferDetail.find.where().eq("durableArticles",detail.durableArticles).eq("internalTransferDetail.status", ExportStatus.SUCCESS).orderBy("internalTransferDetail.approveDate desc").findList();
                             if(temp.size() > 0){
                                 detail.durableArticles.department = temp.get(0).newDepartment;
                                 detail.durableArticles.room = temp.get(0).newRoom;
@@ -196,9 +189,7 @@ public class ExportTransferInside extends Controller {
                         InternalTransferDetail newDetail = new InternalTransferDetail();
                         newDetail.durableArticles = durableArticles;
                         newDetail.internalTransfer = inside;
-                        newDetail.status = inside.status;
-                        newDetail.approveDate = inside.approveDate;                        
-
+                       
                         newDetail.newDepartment = department;
                         newDetail.newRoom = room;
                         newDetail.newFloorLevel = floorLevel;
@@ -223,7 +214,7 @@ public class ExportTransferInside extends Controller {
                         newDetail.save();
 
                         if(inside.status == ExportStatus.SUCCESS){
-                            newDetail = InternalTransferDetail.find.where().eq("durableArticles",durableArticles).eq("status", ExportStatus.SUCCESS).orderBy("approveDate desc").findList().get(0);
+                            newDetail = InternalTransferDetail.find.where().eq("durableArticles",durableArticles).eq("internalTransfer.status", ExportStatus.SUCCESS).orderBy("internalTransfer.approveDate desc").findList().get(0);
                             durableArticles.department = newDetail.firstDepartment;
                             durableArticles.room = newDetail.firstRoom;
                             durableArticles.floorLevel = newDetail.firstFloorLevel;
@@ -266,8 +257,8 @@ public class ExportTransferInside extends Controller {
                     insideDetail.newPosition = json.get("newPosition").asText();
                     insideDetail.update();
                     
-                if(insideDetail.status == ExportStatus.SUCCESS){
-                    InternalTransferDetail temp = InternalTransferDetail.find.where().eq("durableArticles",insideDetail.durableArticles).eq("status", ExportStatus.SUCCESS).orderBy("approveDate desc").findList().get(0);
+                if(inside.status == ExportStatus.SUCCESS){
+                    InternalTransferDetail temp = InternalTransferDetail.find.where().eq("durableArticles",insideDetail.durableArticles).eq("internalTransfer.status", ExportStatus.SUCCESS).orderBy("internalTransfer.approveDate desc").findList().get(0);
                     insideDetail.durableArticles.department = temp.newDepartment;
                     insideDetail.durableArticles.room = temp.newRoom;
                     insideDetail.durableArticles.floorLevel = temp.newFloorLevel;
