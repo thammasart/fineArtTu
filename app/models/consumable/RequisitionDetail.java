@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 import models.User;
 import models.MaterialCode;
-
+import models.type.ExportStatus;
 import models.User;
 
 @Entity
@@ -16,6 +16,9 @@ public class RequisitionDetail extends Model{
 	public long id;
 	public int quantity; // จำนวน
 	public String description; // หมายเหตุการเบิก
+
+	public int year; //ปีงบประมาณ
+	public ExportStatus status; // สถานะ
 
 	@ManyToOne
 	public MaterialCode code; //รหัสัสด

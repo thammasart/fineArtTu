@@ -97,6 +97,17 @@ public class ExportOrder extends Controller {
                 req.approver = employees.get(0);
             }
 
+            // update Material remain
+            for(RequisitionDetail detail: req.details){
+                if(detail.status == ExportStatus.INIT){
+                    detail.code.remain -= detail.quantity;
+                    detail.code.update();
+                    detail.status = ExportStatus.SUCCESS;
+                }
+                detail.year = req.approveDate.getYear() + 2443;
+                detail.update();
+            }
+
             // updatae status Requisition
             req.status = ExportStatus.SUCCESS;
             req.update();
@@ -132,7 +143,15 @@ public class ExportOrder extends Controller {
                         order.update();
                     }
                     else if(order.status == ExportStatus.SUCCESS){
-                        // ???????????????????????????????
+                        // update Material remain
+                        for(RequisitionDetail detail: order.details){
+                            if(detail.status == ExportStatus.INIT){
+                                detail.code.remain += detail.quantity;
+                                detail.code.update();
+                                detail.status = ExportStatus.DELETE;
+                            }
+                            detail.update();
+                        }
                         order.status = ExportStatus.DELETE;
                         order.update();
                     }
@@ -285,6 +304,10 @@ public class ExportOrder extends Controller {
                     id = Long.parseLong(objNode.toString());
                     RequisitionDetail detail = RequisitionDetail.find.byId(id);
                     if(detail != null && order.equals(detail.requisition)){
+                        if(detail.status == ExportStatus.SUCCESS){
+                            detail.code.remain += detail.quantity;
+                            detail.code.update();
+                        }
                         detail.delete();
                     }
                 }
