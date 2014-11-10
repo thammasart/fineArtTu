@@ -131,7 +131,7 @@
 		                    <tr id="row@articleOrder.id">
 		                        <th><input id="check@articleOrder.id" type="checkbox" onclick="addTick('@articleOrder.id','durableArticles')"></th>
 		                        <th onclick="addTick('@articleOrder.id','durableArticles')">@articleOrder.id</th>
-		                        <th>@articleOrder.title</th>
+		                        <th><span hidden>@articleOrder.barCode</span>@articleOrder.title</th>
 		                        <th>@articleOrder.contractNo</th>
 		                        <th>@articleOrder.getAddDate()</th>
 		                        <th>@articleOrder.getCheckDate()</th>
@@ -270,7 +270,7 @@
 							<tr id="row2@goodOrder.id">
 								<th><input id="check2@goodOrder.id" type="checkbox" onclick="addTick('@goodOrder.id','goods')"></th>
 								<th onclick="addTick('@goodOrder.id','goods')">@goodOrder.id</th>
-								<th>@goodOrder.title</th>
+								<th><span hidden>@goodOrder.barCode</span>@goodOrder.title</th>
 								<th>@goodOrder.contractNo</th>
 								<th>@goodOrder.getAddDate()</th>
 								<th>@goodOrder.getCheckDate()</th>

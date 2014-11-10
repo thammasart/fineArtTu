@@ -75,7 +75,7 @@ public class ProcurementDetail extends Model{
 	        double deprecatePrice = getSumablePrice();
 	        double totalDeprecate = 0;
 	        
-	        if(this.llifeTime<=year-beginYear)		//กรณีเกินlife span หรือปีสุดท้าย
+	        if(this.llifeTime<=year-beginYear)		//กรณีเกินlife span
 	        {
 	        	deprecateOfYear=getAnnualDepricate();		//ค่าเสื่อมประจำปี
 	        	deprecatePrice=1.0;							//มูลค่าทรัพย์เป็น 1
