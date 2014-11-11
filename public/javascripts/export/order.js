@@ -235,7 +235,7 @@ function initViewDetial(id){
 
 	document.getElementById("datepickerbutton").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
-	document.getElementById("saveExport").style.display = "none";
+	document.getElementById("saveExport").style.visibility = "hidden";
 
 	init(id);
 	titleInHeader = "แสดงรายละเอียดการเบิกจ่าย";
@@ -260,7 +260,7 @@ function changeToEdit(){
 
 	document.getElementById("datepickerbutton").style.display = "table-cell";
 	document.getElementById("editDetail").style.display = "block";
-	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("saveExport").style.visibility = "visible";
 	document.getElementById("changeToEditButton").style.display = "none";
 
 	titleInHeader = "แก้ไขรายละเอียดการเบิกจ่าย";

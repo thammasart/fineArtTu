@@ -206,7 +206,7 @@ function initViewDetial(id){
 	document.getElementById("datepickerbuttonP1").style.display = "none";
 	document.getElementById("datepickerbuttonP2").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
-	document.getElementById("saveExport").style.display = "none";
+	document.getElementById("saveExport").style.visibility = "hidden";
 	
 	init(id);
 	titleInHeader = "แสดงรายละเอียดการการยืม";
@@ -229,7 +229,7 @@ function changeToEdit(){
 	document.getElementById("datepickerbuttonP1").style.display = "table-cell";
 	document.getElementById("datepickerbuttonP2").style.display = "table-cell";
 	document.getElementById("editDetail").style.display = "block";
-	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("saveExport").style.visibility = "visible";
 	document.getElementById("changeToEditButton").style.display = "none";
 
 	titleInHeader = "แก้ไขรายละเอียดการการยืม";

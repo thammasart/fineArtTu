@@ -116,12 +116,12 @@
     </div> <!-- end well -->
 
     <div align="center" style="margin-bottom:1%;">
-      <!--<a href="@routes.ExportTransferInside.cancelInternalTransfer(inside.id)">-->
-        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;"onclick="addId(@inside.id)" ng-click="openCancelModal('cancelInside')">
-            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+      <a href="@routes.ExportTransferInside.cancelInternalTransfer(inside.id)">
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+            <span class="glyphicon glyphicon-remove"></span> ย้อนกลับ
         </button>
       </a>
-      <button  type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+      <button id="saveExport" type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
           ยืนยัน <span class="glyphicon glyphicon-ok"></span>
       </button>
     </div>
@@ -225,7 +225,7 @@
               </div>
     </div>
 
-  <div align="right" style="margin-bottom:1%; margin-right:3%;" id="saveExport">
+  <div align="right" style="margin-bottom:1%; margin-right:3%;">
     <button  type="button" class="btn btn-danger btn-lg width250px" onclick="addInternalTransferButton()" style="margin-top:1%;margin-right:1%;">
       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
     </button>
@@ -326,7 +326,7 @@
       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
     </button>
     <button  type="button" class="btn btn-success btn-lg width250px" onclick="saveEditDetail()" style=" margin-top:1%;">
-      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+      แก้ไข <span class="glyphicon glyphicon-ok"></span>
     </button>
   </div>
 </div> 
