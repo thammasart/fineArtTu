@@ -1,15 +1,21 @@
 @(user : User ,borrow:models.durableArticles.Borrow)
 @header("exportBorrowviewDetail")
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/mainExport.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/borrow.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/exportBorrowAdd.js")"></script>
 
-<body onload="initViewDetial(@borrow.id)"> 
+<body onload="initViewDetial(@borrow.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการยืม")
 
-<div id="addWindows" class ="detailWindow" >
+@cancelList()
+@cancelExportAdd()
+
+<div id="addWindows" class ="detailWindow" ng-init="findUser()">
 
   <div>
     <button class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button> 
@@ -24,12 +30,14 @@
           <div class="input-group ">
             <span class="input-group-addon width250px">รายการ เรื่อง</span>
             <input type="text" class="form-control width300px" value="@borrow.title" name="title" id="title">
+            <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group ">
             <span class="input-group-addon width250px">เลขที่</span>
             <input type="text" class="form-control width300px" value="@borrow.number" name="number" id="number">
+            <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
@@ -39,17 +47,19 @@
           <div class="input-group" id="dateP1">
             <span class="input-group-addon width250px">วัน/เดือน/ปี เริ่มยืม</span>
             <input type="text" class="form-control width300px" value="@borrow.getDateOfStartBorrow()" name="dateOfStartBorrow" id="dateOfStartBorrow" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px" id="datepickerbuttonP2"><span class="datepickerbutton glyphicon glyphicon-calendar" ></span></span>
+            <span class="input-group-addon width25px" id="datepickerbuttonP1"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+            <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" role="form" @if(borrow.dateOfEndBorrow == null){ style="display:none;"}>
+      <div class="form-inline marginBtm1" role="form" @if(borrow.dateOfEndBorrow == null){ hidden }>
         <div class="form-group">
           <div class="input-group" id="dateP2">
             <span class="input-group-addon width250px">วัน/เดือน/ปี รับคืน</span>
             <input type="text" class="form-control width300px" value="@borrow.getDateOfEndBorrow()" name="dateOfEndBorrow" id="dateOfEndBorrow" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px" id="datepickerbuttonP1"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+            <span class="input-group-addon width25px" id="datepickerbuttonP2"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+            <span class="alertText" id="nameEntrepreneurAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
@@ -58,19 +68,22 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้ยืม:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.user!=null){value="@borrow.user.firstName"} name="withdrawerFirstName" id="withdrawerNmae" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.user!=null){value="@borrow.user.firstName"} name="withdrawerFirstName" id="withdrawerNmae" onkeyup="mapInput1()">
+              <span class="alertText" id="withdrawerNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
               <input type="text" class="form-control width190px textAlignCenter" @if(borrow.user!=null){value="@borrow.user.lastName"} name="withdrawerLastName" id="withdrawerLastname">
+              <span class="alertText" id="withdrawerLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ตำแหน่ง</span>
               <input type="text" class="form-control width190px textAlignCenter" @if(borrow.user!=null){value="@borrow.user.position"} name="withdrawerPosition" id="withdrawerPosition">
+              <span class="alertText" id="withdrawerPositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
@@ -79,19 +92,22 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.approver!=null){value="@borrow.approver.firstName"} name="approverFirstName" id="approverName" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.user!=null){value="@borrow.approver.firstName"} name="approverFirstName" id="approverName" onkeyup="mapInput2()">
+              <span class="alertText" id="approverNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
-              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.approver!=null){value="@borrow.approver.lastName"} name="approverLastName" id="approverLastName">
+              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.user!=null){value="@borrow.approver.lastName"} name="approverLastName" id="approverLastName">
+              <span class="alertText" id="approverLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ตำแหน่ง</span>
-              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.approver!=null){value="@borrow.approver.position"} name="approverPosition" id="approverPosition">
+              <input type="text" class="form-control width190px textAlignCenter" @if(borrow.user!=null){value="@borrow.approver.position"} name="approverPosition" id="approverPosition">
+              <span class="alertText" id="approverPositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
       </div>
@@ -105,13 +121,13 @@
           <div class="form-group">
             <div class="input-group">
               <span class="input-group-addon">ค้นหา</span>
-              <input type="text" class="form-control" style="width:300px">
+              <input type="text" class="form-control" style="width:300px" onkeydown="return (event.keyCode!=13);">
             </div>
           </div>
         </div>
         <div id="editDetail">
           <button type="button" class="btn btn-success width200px" style="float:right;margin-left:1%;" onclick="addDetailButton()">เพิ่มครุภัณฑ์</button>
-          <button type="button" class="btn btn-danger width200px" style="float:right;" onclick="deleteDetail()">ลบครุภัณฑ์</button>
+          <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบครุภัณฑ์</button>
         </div> 
       </div>
 
@@ -131,10 +147,10 @@
     </div>  <!--end well-->
 
 
-    <div align="center" style="margin-bottom:1%;" >
-      <a href="@routes.ExportBorrow.cancelBorrow(borrow.id)">
+    <div align="center" style="margin-bottom:1%;">
+      <a href="@routes.ExportBorrow.cancelBorrow(borrow.id)"> 
         <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
-          <span class="glyphicon glyphicon-remove"></span> ย้อนกลับ
+          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
         </button>
       </a>
         <button id="saveExport" type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
