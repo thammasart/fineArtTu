@@ -35,6 +35,9 @@ public class ExportSold extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportSold() {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         List<Auction> initList = Auction.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
         List<Auction> successList = Auction.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
         return ok(exportSold.render(user,initList, successList));
@@ -42,6 +45,10 @@ public class ExportSold extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result exportCreateSold() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Auction temp =  new Auction ();
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
@@ -52,6 +59,9 @@ public class ExportSold extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportSoldAdd(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Auction sold = Auction.find.byId(id);
         if(sold == null || sold.status != ExportStatus.INIT){
             return redirect(routes.ExportSold.exportSold());
@@ -63,6 +73,9 @@ public class ExportSold extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Auction sold = Auction.find.byId(id);
         if(sold == null || sold.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportSold.exportSold());
@@ -74,6 +87,9 @@ public class ExportSold extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveAuction(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Auction auction = Auction.find.byId(id);
         if(auction != null && (auction.status == ExportStatus.INIT || auction.status == ExportStatus.SUCCESS) ){
             DynamicForm f = Form.form().bindFromRequest();
@@ -230,6 +246,9 @@ public class ExportSold extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result cancelAuction(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Auction sold = Auction.find.byId(id);
         if(sold != null && sold.status == ExportStatus.INIT){
             sold.status = ExportStatus.CANCEL;
@@ -241,6 +260,10 @@ public class ExportSold extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteAuction(){
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -277,6 +300,10 @@ public class ExportSold extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result saveAuctionDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -314,6 +341,10 @@ public class ExportSold extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteAuctionDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -349,6 +380,10 @@ public class ExportSold extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result loadAuctionDetail(long id) {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         JsonNode json;
         try { 
