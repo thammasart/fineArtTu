@@ -1,7 +1,9 @@
 @(user : User ,borrow:models.durableArticles.Borrow)
 @header("exportBorrowviewDetail")
 
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/mainExport.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/borrow.js")"></script>
+
 <body onload="initViewDetial(@borrow.id)"> 
 
 @nav(user)
@@ -152,16 +154,16 @@
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >รหัสFSN</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) searchFSN()">
         </div>
       </div>
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) searchFSN()">
         </div>
       </div>
-      <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
+      <button type="button" class="btn btn-success" onclick="searchFSN()">ค้นหา</button>
     </div>
 
     <table class="table table-striped overlayTable">

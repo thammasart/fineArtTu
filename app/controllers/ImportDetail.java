@@ -47,7 +47,7 @@ public class ImportDetail extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result importsInstituteDetail(long id) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        
+        if(!user.isPermit(6))return ok(permissionDenied.render());
         Company c = Company.find.byId(id);
         
         return ok(importsInstituteDetail.render(user,c));
@@ -173,7 +173,7 @@ public class ImportDetail extends Controller {
 	 public static Result importsMaterialDurableArticlesDetail(String id)
 	 {
 		User user = User.find.where().eq("username", session().get("username")).findUnique();
-
+		if(!user.isPermit(6))return ok(permissionDenied.render());
 		FSN_Description fsn = FSN_Description.find.byId(id);
 		
 		System.out.println(fsn.descriptionId);
@@ -231,6 +231,7 @@ public class ImportDetail extends Controller {
 	 public static Result importsMaterialConsumableGoodsDetail(String id)
 	 {
 		User user = User.find.where().eq("username", session().get("username")).findUnique();
+		if(!user.isPermit(6))return ok(permissionDenied.render());
 		MaterialCode code = MaterialCode.find.byId(id);
 		
 		System.out.println(code.code);

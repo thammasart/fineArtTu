@@ -35,6 +35,9 @@ public class ExportOther extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportOther() {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         List<OtherTransfer> initList = OtherTransfer.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
         List<OtherTransfer> successList = OtherTransfer.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
         return ok( exportOther.render(user, initList, successList));
@@ -42,6 +45,10 @@ public class ExportOther extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result exportCreateOther() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         OtherTransfer temp =  new OtherTransfer();
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
@@ -52,6 +59,9 @@ public class ExportOther extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportOtherAdd(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         OtherTransfer other = OtherTransfer.find.byId(id);
         if(other == null || other.status != ExportStatus.INIT){
             return redirect(routes.ExportOther.exportOther());
@@ -62,6 +72,9 @@ public class ExportOther extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         OtherTransfer other = OtherTransfer.find.byId(id);
         if(other == null || other.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportOther.exportOther());
@@ -72,6 +85,9 @@ public class ExportOther extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveOther(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         OtherTransfer other = OtherTransfer.find.byId(id);
         if(other != null && (other.status == ExportStatus.INIT || other.status == ExportStatus.SUCCESS) ){
             DynamicForm f = Form.form().bindFromRequest();
@@ -193,6 +209,9 @@ public class ExportOther extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result cancelOther(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         OtherTransfer other = OtherTransfer.find.byId(id);
         if(other != null && other.status == ExportStatus.INIT){
             other.status = ExportStatus.CANCEL;
@@ -204,6 +223,10 @@ public class ExportOther extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteOtherTransfer(){
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -240,6 +263,10 @@ public class ExportOther extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result saveOtherDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -274,6 +301,10 @@ public class ExportOther extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteOtherDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -309,6 +340,10 @@ public class ExportOther extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result loadOtherDetail(long id) {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         JsonNode json;
         try { 

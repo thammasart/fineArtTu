@@ -475,7 +475,7 @@ var v2=	'		        <div class="form-group" >'+
 		'		        </div>'
 }
 		
-var v3 ='	            <button onclick="setValueBelow(\''+name+'\','+ k +')">ตกลง</button>'+
+var v3 ='	            <button class="btn btn-default" onclick="setValueBelow(\''+name+'\','+ k +')">คัดลอก</button>'+
 		'	        </div>  '+
 		'		</div>'
 if(name=='article')

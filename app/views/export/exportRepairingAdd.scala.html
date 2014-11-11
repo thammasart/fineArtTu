@@ -1,11 +1,13 @@
 @(user : User ,repair:models.durableArticles.Repairing, allCompany:List[models.Company])
 @header("exportRepairAdd")
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-  <script type="text/javascript" src="@routes.Assets.at("javascripts/export/repair.js")"></script>
-  <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
-  <body onload="init(@repair.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/mainExport.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/repair.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
+
+<body onload="init(@repair.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการส่งซ่อม")
@@ -107,14 +109,14 @@
 
       <table class="table table-striped overlayTable" style="margin-bottom:3%;">
         <thead>
-            <tr>
-              <th></th>
-              <th>ลำดับ</th>
-              <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
-              <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-              <th>ลักษณะการชำรุด ของครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-              <th>แก้ไข</th>
-            </tr>
+          <tr>
+            <th> <input type="checkbox"/> </th>
+            <th>หมายเลขครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
+            <th>รายละเอียดครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
+            <th>ราคาต่อหน่วย <span class="glyphicon glyphicon-sort"></span></th>
+            <th>อายุการใช้งาน <span class="glyphicon glyphicon-sort"></span></th>
+            <th>ที่อยู่ ครุภัณฑ์ (สาขาวิชา) <span class="glyphicon glyphicon-sort"></span></th>
+          </tr>
         </thead>
         <tbody id="detailInTable">
 
@@ -149,16 +151,16 @@
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >ค้นหารหัสFSN</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) searchFSN()">
         </div>
       </div>
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >ค้นหาชื่อครุภัณฑ์</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) searchFSN()">
         </div>
       </div>
-      <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
+      <button type="button" class="btn btn-success" onclick="searchFSN()">ค้นหา</button>
     </div>
 
     <table class="table table-striped overlayTable">
@@ -169,7 +171,7 @@
           <th>รายละเอียดครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
           <th>ราคาต่อหน่วย <span class="glyphicon glyphicon-sort"></span></th>
           <th>อายุการใช้งาน <span class="glyphicon glyphicon-sort"></span></th>
-          <th>ที่อยู่ สาขาวิชา <span class="glyphicon glyphicon-sort"></span></th>
+          <th>ที่อยู่ ครุภัณฑ์ (สาขาวิชา) <span class="glyphicon glyphicon-sort"></span></th>
         </tr>
       </thead>
       
@@ -223,7 +225,7 @@
         </tr>
       </thead>
 
-      <tbody id="searchResultTable">
+      <tbody>
           <th id="edit_fsn_Number"> - </th>
           <th id="edit_fsn_description"> - </th>
           <th id="edit_price"> - </th>
