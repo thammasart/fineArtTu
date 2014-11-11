@@ -17,6 +17,8 @@ var positionList= [];
 var userAll=[];
 
 var desId;
+
+var procumentDetailsTickTemp;
 angular.module('fsnAutoComplete', ['ui.bootstrap'])
     .controller('getFsnName',function($scope,$http,$modal){
         
@@ -104,7 +106,8 @@ angular.module('fsnAutoComplete', ['ui.bootstrap'])
 var resultModalInstanceCtrl= function($scope, $modalInstance){
 
    $scope.name = " ลบรายการสัสดุ ";
-
+   $scope.tick = procumentDetailsTickTemp;
+ 
    $scope.ok = function () {
         removeProcurementDetail(pathToRemove);
         $modalInstance.close();
@@ -115,6 +118,10 @@ var resultModalInstanceCtrl= function($scope, $modalInstance){
     };
 }
 
+function getProcumentDetailsTick(tick){
+    procumentDetailsTickTemp = tick ;
+    console.log(procumentDetailsTickTemp);
+}
  function mapDesToCode() { 
     var id = document.getElementById("description").value;
 
