@@ -35,6 +35,9 @@ public class ExportDonate extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportDonate() {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         List<Donation> initList = Donation.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
         List<Donation> successList = Donation.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
         return ok(exportDonate.render(user,initList, successList));
@@ -42,6 +45,10 @@ public class ExportDonate extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result exportCreateDonate() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Donation temp =  new Donation();
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
@@ -52,6 +59,9 @@ public class ExportDonate extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportDonateAdd(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Donation donate = Donation.find.byId(id);
         if(donate == null || donate.status != ExportStatus.INIT){
             return redirect(routes.ExportDonate.exportDonate());
@@ -63,6 +73,9 @@ public class ExportDonate extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Donation donate = Donation.find.byId(id);
         if(donate == null || donate.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportDonate.exportDonate());
@@ -74,6 +87,9 @@ public class ExportDonate extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveDonation(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Donation donate = Donation.find.byId(id);
 
         if(donate != null && (donate.status == ExportStatus.INIT || donate.status == ExportStatus.SUCCESS) ){
@@ -191,6 +207,9 @@ public class ExportDonate extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result cancelDonation(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Donation donate = Donation.find.byId(id);
         if(donate != null && donate.status == ExportStatus.INIT){
             donate.status = ExportStatus.CANCEL;
@@ -202,6 +221,10 @@ public class ExportDonate extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteDonation(){
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -238,6 +261,10 @@ public class ExportDonate extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result saveDonateDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -272,6 +299,10 @@ public class ExportDonate extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteDonateDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -307,6 +338,10 @@ public class ExportDonate extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result loadDonateDetail(long id) {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         JsonNode json;
         try { 

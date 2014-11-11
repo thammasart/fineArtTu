@@ -35,6 +35,9 @@ public class ExportTransferInside extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportTransferInside() {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         List<InternalTransfer> initList = InternalTransfer.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
         List<InternalTransfer> successList = InternalTransfer.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
         return ok(exportTransferInside.render(user, initList , successList));
@@ -42,6 +45,10 @@ public class ExportTransferInside extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result exportCreateInternalTransfer() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         InternalTransfer temp =  new InternalTransfer();
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
@@ -52,6 +59,9 @@ public class ExportTransferInside extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportTransferInsideAdd(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         InternalTransfer inside = InternalTransfer.find.byId(id);
         if(inside == null || inside.status != ExportStatus.INIT){
             return redirect(routes.ExportTransferInside.exportTransferInside());
@@ -62,6 +72,9 @@ public class ExportTransferInside extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         InternalTransfer inside = InternalTransfer.find.byId(id);
         if(inside == null || inside.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportTransferInside.exportTransferInside());
@@ -72,6 +85,9 @@ public class ExportTransferInside extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveInternalTransfer(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         InternalTransfer inside = InternalTransfer.find.byId(id);
         if(inside != null && (inside.status == ExportStatus.INIT || inside.status == ExportStatus.SUCCESS) ){
             DynamicForm f = Form.form().bindFromRequest();
@@ -112,6 +128,9 @@ public class ExportTransferInside extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result cancelInternalTransfer(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         InternalTransfer inside = InternalTransfer.find.byId(id);
         if(inside != null && inside.status == ExportStatus.INIT){
             inside.status = ExportStatus.CANCEL;
@@ -123,6 +142,10 @@ public class ExportTransferInside extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteTransferInside(){
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -241,6 +264,10 @@ public class ExportTransferInside extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result editTransferInsideDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -284,6 +311,10 @@ public class ExportTransferInside extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteTransferInsideDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
