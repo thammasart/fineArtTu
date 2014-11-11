@@ -11,9 +11,12 @@
 
 @nav(user)
 @headerTagFull("เพิ่มรายการบริจาค")
-@cancelExportAdd()
 
-<div class ="detailWindow" id="addWindows">
+@cancelExportAdd()
+@cancelList()
+
+<div class ="detailWindow" id="addWindows" ng-init="findUser()">
+
   <div>
     <button class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button> 
     <button id="changeToEditButton" onclick="changeToEdit()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
@@ -168,7 +171,7 @@
 
         <div id="editDetail">
           <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มครุภัณฑ์</button>
-          <button type="button" class="btn btn-danger width200px" style="float:right;" onclick="deleteDetail()">ลบครุภัณฑ์</button>
+          <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบครุภัณฑ์</button>
         </div> 
       </div>
 
@@ -184,7 +187,7 @@
         </thead>
         <tbody id="detailInTable">
           
-        </tbody><!--  -->
+        </tbody>
       </table>
 
     </div> <!--end well-->

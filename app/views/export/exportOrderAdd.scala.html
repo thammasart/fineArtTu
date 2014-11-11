@@ -42,7 +42,7 @@
           <div class="input-group" id="dateP">
               <span class="input-group-addon width250px">วัน/เดือน/ปี ที่ทำการเบิกจ่าย</span>
               <input type="text" class="form-control width300px textAlignCenter" data-format="DD/MM/YYYY" value="@requisition.approveDateToString" name="approveDate" id="date">
-              <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+              <span class="input-group-addon width25px" id="datepickerbutton"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
               <span class="alertText" id="dateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -110,7 +110,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div id="editDetail">
             <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มวัสดุ</button>
             <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบวัสดุ</button>
         </div> 
@@ -140,6 +140,7 @@
         <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="addId(requisition.id)" ng-click="openCancelModal('cancelRequisition')">
           <span class="glyphicon glyphicon-remove"></span> ยกเลิก
         </button>
+      <!--</a.-->
       <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
         ยืนยัน <span class="glyphicon glyphicon-ok"></span>
       </button>
