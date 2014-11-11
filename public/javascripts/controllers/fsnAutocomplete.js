@@ -5,6 +5,7 @@ var fsnCode=[];
 
 
 var pathToRemove;
+var pathToEdit;
 var autoCompleteNum;
 
 var keyId;
@@ -62,6 +63,25 @@ angular.module('fsnAutoComplete', ['ui.bootstrap'])
                 }
             });
         };
+        $scope.openEdit = function(path){
+            pathToEdit = path;
+
+            if(document.getElementById("b2").innerHTML.indexOf("แก้ไข") >-1){
+                var modalInstance = $modal.open({
+                    templateUrl: 'confirmEdit.html',
+                    controller: editModalInstanceCtrl,
+                    size: 'lg',
+                    resolve: {
+                        name : function(){
+                            return $scope.name;
+                        }
+                    }
+                });
+            }else{
+                showPage("1");
+                submitDetail(pathToEdit);
+            }
+        };
         $scope.findFsn=function(){
             $http({method : 'GET',url : 'autoCompleteFsn' })
             .success(function(result){
@@ -103,6 +123,20 @@ angular.module('fsnAutoComplete', ['ui.bootstrap'])
     }
 );
 
+var editModalInstanceCtrl= function($scope, $modalInstance){
+
+   $scope.name = " แก้ไข ";
+ 
+   $scope.ok = function () {
+        showPage("1");
+        submitDetail(pathToEdit);
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
 var resultModalInstanceCtrl= function($scope, $modalInstance){
 
    $scope.name = " ลบรายการสัสดุ ";
