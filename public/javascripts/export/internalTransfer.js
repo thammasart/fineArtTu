@@ -58,15 +58,15 @@ function editDetail(code){
 
 	var x  = document.getElementById("edit_sentToDepartment");
 	for (var i = 0; i < x.length; i++) {
-         if(detailEdit.department == x.options[i].value){
+         if(detailEdit.newDepartment == x.options[i].value){
          	x.options[i].selected = "true";
          }
     }
-    document.getElementById("edit_room").value = detailEdit.room ;
-    document.getElementById("edit_floorLevel").value = detailEdit.floorLevel;
-    document.getElementById("edit_firstName").value = detailEdit.recieverFirstName;
-    document.getElementById("edit_lastName").value = detailEdit.recieverLastName;
-    document.getElementById("edit_position").value = detailEdit.recieverPosition;
+    document.getElementById("edit_room").value = detailEdit.newRoom ;
+    document.getElementById("edit_floorLevel").value = detailEdit.newFloorLevel;
+    document.getElementById("edit_firstName").value = detailEdit.newFirstName;
+    document.getElementById("edit_lastName").value = detailEdit.newLastName;
+    document.getElementById("edit_position").value = detailEdit.newPosition;
     // document.getElementById("edit_description").focus();
 
 	if(document.getElementById("edit_cost")){
@@ -183,9 +183,9 @@ function getDetail(){
 					else{
 						s += '	<th>'+ 'ไม่มี' +'</th>';
 					}
-					s += '	<th>'+ details[i].department +'</th>';
-					s += '	<th>'+ details[i].floorLevel +'</th>';
-					s += '	<th>'+ details[i].room +'</th>';
+					s += '	<th>'+ details[i].newDepartment +'</th>';
+					s += '	<th>'+ details[i].newFloorLevel +'</th>';
+					s += '	<th>'+ details[i].newRoom +'</th>';
 					s += '  <th onclick="editDetail('+ details[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" id="edit'+i+'"> แก้ไข </button> </th>';
 					s += '</tr>';
 			   	}
@@ -275,9 +275,9 @@ function saveEditDetail(){
 	detailEdit.department  = document.getElementById("edit_sentToDepartment").value;
 	detailEdit.room  = document.getElementById("edit_room").value;
     detailEdit.floorLevel = document.getElementById("edit_floorLevel").value;
-    detailEdit.recieverFirstName = document.getElementById("edit_firstName").value;
-    detailEdit.recieverLastName = document.getElementById("edit_lastName").value;
-    detailEdit.recieverPosition = document.getElementById("edit_position").value;
+    detailEdit.newFirstName = document.getElementById("edit_firstName").value;
+    detailEdit.newLastName = document.getElementById("edit_lastName").value;
+    detailEdit.newPosition = document.getElementById("edit_position").value;
     detailEdit.transferInsideId = internalTransfer.id;
 	$.ajax({
 		url:'/export/transferInside/editDetail',

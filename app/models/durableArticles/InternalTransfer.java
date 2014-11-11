@@ -72,6 +72,10 @@ public class InternalTransfer extends Model{
 			return result;
 		}
 	}
+
+	public String getBarcode(){
+		return String.format("E02%06X", this.id);
+	}
 		
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,InternalTransfer> find = new Finder(Long.class,InternalTransfer.class);

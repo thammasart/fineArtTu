@@ -82,21 +82,21 @@ function selectionHandler(){
 	}else{
 		chart2.setSelection(chart2.getSelection()[0]);
 	}
-	console.log(object);
-	state['lastSelected'] = state['clickedItem'];
-	state['clickedItem'] = object;
-	if(state['page'] == 0){
-		state['page'] = 1;
-		getData('column');
-	}else if(state['page']==1){
-		var col = 3;
-		if(state['mode'] == 'transfer' || state['mode'] == 'balance'){
-			console.log(data.getFormattedValue(object.row, 0));
-			col = 0;
+	if(object.row != null){
+		state['lastSelected'] = state['clickedItem'];
+		state['clickedItem'] = object;
+		if(state['page'] == 0){
+			state['page'] = 1;
+			getData('column');
+		}else if(state['page']==1){
+			var col = 3;
+			if(state['mode'] == 'transfer' || state['mode'] == 'balance'){
+				col = 0;
+			}
+			state['page'] = 2;
+			state['selectedName'] = data.getFormattedValue(object.row, col);
+			getData('table');
 		}
-		state['page'] = 2;
-		state['selectedName'] = data.getFormattedValue(object.row, col);
-		getData('table');
 	}
 }
 
@@ -178,6 +178,8 @@ function setData(obj,chart){
 		}else if(state['mode'] == 'remain'){
 			setDataTableColumn("trackingTable", remainThead).rows.add(obj).draw();
 		}
+		setSearchBox("search",0);
+		
 		$('#graph-tab a[href="#tracking"]').tab('show');
 	}
 	//document.getElementById('printDiv').innerHTML = document.getElementById('graph-container').innerHTML;
@@ -274,11 +276,16 @@ var setOption = function(obj) {
 		options[k] = obj[k];
 }
 
-function getDescription(className, ids){
+function getDescription(className, ids, path){
+	if(path == '/graphDescription'){
+		obj = {"className" : className, "ids" : ids};
+	}else{
+		obj = {"className" : className, "query" : ids};
+	}
 	$.ajax({
-		url:'/graphDescription',
+		url: path,
 	    type: 'post',
-	    data: JSON.stringify({"className" : className, "ids" : ids}),
+	    data: JSON.stringify(obj),
 	    contentType: 'application/json',
 	    dataType: 'json',
 	    statusCode:{
@@ -294,13 +301,12 @@ function getDescription(className, ids){
     			    $content = $header.next();
     			    if($content.is(":hidden")){
     			    	// change to expand arrow
-    			    	console.log($header.text());
     			    	$header.find("span").remove();
     			    	$header.append($('<span class="glyphicon glyphicon-chevron-down"></span>'));
     			    	
     			    }else{
     			    	// change to collapse arrow
-    			    	console.log($header.text());
+    			    	//console.log($header.text());
     			    	$header.find("span").remove();
     			    	$header.append($('<span class="glyphicon glyphicon-chevron-right"></span>'));
     			    }
@@ -333,8 +339,6 @@ function backToTable(){
 }
 
 $(document).on('shown.bs.tab', 'a[href="#relation"]', function (e) {
-	$('#advanceSearch').hide();
-	$('#normalSearch').show();
 	backToTable();
 	state['request'] = "default";
 	state['clickedItem'] = {'row':-1 , 'column':-1};
@@ -349,19 +353,14 @@ $(document).on('shown.bs.tab', 'a[href="#tracking"]', function (e) {
 		state['request'] = "search";
 		clearTable(0);
 		setDataTableColumn("trackingTable",defaultThead);
-		$('#advanceSearch').show();
-		$('#normalSearch').hide();
-	}else{
-		$('#advanceSearch').hide();
-		$('#normalSearch').show();
 	}
 });
 
 function search(event){
     if(event.keyCode == 13){
-    	console.log("asd");
     	state['request'] = "search";
 		state['query'] = $('#search').val();
+		backToTable();
 		getData('table');
 		$('#search').val("");
     }

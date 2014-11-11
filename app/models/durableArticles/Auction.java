@@ -95,13 +95,17 @@ public class Auction extends Model{ // จำหน่าย หรือ กา
 		}
 	}
 
-		public String getCompanyToString(){
+	public String getCompanyToString(){
 		String result = "";
 		if(company != null){
 			result += company.nameEntrepreneur;
 		}
 		return result;
 	}
+
+	public String getBarcode(){
+		return String.format("E03%06X", this.id);
+	} 
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,Auction> find = new Finder(Long.class,Auction.class);

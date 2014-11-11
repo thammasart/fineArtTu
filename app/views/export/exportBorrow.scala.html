@@ -44,7 +44,7 @@
       <tbody>
         @for(borrow <- initList){
           <tr id="row@borrow.id">
-            <th onclick="addDeleteList(@borrow.id)" > <input type="checkbox" id="checkbox@borrow.id" name="checkbox@borrow.id"> </th>
+            <th onclick="addDeleteList(@borrow.id)" ><span hidden>@borrow.getBarcode()</span> <input type="checkbox" id="checkbox@borrow.id" name="checkbox@borrow.id"> </th>
             <th onclick="addDeleteList(@borrow.id)" >@borrow.title</th>
             <th>@borrow.number</th>
             <th>@borrow.getDateOfStartBorrow()</th>
@@ -75,7 +75,7 @@
       <tbody>
         @for(borrow <- borrowList){
           <tr id="row@borrow.id">
-            <th onclick="addDeleteList(@borrow.id)" > <input type="checkbox" id="checkbox@borrow.id"> </th>
+            <th onclick="addDeleteList(@borrow.id)" > <span hidden>@borrow.getBarcode()</span> <input type="checkbox" id="checkbox@borrow.id"> </th>
             <th onclick="addDeleteList(@borrow.id)" >@borrow.title</th>
             <th>@borrow.number</th>
             <th>@borrow.getDateOfStartBorrow()</th>
@@ -108,7 +108,7 @@
     <tbody>
       @for(borrow <- successList){
         <tr id="row@borrow.id">
-          <th onclick="addDeleteList(@borrow.id)" > <input type="checkbox" id="checkbox@borrow.id"> </th>
+          <th onclick="addDeleteList(@borrow.id)" > <span hidden>@borrow.getBarcode()</span> <input type="checkbox" id="checkbox@borrow.id"> </th>
           <th onclick="addDeleteList(@borrow.id)" >@borrow.title</th>
           <th>@borrow.number</th>
           <th>@borrow.getDateOfStartBorrow()</th>

@@ -48,7 +48,7 @@
       <tbody>
         @for(requisition <- initList){
           <tr id="row@requisition.id">
-            <th onclick="addDeleteList(@requisition.id)" > <input type="checkbox" id="checkbox@requisition.id" name="checkbox@requisition.id"> </th>
+            <th onclick="addDeleteList(@requisition.id)" > <span hidden>@requisition.getBarcode()</span> <input type="checkbox" id="checkbox@requisition.id" name="checkbox@requisition.id"> </th>
             <th onclick="addDeleteList(@requisition.id)" >@requisition.title</th>
             <th>@requisition.number</th>
             <th>@requisition.approveDateToString()</th>

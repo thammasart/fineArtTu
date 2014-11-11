@@ -21,6 +21,18 @@ public class User extends Model{
 
 	@ManyToOne
 	public UserStatus status;
+	
+	public boolean isPermit(int module){
+		switch(module){
+		case 1: return status.module1;
+		case 2: return status.module2;
+		case 3: return status.module3;
+		case 4: return status.module4;
+		case 5: return status.module5;
+		case 6: return status.module6;
+		}
+		return false;
+	} 
 
 	public static User authenticate(String username, String password) {
 

@@ -47,7 +47,7 @@
       <tbody>
         @for(donate <- initList){
           <tr id="row@donate.id">
-            <th onclick="addDeleteList(@donate.id)" > <input type="checkbox" id="checkbox@donate.id" name="checkbox@donate.id"> </th>
+            <th onclick="addDeleteList(@donate.id)" > <span hidden>@donate.getBarcode()</span> <input type="checkbox" id="checkbox@donate.id" name="checkbox@donate.id"> </th>
             <th onclick="addDeleteList(@donate.id)" >@donate.title</th>
             <th>@donate.contractNo</th>
             <th>@donate.getApproveDate()</th>
@@ -78,7 +78,7 @@
     <tbody>
       @for(donate <- successList){
         <tr id="row@donate.id">
-          <th onclick="addDeleteList(@donate.id)" > <input type="checkbox" id="checkbox@donate.id" name="checkbox@donate.id"> </th>
+          <th onclick="addDeleteList(@donate.id)" > <span hidden>@donate.getBarcode()</span> <input type="checkbox" id="checkbox@donate.id" name="checkbox@donate.id"> </th>
           <th onclick="addDeleteList(@donate.id)" >@donate.title</th>
           <th>@donate.contractNo</th>
           <th>@donate.getApproveDate()</th>

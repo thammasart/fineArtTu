@@ -59,6 +59,9 @@
 		    chosenField.prop('disabled',false);				//ปิดค่าปุ่มที่ดึงมา-
 		});
 		$('#browse').prop('disabled',false); //fix only button 
+		
+		$('#t1').prop('disabled',false);			
+		$('#t2').prop('disabled',false);			
 	}
 	
     function changeValue()
@@ -73,6 +76,8 @@
     		$('#browse').prop('disabled',false); //fix only button 
     		$('#classifier').prop('disabled',false); 
     		$('#button').hide();
+    		$('#t1').prop('disabled',false);			
+    		$('#t2').prop('disabled',false);
     	
     }
 </script>
@@ -129,7 +134,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" > ชื่อชนิด</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@fsn.typ.typeDescription" name="typeDescription" id="typeDescription">
+                                <input id="t2" type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@fsn.typ.typeDescription" name="typeDescription" id="typeDescription">
                                 <span class="alertText" id="typeDescriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
@@ -146,7 +151,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >  ชื่อครุภัณฑ์</span>
-                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@fsn.descriptionDescription" descriptionDescription" id="descriptionDescription" autocomplete="off">
+                                <input id="t1" type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@fsn.descriptionDescription" name="descriptionDescription" id="descriptionDescription" autocomplete="off">
                                 <span class="alertText" id="descriptionDescriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>

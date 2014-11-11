@@ -81,6 +81,10 @@ public class OtherTransfer extends Model{
 		}
 	}
 
+	public String getBarcode(){
+		return String.format("E07%06X", this.id);
+	}
+
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,OtherTransfer> find = new Finder(Long.class,OtherTransfer.class);
 }
