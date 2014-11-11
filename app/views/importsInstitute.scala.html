@@ -70,8 +70,8 @@
 
                   @for(institute<- institutes){
                     <tr id="row@institute.id">
-                    <th><input id="@institute.id" class="checkLists" type="checkbox" onchange="addTick(@institute.id,'@institute.nameEntrepreneur')"></th>
-                    <th onclick="addTick(@institute.id,'@institute.nameEntrepreneur')">@institute.nameEntrepreneur</th>
+                    <th><input id="@institute.id" class="checkLists" type="checkbox" onchange="addTick(@institute.id,'@institute.nameEntrepreneur')" onclick="isCheckAll()"></th>
+                    <th onclick="addTick(@institute.id,'@institute.nameEntrepreneur');isCheckAll()">@institute.nameEntrepreneur</th>
                     <th>@institute.nameDealer</th>
                     <th>@institute.address.telephoneNumber</th>
                     <th>@institute.payPeriod</th>

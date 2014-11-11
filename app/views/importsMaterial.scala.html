@@ -58,7 +58,7 @@
          <table class="table table-striped overlayTable">
                 <thead>
                     <tr>
-                        <th></th>
+                        <th><input type="checkbox" id="checkAll" onchange="checkAll(0)"/></th>
                         <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ชื่อลักษณะFSN<span class="glyphicon glyphicon-sort"></span></th>
                         <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
@@ -75,8 +75,8 @@
 
                   @for(fsn<- fsns){
                     <tr id="row@fsn.descriptionId">
-                    <th><input id="@fsn.descriptionId" type="checkbox" onclick="addTick('@fsn.descriptionId','durableArticles','@fsn.descriptionDescription')"></th>
-                    <th onclick="addTick('@fsn.descriptionId','durableArticles','@fsn.descriptionDescription')">@fsn.descriptionId</th>
+                    <th><input class="checkLists" id="@fsn.descriptionId" type="checkbox" onchange="addTick('@fsn.descriptionId','durableArticles','@fsn.descriptionDescription')" onclick="isCheckAll(0)"></th>
+                    <th onclick="addTick('@fsn.descriptionId','durableArticles','@fsn.descriptionDescription');isCheckAll()">@fsn.descriptionId</th>
                     <th>@fsn.descriptionDescription</th>
                     <th>@fsn.classifier</th>
                     <th>@fsn.typ.typeId</th>
@@ -145,7 +145,7 @@
            <table class="table table-striped overlayTable">
              <thead>
                 <tr>
-                    <th></th>
+                    <th><input type="checkbox" id="checkAll2" onchange="checkAll(1,'checkAll2')"/></th>
                     <th>หมายเลขวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อวัสดุสิ้นเปลือง<span class="glyphicon glyphicon-sort"></span></th>
                     <th>หน่วย<span class="glyphicon glyphicon-sort"></span></th>
@@ -161,8 +161,8 @@
               @for(goodCode<- goodsCode){
 
                   <tr id="row@goodCode.code">
-                  <th><input id="@goodCode.code" type="checkbox" onclick="addTick('@goodCode.code','consumableGoods','@goodCode.description')"></th>
-                  <th onclick="addTick('@goodCode.code','consumableGoods','@goodCode.description')">@goodCode.code</th>
+                  <th><input class="checkLists" id="@goodCode.code" type="checkbox" onchange="addTick('@goodCode.code','consumableGoods','@goodCode.description')" onclick="isCheckAll(1,'checkAll2')"></th>
+                  <th onclick="addTick('@goodCode.code','consumableGoods','@goodCode.description');isCheckAll(1,'checkAll2')">@goodCode.code</th>
                   <th>@goodCode.description</th>
                   <th>@goodCode.classifier</th>
                   <th>@goodCode.minNumberToAlert</th>
