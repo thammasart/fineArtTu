@@ -52,6 +52,7 @@ public class Import extends Controller {
  	@Security.Authenticated(Secured.class)
     public static Result imports() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
+        if(!user.isPermit(2))return ok(permissionDenied.render());
         return ok(imports.render(user));
     }
 
@@ -60,6 +61,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result importsInstitute() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
+        if(!user.isPermit(2))return ok(permissionDenied.render());
         List<Company> institutes = Company.find.all(); 
         return ok(importsInstitute.render(institutes,user));
     }
@@ -101,6 +103,7 @@ public class Import extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result importsInstituteAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
+        if(!user.isPermit(2))return ok(permissionDenied.render());
         return ok(importsInstituteAdd.render(user));
     }
 
@@ -255,6 +258,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsMaterial() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
+        if(!user.isPermit(2))return ok(permissionDenied.render());
         List<FSN_Description> fsns = FSN_Description.find.all();                    //ครุภัณฑ์
         List<MaterialCode> goodsCode = MaterialCode.find.all();                            //วัสดุ
         return ok(importsMaterial.render(fsns,goodsCode,user,"1"));
@@ -263,6 +267,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
 	    public static Result importsMaterial2(String tab) {
 	    User user = User.find.where().eq("username", session().get("username")).findUnique();
+	    if(!user.isPermit(2))return ok(permissionDenied.render());
 	    List<FSN_Description> fsns = FSN_Description.find.all();                    //ครุภัณฑ์
 	    List<MaterialCode> goodsCode = MaterialCode.find.all();                            //วัสดุ
 	    return ok(importsMaterial.render(fsns,goodsCode,user,tab));
@@ -271,6 +276,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsMaterialDurableArticlesAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
+        if(!user.isPermit(2))return ok(permissionDenied.render());
         return ok(importsMaterialDurableArticlesAdd.render(user));
     }
 
@@ -358,6 +364,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsMaterialConsumableGoodsAdd() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
+        if(!user.isPermit(2))return ok(permissionDenied.render());
         return ok(importsMaterialConsumableGoodsAdd.render(user));
     }
 
@@ -519,6 +526,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result importsOrder() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
+        if(!user.isPermit(2))return ok(permissionDenied.render());
         //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
         List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
         //List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
@@ -530,7 +538,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result importsOrder2(String tab) {
 	    User user = User.find.where().eq("username", session().get("username")).findUnique();
-
+	    if(!user.isPermit(2))return ok(permissionDenied.render());
 	    //List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
 	    List<models.durableArticles.Procurement> aProcurement = models.durableArticles.Procurement.find.all();
 	    //List<models.durableGoods.Procurement> gProcurement = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
@@ -542,6 +550,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
 	public static Result createImportsOrderDurableArticlesAdd() {
 	    User user = User.find.where().eq("username", session().get("username")).findUnique();
+	    if(!user.isPermit(2))return ok(permissionDenied.render());
 	    models.durableArticles.Procurement order= new models.durableArticles.Procurement();
 	    order.status = ImportStatus.INIT;
 	    order.save();
@@ -551,6 +560,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result importsOrderDurableArticlesAdd(Long id) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
+        if(!user.isPermit(2))return ok(permissionDenied.render());
         models.durableArticles.Procurement order = models.durableArticles.Procurement.find.byId(id);
         List<Company> companies = Company.find.all();
         return ok(importsOrderDurableArticlesAdd.render(order,user,companies));
@@ -1913,6 +1923,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result createImportsOrderGoodsAdd() {
 	    User user = User.find.where().eq("username", session().get("username")).findUnique();
+	    if(!user.isPermit(2))return ok(permissionDenied.render());
 	    models.durableGoods.Procurement order= new models.durableGoods.Procurement();
 	    order.status = ImportStatus.INIT;
 	    order.save();
@@ -1922,6 +1933,7 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result importsOrderGoodsAdd(Long id) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
+        if(!user.isPermit(2))return ok(permissionDenied.render());
         models.durableGoods.Procurement order = models.durableGoods.Procurement.find.byId(id);
         List<Company> companies = Company.find.all();
         return ok(importsOrderGoodsAdd.render(order,user,companies));
