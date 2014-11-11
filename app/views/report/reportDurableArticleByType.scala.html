@@ -1,0 +1,52 @@
+@(user : User,article : List[models.durableArticles.DurableArticles])
+
+@header("report")
+
+@nav(user)
+@headerTag("ทะเบียนทรัพย์สิน")
+@sideMenu(user)
+
+
+<div class="listWindow">
+        <div class="tableHeaderBtnContainer">
+            <div class="searchS">
+                <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon">ค้นหา</span>
+                      <input type="text" class="form-control" style="width:250px">
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="adminUserinfoTableContainer">
+            <table class="table table-striped overlayTable">
+                <thead>
+                    <tr>
+                    	<th>ลำดับ<span class="glyphicon glyphicon-sort"></span></th>
+                    	<th>วัน เดือน ปี<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รายการ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ทะเบียนครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ค่าเสื่อมรายปี<span class="glyphicon glyphicon-sort"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+       			
+                @for((da,index) <- article.zipWithIndex){
+                            <tr>
+                                <th>@{index+1}</th>
+                                <th>@da.detail.procurement.getAddDate()</th>
+                                <th>@da.detail.description</th>
+                                <th>@da.code</th>
+                                <th>@da.detail.fsn.typ.groupClass.classId</th>
+                                <th>da.llifeTime</th>
+                                <th>da.round(subOrders.getAnnualDepricate(),2)</th> <!-- ค่าเสื่อมต่อปี -->
+                            </tr>
+                 }
+                </tbody>
+            </table>
+        </div> 
+</div>
+@footer()

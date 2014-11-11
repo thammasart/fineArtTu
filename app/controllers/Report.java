@@ -34,7 +34,7 @@ public class Report  extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result reportDurableArticles() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.all();                    //ครุภัณฑ์
+        List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.where().eq("status",SuppliesStatus.NORMAL).findList();                    //ครุภัณฑ์
         return ok(reportDurableArticles.render(user,da));
     }
     @Security.Authenticated(Secured.class)
@@ -66,26 +66,35 @@ public class Report  extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result reportImportDurableArticles() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.all();                    //ครุภัณฑ์
+        List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.where().eq("status",SuppliesStatus.NORMAL).findList();         //ครุภัณฑ์
         List<models.durableArticles.DurableArticles> dList = new ArrayList<models.durableArticles.DurableArticles>();
     	HashMap<String,models.durableArticles.DurableArticles> listResult = new HashMap<String,models.durableArticles.DurableArticles>();
     	HashMap<String,Integer> listCount = new HashMap<String,Integer>();
         List<Integer> count = new ArrayList<Integer>();
 
-        for(models.durableArticles.DurableArticles each : da){
-            listResult.put(each.detail.fsn.typ.groupClass.classId,each);
-            if(listCount.get(each) == null){
-                System.out.println("a");
-                listCount.put(each.detail.fsn.typ.groupClass.classId,0);
-            }else{
-                listCount.put(each.detail.fsn.typ.groupClass.classId,listCount.get(each)+1);
+        if(da.size()>0){
+            for(models.durableArticles.DurableArticles each : da){
+                listResult.put(each.detail.fsn.typ.groupClass.classId,each);
+                if(listCount.get(each.detail.fsn.typ.groupClass.classId) == null){
+                    listCount.put(each.detail.fsn.typ.groupClass.classId,1);
+                }else{
+                    listCount.put(each.detail.fsn.typ.groupClass.classId,listCount.get(each.detail.fsn.typ.groupClass.classId)+1);
+                }
+            }
+            for(String each : listResult.keySet()){
+                dList.add(listResult.get(each));
+                count.add(listCount.get(each));
             }
         }
-        for(String each : listResult.keySet()){
-            dList.add(listResult.get(each));
-            count.add(listCount.get(each));
-        }
         return ok(reportImportDurableArticle.render(user,dList,count));
+    }
+    @Security.Authenticated(Secured.class)
+        public static Result reportDurableArticlesByType() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        DynamicForm form = Form.form().bindFromRequest();
+        String val = form.get("classIdVal");
+        List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.where().eq("status",SuppliesStatus.NORMAL).eq("detail.fsn.typ.groupClass.classId",val).findList();                //ครุภัณฑ์
+        return ok(reportDurableArticleByType.render(user,da));
     }
     @Security.Authenticated(Secured.class)
         public static Result reportExportDurableArticles() {
