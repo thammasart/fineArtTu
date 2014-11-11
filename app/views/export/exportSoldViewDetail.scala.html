@@ -13,8 +13,9 @@
 @headerTagFull("เพิ่มรายการจำหน่าย")
 
 @cancelExportAdd()
+@cancelList() 
 
-<div id="addWindows" class ="detailWindow" >
+<div id="addWindows" class ="detailWindow" ng-init="findUser()">
   <div>
     <button class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button> 
     <button id="changeToEditButton" onclick="changeToEdit()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
@@ -151,7 +152,7 @@
         </table>
 
         <h3 style ="text-align:left;">คณะกรรมการจำหน่าย <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" id="D_add" onclick="add_D_committree()">เพิ่มกรรมการ</button> </h3>
-        <input type="number" style="display:none;" value="@auction.dCommittee.size()" name="numberOf_D_committee" id="numberOf_D_committee">
+        <input type="setTimeoutplay:none;" value="@auction.dCommittee.size()" name="numberOf_D_committee" id="numberOf_D_committee" hidden>
         <table class="table table-striped overlayTable" style="margin-bottom:3%;">
           <thead>
             <tr>
@@ -214,20 +215,20 @@
         </div>
         <div id="editDetail">
           <button type="button" class="btn btn-success width200px" style="float:right;margin-left:1%;" onclick="addDetailButton()">เพิ่มครุภัณฑ์</button>
-          <button type="button" class="btn btn-danger width200px" style="float:right;" onclick="deleteDetail()">ลบครุภัณฑ์</button>
+          <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบครุภัณฑ์</button>
         </div> 
       </div>
 
       <table class="table table-striped overlayTable" style="margin-bottom:3%;">
         <thead>
-            <tr>
-              <th></th>
-              <th>ลำดับ</th>
-              <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
-              <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-              <th>ประเภทงบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
-              <th>ราคา/ตัว<span class="glyphicon glyphicon-sort"></span></th>
-            </tr>
+          <tr>
+            <th> <input type="checkbox"/> </th>
+            <th>หมายเลขครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
+            <th>รายละเอียดครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
+            <th>ราคาต่อหน่วย <span class="glyphicon glyphicon-sort"></span></th>
+            <th>อายุการใช้งาน <span class="glyphicon glyphicon-sort"></span></th>
+            <th>ที่อยู่ ครุภัณฑ์ (สาขาวิชา) <span class="glyphicon glyphicon-sort"></span></th>
+          </tr>
         </thead>
         <tbody id="detailInTable">
 
@@ -237,7 +238,7 @@
 
 
     <div align="center" style="margin-bottom:1%;">
-      <a href="@routes.ExportSold.cancelAuction(auction.id)">
+      <a href="@routes.ExportSold.exportSold()">
         <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
           <span class="glyphicon glyphicon-remove"></span> ย้อนกลับ
         </button>

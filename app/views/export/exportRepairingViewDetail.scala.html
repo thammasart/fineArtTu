@@ -7,10 +7,13 @@
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/repair.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
 
-<body onload="initViewDetial(@repair.id)"> 
+<body onload="initViewDetial(@repair.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการส่งซ่อม")
+
+@cancelExportAdd()
+@cancelList()
 
 <div id="addWindows" class ="detailWindow" ng-app="userAccountModule" ng-controller="autoCompleteUserController">
   <div>
@@ -58,9 +61,7 @@
           <div class="input-group" id="dateP1">
             <span class="input-group-addon width250px">วัน/เดือน/ปี ส่งซ่อม</span>
             <input type="text" class="form-control width300px" value="@repair.getDateOfSentToRepair()" name="dateOfSentToRepair" id="dateOfSentToRepair" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px" id="datepickerbuttonP1">
-              <span class="datepickerbutton glyphicon glyphicon-calendar"></span>
-            </span>
+            <span class="input-group-addon width25px" id="datepickerbuttonP1"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
             <span class="alertText" id="dateOfSentToRepairAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -71,9 +72,7 @@
           <div class="input-group" id="dateP2">
             <span class="input-group-addon width250px">วัน/เดือน/ปี ที่รับคืน</span>
             <input type="text" class="form-control width300px" value="@repair.getDateOfReceiveFromRepair()" name="dateOfResiveFromRepair" id="dateOfResiveFromRepair" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px" id="datepickerbuttonP2">
-              <span class="datepickerbutton glyphicon glyphicon-calendar"></span>
-            </span>
+            <span class="input-group-addon width25px" id="datepickerbuttonP2"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
             <span class="alertText" id=""  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -152,7 +151,7 @@
 
 
     <div align="center" style="margin-bottom:1%;">
-      <a href="@routes.ExportRepair.cancelRepairing(repair.id)">
+      <a href="@routes.ExportRepair.exportRepairing()">
         <button  type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
           <span class="glyphicon glyphicon-remove"></span> ย้อนกลับ
         </button>
@@ -169,7 +168,6 @@
 
   <div class="well" >
     <h2 style ="text-align:center;">เลือกครุภัณฑ์</h2>
-
     <div class="form-inline marginBtm1" role="form" align="center">
       <div class="form-group" >
         <div class="input-group" >
@@ -206,9 +204,7 @@
   </div>
 
   <div class="well">
-    <h2>
-        ลักษณะการชำรุด
-    </h2>
+    <h2> ลักษณะการชำรุด </h2>
     <div class="form-inline marginBtm1" role="form">
       <div class="form-group">
         <div class="input-group">
