@@ -36,6 +36,38 @@ function goBack() {
     window.history.back()
 }
 
+function checkAll(tableNum,id){
+	var num = tableNum || 0;
+	var checkAll = id || "checkAll";
+	var check = $("#" + checkAll).prop("checked");
+	var checkLists = $(getTable(num)).find('.checkLists');
+	console.log(checkLists);
+	$.each(checkLists,function(i,field){
+		var isChange = field.checked != check;
+		field.checked = check;
+		if(isChange){
+			field.onchange();
+		}
+	});
+}
+
+function isCheckAll(tableNum,id){
+	var num = tableNum || 0;
+	var checkAll = id||"checkAll";
+	var check = $("#" + checkAll).prop("checked");
+	var checkLists = $(getTable(num)).find('.checkLists');
+	var flag = true;
+	$.each(checkLists,function(i,field){
+		if(!field.checked){
+			$("#" + checkAll).prop("checked",false);
+			flag = false;
+		}
+	});
+	if(flag){
+		$("#" + checkAll).prop("checked",true);
+	}
+}
+
 Array.prototype.remove = function() {
     var what, a = arguments, L = a.length, ax;
     while (L && this.length) {

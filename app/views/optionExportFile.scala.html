@@ -1,0 +1,24 @@
+@(user : User)
+
+@import java.text.SimpleDateFormat
+@import java.util.Locale
+
+@header("optionExportFile")
+
+@nav(user)
+@headerTag("ระบบส่งออกข้อมูล")
+@sideMenu(user)
+
+
+<div class="mainWindow">
+	<div class="well wellSize">
+
+        <div>
+            <p><font size="5">ส่งออกข้อมูลทั้งหมดในระบบ</font>
+            <a href="@routes.Option.optionExportAllItems()"><button class="btn btn-info" style="float: right;">ส่งออกข้อมูล</button></a>
+            </p>
+        </div>
+
+      </div>
+</div>
+@footer()

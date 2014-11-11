@@ -67,8 +67,12 @@ function addTick(name){
 	console.log(usersTick);
 	if(usersTick.indexOf(username) > -1){
 		usersTick.remove(username);
+		document.getElementById("row"+username).style.color = "";
+		document.getElementById(username).checked = false;
 	}else{
 		usersTick.push(username);
+		document.getElementById("row"+username).style.color = "#cc3300";
+		document.getElementById(username).checked = true;
 	}
 }
 
@@ -105,3 +109,5 @@ function del(name) {
 	};
 	postData('/Admin/removeRole', data);
 }
+
+
