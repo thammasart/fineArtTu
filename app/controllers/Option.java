@@ -187,22 +187,24 @@ public class Option extends Controller {
 		 {
 			 for(models.durableGoods.ProcurementDetail pd : p.details)
 			 {
-				 for(models.durableGoods.DurableGoods d : pd.subDetails)
-				 {
-					 out.write("Goods,");	//type symbol
-					 out.write(d.barCode+',');
-					 out.write(d.typeOfDurableGoods+',');	//type of Goods
-					 out.write(d.department+',');
-					 out.write(d.room+',');
-					 out.write(d.floorLevel+',');
-					 out.write(d.codes+',');
-					 out.write(d.title+',');
-					 out.write(d.firstName+',');
-					 out.write(d.lastName+',');
-					 out.write(d.detail.description+',');
-					 out.write(d.detail.procurement.title+',');
-					 out.write(d.detail.procurement.budgetType+',');
-					 out.write(d.detail.procurement.budgetYear+"\n");	
+				 if(pd.typeOfDurableGoods == 1){
+					 for(models.durableGoods.DurableGoods d : pd.subDetails)
+					 {
+						 out.write("Goods,");	//type symbol
+						 out.write(d.barCode+',');
+						 out.write(d.department+',');
+						 out.write(d.room+',');
+						 out.write(d.floorLevel+',');
+						 out.write(d.codes+',');
+						 out.write(d.title+',');
+						 out.write(d.firstName+',');
+						 out.write(d.lastName+',');
+						 out.write("null,");
+						 out.write(d.detail.description+',');
+						 out.write(d.detail.procurement.title+',');
+						 out.write(d.detail.procurement.budgetType+',');
+						 out.write(d.detail.procurement.budgetYear+"\n");	
+					 }
 				 }
 			 }
 		 }
