@@ -15,6 +15,7 @@ public class Admin extends Controller {
 
     public static Result index() {
         User user = User.find.byId(session().get("username"));
+        if(!user.isPermit(1))return ok(permissionDenied.render());
         List<User> users = User.find.all(); 
         List<UserStatus> allStatus = UserStatus.find.all();
         return ok(admin.render(users, user,allStatus));
@@ -25,7 +26,7 @@ public class Admin extends Controller {
         Form<User> newUserFrom = Form.form(User.class).bindFromRequest();
 
         User user = User.find.byId(f.get("username"));
-        
+        if(!user.isPermit(1))return ok(permissionDenied.render());
         if(user == null){
             System.out.println(newUserFrom);
             User newUser = newUserFrom.get();    
@@ -42,12 +43,14 @@ public class Admin extends Controller {
 
     public static Result addUser() {
         User user = User.find.byId(session().get("username"));
+        if(!user.isPermit(1))return ok(permissionDenied.render());
         List<UserStatus> allStatus = UserStatus.find.all();
         return ok(addUser.render(user,allStatus));
     }
 
     public static Result manageRole() {
         User user = User.find.byId(session().get("username"));
+        if(!user.isPermit(1))return ok(permissionDenied.render());
         List<UserStatus> usersStatus = UserStatus.find.all();
         return ok(manageRole.render(user,usersStatus));
     }
