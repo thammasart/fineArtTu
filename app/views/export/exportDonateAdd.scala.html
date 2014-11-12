@@ -11,6 +11,7 @@
 
 @nav(user)
 @headerTagFull("เพิ่มรายการบริจาคครุภัณฑ์")
+
 @cancelExportAdd()
 @cancelList()
 
@@ -41,7 +42,7 @@
           <div class="input-group " id="dateP">
             <span class="input-group-addon width250px">วัน/เดือน/ปี อนุมัติ</span>
             <input type="text" class="form-control width300px" value="@donation.getApproveDate" name="approveDate" id="approveDate" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+            <span class="input-group-addon width25px" id="datepickerbutton" ><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
             <span class="alertText" id="approveDateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -97,7 +98,7 @@
                     <option @if(committee.committeePosition.equals("กรรมการ")){selected} >กรรมการ</option>
                     <option @if(committee.committeePosition.equals("กรรมการและเลขานุการ")){selected} >กรรมการและเลขานุการ</option>
                   </select>
-                </th style ="text-align:center;" > 
+                </th> 
                 <th style ="text-align:center;" > <button type="button" class="btn btn btn-danger" id="FF_delete@index" onclick="delete_FF_committree('@index')"> ลบ </button> </th>
               </tr>
             }
@@ -121,18 +122,18 @@
           <tbody id="D_committee_table">
             @for((committee, index) <- donation.dCommittee.zipWithIndex ){
               <tr id="D@index">
-                <th> <input id="D_namePrefix@index" name="D_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
-                <th> <input id="D_firstName@index" name="D_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> <input id="D_lastName@index" name="D_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> <input id="D_position@index" name="D_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
-                <th> 
+                <th style ="text-align:center;" > <input id="D_namePrefix@index" name="D_namePrefix@index" value="@committee.user.namePrefix" type="text" class="form-control textAlignCenter width75px"> </th>
+                <th style ="text-align:center;" > <input id="D_firstName@index" name="D_firstName@index" value="@committee.user.firstName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > <input id="D_lastName@index" name="D_lastName@index" value="@committee.user.lastName" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > <input id="D_position@index" name="D_position@index" value="@committee.user.position" type="text" class="form-control textAlignCenter width175px"> </th>
+                <th style ="text-align:center;" > 
                   <select id="D_cType@index" name="D_cType@index" class="form-control textAlignCenter width175px">
                     <option @if(committee.employeesType == null){selected} >---เลือก---</option>
                     <option @if(committee.employeesType.equals("ข้าราชการ")){selected} >ข้าราชการ</option>
                     <option @if(committee.employeesType.equals("พนักงานมหาลัย")){selected} >พนักงานมหาลัย</option>
                   </select>
                 </th>
-                <th> 
+                <th style ="text-align:center;" > 
                   <select id="D_cPosition@index" name="D_cPosition@index" class="form-control textAlignCenter width175px">
                     <option @if(committee.committeePosition == null){selected} >---เลือก---</option>
                     <option @if(committee.committeePosition.equals("ประธานกรรมการ")){selected} >ประธานกรรมการ</option>
@@ -140,7 +141,7 @@
                     <option @if(committee.committeePosition.equals("กรรมการและเลขานุการ")){selected} >กรรมการและเลขานุการ</option>
                   </select>
                 </th> 
-                <th> <button type="button" class="btn btn btn-danger" id="D_delete@index" onclick="delete_D_committree('@index')"> ลบ </button> </th>
+                <th style ="text-align:center;" > <button type="button" class="btn btn btn-danger" id="D_delete@index" onclick="delete_D_committree('@index')"> ลบ </button> </th>
               </tr>
             }
           </tbody>
@@ -163,7 +164,7 @@
           </div>
         </div>
 
-        <div>
+        <div id="editDetail">
           <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มครุภัณฑ์</button>
           <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบครุภัณฑ์</button>
         </div> 
@@ -190,7 +191,7 @@
         <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="addId(donation.id)" ng-click="openCancelModal('cancelDonation')">
           <span class="glyphicon glyphicon-remove" ></span> ยกเลิก
         </button>
-      </a>
+      <!--</a>-->
       <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
         ยืนยัน <span class="glyphicon glyphicon-ok"></span>
       </button>

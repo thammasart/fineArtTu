@@ -48,9 +48,7 @@
           <div class="input-group" id="dateP">
               <span class="input-group-addon width250px">วัน/เดือน/ปี ที่ทำการเบิกจ่าย</span>
               <input type="text" class="form-control width300px textAlignCenter" data-format="DD/MM/YYYY" value="@requisition.approveDateToString" name="approveDate" id="date">
-              <span class="input-group-addon width25px" id="datepickerbutton">
-                <span class="datepickerbutton glyphicon glyphicon-calendar"></span>
-              </span>
+              <span class="input-group-addon width25px" id="datepickerbutton"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
               <span class="alertText" id="dateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -143,12 +141,13 @@
         </tbody>
       </table>
     </div>
-    <div align="center" style="margin-bottom:1%;" id="saveExport">
-      <!--<a href="@routes.ExportOrder.cancelRequisition(requisition.id)">-->
-        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="addId(requisition.id)" ng-click="openCancelModal('cancelRequisition')">
-          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+    <div align="center" style="margin-bottom:1%;">
+      <a href="@routes.ExportOrder.exportOrder()">
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" >
+          <span class="glyphicon glyphicon-remove"></span> ย้อนกลับ
         </button>
-      <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+      </a>
+      <button id="saveExport" type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
         ยืนยัน <span class="glyphicon glyphicon-ok"></span>
       </button>
     </div>
@@ -303,7 +302,7 @@
         <span class="glyphicon glyphicon-remove"></span> ยกเลิก
       </button>
       <button type="button" class="btn btn-success btn-lg width250px" onclick="saveEditDetail()" style=" margin-top:1%;">
-        ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+        แก้ไข <span class="glyphicon glyphicon-ok"></span>
       </button>
     </div>
 

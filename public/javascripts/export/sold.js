@@ -355,7 +355,7 @@ function initViewDetial(id){
 
 	document.getElementById("initViewDetial").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
-	document.getElementById("saveExport").style.display = "none";
+	document.getElementById("saveExport").style.visibility = "hidden";
 	document.getElementById("FF_add").style.display = "none";
 	document.getElementById("E_add").style.display = "none";
 	document.getElementById("D_add").style.display = "none";
@@ -423,7 +423,7 @@ function changeToEdit(){
 
 	document.getElementById("initViewDetial").style.display = "table-cell";
 	document.getElementById("editDetail").style.display = "block";
-	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("saveExport").style.visibility = "visible";
 	document.getElementById("changeToEditButton").style.display = "none";
 	document.getElementById("FF_add").style.display = "block";
 	document.getElementById("E_add").style.display = "block";

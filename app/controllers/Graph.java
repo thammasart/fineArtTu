@@ -2093,6 +2093,7 @@ public class Graph extends Controller {
 			result += getDetailLabel("budgetType", p.budgetType);
 			result += getDetailLabel("addDate", p.getAddDate());
 			result += getDetailLabel("checkDate", p.getCheckDate());
+			result += getDetailLabel("status", p.status.name());
 			String expandable = "";
 			
 			expandable = "";

@@ -312,21 +312,24 @@ public class ExportRepair extends Controller {
             JsonNode json = body.asJson();
             RepairingDetail repairDetail = RepairingDetail.find.byId((new Long(json.get("id").asText())));
             Repairing repair = Repairing.find.byId(new Long(json.get("repairingId").asText()));
-            if( repairDetail != null && repair != null 
-                && (repair.status == ExportStatus.INIT ||repair.status == ExportStatus.SUCCESS) ){
-                repairDetail.description = json.get("description").asText();
-                repairDetail.update();
-                if(json.get("cost") != null){
-                    repairDetail.price = Double.parseDouble(json.get("cost").asText());
+            if( repairDetail != null && repair != null){
+                if(repair.status == ExportStatus.INIT || repair.status == ExportStatus.REPAIRING || repair.status == ExportStatus.SUCCESS){
+                    repairDetail.description = json.get("description").asText();
                     repairDetail.update();
-
-                    int total = 0;
-                    for( RepairingDetail detail : repair.detail){
-                        total += detail.price;
-                    }
-                    repair.repairCosts = total;
-                    repair.update();
                 }
+                if(repair.status == ExportStatus.SUCCESS){
+                    if(json.get("cost") != null){
+                        repairDetail.price = Double.parseDouble(json.get("cost").asText());
+                        repairDetail.update();
+
+                        int total = 0;
+                        for( RepairingDetail detail : repair.detail){
+                            total += detail.price;
+                        }
+                        repair.repairCosts = total;
+                        repair.update();
+                    }
+                }    
                 result.put("status", "SUCCESS");
 
             }
