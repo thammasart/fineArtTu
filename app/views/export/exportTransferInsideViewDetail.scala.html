@@ -1,10 +1,11 @@
 @(user : User, inside:models.durableArticles.InternalTransfer)
 @header("exportTransferInsideAdd")
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/mainExport.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("javascripts/export/internalTransfer.js")"></script>
-  <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
 <body onload="initViewDetail(@inside.id)"ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
@@ -115,12 +116,12 @@
     </div> <!-- end well -->
 
     <div align="center" style="margin-bottom:1%;">
-      <!--<a href="@routes.ExportTransferInside.cancelInternalTransfer(inside.id)">-->
-        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;"onclick="addId(@inside.id)" ng-click="openCancelModal('cancelInside')">
-            <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+      <a href="@routes.ExportTransferInside.exportTransferInside()">
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;">
+            <span class="glyphicon glyphicon-remove"></span> ย้อนกลับ
         </button>
       </a>
-      <button  type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+      <button id="saveExport" type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
           ยืนยัน <span class="glyphicon glyphicon-ok"></span>
       </button>
     </div>
@@ -137,16 +138,16 @@
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >รหัสFSN</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) searchFSN()">
         </div>
       </div>
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) searchFSN()">
         </div>
       </div>
-      <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
+      <button type="button" class="btn btn-success" onclick="searchFSN()">ค้นหา</button>
     </div>
 
     <table class="table table-striped overlayTable">
@@ -224,7 +225,7 @@
               </div>
     </div>
 
-  <div align="right" style="margin-bottom:1%; margin-right:3%;" id="saveExport">
+  <div align="right" style="margin-bottom:1%; margin-right:3%;">
     <button  type="button" class="btn btn-danger btn-lg width250px" onclick="addInternalTransferButton()" style="margin-top:1%;margin-right:1%;">
       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
     </button>
@@ -249,7 +250,7 @@
         </tr>
       </thead>
 
-      <tbody id="searchResultTable">
+      <tbody>
         <tr>
           <th id="edit_fsn_Number"> - </th>
           <th id="edit_fsn_description"> - </th>
@@ -325,9 +326,9 @@
       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
     </button>
     <button  type="button" class="btn btn-success btn-lg width250px" onclick="saveEditDetail()" style=" margin-top:1%;">
-      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+      แก้ไข <span class="glyphicon glyphicon-ok"></span>
     </button>
   </div>
 </div> 
 
-@footerFull() 
+@footerFull()

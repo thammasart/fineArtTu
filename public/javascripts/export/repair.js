@@ -92,57 +92,6 @@ function addNewDetai(code){
 	}
 }
 
-function findFSN(){
-	var fsnCode = document.getElementById("fsnCode").value;
-	var des = document.getElementById("fsnDescription").value;
-	$.ajax({
-		type: "GET",
-		url: "/export/searchFSN",
-		data: {'code': fsnCode, 'description' : des},
-		success: function(data){
-		   	//alert(JSON.stringify(data));
-		    if(data["status"] == "SUCCESS"){
-			   	var allArticles = data["result"];
-			   	var length = allArticles.length;
-			   	var s = "";
-			   	destroyTable();
-				for (var i = 0; i < length; i++) {
-					if((oldDetail.indexOf(allArticles[i].id) < 0)){
-						s += '<tr id="fsn' + allArticles[i].id + '" >';
-						s += '	<th onclick="addNewDetai(' + allArticles[i].id + ')"> ';
-						if(newDetail.indexOf(allArticles[i].id) > -1){
-							s += '<input type="checkbox" id="addDetail' + allArticles[i].id + '" checked';
-						}
-						else{
-							s += '<input type="checkbox" id="addDetail' + allArticles[i].id + '"';
-						}
-						s += '> </th>';
-						s += ' <th onclick="addNewDetai(' + allArticles[i].id + ')">'+ allArticles[i].code +'</th>';
-						if(allArticles[i].detail){
-							s += '	<th>'+ allArticles[i].detail.fsn.descriptionDescription +'</th>';
-							s += '	<th>'+ allArticles[i].detail.llifeTime + ' ปี / ' + allArticles[i].remainLifetimeToString +'</th>';
-							s += '	<th>'+ allArticles[i].detail.price + ' / ' + allArticles[i].remainingPriceToString +'</th>';
-							s += '	<th>'+ allArticles[i].id + ' : ' + allArticles[i].detail.procurement.checkDate + '</th>';
-						}
-						else{
-							s += '	<th>'+ 'ไม่มี' +'</th>';
-							s += '	<th>'+ 'ไม่มี' +'</th>';
-							s += '	<th>'+ 'ไม่มี' +'</th>';
-							s += '	<th>'+ allArticles[i].id + ' : ' + 'ไม่มี' +'</th>';
-						}
-						s += '</tr>';
-					}
-			   	}
-			   	document.getElementById("searchResultTable").innerHTML = s;
-			   	updateTable();
-		    }
-		    else{
-		    	alert("find FSN error : " + data["message"]);
-		    }
-		}
-	});
-}
-
 function addCheckedDetail(code){
 	if(!isViewDetail){
 		if(checkedDetail.indexOf(code) > -1){
@@ -331,7 +280,7 @@ function initViewDetial(id){
 	document.getElementById("datepickerbuttonP1").style.display = "none";
 	document.getElementById("datepickerbuttonP2").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
-	document.getElementById("saveExport").style.display = "none";
+	document.getElementById("saveExport").style.visibility = "hidden";
 	
 	init(id);
 	titleInHeader = "แสดงรายละเอียดการส่งซ่อม";
@@ -357,7 +306,7 @@ function changeToEdit(){
 	document.getElementById("datepickerbuttonP1").style.display = "table-cell";
 	document.getElementById("datepickerbuttonP2").style.display = "table-cell";
 	document.getElementById("editDetail").style.display = "block";
-	document.getElementById("saveExport").style.display = "block";
+	document.getElementById("saveExport").style.visibility = "visible";
 	document.getElementById("changeToEditButton").style.display = "none";
 
 	titleInHeader = "แก้ไขรายละเอียดการส่งซ่อม";

@@ -47,6 +47,21 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;  
 
+//
+import models.User;
+import play.mvc.Controller;
+import play.mvc.Result;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Writer;
+
+
 
 public class Option extends Controller {
 
@@ -91,7 +106,118 @@ public class Option extends Controller {
         return ok(optionChangeTax.render(user));
     }
 	
+	@Security.Authenticated(Secured.class)
+    public static Result optionExportFile() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        return ok(optionExportFile.render(user));
+    }
 	
+	@Security.Authenticated(Secured.class)
+    public static Result optionExportAllItems() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        
+        
+        
+        File f = new File("ExportData.txt");
+        Writer out = null;
+        try {
+		 out = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream(f), "UTF-8"));
+		 
+		 List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+		 List<models.durableGoods.Procurement> pgs = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
+		 
+		 for(models.durableArticles.Procurement p : ps)
+		 {
+			 for(models.durableArticles.ProcurementDetail pd : p.details)
+			 {
+				 for(models.durableArticles.DurableArticles d : pd.subDetails)
+				 {
+					 out.write("durableArticles,");	//type symbol
+					 out.write(d.barCode+',');
+					 out.write(d.department+',');
+					 out.write(d.room+',');
+					 out.write(d.floorLevel+',');
+					 out.write(d.code+',');
+					 out.write(d.title+',');
+					 out.write(d.firstName+',');
+					 out.write(d.lastName+',');
+					 out.write(d.codeFromStock+',');
+					 out.write(d.detail.description+',');
+					 out.write(d.detail.procurement.title+',');
+					 out.write(d.detail.procurement.budgetType+',');
+					 out.write(d.detail.procurement.budgetYear+"\n");	
+				 }
+			 }
+		 }
+		 
+		 
+		 
+		 for(models.durableGoods.Procurement p : pgs)
+		 {
+			 for(models.durableGoods.ProcurementDetail pd : p.details)
+			 {
+				 for(models.durableGoods.DurableGoods d : pd.subDetails)
+				 {
+					 out.write("Goods,");	//type symbol
+					 out.write(d.barCode+',');
+					 out.write(d.typeOfDurableGoods+',');	//type of Goods
+					 out.write(d.department+',');
+					 out.write(d.room+',');
+					 out.write(d.floorLevel+',');
+					 out.write(d.codes+',');
+					 out.write(d.title+',');
+					 out.write(d.firstName+',');
+					 out.write(d.lastName+',');
+					 out.write(d.detail.description+',');
+					 out.write(d.detail.procurement.title+',');
+					 out.write(d.detail.procurement.budgetType+',');
+					 out.write(d.detail.procurement.budgetYear+"\n");	
+				 }
+			 }
+		 }
+		 
+
+		 
+		 for(models.durableArticles.Procurement p:ps)
+		 {
+			 out.write("ArticleProcurement,");	//type symbol
+			 out.write(p.barCode+',');
+			 out.write(p.title+',');
+			 out.write(p.contractNo+',');
+			 out.write(p.getAddDate()+',');
+			 out.write(p.getCheckDate()+',');
+			 out.write(p.budgetType+',');
+			 out.write(p.institute+',');
+			 out.write(p.budgetYear+"\n");			 
+		 }
+		 
+		
+		 for(models.durableGoods.Procurement p:pgs)
+		 {
+			 out.write("GoodProcurement,");	//type symbol
+			 out.write(p.barCode+',');
+			 out.write(p.title+',');
+			 out.write(p.contractNo+',');
+			 out.write(p.getAddDate()+',');
+			 out.write(p.getCheckDate()+',');
+			 out.write(p.budgetType+',');
+			 out.write(p.institute+',');
+			 out.write(p.budgetYear+"\n");			 
+		 }
+		 
+			out.close();
+		}catch(IOException e){
+			System.out.println("file not found ");
+		}
+        
+        return ok(f);
+    }
+	
+	
+	
+
+
 	
 	
 }

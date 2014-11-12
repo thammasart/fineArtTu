@@ -33,7 +33,7 @@
         <table class="table table-striped overlayTable">
             <thead>
                 <tr>
-                    <th> CH </th>
+                    <th><input type="checkbox" id="checkAll" onchange="checkAll()"/></th>
                     <th>username<span class="glyphicon glyphicon-sort"></span></th>
                     <th>คำนำหน้า<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อ<span class="glyphicon glyphicon-sort"></span></th>
@@ -47,9 +47,9 @@
             <tbody>
 <!--   loop here -->
                 @for(user<- users){
-                    <tr>
-                        <th><input id="@user.username" type="checkbox" onclick="addTick(@user.username)"></th>
-                        <th>@user.username</th>
+                    <tr id="row@user.username">
+                        <th><input class="checkLists" id="@user.username" type="checkbox" onchange="addTick(@user.username)" onclick="isCheckAll()"></th>
+                        <th onclick="addTick(@user.username);isCheckAll()">@user.username</th>
                         <th>@user.namePrefix</th>
                         <th>@user.firstName</th>
                         <th>@user.lastName</th>

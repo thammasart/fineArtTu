@@ -561,9 +561,9 @@ function loadOrderArticle(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
 		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
-		'                    <th><input id="check'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
-		'                    <th onclick="addTick('+ data['data'][i].id +')">'+ data['data'][i].id +'</th>'+
-		'                    <th>'+ data['data'][i].fsn +'</th>'+
+		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(2)" disabled></th>'+
+		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].id +'</th>'+
+		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].fsn +'</th>'+
 		'                    <th id="delName'+ data['data'][i].id +'">'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
@@ -590,9 +590,9 @@ function loadOrderGood(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
 		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
-		'                    <th><input id="check'+ data['data'][i].id +'" type="checkbox" onclick="addTick('+ data['data'][i].id +')"></th>'+
-		'                    <th onclick="addTick('+ data['data'][i].id +')">'+ data['data'][i].code +'</th>'+
-		'                    <th>'+ data['data'][i].description +'</th>'+
+		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(isCheckAll(1))" disabled></th>'+
+		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].code +'</th>'+
+		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
 		'                    <th>'+ data['data'][i].price +'</th>'+

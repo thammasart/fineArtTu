@@ -35,6 +35,9 @@ public class ExportBorrow extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result exportBorrow() {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         List<Borrow> initList = Borrow.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
         List<Borrow> borrowList = Borrow.find.where().eq("status", ExportStatus.BORROW).orderBy("id desc").findList();
         List<Borrow> successList = Borrow.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
@@ -43,6 +46,10 @@ public class ExportBorrow extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result exportCreateBorrow() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Borrow temp =  new Borrow();
         temp.dateOfStartBorrow = new Date();
         temp.status = ExportStatus.INIT;
@@ -53,6 +60,9 @@ public class ExportBorrow extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportBorrowAdd(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Borrow borrow = Borrow.find.byId(id);
         if(borrow == null || borrow.status != ExportStatus.INIT){
             return redirect(routes.ExportBorrow.exportBorrow());
@@ -63,6 +73,9 @@ public class ExportBorrow extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result returnFromBorrow(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Borrow borrow = Borrow.find.byId(id);
         if(borrow == null || borrow.status != ExportStatus.BORROW){
             return redirect(routes.ExportBorrow.exportBorrow());
@@ -74,6 +87,9 @@ public class ExportBorrow extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Borrow borrow = Borrow.find.byId(id);
         if(borrow == null ){
             return redirect(routes.ExportBorrow.exportBorrow());
@@ -90,6 +106,9 @@ public class ExportBorrow extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveBorrow(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Borrow borrow = Borrow.find.byId(id);
         if(borrow != null && (borrow.status == ExportStatus.INIT || borrow.status == ExportStatus.BORROW || borrow.status == ExportStatus.SUCCESS) ){
             DynamicForm f = Form.form().bindFromRequest();
@@ -144,6 +163,9 @@ public class ExportBorrow extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveReturn(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Borrow borrow = Borrow.find.byId(id);
         if(borrow != null && borrow.status == ExportStatus.BORROW){
             DynamicForm f = Form.form().bindFromRequest();
@@ -163,6 +185,9 @@ public class ExportBorrow extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result cancelBorrow(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Borrow borrow = Borrow.find.byId(id);
         if(borrow != null && borrow.status == ExportStatus.INIT){
             borrow.status = ExportStatus.CANCEL;
@@ -174,6 +199,10 @@ public class ExportBorrow extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteBorrow(){
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -214,6 +243,10 @@ public class ExportBorrow extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result saveBorrowDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -250,6 +283,10 @@ public class ExportBorrow extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteBorrowDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -285,6 +322,10 @@ public class ExportBorrow extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result loadBorrowDetail(long id) {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         JsonNode json;
         try { 

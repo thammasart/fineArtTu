@@ -35,6 +35,9 @@ public class ExportRepair extends Controller {
 	@Security.Authenticated(Secured.class)
     public static Result exportRepairing() {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         List<Repairing> initList = Repairing.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
         List<Repairing> repairingList = Repairing.find.where().eq("status", ExportStatus.REPAIRING).orderBy("id desc").findList();
         List<Repairing> successList = Repairing.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
@@ -43,6 +46,10 @@ public class ExportRepair extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result exportCreateRepairing() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Repairing temp =  new Repairing();
         temp.dateOfSentToRepair = new Date();
         temp.status = ExportStatus.INIT;
@@ -53,6 +60,9 @@ public class ExportRepair extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportRepairingAdd(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Repairing repair = Repairing.find.byId(id);
         if(repair == null || repair.status != ExportStatus.INIT ){
             return redirect(routes.ExportRepair.exportRepairing());
@@ -64,6 +74,9 @@ public class ExportRepair extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result receiveFromRepair(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Repairing repair = Repairing.find.byId(id);
         if(repair == null || repair.status != ExportStatus.REPAIRING){
             return redirect(routes.ExportRepair.exportRepairing());
@@ -76,6 +89,9 @@ public class ExportRepair extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Repairing repair = Repairing.find.byId(id);
         List<Company> allCompany = Company.find.all();
         if(repair == null){
@@ -93,6 +109,9 @@ public class ExportRepair extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveRepairing(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Repairing repair = Repairing.find.byId(id);
         if(repair != null && (repair.status == ExportStatus.INIT || repair.status == ExportStatus.REPAIRING ||repair.status == ExportStatus.SUCCESS) ){
         	DynamicForm f = Form.form().bindFromRequest();
@@ -148,6 +167,9 @@ public class ExportRepair extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveReceive(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Repairing repair = Repairing.find.byId(id);
         System.out.println("saveReceive");
         if(repair != null && repair.status == ExportStatus.REPAIRING){
@@ -180,6 +202,9 @@ public class ExportRepair extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result cancelRepairing(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Repairing repair = Repairing.find.byId(id);
         if(repair != null && repair.status == ExportStatus.INIT){
             repair.status = ExportStatus.CANCEL;
@@ -191,6 +216,10 @@ public class ExportRepair extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteRepairing(){
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -232,6 +261,10 @@ public class ExportRepair extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result saveRepairingDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -269,27 +302,34 @@ public class ExportRepair extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result editRepairingDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
             JsonNode json = body.asJson();
             RepairingDetail repairDetail = RepairingDetail.find.byId((new Long(json.get("id").asText())));
             Repairing repair = Repairing.find.byId(new Long(json.get("repairingId").asText()));
-            if( repairDetail != null && repair != null 
-                && (repair.status == ExportStatus.INIT ||repair.status == ExportStatus.SUCCESS) ){
-                repairDetail.description = json.get("description").asText();
-                repairDetail.update();
-                if(json.get("cost") != null){
-                    repairDetail.price = Double.parseDouble(json.get("cost").asText());
+            if( repairDetail != null && repair != null){
+                if(repair.status == ExportStatus.INIT || repair.status == ExportStatus.REPAIRING || repair.status == ExportStatus.SUCCESS){
+                    repairDetail.description = json.get("description").asText();
                     repairDetail.update();
-
-                    int total = 0;
-                    for( RepairingDetail detail : repair.detail){
-                        total += detail.price;
-                    }
-                    repair.repairCosts = total;
-                    repair.update();
                 }
+                if(repair.status == ExportStatus.SUCCESS){
+                    if(json.get("cost") != null){
+                        repairDetail.price = Double.parseDouble(json.get("cost").asText());
+                        repairDetail.update();
+
+                        int total = 0;
+                        for( RepairingDetail detail : repair.detail){
+                            total += detail.price;
+                        }
+                        repair.repairCosts = total;
+                        repair.update();
+                    }
+                }    
                 result.put("status", "SUCCESS");
 
             }
@@ -309,6 +349,10 @@ public class ExportRepair extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteRepairingDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -344,6 +388,10 @@ public class ExportRepair extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result loadRepairingDetail(long id) {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         JsonNode json;
         try { 

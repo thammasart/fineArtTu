@@ -53,21 +53,19 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
         int addDateMonth = this.detail.procurement.getMonth();
         int addDateYear = this.detail.procurement.getYear();
 		
-		System.out.println("Welcome To Hell");
-		System.out.println("Item   :" + addDateDay + "/" + addDateMonth + "/" + addDateYear);
-		System.out.println("Current:" + day + "/" + month + "/" + year);
-		System.out.println(this.detail.price+"  "+this.detail.llifeTime);
+		// System.out.println("Welcome To Hell");
+		// System.out.println("Item   :" + addDateDay + "/" + addDateMonth + "/" + addDateYear);
+		// System.out.println("Current:" + day + "/" + month + "/" + year);
+		// System.out.println(this.detail.price+"  "+this.detail.llifeTime);
 		
 		double depreciationPrice = this.detail.price;
-		
-		double depreciationOfYear = this.detail.price / this.detail.llifeTime;
-		///////////////////////////////////////////////////////////////////////////////// depreciationOfYear 
+		double depreciationOfYear = this.detail.price / this.detail.llifeTime; 
 		double depreciationOfMonth = depreciationOfYear / 12;
 		
 		for(int i =0;i<year-addDateYear;i++){
 			if(depreciationPrice-depreciationOfYear>1.0){
 				depreciationPrice=depreciationPrice-depreciationOfYear;
-				System.out.println("reduce:"+i+":"+depreciationOfYear);
+				// System.out.println("reduce:"+i+":"+depreciationOfYear);
 			}
 			else break;
 		}
@@ -80,12 +78,12 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 		}
 
 		for(int i =0;i<month-addDateMonth;i++){
-			if(depreciationPrice-depreciationOfMonth>1.0){
-				depreciationPrice=depreciationPrice-depreciationOfMonth;
-				System.out.println("reduce:"+i+":"+depreciationOfMonth);
+			if( depreciationPrice - depreciationOfMonth > 1.0){
+				depreciationPrice = depreciationPrice - depreciationOfMonth;
+				// System.out.println("reduce:"+i+":"+depreciationOfMonth);
 			}
 			else{
-				depreciationPrice=1.0;
+				depreciationPrice = 1.0;
 				break;
 			}
 		}
@@ -117,8 +115,11 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
 
 	public String getRemainLifetimeToString(){
 		int m = this.getRemainMonthLifetime();
+		if(m < 0)	m = 0;
+		
 		int y = m/12;
 		m = m%12;
+
 		String result = "" + y +" ปี " + m + " เดือน";
 		return result;
 	}

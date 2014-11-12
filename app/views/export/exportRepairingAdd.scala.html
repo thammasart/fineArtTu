@@ -1,19 +1,23 @@
 @(user : User ,repair:models.durableArticles.Repairing, allCompany:List[models.Company])
 @header("exportRepairAdd")
 
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
-  <script type="text/javascript" src="@routes.Assets.at("javascripts/export/repair.js")"></script>
-  <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
-  <body onload="init(@repair.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/mainExport.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/repair.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameRepairAdd.js")"></script>
+
+<body onload="init(@repair.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
 
 @nav(user)
 @headerTagFull("เพิ่มรายการส่งซ่อม")
 
-<div id="addWindows" class ="detailWindow" >
-  
 @cancelExportAdd()
 @cancelList()
+
+<div id="addWindows" class ="detailWindow" >
+  
+
   <form onsubmit=" return submitButtonClick()"name="addSold" method="post" action="@routes.ExportRepair.saveRepairing(repair.id)" ng-init="findUser()">
     <div>
 
@@ -54,9 +58,7 @@
           <div class="input-group" id="dateP1">
             <span class="input-group-addon width250px">วัน/เดือน/ปี ส่งซ่อม</span>
             <input type="text" class="form-control width300px" value="@repair.getDateOfSentToRepair()" name="dateOfSentToRepair" id="dateOfSentToRepair" data-format="DD/MM/YYYY">
-            <span class="input-group-addon width25px">
-              <span class="datepickerbutton glyphicon glyphicon-calendar"></span>
-            </span>
+            <span class="input-group-addon width25px" id="datepickerbuttonP1"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
             <span class="alertText" id="dateOfSentToRepairAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
@@ -99,7 +101,7 @@
             </div>
           </div>
         </div>
-        <div>
+        <div id="editDetail">
           <button type="button" class="btn btn-success width200px" style="float:right;margin-left:1%;" onclick="addDetailButton()">เพิ่มครุภัณฑ์</button>
           <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบครุภัณฑ์</button>
         </div> 
@@ -113,7 +115,7 @@
               <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
               <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
               <th>ลักษณะการชำรุด ของครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
-              <th>แก้ไข</th>
+              <th></th>
             </tr>
         </thead>
         <tbody id="detailInTable">
@@ -136,29 +138,23 @@
 </div> 
 
 <div id="addDetailWindows" class="detailWindow">
-  <form name="addDetail">
-
-
-
-  </form>  
-
+  
   <div class="well" >
     <h2 style ="text-align:center;">เลือกครุภัณฑ์</h2>
-
     <div class="form-inline marginBtm1" role="form" align="center">
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >ค้นหารหัสFSN</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnCode" name="fsnCode" onkeydown="if (event.keyCode == 13) searchFSN()">
         </div>
       </div>
       <div class="form-group" >
         <div class="input-group" >
           <span class="input-group-addon width250px" >ค้นหาชื่อครุภัณฑ์</span>
-          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) findFSN()">
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="fsnDescription" name="fsnDescription" onkeydown="if (event.keyCode == 13) searchFSN()">
         </div>
       </div>
-      <button type="button" class="btn btn-success" onclick="findFSN()">ค้นหา</button>
+      <button type="button" class="btn btn-success" onclick="searchFSN()">ค้นหา</button>
     </div>
 
     <table class="table table-striped overlayTable">
@@ -169,7 +165,7 @@
           <th>รายละเอียดครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
           <th>ราคาต่อหน่วย <span class="glyphicon glyphicon-sort"></span></th>
           <th>อายุการใช้งาน <span class="glyphicon glyphicon-sort"></span></th>
-          <th>ที่อยู่ สาขาวิชา <span class="glyphicon glyphicon-sort"></span></th>
+          <th>ที่อยู่ ครุภัณฑ์ (สาขาวิชา) <span class="glyphicon glyphicon-sort"></span></th>
         </tr>
       </thead>
       
@@ -223,7 +219,7 @@
         </tr>
       </thead>
 
-      <tbody id="searchResultTable">
+      <tbody>
           <th id="edit_fsn_Number"> - </th>
           <th id="edit_fsn_description"> - </th>
           <th id="edit_price"> - </th>
@@ -242,7 +238,7 @@
       <div class="form-group">
         <div class="input-group">
           <textarea class="form-control " id="edit_description" name="edit_description" rows="2" cols="50"></textarea>
-              <span class="alertText" id="natureOfDamageAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+              <span class="alertText" id=""  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
         </div>
       </div>
     </div>
@@ -254,7 +250,7 @@
         <span class="glyphicon glyphicon-remove"></span> ยกเลิก
     </button>
     <button class="btn btn-success btn-lg width250px" onclick="saveEditDetail()" style=" margin-top:1%;">
-      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+      แก้ไข <span class="glyphicon glyphicon-ok"></span>
     </button>
 
   </div>

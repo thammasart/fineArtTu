@@ -29,9 +29,9 @@
                                 จัดซื้อและนำเข้า
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsInstitute()">ระบบลงทะเบียนสถานประกอบการ</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsMaterial()">ระบบออกหมายเลขพัสดุ</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsOrder()">ระบบนำเข้าพัสดุ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsInstitute()">ลงทะเบียนสถานประกอบการ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsMaterial()">ออกหมายเลขพัสดุ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Import.importsOrder()">นำเข้าพัสดุ</a></li>
                               </ul>
                             </div>
                         </div>
@@ -45,13 +45,13 @@
                                 เบิกจ่ายและโอนย้าย
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu2">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportOrder.exportOrder()">ระบบจัดเบิกจ่าย </a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportTransferInside.exportTransferInside">ระบบโอนย้ายภายใน</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportSold.exportSold">จำหน่าย</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportDonate.exportDonate">บริจาค</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportRepair.exportRepairing">ส่งซ่อม - รับคืน</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportBorrow.exportBorrow">ยืม - รับคืน</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportOther.exportOther">อื่นๆ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportOrder.exportOrder()">เบิกจ่ายวัสดุ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportTransferInside.exportTransferInside">โอนย้ายครุภัณฑ์ภายในหน่วยงาน</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportSold.exportSold">จำหน่ายครุภัณฑ์</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportDonate.exportDonate">บริจาคครุภัณฑ์</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportRepair.exportRepairing">ส่งซ่อม-รับคืน</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportBorrow.exportBorrow">ยืม-รับคืน</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportOther.exportOther">โอนย้ายอื่นๆ</a></li>
                               </ul>
                             </div>
                         </div>
@@ -103,6 +103,8 @@
                                 ระบบควบคุมการจัดการระบบอื่นๆ
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu1">
+                              	<li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Option.optionExportFile()">ระบบส่งออกข้อมูล</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Option.optionCalculateDepreciate()">ระบบคำนวณค่าเสื่อม </a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Option.optionIncomingBalance()">ระบบจัดการยอดยกมา</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Option.optionChangeTax()">กำหนดเงินภาษี</a></li>
                               </ul>

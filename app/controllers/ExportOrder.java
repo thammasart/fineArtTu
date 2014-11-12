@@ -34,6 +34,9 @@ public class ExportOrder extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportOrder() {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         List<Requisition> initList = Requisition.find.where().eq("status", ExportStatus.INIT).orderBy("id desc").findList();
         List<Requisition> successList = Requisition.find.where().eq("status", ExportStatus.SUCCESS).orderBy("id desc").findList();
         return ok(exportOrder.render(user, initList, successList));
@@ -41,6 +44,10 @@ public class ExportOrder extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result exportCreateOrder() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Requisition temp =  new Requisition();
         temp.approveDate = new Date();
         temp.status = ExportStatus.INIT;
@@ -51,6 +58,9 @@ public class ExportOrder extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result exportOrderAdd(long id) {
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Requisition req = Requisition.find.byId(id);
         if(req == null || req.status != ExportStatus.INIT){
             return redirect(routes.ExportOrder.exportOrder());
@@ -61,6 +71,9 @@ public class ExportOrder extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result viewDetail(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Requisition req = Requisition.find.byId(id);
         if(req == null || req.status != ExportStatus.SUCCESS){
             return redirect(routes.ExportOrder.exportOrder());
@@ -71,6 +84,9 @@ public class ExportOrder extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result saveRequisition(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Requisition req = Requisition.find.byId(id);
 
         if(req != null && (req.status == ExportStatus.INIT || req.status == ExportStatus.SUCCESS) ){
@@ -119,6 +135,9 @@ public class ExportOrder extends Controller {
     @Security.Authenticated(Secured.class)
     public static Result cancelRequisition(long id){
         User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         Requisition req = Requisition.find.byId(id);
         if(req != null && req.status == ExportStatus.INIT){
             req.status = ExportStatus.CANCEL;
@@ -130,6 +149,10 @@ public class ExportOrder extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteRequisition(){
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -169,6 +192,10 @@ public class ExportOrder extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result saveOrderDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -231,6 +258,10 @@ public class ExportOrder extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result editOrderDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -293,6 +324,10 @@ public class ExportOrder extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result deleteOrderDetail() {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         try {
             RequestBody body = request().body();
@@ -328,6 +363,10 @@ public class ExportOrder extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     @Security.Authenticated(Secured.class)
     public static Result loadOrderDetail(long id) {
+        User user = User.find.byId(session().get("username"));
+        if(!user.status.module3){
+            return redirect(routes.Application.home());
+        }
         ObjectNode result = Json.newObject();
         JsonNode json;
         try { 
