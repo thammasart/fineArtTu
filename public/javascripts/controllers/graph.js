@@ -366,9 +366,13 @@ function search(event){
     }
 };
 
-window.onbeforeprint = function() {
+function printPage(){
 	destroyTable();
-    if(state['page'] == 0 || state['page'] == 1){
+	if(state['request'] == "search"){
+		document.getElementById('printDiv').innerHTML = document.getElementById('tablePane').innerHTML;
+    	var $header = $('#printDiv');
+    	$header.find("span").remove();
+	}else if(state['page'] == 0 || state['page'] == 1){
     	document.getElementById('printDiv').innerHTML = document.getElementById('graph-container').innerHTML;
     }else if(state['page'] == 2){
     	document.getElementById('printDiv').innerHTML = document.getElementById('tablePane').innerHTML;
@@ -378,16 +382,15 @@ window.onbeforeprint = function() {
     	document.getElementById('printDiv').innerHTML = document.getElementById('description').innerHTML;
     	var $header = $('#printDiv');
     	$header.find("button").remove();
+    	$header.find("span").remove();
     	$header.find(".collapse").css('display','block');
     }
     $('#printDiv').show();
-};
-
-window.onafterprint = function() {
+    window.print();
+    $('#printDiv').text("");
 	updateTable();
 	$('#printDiv').hide();
-};
-
+}
 
 /*
 '<tr>
