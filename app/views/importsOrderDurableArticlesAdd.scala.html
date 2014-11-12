@@ -85,11 +85,11 @@
             <div class="input-group marginBtm1">
                 <span class="input-group-addon width250px">ประเภทงบประมาณ</span>
                     <select class="form-control textAlignCenter  width300px" name="budgetType" id="budgetType">
-                        <option value="ค." @if(order.budgetType != null && order.budgetType.contains("คลัง")) { selected }>งบคลัง</option>
-                        <option value="พ." @if(order.budgetType != null && order.budgetType.contains("พิเศษ")) { selected }>งบพิเศษ</option>
-                        <option value="กธ." @if(order.budgetType != null && order.budgetType.contains("ค่าธรรมเนียม")) { selected }>งบกองทุนค่าธรรมเนียม</option>
-                        <option value="บ." @if(order.budgetType != null && order.budgetType.contains("บริจาค")) { selected }>งบบริจาค</option>
-                        <option value="อ." @if(order.budgetType != null && order.budgetType.contains("อุทกภัย")) { selected }>งบอุทกภัย</option>
+                        <option value="งบคลัง" @if(order.budgetType != null && order.budgetType.contains("คลัง")) { selected }>งบคลัง</option>
+                        <option value="งบพิเศษ" @if(order.budgetType != null && order.budgetType.contains("พิเศษ")) { selected }>งบพิเศษ</option>
+                        <option value="งบกองทุนค่าธรรมเนียม" @if(order.budgetType != null && order.budgetType.contains("ค่าธรรมเนียม")) { selected }>งบกองทุนค่าธรรมเนียม</option>
+                        <option value="งบบริจาค" @if(order.budgetType != null && order.budgetType.contains("บริจาค")) { selected }>งบบริจาค</option>
+                        <option value="งบอุทกภัย" @if(order.budgetType != null && order.budgetType.contains("อุทกภัย")) { selected }>งบอุทกภัย</option>
                     </select>
             </div>
         </div>

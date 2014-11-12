@@ -75,11 +75,11 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<models.durableArticles.Procurement> getDurableArticleProcurement(String query){
-		Set<models.durableArticles.Procurement> set = models.durableArticles.Procurement.find.where().ilike("title", "%"+query+"%").findSet();
-		set.addAll(models.durableArticles.Procurement.find.where().ilike("contractNo", "%"+query+"%").findSet());
-		set.addAll(models.durableArticles.Procurement.find.where().ilike("budgetType", "%"+query+"%").findSet());
-		set.addAll(models.durableArticles.Procurement.find.where().ilike("institute", "%"+query+"%").findSet());
-		set.addAll(models.durableArticles.Procurement.find.where().ilike("barCode", "%"+query+"%").findSet());
+		Set<models.durableArticles.Procurement> set = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("title", "%"+query+"%").findSet();
+		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
+		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("budgetType", "%"+query+"%").findSet());
+		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("institute", "%"+query+"%").findSet());
+		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("barCode", "%"+query+"%").findSet());
 		
 		List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
 		ps.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.UNCHANGE).findList());
@@ -132,11 +132,12 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<models.durableGoods.Procurement> getDurableGoodsProcurement(String query){
-		Set<models.durableGoods.Procurement> set = models.durableGoods.Procurement.find.where().ilike("title", "%"+query+"%").findSet();
-		set.addAll(models.durableGoods.Procurement.find.where().ilike("contractNo", "%"+query+"%").findSet());
-		set.addAll(models.durableGoods.Procurement.find.where().ilike("budgetType", "%"+query+"%").findSet());
-		set.addAll(models.durableGoods.Procurement.find.where().ilike("institute", "%"+query+"%").findSet());
-		set.addAll(models.durableGoods.Procurement.find.where().ilike("barCode", "%"+query+"%").findSet());
+		Set<models.durableGoods.Procurement> set = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("title", "%"+query+"%").findSet();
+		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
+		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
+		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("budgetType", "%"+query+"%").findSet());
+		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("institute", "%"+query+"%").findSet());
+		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("barCode", "%"+query+"%").findSet());
 		
 		List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
 		ps.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.UNCHANGE).findList());
@@ -369,7 +370,7 @@ public class SearchQuery {
 	
 	public static ArrayList<Borrow> getBorrow(String query){
 		Set<Borrow> set = Borrow.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
-		set.addAll(Borrow.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet());
+		set.addAll(Borrow.find.where().eq("status", ExportStatus.BORROW).ilike("title", "%"+query+"%").findSet());
 		set.addAll(Borrow.find.where().eq("status", ExportStatus.SUCCESS).ilike("number", "%"+query+"%").findSet());
 		set.addAll(Borrow.find.where().eq("status", ExportStatus.BORROW).ilike("number", "%"+query+"%").findSet());
 		
