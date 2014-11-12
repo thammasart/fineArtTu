@@ -62,16 +62,6 @@ function update(){
 	requisition.number = document.getElementById("number").value;
 }
 
-function updateDetail(){
-	detail.code = document.getElementById("code").value;
-	detail.quantity = document.getElementById("quantity").value;
-	detail.description = document.getElementById("description").value;
-  	detail.withdrawerNmae = document.getElementById("withdrawer").value;
-  	detail.withdrawerLastname = document.getElementById("withdrawerLastname").value;
-  	detail.withdrawerPosition = document.getElementById("withdrawerPosition").value;
-  	detail.requisitionId = requisition.id;
-}
-
 function addCheckedDetail(code){
 	if(!isViewDetail){
 		if(checkedDetail.indexOf(code) > -1){
@@ -142,7 +132,13 @@ function getDetail(){
 }
 
 function saveDetail(){
-	updateDetail();
+	detail.code = document.getElementById("code").value;
+	detail.quantity = document.getElementById("quantity").value;
+	detail.description = document.getElementById("description").value;
+  	detail.withdrawerNmae = document.getElementById("withdrawer").value;
+  	detail.withdrawerLastname = document.getElementById("withdrawerLastname").value;
+  	detail.withdrawerPosition = document.getElementById("withdrawerPosition").value;
+  	detail.requisitionId = requisition.id;
 	$.ajax({
 		url:'/export/order/saveDetail',
 	    type: 'post',

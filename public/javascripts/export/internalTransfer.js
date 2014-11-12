@@ -161,11 +161,12 @@ function saveDetail(){
 	dataDetail.department = document.getElementById("department").value;
 	dataDetail.room = document.getElementById("room").value;
 	dataDetail.floorLevel = document.getElementById("floorLevel").value;
+	dataDetail.recieveTitle = "---";//document.getElementById("recieveTitle").value;
 	dataDetail.recieveFirstName = document.getElementById("recieveFirstName").value;
 	dataDetail.recieveLastName = document.getElementById("recieveLastName").value;
 	dataDetail.recievePosition = document.getElementById("recievePosition").value;
-
 	dataDetail.detail = newDetail;
+
 	$.ajax({
 		url:'/export/transferInside/saveDetail',
 	    type: 'post',

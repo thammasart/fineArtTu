@@ -49,7 +49,7 @@ public class Procurement extends Model{
 	@JsonBackReference
 	@OneToMany(mappedBy="procurement")
 	public List<ProcurementDetail> details = new ArrayList<ProcurementDetail>();
-	
+	@JsonBackReference
 	@OneToMany(mappedBy="procurement")
 	public List<AI_Committee> aiCommittee = new ArrayList<AI_Committee>(); // คณะกรรมการตรวจรับ
 

@@ -168,7 +168,7 @@ public class ExportOrder extends Controller {
                     else if(order.status == ExportStatus.SUCCESS){
                         // update Material remain
                         for(RequisitionDetail detail: order.details){
-                            if(detail.status == ExportStatus.INIT){
+                            if(detail.status == ExportStatus.SUCCESS){
                                 detail.code.remain += detail.quantity;
                                 detail.code.update();
                                 detail.status = ExportStatus.DELETE;
