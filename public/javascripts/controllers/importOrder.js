@@ -376,6 +376,20 @@ function preSpread(name){
 		var num = document.getElementById("quantity").value;
         var val = document.getElementById("code").value;
         var years = document.getElementById("years").value;
+        
+        
+        if(budgetType=="งบคลัง")
+        	budgetType="ค.";
+        else if(budgetType=="งบพิเศษ")
+        	budgetType="พ." 
+        else if(budgetType=="งบกองทุนค่าธรรมเนียม")
+        	budgetType="กธ."
+        else if(budgetType=="งบบริจาค")
+        	budgetType="บ."
+        else if(budgetType=="งบอุทกภัย")
+        	budgetType="อ."
+
+        
 	document.getElementById("fixNumber").value=num;
 	var ss = "";
 	for(k=1;k<=num;k++)
