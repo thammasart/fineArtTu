@@ -1,0 +1,85 @@
+@(user : User,article : List[models.durableArticles.DurableArticles])
+
+@header("report")
+
+@nav(user)
+@headerTag("ทะเบียนทรัพย์สิน")
+@sideMenu(user)
+
+
+<div class="listWindow">
+        <div class="tableHeaderBtnContainer">
+            <span style="font-size:25px;float:left;" >
+                ทะเบียนทรัพย์สิน : @article.get(0).detail.fsn.typ.groupClass.classDescription
+            </span>
+        <form method="post" name="selectDurableArticleByType" action="@routes.Report.reportDurableArticlesByTypePrint()">
+            <input id="classIdVal" name="classIdVal" type="hidden" value="@article.get(0).detail.fsn.typ.groupClass.classId">
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right" type="submit">
+                พิมพ์ทะเบียนทรัพย์สิน
+            </button>
+        </form>
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                พิมพ์ตารางนี้
+            </button>
+        </div>
+        <div class="tableHeaderBtnContainer">
+            <a href="@routes.Report.reportImportDurableArticles()">
+                <button class="btn btn-danger" style="float:right;" > ย้อนกลับ <span class="glyphicon glyphicon-chevron-left"></span></button>
+            </a>
+            <div class="searchS">
+                <div class="form-group">
+                    <div class="input-group">
+                      <span class="input-group-addon">ค้นหา</span>
+                      <input type="text" class="form-control" style="width:250px">
+                    </div>
+                  </div>
+            </div>
+        </div>
+
+        <div class="adminUserinfoTableContainer">
+            <table class="table table-striped overlayTable">
+                <thead>
+                    <tr>
+                    	<th>ลำดับ<span class="glyphicon glyphicon-sort"></span></th>
+                    	<th>ใบรายการ<span class="glyphicon glyphicon-sort"></span></th>
+                    	<th>วัน เดือน ปี<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รายการ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ทะเบียนครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ราคารวม<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ชื่อร้านค้า<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ใช้ประจำที่<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>งบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th style="display:none;">barcode</th>
+                    </tr>
+                </thead>
+                <tbody>
+       			
+                @for((da,index) <- article.zipWithIndex){
+                            <tr>
+                                <th>@{index+1}</th>
+                                <th>@da.detail.procurement.title</th>
+                                <th>@da.detail.procurement.getAddDate()</th>
+                                <th>@da.detail.description</th>
+                                <th>@da.code</th>
+                                <th id="q@index">@da.detail.quantity</th>
+                                <!--<th>@da.detail.fsn.typ.groupClass.classId</th>-->
+                                <th id="p@index">@("% .0f".format(da.detail.price))</th>
+                                <th id="total@index">ราคารวม</th>
+                                <th>@da.detail.procurement.company.nameEntrepreneur</th>
+                                <th>@da.department</th>
+                                <th>@da.detail.procurement.budgetType</th>
+                                <th>@("% .1f".format(da.detail.llifeTime)) ปี</th>
+                                <th style="display:none;">@da.detail.procurement.barCode</th>
+                            </tr>
+                            <script>
+                                document.getElementById("total@index").innerHTML = document.getElementById("q@index").innerHTML * document.getElementById("p@index").innerHTML;
+                            </script>
+                 }
+                </tbody>
+            </table>
+        </div> 
+</div>
+@footer()

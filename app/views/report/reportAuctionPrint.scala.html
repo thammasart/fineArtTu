@@ -1,0 +1,53 @@
+@(date : String, ad : List[models.durableArticles.AuctionDetail])
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+
+@header("รายงาน")
+
+        <div >
+            <h3 align="center">
+                รายการจำหน่าย
+            </h3>
+            <div align="center">
+                @date
+            </div>
+            <table class="table table-bordered" align="center"style="font-size:13px; border-color:black;border:double;">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">รายการ</th>
+                        <th style="text-align:center">หมายเลขครุภัณฑ์</th>
+                        <th style="text-align:center">หน่วยนับ</th>
+                        <th style="text-align:center">ราคา/หน่วย</th>
+                        <th style="text-align:center">วันที่</th>
+                        <th style="text-align:center">ที่เก็บ-เดิม</th>
+                        <th style="text-align:center">ผู้ซื้อ</th>
+                        <th style="text-align:center">โอนจาก</th>
+                        <th style="text-align:center">ประเภทงบประมาณ</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for((detail,index)<-ad.zipWithIndex){
+                    <tr>
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@detail.durableArticles.detail.fsn.descriptionDescription</th>
+                        <th style="text-align:center">@detail.durableArticles.code</th>
+                        <th style="text-align:center">@detail.durableArticles.detail.fsn.classifier</th>
+                        <th style="text-align:center">@detail.price</th>
+                        <th style="text-align:center">@detail.auction.getApproveDate()</th>
+                        <th style="text-align:center">@detail.durableArticles.room</th>
+                        <th style="text-align:center">@detail.auction.company.nameEntrepreneur</th>
+                        <th style="text-align:center">@detail.durableArticles.department</th>
+                        <th style="text-align:center">@detail.durableArticles.detail.procurement.budgetType</th>
+                        <th></th>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div> 

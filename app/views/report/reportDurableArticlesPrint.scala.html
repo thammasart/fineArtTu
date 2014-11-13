@@ -1,11 +1,22 @@
-@(da:List[models.durableArticles.DurableArticles])
+@(da:List[models.durableArticles.DurableArticles],date : String)
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+
 @header("รายงาน")
 
         <div >
             <h3 align="center">
                 สรุปครุภัณฑ์
             </h3>
-            <table class="table table-bordered" align="center"style="font-size:11px">
+            <div align="center">
+                @date
+            </div>
+            <table class="table table-bordered" align="center"style="font-size:13px; border-color:black;border:double;">
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับ</th>
@@ -17,6 +28,7 @@
                         <th style="text-align:center">ความหมาย</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">วันที่นำเข้า</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,23 +36,28 @@
                     <!-->
                     <tr id="row@index">
                         <th style="text-align:center">@{index+1}</th>
-                        <th id="gr@index"style="text-align:center"></th>
+                        <th id="gr@index"style="text-align:center">@dal.detail.fsn.typ.groupClass.group.groupId</th>
                         <th id="ty@index"style="text-align:center"></th>
                         <th id="cl@index"style="text-align:center"></th>
-                        <th id="de@index"style="text-align:center"></th>
+                        <th id="de@index"style="text-align:center">@dal.detail.fsn.descriptionId</th>
                         <th id="sp@index"style="text-align:center"></th>
                         <th style="text-align:center">@dal.detail.fsn.typ.groupClass.classDescription</th>
                         <th id="code@index"style="text-align:center">@dal.code</th>
                         <th style="text-align:center">@dal.detail.procurement.getAddDate()</th>
+                        <th></th>
                     </tr>
                     <script>
+                     var code1 = document.getElementById("de@index").innerHTML;  
                      var code = document.getElementById("code@index").innerHTML;  
-                     document.getElementById("gr@index").innerHTML =code[code.length-20]+code[code.length-19];
-                     document.getElementById("ty@index").innerHTML =code[code.length-18]+code[code.length-17];
-                     document.getElementById("cl@index").innerHTML =code[code.length-15]+code[code.length-14]+code[code.length-13];
-                     document.getElementById("de@index").innerHTML =code[code.length-11]+code[code.length-10]+code[code.length-9]+code[code.length-8];
-                     document.getElementById("sp@index").innerHTML = "("+code[code.length-6]+code[code.length-5]+"/"+code[code.length-3]+code[code.length-2]+")";
-                      
+                     var sp ="("+code.split("(")[1];
+                     console.log(code);
+                     document.getElementById("ty@index").innerHTML =code1[code1.length-11]+code1[code1.length-10];
+                     document.getElementById("cl@index").innerHTML =code1[code1.length-8]+code1[code1.length-7]+code1[code1.length-6];
+                     document.getElementById("de@index").innerHTML =code1[code1.length-4]+code1[code1.length-3]+code1[code1.length-2]+code1[code1.length-1];
+                     document.getElementById("sp@index").innerHTML = sp;
+                     if(sp[1]==sp[4] && sp[2]==sp[5]){
+                        document.getElementById("row@index").style.borderBottom = "double";
+                     }
                     </script>
                 }
                 </tbody>

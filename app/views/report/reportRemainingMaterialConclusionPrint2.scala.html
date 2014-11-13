@@ -1,0 +1,47 @@
+@( dg: List[models.durableGoods.DurableGoods] ,date :String)
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+
+@header("รายงาน")
+
+        <div >
+            <table class="table " align="center"style="font-size:13px; border-color:black;border:double;">
+                <thead>
+            <h3 align="center">
+                สรุปวัสดุคงเหลือ : วัสดุคงทนถาวร
+            </h3>
+            <div align="center">
+                @date
+            </div>
+                    <tr>
+                        <th style="text-align:center"> ลำดับที่</th>
+                        <th style="text-align:center"> รายการ </th>
+                        <th style="text-align:center"> หน่วย </th>
+                        <th style="text-align:center"> ปริมาณ </th>
+                        <th style="text-align:center"> ราคา/หน่วย </th>
+                        <th style="text-align:center"> จำนวนเงิน </th>
+                        <th style="text-align:center"> หมายเหตุ</th>
+                    </tr>
+                </thead>
+                <tbody>
+               @for((dgs,index) <-dg.zipWithIndex){
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@dgs.detail.description</th>
+                        <th style="text-align:center">@dgs.detail.getClassifier()</th>
+                        <th style="text-align:center" id="red@index">@dgs.detail.remain</th>
+                        <th style="text-align:center" id="prd@index">@dgs.detail.price</th>
+                        <th style="text-align:center" id="ptd@index">256.80</th>
+                        <th style="text-align:center">@dgs.detail.getGroupeType()</th>
+                        <script>
+                            document.getElementById("ptd@index").innerHTML =  parseFloat(document.getElementById("red@index").innerHTML) * parseFloat(document.getElementById("prd@index").innerHTML) ;
+                        </script>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div> 
