@@ -109,6 +109,27 @@ public class Procurement extends Model{
 		return countMonth/12.0;
 	}
 	
+	public int getUNCHANGE()
+	{
+		int canChangeOrderDetail=1;
+		
+		for(ProcurementDetail pd:this.details)
+		{
+			for(DurableArticles d:pd.subDetails)
+			{
+				if(d.status!=SuppliesStatus.NORMAL)
+	    		{
+	    			if(d.status!=null)
+	    			{
+	    			canChangeOrderDetail=0;break;
+	    			}
+	    		}
+			}
+		}
+		
+		return canChangeOrderDetail;
+	}
+	
 	public String toString()
 	{
 		String s="";
