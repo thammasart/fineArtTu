@@ -1,0 +1,95 @@
+@(user : User, initList:List[models.durableGoods.OrderGoods], successList:List[models.durableGoods.OrderGoods])
+@header("exportOrderGoods")
+
+    <script src="@routes.Assets.at("javascripts/export/exportOrder.js")"></script>
+
+@nav(user)
+@headerTag("ระบบจัดการรายการเบิกจ่ายวัสดุ")
+@sideMenu(user)
+
+
+<div class="listWindowMaterial" ng-app="exportOrderApp" ng-Controller="exportDel">
+
+@cancelList()
+  <div class="tableHeaderBtnContainer">
+
+    <div class="searchS">
+      <form>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon">ค้นหา</span>
+            <input type="text" class="form-control" style="width:300px">
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportOrderGoods.exportCreateOrderGoods()">
+        <button class="btn btn-success" style="width:100%">เพิ่มรายการเบิกจ่าย</button>
+      </a>
+      <button class="btn btn-danger width20p" style="float:right;" ng-click="openDelModal()">ลบรายการเบิกจ่าย</button>
+    </div>
+
+  </div>
+
+  @if(!initList.isEmpty()) {
+    <table class="table table-striped overlayTable">
+      <thead>
+        <tr>
+          <th></th>
+          <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+          <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+          <th>ทำรายการต่อ</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        @for(requisition <- initList){
+          <tr id="row@requisition.id">
+            <th onclick="addDeleteList(@requisition.id)" > <span hidden>@requisition.getBarcode()</span> <input type="checkbox" id="checkbox@requisition.id" name="checkbox@requisition.id"> </th>
+            <th onclick="addDeleteList(@requisition.id)" >@requisition.title</th>
+            <th>@requisition.number</th>
+            <th>@requisition.approveDateToString()</th>
+            <th>
+              <a href="@routes.ExportOrderGoods.exportOrderGoodsAdd(requisition.id)">
+                <button class="btn btn-xs btn-primary" > ทำรายการต่อ</button> 
+              </a>
+            </th>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+
+  <table class="table table-striped overlayTable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
+        <th>วันที่อนุมัติ<span class="glyphicon glyphicon-sort"></span></th>
+        <th>รายละเอียด</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(requisition <- successList){
+        <tr id="row@requisition.id">
+          <th onclick="addDeleteList(@requisition.id)" > <input type="checkbox" id="checkbox@requisition.id" name="checkbox@requisition.id"> </th>
+          <th onclick="addDeleteList(@requisition.id)" >@requisition.title</th>
+          <th>@requisition.number</th>
+          <th>@requisition.approveDateToString()</th>
+          <th>
+            <a href="@routes.ExportOrderGoods.viewDetail(requisition.id)">
+              <button class="btn btn-xs btn-info" > รายละเอียด </button> 
+            </a>
+          </th>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+</div>
+
+@footerFull()

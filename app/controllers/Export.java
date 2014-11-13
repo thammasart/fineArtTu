@@ -13,6 +13,7 @@ import models.*;
 import models.fsnNumber.FSN_Description;
 import models.consumable.*;
 import models.durableArticles.*;
+import models.durableGoods.*;
 import models.type.ExportStatus;
 import models.type.SuppliesStatus;
 
@@ -57,33 +58,52 @@ public class Export extends Controller {
             }
             else if(code.isEmpty() && !description.isEmpty()){
                 description = '%'+description+'%';
-                searchResult = new ArrayList<DurableArticles>();
-                List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription",description).findList();
-                for(FSN_Description fsn : fanList){
-                    List<DurableArticles> searchDetail = DurableArticles.find.where().like("code", '%'+fsn.descriptionId+'%').eq("status",SuppliesStatus.NORMAL).findList();
-                    for(DurableArticles durableArticle : searchDetail){
-                        searchResult.add(durableArticle);
-                    }
-                }
-
+                searchResult = DurableArticles.find.where().ilike("code.detail.fsn.descriptionDescription", description).eq("status",SuppliesStatus.NORMAL).findList();
             }
             else if(!code.isEmpty() && !description.isEmpty()){
                 code = '%'+code+'%';
                 description = '%'+description+'%';
-                searchResult = new ArrayList<DurableArticles>();
-                List<DurableArticles> searchCode = DurableArticles.find.where().ilike("code",code).findList();
-                List<FSN_Description> fanList = FSN_Description.find.where().like("descriptionDescription",description).findList();
-                for(FSN_Description fsn : fanList){
-                    List<DurableArticles> searchDetail = DurableArticles.find.where().like("code", '%'+fsn.descriptionId+'%').eq("status",SuppliesStatus.NORMAL).findList();
-                    for(DurableArticles durableArticle : searchDetail){
-                        if(searchCode.contains(durableArticle) && !searchResult.contains(durableArticle)){
-                            searchResult.add(durableArticle);
-                        }
-                    }
-                }
+                searchResult =  searchResult = DurableArticles.find.where().ilike("code",code).ilike("code.detail.fsn.descriptionDescription", description).eq("status",SuppliesStatus.NORMAL).findList();
             }
             else{
                 searchResult = DurableArticles.find.where().eq("status",SuppliesStatus.NORMAL).findList();
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonArray = mapper.writeValueAsString(searchResult);
+            json = Json.parse(jsonArray);
+            result.put("result",json);
+            result.put("status", "SUCCESS");
+        }
+        catch(Exception e){
+            result.put("message", e.getMessage());
+            result.put("status", "error");
+        }
+        return ok(result);
+    }
+
+
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
+    public static Result searchGoods (String code,String description) {
+        ObjectNode result = Json.newObject();
+        JsonNode json;
+        try{
+            List<DurableGoods > searchResult;
+            if(!code.isEmpty() && description.isEmpty()){
+                code = '%'+code+'%';
+                searchResult = DurableGoods .find.where().ilike("codes",code).eq("status",SuppliesStatus.NORMAL).findList();
+            }
+            else if(code.isEmpty() && !description.isEmpty()){
+                description = '%'+description+'%';
+                searchResult = DurableGoods .find.where().ilike("detail.description", description).eq("status",SuppliesStatus.NORMAL).findList();
+            }
+            else if(!code.isEmpty() && !description.isEmpty()){
+                code = '%'+code+'%';
+                description = '%'+description+'%';
+                searchResult =  searchResult = DurableGoods .find.where().ilike("code",code).ilike("detail.description", description).eq("status",SuppliesStatus.NORMAL).findList();
+            }
+            else{
+                searchResult = DurableGoods .find.where().eq("status",SuppliesStatus.NORMAL).findList();
             }
             ObjectMapper mapper = new ObjectMapper();
             String jsonArray = mapper.writeValueAsString(searchResult);

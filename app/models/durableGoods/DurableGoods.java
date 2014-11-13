@@ -22,18 +22,16 @@ public class DurableGoods extends Model{	// ครุภัณฑ์
 	public String lastName;			//สกุล
 	public int remain; // จำนวนปัจจุบัน, ยอดคงเหลือ
     public int typeOfDurableGoods;//คงทนถาวร = 1 / false = 0 
-    
     public String barCode; 			//รหัสบาร์โค๊ด
-    
     public SuppliesStatus status;
 	
 /*
 	@ManyToOne //หมายเลขวัสดุ
 	public MaterialCode code;
 	*/
+
 	@ManyToOne
 	public ProcurementDetail detail;
-
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,DurableGoods> find = new Finder(Long.class,DurableGoods.class);

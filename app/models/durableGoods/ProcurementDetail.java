@@ -37,8 +37,6 @@ public class ProcurementDetail extends Model{
 	
 	public OrderDetailStatus status;
 	
-	
-	
 	@JsonBackReference
 	@OneToMany(mappedBy="detail")
 	public List<DurableGoods> subDetails = new ArrayList<DurableGoods>();

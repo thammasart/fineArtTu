@@ -4,11 +4,14 @@ $(function () {
     })
 });
 
-var requisition = {
+var orderGoods = {
 	'id': 0,
 	'title': "",
 	'number': ""
 };
+
+var newDetail = [];
+var oldDetail = [];
 
 var detail = {};
 var detailEdit = {};
@@ -19,10 +22,7 @@ var titleInHeader = "เพิ่มรายการเบิกจ่าย";
 
 function addDetailButton(){
 	document.getElementById("code").value = '';
-	document.getElementById("groupCode").value = '';
-	document.getElementById("quantity").value = '';
-	document.getElementById("withdrawer").value = '';
-	document.getElementById("withdrawerPosition").value = ''
+	document.getElementById("description").value = '';
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
 	document.getElementById("editDetailWindows").style.display = "none";
@@ -58,8 +58,46 @@ function editDetail(code){
 }
 
 function update(){
-	requisition.title = document.getElementById("title").value;
-	requisition.number = document.getElementById("number").value;
+	orderGoods.title = document.getElementById("title").value;
+	orderGoods.number = document.getElementById("number").value;
+}
+
+function updateDetail(){
+	detail.code = document.getElementById("code").value;
+	detail.quantity = document.getElementById("quantity").value;
+	detail.description = document.getElementById("description").value;
+  	detail.withdrawerNmae = document.getElementById("withdrawer").value;
+  	detail.withdrawerLastname = document.getElementById("withdrawerLastname").value;
+  	detail.withdrawerPosition = document.getElementById("withdrawerPosition").value;
+  	detail.orderGoods = orderGoods.id;
+}
+
+function addCheckedDetail(code){
+	if(!isViewDetail){
+		if(checkedDetail.indexOf(code) > -1){
+			checkedDetail.remove(code);
+			document.getElementById("detailRow" + code).style.color = "";
+			document.getElementById("detail" + code).checked = false;
+		}
+		else{
+			checkedDetail.push(code);
+			document.getElementById("detailRow" + code).style.color = "#cc3300";
+			document.getElementById("detail" + code).checked = true;
+		}
+	}
+}
+
+function addNewDetai(code){
+	if(newDetail.indexOf(code) > -1){
+		newDetail.remove(code);
+		document.getElementById("fsn" + code).style.color = "";
+		document.getElementById("addDetail" + code).checked = false;
+	}
+	else{
+		newDetail.push(code);
+		document.getElementById("fsn" + code).style.color = "#cc3300";
+		document.getElementById("addDetail" + code).checked = true;
+	}
 }
 
 function addCheckedDetail(code){
@@ -80,8 +118,8 @@ function addCheckedDetail(code){
 function getDetail(){
 	$.ajax({
 		type: "GET",
-		url: "/export/order/loadDetail",
-		data: {'id': requisition.id},
+		url: "/export/orderGoods/loadDetail",
+		data: {'id': orderGoods.id},
 		async:   false,
 		success: function(data){
 			//details = JSON.stringify(data);
@@ -95,24 +133,17 @@ function getDetail(){
 					s += ' <th onclick="addCheckedDetail(' + details[i].id + ')">' +
 					' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
 					s += ' <th onclick="addCheckedDetail(' + details[i].id + ')">'+(i+1)+'</th>';
-					if(details[i].code){
-						s += ' <th onclick="addCheckedDetail(' + details[i].id + ')"> '+ details[i].code.code +'</th>';
-						s += ' <th onclick="addCheckedDetail(' + details[i].id + ')">'+ details[i].code.description +'</th>';
-						s += ' <th>'+ details[i].quantity+'</th>';
-						s += ' <th>'+ details[i].code.classifier +'</th>';
+					if(details[i].goods){
+						s += ' <th onclick="addCheckedDetail(' + details[i].id + ')"> '+ details[i].goods.codes +'</th>';
+						s += ' <th onclick="addCheckedDetail(' + details[i].id + ')">'+ details[i].goods.detail.description +'</th>';
 					}
 					else{
 						s += ' <th> null </th>';
 						s += ' <th> null </th>';
-						s += ' <th>'+details[i].quantity+'</th>';
-						s += ' <th> null </th>';
 					}
-					if(details[i].withdrawer){
-						s += ' <th>'+ details[i].withdrawer.firstName + ' ' + details[i].withdrawer.lastName +'</th>';
-					}
-					else{
-						s += ' <th> null </th>';
-					}
+					s += ' <th>'+ details[i].firstName+'</th>';
+					s += ' <th>'+ details[i].lastName +'</th>';
+					s += ' <th>'+ details[i].department +'</th>';
 					s += ' <th>'+details[i].description+'</th>';
 					s += ' <th onclick="editDetail('+ details[i].id + ')"> <button type="button" class="btn btn-xs btn-warning" id="edit'+i+'"> แก้ไข </button> </th>';
 					s += '</tr>';
@@ -132,22 +163,36 @@ function getDetail(){
 }
 
 function saveDetail(){
-	detail.code = document.getElementById("code").value;
-	detail.quantity = document.getElementById("quantity").value;
-	detail.description = document.getElementById("description").value;
-  	detail.withdrawerNmae = document.getElementById("withdrawer").value;
-  	detail.withdrawerLastname = document.getElementById("withdrawerLastname").value;
-  	detail.withdrawerPosition = document.getElementById("withdrawerPosition").value;
-  	detail.requisitionId = requisition.id;
+	var dataDetail = {};
+	dataDetail.id = orderGoods.id;
+	dataDetail.department = document.getElementById("department").value;
+	dataDetail.room = document.getElementById("room").value;
+	dataDetail.floorLevel = document.getElementById("floorLevel").value;
+	dataDetail.recieveTitle = "---";//document.getElementById("recieveTitle").value;
+	dataDetail.recieveFirstName = document.getElementById("recieveFirstName").value;
+	dataDetail.recieveLastName = document.getElementById("recieveLastName").value;
+	dataDetail.recievePosition = document.getElementById("recievePosition").value;
+	dataDetail.detail = newDetail;
+
 	$.ajax({
-		url:'/export/order/saveDetail',
+		url:'/export/orderGoods/saveDetail',
 	    type: 'post',
-	    data: JSON.stringify(detail),
+	    data: JSON.stringify(dataDetail),
 	    contentType: 'application/json',
 	    dataType: 'json',
     	success: function(result){
     		var status = result["status"];
 		    if(status == "SUCCESS"){
+		    	document.getElementById("code").value = "";
+				document.getElementById("description").value = "";
+				document.getElementById("department").value = "";
+				document.getElementById("room").value = "";
+				document.getElementById("floorLevel").value = "";
+				document.getElementById("recieveFirstName").value = "";
+				document.getElementById("recieveLastName").value = "";
+				document.getElementById("recievePosition").value = "";
+				newDetail = [];
+				
 	    		addOrderButton()
 	    		getDetail();
 	    	}
@@ -162,10 +207,11 @@ function saveEditDetail(){
 	detailEdit.code = document.getElementById("codeEdit").value;
 	detailEdit.quantity = document.getElementById("quantityEdit").value;
 	detailEdit.description = document.getElementById("descriptionEdit").value;
+	dataDetail.recieveTitle = '---';//document.getElementById("recieveTitle").value;
   	detailEdit.withdrawerNmae = document.getElementById("withdrawerEdit").value;
   	detailEdit.withdrawerLastname = document.getElementById("withdrawerLastnameEdit").value;
   	detailEdit.withdrawerPosition = document.getElementById("withdrawerPositionEdit").value;
-  	detailEdit.requisitionId = requisition.id;
+  	detailEdit.orderGoodsId = orderGoods.id;
 
 	$.ajax({
 		url:'/export/order/editDetail',
@@ -188,7 +234,7 @@ function saveEditDetail(){
 
 function deleteDetail(){
 	var dataDetail = {};
-	dataDetail.id = requisition.id;
+	dataDetail.id = orderGoods.id;
 	dataDetail.detail = checkedDetail;
 	$.ajax({
 		url:'/export/order/deleteDetail',
@@ -211,7 +257,7 @@ function deleteDetail(){
 }
 
 function init(id){
-	requisition.id = id;
+	orderGoods.id = id;
 	getDetail();
 	addOrderButton();
 	document.addOrder.title.focus();

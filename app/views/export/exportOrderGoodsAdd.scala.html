@@ -1,0 +1,330 @@
+@(user : User, order:models.durableGoods.OrderGoods)
+@header("exportOrderGoodsAdd")
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/mainExport.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/export/goods.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("javascripts/controllers/getNameAutoComplete.js")"></script>
+
+<body onload="init(@order.id)" ng-app="userAccountModule" ng-controller="autoCompleteUserController"> 
+
+@nav(user)
+@headerTagFull("เพิ่มรายการเบิกจ่ายวัสดุ")
+
+@cancelExportAdd()
+@cancelList()
+<div class ="detailWindow" id="addWindows" >
+  <form name="addOrder" method="post" action="@routes.ExportOrder.saveRequisition(order.id)" ng-init="findUser()" onsubmit="return submitButtonClick()">
+    <div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width250px">ใบเบิกวัสดุประจำเดือน</span>
+              <input type="text" class="form-control width300px textAlignCenter" autocomplete="off" value="@order.title" name="title" id="title">
+              <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width250px">เลขที่</span>
+              <input type="text" class="form-control width300px textAlignCenter" autocomplete="off" value="@order.number" name="number" id="number">
+              <span class="alertText" id="numberAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group" id="dateP">
+              <span class="input-group-addon width250px">วัน/เดือน/ปี ที่ทำการเบิกจ่าย</span>
+              <input type="text" class="form-control width300px textAlignCenter" data-format="DD/MM/YYYY" value="@order.approveDateToString" name="approveDate" id="date">
+              <span class="input-group-addon width25px" id="datepickerbutton"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
+              <span class="alertText" id="dateAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ผู้จ่าย:ชื่อ</span>
+              <input type="text" class="form-control width190px textAlignCenter" @if(order.user!=null){value="@order.user.firstName"} name="firstName" id="firstName" onkeyup="mapInput()">
+              <span class="alertText" id="firstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">นามสกุล</span>
+              <input type="text" class="form-control width190px textAlignCenter" @if(order.user!=null){value="@order.user.lastName"} name="lastName" id="lastName">
+              <span class="alertText" id="lastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon width125px">ตำแหน่ง</span>
+            <input type="text" class="form-control width190px textAlignCenter" @if(order.user!=null){value="@order.user.position"} name="position" id="position">
+              <span class="alertText" id="positionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
+              <input type="text" class="form-control width190px textAlignCenter" @if(order.user!=null){value="@order.approver.firstName"} name="approverFirstName" id="approverName" onkeyup="mapInput2()">
+              <span class="alertText" id="approverNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">นามสกุล</span>
+              <input type="text" class="form-control width190px textAlignCenter" @if(order.user!=null){value="@order.approver.lastName"} name="approverLastName" id="approverLastName">
+              <span class="alertText" id="approverLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-group">
+              <span class="input-group-addon width125px">ตำแหน่ง</span>
+              <input type="text" class="form-control width190px textAlignCenter" @if(order.user!=null){value="@order.approver.position"} name="approverPosition" id="approverPosition">
+              <span class="alertText" id="approverPositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="well" >
+      
+      <h2 style ="text-align:center;">รายละเอียดวัสดุ</h2>
+      <div class="tableHeaderBtnContainer" >        
+        <div class="searchS">
+          <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">ค้นหา</span>
+                <input type="text" class="form-control" style="width:300px" onkeydown="return (event.keyCode!=13);">
+            </div>
+          </div>
+        </div>
+        <div id="editDetail">
+            <button type="button" class="btn btn-success width200px" onclick="addDetailButton()" style="float:right;margin-left:1%;">เพิ่มวัสดุ</button>
+            <button type="button" class="btn btn-danger width200px" style="float:right;" ng-click="openDeleteDetailModal()">ลบวัสดุ</button>
+        </div> 
+      </div>
+
+      <table class="table table-striped overlayTable">
+        <thead>
+          <tr>
+            <th></th>
+            <th>ลำดับ</th>
+            <th>หมายเลขวัสดุ<span class="glyphicon glyphicon-sort"></span></th>
+            <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
+            <th>ผู้เบิก : ชื่อ<span class="glyphicon glyphicon-sort"></span></th>
+            <th>นามสกุล<span class="glyphicon glyphicon-sort"></span></th>
+            <th>เบิกไปที่<span class="glyphicon glyphicon-sort"></span></th>
+            <th>หมายเหตุ<span class="glyphicon glyphicon-sort"></span></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="detailInTable">
+
+        </tbody>
+      </table>
+    </div>
+    <div align="center" style="margin-bottom:1%;">
+      <!--<a href="@routes.ExportOrder.cancelRequisition(order.id)">-->
+        <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="addId(order.id)" ng-click="openCancelModal('cancelRequisition')">
+          <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+        </button>
+      <!--</a.-->
+      <button type="submit" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+        ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+      </button>
+    </div>
+
+  </form>
+
+</div> 
+
+<div class="detailWindow" id="addDetailWindows">
+
+  <div class="well" >
+    <h2 style ="text-align:center;">รายการครุภัณฑ์</h2>
+
+    <div class="form-inline marginBtm1" role="form" align="center">
+      <div class="form-group" >
+        <div class="input-group" >
+          <span class="input-group-addon width250px" >รหัสFSN</span>
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="code" name="code" onkeydown="if (event.keyCode == 13) searchGoods()">
+        </div>
+      </div>
+      <div class="form-group" >
+        <div class="input-group" >
+          <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
+          <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" id="description" name="description" onkeydown="if (event.keyCode == 13) searchGoods()">
+        </div>
+      </div>
+      <button type="button" class="btn btn-success" onclick="searchGoods()">ค้นหา</button>
+    </div>
+
+    <table class="table table-striped overlayTable">
+      <thead>
+        <tr>
+          <th> <input type="checkbox"/> </th>
+          <th>หมายเลขครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>รายละเอียดครุภัณฑ์ <span class="glyphicon glyphicon-sort"></span></th>
+          <th>ราคาต่อหน่วย <span class="glyphicon glyphicon-sort"></span></th>
+        </tr>
+      </thead>
+      <tbody id="searchResultTable">
+
+      </tbody>
+    </table>
+  </div>
+
+    <div class="well">
+        <h2> ย้ายไปที่ </h2>
+        <div class="form-inline marginBtm1" align="left">
+          <div class="form-group"style="width:365px" >
+            <div class="input-group"> 
+              <span class="input-group-addon">สาขา</span>
+              <select class="form-control textAlignCenter  width300px" name="department" id="department">
+                <option>สาขาวิชาการละคอน</option>
+                <option>สาขาวิชาศิลปะการออกแบบพัสตราภรณ์</option>
+                <option>สาขาวิชาศิลปะการออกแบบอุตสาหกรรม</option>
+                <option>สำนักงานเลขานุการ</option>
+                <option>ห้องพัสดุ</option>
+              </select>
+            </div>
+          </div>
+    
+          <div class="form-group" >
+            <div class="input-group" style="width:131px">
+              <span class="input-group-addon" >ห้อง</span>
+              <input type="text" class="form-control textAlignCenter  width75px" name="room" id="room">
+              <span class="alertText" id="roomAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+            </div>
+          </div>
+          <div class="form-group" style="width:250px">
+            <div class="input-group" >
+              <span class="input-group-addon" >ชั้น</span>
+              <input type="text" class="form-control textAlignCenter  width50px" name="floorLevel" id="floorLevel">
+              <span class="alertText" id="floorLevelAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+            </div>
+          </div>
+        </div> 
+        
+          <h2> ผู้รับผิดชอบ </h2>
+              <div class="form-inline marginBtm1" role="form">
+                <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon width125px">ชื่อ</span>
+                      <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="recieveFirstName" id="recieveFirstName" onkeyup="mapInput1()">
+                      <span class="alertText" id="recieveFirstNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon width125px">นามสกุล</span>
+                      <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="recieveLastName" id="recieveLastName">
+                      <span class="alertText" id="recieveLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                      <span class="input-group-addon width125px">ตำแหน่ง</span>
+                      <input type="text" class="form-control width190px textAlignCenter"autocomplete="off" name="recievePosition" id="recievePosition">
+                      <span class="alertText" id="recievePositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+                  </div>
+                </div>
+              </div>
+    </div>
+
+  <div align="right" style="margin-bottom:1%; margin-right:3%;">
+    <button  type="button" class="btn btn-danger btn-lg width250px" onclick="addInternalTransferButton()" style="margin-top:1%;margin-right:1%;">
+      <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+    </button>
+    <button  type="button" class="btn btn-success btn-lg width250px" onclick="saveDetail()" style=" margin-top:1%;">
+      ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+    </button>
+  </div>
+</div>
+
+<div class="detailWindow" id="editDetailWindows">
+
+    <div class="form-inline marginBtm1" role="form" align="left">
+      <div class="form-group" >
+        <div class="input-group" >
+            <span class="input-group-addon width250px" >รหัสวัสดุ</span>
+            <input type="text" name="codeEdit" id="codeEdit" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeyup="mapCodeToCodeNameEdit()">
+            <span class="alertText" id="codeAlertEdit"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+      <div class="form-group" >
+        <div class="input-group" >
+            <span class="input-group-addon width250px" >ชื่อวัสดุ</span>
+            <input type="text" name="groupCodeEdit" id="groupCodeEdit" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeyup="mapCodeNameToCodeEdit()" >
+            <span class="alertText" id="groupCodeAlertEdit"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-inline marginBtm1" role="form" align="left">
+      <div class="form-group" >
+        <div class="input-group" >
+            <span class="input-group-addon width250px" >จำนวน</span>
+            <input type="number" name="quantityEdit" id="quantityEdit" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)">
+            <span class="alertText" id="quantityAlertEdit"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-inline marginBtm1" role="form" align="left">
+      <div class="form-group" >
+        <div class="input-group" >
+            <span class="input-group-addon width250px" > หมายเหตุ </span>
+            <input type="text" name="descriptionEdit" id="descriptionEdit" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า">
+            <span class="alertText" id="descriptionAlertEdit"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-inline marginBtm1" role="form" align="left">
+      <div class="form-group" >
+        <div class="input-group" >
+            <span class="input-group-addon width200px" >ผู้เบิก:ชื่อ</span>
+            <input type="text" name="withdrawerEdit" id="withdrawerEdit" class="form-control textAlignCenter  width200px"placeholder="ใส่ค่า" onkeyup="mapInput4()">
+            <span class="alertText" id="withdrawerAlertEdit"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+      <div class="form-group" >
+        <div class="input-group" >
+            <span class="input-group-addon width200px" >นามสกุล</span>
+            <input type="text" name="withdrawerLastnameEdit" id="withdrawerLastnameEdit" class="form-control textAlignCenter  width200px"placeholder="ใส่ค่า">
+            <span class="alertText" id="withdrawerLastnameAlertEdit"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+      <div class="form-group" >
+        <div class="input-group" >
+            <span class="input-group-addon width200px" >ตำแหน่ง</span>
+            <input type="text" name="withdrawerPositionEdit" id="withdrawerPositionEdit" class="form-control textAlignCenter  width200px"placeholder="ใส่ค่า">
+            <span class="alertText" id="withdrawerPositionAlertEdit"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+        </div>
+      </div>
+    </div>
+
+    <div align="right" style="margin-bottom:1%; margin-right:3%;">
+      <button type="button" class="btn btn-danger btn-lg width250px" onclick="addOrderButton()" style="margin-top:1%;margin-right:1%;">
+        <span class="glyphicon glyphicon-remove"></span> ยกเลิก
+      </button>
+      <button type="button" class="btn btn-success btn-lg width250px" onclick="saveEditDetail()" style=" margin-top:1%;">
+        แก้ไข <span class="glyphicon glyphicon-ok"></span>
+      </button>
+    </div>
+
+</div> <!--detailWindow-->
+
+@footerFull()
