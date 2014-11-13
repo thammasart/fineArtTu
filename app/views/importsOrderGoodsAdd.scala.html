@@ -76,7 +76,7 @@
         <div class="form-inline marginBtm1" role="form" align="left">
               <div class="form-group" >
                     <div class="input-group date" id="checkDate">
-                        <span class="input-group-addon width250px" >วันที่ตรวจสอบ</span>
+                        <span class="input-group-addon width250px" >วันที่ตรวจรับ</span>
                         <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p" id="checkDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.checkDate))}">
                         <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
                         <span class="alertText" id="checkDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
@@ -176,7 +176,22 @@
 
         </div>
 
-        
+        @if(flash().containsKey("cantChange2")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantChange2")</font> 
+		</div>
+		}
+		@if(flash().containsKey("candelete2")){
+        <div class="alert alert-success">
+        	 <font size="5">@flash().get("candelete2")</font> 
+		</div>
+		}
+		@if(flash().containsKey("cantdelete2")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantdelete2")</font> 
+		</div>
+		}
+		
            <table class="table table-striped overlayTable">
             <legend>วัสดุสำนักงาน</legend>
              <thead>

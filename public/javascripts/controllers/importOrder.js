@@ -5,6 +5,7 @@ var aiLists = [];
 var eoLists = [];
 var supplyList=[];
 var procumentDetailsTick = [];
+var procumentDetailsTickName = [];
 var procurementStatus = "null";
 
 
@@ -76,7 +77,7 @@ function retriveProcurement(id,tab){
 function disableEditingOn(){
 	$('#isEditingOn').val('false');
 	$('#page2 input').prop('disabled', true);
-	$('#spreadSupply input').prop('disabled', true);
+	$('#spreadSupply :input').prop('disabled', true);
 	$('#spreadSupply select').prop('disabled', true);
 	$('#editBtn2').show();
 }
@@ -167,8 +168,8 @@ function setDetail(id,tab,page){
     			if(isEditing == 'true'){
     				isDisabled = false;
     			}
-    			$('#spreadSupply input').prop('disabled', isDisabled);
-    			$('#spreadSupply select').prop('disabled', isDisabled);
+    			$('#spreadSupply :input').prop('disabled', isDisabled);
+    			//$('#spreadSupply select').prop('disabled', isDisabled);
     		}
     	},
     	statusCode:{
@@ -435,7 +436,7 @@ if(val.length >5)
 {
 		var v15x='	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
-		'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
+		'	                    <span class="input-group-addon" >'+'รหัสFSN'+'</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  '+
 						(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
 						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="ศก.'+budgetType+years[years.length-2]+years[years.length-1]+"-"+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
@@ -449,7 +450,7 @@ else
 	'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
 	'	                    <input type="text" class="form-control textAlignCenter  '+
 								(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
-	' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
+	' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+val+'">'+
 	'	                </div>'+
 	'	            </div>';
 }
@@ -522,19 +523,20 @@ function setValueBelow(name,num){
 
 function addTick(name){
 	var procumentDetailName = name;
-	console.log(procumentDetailsTick);
 	
 
 		if(procumentDetailsTick.indexOf(procumentDetailName) > -1){
 			procumentDetailsTick.remove(procumentDetailName);
+			procumentDetailsTickName.remove(document.getElementById("delName"+name).innerHTML);
 			document.getElementById("row"+name).style.color = "";
 			document.getElementById("check"+name).checked = false;
 		}else{
 			procumentDetailsTick.push(procumentDetailName);
+			procumentDetailsTickName.push(document.getElementById("delName"+name).innerHTML);
 			document.getElementById("row"+name).style.color = "#cc3300";
 			document.getElementById("check"+name).checked = true;
 		}
-	
+	getProcumentDetailsTick(procumentDetailsTickName);
 }
 
 function removeProcurementDetail(path){
@@ -570,7 +572,7 @@ function loadOrderArticle(data){
 		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(2)"></th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].id +'</th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].fsn +'</th>'+
-		'                    <th>'+ data['data'][i].description +'</th>'+
+		'                    <th id="delName'+ data['data'][i].id +'">'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
 		'                    <th>'+ data['data'][i].price +'</th>'+

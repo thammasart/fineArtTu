@@ -9,16 +9,18 @@
 
 <div class="listWindow">
 
-            <div class="tableHeaderBtnContainer">
-                <button class="btn btn-primary"onclick="printLink('http://localhost:9000/report/DurableArticles/print')"> Print </button>
-                <button class="btn btn-info"onclick="printTable()"> Print Table</button>
-            </div>
-                <legend >
+                <span class="marginBtm1"style="font-size:25px">
                     สรุปครุภัณฑ์
-                </legend>
+                </span>
+                <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink()">
+                    พิมพ์ครุภัณฑ์ทั้งหมด
+                </button>
+                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                    พิมพ์ตารางนี้
+                </button>
             <script>
-                function printLink(url){
-                    var w = window.open(url);
+                function printLink(){
+                    var w = window.open(window.location.pathname+"/print");
                     w.print();
                 }
                 function printTable(){
@@ -52,6 +54,38 @@
                         </select>
                    </div>
               </div>
+               <div class="form-inline" role="form"  style="float:right;">
+                  <div class="form-group" >
+                      <div class="input-group date width190px" id="start-picker">
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="startDate"placeholder="จากวันที่" disabled>
+                          <input type="text" name="birthDate" id="birthInputBox" hidden>
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                 </div>
+                  <div class="form-group" >
+                      <div class="input-group date width190px" id="end-picker">
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="endDate"placeholder="ถึงวันที่" disabled>
+                          <input type="text" name="birthDate" id="birthInputBox" hidden>
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                 </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#start-picker').datetimepicker({
+                            	pickTime : false,
+                            }).on('hide.dp',function(){
+                            	getDataTable(0).draw();
+                            });
+                        });
+                        $(function () {
+                            $('#end-picker').datetimepicker({
+                            	pickTime : false,
+                            }).on('hide.dp',function(){
+                            	getDataTable(0).draw();
+                            });
+                        });
+                    </script>
+               </div>
         </div>
 
         <div >
@@ -67,6 +101,7 @@
                         <th style="text-align:center">ความหมาย</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">วันที่นำเข้า</th>
+                        <th style="display:none"> barcode</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,22 +112,24 @@
                     <!-->
                     <tr id="row@index">
                         <th style="text-align:center">@{index+1}</th>
-                        <th id="gr@index"style="text-align:center"></th>
+                        <th id="gr@index"style="text-align:center">@dal.detail.fsn.typ.groupClass.group.groupId</th>
                         <th id="ty@index"style="text-align:center"></th>
                         <th id="cl@index"style="text-align:center"></th>
-                        <th id="de@index"style="text-align:center"></th>
+                        <th id="de@index"style="text-align:center">@dal.detail.fsn.descriptionId</th>
                         <th id="sp@index"style="text-align:center"></th>
                         <th style="text-align:center">@dal.detail.fsn.typ.groupClass.classDescription</th>
                         <th id="code@index"style="text-align:center">@dal.code</th>
                         <th style="text-align:center">@dal.detail.procurement.getAddDate()</th>
+                        <th style="display:none"> @dal.barCode </th>
                     </tr>
                     <script>
+                     var code1 = document.getElementById("de@index").innerHTML;  
                      var code = document.getElementById("code@index").innerHTML;  
-                     document.getElementById("gr@index").innerHTML =code[code.length-20]+code[code.length-19];
-                     document.getElementById("ty@index").innerHTML =code[code.length-18]+code[code.length-17];
-                     document.getElementById("cl@index").innerHTML =code[code.length-15]+code[code.length-14]+code[code.length-13];
-                     document.getElementById("de@index").innerHTML =code[code.length-11]+code[code.length-10]+code[code.length-9]+code[code.length-8];
-                     document.getElementById("sp@index").innerHTML = "("+code[code.length-6]+code[code.length-5]+"/"+code[code.length-3]+code[code.length-2]+")";
+                     console.log(code);
+                     document.getElementById("ty@index").innerHTML =code1[code1.length-11]+code1[code1.length-10];
+                     document.getElementById("cl@index").innerHTML =code1[code1.length-8]+code1[code1.length-7]+code1[code1.length-6];
+                     document.getElementById("de@index").innerHTML =code1[code1.length-4]+code1[code1.length-3]+code1[code1.length-2]+code1[code1.length-1];
+                     document.getElementById("sp@index").innerHTML = "("+code.split("(")[1];
                       
                      if(parseInt(document.getElementById("gr@index").innerHTML) != parseInt(document.getElementById("gr@{index-1}").innerHTML) ){
                          flag = flag * -1; 
@@ -112,6 +149,47 @@
             </table>
         </div> 
 <!---->
+<script>
+$(document).ready( function(){
+	$.fn.dataTableExt.afnFiltering.push(
+	    function( oSettings, aData, iDataIndex ) {
+	        // input change to format yyyymmdd
+	        var dateMin = $('#startDate').val();
+	        if(dateMin != ""){
+	        	dateMin = dateMin.split('/')[2] + dateMin.split('/')[1] + dateMin.split('/')[0];
+	        }
+	        //console.log(dateMin);
+	        
+	        var dateMax = $('#endDate').val();
+	        if(dateMax != ""){
+	        	dateMax = dateMax.split('/')[2] + dateMax.split('/')[1] + dateMax.split('/')[0];
+	        }
+	        //console.log(dateMax);
+	        
+	        // date column
+	        var date = aData[8];
+	        date = date.split('/')[2] + date.split('/')[1] + date.split('/')[0];
+	        console.log(date);
+	 
+	        // run through cases
+	        if ( dateMin == "" && date <= dateMax){
+	            return true;
+	        }
+	        else if ( dateMin =="" && date <= dateMax ){
+	            return true;
+	        }
+	        else if ( dateMin <= date && "" == dateMax ){
+	            return true;
+	        }
+	        else if ( dateMin <= date && date <= dateMax ){
+	            return true;
+	        }
+	        // all failed
+	        return false;
+	    }
+	);
+} );
+</script>
 </div>
 
 @footer()

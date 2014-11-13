@@ -9,9 +9,28 @@
 
 <div class="listWindow">
 
-            <legend>
+            <span style="font-size:25px">
                 รายการบริจาค
-            </legend>
+            </span>
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink()">
+                พิมพ์รายการบริจาค
+            </button>
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                พิมพ์ตารางนี้
+            </button>
+            <script>
+                function printLink(){
+                    var w = window.open(window.location.pathname+"/print");
+                    w.print();
+                }
+                function printTable(){
+                    var divToPrint = document.getElementById("printTable");
+                    newWin= window.open("");
+                    newWin.document.write(divToPrint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                }
+            </script>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
                         <form>
@@ -74,6 +93,7 @@
                         <th style="text-align:center">บริจาคให้</th>
                         <th style="text-align:center">บริจาคโดย</th>
                         <th style="text-align:center">ประเภทงบประมาณ</th>
+                        <th style="display:none">ประเภทงบประมาณ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,6 +108,7 @@
                         <th style="text-align:center">@detail.donation.company.nameEntrepreneur</th>
                         <th style="text-align:center">@detail.durableArticles.department</th>
                         <th style="text-align:center">@detail.durableArticles.detail.procurement.budgetType</th>
+                        <th style="display:none">@detail.durableArticles.barCode</th>
                     </tr>
                 }
                 </tbody>

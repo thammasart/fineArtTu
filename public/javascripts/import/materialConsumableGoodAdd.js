@@ -54,6 +54,11 @@ function submitButtonClick(){
         document.getElementById("codeAlert").style.display = "table-row";
         submitStatus = false;
     }else  document.getElementById("codeAlert").style.display= "none";
+    
+    if(document.getElementById("minNumberToAlert").value ==""){
+        document.getElementById("minNumberToAlert2").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("minNumberToAlert2").style.display= "none";
 
     return submitStatus;
 }

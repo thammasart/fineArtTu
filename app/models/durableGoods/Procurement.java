@@ -10,10 +10,12 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import models.*;
+import models.durableArticles.DurableArticles;
 import models.durableGoods.DurableGoods;
 import models.durableGoods.ProcurementDetail;
 import models.durableGoods.AI_Committee;
 import models.type.ImportStatus;
+import models.type.SuppliesStatus;
 
 import models.Committee;
 
@@ -58,6 +60,27 @@ public class Procurement extends Model{
 	}
 	public String getCheckDate(){
 		return  new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(checkDate);
+	}
+	
+	public int getUNCHANGE()
+	{
+		int canChangeOrderDetail=1;
+		
+		for(ProcurementDetail pd:this.details)
+		{
+			for(DurableGoods d:pd.subDetails)
+			{
+				if(d.status!=SuppliesStatus.NORMAL)
+	    		{
+	    			if(d.status!=null)
+	    			{
+	    			canChangeOrderDetail=0;break;
+	    			}
+	    		}
+			}
+		}
+		
+		return canChangeOrderDetail;
 	}
 	
 	public String toString()

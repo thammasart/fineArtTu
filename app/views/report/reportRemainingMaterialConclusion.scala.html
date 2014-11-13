@@ -72,9 +72,28 @@
            <div class="tableHeaderBtnContainer">
            </div>
         <div >
-            <legend>
-                วัสดุสิ้นเปลือง
-            </legend>
+                <span style="font-size:25px">
+                    วัสดุสิ้นเปลือง
+                </span>
+                <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right" onclick="printLink()">
+                    พิมพ์วัสดุสิ้นเปลือง
+                </button>
+                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                    พิมพ์ตารางนี้
+                </button>
+            <script>
+                function printLink(){
+                    var w = window.open(window.location.pathname+"/Print");
+                    w.print();
+                }
+                function printTable(){
+                    var divToPrint = document.getElementById("printTable");
+                    newWin= window.open("");
+                    newWin.document.write(divToPrint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                }
+            </script>
             <table class="table table-striped overlayTable" align="center">
                 <thead>
                     <tr>
@@ -106,9 +125,28 @@
                 </tbody>
             </table>
 
-            <legend>
-                วัสดุคงทนถาวร
-            </legend>
+                <span style="font-size:25px">
+                    วัสดุคงทนถาวร
+                </span>
+                <button class="btn btn-primary glyphicon glyphicon-print  marginLeft2" style="float:right" onclick="printLink2()">
+                    พิมพ์วัสดุคงทนถาวร
+                </button>
+                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable2()">
+                    พิมพ์ตารางนี้
+                </button>
+                <script>
+                    function printLink2(){
+                        var w = window.open(window.location.pathname+"/Print2");
+                        w.print();
+                    }
+                    function printTable2(){
+                        var divToPrint = document.getElementById("printTable");
+                        newWin= window.open("");
+                        newWin.document.write(divToPrint.outerHTML);
+                        newWin.print();
+                        newWin.close();
+                    }
+                </script>
             <table class="table table-striped overlayTable" align="center">
                 <thead>
                     <tr>
