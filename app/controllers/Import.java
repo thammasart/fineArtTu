@@ -2007,8 +2007,26 @@ public class Import extends Controller {
     			for(int i=0;i<durableArticlesProcurementInList.length;i++)
     			{
     				models.durableArticles.Procurement p = models.durableArticles.Procurement.find.byId(Long.parseLong(durableArticlesProcurementInList[i]));
+    			   	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+    				int canChangeOrderDetail=1;
     				
-    				if(p.status!=ImportStatus.UNCHANGE)
+    				for(ProcurementDetail pd :p.details)
+    				{
+    					for(DurableArticles d:pd.subDetails)
+    					{
+    			    		if(d.status!=SuppliesStatus.NORMAL)
+    			    		{
+    			    			if(d.status!=null)
+    			    			{
+    			    			canChangeOrderDetail=0;break;
+    			    			}
+    			    		}
+    					}
+    				}
+    				
+    			   	
+    				if(canChangeOrderDetail==1)
+    				//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
     				{
 	    				p.status = ImportStatus.DELETE;
 	    				File file = new File("./public/"+p.path);		//get file------------------------------------------------
@@ -2048,7 +2066,25 @@ public class Import extends Controller {
     			for(int i=0;i<goodsProcurementInList.length;i++)
     			{
     				models.durableGoods.Procurement p = models.durableGoods.Procurement.find.byId(Long.parseLong(goodsProcurementInList[i]));
-    				if(p.status!=ImportStatus.UNCHANGE)
+    			   	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+    				int canChangeOrderDetail=1;
+    				
+    				for(models.durableGoods.ProcurementDetail pd :p.details)
+    				{
+    					for(models.durableGoods.DurableGoods d:pd.subDetails)
+    					{
+    			    		if(d.status!=SuppliesStatus.NORMAL)
+    			    		{
+    			    			if(d.status!=null)
+    			    			{
+    			    			canChangeOrderDetail=0;break;
+    			    			}
+    			    		}
+    					}
+    				}
+    				
+    				if(canChangeOrderDetail==1)
+    				//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
     				{
 	    				p.status = ImportStatus.DELETE;  
 	    				

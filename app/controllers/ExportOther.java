@@ -278,10 +278,18 @@ public class ExportOther extends Controller {
                     id = Long.parseLong(objNode.toString());
                     DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
                     if(durableArticles != null){
-                        OtherTransferDetail newDetail = new OtherTransferDetail();
-                        newDetail.durableArticles = durableArticles;
-                        newDetail.otherTransfer = other;
-                        newDetail.save();
+                        List<OtherTransferDetail> details = OtherTransferDetail.find.where().eq("otherTransfer",other).eq("durableArticles",durableArticles).findList();
+                        if(details.size() == 0){
+                            OtherTransferDetail newDetail = new OtherTransferDetail();
+                            newDetail.durableArticles = durableArticles;
+                            newDetail.otherTransfer = other;
+                            newDetail.save();
+
+                            if(other.status == ExportStatus.SUCCESS){
+                                durableArticles.status = SuppliesStatus.OTHERTRANSFER;
+                                durableArticles.save();
+                            }
+                        }
                     }
                 }
                 result.put("status", "SUCCESS");

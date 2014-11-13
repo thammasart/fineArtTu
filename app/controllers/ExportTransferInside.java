@@ -209,41 +209,43 @@ public class ExportTransferInside extends Controller {
                     id = Long.parseLong(objNode.toString());
                     DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
                     if(durableArticles != null){
-                        InternalTransferDetail newDetail = new InternalTransferDetail();
-                        newDetail.durableArticles = durableArticles;
-                        newDetail.internalTransfer = inside;
-                       
-                        newDetail.newDepartment = department;
-                        newDetail.newRoom = room;
-                        newDetail.newFloorLevel = floorLevel;
-                        newDetail.newFirstName = recieverFirstName;
-                        newDetail.newLastName = recieverLastName;
-                        newDetail.newPosition = recieverposition;
-                        
-                        List<InternalTransferDetail> temp = InternalTransferDetail.find.where().eq("durableArticles",durableArticles).findList();
-                        if(temp.size() == 0){
-                            newDetail.firstDepartment = durableArticles.department;
-                            newDetail.firstRoom = durableArticles.room;
-                            newDetail.firstFloorLevel = durableArticles.floorLevel;
-                            newDetail.firstFirstName = durableArticles.firstName;
-                            newDetail.firstLastName = durableArticles.lastName;
-                        }else{
-                            newDetail.firstDepartment = temp.get(0).firstDepartment;
-                            newDetail.firstRoom = temp.get(0).firstRoom;
-                            newDetail.firstFloorLevel = temp.get(0).firstFloorLevel;
-                            newDetail.firstFirstName = temp.get(0).firstFirstName;
-                            newDetail.firstLastName = temp.get(0).firstLastName;
-                        }
-                        newDetail.save();
+                        List<InternalTransferDetail> details = InternalTransferDetail.find.where().eq("internalTransfer",inside).eq("durableArticles",durableArticles).findList();
+                        if(details.size() == 0){
+                            InternalTransferDetail newDetail = new InternalTransferDetail();
+                            newDetail.durableArticles = durableArticles;
+                            newDetail.internalTransfer = inside;
+                            newDetail.newDepartment = department;
+                            newDetail.newRoom = room;
+                            newDetail.newFloorLevel = floorLevel;
+                            newDetail.newFirstName = recieverFirstName;
+                            newDetail.newLastName = recieverLastName;
+                            newDetail.newPosition = recieverposition;
+                            
+                            List<InternalTransferDetail> temp = InternalTransferDetail.find.where().eq("durableArticles",durableArticles).findList();
+                            if(temp.size() == 0){
+                                newDetail.firstDepartment = durableArticles.department;
+                                newDetail.firstRoom = durableArticles.room;
+                                newDetail.firstFloorLevel = durableArticles.floorLevel;
+                                newDetail.firstFirstName = durableArticles.firstName;
+                                newDetail.firstLastName = durableArticles.lastName;
+                            }else{
+                                newDetail.firstDepartment = temp.get(0).firstDepartment;
+                                newDetail.firstRoom = temp.get(0).firstRoom;
+                                newDetail.firstFloorLevel = temp.get(0).firstFloorLevel;
+                                newDetail.firstFirstName = temp.get(0).firstFirstName;
+                                newDetail.firstLastName = temp.get(0).firstLastName;
+                            }
+                            newDetail.save();
 
-                        if(inside.status == ExportStatus.SUCCESS){
-                            newDetail = InternalTransferDetail.find.where().eq("durableArticles",durableArticles).eq("internalTransfer.status", ExportStatus.SUCCESS).orderBy("internalTransfer.approveDate desc").findList().get(0);
-                            durableArticles.department = newDetail.firstDepartment;
-                            durableArticles.room = newDetail.firstRoom;
-                            durableArticles.floorLevel = newDetail.firstFloorLevel;
-                            durableArticles.firstName = newDetail.firstFirstName;
-                            durableArticles.lastName = newDetail.firstLastName;
-                            durableArticles.update();
+                            if(inside.status == ExportStatus.SUCCESS){
+                                newDetail = InternalTransferDetail.find.where().eq("durableArticles",durableArticles).eq("internalTransfer.status", ExportStatus.SUCCESS).orderBy("internalTransfer.approveDate desc").findList().get(0);
+                                durableArticles.department = newDetail.firstDepartment;
+                                durableArticles.room = newDetail.firstRoom;
+                                durableArticles.floorLevel = newDetail.firstFloorLevel;
+                                durableArticles.firstName = newDetail.firstFirstName;
+                                durableArticles.lastName = newDetail.firstLastName;
+                                durableArticles.update();
+                            }
                         }
                     }
                 }
@@ -276,13 +278,13 @@ public class ExportTransferInside extends Controller {
             InternalTransferDetail insideDetail = InternalTransferDetail.find.byId((new Long(json.get("id").asText())));
             InternalTransfer inside = InternalTransfer.find.byId(new Long(json.get("transferInsideId").asText()));
             if( insideDetail != null && inside != null ){
-                    insideDetail.newDepartment = json.get("department").asText();
-                    insideDetail.newRoom = json.get("room").asText();
-                    insideDetail.newFloorLevel = json.get("floorLevel").asText();
-                    insideDetail.newFirstName = json.get("newFirstName").asText();
-                    insideDetail.newLastName = json.get("newLastName").asText();
-                    insideDetail.newPosition = json.get("newPosition").asText();
-                    insideDetail.update();
+                insideDetail.newDepartment = json.get("department").asText();
+                insideDetail.newRoom = json.get("room").asText();
+                insideDetail.newFloorLevel = json.get("floorLevel").asText();
+                insideDetail.newFirstName = json.get("newFirstName").asText();
+                insideDetail.newLastName = json.get("newLastName").asText();
+                insideDetail.newPosition = json.get("newPosition").asText();
+                insideDetail.update();
                     
                 if(inside.status == ExportStatus.SUCCESS){
                     InternalTransferDetail temp = InternalTransferDetail.find.where().eq("durableArticles",insideDetail.durableArticles).eq("internalTransfer.status", ExportStatus.SUCCESS).orderBy("internalTransfer.approveDate desc").findList().get(0);

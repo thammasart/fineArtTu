@@ -277,11 +277,19 @@ public class ExportRepair extends Controller {
                     id = Long.parseLong(objNode.toString());
                     DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
                     if(durableArticles != null){
-                        RepairingDetail newDetail = new RepairingDetail();
-                        newDetail.durableArticles = durableArticles;
-                        newDetail.repairing = repair;
-                        newDetail.description = description;
-                        newDetail.save();
+                        List<RepairingDetail> details = RepairingDetail.find.where().eq("repairing",repair).eq("durableArticles",durableArticles).findList();
+                        if(details.size() == 0){
+                            RepairingDetail newDetail = new RepairingDetail();
+                            newDetail.durableArticles = durableArticles;
+                            newDetail.repairing = repair;
+                            newDetail.description = description;
+                            newDetail.save();
+
+                            if(repair.status == ExportStatus.REPAIRING){
+                                durableArticles.status = SuppliesStatus.REPAIRING;
+                                durableArticles.save();
+                            }
+                        }
                     }
                 }
                 result.put("status", "SUCCESS");

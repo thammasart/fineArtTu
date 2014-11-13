@@ -23,6 +23,7 @@
 		<button id="editBtn1" onclick="removeDisable1()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
 	}
 	<input id="orderStatus" type="hidden" value="@order.status.name">
+	<input id="getUnchange" type="hidden" value="@order.getUNCHANGE()">
 	
 	<script>
 		function removeDisable1(){
@@ -420,10 +421,10 @@ $('input').prop("disabled",false);
 
 <script>
 	
-	if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+	if($('#orderStatus').val() == "SUCCESS" || $('#getUnchange').val() == 0){
 		$('#page1 input').prop('disabled', true);
 		$('#page1 select').prop('disabled', true);
-		if($('#orderStatus').val() == "UNCHANGE"){
+		if($('#getUnchange').val() == 0){
 			$('#editBtn1').prop('disabled', true);
 		}
 		

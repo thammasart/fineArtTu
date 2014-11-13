@@ -276,10 +276,18 @@ public class ExportDonate extends Controller {
                     id = Long.parseLong(objNode.toString());
                     DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
                     if(durableArticles != null){
-                        DonationDetail newDetail = new DonationDetail();
-                        newDetail.durableArticles = durableArticles;
-                        newDetail.donation = donate;
-                        newDetail.save();
+                        List<DonationDetail> details = DonationDetail.find.where().eq("donation",donate).eq("durableArticles",durableArticles).findList();
+                        if(details.size() == 0){
+                            DonationDetail newDetail = new DonationDetail();
+                            newDetail.durableArticles = durableArticles;
+                            newDetail.donation = donate;
+                            newDetail.save();
+
+                            if(donate.status == ExportStatus.SUCCESS){
+                                durableArticles.status = SuppliesStatus.DONATED;
+                                durableArticles.save();
+                            }
+                        }
                     }
                 }
                 result.put("status", "SUCCESS");
