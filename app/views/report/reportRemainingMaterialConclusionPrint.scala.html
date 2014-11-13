@@ -1,0 +1,49 @@
+@( mc: List[MaterialCode] ,date :String)
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+
+@header("รายงาน")
+
+        <div >
+            <table class="table " align="center"style="font-size:13px; border-color:black;border:double;">
+                <thead>
+            <h3 align="center">
+                สรุปวัสดุคงเหลือ : วัสดุสิ้นเปลือง
+            </h3>
+            <div align="center">
+                @date
+            </div>
+                    <tr>
+                        <th style="text-align:center"> ลำดับที่</th>
+                        <th style="text-align:center"> รายการ </th>
+                        <th style="text-align:center"> หน่วย </th>
+                        <th style="text-align:center"> ปริมาณ </th>
+                        <th style="text-align:center"> ราคา/หน่วย </th>
+                        <th style="text-align:center"> จำนวนเงิน </th>
+                        <th style="text-align:center"> ประเภท </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                @for((mcl,index) <-mc.zipWithIndex){
+                    <tr>
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@mcl.description</th>
+                        <th style="text-align:center">@mcl.classifier</th>
+                        <th style="text-align:center" id="re@index">@mcl.remain</th>
+                        <th style="text-align:center" id="pr@index">@mcl.pricePerEach</th>
+                        <th style="text-align:center" id="pt@index">256.80</th>
+                        <th style="text-align:center">@mcl.materialType.typeName</th>
+                    <script>
+                        document.getElementById("pt@index").innerHTML =  parseFloat(document.getElementById("re@index").innerHTML) * parseFloat(document.getElementById("pr@index").innerHTML) ;
+                    </script>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div> 

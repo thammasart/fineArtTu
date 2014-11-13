@@ -68,6 +68,19 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                     });
                 });
                 $(function() {
+                    $( "#edit_firstName" ).autocomplete({
+                      source: userAll,
+                      focus: function(event, ui) {
+                          $("input#edit_firstName").val(ui.item.label);
+                          mapInput11();
+                      },
+                      select: function(event, ui) {
+                         $("#searchform button").click(); 
+                         setTimeout(mapInput11,100);
+                      }
+                    });
+                });
+                $(function() {
                     $( "#approverFirstName" ).autocomplete({
                       source: userAll,
                       focus: function(event, ui) {
@@ -113,6 +126,17 @@ function mapInput1(){
             document.getElementById("recieveFirstName").value = nameList[j];            
             document.getElementById("recieveLastName").value = lastnameList[j];
             document.getElementById("recievePosition").value = positionList[j];
+            break;
+        }
+    }
+}
+function mapInput11(){
+    var id = document.getElementById("edit_firstName").value ;
+    for(var j = 0; j < userAll.length;j++){
+        if(id == userAll[j]){
+            document.getElementById("edit_firstName").value = nameList[j];            
+            document.getElementById("edit_lastName").value = lastnameList[j];
+            document.getElementById("edit_position").value = positionList[j];
             break;
         }
     }

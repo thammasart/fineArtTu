@@ -55,13 +55,11 @@ public class ProcurementDetail extends Model{
 		return getSumablePrice()/this.llifeTime;
 	}
 	
-	public List<Double> getTotalDepricate(){
+	public List<Double> getTotalDepricate(int year){
 			////////////////////////////////////////////////////////////////////////
 		 	Calendar localCalendar = Calendar.getInstance(TimeZone.getDefault());
-
-	        int day = localCalendar.get(Calendar.DATE);
-	        int month = localCalendar.get(Calendar.MONTH) + 1;
-	        int year = localCalendar.get(Calendar.YEAR);
+                //24/08/2557
+	        //int year = localCalendar.get(Calendar.YEAR);
 	        /////////////////////////////////////////////////////////////////////////
 	        int addDateDay = this.procurement.getDay();
 	        int addDateMonth = this.procurement.getMonth();

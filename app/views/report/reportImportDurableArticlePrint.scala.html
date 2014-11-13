@@ -1,0 +1,49 @@
+@( dur : List[models.durableArticles.DurableArticles],date :String,count : List[Integer])
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+
+@header("รายงาน")
+
+        <div >
+            <table class="table " align="center"style="font-size:13px; border-color:black;border:double;">
+                <thead>
+            <h3 align="center">
+                ทะเบียนทรัพย์สิน : สรุป
+            </h3>
+            <div align="center">
+                @date
+            </div>
+                    <tr>
+                        <th>ลำดับ<span class="glyphicon glyphicon-sort"></span> </th>
+                        <th>รหัสประเภท<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ประเภทครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รายละเอียด<span class="glyphicon glyphicon-sort"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+       			
+                @for((list,index) <- dur.zipWithIndex){
+                        <tr>
+                            <th>@{index+1}</th>
+                            <th>@list.detail.fsn.typ.groupClass.classId</th>
+                            <th>@list.detail.fsn.typ.groupClass.classDescription</th>
+                            <th>@count.get(index)</th>
+                            <th><button type="submit" class="btn btn-info btn-sm" onclick="setValue(@list.detail.fsn.typ.groupClass.classId)"> ดู @list.detail.fsn.typ.groupClass.classId</button></th>
+                        </tr>
+                 }
+
+                </tbody>
+                <script>
+                     function setValue(val) { 
+                        document.getElementById("classIdVal").value = val ;
+                     } 
+                </script>
+
+            </table>
+        </div> 

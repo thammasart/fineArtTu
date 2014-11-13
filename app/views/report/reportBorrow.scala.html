@@ -8,10 +8,28 @@
 @sideMenu(user)
 
 <div class="listWindow">
-
-            <legend>
+            <span style="font-size:25px">
                 รายการยืม/คืน
-            </legend>
+            </span>
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink()">
+                พิมพ์รายการยืม
+            </button>
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                พิมพ์ตารางนี้
+            </button>
+            <script>
+                function printLink(){
+                    var w = window.open(window.location.pathname+"/print");
+                    w.print();
+                }
+                function printTable(){
+                    var divToPrint = document.getElementById("printTable");
+                    newWin= window.open("");
+                    newWin.document.write(divToPrint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                }
+            </script>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
                         <form>
@@ -76,6 +94,7 @@
                         <th style="text-align:center">ยืมโดย</th>
                         <th style="text-align:center">หมายเหตุการยืม</th>
                         <th style="text-align:center">สถาณะปัจจุบัญ</th>
+                        <th style="display:none">barcode</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,6 +111,7 @@
                         <th style="text-align:center">@borrows.borrow.user.firstName</th>
                         <th style="text-align:center">@borrows.description</th>
                         <th id="rStatus@index" style="text-align:center">@borrows.borrow.status</th>
+                        <th style="display:none">@borrows.durableArticles.barCode</th>
                     </tr>
                     <script>
                         if(document.getElementById("rStatus@index").innerHTML == "SUCCESS"){

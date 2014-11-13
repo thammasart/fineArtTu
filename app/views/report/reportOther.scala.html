@@ -7,9 +7,28 @@
 
 <div class="listWindow">
 
-            <legend>
+            <span style="font-size:25px">
                 รายการโอย้ายอื่นๆ
-            </legend>
+            </span>
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink()">
+                พิมพ์รายการโอย้ายอื่นๆ      
+          </button>
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                พิมพ์ตารางนี้
+            </button>
+            <script>
+                function printLink(){
+                    var w = window.open(window.location.pathname+"/print");
+                    w.print();
+                }
+                function printTable(){
+                    var divToPrint = document.getElementById("printTable");
+                    newWin= window.open("");
+                    newWin.document.write(divToPrint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                }
+            </script>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
                         <form>
@@ -73,6 +92,7 @@
                         <th style="text-align:center">ผู้อนุมัติ</th>
                         <th style="text-align:center">รายละเอียดการโอน</th>
                         <th style="text-align:center">สถาณะใบโอน</th>
+                        <th style="display:none">สถาณะใบโอน</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,6 +108,7 @@
                         <th style="text-align:center">others.otherTransfer.approver.firstName</th>
                         <th style="text-align:center">@others.otherTransfer.description</th>
                         <th id="rStatus@index" style="text-align:center">@others.otherTransfer.status</th>
+                        <th style="display:none">@others.durableArticles.barCode</th>
                     </tr>
                     <script>
                         if(document.getElementById("rStatus@index").innerHTML == "SUCCESS"){

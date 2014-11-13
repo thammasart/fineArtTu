@@ -5,6 +5,7 @@ var aiLists = [];
 var eoLists = [];
 var supplyList=[];
 var procumentDetailsTick = [];
+var procumentDetailsTickName = [];
 var procurementStatus = "null";
 
 
@@ -522,19 +523,20 @@ function setValueBelow(name,num){
 
 function addTick(name){
 	var procumentDetailName = name;
-	console.log(procumentDetailsTick);
 	
 
 		if(procumentDetailsTick.indexOf(procumentDetailName) > -1){
 			procumentDetailsTick.remove(procumentDetailName);
+			procumentDetailsTickName.remove(document.getElementById("delName"+name).innerHTML);
 			document.getElementById("row"+name).style.color = "";
 			document.getElementById("check"+name).checked = false;
 		}else{
 			procumentDetailsTick.push(procumentDetailName);
+			procumentDetailsTickName.push(document.getElementById("delName"+name).innerHTML);
 			document.getElementById("row"+name).style.color = "#cc3300";
 			document.getElementById("check"+name).checked = true;
 		}
-	
+	getProcumentDetailsTick(procumentDetailsTickName);
 }
 
 function removeProcurementDetail(path){
@@ -570,7 +572,7 @@ function loadOrderArticle(data){
 		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(2)"></th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].id +'</th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].fsn +'</th>'+
-		'                    <th>'+ data['data'][i].description +'</th>'+
+		'                    <th id="delName'+ data['data'][i].id +'">'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
 		'                    <th>'+ data['data'][i].price +'</th>'+

@@ -1,0 +1,53 @@
+@(date:String , itd: List[models.durableArticles.InternalTransferDetail])
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+
+@header("รายงาน")
+
+        <div id="print">
+            <h4 align="center">
+                รายการโอนย้าย
+            </h4>
+            <div align="center">
+                @date
+            </div>
+            <table class="table table-bordered" align="center"style="font-size:12px; border-color:black;border:double;">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">รายการ</th>
+                        <th style="text-align:center">หมายเลขครุภัณฑ์</th>
+                        <th style="text-align:center">หน่วยนับ</th>
+                        <th style="text-align:center">ราคา/หน่วย</th>
+                        <th style="text-align:center">วันที่</th>
+                        <th style="text-align:center">ที่เก็บ-เดิม</th>
+                        <th style="text-align:center">ที่เก็บ-ใหม่</th>
+                        <th style="text-align:center">โอนจาก</th>
+                        <th style="text-align:center">ประเภทงบประมาณ</th>
+                        <th ></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for((trans,index)<-itd.zipWithIndex){
+                    <tr>
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@trans.durableArticles.detail.fsn.descriptionDescription</th>
+                        <th style="text-align:center">@trans.durableArticles.code</th>
+                        <th style="text-align:center">@trans.durableArticles.detail.fsn.classifier</th>
+                        <th style="text-align:center">@("% .0f".format(trans.durableArticles.detail.price))</th>
+                        <th style="text-align:center">@("%1$td/%1$tm/%1$tY".format(trans.internalTransfer.approveDate))</th>
+                        <th style="text-align:center"> ห้อง @trans.firstRoom</th>
+                        <th style="text-align:center">ห้อง @trans.newRoom</th>
+                        <th style="text-align:center">@trans.firstDepartment</th>
+                        <th style="text-align:center">@trans.newDepartment </th>
+                        <th ></th>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div> 
