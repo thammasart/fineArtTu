@@ -21,6 +21,10 @@ var isViewDetail = false;
 var titleInHeader = "เพิ่มรายการเบิกจ่าย";
 
 function addDetailButton(){
+	newDetail = [];
+	destroyTable();
+	document.getElementById("searchResultTable").innerHTML = "";
+	updateTable();
 	document.getElementById("code").value = '';
 	document.getElementById("description").value = '';
 	document.getElementById("addWindows").style.display = "none";
@@ -136,8 +140,10 @@ function getDetail(){
 				details = data["details"]; 
 				var arrayLength = details.length;
 				var s = "";
+				oldDetail = [];
 				destroyTable();
 				for (var i = 0; i < arrayLength; i++) {
+					oldDetail.push(details[i].goods.id);
 					s += '<tr id="detailRow' + details[i].id + '">';
 					s += ' <th onclick="addCheckedDetail(' + details[i].id + ')">' +
 					' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
@@ -246,7 +252,7 @@ function deleteDetail(){
 	dataDetail.id = orderGoods.id;
 	dataDetail.detail = checkedDetail;
 	$.ajax({
-		url:'/export/order/deleteDetail',
+		url:'/export/orderGoods/deleteDetail',
 	    type: 'post',
 	    data: JSON.stringify(dataDetail),
 	    contentType: 'application/json',
