@@ -1273,8 +1273,24 @@ public class Import extends Controller {
     	}
     	///Calculateeeeeeeeeeeeeeeeeee
     	
+    	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+    	List<DurableGoods> dg =  DurableGoods.find.where().eq("detail",procurementDetail).findList();
+    	int canChangeOrderDetail=1;
+    	for(DurableGoods d:dg)
+    	{
+    		System.out.println(d.status);
+    		if(d.status!=SuppliesStatus.NORMAL)
+    		{
+    			if(d.status!=null)
+    			{
+    			canChangeOrderDetail=0;break;
+    			}
+    		}
+    	}
     	
-    	if(procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+    	
+    	if(canChangeOrderDetail==1)
+    	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail	
     	{
 
 	    	procurementDetail.description = json.get("description").asText();
@@ -1589,6 +1605,10 @@ public class Import extends Controller {
 		    	else goods.update();
 	    	}
     	}//end if(UNCHANGE)
+    	else
+    	{
+    		flash("cantChange2","ไม่สามารถแก้ไขหรือลบกลุ่มของวัสดุในรายการนำเข้าได้เนื่องจากวัสดุนั้นได้มีการทำธุรกรรมไปแล้ว");
+    	}
 		
     	
     
@@ -1672,7 +1692,23 @@ public class Import extends Controller {
     		editingMode = false;
     	}
     	
-    	if(procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+    	
+    	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+    	List<DurableArticles> dg =  DurableArticles.find.where().eq("detail",procurementDetail).findList();
+    	int canChangeOrderDetail=1;
+    	for(DurableArticles d:dg)
+    	{
+    		if(d.status!=SuppliesStatus.NORMAL)
+    		{
+    			if(d.status!=null)
+    			{
+    			canChangeOrderDetail=0;break;
+    			}
+    		}
+    	}
+    	
+    	if(canChangeOrderDetail==1)
+    	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail	
     	{
 	    	procurementDetail.description = json.get("description").asText();
 	    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
@@ -1791,7 +1827,10 @@ public class Import extends Controller {
 		    	
 	    	}
     	}
-	
+    	else
+    	{
+    		flash("cantChange1","ไม่สามารถแก้ไขหรือลบกลุ่มของครุภัณฑ์ในรายการนำเข้าได้เนื่องจากครุภัณฑ์นั้นได้มีการทำธุรกรรมไปแล้ว");
+    	}
 	    	
     	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
     	ObjectNode result = Json.newObject();
@@ -2099,12 +2138,30 @@ public class Import extends Controller {
     	if(!json.get("parseData").asText().equals(""))
     	{
         	String[] procumentDetails=json.get("parseData").asText().split(",");    		
-        	
+        	int countCanDelete=0;
+        	int countCantDelete=0;
         	for(int i=0;i<procumentDetails.length;i++)
         	{
         		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
-        		if(pc.status!=OrderDetailStatus.UNCHANGE)
+        		
+        		
+            	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+            	List<DurableArticles> dg =  DurableArticles.find.where().eq("detail",pc).findList();
+            	int canChangeOrderDetail=1;
+            	for(DurableArticles d:dg)
+            	{
+            		if(d.status!=SuppliesStatus.NORMAL)
+            		{
+            			if(d.status!=null)
+            			{
+            			canChangeOrderDetail=0;break;
+            			}
+            		}
+            	}
+        		if(canChangeOrderDetail==1)
+        		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
         		{
+        			countCanDelete++;
 	        		procurement = models.durableArticles.Procurement.find.byId(pc.procurement.id);
 	        		for(DurableArticles subDetail:pc.subDetails)
 	        		{
@@ -2114,7 +2171,13 @@ public class Import extends Controller {
 	        		pc.status = OrderDetailStatus.DELETE;
 	        		pc.update();
         		}
+        		else
+        			countCantDelete++;
         	}
+        	if(countCanDelete>=1)
+        	flash("candelete1","กลุ่มของครุภัณฑ์ในรายการนำเข้าได้ถูกลบไป "+countCanDelete+" รายการ");
+        	if(countCantDelete>=1)
+        	flash("cantdelete1","ไม่สามารถลบกลุ่มของครุภัณฑ์ในรายการนำเข้าได้ "+countCantDelete+" รายการเนื่องจากวัสดุดังกล่าวได้ทำธุรกรรมไปแล้ว");
     	}
     	/////////////////
     	
@@ -2165,12 +2228,29 @@ public class Import extends Controller {
     	if(!json.get("parseData").asText().equals(""))
     	{
         	String[] procumentDetails=json.get("parseData").asText().split(",");    		
-        	
+        	int countCanDelete=0;
+        	int countCantDelete=0;
         	for(int i=0;i<procumentDetails.length;i++)
         	{
         		pc = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
-        		if(pc.status!=OrderDetailStatus.UNCHANGE)
+        	  	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+            	List<DurableGoods> dg =  DurableGoods.find.where().eq("detail",pc).findList();
+            	int canChangeOrderDetail=1;
+            	for(DurableGoods d:dg)
+            	{
+            		if(d.status!=SuppliesStatus.NORMAL)
+            		{
+            			if(d.status!=null)
+            			{
+            			canChangeOrderDetail=0;break;
+            			}
+            		}
+            	}
+        		
+            	if(canChangeOrderDetail==1)
+        		//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
         		{
+            		countCanDelete++;
 					if(pc.typeOfDurableGoods==0)//สิ้นเปลือง
 					{
 						MaterialCode mc=MaterialCode.find.byId(pc.code);
@@ -2209,8 +2289,19 @@ public class Import extends Controller {
 	        		}
 	        		pc.status = OrderDetailStatus.DELETE;
 	        		pc.update();
+	        		
         		}
-        	}
+            	else
+            	{
+            		countCantDelete++;
+            	}
+            		
+        	}//end for
+        	if(countCanDelete>=1)
+        	flash("candelete2","กลุ่มของวัสดุในรายการนำเข้าได้ถูกลบไป "+countCanDelete+" รายการ");
+        	if(countCantDelete>=1)
+        	flash("cantdelete2","ไม่สามารถลบกลุ่มของวัสดุในรายการนำเข้าได้ "+countCantDelete+" รายการเนื่องจากวัสดุดังกล่าวได้ทำธุรกรรมไปแล้ว");
+        	
     	}
     	/////////////////
     	
