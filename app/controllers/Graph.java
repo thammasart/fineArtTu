@@ -63,11 +63,13 @@ public class Graph extends Controller {
 
     public static Result index() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        if(user.isPermit(5)){
-        	return ok(graph.render(user));
-        }else{
+        if(user == null){
+        	return redirect(routes.Application.index());
+        }
+        if(!user.isPermit(5)){
         	return ok(permissionDenied.render());
         }
+        return ok(graph.render(user));
     }
     
     @BodyParser.Of(BodyParser.Json.class)
