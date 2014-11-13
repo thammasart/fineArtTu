@@ -119,7 +119,8 @@ angular.module('goodsCodeModule', ['ui.bootstrap'])
 );
 var resultModalInstanceCtrl= function($scope, $modalInstance){
 
-   $scope.name = " ลบรายการสัสดุ ";
+   $scope.name = " ลบรายการวัสดุ ";
+   $scope.tick = procumentDetailsTickTemp;
 
    $scope.ok = function () {
         removeProcurementDetail(pathToRemove);
@@ -130,21 +131,27 @@ var resultModalInstanceCtrl= function($scope, $modalInstance){
         $modalInstance.dismiss();
     };
 }
+function getProcumentDetailsTick(tick){
+    procumentDetailsTickTemp = tick ;
+    console.log(procumentDetailsTickTemp);
+}
+
 function initAutoCompleteName () { 
     keyId = "aiFirstName"+autoCompleteNum;
     $(function() {
         $('#'+keyId).autocomplete({
               source: userAll,
-              focus: function(event, ui) {
+              /*focus: function(event, ui) {
                   $("input#"+keyId).val(ui.item.label);
-              },
+              },*/
               select: function(event, ui) {
-                 $("#searchform button").click(); 
-                 setTimeout(mapInput(keyId,88),200);
+                 $("#searchform button").click();
+                 $("input#"+$(this).attr('id')).val(ui.item.label);
+                 setTimeout(mapInput($(this).attr('id'),88),200);
               }
         });
     })
-    console.log(keyId);
+    //console.log(keyId);
 } 
 function mapDescriptionToCode(){
     var id = document.getElementById("description").value ;

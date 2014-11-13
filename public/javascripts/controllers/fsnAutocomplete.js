@@ -138,8 +138,7 @@ var editModalInstanceCtrl= function($scope, $modalInstance){
     };
 }
 var resultModalInstanceCtrl= function($scope, $modalInstance){
-
-   $scope.name = " ลบรายการสัสดุ ";
+   $scope.name = " ลบรายการวัสดุ ";
    $scope.tick = procumentDetailsTickTemp;
  
    $scope.ok = function () {

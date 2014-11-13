@@ -24,18 +24,6 @@ function removeInstitute() {
 	postData('/import/removeInstitute', institutesTickList);
 }
 
-function checkAll(){
-	var check = $("#checkAll").prop("checked");
-	var checkLists = $(getTable(0)).find('.checkLists');
-	$.each(checkLists,function(i,field){
-		var isChange = field.checked != check; 
-		field.checked = check;
-		if(isChange){
-			field.onchange();
-		}
-	});
-}
-
 
 angular.module('importsInstituteApp', [ 'ui.bootstrap' ]).controller(
 		'importsInstituteCtrl', function($scope, $modal) {

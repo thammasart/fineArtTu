@@ -41,7 +41,6 @@ function checkAll(tableNum,id){
 	var checkAll = id || "checkAll";
 	var check = $("#" + checkAll).prop("checked");
 	var checkLists = $(getTable(num)).find('.checkLists');
-	console.log(checkLists);
 	$.each(checkLists,function(i,field){
 		var isChange = field.checked != check;
 		field.checked = check;

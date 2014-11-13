@@ -20,7 +20,6 @@ function tickAll(tableNum,id){
 	var checkAll = id || "checkAll";
 	var check = $("#" + checkAll).prop("checked");
 	var checkLists = $(getTable(num)).find('.checkLists');
-	console.log(checkLists);
 	$.each(checkLists,function(i,field){
 		var isChange = field.checked != check;
 		field.checked = check;
@@ -621,7 +620,7 @@ function loadOrderGood(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
 		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
-		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(isCheckAll(1))"></th>'+
+		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(1)"></th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].code +'</th>'+
 		'                    <th id="delName'+ data['data'][i].id +'" onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
