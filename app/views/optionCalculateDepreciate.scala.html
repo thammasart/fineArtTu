@@ -12,6 +12,17 @@
 
 <div class="listWindow">
         <div class="tableHeaderBtnContainer">
+            <span style="font-size:25px">
+                ระบบคำนวณค่าเสื่อม
+            </span>
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/DurableArticles/print')">
+                พิมพ์ครุภัณฑ์ทั้งหมด
+            </button>
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                พิมพ์ตารางนี้
+            </button>
+        </div>
+        <div class="tableHeaderBtnContainer">
                 <div class="searchS">
                             <div class="form-group">
                                 <div class="input-group">
@@ -62,9 +73,9 @@
                             <th>@subOrders.description</th>
                             <th>@subOrders.fsn.descriptionId</th>
                             <th>@subOrders.quantity</th>
-                            <th>@articleOrder.round(subOrders.getSumablePrice(),2)</th>
+                            <th>@("%.0f".format(articleOrder.round(subOrders.getSumablePrice(),2)))</th>
                             <th>@subOrders.llifeTime</th>
-                            <th>@articleOrder.round(subOrders.getAnnualDepricate(),2)</th> <!-- ค่าเสื่อมต่อปี -->
+                            <th>@("%.2f".format(articleOrder.round(subOrders.getAnnualDepricate(),2)))</th> <!-- ค่าเสื่อมต่อปี -->
         
                             
                             <!-- ค่าเสือมสะสม -->
@@ -82,9 +93,9 @@
                                 var temp = document.getElementById("temp1@index@index2").innerHTML;
                                 temp = temp.substr(1,temp.length-2);
                                 temp = temp.split(",");
-                                document.getElementById("temp2@index@index2").innerHTML = temp[2];
-                                document.getElementById("temp0@index@index2").innerHTML = temp[0];
-                                document.getElementById("temp1@index@index2").innerHTML = temp[1];
+                                document.getElementById("temp2@index@index2").innerHTML =parseFloat(temp[2]).toPrecision(10);
+                                document.getElementById("temp0@index@index2").innerHTML =parseFloat(temp[0]).toPrecision(10);
+                                document.getElementById("temp1@index@index2").innerHTML =parseFloat(temp[1]).toPrecision(10);
                             </script>
                         }
                  }

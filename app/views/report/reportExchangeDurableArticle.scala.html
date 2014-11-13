@@ -1,4 +1,4 @@
-@(user : User , ad : List[models.durableArticles.AuctionDetail])
+@(user : User , itd: List[models.durableArticles.InternalTransferDetail])
 @header("รายงาน")
 
 @nav(user)
@@ -9,9 +9,15 @@
 
 <div class="listWindow">
 
-            <legend>
+            <span style="font-size:25px">
                 รายการโอนย้าย
-            </legend>
+            </span>
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/DurableArticles/print')">
+                พิมพ์วัสดุสิ้นเปลือง
+            </button>
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                พิมพ์ตารางนี้
+            </button>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
                         <form>
@@ -78,18 +84,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                @for((detail,index)<-ad.zipWithIndex){
+                @for((trans,index)<-itd.zipWithIndex){
                     <tr>
                         <th style="text-align:center">@{index+1}</th>
-                        <th style="text-align:center">@detail.durableArticles.detail.fsn.descriptionDescription</th>
-                        <th style="text-align:center">@detail.durableArticles.code</th>
-                        <th style="text-align:center">@detail.durableArticles.detail.fsn.classifier</th>
-                        <th style="text-align:center">@detail.price</th>
-                        <th style="text-align:center">@detail.auction.getApproveDate()</th>
-                        <th style="text-align:center">@detail.durableArticles.room</th>
-                        <th style="text-align:center">@detail.auction.company.nameEntrepreneur</th>
-                        <th style="text-align:center">@detail.durableArticles.department</th>
-                        <th style="text-align:center">@detail.durableArticles.detail.procurement.budgetType</th>
+                        <th style="text-align:center">@trans.durableArticles.detail.fsn.descriptionDescription</th>
+                        <th style="text-align:center">@trans.durableArticles.code</th>
+                        <th style="text-align:center">@trans.durableArticles.detail.fsn.classifier</th>
+                        <th style="text-align:center">@("% .0f".format(trans.durableArticles.detail.price))</th>
+                        <th style="text-align:center">@("%1$td/%1$tm/%1$tY".format(trans.internalTransfer.approveDate))</th>
+                        <th style="text-align:center"> ห้อง @trans.firstRoom</th>
+                        <th style="text-align:center">ห้อง @trans.newRoom</th>
+                        <th style="text-align:center">@trans.firstDepartment</th>
+                        <th style="text-align:center">@trans.newDepartment </th>
                     </tr>
                 }
                 </tbody>

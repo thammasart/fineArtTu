@@ -9,13 +9,15 @@
 
 <div class="listWindow">
 
-            <div class="tableHeaderBtnContainer">
-                <button class="btn btn-primary"onclick="printLink('http://localhost:9000/report/DurableArticles/print')"> Print </button>
-                <button class="btn btn-info"onclick="printTable()"> Print Table</button>
-            </div>
-                <legend >
+                <span class="marginBtm1"style="font-size:25px">
                     สรุปครุภัณฑ์
-                </legend>
+                </span>
+                <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/DurableArticles/print')">
+                    พิมพ์วัสดุสิ้นเปลือง
+                </button>
+                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                    พิมพ์ตารางนี้
+                </button>
             <script>
                 function printLink(url){
                     var w = window.open(url);
@@ -89,6 +91,7 @@
                     <script>
                      var code1 = document.getElementById("de@index").innerHTML;  
                      var code = document.getElementById("code@index").innerHTML;  
+                     console.log(code);
                      document.getElementById("ty@index").innerHTML =code1[code1.length-11]+code1[code1.length-10];
                      document.getElementById("cl@index").innerHTML =code1[code1.length-8]+code1[code1.length-7]+code1[code1.length-6];
                      document.getElementById("de@index").innerHTML =code1[code1.length-4]+code1[code1.length-3]+code1[code1.length-2]+code1[code1.length-1];

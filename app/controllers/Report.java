@@ -28,7 +28,9 @@ public class Report  extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result reportRemainingMaterial() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportRemainingMaterial.render(user));
+        List<MaterialCode> mc = MaterialCode.find.all();
+
+        return ok(reportRemainingMaterial.render(user,mc));
     }
     
     @Security.Authenticated(Secured.class)
@@ -89,12 +91,25 @@ public class Report  extends Controller {
         return ok(reportImportDurableArticle.render(user,dList,count));
     }
     @Security.Authenticated(Secured.class)
-        public static Result reportDurableArticlesByType() {
+    public static Result reportDurableArticlesByType() {
+
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         DynamicForm form = Form.form().bindFromRequest();
         String val = form.get("classIdVal");
         List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.where().eq("status",SuppliesStatus.NORMAL).eq("detail.fsn.typ.groupClass.classId",val).findList();                //ครุภัณฑ์
-        return ok(reportDurableArticleByType.render(user,da));
+        List<models.durableArticles.DurableArticles> dList = new ArrayList<models.durableArticles.DurableArticles>();
+    	HashMap<String,models.durableArticles.DurableArticles> listResult = new HashMap<String,models.durableArticles.DurableArticles>();
+        String temp = "";
+        for(models.durableArticles.DurableArticles each : da){
+            temp = each.detail.procurement.title + each.detail.description;
+            listResult.put(temp,each);
+        }
+
+        for(String each : listResult.keySet()){
+            dList.add(listResult.get(each));
+        }
+
+        return ok(reportDurableArticleByType.render(user,dList));
     }
     @Security.Authenticated(Secured.class)
         public static Result reportExportDurableArticles() {
@@ -104,12 +119,12 @@ public class Report  extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result reportExchangeDurableArticles() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<Auction> auc =Auction.find.where().eq("status",ExportStatus.SUCCESS).findList();
-        List<AuctionDetail> ad = new ArrayList<AuctionDetail>();
-        for(Auction ac : auc){
-            ad.addAll(ac.detail);
+        List<InternalTransfer> it =InternalTransfer.find.where().eq("status",ExportStatus.SUCCESS).findList();
+        List<InternalTransferDetail> itd = new ArrayList<InternalTransferDetail>();
+        for(InternalTransfer each : it){
+            itd.addAll(each.detail);
         }
-        return ok( reportExchangeDurableArticle.render(user,ad));
+        return ok( reportExchangeDurableArticle.render(user,itd));
     }
     @Security.Authenticated(Secured.class)
         public static Result reportAuction() {

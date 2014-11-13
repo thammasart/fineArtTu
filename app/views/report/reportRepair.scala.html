@@ -9,9 +9,16 @@
 
 <div class="listWindow">
 
-            <legend>
+            <span style="font-size:25px">
                 รายการส่งซ่อม
-            </legend>
+            </span>
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/DurableArticles/print')">
+                พิมพ์วัสดุสิ้นเปลือง
+            </button>
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                พิมพ์ตารางนี้
+            </button>
+
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
                         <form>
