@@ -176,7 +176,11 @@
 
         </div>
 
-        
+        @if(flash().containsKey("cantChange2")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantChange2")</font> 
+		</div>
+		}
            <table class="table table-striped overlayTable">
             <legend>วัสดุสำนักงาน</legend>
              <thead>

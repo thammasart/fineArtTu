@@ -1273,8 +1273,24 @@ public class Import extends Controller {
     	}
     	///Calculateeeeeeeeeeeeeeeeeee
     	
+    	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+    	List<DurableGoods> dg =  DurableGoods.find.where().eq("detail",procurementDetail).findList();
+    	int canChangeOrderDetail=1;
+    	for(DurableGoods d:dg)
+    	{
+    		System.out.println(d.status);
+    		if(d.status!=SuppliesStatus.NORMAL)
+    		{
+    			if(d.status!=null)
+    			{
+    			canChangeOrderDetail=0;break;
+    			}
+    		}
+    	}
     	
-    	if(procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+    	
+    	if(canChangeOrderDetail==1)
+    	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail	
     	{
 
 	    	procurementDetail.description = json.get("description").asText();
@@ -1589,6 +1605,10 @@ public class Import extends Controller {
 		    	else goods.update();
 	    	}
     	}//end if(UNCHANGE)
+    	else
+    	{
+    		flash("cantChange2","ไม่สามารถแก้ไขหรือลบกลุ่มของวัสดุในรายการนำเข้าได้เนื่องจากวัสดุนั้นได้มีการทำธุรกรรมไปแล้ว");
+    	}
 		
     	
     
@@ -1672,7 +1692,24 @@ public class Import extends Controller {
     		editingMode = false;
     	}
     	
-    	if(procurementDetail.status!=OrderDetailStatus.UNCHANGE)
+    	
+    	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+    	List<DurableArticles> dg =  DurableArticles.find.where().eq("detail",procurementDetail).findList();
+    	int canChangeOrderDetail=1;
+    	for(DurableArticles d:dg)
+    	{
+    		if(d.status!=SuppliesStatus.NORMAL)
+    		{
+    			if(d.status!=null)
+    			{
+    			canChangeOrderDetail=0;break;
+    			}
+    		}
+    	}
+    	
+    	
+    	if(canChangeOrderDetail==1)
+    	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail	
     	{
 	    	procurementDetail.description = json.get("description").asText();
 	    	procurementDetail.priceNoVat = Double.parseDouble(json.get("priceNoVat").asText());
@@ -1791,7 +1828,10 @@ public class Import extends Controller {
 		    	
 	    	}
     	}
-	
+    	else
+    	{
+    		flash("cantChange1","ไม่สามารถแก้ไขหรือลบกลุ่มของครุภัณฑ์ในรายการนำเข้าได้เนื่องจากครุภัณฑ์นั้นได้มีการทำธุรกรรมไปแล้ว");
+    	}
 	    	
     	List<models.durableArticles.ProcurementDetail> procurementDetails = models.durableArticles.ProcurementDetail.find.where().eq("procurement", procurement).findList(); 
     	ObjectNode result = Json.newObject();

@@ -188,7 +188,11 @@
             </div>
         </div>
 
-
+		@if(flash().containsKey("cantChange1")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantChange1")</font> 
+		</div>
+		}
         
            <table class="table table-striped overlayTable">
             <legend>ครุภัณฑ์สำนักงาน</legend>
