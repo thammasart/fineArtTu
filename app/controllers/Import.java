@@ -1707,7 +1707,6 @@ public class Import extends Controller {
     		}
     	}
     	
-    	
     	if(canChangeOrderDetail==1)
     	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail	
     	{
@@ -2139,12 +2138,30 @@ public class Import extends Controller {
     	if(!json.get("parseData").asText().equals(""))
     	{
         	String[] procumentDetails=json.get("parseData").asText().split(",");    		
-        	
+        	int countCanDelete=0;
+        	int countCantDelete=0;
         	for(int i=0;i<procumentDetails.length;i++)
         	{
         		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
-        		if(pc.status!=OrderDetailStatus.UNCHANGE)
+        		
+        		
+            	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+            	List<DurableArticles> dg =  DurableArticles.find.where().eq("detail",pc).findList();
+            	int canChangeOrderDetail=1;
+            	for(DurableArticles d:dg)
+            	{
+            		if(d.status!=SuppliesStatus.NORMAL)
+            		{
+            			if(d.status!=null)
+            			{
+            			canChangeOrderDetail=0;break;
+            			}
+            		}
+            	}
+        		if(canChangeOrderDetail==1)
+        		/////////////////////////////////////////////////////////////////////////////////////////////////////////////
         		{
+        			countCanDelete++;
 	        		procurement = models.durableArticles.Procurement.find.byId(pc.procurement.id);
 	        		for(DurableArticles subDetail:pc.subDetails)
 	        		{
@@ -2154,7 +2171,13 @@ public class Import extends Controller {
 	        		pc.status = OrderDetailStatus.DELETE;
 	        		pc.update();
         		}
+        		else
+        			countCantDelete++;
         	}
+        	if(countCanDelete>=1)
+        	flash("candelete1","กลุ่มของครุภัณฑ์ในรายการนำเข้าได้ถูกลบไป "+countCanDelete+" รายการ");
+        	if(countCantDelete>=1)
+        	flash("cantdelete1","ไม่สามารถลบกลุ่มของครุภัณฑ์ในรายการนำเข้าได้ "+countCantDelete+" รายการเนื่องจากวัสดุดังกล่าวได้ทำธุรกรรมไปแล้ว");
     	}
     	/////////////////
     	
@@ -2205,12 +2228,29 @@ public class Import extends Controller {
     	if(!json.get("parseData").asText().equals(""))
     	{
         	String[] procumentDetails=json.get("parseData").asText().split(",");    		
-        	
+        	int countCanDelete=0;
+        	int countCantDelete=0;
         	for(int i=0;i<procumentDetails.length;i++)
         	{
         		pc = models.durableGoods.ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
-        		if(pc.status!=OrderDetailStatus.UNCHANGE)
+        	  	//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
+            	List<DurableGoods> dg =  DurableGoods.find.where().eq("detail",pc).findList();
+            	int canChangeOrderDetail=1;
+            	for(DurableGoods d:dg)
+            	{
+            		if(d.status!=SuppliesStatus.NORMAL)
+            		{
+            			if(d.status!=null)
+            			{
+            			canChangeOrderDetail=0;break;
+            			}
+            		}
+            	}
+        		
+            	if(canChangeOrderDetail==1)
+        		//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
         		{
+            		countCanDelete++;
 					if(pc.typeOfDurableGoods==0)//สิ้นเปลือง
 					{
 						MaterialCode mc=MaterialCode.find.byId(pc.code);
@@ -2249,8 +2289,19 @@ public class Import extends Controller {
 	        		}
 	        		pc.status = OrderDetailStatus.DELETE;
 	        		pc.update();
+	        		
         		}
-        	}
+            	else
+            	{
+            		countCantDelete++;
+            	}
+            		
+        	}//end for
+        	if(countCanDelete>=1)
+        	flash("candelete2","กลุ่มของวัสดุในรายการนำเข้าได้ถูกลบไป "+countCanDelete+" รายการ");
+        	if(countCantDelete>=1)
+        	flash("cantdelete2","ไม่สามารถลบกลุ่มของวัสดุในรายการนำเข้าได้ "+countCantDelete+" รายการเนื่องจากวัสดุดังกล่าวได้ทำธุรกรรมไปแล้ว");
+        	
     	}
     	/////////////////
     	
