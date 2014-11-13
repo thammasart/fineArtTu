@@ -392,6 +392,11 @@ function printPage(){
 	$('#printDiv').hide();
 }
 
+$( window ).resize(function() {
+	drawChart();
+});
+
+
 /*
 '<tr>
 <th>ลำดับที่<span class="glyphicon glyphicon-sort"></span></th>
