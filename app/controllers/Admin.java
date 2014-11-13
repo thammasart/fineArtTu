@@ -2,6 +2,7 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
+import play.mvc.Http.RequestBody;
 import play.data.*;
 import play.libs.Json;
 import views.html.*;
@@ -10,6 +11,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class Admin extends Controller {
 
@@ -94,6 +101,33 @@ public class Admin extends Controller {
         return redirect(routes.Admin.index());
     }
     
+    @BodyParser.Of(BodyParser.Json.class)
+    @Security.Authenticated(Secured.class)
+    public static Result editRole(){
+    	User user = User.find.byId(session().get("username"));
+    	if(!user.isPermit(1)){
+    		return ok(permissionDenied.render());
+    	}
+    	RequestBody body = request().body();
+    	JsonNode json = body.asJson();
+    	//JsonNode arrNode = new ObjectMapper().readTree(json.asText()).get("data");
+    	if (json.isArray()) {
+    	    for (JsonNode role : json) {
+    	        UserStatus userStatus = UserStatus.find.byId(role.get("name").asText());
+    	        if(userStatus != null){
+    	        	userStatus.module1 = role.get("module1").asBoolean();
+    	        	userStatus.module2 = role.get("module2").asBoolean();
+    	        	userStatus.module3 = role.get("module3").asBoolean();
+    	        	userStatus.module4 = role.get("module4").asBoolean();
+    	        	userStatus.module5 = role.get("module5").asBoolean();
+    	        	userStatus.module6 = role.get("module6").asBoolean();
+    	        	userStatus.update();
+    	        }
+    	    }
+    	}
+    	return ok("success");
+    }
+    
     public static Result removeRole(){
     	// no handle exception with userStatus that bind with user
     	DynamicForm form = Form.form().bindFromRequest();
@@ -120,4 +154,5 @@ public class Admin extends Controller {
         } else flash("notSelect","please select at least one account");
     	return redirect(routes.Admin.index());
     }
+    
 }

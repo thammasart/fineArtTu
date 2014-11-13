@@ -26,38 +26,38 @@
 				<tbody>
 					<!--   loop here -->
 					@for(userStatus <- usersStatus){
-						<tr>
+						<tr class="role">
 							<th id="@userStatus.name">@userStatus.name</th>
 							<th>@userStatus.numberOfUser.size()</th>
 							@if(userStatus.module1){
-								<th><input type="checkbox" onclick="return false;" checked></th>
+								<th><input type="checkbox" checked></th>
 							}else{
-								<th><input type="checkbox" onclick="return false;"></th>
+								<th><input type="checkbox"></th>
 							}
 							@if(userStatus.module2){
-								<th><input type="checkbox" onclick="return false;" checked></th>
+								<th><input type="checkbox" checked></th>
 							}else{
-								<th><input type="checkbox" onclick="return false;"></th>
+								<th><input type="checkbox"></th>
 							}
 							@if(userStatus.module3){
-								<th><input type="checkbox" onclick="return false;" checked></th>
+								<th><input type="checkbox" checked></th>
 							}else{
-								<th><input type="checkbox" onclick="return false;"></th>
+								<th><input type="checkbox"></th>
 							}
 							@if(userStatus.module4){
-								<th><input type="checkbox" onclick="return false;" checked></th>
+								<th><input type="checkbox" checked></th>
 							}else{
-								<th><input type="checkbox" onclick="return false;"></th>
+								<th><input type="checkbox"></th>
 							}
 							@if(userStatus.module5){
-								<th><input type="checkbox" onclick="return false;" checked></th>
+								<th><input type="checkbox" checked></th>
 							}else{
-								<th><input type="checkbox" onclick="return false;"></th>
+								<th><input type="checkbox"></th>
 							}
 							@if(userStatus.module6){
-								<th><input type="checkbox" onclick="return false;" checked></th>
+								<th><input type="checkbox" checked></th>
 							}else{
-								<th><input type="checkbox" onclick="return false;"></th>
+								<th><input type="checkbox"></th>
 							}
                                                         @if(userStatus.numberOfUser.size()!=0){
                                                             <th><button class="btn btn-default"  disabled>ลบ</button></th>
@@ -84,17 +84,48 @@
 
 	<div align="center" style="margin-bottom: 1%;">
 		<a href="@routes.Admin.index()">
-			<button class="btn btn-danger btn-lg width125px"
-				style="margin-top: 1%; margin-right: 1%;">
+			<button class="btn btn-danger btn-lg width125px" style="margin-top: 1%; margin-right: 1%;">
 				<span class="glyphicon glyphicon-remove"></span> ยกเลิก
 			</button>
-		</a> <a href="@routes.Admin.index()">
-			<button class="btn btn-success btn-lg width125px"
-				style="margin-top: 1%;">
-				ยืนยัน <span class="glyphicon glyphicon-ok"></span>
-			</button>
-		</a>
+		</a> 
+		<button class="btn btn-success btn-lg width125px" style="margin-top: 1%;" onclick="editingRole();">
+			ยืนยัน <span class="glyphicon glyphicon-ok"></span>
+		</button>
 	</div>
+	<script type="text/javascript">
+		function editingRole(){
+			var rows = $('.role');
+			var roles = [];
+			for(var i=0; i<rows.length; i++){
+				var row = rows[i];
+				var columns = $(row).find("th");
+				roles.push({
+					'name': $(columns[0]).text(),
+					'module1': $(columns[2]).find("input").prop('checked'),
+					'module2': $(columns[3]).find("input").prop('checked'),
+					'module3': $(columns[4]).find("input").prop('checked'),
+					'module4': $(columns[5]).find("input").prop('checked'),
+					'module5': $(columns[6]).find("input").prop('checked'),
+					'module6': $(columns[7]).find("input").prop('checked'),
+				});
+			}
+			var result = {
+				"data" : roles	
+			};
+			$.ajax({
+				url: "/Admin/editRole",
+			    type: 'post',
+			    data: JSON.stringify(roles),
+			    contentType: 'application/json',
+			    dataType: 'json',
+			    statusCode:{
+			    	200: function(){
+			 	    	window.location.assign("/Admin");
+			 	    }
+			    }
+			});
+		}
+	</script>
 </div>
 
 @footer()
