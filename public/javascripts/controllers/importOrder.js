@@ -76,7 +76,7 @@ function retriveProcurement(id,tab){
 function disableEditingOn(){
 	$('#isEditingOn').val('false');
 	$('#page2 input').prop('disabled', true);
-	$('#spreadSupply input').prop('disabled', true);
+	$('#spreadSupply :input').prop('disabled', true);
 	$('#spreadSupply select').prop('disabled', true);
 	$('#editBtn2').show();
 }
@@ -167,8 +167,8 @@ function setDetail(id,tab,page){
     			if(isEditing == 'true'){
     				isDisabled = false;
     			}
-    			$('#spreadSupply input').prop('disabled', isDisabled);
-    			$('#spreadSupply select').prop('disabled', isDisabled);
+    			$('#spreadSupply :input').prop('disabled', isDisabled);
+    			//$('#spreadSupply select').prop('disabled', isDisabled);
     		}
     	},
     	statusCode:{

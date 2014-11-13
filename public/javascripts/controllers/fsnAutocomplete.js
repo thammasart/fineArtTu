@@ -141,14 +141,15 @@ function initAutoCompleteNameEo () {
     $(function() {
         $('#'+keyIdEo).autocomplete({
               source: userAll,
-              focus: function(event, ui) {
-                  $("input#"+$(this).attr('id')).val(ui.item.label);
-              },
+              /*focus: function(event, ui) {
+                  //$("input#"+$(this).attr('id')).val(ui.item.label);
+              },*/
               select: function(event, ui) {
                  $("#searchform button").click();
+                 $("input#"+$(this).attr('id')).val(ui.item.label);
                  setTimeout(mapInput($(this).attr('id'),99),200);
                  //setTimeout(mapInput(keyIdEo,99),200);
-              }
+              },
         });
     })
     //console.log("keyEo="+keyIdEo);
@@ -158,11 +159,12 @@ function initAutoCompleteName () {
     $(function() {
         $('#'+keyId).autocomplete({
               source: userAll,
-              focus: function(event, ui) {
+              /*focus: function(event, ui) {
                   $("input#"+$(this).attr('id')).val(ui.item.label);
-              },
+              },*/
               select: function(event, ui) {
                  $("#searchform button").click(); 
+                 $("input#"+$(this).attr('id')).val(ui.item.label);
                  setTimeout(mapInput($(this).attr('id'),88),200);
               }
         });
@@ -177,7 +179,7 @@ function mapEo(j,temp){
 }
         
 function mapInput(id,form){
-    var temp = id[id.length-1];
+    var temp = id.substr(11);
     var type = id[0];
     console.log("temp="+temp+"  type="+type+"  id="+id + " form"+form); 
     var id = document.getElementById(id).value ;
