@@ -2134,12 +2134,12 @@ public class Import extends Controller {
     	ProcurementDetail pc;
     	models.durableArticles.Procurement procurement=null;
     	
+    	int countCanDelete=0;
+    	int countCantDelete=0;
     	
     	if(!json.get("parseData").asText().equals(""))
     	{
         	String[] procumentDetails=json.get("parseData").asText().split(",");    		
-        	int countCanDelete=0;
-        	int countCantDelete=0;
         	for(int i=0;i<procumentDetails.length;i++)
         	{
         		pc = ProcurementDetail.find.byId(Long.parseLong(procumentDetails[i]));
@@ -2174,10 +2174,6 @@ public class Import extends Controller {
         		else
         			countCantDelete++;
         	}
-        	if(countCanDelete>=1)
-        	flash("candelete1","กลุ่มของครุภัณฑ์ในรายการนำเข้าได้ถูกลบไป "+countCanDelete+" รายการ");
-        	if(countCantDelete>=1)
-        	flash("cantdelete1","ไม่สามารถลบกลุ่มของครุภัณฑ์ในรายการนำเข้าได้ "+countCantDelete+" รายการเนื่องจากวัสดุดังกล่าวได้ทำธุรกรรมไปแล้ว");
     	}
     	/////////////////
     	
@@ -2206,6 +2202,14 @@ public class Import extends Controller {
     		}
     		else
     			count++;
+    	}
+    	if(countCanDelete>=1){
+    		result.put("status", "canDelete");
+    		result.put("statusData","กลุ่มของครุภัณฑ์ในรายการนำเข้าได้ถูกลบไป "+countCanDelete+" รายการ");
+    	}
+    	if(countCantDelete>=1){
+    		result.put("status", "cantDelete");
+    		result.put("statusData","ไม่สามารถลบกลุ่มของครุภัณฑ์ในรายการนำเข้าได้ "+countCantDelete+" รายการเนื่องจากวัสดุดังกล่าวได้ทำธุรกรรมไปแล้ว");
     	}
     	result.put("type", "article");
     	result.put("length",(procurementDetails.size()-count));

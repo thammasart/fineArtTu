@@ -188,27 +188,19 @@
             </div>
         </div>
 
-		@if(flash().containsKey("cantChange1")){
-        <div class="alert alert-danger">
-        	 <font size="5">@flash().get("cantChange1")</font> 
+        <div class="alert alert-success" id="flashSuccess" style="display:none;">
+        	 <font size="5" id="innerFlashSuccess"></font> 
 		</div>
-		}
-		@if(flash().containsKey("candelete1")){
-        <div class="alert alert-success">
-        	 <font size="5">@flash().get("candelete1")</font> 
+		
+        <div class="alert alert-danger" id="flashFailed" style="display:none;">
+        	 <font size="5" id="innerFlashFailed"></font> 
 		</div>
-		}
-		@if(flash().containsKey("cantdelete1")){
-        <div class="alert alert-danger">
-        	 <font size="5">@flash().get("cantdelete1")</font> 
-		</div>
-		}
         
            <table class="table table-striped overlayTable">
             <legend>ครุภัณฑ์สำนักงาน</legend>
              <thead>
                 <tr>
-                    <th><input type="checkbox" id="checkAll" onchange="checkAll()"/></th>
+                    <th><input type="checkbox" id="checkAll" onchange="tickAll(2)"/></th>
                     <th>ID<span class="glyphicon glyphicon-sort"></span></th>
                     <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>

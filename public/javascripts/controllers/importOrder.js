@@ -15,6 +15,21 @@ $('document').ready(function(){
 	if(document.getElementById('eo_committee')!=null)createEOCommittee();
 });
 
+function tickAll(tableNum,id){
+	var num = tableNum || 0;
+	var checkAll = id || "checkAll";
+	var check = $("#" + checkAll).prop("checked");
+	var checkLists = $(getTable(num)).find('.checkLists');
+	console.log(checkLists);
+	$.each(checkLists,function(i,field){
+		var isChange = field.checked != check;
+		field.checked = check;
+		if(isChange){
+			field.onchange();
+		}
+	});
+}
+
 $(function () {
     $('#addDate').datetimepicker({
   	  language:'th',
@@ -553,13 +568,21 @@ function removeProcurementDetail(path){
 	    contentType: 'application/json',
 	    dataType: 'json',
     	success: function(result){
+    		if(result["status"] == "canDelete"){
+    			$('#innerFlashSuccess').text(result["statusData"]);
+    			$('#flashSuccess').show();
+    		}else{
+    			$('#innerFlashFaild').text(result["statusData"]);
+    			$('#flashFailed').show();
+    		}
     		if(result["type"] == "article"){
-    			procumentDetailsTick = []
     			loadOrderArticle(result);
     		}else{
-    			procumentDetailsTick = []
     			loadOrderGood(result);
     		}
+    		procumentDetailsTick = [];
+			procumentDetailsTickName = [];
+    		console.log(procumentDetailsTick);
     	}
 	});
 	
@@ -600,7 +623,7 @@ function loadOrderGood(data){
 		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
 		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(isCheckAll(1))"></th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].code +'</th>'+
-		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].description +'</th>'+
+		'                    <th id="delName'+ data['data'][i].id +'" onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
 		'                    <th>'+ data['data'][i].classifier +'</th>'+
 		'                    <th>'+ data['data'][i].price +'</th>'+
