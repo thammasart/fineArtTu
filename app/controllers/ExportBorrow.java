@@ -64,10 +64,16 @@ public class ExportBorrow extends Controller {
             return redirect(routes.Application.home());
         }
         Borrow borrow = Borrow.find.byId(id);
-        if(borrow == null || borrow.status != ExportStatus.INIT){
+        if(borrow == null){
             return redirect(routes.ExportBorrow.exportBorrow());
         }
-        return ok(exportBorrowAdd.render(user, borrow));
+        else if(borrow.status == ExportStatus.INIT){
+            return ok(exportBorrowAdd.render(user, borrow));
+        }
+        else if(borrow.status == ExportStatus.SUCCESS){
+            return redirect(routes.ExportBorrow.viewDetail(id));
+        }
+        return redirect(routes.ExportBorrow.exportBorrow());
     }
 
     @Security.Authenticated(Secured.class)
@@ -99,6 +105,9 @@ public class ExportBorrow extends Controller {
         }
         else if(borrow.status == ExportStatus.BORROW ){
             return ok(exportBorrowViewDetail.render(user, borrow));
+        }
+        else if(borrow.status == ExportStatus.INIT ){
+            return redirect(routes.ExportBorrow.exportBorrowAdd(id));
         }
         return redirect(routes.ExportBorrow.exportBorrow());
     }
@@ -259,10 +268,18 @@ public class ExportBorrow extends Controller {
                     id = Long.parseLong(objNode.toString());
                     DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
                     if(durableArticles != null){
-                        BorrowDetail newDetail = new BorrowDetail();
-                        newDetail.durableArticles = durableArticles;
-                        newDetail.borrow = borrow;
-                        newDetail.save();
+                        List<BorrowDetail> details = BorrowDetail.find.where().eq("borrow",borrow).eq("durableArticles",durableArticles).findList();
+                        if(details.size() == 0){
+                            BorrowDetail newDetail = new BorrowDetail();
+                            newDetail.durableArticles = durableArticles;
+                            newDetail.borrow = borrow;
+                            newDetail.save();
+
+                            if(borrow.status == ExportStatus.BORROW){
+                                durableArticles.status = SuppliesStatus.BORROW;
+                                durableArticles.save();
+                            }
+                        }
                     }
                 }
                 result.put("status", "SUCCESS");
@@ -276,7 +293,6 @@ public class ExportBorrow extends Controller {
             result.put("message", e.getMessage());
             result.put("status", "error");
         }
-
         return ok(result);
     }
 

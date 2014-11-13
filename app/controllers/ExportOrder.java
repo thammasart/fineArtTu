@@ -200,52 +200,48 @@ public class ExportOrder extends Controller {
         try {
             RequestBody body = request().body();
             JsonNode json = body.asJson();
-            RequisitionDetail newDetail = new RequisitionDetail();
             Requisition requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
             if(requisition != null && (requisition.status == ExportStatus.INIT || requisition.status == ExportStatus.SUCCESS)){
+                RequisitionDetail newDetail = new RequisitionDetail();
                 newDetail.requisition = requisition;
+                MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
+                if(code != null){
+                    newDetail.code = code;
+                    int quantity = Integer.parseInt(json.get("quantity").asText());
+                    if(quantity > 0){
+                        newDetail.quantity = quantity;
+                        newDetail.description = json.get("description").asText();
+                        String firstName = json.get("withdrawerNmae").asText();
+                        String lastName = json.get("withdrawerLastname").asText();
+                        String position = json.get("withdrawerPosition").asText();
+                        List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+                        if(withdrawers.size() == 1){
+                            newDetail.withdrawer = withdrawers.get(0);
+                            newDetail.save();
+                            if(requisition.status == ExportStatus.SUCCESS){
+                                code.remain -= quantity;
+                                code.update();
+                            }
+                            result.put("status", "SUCCESS");
+                        }
+                        else{
+                            result.put("message", "ไม่พบผู้เบิก");
+                            result.put("status", "error");
+                        }
+                    }
+                    else{
+                        result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
+                        result.put("status", "error");
+                    }
+                }
+                else{
+                    result.put("message", "หมายเลขวัสดุไม่ถูกต้อง");
+                    result.put("status", "error");
+                }
             }
             else{
                 result.put("message", "ไม่สามารถเพิ่มรายการเบิกใรก ใบเบิก เลขที่" + json.get("requisitionId") + "ได้");
                 result.put("status", "error");
-                return ok(result);
-            }
-            MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
-            if(code != null){
-                newDetail.code = code;
-            }
-            else{
-                result.put("message", "หมายเลขวัสดุไม่ถูกต้อง");
-                result.put("status", "error");
-                return ok(result);
-            }
-            int quantity = Integer.parseInt(json.get("quantity").asText());
-            if(quantity < 0){
-                result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
-                result.put("status", "error");
-                return ok(result);
-            }
-            else{
-                newDetail.quantity = quantity;
-            }
-
-            newDetail.description = json.get("description").asText();
-
-            String firstName = json.get("withdrawerNmae").asText();
-            String lastName = json.get("withdrawerLastname").asText();
-            String position = json.get("withdrawerPosition").asText();
-            List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-            if(withdrawers.size() == 1){
-                newDetail.withdrawer = withdrawers.get(0);
-            }
-            else{
-                result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
-                result.put("status", "error");
-                return ok(result);
-            }
-            if(result.get("status") == null){
-                newDetail.save();
-                result.put("status", "SUCCESS");
             }
         }
         catch(Exception e){
@@ -266,52 +262,51 @@ public class ExportOrder extends Controller {
         try {
             RequestBody body = request().body();
             JsonNode json = body.asJson();
-            RequisitionDetail newDetail = RequisitionDetail.find.byId((new Long(json.get("id").toString())));
+            RequisitionDetail detail = RequisitionDetail.find.byId((new Long(json.get("id").toString())));
             Requisition requisition = Requisition.find.byId(new Long(json.get("requisitionId").toString()));
-            if(newDetail != null && requisition != null && (requisition.status == ExportStatus.INIT || requisition.status == ExportStatus.SUCCESS) ){
-                newDetail.requisition = requisition;
+            if(detail != null && requisition != null && (requisition.status == ExportStatus.INIT || requisition.status == ExportStatus.SUCCESS) ){
+                MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
+                if(code != null){
+                    int quantity = Integer.parseInt(json.get("quantity").asText());
+                    if(requisition.status == ExportStatus.SUCCESS && code.equals(detail.code)){
+                        detail.code.remain += detail.quantity;
+                        detail.code.update();
+                    }
+                    detail.code = code;
+                    if(quantity > 0){
+                        detail.quantity = quantity;
+                        detail.description = json.get("description").asText();
+                        String firstName = json.get("withdrawerNmae").asText();
+                        String lastName = json.get("withdrawerLastname").asText();
+                        String position = json.get("withdrawerPosition").asText();
+                        List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
+                        if(withdrawers.size() == 1){
+                            detail.withdrawer = withdrawers.get(0);
+                            detail.update();
+                            if(requisition.status == ExportStatus.SUCCESS){
+                                code.remain -= quantity;
+                                code.update();
+                            }
+                            result.put("status", "SUCCESS");
+                        }
+                        else{
+                            result.put("message", "ไม่พบผู้เบิก");
+                            result.put("status", "error");
+                        }
+                    }
+                    else{
+                        result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
+                        result.put("status", "error");
+                    }
+                }
+                else{
+                    result.put("message", "หมายเลขวัสดุไม่ถูกต้อง");
+                    result.put("status", "error");
+                }
             }
             else{
                 result.put("message", "ไม่สามารถเพิ่มรายการเบิกใรก ใบเบิก เลขที่ " + json.get("requisitionId") + " ได้");
                 result.put("status", "error");
-                return ok(result);
-            }
-            MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
-            if(code != null){
-                newDetail.code = code;
-            }
-            else{
-                result.put("message", "หมายเลขวัสดุไม่ถูกต้อง");
-                result.put("status", "error");
-                return ok(result);
-            }
-            int quantity = Integer.parseInt(json.get("quantity").asText());
-            if(quantity < 0){
-                result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
-                result.put("status", "error");
-                return ok(result);
-            }
-            else{
-                newDetail.quantity = quantity;
-            }
-
-            newDetail.description = json.get("description").asText();
-
-            String firstName = json.get("withdrawerNmae").asText();
-            String lastName = json.get("withdrawerLastname").asText();
-            String position = json.get("withdrawerPosition").asText();
-            List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-            if(withdrawers.size() == 1){
-                newDetail.withdrawer = withdrawers.get(0);
-            }
-            else{
-                result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
-                result.put("status", "error");
-                return ok(result);
-            }
-            if(result.get("status") == null){
-                newDetail.update();
-                result.put("status", "SUCCESS");
             }
         }
         catch(Exception e){

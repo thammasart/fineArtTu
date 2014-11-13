@@ -315,10 +315,18 @@ public class ExportSold extends Controller {
                     id = Long.parseLong(objNode.toString());
                     DurableArticles durableArticles = DurableArticles.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
                     if(durableArticles != null){
-                        AuctionDetail newDetail = new AuctionDetail();
-                        newDetail.durableArticles = durableArticles;
-                        newDetail.auction = auction;
-                        newDetail.save();
+                        List<AuctionDetail> details = AuctionDetail.find.where().eq("auction",auction).eq("durableArticles",durableArticles).findList();
+                        if(details.size() == 0){
+                            AuctionDetail newDetail = new AuctionDetail();
+                            newDetail.durableArticles = durableArticles;
+                            newDetail.auction = auction;
+                            newDetail.save();
+
+                            if(auction.status == ExportStatus.SUCCESS){
+                                durableArticles.status = SuppliesStatus.AUCTION;
+                                durableArticles.save();
+                            }
+                        }
                     }
                     else{
                         System.out.println(id);

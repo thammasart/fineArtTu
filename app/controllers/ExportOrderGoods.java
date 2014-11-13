@@ -195,37 +195,35 @@ public class ExportOrderGoods extends Controller {
             JsonNode json = body.asJson();
             long id = Long.parseLong(json.get("id").asText());
             OrderGoods order = OrderGoods.find.byId(id);
-
-
-
-
-
             if(order != null){
                 for (final JsonNode objNode : json.get("detail")) {
-                    OrderGoodsDetail newDetail = new OrderGoodsDetail();
                     id = Long.parseLong(objNode.toString());
                     DurableGoods goods = DurableGoods.find.where().eq("id",id).eq("status",SuppliesStatus.NORMAL).findUnique();
                     if(goods != null){
-                        newDetail.department = json.get("department").asText();
-                        newDetail.room = json.get("room").asText();
-                        newDetail.floorLevel = json.get("floorLevel").asText();
-                        newDetail.firstName = json.get("recieveTitle").asText();
-                        newDetail.firstName = json.get("recieveFirstName").asText();
-                        newDetail.lastName = json.get("recieveLastName").asText();
-                        newDetail.position = json.get("recievePosition").asText();
-                        newDetail.goods = goods;
-                        if(order.status == ExportStatus.SUCCESS){
-                            goods.department = newDetail.department;
-                            goods.room = newDetail.room;
-                            goods.floorLevel = newDetail.floorLevel;
-                            goods.firstName = newDetail.firstName;
-                            goods.firstName = newDetail.firstName;
-                            goods.lastName = newDetail.lastName;
-                            goods.status = SuppliesStatus.WITHDRAW;
-                            goods.update();
+                        List<OrderGoodsDetail> details = OrderGoodsDetail.find.where().eq("order",order).eq("goods",goods).findList();
+                        if(details.size() == 0){
+                            OrderGoodsDetail newDetail = new OrderGoodsDetail();
+                            newDetail.department = json.get("department").asText();
+                            newDetail.room = json.get("room").asText();
+                            newDetail.floorLevel = json.get("floorLevel").asText();
+                            newDetail.firstName = json.get("recieveTitle").asText();
+                            newDetail.firstName = json.get("recieveFirstName").asText();
+                            newDetail.lastName = json.get("recieveLastName").asText();
+                            newDetail.position = json.get("recievePosition").asText();
+                            newDetail.goods = goods;
+                            if(order.status == ExportStatus.SUCCESS){
+                                goods.department = newDetail.department;
+                                goods.room = newDetail.room;
+                                goods.floorLevel = newDetail.floorLevel;
+                                goods.firstName = newDetail.firstName;
+                                goods.firstName = newDetail.firstName;
+                                goods.lastName = newDetail.lastName;
+                                goods.status = SuppliesStatus.WITHDRAW;
+                                goods.update();
+                            }
+                            newDetail.order = order;
+                            newDetail.save();
                         }
-                        newDetail.order = order;
-                        newDetail.save();
                     }
                 }
                 result.put("status", "SUCCESS");

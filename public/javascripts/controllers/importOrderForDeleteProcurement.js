@@ -113,7 +113,5 @@ function removeProcurement(type){
 		};
 		postData('/import/removeProcurement',sendData);
 	}
-
-	
 	
 }
