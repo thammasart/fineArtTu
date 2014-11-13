@@ -1,12 +1,25 @@
 .graph-content{
 	width:100%;
-	height:500px;
+	height:80%;
 }
 .graph-container{
 	width:80%;
 	height:100%;
 	background: grey;
 	float:left;
+}
+.rightPane{
+	width:20%;
+	height:100%;
+	float:right;
+}
+.btn-group-vertical{
+	width: 95%;
+}
+.modeBtn{
+	margin-bottom:10% !important;
+	width: 100% !important;
+	font-size: inherit;
 }
 .myBtn{
 	margin-top: 1%;
@@ -39,4 +52,57 @@
 	td:last-child {display:none}
 	th:last-child {display:none}
 	thead {display: table-header-group;}
+}
+
+@media (max-width:1280px) {
+	.graph-content{
+		width:1024px;
+		height:576px;
+	}
+	.graph-container{
+		width:80%;
+		height:100%;
+		background: grey;
+		float:left;
+	}
+	.rightPane{
+		width:200px;
+		height:100%;
+		float:right;
+	}
+	.btn-group-vertical{
+		width: 160px;
+	}
+	.modeBtn{
+		margin-bottom:10% !important;
+		width: 160px !important;
+	}
+	.myBtn{
+		margin-top: 1%;
+		margin-bottom: 1%;
+		background: #e5e5e5;
+		box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.067);
+		display: inline-block;
+	}
+	.myBtn:hover{
+		background: #f0f0f0;
+		text-decoration: none;
+	}
+	.detailLabel{
+		width: 17%;
+	}
+	.detailContent{
+		padding-left: 1%; 
+		width: 60%;
+	}
+	.graphBack{
+		margin-bottom : 1% !important; 
+	}
+	.detailLabel.committee{
+		width: 20%;
+	}
+	.listWindow{
+		width: 1052px;
+		margin-right: 30px;
+	}
 }

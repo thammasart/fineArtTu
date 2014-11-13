@@ -362,7 +362,7 @@ function search(event){
 		state['query'] = $('#search').val();
 		backToTable();
 		getData('table');
-		$('#search').val("");
+		//$('#search').val("");
     }
 };
 
@@ -391,6 +391,11 @@ function printPage(){
 	updateTable();
 	$('#printDiv').hide();
 }
+
+$( window ).resize(function() {
+	drawChart();
+});
+
 
 /*
 '<tr>
