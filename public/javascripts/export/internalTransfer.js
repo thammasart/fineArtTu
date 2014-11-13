@@ -68,11 +68,6 @@ function editDetail(code){
     document.getElementById("edit_lastName").value = detailEdit.newLastName;
     document.getElementById("edit_position").value = detailEdit.newPosition;
     // document.getElementById("edit_description").focus();
-
-	if(document.getElementById("edit_cost")){
-		document.getElementById("edit_cost").value = detailEdit.price;
-		document.getElementById("edit_cost").focus();
-	}
 }
 
 function addNewDetai(code){

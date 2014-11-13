@@ -118,13 +118,7 @@ public class ExportOrderGoods extends Controller {
             for(OrderGoodsDetail detail: order.details){
             	detail.goods.status = SuppliesStatus.WITHDRAW;
                 detail.goods.update();
-                // if(detail.status == ExportStatus.INIT){
-                //     detail.code.remain -= detail.quantity;
-                //     detail.code.update();
-                //     detail.status = ExportStatus.SUCCESS;
-                // }
-                // detail.year = order.approveDate.getYear() + 2443;
-                detail.update();
+                //detail.update();
             }
 
             // updatae status OrderGoods
@@ -169,16 +163,10 @@ public class ExportOrderGoods extends Controller {
                         order.update();
                     }
                     else if(order.status == ExportStatus.SUCCESS){
-                        // update Material remain
                         for(OrderGoodsDetail detail: order.details){
                         	detail.goods.status = SuppliesStatus.NORMAL;
                 			detail.goods.update();
-                            // if(detail.status == ExportStatus.INIT){
-                            //     detail.code.remain += detail.quantity;
-                            //     detail.code.update();
-                            //     detail.status = ExportStatus.DELETE;
-                            // }
-                            detail.update();
+                            //detail.update();
                         }
                         order.status = ExportStatus.DELETE;
                         order.update();
@@ -207,6 +195,11 @@ public class ExportOrderGoods extends Controller {
             JsonNode json = body.asJson();
             long id = Long.parseLong(json.get("id").asText());
             OrderGoods order = OrderGoods.find.byId(id);
+
+
+
+
+
             if(order != null){
                 for (final JsonNode objNode : json.get("detail")) {
                     OrderGoodsDetail newDetail = new OrderGoodsDetail();
@@ -260,44 +253,25 @@ public class ExportOrderGoods extends Controller {
         try {
             RequestBody body = request().body();
             JsonNode json = body.asJson();
-            OrderGoodsDetail newDetail = OrderGoodsDetail.find.byId((new Long(json.get("id").toString())));
-            OrderGoods order = OrderGoods.find.byId(new Long(json.get("requisitionId").toString()));
-            if(newDetail != null && order != null && (order.status == ExportStatus.INIT || order.status == ExportStatus.SUCCESS) ){
-                newDetail.order = order;
-            }
-            else{
-                result.put("message", "ไม่สามารถเพิ่มรายการเบิกใรก ใบเบิก เลขที่ " + json.get("requisitionId") + " ได้");
-                result.put("status", "error");
-                return ok(result);
-            }
-            DurableGoods goods =  DurableGoods.find.where().eq("codes",json.get("code").asText()).findUnique();
-            if(goods != null){
-                newDetail.goods = goods;
-            }
-            else{
-                result.put("message", "หมายเลขวัสดุไม่ถูกต้อง");
-                result.put("status", "error");
-                return ok(result);
-            }
-            
-            newDetail.description = json.get("description").asText();
 
-            String firstName = json.get("withdrawerNmae").asText();
-            String lastName = json.get("withdrawerLastname").asText();
-            String position = json.get("withdrawerPosition").asText();
-            List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-            if(withdrawers.size() == 1){
-                newDetail.withdrawer = withdrawers.get(0);
+            OrderGoods order = OrderGoods.find.byId(new Long(json.get("orderGoodsId").asText()));
+            OrderGoodsDetail detail = OrderGoodsDetail.find.byId((new Long(json.get("id").asText())));
+            if( detail != null && order != null ){
+                detail.department = json.get("department").asText();
+                detail.room = json.get("room").asText();
+                detail.floorLevel = json.get("floorLevel").asText();
+                detail.title = json.get("title").asText();
+                detail.firstName = json.get("firstName").asText();
+                detail.lastName = json.get("lastName").asText();
+                detail.position = json.get("position").asText();
+                detail.update();
             }
             else{
-                result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
+                result.put("message", "cannot find order or detail");
                 result.put("status", "error");
-                return ok(result);
             }
-            if(result.get("status") == null){
-                newDetail.update();
-                result.put("status", "SUCCESS");
-            }
+
+            result.put("status", "SUCCESS");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
@@ -357,9 +331,8 @@ public class ExportOrderGoods extends Controller {
         try { 
             OrderGoods order = OrderGoods.find.byId(id);
             if(order != null){
-                List<OrderGoodsDetail> detail = OrderGoodsDetail.find.all();//OrderGoodsDetail.find.where().eq("order", order).findList();
                 ObjectMapper mapper = new ObjectMapper();
-                String jsonArray = mapper.writeValueAsString(detail);
+                String jsonArray = mapper.writeValueAsString(order.details);
                 json = Json.parse(jsonArray);
                 result.put("details",json);
                 result.put("status", "SUCCESS");
