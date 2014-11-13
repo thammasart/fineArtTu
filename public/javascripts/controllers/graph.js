@@ -90,7 +90,7 @@ function selectionHandler(){
 			getData('column');
 		}else if(state['page']==1){
 			var col = 3;
-			if(state['mode'] == 'transfer' || state['mode'] == 'balance'){
+			if(state['mode'] == 'transfer' || state['mode'] == 'balance' || state['mode'] == 'procurement'){
 				col = 0;
 			}
 			state['page'] = 2;
