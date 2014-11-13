@@ -50,9 +50,6 @@ function retriveProcurement(id,tab){
     				if(j<7){
     					$(field).val(result.ai[i][j]);
     				}
-    				if(j == 0 || j == 1 || j == 2 || j == 3 || j==4){
-    					$(field).prop("disabled",true);
-    				}
     			});
     		}
     		if(tab == 1){
@@ -67,9 +64,6 @@ function retriveProcurement(id,tab){
     					if(j<7){
     						$(field).val(result.eo[i][j]);
     					}
-    					if(j == 0 || j == 1 || j == 2 || j == 3 || j==4){
-        					$(field).prop("disabled",true);
-        				}
     				});
     			}
     			loadOrderArticle(result);
@@ -573,7 +567,7 @@ function loadOrderArticle(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
 		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
-		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(2)" disabled></th>'+
+		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(2)"></th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].id +'</th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].fsn +'</th>'+
 		'                    <th>'+ data['data'][i].description +'</th>'+
@@ -602,7 +596,7 @@ function loadOrderGood(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
 		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
-		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(isCheckAll(1))" disabled></th>'+
+		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(isCheckAll(1))"></th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].code +'</th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
