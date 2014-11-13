@@ -21,6 +21,7 @@
 	}
 	
 	<input id="orderStatus" type="hidden" value="@order.status.name">
+	<input id="getUnchange" type="hidden" value="@order.getUNCHANGE()">
 	
 	<script>
 		function removeDisable1(){
@@ -449,10 +450,10 @@
 </div>
 
 <script>
-	if($('#orderStatus').val() == "SUCCESS" || $('#orderStatus').val() == "UNCHANGE"){
+	if($('#orderStatus').val() == "SUCCESS" || $('#getUnchange').val() == 0){
 		$('#page1 input').prop('disabled', true);
 		$('#page1 select').prop('disabled', true);
-		if($('#orderStatus').val() == "UNCHANGE"){
+		if($('#getUnchange').val() == 0){
 			$('#editBtn1').prop('disabled', true);
 		}
 		
