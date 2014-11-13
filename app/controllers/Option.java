@@ -85,6 +85,16 @@ public class Option extends Controller {
         
         return ok(optionCalculateDepreciate.render(user,ps,year));
     }
+    @Security.Authenticated(Secured.class)
+    public static Result optionCalculatingDepreciatePrint() {
+        DynamicForm f = Form.form().bindFromRequest();
+        String temp = f.get("yearsPrint");
+        int year = Integer.parseInt(temp);
+        
+        List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status",ImportStatus.SUCCESS).findList(); 
+        
+        return ok(optionCalculateDepreciatePrint.render(ps,year));
+    }
 	
 	
 	

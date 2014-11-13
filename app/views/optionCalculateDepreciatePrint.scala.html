@@ -1,64 +1,22 @@
-@(user : User,articleOrders : List[models.durableArticles.Procurement], year : Integer)
+@(articleOrders : List[models.durableArticles.Procurement], year : Integer)
 
-@import java.text.SimpleDateFormat
-@import java.util.Locale
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
 
-@header("optionCalculateDepreciate")
+@header("รายงาน")
 
-@nav(user)
-@headerTag("ระบบคำนวณค่าเสื่อม")
-@sideMenu(user)
-
-
-<div class="listWindow">
-        <div class="tableHeaderBtnContainer">
-            <span style="font-size:25px; float:left;">
-                ระบบคำนวณค่าเสื่อม
-            </span>
-         <form role="form" method="post" action="@routes.Option.optionCalculatingDepreciatePrint()" name="calculatingDepreciateForm">
-            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right" type="submit">
-                พิมพ์รายการค่าเสื่อม
-            </button>
-            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
-                พิมพ์ตารางนี้
-            </button>
-            <input class="form-control" name="yearsPrint" id="yearsPrint" value="@year"type="hidden">
-        </form>
-        </div>
-        <div class="tableHeaderBtnContainer">
-                <div class="searchS">
-                    <div class="form-group">
-                        <div class="input-group">
-                          <span class="input-group-addon">ค้นหา</span>
-                          <input type="text" class="form-control" style="width:250px">
-                        </div>
-                      </div>
-                </div>
-                 <form role="form" method="post" action="@routes.Option.optionCalculatingDepreciate()" name="calculatingDepreciateForm">
-                     <div>
-                        <div style="width:15%; float:right; margin-left:1%;">
-                            <button class="btn btn-success" style="width:100%;" type="submit">คำนวณค่าเสื่อม</button>
-                        </div>
-                        <div class="form-group"style="width:200px;float:right;">
-                           <div class="input-group">
-                               <span class="input-group-addon">ปีที่</span>
-                               <input type="number" class="form-control" id="years" name="years" onchange="mapInput();" onkeypress="validateNumberKey(event);" size="4" maxlength="4" value="@year">
-                        <script>
-                            function mapInput(){
-                                document.getElementById("yearsPrint").value = document.getElementById("years").value;
-                                console.log(document.getElementById("yearsPrint").value +" "+ document.getElementById("years").value);
-                            }
-                        </script>
-                           </div>
-                        </div>
-                    </div>
-                 </form>
-        </div>
-
-        <div class="adminUserinfoTableContainer">
-            <table class="table table-striped overlayTable">
-                
-
+        <div  id="print">
+            <h4 align="center">
+                รายการค่าเสื่อม
+            </h4>
+            <div align="center">
+               ประจำปี @year
+            </div>
+            <table class="table table-bordered" align="center"style="font-size:12px; border-color:black;border:double;">
                 <thead>
                     <tr>
                         <th>ลำดับ</th>
@@ -79,7 +37,7 @@
                 @for((articleOrder,index) <- articleOrders.zipWithIndex){
                         @for((subOrders,index2) <- articleOrder.details.zipWithIndex){
                             <tr>
-                            <th> @{index+1}</th>
+                            <th>@{index+1}</th>
                             <th>@articleOrder.getAddDate()</th>
                             <th>@subOrders.description</th>
                             <th>@subOrders.fsn.descriptionId</th>
@@ -115,8 +73,4 @@
 
 
             </table>
-
         </div> 
-
-</div>
-@footer()

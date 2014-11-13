@@ -9,12 +9,15 @@
 
 <div class="listWindow">
         <div class="tableHeaderBtnContainer">
-            <span style="font-size:25px">
-                ทะเบียนทรัพย์สิน
+            <span style="font-size:25px;float:left;" >
+                ทะเบียนทรัพย์สิน : @article.get(0).detail.fsn.typ.groupClass.classDescription
             </span>
-            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/DurableArticles/print')">
-                พิมพ์วัสดุสิ้นเปลือง
+        <form method="post" name="selectDurableArticleByType" action="@routes.Report.reportDurableArticlesByTypePrint()">
+            <input id="classIdVal" name="classIdVal" type="hidden" value="@article.get(0).detail.fsn.typ.groupClass.classId">
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right" type="submit">
+                พิมพ์ทะเบียนทรัพย์สิน
             </button>
+        </form>
             <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
                 พิมพ์ตารางนี้
             </button>
@@ -60,15 +63,18 @@
                                 <th>@da.detail.procurement.getAddDate()</th>
                                 <th>@da.detail.description</th>
                                 <th>@da.code</th>
-                                <th>@da.detail.quantity</th>
+                                <th id="q@index">@da.detail.quantity</th>
                                 <!--<th>@da.detail.fsn.typ.groupClass.classId</th>-->
-                                <th>@("% .0f".format(da.detail.price))</th>
-                                <th>ราคารวม</th>
+                                <th id="p@index">@("% .0f".format(da.detail.price))</th>
+                                <th id="total@index">ราคารวม</th>
                                 <th>@da.detail.procurement.company.nameEntrepreneur</th>
                                 <th>@da.department</th>
                                 <th>@da.detail.procurement.budgetType</th>
-                                <th>@da.detail.llifeTime ปี</th>
+                                <th>@("% .1f".format(da.detail.llifeTime)) ปี</th>
                             </tr>
+                            <script>
+                                document.getElementById("total@index").innerHTML = document.getElementById("q@index").innerHTML * document.getElementById("p@index").innerHTML;
+                            </script>
                  }
                 </tbody>
             </table>

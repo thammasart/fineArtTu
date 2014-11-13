@@ -13,14 +13,17 @@
 <div class="listWindow">
         <div class="tableHeaderBtnContainer">
             <span style="font-size:25px">
-                ทะเบียนทรัพย์สิน
+                ทะเบียนทรัพย์สิน : สรุป 
             </span>
-            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/DurableArticles/print')">
-                พิมพ์วัสดุสิ้นเปลือง
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink()">
+                พิมพ์ทะเบียนทรัพย์สิน
             </button>
-            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
-                พิมพ์ตารางนี้
-            </button>
+            <script>
+                function printLink(){
+                    var w = window.open(window.location.pathname+"/print");
+                    w.print();
+                }
+            </script>
         </div>
         <div class="tableHeaderBtnContainer">
             <div class="searchS">

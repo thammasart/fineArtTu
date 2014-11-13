@@ -1,4 +1,4 @@
-@(da:List[models.durableArticles.DurableArticles])
+@(da:List[models.durableArticles.DurableArticles],date : String)
 
 <style type="text/css" media="print">
         table { page-break-inside:auto; border:double; }
@@ -13,6 +13,9 @@
             <h3 align="center">
                 สรุปครุภัณฑ์
             </h3>
+            <div align="center">
+                @date
+            </div>
             <table class="table table-bordered" align="center"style="font-size:13px; border-color:black;border:double;">
                 <thead>
                     <tr>

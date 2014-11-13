@@ -1,0 +1,65 @@
+@(date:String ,article : List[models.durableArticles.DurableArticles])
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+
+@header("รายงาน")
+
+        <div onload="printPage()" id="print">
+        <script>
+            window.print();
+        </script>
+            <h4 align="center">
+                ทะเบียนทรัพย์สิน : @article.get(0).detail.fsn.typ.groupClass.classDescription
+            </h4>
+            <div align="center">
+                @date
+            </div>
+            <table class="table table-bordered" align="center"style="font-size:12px; border-color:black;border:double;">
+                <thead>
+                    <tr>
+                    	<th>ลำดับ<span class="glyphicon glyphicon-sort"></span></th>
+                    	<th>ใบรายการ<span class="glyphicon glyphicon-sort"></span></th>
+                    	<th>วัน เดือน ปี<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>รายการ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ทะเบียนครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ราคา<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ราคารวม<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ชื่อร้านค้า<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>ใช้ประจำที่<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>งบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
+                        <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+       			
+                @for((da,index) <- article.zipWithIndex){
+                    <tr>
+                        <th>@{index+1}</th>
+                        <th>@da.detail.procurement.title</th>
+                        <th>@da.detail.procurement.getAddDate()</th>
+                        <th>@da.detail.description</th>
+                        <th>@da.code</th>
+                        <th id="q@index">@da.detail.quantity</th>
+                        <!--<th>@da.detail.fsn.typ.groupClass.classId</th>-->
+                        <th id="p@index">@("% .0f".format(da.detail.price))</th>
+                        <th id="total@index">ราคารวม</th>
+                        <th>@da.detail.procurement.company.nameEntrepreneur</th>
+                        <th>@da.department</th>
+                        <th>@da.detail.procurement.budgetType</th>
+                        <th>@("% .1f".format(da.detail.llifeTime)) ปี</th>
+                        <th></th>
+                    </tr>
+                        <script>
+                            document.getElementById("total@index").innerHTML = document.getElementById("q@index").innerHTML * document.getElementById("p@index").innerHTML;
+                        </script>
+                 }
+                </tbody>
+            </table>
+        </div> 

@@ -10,12 +10,25 @@
             <span style="font-size:25px">
                 รายการโอย้ายอื่นๆ
             </span>
-            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/DurableArticles/print')">
-                พิมพ์วัสดุสิ้นเปลือง
-            </button>
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink()">
+                พิมพ์รายการโอย้ายอื่นๆ      
+          </button>
             <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
                 พิมพ์ตารางนี้
             </button>
+            <script>
+                function printLink(){
+                    var w = window.open(window.location.pathname+"/print");
+                    w.print();
+                }
+                function printTable(){
+                    var divToPrint = document.getElementById("printTable");
+                    newWin= window.open("");
+                    newWin.document.write(divToPrint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                }
+            </script>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
                         <form>

@@ -1,0 +1,66 @@
+@(date:String , repair : List[models.durableArticles.RepairingDetail])
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+
+@header("รายงาน")
+
+        <div  id="print">
+            <h4 align="center">
+                รายการบริจาค
+            </h4>
+            <div align="center">
+                @date
+            </div>
+            <table class="table table-bordered" align="center"style="font-size:12px; border-color:black;border:double;">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">เลขที่ใบซ่อม</th>
+                        <th style="text-align:center">รายการ</th>
+                        <th style="text-align:center">หมายเลขครุภัณฑ์</th>
+                        <th style="text-align:center">หน่วยนับ</th>
+                        <th style="text-align:center">วันที่ส่งซ่อม</th>
+                        <th style="text-align:center">วันที่รับคืน</th>
+                        <th style="text-align:center">ที่เก็บ-เดิม</th>
+                        <th style="text-align:center">ซ่อมที่</th>
+                        <th style="text-align:center">ส่งซ่อมโดย</th>
+                        <th style="text-align:center">ประเภทการชำรุด</th>
+                        <th style="text-align:center">สถาณะปัจจุบัญ</th>
+                        <th style="text-align:center">ราคาซ่อม/รวม</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for((repairs,index)<-repair.zipWithIndex){
+                    <tr id="tr@index">
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@repairs.repairing.number</th>
+                        <th style="text-align:center">@repairs.durableArticles.detail.fsn.descriptionDescription</th>
+                        <th style="text-align:center">@repairs.durableArticles.code</th>
+                        <th style="text-align:center">@repairs.durableArticles.detail.fsn.classifier</th>
+                        <th style="text-align:center">@repairs.repairing.getDateOfSentToRepair()</th>
+                        <th style="text-align:center">@repairs.repairing.getDateOfReceiveFromRepair()</th>
+                        <th style="text-align:center">@repairs.durableArticles.room</th>
+                        <th style="text-align:center">@repairs.repairing.company.nameEntrepreneur</th>
+                        <th style="text-align:center">@repairs.durableArticles.department</th>
+                        <th style="text-align:center">@repairs.description</th>
+                        <th id="rStatus@index" style="text-align:center">@repairs.repairing.status</th>
+                        <th style="text-align:center">@repairs.price</th>
+                        <th></th>
+                    </tr>
+                    <script>
+                        if(document.getElementById("rStatus@index").innerHTML == "SUCCESS"){
+                            document.getElementById("tr@index").style.color = "darkgreen";
+                        }else{
+                            document.getElementById("tr@index").style.color = "darkred";
+                        }
+                    </script>
+                }
+                </tbody>
+            </table>
+        </div> 
