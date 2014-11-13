@@ -54,6 +54,11 @@
         	 <font size="5">@flash().get("notSelect1")</font> 
 		</div>
 		}
+		@if(flash().containsKey("cantChange1")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantChange1")</font> 
+		</div>
+		}
 		
          <table class="table table-striped overlayTable">
                 <thead>
@@ -139,6 +144,11 @@
 		@if(flash().containsKey("notSelect2")){
         <div class="alert alert-danger">
         	 <font size="5">@flash().get("notSelect2")</font> 
+		</div>
+		}
+		@if(flash().containsKey("cantChange2")){
+        <div class="alert alert-danger">
+        	 <font size="5">@flash().get("cantChange2")</font> 
 		</div>
 		}
 

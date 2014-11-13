@@ -21,6 +21,10 @@ var isViewDetail = false;
 var titleInHeader = "เพิ่มรายการเบิกจ่าย";
 
 function addDetailButton(){
+	newDetail = [];
+	destroyTable();
+	document.getElementById("searchResultTable").innerHTML = "";
+	updateTable();
 	document.getElementById("code").value = '';
 	document.getElementById("description").value = '';
 	document.getElementById("addWindows").style.display = "none";
@@ -48,13 +52,22 @@ function editDetail(code){
 		}
 	}
 	detailEdit.id = code;
-	document.getElementById("codeEdit").value = detailEdit.code.code;
-	document.getElementById("groupCodeEdit").value = detailEdit.code.description;
-	document.getElementById("quantityEdit").value = detailEdit.quantity;
-	document.getElementById("descriptionEdit").value = detailEdit.description;
-  	document.getElementById("withdrawerEdit").value = detailEdit.withdrawer.firstName;
-  	document.getElementById("withdrawerLastnameEdit").value = detailEdit.withdrawer.lastName;
-  	document.getElementById("withdrawerPositionEdit").value = detailEdit.withdrawer.position;
+	document.getElementById("edit_fsn_Number").innerHTML = detailEdit.goods.codes;
+    document.getElementById("edit_fsn_description").innerHTML = detailEdit.goods.detail.description;
+    document.getElementById("edit_price").innerHTML = detailEdit.goods.detail.price;
+
+
+    var x  = document.getElementById("edit_sentToDepartment");
+	for (var i = 0; i < x.length; i++) {
+         if(detailEdit.department == x.options[i].value){
+         	x.options[i].selected = "true";
+         }
+    }
+	document.getElementById("edit_room").value = detailEdit.room ;
+    document.getElementById("edit_floorLevel").value = detailEdit.floorLevel;
+    document.getElementById("edit_firstName").value = detailEdit.firstName;
+    document.getElementById("edit_lastName").value = detailEdit.lastName;
+    document.getElementById("edit_position").value = detailEdit.position;
 }
 
 function update(){
@@ -127,8 +140,10 @@ function getDetail(){
 				details = data["details"]; 
 				var arrayLength = details.length;
 				var s = "";
+				oldDetail = [];
 				destroyTable();
 				for (var i = 0; i < arrayLength; i++) {
+					oldDetail.push(details[i].goods.id);
 					s += '<tr id="detailRow' + details[i].id + '">';
 					s += ' <th onclick="addCheckedDetail(' + details[i].id + ')">' +
 					' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
@@ -204,17 +219,17 @@ function saveDetail(){
 }
 
 function saveEditDetail(){
-	detailEdit.code = document.getElementById("codeEdit").value;
-	detailEdit.quantity = document.getElementById("quantityEdit").value;
-	detailEdit.description = document.getElementById("descriptionEdit").value;
-	dataDetail.recieveTitle = '---';//document.getElementById("recieveTitle").value;
-  	detailEdit.withdrawerNmae = document.getElementById("withdrawerEdit").value;
-  	detailEdit.withdrawerLastname = document.getElementById("withdrawerLastnameEdit").value;
-  	detailEdit.withdrawerPosition = document.getElementById("withdrawerPositionEdit").value;
+	detailEdit.department  = document.getElementById("edit_sentToDepartment").value;
+	detailEdit.room  = document.getElementById("edit_room").value;
+    detailEdit.floorLevel = document.getElementById("edit_floorLevel").value;
+   	detailEdit.title = '---';//document.getElementById("recieveTitle").value;
+  	detailEdit.firstName = document.getElementById("edit_firstName").value;
+  	detailEdit.lastName = document.getElementById("edit_lastName").value;
+  	detailEdit.position = document.getElementById("edit_position").value;
   	detailEdit.orderGoodsId = orderGoods.id;
 
 	$.ajax({
-		url:'/export/order/editDetail',
+		url:'/export/orderGoods/editDetail',
 	    type: 'post',
 	    data: JSON.stringify(detailEdit),
 	    contentType: 'application/json',
@@ -237,7 +252,7 @@ function deleteDetail(){
 	dataDetail.id = orderGoods.id;
 	dataDetail.detail = checkedDetail;
 	$.ajax({
-		url:'/export/order/deleteDetail',
+		url:'/export/orderGoods/deleteDetail',
 	    type: 'post',
 	    data: JSON.stringify(dataDetail),
 	    contentType: 'application/json',
