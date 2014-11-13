@@ -94,6 +94,7 @@
                         <th style="text-align:center">ยืมโดย</th>
                         <th style="text-align:center">หมายเหตุการยืม</th>
                         <th style="text-align:center">สถาณะปัจจุบัญ</th>
+                        <th style="display:none">barcode</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -110,6 +111,7 @@
                         <th style="text-align:center">@borrows.borrow.user.firstName</th>
                         <th style="text-align:center">@borrows.description</th>
                         <th id="rStatus@index" style="text-align:center">@borrows.borrow.status</th>
+                        <th style="display:none">@borrows.durableArticles.barCode</th>
                     </tr>
                     <script>
                         if(document.getElementById("rStatus@index").innerHTML == "SUCCESS"){

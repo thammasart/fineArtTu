@@ -52,6 +52,7 @@
                         <th>ใช้ประจำที่<span class="glyphicon glyphicon-sort"></span></th>
                         <th>งบประมาณ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>อายุการใช้งาน<span class="glyphicon glyphicon-sort"></span></th>
+                        <th style="display:none;">barcode</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,6 +72,7 @@
                                 <th>@da.department</th>
                                 <th>@da.detail.procurement.budgetType</th>
                                 <th>@("% .1f".format(da.detail.llifeTime)) ปี</th>
+                                <th style="display:none;">@da.detail.procurement.barCode</th>
                             </tr>
                             <script>
                                 document.getElementById("total@index").innerHTML = document.getElementById("q@index").innerHTML * document.getElementById("p@index").innerHTML;

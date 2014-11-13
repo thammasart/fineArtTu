@@ -98,6 +98,7 @@
                         <th style="text-align:center">ประเภทการชำรุด</th>
                         <th style="text-align:center">สถาณะปัจจุบัญ</th>
                         <th style="text-align:center">ราคาซ่อม/รวม</th>
+                        <th style="display:none">barcode</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -116,6 +117,7 @@
                         <th style="text-align:center">@repairs.description</th>
                         <th id="rStatus@index" style="text-align:center">@repairs.repairing.status</th>
                         <th style="text-align:center">@repairs.price</th>
+                        <th style="display:none">@repairs.durableArticles.barCode</th>
                     </tr>
                     <script>
                         if(document.getElementById("rStatus@index").innerHTML == "SUCCESS"){

@@ -72,6 +72,7 @@
                         <th>ค่าเสื่อมราคาสะสม<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ค่าเสื่อมราคาประจำปี<span class="glyphicon glyphicon-sort"></span></th>
                         <th>มูลค่าสินทรัพย์<span class="glyphicon glyphicon-sort"></span></th>
+                        <th style="display:none">barcode</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,6 +88,7 @@
                             <th>@("%.0f".format(articleOrder.round(subOrders.getSumablePrice(),2)))</th>
                             <th>@subOrders.llifeTime</th>
                             <th>@("%.2f".format(articleOrder.round(subOrders.getAnnualDepricate(),2)))</th> <!-- ค่าเสื่อมต่อปี -->
+                            <th style="display:none;">@subOrders.procurement.barCode</th>
         
                             
                             <!-- ค่าเสือมสะสม -->
