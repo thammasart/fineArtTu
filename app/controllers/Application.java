@@ -58,24 +58,6 @@ public class Application extends Controller {
         else {
             session().clear();
             session("username", userForm.get().username);
-            for(int i=0; i<3; i++){
-    			FSN_Type type = util.DataRandom.getRandomFsnType();
-    			type.save();
-    			FSN_Description d = util.DataRandom.getRandomFsnDescription();
-    			d.save();
-    			models.durableArticles.Procurement pa = util.DataRandom.getRandomArticleProcurement();
-    			pa.save();
-    			models.durableArticles.ProcurementDetail pad = util.DataRandom.getRandomArticleProcurementDetail(pa);
-    			pad.save();
-    			models.durableArticles.DurableArticles da = util.DataRandom.getRandomDurableArticles(pad);
-    			da.save();
-    			models.durableGoods.Procurement pg = util.DataRandom.getRandomGoodsProcurement();
-    			pg.save();
-    			models.durableGoods.ProcurementDetail pgd = util.DataRandom.getRandomGoodsProcurementDetail(pg);
-    			pgd.save();
-    			models.durableGoods.DurableGoods dg = util.DataRandom.getRandomDurableGoods(pgd);
-    			dg.save();
-    		}
             return redirect(routes.Application.home());
         }
     }

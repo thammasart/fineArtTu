@@ -316,7 +316,15 @@ public class Import extends Controller {
 
         newFsn.typ = type;
 
-        newFsn.save();
+
+        if(newFsn==null)
+        {
+        	newFsn.save();
+        }
+        else
+        {
+        	flash("cantChange1","ไม่สามารถเพิ่มหรือแก้ไขรหัส FSN ได้เนื่องจากมีรหัส " + newFsn.descriptionId +" อยู่ในระบบอยู่แล้ว");
+        }
         
         
         ////////////////////////////////////////////////////////////////////////////file
@@ -387,9 +395,16 @@ public class Import extends Controller {
         //System.out.println(code);
         newCode.materialType = MaterialType.find.byId(code);   //connect link
         //newCode.materialType = code[0]+code[1];
-
-        newCode.save();
         
+        if(newCode==null)
+        {
+	        newCode.save();
+        }
+        else
+        {
+        	flash("cantChange2","ไม่สามารถเพิ่มหรือแก้ไขรหัสวัสดุสิ้นเปลืองได้เนื่องจากมีรหัส " + newCode.code +" อยู่ในระบบอยู่แล้ว");
+        }
+
         ////////////////////////////////////////////////////////////////////////////file
         
         MultipartFormData body = request().body().asMultipartFormData();
@@ -421,11 +436,9 @@ public class Import extends Controller {
 				filePart.getFile().renameTo(new File(targetPath));						//save file on your path
 				newCode.fileType = contentType; 
 		        //end write file
-				newCode.update();
-    			
+				newCode.update();	
     		} 
         ////////////////////////////////////////////////////////////////////////////end file
-
         return redirect(routes.Import.importsMaterial2(tab));
     }
     

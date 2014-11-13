@@ -63,11 +63,13 @@ public class Graph extends Controller {
 
     public static Result index() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        if(user.isPermit(5)){
-        	return ok(graph.render(user));
-        }else{
+        if(user == null){
+        	return redirect(routes.Application.index());
+        }
+        if(!user.isPermit(5)){
         	return ok(permissionDenied.render());
         }
+        return ok(graph.render(user));
     }
     
     @BodyParser.Of(BodyParser.Json.class)
@@ -240,7 +242,7 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getDetailHeader(){
+    private static ArrayNode getDetailHeader(String classifier){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	ArrayNode thead = JsonNodeFactory.instance.arrayNode();
     	ObjectNode style = Json.newObject();
@@ -248,7 +250,7 @@ public class Graph extends Controller {
     	ObjectNode annotation = Json.newObject();
     	annotation.put("role", "annotation");
     	thead.add("name");
-    	thead.add("value");
+    	thead.add("จำนวน("+ classifier +")");
     	thead.add(style);
     	thead.add(annotation);
     	result.add(thead);
@@ -300,7 +302,7 @@ public class Graph extends Controller {
     				}else{
     					List<Date> date = getQuarterDate(i);
         				d = getSumBalance(date.get(0), date.get(1));
-    					tr.add("Q"+(i+1));
+    					tr.add("ไตรมาส"+(i+1));
     				}
     				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
     				tr.add(Double.valueOf(String.format("%.2f",d.get(0))));
@@ -377,7 +379,7 @@ public class Graph extends Controller {
     				}else{
     					List<Date> date = getQuarterDate(i);
         				d = getSumProcurement(date.get(0), date.get(1));
-    					tr.add("Q"+(i+1));
+    					tr.add("ไตรมาส"+(i+1));
     				}
     				tr.add(d.get(0));
     				tr.add(d.get(0));
@@ -413,17 +415,17 @@ public class Graph extends Controller {
     		}
     		if(lCol == 1 || lCol == 2){
     			List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
-    			result = getTableProcurementArticle(ps,selectedName);
+    			result = getTableProcurementArticle(ps, selectedName, col);
     		}else if(lCol == 3 || lCol == 4){
     			List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().between("addDate", d.get(0), d.get(1)).eq("status", ImportStatus.SUCCESS).findList();
-    			result = getTableProcurementGoods(ps,selectedName);
+    			result = getTableProcurementGoods(ps, selectedName);
     		}
     	}
     	return result;
     }
     
     private static ArrayNode getRequisition(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = getDetailHeader();
+    	ArrayNode result = getDetailHeader("รายการ");
     	if(row == -1 && col == -1){
     		if(relation.equals("year")){
     			for(int i=3; i>=0; i--){
@@ -452,7 +454,7 @@ public class Graph extends Controller {
     				}else{
     					List<Date> date = getQuarterDate(i);
         				d = getSumRequisition(date.get(0), date.get(1));
-    					tr.add("Q"+(i+1));
+    					tr.add("ไตรมาส"+(i+1));
     				}
     				tr.add(d);
     				tr.add(colors[i]);
@@ -526,7 +528,7 @@ public class Graph extends Controller {
     				}else{
     					List<Date> date = getQuarterDate(i);
         				d = getSumTransfer(date.get(0), date.get(1));
-    					tr.add("Q"+(i+1));
+    					tr.add("ไตรมาส"+(i+1));
     				}
     				tr.add(d.get(0));
     				tr.add(d.get(0));
@@ -623,7 +625,7 @@ public class Graph extends Controller {
     				}else{
     					List<Date> date = getQuarterDate(i);
         				d = getSumRepair(date.get(0), date.get(1));
-    					tr.add("Q"+(i+1));
+    					tr.add("ไตรมาส"+(i+1));
     				}
     				tr.add(d.get(0));
     				tr.add(d.get(0));
@@ -704,7 +706,7 @@ public class Graph extends Controller {
     				}else{
     					List<Date> date = getQuarterDate(i);
         				d = getSumRepair(date.get(0), date.get(1));
-    					tr.add("Q"+(i+1));
+    					tr.add("ไตรมาส"+(i+1));
     				}
     				tr.add(d.get(0));
     				tr.add(d.get(0));
@@ -751,7 +753,7 @@ public class Graph extends Controller {
 	}
 
 	private static ArrayNode getRemain(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = getDetailHeader();
+    	ArrayNode result = getDetailHeader("ชิ้น");
     	if(row == -1 && col == -1){
     		if(relation.equals("year")){
     			for(int i=3; i>=0; i--){
@@ -780,7 +782,7 @@ public class Graph extends Controller {
     				}else{
     					List<Date> date = getQuarterDate(i);
         				d = getSumRequisition(date.get(0), date.get(1));
-    					tr.add("Q"+(i+1));
+    					tr.add("ไตรมาส"+(i+1));
     				}
     				tr.add(d);
     				tr.add(colors[i]);
@@ -975,7 +977,7 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailBalanceMapGoods(List<models.durableGoods.Procurement> ps){
-    	ArrayNode result = getDetailHeader();
+    	ArrayNode result = getDetailHeader("ชิ้น");
     	HashMap<String,Double> listResult = new HashMap<String,Double>();
 		for(models.durableGoods.Procurement p : ps){
 			for(models.durableGoods.ProcurementDetail pd : p.details){
@@ -1017,28 +1019,67 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailProcurementMapArticle(List<models.durableArticles.Procurement> ps){
-    	ArrayNode result = getDetailHeader();
-    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	ArrayList<String> columns = new ArrayList<String>();
+		columns.add("ละคอน");
+		columns.add("พัสตราภรณ์");
+		columns.add("อุตสาหกรรม");
+		columns.add("อื่นๆ");
+    	ArrayNode result = ps.size() > 0 ? getDetailHeader(columns) : JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer[]> listResult = new HashMap<String,Integer[]>();
 		for(models.durableArticles.Procurement p : ps){
 			for(models.durableArticles.ProcurementDetail pd : p.details){
 				String key = pd.fsn.typ.groupClass.group.groupDescription;
-				Integer value = listResult.get(key);
-				if(value == null){
-					if(pd.quantity != 0){
-						listResult.put(key, pd.quantity);
+				for(DurableArticles d : pd.subDetails){
+					Integer[] value = listResult.get(key);
+					if(d.department != null){
+						if(d.department.equals("สาขาวิชาการละคอน")){
+							if(value == null){
+								listResult.put(key, new Integer[] {1, 0, 0, 0});
+							}else{
+								value = listResult.get(key);
+								value[0] = listResult.get(key)[0] + 1;
+								listResult.put(key, value);
+							}
+						}else if(d.department.equals("สาขาวิชาศิลปะการออกแบบพัสตราภรณ์")){
+							if(value == null){
+								listResult.put(key, new Integer[] {0, 1, 0, 0});
+							}else{
+								value = listResult.get(key);
+								value[1] = listResult.get(key)[1] + 1;
+								listResult.put(key, value);
+							}
+						}else if(d.department.equals("สาขาวิชาศิลปะการออกแบบอุตสาหกรรม")){
+							if(value == null){
+								listResult.put(key, new Integer[] {0, 0, 1, 0});
+							}else{
+								value = listResult.get(key);
+								value[2] = listResult.get(key)[2] + 1;
+								listResult.put(key, value);
+							}
+						}else{
+							if(value == null){
+								listResult.put(key, new Integer[] {0, 0, 0, 1});
+							}else{
+								value = listResult.get(key);
+								value[3] = listResult.get(key)[3] + 1;
+								listResult.put(key, value);
+							}
+						}
+						
 					}
-				}else{
-					listResult.put(key, listResult.get(key) + (pd.quantity));
 				}
 			}
 		}
-		int i=0;
 		for (String key : listResult.keySet()) {
 			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
 			tr.add(key);
-			tr.add(Integer.valueOf(listResult.get(key)));
-			tr.add(colors[i++]);
-			tr.add(key);
+			tr.add(listResult.get(key)[0]);
+			tr.add(listResult.get(key)[1]);
+			tr.add(listResult.get(key)[2]);
+			tr.add(listResult.get(key)[3]);
+			//tr.add(listResult.get(key));
+			//tr.add(colors[i++]);
+			//tr.add(key);
 			result.add(tr);
 		}
 		if(result.size() <= 1){
@@ -1048,7 +1089,7 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailProcurementMapGoods(List<models.durableGoods.Procurement> ps){
-    	ArrayNode result = getDetailHeader();
+    	ArrayNode result = getDetailHeader("ชิ้น");
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
 		for(models.durableGoods.Procurement p : ps){
 			for(models.durableGoods.ProcurementDetail pd : p.details){
@@ -1088,7 +1129,7 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailRequisitionMap(List<Requisition> rs){
-    	ArrayNode result = getDetailHeader();
+    	ArrayNode result = getDetailHeader("ชิ้น");
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
     	for(Requisition r : rs){
     		for(RequisitionDetail rd : r.details){
@@ -1119,7 +1160,7 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getDetailInternalTranfersMap(List<InternalTransfer> rs) {
-		ArrayNode result = getDetailHeader();
+		ArrayNode result = getDetailHeader("ชิ้น");
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
     	for(InternalTransfer r : rs){
     		for(InternalTransferDetail rd : r.detail){
@@ -1148,7 +1189,7 @@ public class Graph extends Controller {
 	}
     
     private static ArrayNode getDetailAuctionTranfersMap(List<Auction> rs) {
-		ArrayNode result = getDetailHeader();
+		ArrayNode result = getDetailHeader("ชิ้น");
 		HashMap<String, Integer> listResult = new HashMap<String,Integer>();
 		for(Auction r : rs){
 			for(AuctionDetail rd : r.detail){
@@ -1177,7 +1218,7 @@ public class Graph extends Controller {
 	}
 
 	private static ArrayNode getDetailDonationTranfersMap(List<Donation> rs) {
-		ArrayNode result = getDetailHeader();
+		ArrayNode result = getDetailHeader("ชิ้น");
 		HashMap<String, Integer> listResult = new HashMap<String,Integer>();
 		for(Donation r : rs){
 			for(DonationDetail rd : r.detail){
@@ -1206,7 +1247,7 @@ public class Graph extends Controller {
 	}
 
 	private static ArrayNode getDetailOtherTranfersMap(List<OtherTransfer> rs) {
-		ArrayNode result = getDetailHeader();
+		ArrayNode result = getDetailHeader("ชิ้น");
 		HashMap<String, Integer> listResult = new HashMap<String,Integer>();
 		for(OtherTransfer r : rs){
 			for(OtherTransferDetail rd : r.detail){
@@ -1235,7 +1276,7 @@ public class Graph extends Controller {
 	}
 
 	private static ArrayNode getDetailRepairingMap(List<Repairing> rs) {
-		ArrayNode result =  getDetailHeader();
+		ArrayNode result =  getDetailHeader("ชิ้น");
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
     	for(Repairing r : rs){
     		for(RepairingDetail rd : r.detail){
@@ -1264,7 +1305,7 @@ public class Graph extends Controller {
 	}
 
 	private static ArrayNode getDetailBorrowMap(List<models.durableArticles.Borrow> bs) {
-		ArrayNode result = getDetailHeader();
+		ArrayNode result = getDetailHeader("ชิ้น");
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
     	for(models.durableArticles.Borrow b : bs){
     		for(models.durableArticles.BorrowDetail bd : b.detail){
@@ -1293,26 +1334,28 @@ public class Graph extends Controller {
 	}
 
 	private static ArrayNode getDetailRemainMap(List<models.durableGoods.ProcurementDetail> ps, List<Requisition> rs) {
-		ArrayNode result = ps.size() > 0 ? getDetailHeader() : JsonNodeFactory.instance.arrayNode();
+		ArrayNode result = getDetailHeader("ชิ้น");
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
 		for(models.durableGoods.ProcurementDetail pd : ps){
-			String key = "";
-			Integer value = null;
-			if(pd.typeOfDurableGoods == 1){
-				FSN_Description fsn = FSN_Description.find.byId(pd.code);
-				key = fsn.typ.groupClass.group.groupDescription;
-				value = listResult.get(key);
-			}else{
-				MaterialCode c = MaterialCode.find.byId(pd.code);
-				key = c.materialType.typeName;
-				value = listResult.get(key);
-			}
-			if(value == null){
-				if(pd.quantity != 0){
-					listResult.put(key, pd.quantity);
+			for(models.durableGoods.DurableGoods d : pd.subDetails){
+				String key = "";
+				Integer value = null;
+				if(pd.typeOfDurableGoods == 1){
+					FSN_Description fsn = FSN_Description.find.byId(pd.code);
+					key = fsn.typ.groupClass.group.groupDescription;
+					value = listResult.get(key);
+				}else{
+					MaterialCode c = MaterialCode.find.byId(pd.code);
+					key = c.materialType.typeName;
+					value = listResult.get(key);
 				}
-			}else{
-				listResult.put(key, listResult.get(key) + pd.quantity);
+				if(value == null){
+					if(pd.quantity != 0){
+						listResult.put(key, 1);
+					}
+				}else{
+					listResult.put(key, listResult.get(key) + 1);
+				}
 			}
 		}
     	for(Requisition r : rs){
@@ -1442,23 +1485,27 @@ public class Graph extends Controller {
     	return result;
     }
     
-    private static ArrayNode getTableProcurementArticle(List<models.durableArticles.Procurement> ps, String selectedName){
+    private static ArrayNode getTableProcurementArticle(List<models.durableArticles.Procurement> ps, String selectedName, int col){
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
 		for(models.durableArticles.Procurement p : ps){
 			for(models.durableArticles.ProcurementDetail pd : p.details){
-				if(pd.fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
-					String key = pd.fsn.descriptionDescription;
-					Integer value = listResult.get(key);
-					if(value == null){
-						if(pd.quantity != 0){
-							listResult.put(key, pd.quantity);
-							ids.put(key,""+pd.id);
+				for(DurableArticles d : pd.subDetails){
+					if(department[col-1].equals(d.department)){
+						if(pd.fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
+							String key = pd.fsn.descriptionDescription;
+							Integer value = listResult.get(key);
+							if(value == null){
+								if(pd.quantity != 0){
+									listResult.put(key, 1);
+									ids.put(key,""+d.id);
+								}
+							}else{
+								listResult.put(key, listResult.get(key) + 1);
+								ids.put(key,ids.get(key)+","+d.id);
+							}
 						}
-					}else{
-						listResult.put(key, listResult.get(key) + pd.quantity);
-						ids.put(key,ids.get(key)+","+pd.id);
 					}
 				}
 			}
@@ -1884,21 +1931,22 @@ public class Graph extends Controller {
 			DurableArticles d = DurableArticles.find.byId(Long.valueOf(id));
 			models.durableArticles.ProcurementDetail pd = d.detail;
 			result += "<div class=\"well\">";
-			result += getDetailLabel("checkDate", d.detail.procurement.title);
-			result += getDetailLabel("contractNo", d.detail.procurement.contractNo);
-			result += getDetailLabel("budgetType", d.detail.procurement.budgetType);
-			result += getDetailLabel("addDate", d.detail.procurement.getAddDate());
-			result += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
-			result += getDetailLabel("description", pd.description);
-			result += getDetailLabel("alertTime", String.valueOf(pd.alertTime));
-			result += getDetailLabel("brand", pd.brand);
-			result += getDetailLabel("price", String.valueOf(pd.price));
-			result += getDetailLabel("phone", pd.phone);
-			result += getDetailLabel("quantity", String.valueOf(pd.quantity));
-			result += getDetailLabel("seller", pd.seller);
-			result += getDetailLabel("serialNumber", pd.serialNumber);
-			result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
-			result += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ d.detail.fsn.path + "\">");
+			result += getDetailLabel("ชื่อใบรายการ", d.detail.procurement.title);
+			result += getDetailLabel("หมายเลขใบรายการ", d.detail.procurement.contractNo);
+			result += getDetailLabel("ประเภทงบประมาณ", d.detail.procurement.budgetType);
+			result += getDetailLabel("ปีงบประมาณ", String.valueOf(d.detail.procurement.budgetYear));
+			result += getDetailLabel("วันที่นำเข้า", d.detail.procurement.getAddDate());
+			result += getDetailLabel("วันที่ตรวจรับ", d.detail.procurement.getCheckDate());
+			result += getDetailLabel("ชื่อพัสดุ", pd.description);
+			result += getDetailLabel("ราคารวมภาษี", String.valueOf(pd.price));
+			result += getDetailLabel("ราคา", String.valueOf(pd.priceNoVat));
+			result += getDetailLabel("จำนวนนำเข้า", String.valueOf(pd.quantity));
+			result += getDetailLabel("อายุการใช้งาน", String.valueOf(pd.llifeTime));
+			result += getDetailLabel("ผู้ขาย", pd.seller);
+			result += getDetailLabel("เบอร์โทรศัพท์", pd.phone);
+			result += getDetailLabel("ยี่ห้อ", pd.brand);
+			result += getDetailLabel("หมายเลขเครื่อง", pd.serialNumber);
+			result += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/"+ d.detail.fsn.path + "\">");
 			String expandable = "";
 			for(models.durableArticles.EO_Committee eo : pd.procurement.eoCommittee){
 				if(eo.committee != null){
@@ -1948,22 +1996,22 @@ public class Graph extends Controller {
 					fsn = FSN_Description.find.byId(d.detail.code);
 				}
 				result += "<div class=\"well\">";
-				result += getDetailLabel("checkDate", d.detail.procurement.title);
-				result += getDetailLabel("contractNo", d.detail.procurement.contractNo);
-				result += getDetailLabel("budgetType", d.detail.procurement.budgetType);
-				result += getDetailLabel("addDate", d.detail.procurement.getAddDate());
-				result += getDetailLabel("checkDate", d.detail.procurement.getCheckDate());
-				result += getDetailLabel("description", pd.description);
-				result += getDetailLabel("remain", String.valueOf(pd.remain));
-				result += getDetailLabel("brand", pd.brand);
-				result += getDetailLabel("price", String.valueOf(pd.price));
-				result += getDetailLabel("phone", pd.phone);
-				result += getDetailLabel("quantity", String.valueOf(pd.quantity));
-				result += getDetailLabel("seller", pd.seller);
-				result += getDetailLabel("serialNumber", pd.serialNumber);
-				result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
+				result += getDetailLabel("ชื่อใบรายการ", d.detail.procurement.title);
+				result += getDetailLabel("หมายเลขใบรายการ", d.detail.procurement.contractNo);
+				result += getDetailLabel("ประเภทงบประมาณ", d.detail.procurement.budgetType);
+				result += getDetailLabel("ปีงบประมาณ", String.valueOf(d.detail.procurement.budgetYear));
+				result += getDetailLabel("วันที่นำเข้า", d.detail.procurement.getAddDate());
+				result += getDetailLabel("วันที่ตรวจรับ", d.detail.procurement.getCheckDate());
+				result += getDetailLabel("ชื่อพัสดุ", pd.description);
+				result += getDetailLabel("ราคารวมภาษี", String.valueOf(pd.price));
+				result += getDetailLabel("ราคา", String.valueOf(pd.priceNoVat));
+				result += getDetailLabel("จำนวนนำเข้า", String.valueOf(pd.quantity));
+				result += getDetailLabel("ผู้ขาย", pd.seller);
+				result += getDetailLabel("เบอร์โทรศัพท์", pd.phone);
+				result += getDetailLabel("ยี่ห้อ", pd.brand);
+				result += getDetailLabel("หมายเลขเครื่อง", pd.serialNumber);
 				String path = d.typeOfDurableGoods == 0 ? m.path: fsn.path;
-				result += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
+				result += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
 				String expandable = "";
 				for(;i<ids.length;i++){
 					id = ids[i];
@@ -1991,11 +2039,12 @@ public class Graph extends Controller {
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(models.durableArticles.Procurement p : ps){
 			result += "<div class=\"well\">";
-			result += getDetailLabel("checkDate", p.title);
-			result += getDetailLabel("contractNo", p.contractNo);
-			result += getDetailLabel("budgetType", p.budgetType);
-			result += getDetailLabel("addDate", p.getAddDate());
-			result += getDetailLabel("checkDate", p.getCheckDate());
+			result += getDetailLabel("ชื่อใบรายการ", p.title);
+			result += getDetailLabel("หมายเลขใบรายการ", p.contractNo);
+			result += getDetailLabel("ประเภทงบประมาณ", p.budgetType);
+			result += getDetailLabel("ปีงบประมาณ", String.valueOf(p.budgetYear));
+			result += getDetailLabel("วันที่นำเข้า", p.getAddDate());
+			result += getDetailLabel("วันที่ตรวจรับ", p.getCheckDate());
 			String expandable = "";
 			for(models.durableArticles.EO_Committee eo : p.eoCommittee){
 				if(eo.committee != null){
@@ -2014,17 +2063,17 @@ public class Graph extends Controller {
 			
 			for(models.durableArticles.ProcurementDetail pd : p.details){
 				expandable = "";
-				expandable += getDetailLabel("description", pd.description);
-				expandable += getDetailLabel("alertTime", String.valueOf(pd.alertTime));
-				expandable += getDetailLabel("brand", pd.brand);
-				expandable += getDetailLabel("price", String.valueOf(pd.price));
-				expandable += getDetailLabel("phone", pd.phone);
-				expandable += getDetailLabel("quantity", String.valueOf(pd.quantity));
-				expandable += getDetailLabel("seller", pd.seller);
-				expandable += getDetailLabel("serialNumber", pd.serialNumber);
-				expandable += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
-				expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\">");
-				result += getExpandableHTML("รายละเอียดเพิ่มเติม" + pd.fsn.descriptionDescription, expandable);
+				expandable += getDetailLabel("ชื่อพัสดุ", pd.description);
+				expandable += getDetailLabel("จำนวนนำเข้า", String.valueOf(pd.quantity));
+				expandable += getDetailLabel("อายุการใช้งาน", String.valueOf(pd.llifeTime));
+				expandable += getDetailLabel("ราคารวมภาษี", String.valueOf(pd.priceNoVat));
+				expandable += getDetailLabel("ราคา", String.valueOf(pd.price));
+				expandable += getDetailLabel("ผู้ขาย", pd.seller);
+				expandable += getDetailLabel("เบอร์โทรศัพท์", pd.phone);
+				expandable += getDetailLabel("ยี่ห้อ", pd.brand);
+				expandable += getDetailLabel("หมายเลขเครื่อง", pd.serialNumber);
+				expandable += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\">");
+				result += getExpandableHTML("รายละเอียดเพิ่มเติม (" + pd.fsn.descriptionDescription + ")", expandable);
 			}
 			result += "</div>";
 		}
@@ -2035,27 +2084,27 @@ public class Graph extends Controller {
 	private static String getProcurementArticleHTML(String[] ids) {
 		String result = "<div>";
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
-		models.durableArticles.Procurement p = null; 
 		for(int i=0; i<ids.length; i++){
 			String id = ids[i];
-			models.durableArticles.ProcurementDetail pd = models.durableArticles.ProcurementDetail.find.byId(Long.valueOf(id));
-			p = pd.procurement;
+			DurableArticles d = DurableArticles.find.byId(Long.valueOf(id));
+			models.durableArticles.ProcurementDetail pd = d.detail;
 			result += "<div class=\"well\">";
-			result += getDetailLabel("title", p.title);
-			result += getDetailLabel("contractNo", p.contractNo);
-			result += getDetailLabel("budgetType", p.budgetType);
-			result += getDetailLabel("addDate", p.getAddDate());
-			result += getDetailLabel("checkDate", p.getCheckDate());
-			result += getDetailLabel("description", pd.description);
-			result += getDetailLabel("alertTime", String.valueOf(pd.alertTime));
-			result += getDetailLabel("brand", pd.brand);
-			result += getDetailLabel("price", String.valueOf(pd.price));
-			result += getDetailLabel("phone", pd.phone);
-			result += getDetailLabel("quantity", String.valueOf(pd.quantity));
-			result += getDetailLabel("seller", pd.seller);
-			result += getDetailLabel("serialNumber", pd.serialNumber);
-			result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
-			result += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ pd.fsn.path + "\">");
+			result += getDetailLabel("ชื่อใบรายการ", d.detail.procurement.title);
+			result += getDetailLabel("หมายเลขใบรายการ", d.detail.procurement.contractNo);
+			result += getDetailLabel("ประเภทงบประมาณ", d.detail.procurement.budgetType);
+			result += getDetailLabel("ปีงบประมาณ", String.valueOf(d.detail.procurement.budgetYear));
+			result += getDetailLabel("วันที่นำเข้า", d.detail.procurement.getAddDate());
+			result += getDetailLabel("วันที่ตรวจรับ", d.detail.procurement.getCheckDate());
+			result += getDetailLabel("ชื่อพัสดุ", pd.description);
+			result += getDetailLabel("ราคารวมภาษี", String.valueOf(pd.price));
+			result += getDetailLabel("ราคา", String.valueOf(pd.priceNoVat));
+			result += getDetailLabel("จำนวนนำเข้า", String.valueOf(pd.quantity));
+			result += getDetailLabel("อายุการใช้งาน", String.valueOf(pd.llifeTime));
+			result += getDetailLabel("ผู้ขาย", pd.seller);
+			result += getDetailLabel("เบอร์โทรศัพท์", pd.phone);
+			result += getDetailLabel("ยี่ห้อ", pd.brand);
+			result += getDetailLabel("หมายเลขเครื่อง", pd.serialNumber);
+			result += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/"+ d.detail.fsn.path + "\">");
 			String expandable = "";
 			for(models.durableArticles.EO_Committee eo : pd.procurement.eoCommittee){
 				if(eo.committee != null){
@@ -2072,8 +2121,15 @@ public class Graph extends Controller {
 			}
 			result += getExpandableHTML("คณะกรรมการตรวจรับ", expandable);
 			String newDetail = "";
-			for(DurableArticles d : pd.subDetails){
-				newDetail += getDetailLabel("หมายเลขพัสดุ", d.code);
+			for(;i<ids.length;i++){
+				id = ids[i];
+				d = DurableArticles.find.byId(Long.valueOf(id));
+				if(d.detail.equals(pd)){
+					newDetail += getDetailLabel("หมายเลขพัสดุ", d.code);
+				}else{
+					i--;
+					break;
+				}
 			}
 			result += getExpandableHTML("รายละเอียดครุภัณฑ์", newDetail);
 			result += "</div>";
@@ -2088,12 +2144,12 @@ public class Graph extends Controller {
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(models.durableGoods.Procurement p : ps){
 			result += "<div class=\"well\">";
-			result += getDetailLabel("checkDate", p.title);
-			result += getDetailLabel("contractNo", p.contractNo);
-			result += getDetailLabel("budgetType", p.budgetType);
-			result += getDetailLabel("addDate", p.getAddDate());
-			result += getDetailLabel("checkDate", p.getCheckDate());
-			result += getDetailLabel("status", p.status.name());
+			result += getDetailLabel("ชื่อใบรายการ", p.title);
+			result += getDetailLabel("หมายเลขใบรายการ", p.contractNo);
+			result += getDetailLabel("ประเภทงบประมาณ", p.budgetType);
+			result += getDetailLabel("ปีงบประมาณ", String.valueOf(p.budgetYear));
+			result += getDetailLabel("วันที่นำเข้า", p.getAddDate());
+			result += getDetailLabel("วันที่ตรวจรับ", p.getCheckDate());
 			String expandable = "";
 			
 			expandable = "";
@@ -2108,22 +2164,22 @@ public class Graph extends Controller {
 					
 			for(models.durableGoods.ProcurementDetail pd : p.details){
 				expandable = "";
-				expandable += getDetailLabel("description", pd.description);
-				expandable += getDetailLabel("remain", String.valueOf(pd.remain));
-				expandable += getDetailLabel("brand", pd.brand);
-				expandable += getDetailLabel("price", String.valueOf(pd.price));
-				expandable += getDetailLabel("phone", pd.phone);
-				expandable += getDetailLabel("quantity", String.valueOf(pd.quantity));
-				expandable += getDetailLabel("seller", pd.seller);
-				expandable += getDetailLabel("serialNumber", pd.serialNumber);
-				expandable += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
+				expandable += getDetailLabel("ชื่อพัสดุ", pd.description);
+				expandable += getDetailLabel("จำนวนคงเหลือ", String.valueOf(pd.remain));
+				expandable += getDetailLabel("ราคารวมภาษี", String.valueOf(pd.priceNoVat));
+				expandable += getDetailLabel("ราคา", String.valueOf(pd.price));
+				expandable += getDetailLabel("ยี่ห้อ", pd.brand);
+				expandable += getDetailLabel("เบอร์โทรศัพท์", pd.phone);
+				expandable += getDetailLabel("จำนวน", String.valueOf(pd.quantity));
+				expandable += getDetailLabel("ผู้ขาย", pd.seller);
+				expandable += getDetailLabel("หมายเลขเครื่อง", pd.serialNumber);
 				if(pd.typeOfDurableGoods == 0){
 					m = MaterialCode.find.byId(pd.code);
-					expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ m.path + "\">");
+					expandable += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/"+ m.path + "\">");
 					result += getExpandableHTML("รายละเอียดเพิ่มเติม" + m.description , expandable);
 				}else{
 					fsn = FSN_Description.find.byId(pd.code);
-					expandable += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/"+ fsn.path + "\">");
+					expandable += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/"+ fsn.path + "\">");
 					result += getExpandableHTML("รายละเอียดเพิ่มเติม" + fsn.descriptionDescription , expandable);
 				}
 			}
@@ -2139,6 +2195,7 @@ public class Graph extends Controller {
 		for(int i=0; i<ids.length; i++){
 			String id = ids[i];
 			models.durableGoods.ProcurementDetail pd = models.durableGoods.ProcurementDetail.find.byId(Long.valueOf(id));
+			models.durableGoods.Procurement p = pd.procurement;
 			MaterialCode m = null;
 			FSN_Description fsn = null;
 			if(pd!=null){
@@ -2149,22 +2206,22 @@ public class Graph extends Controller {
 				}
 
 				result += "<div class=\"well\">";
-				result += getDetailLabel("checkDate", pd.procurement.title);
-				result += getDetailLabel("contractNo", pd.procurement.contractNo);
-				result += getDetailLabel("budgetType", pd.procurement.budgetType);
-				result += getDetailLabel("addDate", pd.procurement.getAddDate());
-				result += getDetailLabel("checkDate", pd.procurement.getCheckDate());
-				result += getDetailLabel("description", pd.description);
-				result += getDetailLabel("remain", String.valueOf(pd.remain));
-				result += getDetailLabel("brand", pd.brand);
-				result += getDetailLabel("price", String.valueOf(pd.price));
-				result += getDetailLabel("phone", pd.phone);
-				result += getDetailLabel("quantity", String.valueOf(pd.quantity));
-				result += getDetailLabel("seller", pd.seller);
-				result += getDetailLabel("serialNumber", pd.serialNumber);
-				result += getDetailLabel("priceNoVat", String.valueOf(pd.priceNoVat));
+				result += getDetailLabel("ชื่อใบรายการ", p.title);
+				result += getDetailLabel("หมายเลขใบรายการ", p.contractNo);
+				result += getDetailLabel("ประเภทงบประมาณ", p.budgetType);
+				result += getDetailLabel("ปีงบประมาณ", String.valueOf(p.budgetYear));
+				result += getDetailLabel("วันที่นำเข้า", p.getAddDate());
+				result += getDetailLabel("วันที่ตรวจรับ", p.getCheckDate());
+				result += getDetailLabel("ชื่อพัสดุ", pd.description);
+				result += getDetailLabel("ราคารวมภาษี", String.valueOf(pd.price));
+				result += getDetailLabel("ราคา", String.valueOf(pd.priceNoVat));
+				result += getDetailLabel("จำนวนนำเข้า", String.valueOf(pd.quantity));
+				result += getDetailLabel("ผู้ขาย", pd.seller);
+				result += getDetailLabel("เบอร์โทรศัพท์", pd.phone);
+				result += getDetailLabel("ยี่ห้อ", pd.brand);
+				result += getDetailLabel("หมายเลขเครื่อง", pd.serialNumber);
 				String path = pd.typeOfDurableGoods == 0 ? m.path: fsn.path;
-				result += getDetailLabel("pic","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
+				result += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
 				String expandable = "";
 				for(DurableGoods d : pd.subDetails){
 					if(pd.typeOfDurableGoods == 1){
@@ -2215,7 +2272,6 @@ public class Graph extends Controller {
 			RequisitionDetail rd = RequisitionDetail.find.byId(Long.valueOf(id));
 			result += "<div class=\"well\">";
 			
-			result += getDetailLabel("id", String.valueOf(rd.id));
 			result += getDetailLabel("รายการ/เรื่อง", rd.requisition.title);
 			result += getDetailLabel("หมายเลขใบรายการ", rd.requisition.number);
 			result += getDetailLabel("ชื่อพัสดุ", rd.description);
@@ -2269,7 +2325,6 @@ public class Graph extends Controller {
 			InternalTransfer in = inDetail.internalTransfer; 
 			result += "<div class=\"well\">";
 			
-			result += getDetailLabel("id", String.valueOf(inDetail.id));
 			result += getDetailLabel("รายการ/เรื่อง", inDetail.internalTransfer.title);
 			result += getDetailLabel("หมายเลขใบรายการ", inDetail.internalTransfer.number);
 			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(inDetail.internalTransfer.approveDate));
@@ -2360,7 +2415,6 @@ public class Graph extends Controller {
 			a = ad.auction;
 			result += "<div class=\"well\">";
 			
-			result += getDetailLabel("id", String.valueOf(ad.id), "width:16%;");
 			result += getDetailLabel("รายการ/เรื่อง", ad.auction.title, "width:16%;");
 			result += getDetailLabel("หมายเลขใบรายการ", ad.auction.contractNo, "width:16%;");
 			result += getDetailLabel("ราคารวม", String.valueOf(ad.auction.totalPrice), "width:16%;");
@@ -2456,7 +2510,6 @@ public class Graph extends Controller {
 			d = ad.donation;
 			result += "<div class=\"well\">";
 			
-			result += getDetailLabel("id", String.valueOf(ad.id));
 			result += getDetailLabel("รายการ/เรื่อง", ad.donation.title);
 			result += getDetailLabel("หมายเลขใบรายการ", ad.donation.contractNo);
 			//result += getDetailLabel("หมายเลขใบรายการ", ad.donation.dCommittee.);
@@ -2613,7 +2666,6 @@ public class Graph extends Controller {
 			Repairing r = rd.repairing; 
 			result += "<div class=\"well\">";
 			
-			result += getDetailLabel("id", String.valueOf(rd.id));
 			result += getDetailLabel("รายการ/เรื่อง", rd.repairing.title);
 			result += getDetailLabel("หมายเลขใบรายการ", rd.repairing.number);
 			result += getDetailLabel("ร้านค้าที่ส่งซ่อม", r.company.nameEntrepreneur);
@@ -2680,7 +2732,6 @@ public class Graph extends Controller {
 			Borrow b = bd.borrow; 
 			result += "<div class=\"well\">";
 			
-			result += getDetailLabel("id", String.valueOf(bd.id));
 			result += getDetailLabel("รายการ/เรื่อง", bd.borrow.title);
 			result += getDetailLabel("หมายเลขใบรายการ", bd.borrow.number);
 			result += getDetailLabel("ผู้ยืม", String.format("%s %s %s", b.user.namePrefix, b.user.firstName, b.user.lastName));

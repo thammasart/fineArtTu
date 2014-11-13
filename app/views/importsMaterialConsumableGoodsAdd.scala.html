@@ -9,7 +9,7 @@
     </script>
 <body onload="initFocusPoniter()">
 @nav(user)
-@headerTagFull("เพิ่มรายละเอียดวัสดุสิ้นเปลือง")
+@headerTagFull("เพิ่มรายละเอียดหมายเลขวัสดุสิ้นเปลือง")
 
 <body >
 <div class="detailWindow" ng-app="materialConsumableGoodsAddMatCode"  ng-controller="autoCompleteController">
@@ -95,7 +95,8 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >จำนวนขั้นต่ำสำหรับแจ้งเตือน</span>
-                                <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="minNumberToAlert">
+                                <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="minNumberToAlert" id="minNumberToAlert" value="0">
+                                <span class="alertText" id="minNumberToAlert2"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                 </div>

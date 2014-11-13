@@ -90,7 +90,7 @@ function selectionHandler(){
 			getData('column');
 		}else if(state['page']==1){
 			var col = 3;
-			if(state['mode'] == 'transfer' || state['mode'] == 'balance'){
+			if(state['mode'] == 'transfer' || state['mode'] == 'balance' || state['mode'] == 'procurement'){
 				col = 0;
 			}
 			state['page'] = 2;
@@ -362,7 +362,7 @@ function search(event){
 		state['query'] = $('#search').val();
 		backToTable();
 		getData('table');
-		$('#search').val("");
+		//$('#search').val("");
     }
 };
 
@@ -391,6 +391,11 @@ function printPage(){
 	updateTable();
 	$('#printDiv').hide();
 }
+
+$( window ).resize(function() {
+	drawChart();
+});
+
 
 /*
 '<tr>

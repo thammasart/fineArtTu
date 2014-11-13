@@ -183,15 +183,16 @@ function initAutoCompleteNameEo () {
         $('#'+keyIdEo).autocomplete({
               source: userAll,
               focus: function(event, ui) {
-                  $("input#"+keyIdEo).val(ui.item.label);
+                  $("input#"+$(this).attr('id')).val(ui.item.label);
               },
               select: function(event, ui) {
-                 $("#searchform button").click(); 
-                 setTimeout(mapInput(keyIdEo,99),200);
+                 $("#searchform button").click();
+                 setTimeout(mapInput($(this).attr('id'),99),200);
+                 //setTimeout(mapInput(keyIdEo,99),200);
               }
         });
     })
-    console.log("keyEo="+keyIdEo);
+    //console.log("keyEo="+keyIdEo);
 } 
 function initAutoCompleteName () { 
     keyId = "aiFirstName"+autoCompleteNum;
@@ -199,11 +200,11 @@ function initAutoCompleteName () {
         $('#'+keyId).autocomplete({
               source: userAll,
               focus: function(event, ui) {
-                  $("input#"+keyId).val(ui.item.label);
+                  $("input#"+$(this).attr('id')).val(ui.item.label);
               },
               select: function(event, ui) {
                  $("#searchform button").click(); 
-                 setTimeout(mapInput(keyId,88),200);
+                 setTimeout(mapInput($(this).attr('id'),88),200);
               }
         });
     })

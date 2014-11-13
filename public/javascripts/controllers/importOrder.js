@@ -51,9 +51,6 @@ function retriveProcurement(id,tab){
     				if(j<7){
     					$(field).val(result.ai[i][j]);
     				}
-    				if(j == 0 || j == 1 || j == 2 || j == 3 || j==4){
-    					$(field).prop("disabled",true);
-    				}
     			});
     		}
     		if(tab == 1){
@@ -68,9 +65,6 @@ function retriveProcurement(id,tab){
     					if(j<7){
     						$(field).val(result.eo[i][j]);
     					}
-    					if(j == 0 || j == 1 || j == 2 || j == 3 || j==4){
-        					$(field).prop("disabled",true);
-        				}
     				});
     			}
     			loadOrderArticle(result);
@@ -442,7 +436,7 @@ if(val.length >5)
 {
 		var v15x='	        	<div class="form-group" >'+
 		'	                <div class="input-group" >'+
-		'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
+		'	                    <span class="input-group-addon" >'+'รหัสFSN'+'</span>'+
 		'	                    <input type="text" class="form-control textAlignCenter  '+
 						(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
 						' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="ศก.'+budgetType+years[years.length-2]+years[years.length-1]+"-"+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
@@ -456,7 +450,7 @@ else
 	'	                    <span class="input-group-addon" >'+(name=='article'? 'รหัสFSN':'รหัสวัสดุ')+'</span>'+
 	'	                    <input type="text" class="form-control textAlignCenter  '+
 								(name=='article'? 'width225px"placeholder="ศก.พ.57-7400-100-0005(02/05)"':'width225px"placeholder="ศก.พ.57-01000(02/05)"')+
-	' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+val+"("+(k>9?k:"0"+k)+"/"+(num>9?num:"0"+num)+")"+'">'+
+	' name="'+name+'FSNCode'+k+'" id="'+name+'FSNCode'+k+'" value="'+val+'">'+
 	'	                </div>'+
 	'	            </div>';
 }
@@ -575,7 +569,7 @@ function loadOrderArticle(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
 		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
-		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(2)" disabled></th>'+
+		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(2)"></th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].id +'</th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].fsn +'</th>'+
 		'                    <th id="delName'+ data['data'][i].id +'">'+ data['data'][i].description +'</th>'+
@@ -604,7 +598,7 @@ function loadOrderGood(data){
 	var divTable = '';
 	for(var i = 0; i<data["data"].length; i++){
 		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
-		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(isCheckAll(1))" disabled></th>'+
+		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(isCheckAll(1))"></th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].code +'</th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(1)">'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+
