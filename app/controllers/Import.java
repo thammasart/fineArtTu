@@ -317,7 +317,7 @@ public class Import extends Controller {
         newFsn.typ = type;
 
 
-        if(newFsn==null)
+        if(FSN_Description.find.byId(newFsn.descriptionId)==null)
         {
         	newFsn.save();
         }
@@ -396,7 +396,8 @@ public class Import extends Controller {
         newCode.materialType = MaterialType.find.byId(code);   //connect link
         //newCode.materialType = code[0]+code[1];
         
-        if(newCode==null)
+
+        if(MaterialCode.find.byId(newCode.code)==null)
         {
 	        newCode.save();
         }
