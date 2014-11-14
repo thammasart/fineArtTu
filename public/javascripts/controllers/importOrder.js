@@ -214,6 +214,10 @@ function cancelStatus(id,typeOfOrder){
     	}
 	});
 }
+function hidePrintBarcode(){
+	$("#getBarcodeArticle").hide();
+	$("#getBarcodeGoods").hide();
+}
 function clearPage(){
 	procumentDetailsTick = [];
 	var fields2 = $('#page2 :input[type="text"]');
@@ -231,7 +235,12 @@ function clearPage(){
 		var dom = $(field);
 		dom.prop('checked', false).prop("disabled",false);
 	});
-	
+	document.getElementById("descriptionAlert").style.display= "none";
+    document.getElementById("codeAlert").style.display= "none";
+	document.getElementById("fsnAlert").style.display= "none";
+	/*document.getElementById("priceAlert").style.display= "none";
+	document.getElementById("priceNoVatAlert").style.display= "none";
+	document.getElementById("quantityAlert").style.display= "none";*/
 	$('#editBtn2').hide();
 	$('#b2').show();
 	$('#b2').text('ยืนยัน ').append($('<span class="glyphicon glyphicon-ok"></span>'));
@@ -727,6 +736,34 @@ function removeDivCommittee(name,num){
 	}
 	updateTable();
 }
+function isCorrectFSN(){
+	if(window['goodsCode'] != undefined && $("#Radio2").prop("checked") == true){
+		for(var i = 0; i < goodsCode.length ;i++){ 
+	        if(document.getElementById("code").value == goodsCode[i]){
+	        	$('#fsnAlert').hide();
+	        	return true;
+	        }
+	    }
+	}
+	if(window['goodsCodeFsn'] != undefined  && $("#Radio2").prop("checked") == false){
+		for(var i = 0; i < goodsCodeFsn.length ;i++){ 
+	        if(document.getElementById("code").value == goodsCodeFsn[i]){
+	        	$('#fsnAlert').hide();
+	        	return true;
+	        }
+	    }
+	}
+	if(window['fsnCode'] != undefined){
+		for(var i = 0; i < fsnCode.length ;i++){ 
+	        if(document.getElementById("code").value == fsnCode[i]){
+	        	$('#fsnAlert').hide();
+	        	return true;
+	        }
+	    }
+	}
+	return false;
+}
+
 function submitToNext(){
     
     submitNext = true;
@@ -738,8 +775,16 @@ function submitToNext(){
 
     if(document.getElementById("code").value==""){
         document.getElementById("codeAlert").style.display = "table-row";
+        document.getElementById("fsnAlert").style.display= "none";
         submitNext = false;
-    }else  document.getElementById("codeAlert").style.display= "none";
+    }else if(!isCorrectFSN()){
+    	document.getElementById("codeAlert").style.display= "none";
+    	document.getElementById("fsnAlert").style.display = "table-row";
+        submitNext = false;
+    }else{  
+    	document.getElementById("codeAlert").style.display= "none";
+    	document.getElementById("fsnAlert").style.display= "none";
+    }
 
     if(document.getElementById("price").value ==""){
         document.getElementById("priceAlert").style.display = "table-row";
@@ -780,6 +825,7 @@ function showPage(num){
 	document.getElementById("page2").style.display = num == '2' ?  "block" : "none";
 	document.getElementById("page3").style.display = num == '3' ?  "block" : "none";
 }
+
 function submitButtonClickAr(){
     
     submitStatus = true;

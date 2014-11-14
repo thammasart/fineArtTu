@@ -69,6 +69,12 @@ angular.module('goodsCodeModule', ['ui.bootstrap'])
                         sourceCode = goodsCodeFsn;
                         sourceName = goodsNameFsn;
                     }
+                    document.getElementById("descriptionAlert").style.display= "none";
+                    document.getElementById("codeAlert").style.display= "none";
+                	document.getElementById("fsnAlert").style.display= "none";
+                	document.getElementById("priceAlert").style.display= "none";
+                	document.getElementById("priceNoVatAlert").style.display= "none";
+                	document.getElementById("quantityAlert").style.display= "none";
                 document.getElementById("description").disabled = false;
                 document.getElementById("code").disabled = false;
                 document.getElementById("description").value = "";

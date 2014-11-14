@@ -184,7 +184,7 @@
               
        </div>
              <div>
-                <button id="add" style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage()">เพิ่มครุภัณฑ์</button>
+                <button id="add" style="float:right;margin-left:1%;" class="btn btn-success width200px" type="button" onclick="showPage('2');clearPage();hidePrintBarcode();">เพิ่มครุภัณฑ์</button>
                 <button id="del" class="btn btn-danger width200px" style="float:right;" type="button" ng-click="openCancleDel('/import/removeProcurementDetail')">ลบครุภัณฑ์</button>
             </div>
         </div>
@@ -296,12 +296,15 @@
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >รหัสFSN</span>
                         <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" name="fsnCode" id="code" onkeyup="mapCodeToDes()">
+                        <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
+                        <span class="alertText" id="fsnAlert"  > <i> *  ไม่พบรหัส FSN นี้ในระบบ</i></span>
                     </div>
                 </div>
                 <div class="form-group" >
                     <div class="input-group" >
                         <span class="input-group-addon width250px" >ชื่อครุภัณฑ์</span>
                         <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="description" id="description" onkeyup="mapDesToCode()">
+                        <span class="alertText" id="descriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
         </div>
@@ -310,7 +313,8 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคา</span>
-                        <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat">
+                    <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat">
+                    <span class="alertText" id="priceNoVatAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
            
@@ -319,6 +323,7 @@
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคารวมภาษี</span>
                         <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price">
+                        <span class="alertText" id="priceAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
                 <span>Tax @controllers.AppConfig.TAX %</span>
@@ -330,6 +335,7 @@
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >จำนวน</span>
                     <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)" name="quantity" id="quantity">
+                    <span class="alertText" id="quantityAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
         </div>
@@ -388,7 +394,7 @@
             <button type="button" class="btn btn-danger btn-lg width250px" style="margin-top:1%;margin-right:1%;" onclick="showPage('1')">
                 <span class="glyphicon glyphicon-remove"></span> ยกเลิก
             </button>
-            <button type="button" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="showPage('3');preSpread('article');">
+            <button type="button" class="btn btn-success btn-lg width250px" style=" margin-top:1%;" onclick="submitToNext();">
                 ถัดไป <span class="glyphicon glyphicon-chevron-right"></span>
             </button>
         </div>
