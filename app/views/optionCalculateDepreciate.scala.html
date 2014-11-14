@@ -34,6 +34,38 @@
                         </div>
                       </div>
                 </div>
+               <div class="form-inline" role="form">
+                  <div class="form-group" >
+                      <div class="input-group date width190px" id="start-picker">
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="startDate"placeholder="จากวันที่" disabled>
+                          <input type="text" name="birthDate" id="birthInputBox" hidden>
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                 </div>
+                  <div class="form-group" >
+                      <div class="input-group date width190px" id="end-picker">
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="endDate"placeholder="ถึงวันที่" disabled>
+                          <input type="text" name="birthDate" id="birthInputBox" hidden>
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                 </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#start-picker').datetimepicker({
+                            	pickTime : false,
+                            }).on('hide.dp',function(){
+                            	getDataTable(0).draw();
+                            });
+                        });
+                        $(function () {
+                            $('#end-picker').datetimepicker({
+                            	pickTime : false,
+                            }).on('hide.dp',function(){
+                            	getDataTable(0).draw();
+                            });
+                        });
+                    </script>
+               </div>
                  <form role="form" method="post" action="@routes.Option.optionCalculatingDepreciate()" name="calculatingDepreciateForm">
                      <div>
                         <div style="width:15%; float:right; margin-left:1%;">
@@ -121,4 +153,45 @@
         </div> 
 
 </div>
+<script>
+$(document).ready( function(){
+	$.fn.dataTableExt.afnFiltering.push(
+	    function( oSettings, aData, iDataIndex ) {
+	        // input change to format yyyymmdd
+	        var dateMin = $('#startDate').val();
+	        if(dateMin != ""){
+	        	dateMin = dateMin.split('/')[2] + dateMin.split('/')[1] + dateMin.split('/')[0];
+	        }
+	        //console.log(dateMin);
+	        
+	        var dateMax = $('#endDate').val();
+	        if(dateMax != ""){
+	        	dateMax = dateMax.split('/')[2] + dateMax.split('/')[1] + dateMax.split('/')[0];
+	        }
+	        //console.log(dateMax);
+	        
+	        // date column
+	        var date = aData[1];
+	        date = date.split('/')[2] + date.split('/')[1] + date.split('/')[0];
+	        console.log(date);
+	 
+	        // run through cases
+	        if ( dateMin == "" && date <= dateMax){
+	            return true;
+	        }
+	        else if ( dateMin =="" && date <= dateMax ){
+	            return true;
+	        }
+	        else if ( dateMin <= date && "" == dateMax ){
+	            return true;
+	        }
+	        else if ( dateMin <= date && date <= dateMax ){
+	            return true;
+	        }
+	        // all failed
+	        return false;
+	    }
+	);
+} );
+</script>
 @footer()

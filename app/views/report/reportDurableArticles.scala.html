@@ -93,6 +93,7 @@
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับ</th>
+                        <th style="text-align:center">วันที่นำเข้า</th>
                         <th style="text-align:center">กลุ่มที่</th>
                         <th style="text-align:center">ประเภท</th>
                         <th style="text-align:center">ชนิด</th>
@@ -100,7 +101,6 @@
                         <th style="text-align:center">แยกย่อย</th>
                         <th style="text-align:center">ความหมาย</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
-                        <th style="text-align:center">วันที่นำเข้า</th>
                         <th style="display:none"> barcode</th>
                     </tr>
                 </thead>
@@ -112,6 +112,7 @@
                     <!-->
                     <tr id="row@index">
                         <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@dal.detail.procurement.getAddDate()</th>
                         <th id="gr@index"style="text-align:center">@dal.detail.fsn.typ.groupClass.group.groupId</th>
                         <th id="ty@index"style="text-align:center"></th>
                         <th id="cl@index"style="text-align:center"></th>
@@ -119,7 +120,6 @@
                         <th id="sp@index"style="text-align:center"></th>
                         <th style="text-align:center">@dal.detail.fsn.typ.groupClass.classDescription</th>
                         <th id="code@index"style="text-align:center">@dal.code</th>
-                        <th style="text-align:center">@dal.detail.procurement.getAddDate()</th>
                         <th style="display:none"> @dal.barCode </th>
                     </tr>
                     <script>
@@ -167,7 +167,7 @@ $(document).ready( function(){
 	        //console.log(dateMax);
 	        
 	        // date column
-	        var date = aData[8];
+	        var date = aData[1];
 	        date = date.split('/')[2] + date.split('/')[1] + date.split('/')[0];
 	        console.log(date);
 	 
