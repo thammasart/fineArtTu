@@ -29,41 +29,17 @@
 						<tr class="role">
 							<th id="@userStatus.name">@userStatus.name</th>
 							<th>@userStatus.numberOfUser.size()</th>
-							@if(userStatus.module1){
-								<th><input type="checkbox" checked></th>
+							<th><input type="checkbox" @if(userStatus.module1){ checked } @if(userStatus.name == user.status.name){ disabled }></th>
+							<th><input type="checkbox" @if(userStatus.module2){ checked } @if(userStatus.name == user.status.name){ disabled }></th>
+							<th><input type="checkbox" @if(userStatus.module3){ checked } @if(userStatus.name == user.status.name){ disabled }></th>
+							<th><input type="checkbox" @if(userStatus.module4){ checked } @if(userStatus.name == user.status.name){ disabled }></th>
+							<th><input type="checkbox" @if(userStatus.module5){ checked } @if(userStatus.name == user.status.name){ disabled }></th>
+							<th><input type="checkbox" @if(userStatus.module6){ checked } @if(userStatus.name == user.status.name){ disabled }></th>
+							@if(userStatus.numberOfUser.size()!=0){
+							    <th><button class="btn btn-default"  disabled>ลบ</button></th>
 							}else{
-								<th><input type="checkbox"></th>
+							    <th><button class="btn btn-danger"  onclick="del(@userStatus.name)">ลบ</button></th>
 							}
-							@if(userStatus.module2){
-								<th><input type="checkbox" checked></th>
-							}else{
-								<th><input type="checkbox"></th>
-							}
-							@if(userStatus.module3){
-								<th><input type="checkbox" checked></th>
-							}else{
-								<th><input type="checkbox"></th>
-							}
-							@if(userStatus.module4){
-								<th><input type="checkbox" checked></th>
-							}else{
-								<th><input type="checkbox"></th>
-							}
-							@if(userStatus.module5){
-								<th><input type="checkbox" checked></th>
-							}else{
-								<th><input type="checkbox"></th>
-							}
-							@if(userStatus.module6){
-								<th><input type="checkbox" checked></th>
-							}else{
-								<th><input type="checkbox"></th>
-							}
-                                                        @if(userStatus.numberOfUser.size()!=0){
-                                                            <th><button class="btn btn-default"  disabled>ลบ</button></th>
-                                                        }else{
-                                                            <th><button class="btn btn-danger"  onclick="del(@userStatus.name)">ลบ</button></th>
-                                                        }
 						</tr>
 					}
 					<tr id="addRole" style="display: none;">

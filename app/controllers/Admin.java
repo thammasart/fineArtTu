@@ -114,7 +114,7 @@ public class Admin extends Controller {
     	if (json.isArray()) {
     	    for (JsonNode role : json) {
     	        UserStatus userStatus = UserStatus.find.byId(role.get("name").asText());
-    	        if(userStatus != null){
+    	        if(!userStatus.name.equals(user.status.name) && userStatus != null){
     	        	userStatus.module1 = role.get("module1").asBoolean();
     	        	userStatus.module2 = role.get("module2").asBoolean();
     	        	userStatus.module3 = role.get("module3").asBoolean();
