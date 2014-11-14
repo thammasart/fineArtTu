@@ -39,15 +39,30 @@ public class Report  extends Controller {
         public static Result reportRemainingMaterial(int year) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<MaterialCode> mc = MaterialCode.find.all();
-
+        List<String[]> material = new ArrayList<String[]>();
+        
         for(MaterialCode each : mc){
-            
+            List<Double> temp = each.getRemaining(year);
+            String[] detail = new String[13];    
+            detail[1] = each.description;
+            detail[2] = each.classifier;
+            detail[3] = "ddmmyyyy";
+            detail[4] = "ยอดยกมา";
+            detail[5] = "";
+            detail[6] = temp.get(1).toString();
+            detail[7] = temp.get(0).toString();
+            detail[8] =  String.valueOf(temp.get(1)*temp.get(0));
+            detail[9] = "";
+            detail[10] = "";
+            detail[11] = temp.get(0).toString();
+            detail[12] = String.valueOf(temp.get(1)*temp.get(0));
+            material.add(detail);
         }
 
         Date dNow = new Date( );
         SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
         String date = ft.format(dNow).toString();
-        return ok(reportRemainingMaterial.render(user,mc));
+        return ok(reportRemainingMaterial.render(user,material));
     }
     
     @Security.Authenticated(Secured.class)
