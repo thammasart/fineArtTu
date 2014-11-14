@@ -33,7 +33,6 @@ public class Admin extends Controller {
         Form<User> newUserFrom = Form.form(User.class).bindFromRequest();
 
         User user = User.find.byId(f.get("username"));
-        if(!user.isPermit(1))return ok(permissionDenied.render());
         if(user == null){
             System.out.println(newUserFrom);
             User newUser = newUserFrom.get();    
@@ -114,7 +113,7 @@ public class Admin extends Controller {
     	if (json.isArray()) {
     	    for (JsonNode role : json) {
     	        UserStatus userStatus = UserStatus.find.byId(role.get("name").asText());
-    	        if(userStatus != null){
+    	        if(!userStatus.name.equals(user.status.name) && userStatus != null){
     	        	userStatus.module1 = role.get("module1").asBoolean();
     	        	userStatus.module2 = role.get("module2").asBoolean();
     	        	userStatus.module3 = role.get("module3").asBoolean();
@@ -141,14 +140,17 @@ public class Admin extends Controller {
 
     public static Result removeUser(){
     	DynamicForm form = Form.form().bindFromRequest();
+    	User loggedInUser = User.find.byId(session().get("username"));
     	User user;
+    	int count = 0;
         if(!form.get("data").equals("")){
     	String[] usernames = form.get("data").split(",");
-    
-        
             for(int i=0;i<usernames.length;i++){
-                    user = User.find.byId(usernames[i]);
-                    user.delete();
+                user = User.find.byId(usernames[i]);
+                if(!user.equals(loggedInUser)){
+                	count++;
+                	user.delete();
+                }
             }
             flash("delete","delete " + usernames.length +" account " );
         } else flash("notSelect","please select at least one account");

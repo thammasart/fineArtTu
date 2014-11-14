@@ -214,6 +214,32 @@ function cancelStatus(id,typeOfOrder){
     	}
 	});
 }
+
+function addVat(){
+	var price = parseInt($('#priceNoVat').val());
+	var tax = document.getElementById("tax").value;
+	if(!isNaN(price)){
+		parseInt(price);
+		parseInt(tax);
+		$('#price').val(price + price * tax * 0.01);
+	}
+}
+
+function decreaseVat(){
+	var price = $('#price').val();
+	var tax = document.getElementById("tax").value;
+	if(!isNaN(price)){
+		parseInt(price);
+		parseInt(tax);
+		$('#priceNoVat').val(price - price * tax * 0.01);
+	}
+}
+
+function hidePrintBarcode(){
+	$("#getBarcodeArticle").hide();
+	$("#getBarcodeGoods").hide();
+	$("#editBtn2").hide();
+}
 function clearPage(){
 	procumentDetailsTick = [];
 	var fields2 = $('#page2 :input[type="text"]');
@@ -231,7 +257,15 @@ function clearPage(){
 		var dom = $(field);
 		dom.prop('checked', false).prop("disabled",false);
 	});
-	
+	document.getElementById("descriptionAlert").style.display= "none";
+    document.getElementById("codeAlert").style.display= "none";
+	document.getElementById("fsnAlert").style.display= "none";
+	document.getElementById("priceAlert").style.display= "none";
+	document.getElementById("priceNoVatAlert").style.display= "none";
+	document.getElementById("quantityAlert").style.display= "none";
+	if(document.getElementById("numberFormatErrorQuantity") != null) document.getElementById("numberFormatErrorQuantity").style.display= "none";
+	if(document.getElementById("numberFormatErrorLifeTime") != null) document.getElementById("numberFormatErrorLifeTime").style.display= "none";
+	if(document.getElementById("numberFormatErrorAlertTime") != null) document.getElementById("numberFormatErrorAlertTime").style.display= "none";
 	$('#editBtn2').hide();
 	$('#b2').show();
 	$('#b2').text('ยืนยัน ').append($('<span class="glyphicon glyphicon-ok"></span>'));
@@ -727,7 +761,40 @@ function removeDivCommittee(name,num){
 	}
 	updateTable();
 }
-function submitToNext(){
+function isCorrectFSN(){
+	if(window['goodsCode'] != undefined && $("#Radio2").prop("checked") == true){
+		for(var i = 0; i < goodsCode.length ;i++){ 
+	        if(document.getElementById("code").value == goodsCode[i]){
+	        	$('#fsnAlert').hide();
+	        	return true;
+	        }
+	    }
+	}
+	if(window['goodsCodeFsn'] != undefined  && $("#Radio2").prop("checked") == false){
+		for(var i = 0; i < goodsCodeFsn.length ;i++){ 
+	        if(document.getElementById("code").value == goodsCodeFsn[i]){
+	        	$('#fsnAlert').hide();
+	        	return true;
+	        }
+	    }
+	}
+	if(window['fsnCode'] != undefined){
+		for(var i = 0; i < fsnCode.length ;i++){ 
+	        if(document.getElementById("code").value == fsnCode[i]){
+	        	$('#fsnAlert').hide();
+	        	return true;
+	        }
+	    }
+	}
+	return false;
+}
+function isInteger(data){
+	console.log(data);
+	console.log(parseInt(data, 10));
+	if (data == parseInt(data, 10) && data > 0) return true;
+    else return false;
+}
+function submitToNext(type){
     
     submitNext = true;
 
@@ -738,8 +805,16 @@ function submitToNext(){
 
     if(document.getElementById("code").value==""){
         document.getElementById("codeAlert").style.display = "table-row";
+        document.getElementById("fsnAlert").style.display= "none";
         submitNext = false;
-    }else  document.getElementById("codeAlert").style.display= "none";
+    }else if(!isCorrectFSN()){
+    	document.getElementById("codeAlert").style.display= "none";
+    	document.getElementById("fsnAlert").style.display = "table-row";
+        submitNext = false;
+    }else{  
+    	document.getElementById("codeAlert").style.display= "none";
+    	document.getElementById("fsnAlert").style.display= "none";
+    }
 
     if(document.getElementById("price").value ==""){
         document.getElementById("priceAlert").style.display = "table-row";
@@ -753,8 +828,35 @@ function submitToNext(){
 
     if(document.getElementById("quantity").value==""){
         document.getElementById("quantityAlert").style.display = "table-row";
+        document.getElementById("numberFormatErrorQuantity").style.display = "none";
         submitNext = false;
-    }else  document.getElementById("quantityAlert").style.display= "none";
+    }else if(!isInteger($("#quantity").val())){
+    	document.getElementById("numberFormatErrorQuantity").style.display = "table-row";
+    	document.getElementById("quantityAlert").style.display= "none";
+    	submitNext = false;
+    }else{
+    	document.getElementById("numberFormatErrorQuantity").style.display = "none";
+    	document.getElementById("quantityAlert").style.display= "none";
+    }
+    if(document.getElementById("numberFormatErrorLifeTime") != null){
+	    if(document.getElementById("llifeTime").value=="" || !isInteger($("#llifeTime").val())){
+	    	document.getElementById("numberFormatErrorLifeTime").style.display = "table-row";
+	        submitNext = false;
+	    }else{
+	    	document.getElementById("numberFormatErrorLifeTime").style.display = "none";
+	    }
+    }
+    
+    if(document.getElementById("numberFormatErrorAlertTime")){
+	    if(document.getElementById("alertTime").value=="" || !isInteger($("#alertTime").val())){
+	    	document.getElementById("numberFormatErrorAlertTime").style.display = "table-row";
+	        submitNext = false;
+	    }else{
+	    	document.getElementById("numberFormatErrorAlertTime").style.display = "none";
+	    }
+    }
+    
+    
 
 //    if(document.getElementById("seller").value ==""){
 //        document.getElementById("sellerAlert").style.display = "table-row";
@@ -771,7 +873,7 @@ function submitToNext(){
     }
     else{
         showPage('3');
-        preSpread('good');
+        preSpread(type);
     }
 }
 
@@ -780,6 +882,7 @@ function showPage(num){
 	document.getElementById("page2").style.display = num == '2' ?  "block" : "none";
 	document.getElementById("page3").style.display = num == '3' ?  "block" : "none";
 }
+
 function submitButtonClickAr(){
     
     submitStatus = true;

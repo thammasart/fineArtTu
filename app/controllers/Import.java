@@ -1009,22 +1009,7 @@ public class Import extends Controller {
 		} 
     	/////////////////////////////////////////////////////////////////////////////////////
     	
-		if(articlesOrder.getMonth()>9)
-		{
-			articlesOrder.yearStatus = articlesOrder.getYear()+1;
-			System.out.println("a: "+articlesOrder.yearStatus);
-		}
-		else if(articlesOrder.getMonth()==9 && articlesOrder.getDay()>15)
-		{
-			articlesOrder.yearStatus = articlesOrder.getYear()+1;
-			System.out.println("b: "+articlesOrder.yearStatus);
-		}
-		else
-		{
-			articlesOrder.yearStatus = articlesOrder.getYear();
-			System.out.println("c: "+articlesOrder.yearStatus);
-		}
-		
+
 		if(articlesOrder.status == ImportStatus.INIT)	//genBarcode
 		{
 			articlesOrder.barCode = "I01";

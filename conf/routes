@@ -240,7 +240,7 @@ GET		/option/ChangeTax						controllers.Option.optionChangeTax()
 GET		/option/ExportFile						controllers.Option.optionExportFile()
 GET		/option/OptionExportAllItems					controllers.Option.optionExportAllItems()
 
-POST	/option/DoChangeTax								controllers.Option.optionChangeTax()
+POST	/option/changeTax								controllers.AppConfig.changeTax()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               					controllers.Assets.at(path="/public", file)
