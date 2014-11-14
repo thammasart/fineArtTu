@@ -25,8 +25,8 @@ import models.durableArticles.RepairingDetail;
 import models.durableGoods.DurableGoods;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
-import models.consumable.Requisition;
-import models.consumable.RequisitionDetail;
+import models.durableGoods.Requisition;
+import models.durableGoods.RequisitionDetail;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -215,8 +215,7 @@ public class SearchQuery {
 				continue;
 			}
 			for(InternalTransferDetail ind : in.detail){
-				if(ind.code!=null && ind.code.contains(query) || 
-						ind.newDepartment!=null && ind.newDepartment.contains(query) || 
+				if(ind.newDepartment!=null && ind.newDepartment.contains(query) || 
 						ind.newPosition!=null && ind.newPosition.contains(query) ||
 						ind.newFirstName!=null && ind.newFirstName.contains(query) || 
 						ind.newLastName!=null && ind.newLastName.contains(query) || 
@@ -261,9 +260,7 @@ public class SearchQuery {
 			}
 			if(!flag) continue;
 			for(DonationDetail dd : d.detail){
-				if(dd.annotation!=null && dd.annotation.contains(query) || 
-						dd.code!=null && dd.code.contains(query) || 
-						dd.durableArticles!=null && (dd.durableArticles.detail!=null && 
+				if(dd.durableArticles!=null && (dd.durableArticles.detail!=null && 
 						dd.durableArticles.detail.fsn!=null && dd.durableArticles.detail.fsn.descriptionDescription.contains(query) || 
 						dd.durableArticles.code!=null && dd.durableArticles.code.contains(query) || 
 						dd.durableArticles.barCode!=null && dd.durableArticles.barCode.contains(query))){
@@ -315,8 +312,7 @@ public class SearchQuery {
 			}
 			if(!flag) continue;
 			for(AuctionDetail ad : a.detail){
-				if(ad.code!=null && ad.code.contains(query) || 
-						ad.durableArticles!=null && (ad.durableArticles.barCode!=null && ad.durableArticles.barCode.contains(query) || 
+				if(	ad.durableArticles!=null && (ad.durableArticles.barCode!=null && ad.durableArticles.barCode.contains(query) || 
 						ad.durableArticles.code!=null && ad.durableArticles.code.contains(query) ||
 						ad.durableArticles.detail!=null && ad.durableArticles.detail.fsn!=null && ad.durableArticles.detail.fsn.descriptionDescription.contains(query))){
 					set.add(a);
@@ -356,8 +352,7 @@ public class SearchQuery {
 			}
 			if(!flag) continue;
 			for(OtherTransferDetail od : o.detail){
-				if(od.descliption!=null && od.descliption.contains(query) || 
-						od.durableArticles!=null && (od.durableArticles.barCode!=null && od.durableArticles.barCode.contains(query) || 
+				if(od.durableArticles!=null && (od.durableArticles.barCode!=null && od.durableArticles.barCode.contains(query) || 
 						od.durableArticles.code!=null && od.durableArticles.code.contains(query) ||
 						od.durableArticles.detail!=null && od.durableArticles.detail.fsn!=null && od.durableArticles.detail.fsn.descriptionDescription.contains(query))){
 					set.add(o);
@@ -383,7 +378,7 @@ public class SearchQuery {
 				continue;
 			}
 			for(BorrowDetail bd : b.detail){
-				if(bd.description!=null && bd.description.contains(query) || 
+				if(bd.borrow.description!=null && bd.borrow.description.contains(query) || 
 						bd.durableArticles!=null && (bd.durableArticles.barCode!=null && bd.durableArticles.barCode.contains(query) || 
 						bd.durableArticles.code!=null && bd.durableArticles.code.contains(query) ||
 						bd.durableArticles.detail!=null && bd.durableArticles.detail.fsn!=null && bd.durableArticles.detail.fsn.descriptionDescription.contains(query))){

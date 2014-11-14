@@ -28,8 +28,8 @@ import models.durableArticles.OtherTransfer_FF_Committee;
 import models.durableArticles.Repairing;
 import models.durableArticles.RepairingDetail;
 import models.durableGoods.DurableGoods;
-import models.consumable.Requisition;
-import models.consumable.RequisitionDetail;
+import models.durableGoods.Requisition;
+import models.durableGoods.RequisitionDetail;
 import models.fsnNumber.FSN_Description;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
@@ -2712,7 +2712,7 @@ public class Graph extends Controller {
 			}
 			for(BorrowDetail bd : b.detail){
 				detailsCodes += getDetailLabel("หมายเลขพัสดุ", bd.durableArticles.code);
-				if(bd.description!=null)detailsCodes += getDetailLabel("รายละเอียดเพิ่มเติม", bd.description);
+				if(bd.borrow.description!=null)detailsCodes += getDetailLabel("รายละเอียดเพิ่มเติม", bd.borrow.description);
 			}
 			
 			result += getExpandableHTML("รายการส่งซ่อม", detailsCodes);
@@ -2746,7 +2746,7 @@ public class Graph extends Controller {
 				BorrowDetail newDetail = BorrowDetail.find.byId(Long.valueOf(id));
 				if(newDetail.borrow.equals(b)){
 					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
-					if(bd.description!=null)detailsCodes += getDetailLabel("รายละเอียดเพิ่มเติม", newDetail.description);
+					if(bd.borrow.description!=null)detailsCodes += getDetailLabel("รายละเอียดเพิ่มเติม", newDetail.borrow.description);
 				}else{
 					i--;
 					break;

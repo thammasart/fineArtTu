@@ -11,7 +11,6 @@ import views.html.export.*;
 
 import models.*;
 import models.fsnNumber.FSN_Description;
-import models.consumable.*;
 import models.durableArticles.*;
 import models.durableGoods.*;
 import models.type.ExportStatus;

@@ -41,7 +41,11 @@
                         <th style="text-align:center">@trans.durableArticles.detail.fsn.classifier</th>
                         <th style="text-align:center">@("% .0f".format(trans.durableArticles.detail.price))</th>
                         <th style="text-align:center">@("%1$td/%1$tm/%1$tY".format(trans.internalTransfer.approveDate))</th>
-                        <th style="text-align:center"> ห้อง @trans.firstRoom</th>
+                        @if(trans.getBeforTransfer() != null){
+                            <th style="text-align:center">ห้อง @trans.getBeforTransfer().newRoom</th>
+                        }else {
+                            <th style="text-align:center"> ห้อง @trans.firstRoom</th>
+                        }
                         <th style="text-align:center">ห้อง @trans.newRoom</th>
                         <th style="text-align:center">@trans.firstDepartment</th>
                         <th style="text-align:center">@trans.newDepartment </th>

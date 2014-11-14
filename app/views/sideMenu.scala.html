@@ -45,7 +45,8 @@
                                 เบิกจ่ายและโอนย้าย
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu2">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportOrder.exportOrder()">เบิกจ่ายวัสดุ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportOrder.exportOrder()">เบิกจ่ายวัสดุสิ้นเปลือง</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportOrderGoods.exportOrderGoods()">เบิกจ่ายวัสดุคงทนถาวร</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportTransferInside.exportTransferInside">โอนย้ายครุภัณฑ์ภายในหน่วยงาน</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportSold.exportSold">จำหน่ายครุภัณฑ์</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.ExportDonate.exportDonate">บริจาคครุภัณฑ์</a></li>
@@ -65,7 +66,7 @@
                                 รายงาน
                               </button>
                               <ul class="dropdown-menu" style="left:100%; top:0;" role="menu" aria-labelledby="dropdownMenu3">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Report.reportRemainingMaterial()">รายงานวัสดุคงเหลือ</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Report.reportRemainingMaterial(-1)">รายงานวัสดุคงเหลือ</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Report.reportRemainingMaterialConclusion()">สรุปวัสดุคงเหลือ</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Report.reportDurableArticles()">สรุปครุภัณฑ์</a></li>
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="@routes.Report.reportImportDurableArticles()">ทะเบียนทรัพย์สิน</a></li>

@@ -4,6 +4,8 @@ import play.db.ebean.*;
 import javax.persistence.*;
 
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 import models.type.ExportStatus;
 
@@ -13,7 +15,6 @@ public class InternalTransferDetail extends Model{
 
 	@Id
 	public long id;
-	public String code; // รหัส
 
 	public String firstDepartment; //สาขาเก่า
 	public String firstRoom; //ห้องก่า
@@ -33,6 +34,25 @@ public class InternalTransferDetail extends Model{
 
 	@ManyToOne
 	public InternalTransfer internalTransfer; // การโอนย้ายภายใน
+
+	public InternalTransferDetail getBeforTransfer(){
+		List<InternalTransferDetail> insideList = InternalTransferDetail.find.where().eq("durableArticles",durableArticles).eq("internalTransfer.status", ExportStatus.SUCCESS).orderBy("internalTransfer.approveDate asc").findList();
+		if(insideList.size() > 1){
+			int i = 0;
+			for(InternalTransferDetail inside : insideList){
+				if(this.equals(inside)){
+					if(i > 0){
+						return insideList.get((i-1));
+					}
+					else{
+						return null;
+					}
+				}
+				i++;
+			}
+		}
+		return null;
+	}
 
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,InternalTransferDetail> find = new Finder(Long.class,InternalTransferDetail.class);

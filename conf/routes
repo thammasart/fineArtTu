@@ -143,7 +143,8 @@ POST	/import/removeInstitute							controllers.Import.removeInstitute()
 
 
 GET             /report                                                         controllers.Report.report()
-GET             /report/RemainingMaterial                                       controllers.Report.reportRemainingMaterial()
+GET             /report/RemainingMaterial                                       controllers.Report.reportRemainingMaterial( year : Integer)
+POST            /report/RemainingMaterialPost                                   controllers.Report.reportRemainingMaterialPost()
 GET             /report/RemainingMaterialConclusion                             controllers.Report.reportRemainingMaterialConclusion()
 GET             /report/RemainingMaterialConclusion/Print                       controllers.Report.reportRemainingMaterialConclusionPrint()
 GET             /report/RemainingMaterialConclusion/Print2                       controllers.Report.reportRemainingMaterialConclusionPrint2()

@@ -10,7 +10,7 @@ import views.html.*;
 import views.html.export.*;
 
 import models.*;
-import models.consumable.*;
+import models.durableGoods.*;
 import models.durableArticles.*;
 import models.type.ExportStatus;
 

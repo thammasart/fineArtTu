@@ -1,4 +1,4 @@
-@(user : User)
+@(user : User, req : List[models.durableGoods.RequisitionDetail],order : List[models.durableGoods.OrderGoodsDetail])
 @header("รายงาน")
 
 @nav(user)
@@ -55,47 +55,71 @@
                         });
                     </script>
                </div>
-               <div class="form-inline marginBtm1" role="form"  style="float:right;">
-                    <div class="input-group marginBtm1">
-                      <span class="input-group-addon width150px">ประเภทครุภัณฑ์</span>
-                        <select class="form-control textAlignCenter  width300px">
-                          <option>ทั้งหมด</option>
-                          <option>วัสดุสำนักงาน</option>
-                          <option>วัสดุ....</option>
-                          <option>วัสดุ....</option>
-                          <option>วัสดุ....</option>
-                        </select>
-                   </div>
-              </div>
         </div>
 
         <div >
+            <span style="font-size:25px">
+                วัสดุสิ้นเปลือง
+            </span>
             <table class="table table-striped overlayTable" align="center">
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">วันที่</th>
                         <th style="text-align:center">รายการ</th>
-                        <th style="text-align:center">หมายเลขครุภัณฑ์</th>
+                        <th style="text-align:center">หมายวัสดุ</th>
                         <th style="text-align:center">จำนวนที่เบิก</th>
                         <th style="text-align:center">หน่วยนับ</th>
                         <th style="text-align:center">ราคา/หน่วย</th>
-                        <th style="text-align:center">วันที่</th>
                         <th style="text-align:center">ผู้เบิก</th>
-                        <th style="text-align:center">หมายเหตุ</th>
                     </tr>
                 </thead>
                 <tbody>
+                @for((detail,index) <-req.zipWithIndex){
                     <tr>
-                        <th style="text-align:center">1</th>
-                        <th style="text-align:center">โต็ะพิมพ์ผ้า</th>
-                        <th style="text-align:center">พ.41/7110-007-001</th>
-                        <th style="text-align:center">5</th>
-                        <th style="text-align:center">ตัว</th>
-                        <th style="text-align:center">32162.50</th>
-                        <th style="text-align:center">13/01/8</th>
-                        <th style="text-align:center">mr.A</th>
-                        <th style="text-align:center">งบพิเศษ42</th>
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@detail.requisition.approveDate</th>
+                        <th style="text-align:center">@detail.code.description</th>
+                        <th style="text-align:center">@detail.code.code</th>
+                        <th style="text-align:center">@detail.quantity</th>
+                        <th style="text-align:center">@detail.code.classifier</th>
+                        <th style="text-align:center">detail.ราคา</th>
+                        <th style="text-align:center">@detail.withdrawer.firstName @detail.withdrawer.lastName</th>
                     </tr>
+                }
+                </tbody>
+            </table>
+        </div> 
+        <div >
+            <span style="font-size:25px">
+                วัสดุคงทำถาวร
+            </span>
+            <table class="table table-striped overlayTable" align="center">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">วันที่</th>
+                        <th style="text-align:center">รายการ</th>
+                        <th style="text-align:center">ทะเบียนคุมวัสดุ</th>
+                        <th style="text-align:center">หน่วยนับ</th>
+                        <th style="text-align:center">ราคา/หน่วย</th>
+                        <th style="text-align:center">ผู้เบิก</th>
+                        <th style="display:none">barcode</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for((detail,index) <-order.zipWithIndex){
+                    <tr>
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@detail.order.approveDate</th>
+                        <th style="text-align:center">@detail.goods.detail.description</th>
+                        <th style="text-align:center">@detail.goods.codes</th>
+                        <th style="text-align:center">@detail.goods.detail.getClassifier()</th>
+                        <th style="text-align:center">@detail.goods.detail.price</th>
+                        <th style="text-align:center">@detail.firstName @detail.lastName</th>
+                        <th style="display:none">@detail.goods.barCode</th>
+                    </tr>
+                }
                 </tbody>
             </table>
         </div> 

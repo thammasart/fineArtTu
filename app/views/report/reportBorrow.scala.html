@@ -101,6 +101,7 @@
                         <th style="text-align:center">ที่เก็บ-เดิม</th>
                         <th style="text-align:center">ยืมโดย</th>
                         <th style="text-align:center">หมายเหตุการยืม</th>
+                        <th style="text-align:center">สถานะปัจจุบัน</th>
                         <th style="display:none">barcode</th>
                     </tr>
                 </thead>
@@ -116,7 +117,8 @@
                         <th style="text-align:center">@borrows.borrow.getDateOfEndBorrow()</th>
                         <th style="text-align:center">@borrows.durableArticles.room</th>
                         <th style="text-align:center">@borrows.borrow.user.firstName</th>
-                        <th style="text-align:center">@borrows.description</th>
+                        <th style="text-align:center">@borrows.borrow.description</th>
+                        <th id="rStatus@index" style="text-align:center">@borrows.borrow.status</th>
                         <th style="display:none">@borrows.durableArticles.barCode</th>
                     </tr>
                 }

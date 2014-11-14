@@ -24,7 +24,6 @@ import javax.imageio.ImageIO;
 import javax.persistence.ManyToOne;
 import javax.swing.JOptionPane;
 
-import models.consumable.Procurement;
 import models.durableArticles.DurableArticles;
 import models.durableArticles.ProcurementDetail;
 import models.durableArticles.AI_Committee;

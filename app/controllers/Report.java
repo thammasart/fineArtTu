@@ -27,10 +27,26 @@ public class Report  extends Controller {
     }
 
     @Security.Authenticated(Secured.class)
-        public static Result reportRemainingMaterial() {
+        public static Result reportRemainingMaterialPost() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        List<MaterialCode> mc = MaterialCode.find.all();
+        DynamicForm form = Form.form().bindFromRequest();
+        String year = form.get("year");
+
+        return redirect(routes.Report.reportRemainingMaterial(Integer.parseInt(year)));
+    }
+    @Security.Authenticated(Secured.class)
+        public static Result reportRemainingMaterial(int year) {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<MaterialCode> mc = MaterialCode.find.all();
 
+        for(MaterialCode each : mc){
+            
+        }
+
+        Date dNow = new Date( );
+        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        String date = ft.format(dNow).toString();
         return ok(reportRemainingMaterial.render(user,mc));
     }
     
@@ -199,7 +215,10 @@ public class Report  extends Controller {
     @Security.Authenticated(Secured.class)
         public static Result reportExportDurableArticles() {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(reportExportDurableArticle.render(user));
+        List<RequisitionDetail> details = RequisitionDetail.find.where().orderBy("requisition.approveDate asc").findList();
+        
+        List<OrderGoodsDetail> order = OrderGoodsDetail.find.where().orderBy("order.approveDate asc").findList();
+        return ok(reportExportDurableArticle.render(user,details,order));
     }
     @Security.Authenticated(Secured.class)
         public static Result reportExchangeDurableArticles() {

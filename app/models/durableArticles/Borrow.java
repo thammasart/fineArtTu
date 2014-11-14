@@ -23,6 +23,7 @@ public class Borrow extends Model{
 	public String number; // เลขที่
 	public Date dateOfStartBorrow;
 	public Date dateOfEndBorrow;
+	public String description; // หมายเหตุการยืม
 	public ExportStatus status;
 	
 	@ManyToOne
