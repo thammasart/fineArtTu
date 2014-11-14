@@ -8,17 +8,42 @@
 
 <div class ="mainWindow" style="text-align:center;">
 
-	<form>
-		<div class="form-inline marginBtm1" role="form" align="center">
-		      <div class="form-group" >
-		            <div class="input-group" >
-		                <span class="input-group-addon width250px" >เปอร์เซ็นภาษีมูลค่าเพิ่ม</span>
-		                <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="">
-		            </div>
-		      </div>
-		</div>
-	</form>
-
+	<div class="form-inline marginBtm1" role="form" align="center">
+	      <div class="form-group" style="width:70%">
+	            <div class="input-group" style="width:90%">
+	                <span class="input-group-addon width250px" >เปอร์เซ็นภาษีมูลค่าเพิ่ม</span>
+	                <input id="tax" type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="">
+	                <button class="btn btn-success" style="margin-left: 1%" onclick="changeTax()">ยืนยัน</button>
+	            </div>
+	      </div>
+	</div>
+	
+	<script>
+		function changeTax(){
+			var obj = { "tax" : $("#tax").val() };
+			console.log('asdas');
+			$.ajax({
+				url:'/option/changeTax',
+			    type: 'post',
+			    data: JSON.stringify(obj),
+			    contentType: 'application/json',
+			    dataType: 'json',
+			    success: function(result) {
+		    		setData(result , chart);
+			    },
+			    statusCode:{
+			    	500: function(response){
+			    		//console.log(response.responseText);
+			    		var mywindow = window.open('', 'my div', 'height=400,width=600');
+			            /*optional stylesheet*/ //mywindow.document.write('<link rel="stylesheet" href="main.css" type="text/css" />');
+			            mywindow.document.write(response.responseText);
+			 	    }
+			    }
+			});
+			
+		}
+	</script>
+	
 </div>
 
 @footer()
