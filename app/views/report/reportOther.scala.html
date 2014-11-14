@@ -113,7 +113,11 @@
                         <th style="text-align:center">@others.durableArticles.code</th>
                         <th style="text-align:center">@others.durableArticles.detail.fsn.classifier</th>
                         <th style="text-align:center">@others.durableArticles.room</th>
-                        <th style="text-align:center">others.otherTransfer.approver.firstName</th>
+                        @if(others.otherTransfer.approver != null){
+                        <th style="text-align:center">@others.otherTransfer.approver.firstName</th>
+                        }else{
+                        <th style="text-align:center">ไม่ระบุ</th>
+                        }
                         <th style="text-align:center">@others.otherTransfer.description</th>
                         <th id="rStatus@index" style="text-align:center">@others.otherTransfer.status</th>
                         <th style="display:none">@others.durableArticles.barCode</th>

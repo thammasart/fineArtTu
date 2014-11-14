@@ -42,27 +42,35 @@
                               </div>
                         </form>
                 </div>
-               <div class="form-inline" role="form"  style="float:right;">
+               <div class="form-inline" role="form">
                   <div class="form-group" >
                       <div class="input-group date width190px" id="start-picker">
-                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="birthInputBoxShow"placeholder="จากวันที่" disabled>
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="startDate"placeholder="จากวันที่" disabled>
                           <input type="text" name="birthDate" id="birthInputBox" hidden>
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                       </div>
                  </div>
                   <div class="form-group" >
                       <div class="input-group date width190px" id="end-picker">
-                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="birthInputBoxShow"placeholder="ถึงวันที่" disabled>
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="endDate"placeholder="ถึงวันที่" disabled>
                           <input type="text" name="birthDate" id="birthInputBox" hidden>
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                       </div>
                  </div>
                     <script type="text/javascript">
                         $(function () {
-                            $('#start-picker').datetimepicker()
+                            $('#start-picker').datetimepicker({
+                            	pickTime : false,
+                            }).on('hide.dp',function(){
+                            	getDataTable(0).draw();
+                            });
                         });
                         $(function () {
-                            $('#end-picker').datetimepicker()
+                            $('#end-picker').datetimepicker({
+                            	pickTime : false,
+                            }).on('hide.dp',function(){
+                            	getDataTable(0).draw();
+                            });
                         });
                     </script>
                </div>
@@ -85,10 +93,10 @@
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">วันที่บริจาค</th>
                         <th style="text-align:center">รายการ</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">หน่วยนับ</th>
-                        <th style="text-align:center">วันที่บริจาค</th>
                         <th style="text-align:center">ที่เก็บ-เดิม</th>
                         <th style="text-align:center">บริจาคให้</th>
                         <th style="text-align:center">บริจาคโดย</th>
@@ -100,10 +108,10 @@
                 @for((detail,index)<-dond.zipWithIndex){
                     <tr>
                         <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@detail.donation.getApproveDate()</th>
                         <th style="text-align:center">@detail.durableArticles.detail.fsn.descriptionDescription</th>
                         <th style="text-align:center">@detail.durableArticles.code</th>
                         <th style="text-align:center">@detail.durableArticles.detail.fsn.classifier</th>
-                        <th style="text-align:center">@detail.donation.getApproveDate()</th>
                         <th style="text-align:center">@detail.durableArticles.room</th>
                         <th style="text-align:center">@detail.donation.company.nameEntrepreneur</th>
                         <th style="text-align:center">@detail.durableArticles.department</th>
@@ -116,5 +124,45 @@
         </div> 
 <!---->
 </div>
-
+<script>
+$(document).ready( function(){
+	$.fn.dataTableExt.afnFiltering.push(
+	    function( oSettings, aData, iDataIndex ) {
+	        // input change to format yyyymmdd
+	        var dateMin = $('#startDate').val();
+	        if(dateMin != ""){
+	        	dateMin = dateMin.split('/')[2] + dateMin.split('/')[1] + dateMin.split('/')[0];
+	        }
+	        //console.log(dateMin);
+	        
+	        var dateMax = $('#endDate').val();
+	        if(dateMax != ""){
+	        	dateMax = dateMax.split('/')[2] + dateMax.split('/')[1] + dateMax.split('/')[0];
+	        }
+	        //console.log(dateMax);
+	        
+	        // date column
+	        var date = aData[1];
+	        date = date.split('/')[2] + date.split('/')[1] + date.split('/')[0];
+	        console.log(date);
+	 
+	        // run through cases
+	        if ( dateMin == "" && date <= dateMax){
+	            return true;
+	        }
+	        else if ( dateMin =="" && date <= dateMax ){
+	            return true;
+	        }
+	        else if ( dateMin <= date && "" == dateMax ){
+	            return true;
+	        }
+	        else if ( dateMin <= date && date <= dateMax ){
+	            return true;
+	        }
+	        // all failed
+	        return false;
+	    }
+	);
+} );
+</script>
 @footer()
