@@ -283,7 +283,7 @@ $('input').prop("disabled",false);
                         <span class="input-group-addon width250px" >รหัสวัสดุ</span>
                         <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="code" id="code" onkeyup="mapCodeToDescription()" disabled>
                         <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
-                        <span class="alertText" id="fsnAlert"  > <i> *  ไม่พบรหัส FSN นี้ในระบบ</i></span>
+                        <span class="alertText" id="fsnAlert"  > <i> *  ไม่พบรหัสนี้ในระบบ</i></span>
                     </div>
                 </div>
                 <div class="form-group" >
@@ -318,6 +318,7 @@ $('input').prop("disabled",false);
                     <span class="input-group-addon width250px" >จำนวน</span>
                     <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)" name="quantity" id="quantity">
                     <span class="alertText" id="quantityAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
+                    <span class="alertText" id="numberFormatError"  > <i> *  กรุณากรอกเลขจำนวนเต็มบวก</i></span>
                 </div>
             </div>
         </div>

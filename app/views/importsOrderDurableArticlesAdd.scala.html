@@ -297,7 +297,7 @@
                         <span class="input-group-addon width250px" >รหัสFSN</span>
                         <input type="text" class="form-control textAlignCenter  width300px" placeholder="ใส่ค่า" name="fsnCode" id="code" onkeyup="mapCodeToDes()">
                         <span class="alertText" id="codeAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
-                        <span class="alertText" id="fsnAlert"  > <i> *  ไม่พบรหัส FSN นี้ในระบบ</i></span>
+                        <span class="alertText" id="fsnAlert"  > <i> *  ไม่พบรหัสนี้ในระบบ</i></span>
                     </div>
                 </div>
                 <div class="form-group" >
@@ -336,6 +336,7 @@
                     <span class="input-group-addon width250px" >จำนวน</span>
                     <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า"onkeypress="validateNumberKey(event)" name="quantity" id="quantity">
                     <span class="alertText" id="quantityAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
+                    <span class="alertText" id="numberFormatErrorQuantity"  > <i> *  กรุณากรอกเลขจำนวนเต็มบวก</i></span>
                 </div>
             </div>
         </div>
@@ -346,12 +347,14 @@
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >อายุการใช้งาน</span>
                     <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)"  name="llifeTime" id="llifeTime">
+                    <span class="alertText" id="numberFormatErrorLifeTime"  > <i> *  กรุณากรอกเลขจำนวนเต็มบวก</i></span>
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >เวลาแจ้งเตือนก่อนหมดอายุใช้งาน</span>
                     <input type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="alertTime" id="alertTime">
+                    <span class="alertText" id="numberFormatErrorAlertTime"  > <i> *  กรุณากรอกเลขจำนวนเต็มบวก</i></span>
                 </div>
             </div>
         </div>
@@ -361,6 +364,7 @@
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >พนักงานขาย</span>
                     <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="seller" id="seller">
+                    
                 </div>
             </div>
             <div class="form-group" >
