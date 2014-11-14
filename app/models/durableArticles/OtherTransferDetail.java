@@ -13,8 +13,6 @@ public class OtherTransferDetail extends Model{
 
 	@Id
 	public long id;
-	public Date approveDate; // วันที่ทำการอนุมัติ
-	public String descliption; // สาเหตุการโอนย้าย
 
 	@ManyToOne
 	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการโอนย่าย

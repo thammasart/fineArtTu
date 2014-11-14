@@ -86,9 +86,11 @@ function getDetail(){
 						s += '	<th>'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
 					}
 					else{
-						s += '	<th>'+ 'ไม่มี' +'</th>';
+						s += '	<th>'+'ไม่มี'+'</th>';
 					}
-					s += '	<th> </th>';
+					s += '	<th>'+details[i].durableArticles.remainingPriceToString+'</th>';
+					s += '	<th>'+details[i].durableArticles.department+'</th>';
+					s += '	<th>'+details[i].durableArticles.detail.procurement.checkDate+'</th>';
 					s += '</tr>';
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;
