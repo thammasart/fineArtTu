@@ -140,14 +140,17 @@ public class Admin extends Controller {
 
     public static Result removeUser(){
     	DynamicForm form = Form.form().bindFromRequest();
+    	User loggedInUser = User.find.byId(session().get("username"));
     	User user;
+    	int count = 0;
         if(!form.get("data").equals("")){
     	String[] usernames = form.get("data").split(",");
-    
-        
             for(int i=0;i<usernames.length;i++){
-                    user = User.find.byId(usernames[i]);
-                    user.delete();
+                user = User.find.byId(usernames[i]);
+                if(!user.equals(loggedInUser)){
+                	count++;
+                	user.delete();
+                }
             }
             flash("delete","delete " + usernames.length +" account " );
         } else flash("notSelect","please select at least one account");

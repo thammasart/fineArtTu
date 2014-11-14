@@ -794,7 +794,7 @@ function isInteger(data){
 	if (data == parseInt(data, 10) && data > 0) return true;
     else return false;
 }
-function submitToNext(){
+function submitToNext(type){
     
     submitNext = true;
 
@@ -838,19 +838,22 @@ function submitToNext(){
     	document.getElementById("numberFormatErrorQuantity").style.display = "none";
     	document.getElementById("quantityAlert").style.display= "none";
     }
-    
-    if(document.getElementById("llifeTime").value=="" || !isInteger($("#llifeTime").val())){
-    	document.getElementById("numberFormatErrorLifeTime").style.display = "table-row";
-        submitNext = false;
-    }else{
-    	document.getElementById("numberFormatErrorLifeTime").style.display = "none";
+    if(document.getElementById("numberFormatErrorLifeTime") != null){
+	    if(document.getElementById("llifeTime").value=="" || !isInteger($("#llifeTime").val())){
+	    	document.getElementById("numberFormatErrorLifeTime").style.display = "table-row";
+	        submitNext = false;
+	    }else{
+	    	document.getElementById("numberFormatErrorLifeTime").style.display = "none";
+	    }
     }
     
-    if(document.getElementById("alertTime").value=="" || !isInteger($("#alertTime").val())){
-    	document.getElementById("numberFormatErrorAlertTime").style.display = "table-row";
-        submitNext = false;
-    }else{
-    	document.getElementById("numberFormatErrorAlertTime").style.display = "none";
+    if(document.getElementById("numberFormatErrorAlertTime")){
+	    if(document.getElementById("alertTime").value=="" || !isInteger($("#alertTime").val())){
+	    	document.getElementById("numberFormatErrorAlertTime").style.display = "table-row";
+	        submitNext = false;
+	    }else{
+	    	document.getElementById("numberFormatErrorAlertTime").style.display = "none";
+	    }
     }
     
     
@@ -870,7 +873,7 @@ function submitToNext(){
     }
     else{
         showPage('3');
-        preSpread('good');
+        preSpread(type);
     }
 }
 
