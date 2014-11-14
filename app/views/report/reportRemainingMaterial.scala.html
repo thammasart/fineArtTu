@@ -1,4 +1,4 @@
-@(user : User, mc : List[Array[String]])
+@(user : User, mc : List[List[Array[String]]])
 @header("รายงาน")
 
 @nav(user)
@@ -55,22 +55,25 @@
                     </tr>
                 </thead>
                 <tbody>
+                
                 @for((material,index) <- mc.zipWithIndex){
-                    <tr class="success">
-                        <th style="text-align:center">@{index+1}</th>
-                        <th style="text-align:center">@material(1)</th>
-                        <th style="text-align:center">@material(2)</th>
-                        <th style="text-align:center">@material(3)</th>
-                        <th style="text-align:center">@material(4)</th>
-                        <th style="text-align:center">@material(5)</th>
-                        <th style="text-align:center">@material(6)</th>
-                        <th style="text-align:center">@material(7)</th>
-                        <th style="text-align:center">@material(8)</th>
-                        <th style="text-align:center">@material(9)</th>
-                        <th style="text-align:center">@material(10)</th>
-                        <th style="text-align:center">@material(11)</th>
-                        <th style="text-align:center">@material(12)</th>
-                    </tr>
+                    @for(detail <- material){
+                        <tr class="success">
+                            <th style="text-align:center">@{index+1}</th>
+                            <th style="text-align:center">@detail(1)</th>
+                            <th style="text-align:center">@detail(2)</th>
+                            <th style="text-align:center">@detail(3)</th>
+                            <th style="text-align:center">@detail(4)</th>
+                            <th style="text-align:center">@detail(5)</th>
+                            <th style="text-align:center">@detail(6)</th>
+                            <th style="text-align:center">@detail(7)</th>
+                            <th style="text-align:center">@detail(8)</th>
+                            <th style="text-align:center">@detail(9)</th>
+                            <th style="text-align:center">@detail(10)</th>
+                            <th style="text-align:center">@detail(11)</th>
+                            <th style="text-align:center">@detail(12)</th>
+                        </tr>
+                    }
                 }
                 </tbody>
             </table>

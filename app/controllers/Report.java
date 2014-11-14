@@ -37,31 +37,134 @@ public class Report  extends Controller {
     }
     @Security.Authenticated(Secured.class)
         public static Result reportRemainingMaterial(int year) {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        List<MaterialCode> mc = MaterialCode.find.all();
-        List<String[]> material = new ArrayList<String[]>();
         
-        for(MaterialCode each : mc){
-            List<Double> temp = each.getRemaining(year);
-            String[] detail = new String[13];    
-            detail[1] = each.description;
-            detail[2] = each.classifier;
-            detail[3] = "ddmmyyyy";
-            detail[4] = "ยอดยกมา";
-            detail[5] = "";
-            detail[6] = temp.get(1).toString();
-            detail[7] = temp.get(0).toString();
-            detail[8] =  String.valueOf(temp.get(1)*temp.get(0));
-            detail[9] = "";
-            detail[10] = "";
-            detail[11] = temp.get(0).toString();
-            detail[12] = String.valueOf(temp.get(1)*temp.get(0));
-            material.add(detail);
+        if(year == -1){
+            Date dNow = new Date( );
+            SimpleDateFormat ft = new SimpleDateFormat ("yyyy");
+            year = Integer.parseInt(ft.format(dNow)) +543;
         }
 
-        Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
-        String date = ft.format(dNow).toString();
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        List<MaterialCode> mc = MaterialCode.find.all();
+        List<List<String[]>> material = new ArrayList<List<String[]>>();
+        
+        for(MaterialCode each : mc){
+            List<Double> temp = each.getRemaining(year-1);
+            List<String[]> details = new ArrayList<String[]>();
+            if(temp.get(1) > 0 ){
+                String[] detail = new String[13];    
+
+                detail[1] = each.description;
+                detail[2] = each.classifier;
+                detail[3] = "ddmmyyyy";
+                detail[4] = "ยอดยกมา";
+                detail[5] = "";
+                detail[6] = temp.get(1).toString();
+                detail[7] = temp.get(0).toString();
+                detail[8] =  String.valueOf(temp.get(1)*temp.get(0));
+                detail[9] = "";
+                detail[10] = "";
+                detail[11] = temp.get(0).toString();
+                detail[12] = String.valueOf(temp.get(1)*temp.get(0));
+            
+                details.add(detail);
+            }
+
+            List<models.durableGoods.ProcurementDetail> importDetails = models.durableGoods.ProcurementDetail.find.where().eq("code",each.code).eq("procurement.status",ImportStatus.SUCCESS).eq("procurement.budgetYear",year).orderBy("procurement.addDate asc").findList();
+            
+            List<models.durableGoods.RequisitionDetail> exportDetails = models.durableGoods.RequisitionDetail.find.where().eq("code",each).eq("requisition.status",ExportStatus.SUCCESS).between("requisition.approveDate",new Date(year-2444,9,1),new Date(year-2443,8,30)).orderBy("requisition.approveDate asc").findList();
+            System.out.println("amount of export " + exportDetails.size());
+            SimpleDateFormat fts = new SimpleDateFormat ("dd.mm.yy");
+            double totalAmount = temp.get(1);
+            double sumOfPrice = temp.get(0) * temp.get(1);
+            while(importDetails.size() > 0 && exportDetails.size() > 0 ){
+                if(importDetails.get(0).procurement.addDate.compareTo(exportDetails.get(0).requisition.approveDate) < 0){
+                     
+                    String[] detail = new String[13];    
+                    
+                    if(details.isEmpty()){
+                        detail[1] = each.description;
+                        detail[2] = each.classifier;
+                    }
+                    detail[3] = fts.format(importDetails.get(0).procurement.addDate);
+                    detail[4] = importDetails.get(0).procurement.company.nameEntrepreneur;
+                    detail[5] = "";
+                    detail[6] = String.valueOf(importDetails.get(0).price);
+                    detail[7] = String.valueOf(importDetails.get(0).quantity);
+                    detail[8] = String.valueOf(importDetails.get(0).price * importDetails.get(0).quantity);
+                    detail[9] = "";
+                    detail[10] = "";
+                    totalAmount += importDetails.get(0).quantity;
+                    sumOfPrice += importDetails.get(0).price * importDetails.get(0).quantity; 
+                    detail[11] = String.valueOf(totalAmount);
+                    detail[12] = String.valueOf(sumOfPrice);
+                
+                    details.add(detail);
+                    importDetails.remove(0);
+                }else{
+                    String[] detail = new String[13];    
+                    
+                    detail[3] = fts.format(exportDetails.get(0).requisition.approveDate);
+                    detail[4] = exportDetails.get(0).withdrawer.firstName;
+                    detail[5] = "";
+                    detail[6] = "";
+                    detail[7] = "";
+                    detail[8] = "";
+                    detail[9] = String.valueOf(exportDetails.get(0).quantity);
+                    detail[10] = "price";
+                    totalAmount -= exportDetails.get(0).quantity;
+                    sumOfPrice -= 13 * exportDetails.get(0).quantity; 
+                    detail[11] = String.valueOf(totalAmount);
+                    detail[12] = String.valueOf(sumOfPrice);
+                
+                    details.add(detail);
+                    exportDetails.remove(0);
+                }
+            }
+            if(importDetails.size() > 0 ){
+                while(importDetails.size() > 0){     
+                    String[] detail = new String[13];    
+                    
+                    detail[3] = fts.format(importDetails.get(0).procurement.addDate);
+                    detail[4] = importDetails.get(0).procurement.company.nameEntrepreneur;
+                    detail[5] = "";
+                    detail[6] = String.valueOf(importDetails.get(0).price);
+                    detail[7] = String.valueOf(importDetails.get(0).quantity);
+                    detail[8] = String.valueOf(importDetails.get(0).price * importDetails.get(0).quantity);
+                    detail[9] = "";
+                    detail[10] = "";
+                    totalAmount += importDetails.get(0).quantity;
+                    sumOfPrice += importDetails.get(0).price * importDetails.get(0).quantity; 
+                    detail[11] = String.valueOf(totalAmount);
+                    detail[12] = String.valueOf(sumOfPrice);
+                
+                    details.add(detail);
+                    importDetails.remove(0);
+                }
+            }else{
+                while(exportDetails.size() > 0){
+                    String[] detail = new String[13];    
+                    
+                    detail[3] = fts.format(exportDetails.get(0).requisition.approveDate);
+                    detail[4] = exportDetails.get(0).withdrawer.firstName;
+                    detail[5] = "";
+                    detail[6] = "";
+                    detail[7] = "";
+                    detail[8] = "";
+                    detail[9] = String.valueOf(exportDetails.get(0).quantity);
+                    detail[10] = "price";
+                    totalAmount -= exportDetails.get(0).quantity;
+                    sumOfPrice -= 13 * exportDetails.get(0).quantity; 
+                    detail[11] = String.valueOf(totalAmount);
+                    detail[12] = String.valueOf(sumOfPrice);
+                
+                    details.add(detail);
+                    exportDetails.remove(0);
+                }
+            }
+            material.add(details);
+        }
+
         return ok(reportRemainingMaterial.render(user,material));
     }
     
