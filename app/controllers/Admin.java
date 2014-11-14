@@ -33,7 +33,6 @@ public class Admin extends Controller {
         Form<User> newUserFrom = Form.form(User.class).bindFromRequest();
 
         User user = User.find.byId(f.get("username"));
-        if(!user.isPermit(1))return ok(permissionDenied.render());
         if(user == null){
             System.out.println(newUserFrom);
             User newUser = newUserFrom.get();    

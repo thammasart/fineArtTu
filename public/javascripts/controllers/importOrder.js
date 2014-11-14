@@ -214,6 +214,27 @@ function cancelStatus(id,typeOfOrder){
     	}
 	});
 }
+
+function addVat(){
+	var price = parseInt($('#priceNoVat').val());
+	var tax = document.getElementById("tax").value;
+	if(!isNaN(price)){
+		parseInt(price);
+		parseInt(tax);
+		$('#price').val(price + price * tax * 0.01);
+	}
+}
+
+function decreaseVat(){
+	var price = $('#price').val();
+	var tax = document.getElementById("tax").value;
+	if(!isNaN(price)){
+		parseInt(price);
+		parseInt(tax);
+		$('#priceNoVat').val(price - price * tax * 0.01);
+	}
+}
+
 function hidePrintBarcode(){
 	$("#getBarcodeArticle").hide();
 	$("#getBarcodeGoods").hide();

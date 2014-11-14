@@ -313,7 +313,7 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคา</span>
-                    <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat">
+                    <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat" onkeyup="addVat()">
                     <span class="alertText" id="priceNoVatAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
@@ -322,12 +322,13 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคารวมภาษี</span>
-                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price">
+                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price" onkeyup="decreaseVat()">
                         <span class="alertText" id="priceAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
                 <span>Tax @controllers.AppConfig.TAX %</span>
         </div>
+        <input id="tax" value="@controllers.AppConfig.TAX" hidden>
 		      
 		
         <div class="form-inline marginBtm1" role="form" align="left">
