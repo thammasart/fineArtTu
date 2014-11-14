@@ -218,10 +218,14 @@ function drawChart() {
 	// Create the data table.
 	load();
 	//myRandom();
-	if(state['mode'] == 'requisition' || state['mode'] == 'remain'){
-		getData('column');
+	if(state['page'] == 0){
+		if(state['page'] == 0 && (state['mode'] == 'requisition' || state['mode'] == 'remain')){
+			getData('column');
+		}else{
+			getData('line');
+		}
 	}else{
-		getData('line');
+		getData('column');
 	}
 }
 
