@@ -12,7 +12,7 @@ public class BorrowDetail extends Model{
 
 	@Id
 	public long id;
-	public String description; // หมายเหตุการยืม
+
 	@ManyToOne
 	public DurableArticles durableArticles; // ครุภัณฑ์ที่ต้องการยืม
 	@ManyToOne
