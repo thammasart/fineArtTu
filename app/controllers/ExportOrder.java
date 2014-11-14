@@ -100,7 +100,7 @@ public class ExportOrder extends Controller {
             String lastName = f.get("lastName");
             String position = f.get("position");
             List<User> employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-            if(employees.size() == 1){
+            if(employees.size() > 0){
                 req.user = employees.get(0);
             }
 
@@ -109,7 +109,7 @@ public class ExportOrder extends Controller {
             lastName = f.get("approverLastName");
             position = f.get("approverPosition");
             employees = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-            if(employees.size() == 1){
+            if(employees.size() > 0){
                 req.approver = employees.get(0);
             }
 
@@ -215,13 +215,15 @@ public class ExportOrder extends Controller {
                         String lastName = json.get("withdrawerLastname").asText();
                         String position = json.get("withdrawerPosition").asText();
                         List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-                        if(withdrawers.size() == 1){
+                        if(withdrawers.size() > 0){
                             newDetail.withdrawer = withdrawers.get(0);
-                            newDetail.save();
+                            newDetail.status = ExportStatus.INIT;
                             if(requisition.status == ExportStatus.SUCCESS){
                                 code.remain -= quantity;
                                 code.update();
+                                newDetail.status = ExportStatus.SUCCESS;
                             }
+                            newDetail.save();
                             result.put("status", "SUCCESS");
                         }
                         else{
@@ -280,7 +282,7 @@ public class ExportOrder extends Controller {
                         String lastName = json.get("withdrawerLastname").asText();
                         String position = json.get("withdrawerPosition").asText();
                         List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
-                        if(withdrawers.size() == 1){
+                        if(withdrawers.size() > 0){
                             detail.withdrawer = withdrawers.get(0);
                             detail.update();
                             if(requisition.status == ExportStatus.SUCCESS){

@@ -75,21 +75,21 @@
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ผู้อนุมัติ:ชื่อ</span>
-              <input type="text" class="form-control width190px textAlignCenter" @if(requisition.user!=null){value="@requisition.approver.firstName"} name="approverFirstName" id="approverName" onkeyup="mapInput2()">
+              <input type="text" class="form-control width190px textAlignCenter" @if(requisition.approver!=null){value="@requisition.approver.firstName"} name="approverFirstName" id="approverName" onkeyup="mapInput2()">
               <span class="alertText" id="approverNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">นามสกุล</span>
-              <input type="text" class="form-control width190px textAlignCenter" @if(requisition.user!=null){value="@requisition.approver.lastName"} name="approverLastName" id="approverLastName">
+              <input type="text" class="form-control width190px textAlignCenter" @if(requisition.approver!=null){value="@requisition.approver.lastName"} name="approverLastName" id="approverLastName">
               <span class="alertText" id="approverLastNameAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
         <div class="form-group">
           <div class="input-group">
               <span class="input-group-addon width125px">ตำแหน่ง</span>
-              <input type="text" class="form-control width190px textAlignCenter" @if(requisition.user!=null){value="@requisition.approver.position"} name="approverPosition" id="approverPosition">
+              <input type="text" class="form-control width190px textAlignCenter" @if(requisition.approver!=null){value="@requisition.approver.position"} name="approverPosition" id="approverPosition">
               <span class="alertText" id="approverPositionAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
         </div>
