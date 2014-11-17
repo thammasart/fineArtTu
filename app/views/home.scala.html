@@ -58,13 +58,13 @@
                     <tbody>
                         @for((mc,index) <- material.zipWithIndex){
                             <tr >
-                                <th class="danger" style="text-align:center">@{index+1}</th>
-                                <th class="danger" style="text-align:center">@mc.description</th>
-                                <th class="danger" style="text-align:center">@mc.classifier</th>
-                                <th class="danger" style="text-align:center">@mc.code</th>
-                                <th class="danger" style="text-align:center">@mc.pricePerEach</th>
-                                <th class="danger" style="text-align:center">@mc.remain</th>
-                                <th class="danger" style="text-align:center">@mc.minNumberToAlert</th>
+                                <th style="text-align:center">@{index+1}</th>
+                                <th style="text-align:center">@mc.description</th>
+                                <th style="text-align:center">@mc.classifier</th>
+                                <th style="text-align:center">@mc.code</th>
+                                <th style="text-align:center">@mc.pricePerEach</th>
+                                <th style="text-align:center">@mc.remain</th>
+                                <th style="text-align:center">@mc.minNumberToAlert</th>
                             </tr>
                         }
                     </tbody>

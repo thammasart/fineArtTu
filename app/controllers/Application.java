@@ -37,13 +37,13 @@ public class Application extends Controller {
             }
         }
         for(models.durableArticles.DurableArticles each : da){
-            System.out.println(each.detail.alertTime +" "+  each.detail.getCurrentLifeTime() +" " + each.code);
+            System.out.println(each.detail.alertTime +" "+  each.detail.getCurrentLifeTime() +" " + each.getRemainInMonth());
             if(each.detail.alertTime >= each.detail.getCurrentLifeTime()){
                 aAlert.add(each);
             }
         }
         
-    	return ok(home.render(user,mcAlert,da));
+    	return ok(home.render(user,mcAlert,aAlert));
     }
 
     @Security.Authenticated(Secured.class)
