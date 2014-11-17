@@ -1,6 +1,12 @@
 @(user : User , mc: List[MaterialCode], mt:List[MaterialType], dg:List[models.durableGoods.DurableGoods])
 @header("รายงาน")
     <script src="@routes.Assets.at("javascripts/report.js")"></script>
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
 
 @nav(user)
 @headerTag("สรุปวัสดุคงเหลือ")
@@ -25,48 +31,16 @@
                         </form>
                 </div>
                <div class="form-group marginBtm1" role="form">
-                    <div class="input-group" style="float:right;">
-                      <span class="input-group-addon width150px marginLeft2">ประเภทงบประมาณ</span>
-                        <select class="form-control textAlignCenter  width300px">
-                          <option>---เลือก---</option>
-                          <option>งบพิเศษ</option>
-                          <option>งบคลัง</option>
-                        </select>
-                    </div>
                     <div class="input-group"style="float:right;">
                       <span class="input-group-addon width150px">ประเภทวัสดุ</span>
-                        <select class="form-control textAlignCenter  width300px" id="MaterialTypeSelect" onchange="setKeySearch(this.value)">
-                          <option>ทั้งหมด</option>
+                        <select class="form-control textAlignCenter  width300px" id="MaterialTypeSelect" onchange="getDataTable(0).search(this.value).draw()">
+                          <option value="">ทั้งหมด</option>
                      @for(mtl <-mt){
                           <option value="@mtl.typeName" >@mtl.typeName</option>
                      }
                         </select>
                    </div>
               </div>
-               <!--<div class="form-inline" role="form"  style="float:right;">
-                  <div class="form-group" >
-                      <div class="input-group date width190px" id="start-picker">
-                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="birthInputBoxShow"placeholder="จากวันที่" disabled>
-                          <input type="text" name="birthDate" id="birthInputBox" hidden>
-                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                      </div>
-                 </div>
-                  <div class="form-group" >
-                      <div class="input-group date width190px" id="end-picker">
-                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="birthInputBoxShow"placeholder="ถึงวันที่" disabled>
-                          <input type="text" name="birthDate" id="birthInputBox" hidden>
-                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                      </div>
-                 </div>
-                    <script type="text/javascript">
-                        $(function () {
-                            $('#start-picker').datetimepicker()
-                        });
-                        $(function () {
-                            $('#end-picker').datetimepicker()
-                        });
-                    </script>
-               </div>-->
         </div>
 
            <div class="tableHeaderBtnContainer">
@@ -94,7 +68,7 @@
                     newWin.close();
                 }
             </script>
-            <table class="table table-striped overlayTable" align="center">
+            <table class="table table-striped overlayTable" align="center" id="printTable">
                 <thead>
                     <tr>
                         <th style="text-align:center"> ลำดับที่</th>
