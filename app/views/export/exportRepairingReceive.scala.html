@@ -18,7 +18,7 @@
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group ">
-            <span class="input-group-addon width250px">รายการ เรื่อง</span>
+            <span class="input-group-addon width250px">ชื่อรายการ</span>
             <input type="text" class="form-control width300px" value="@repair.title" name="title" id="title" autocomplete="off">
             <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
@@ -32,20 +32,6 @@
         </div>
       </div>
 
-      <div class="form-inline marginBtm1" role="form">
-        <div class="form-group">
-          <div class="input-group">
-            <span class="input-group-addon width250px">บริษัท-ร้านค้า ที่ส่งซ่อม</span>
-            <select class="form-control textAlignCenter  width300px" name="repairShop" id="repairShop">
-              <option value="-1">---เลือก---</option>
-              @for(company <- allCompany){
-                <option value="@company.id" @if(company.equals(repair.company)){selected}>@company.nameEntrepreneur</option>
-              }
-            </select>
-            <span class="alertText" id=""  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
-          </div>
-        </div>
-      </div>
 
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
@@ -59,6 +45,22 @@
           </div>
         </div>
       </div>
+
+      <div class="form-inline marginBtm1" role="form">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon width250px">สถานประกอบการที่ส่งซ่อม</span>
+            <select class="form-control textAlignCenter  width300px" name="repairShop" id="repairShop">
+              <option value="-1">---เลือก---</option>
+              @for(company <- allCompany){
+                <option value="@company.id" @if(company.equals(repair.company)){selected}>@company.nameEntrepreneur</option>
+              }
+            </select>
+            <span class="alertText" id=""  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
+          </div>
+        </div>
+      </div>
+
 
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">

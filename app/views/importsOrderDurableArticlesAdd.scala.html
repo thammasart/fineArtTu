@@ -11,7 +11,7 @@
     <script src="@routes.Assets.at("javascripts/printBarcode.js")"></script>
 <body ng-app="fsnAutoComplete" ng-controller="getFsnName">
 @nav(user)
-@headerTagFull("เพิ่มรายการครุภัณฑ์จัดซื้อและนำเข้า")
+@headerTagFull("เพิ่มรายการจัดซื้อและนำเข้าครุภัณฑ์")
 <div class="detailWindow" id="page1">
 
 
@@ -63,7 +63,7 @@
       <div class="form-inline marginBtm1" role="form" align="left">
             <div class="form-group" >
                   <div class="input-group date" id="addDate">
-                      <span class="input-group-addon width250px" >วันที่นำเข้า</span>
+                      <span class="input-group-addon width250px" >วัน/เดือน/ปี ที่นำเข้า</span>
                       <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="addDate_p" id="addDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.addDate))}">
                         <span class="alertText" id="addDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                       <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
@@ -74,7 +74,7 @@
       <div class="form-inline marginBtm1" role="form" align="left">
             <div class="form-group" >
                   <div class="input-group date" id="checkDate">
-                      <span class="input-group-addon width250px" >วันที่ตรวจรับ</span>
+                      <span class="input-group-addon width250px" >วัน/เดือน/ปี ที่ตรวจรับ</span>
                       <input type="text" class="form-control textAlignCenter  width300px" data-format="DD/MM/YYYY" placeholder="ใส่ค่า" name="checkDate_p" id="checkDate_p" value="@if(order.addDate!=null){@(new SimpleDateFormat("dd/MM/yyyy", new Locale("th", "th")).format(order.checkDate))}">
                         <span class="alertText" id="checkDate_pAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                       <span class="input-group-addon width25px"><span class="datepickerbutton glyphicon glyphicon-calendar"></span></span>
