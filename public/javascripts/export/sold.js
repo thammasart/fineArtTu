@@ -84,7 +84,6 @@ function getDetail(){
 					s += '<tr id="detailRow' + details[i].id + '">';
 					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">' +
 								' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
-					s += '	<th>'+(i+1)+'</th>';
 					s += '	<th>'+ details[i].durableArticles.code +'</th>';
 					if(details[i].durableArticles.detail){
 						s += '	<th>'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
@@ -92,21 +91,23 @@ function getDetail(){
 					else{
 						s += '	<th>'+ 'ไม่มี' +'</th>';
 					}
+					s += '	<th>'+details[i].remainPriceTotring+'</th>';
+					s += '	<th>'+details[i].remainLifetimeTotring +'</th>';
 					var budgetType = details[i].durableArticles.detail.procurement.budgetType;
-					var remaining = details[i].durableArticles.remaining;
-					summaryTotal += remaining;
+					var remainPrice = details[i].remainPrice;
+					summaryTotal += remainPrice;
 					if(budgetType){
 						var position = summaryBudgetType.indexOf(budgetType);
 						if(position > -1){
-							summaryRemaining[position] += remaining;
+							summaryRemaining[position] += remainPrice;
 						}
 						else{
 							summaryBudgetType.push(budgetType);
-							summaryRemaining.push(remaining);
+							summaryRemaining.push(remainPrice);
 						}
 					}
 					s += '	<th>'+ budgetType +'</th>';
-					s += '	<th>'+ remaining.toFixed(2) +'</th>';
+					s += '	<th>'+ details[i].durableArticles.department +'</th>';
 					s += '</tr>';
 			   	}
 			   	document.getElementById("detailInTable").innerHTML = s;

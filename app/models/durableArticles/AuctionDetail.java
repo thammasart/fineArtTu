@@ -18,10 +18,21 @@ public class AuctionDetail extends Model{
 
 	public double getRemainPrice(){
 		int date = auction.approveDate.getDate();
-		int month = auction.approveDate.getMonth();
+		int month = auction.approveDate.getMonth()+1;
 		int year = auction.approveDate.getYear() + 2443;	
 		double remainPrice = durableArticles.getDepreciationPrice(date,month,year);
 		return remainPrice;
+	}
+
+	public String getRemainPriceTotring(){
+		double result = this.getRemainPrice();
+		return String.format("%.2f", result);
+	}
+	public String getRemainLifetimeTotring(){
+		int date = auction.approveDate.getDate();
+		int month = auction.approveDate.getMonth()+1;
+		int year = auction.approveDate.getYear() + 2443;
+		return this.durableArticles.getRemainLifetimeToString(date,month,year);
 	}
 
 	@SuppressWarnings("unchecked")
