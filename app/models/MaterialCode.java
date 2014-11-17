@@ -38,7 +38,7 @@ public class MaterialCode extends Model{
 	public MaterialType materialType;
 
     public void updateRemain(){
-        List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code).eq("procurement.status",ImportStatus.SUCCESS).eq("status",OrderDetailStatus.SUCCESS).orderBy("procurement.addDate desc").findList();
+        List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code).eq("procurement.status",ImportStatus.SUCCESS).orderBy("procurement.addDate desc").findList();
         double totalImport = 0;
         for(ProcurementDetail detail : importDetails){
             totalImport += detail.quantity;
