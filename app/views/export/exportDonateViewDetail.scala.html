@@ -29,7 +29,7 @@
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group ">
-            <span class="input-group-addon width250px">รายการ เรื่อง</span>
+            <span class="input-group-addon width250px">ชื่อรายการ</span>
             <input type="text" class="form-control width300px" value="@donation.title" name="title" id="title">
             <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
@@ -57,7 +57,7 @@
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group ">
-            <span class="input-group-addon width250px">หน่วยงานที่โอนย้าย</span>
+            <span class="input-group-addon width250px">สถานประกอบการที่โอนย้าย</span>
             <select class="form-control textAlignCenter  width300px" name="donateDestination" id="donateDestination">
               <option value="-1">---เลือก---</option>
               @for(company <- allCompany){

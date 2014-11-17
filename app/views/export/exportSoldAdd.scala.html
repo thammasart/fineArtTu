@@ -23,7 +23,7 @@
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group ">
-            <span class="input-group-addon width250px">รายการ เรื่อง</span>
+            <span class="input-group-addon width250px">ชื่อรายการ</span>
             <input type="text" class="form-control width300px" value="@auction.title" name="title" id="title">
             <span class="alertText" id="titleAlert"  > <i> *  กรุณาใส่ข้อมูลให้ครบถ้วน</i></span>
           </div>
@@ -51,7 +51,7 @@
       <div class="form-inline marginBtm1" role="form">
         <div class="form-group">
           <div class="input-group">
-            <span class="input-group-addon width250px">บริษัท-ร้านค้า ที่จำหน่วยไป</span>
+            <span class="input-group-addon width250px">สถานประกอบการที่จำหน่ายไป</span>
             <select class="form-control textAlignCenter  width300px" name="soldDestination" id="soldDestination">
               <option value="-1">---เลือก---</option>
               @for(company <- allCompany){
@@ -106,7 +106,7 @@
           </tbody>
         </table>
 
-        <h3 style ="text-align:left;">คณะกรรมการประเมิณราคากลาง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" id="E_add" onclick="add_E_committree()">เพิ่มกรรมการ</button> </h3>
+        <h3 style ="text-align:left;">คณะกรรมการประเมินราคากลาง <button type="button" class="btn btn-success width175px" style="float:right;margin-left:1%;" id="E_add" onclick="add_E_committree()">เพิ่มกรรมการ</button> </h3>
         <input type="number" style="display:none;" value="@auction.eCommittee.size()" name="numberOf_E_committee" id="numberOf_E_committee">
         <table class="table table-striped overlayTable" style="margin-bottom:3%;" >
           <thead>
