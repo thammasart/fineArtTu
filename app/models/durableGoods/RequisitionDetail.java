@@ -36,10 +36,8 @@ public class RequisitionDetail extends Model{
 	public void updateDetail(){
 		List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code.code).eq("procurement.status",ImportStatus.SUCCESS).eq("status",OrderDetailStatus.SUCCESS).le("procurement.addDate",this.requisition.approveDate).orderBy("procurement.addDate desc").findList();
 		double totalImport = 0;
-        double totalPrice = 0;
         for(ProcurementDetail detail : importDetails){
             totalImport += detail.quantity;
-            totalPrice += detail.price * detail.quantity;
         }
 
 		List<RequisitionDetail> exportDetails = RequisitionDetail.find.where().eq("code",this.code).eq("requisition.status",ExportStatus.SUCCESS).le("requisition.approveDate",requisition.approveDate).findList();

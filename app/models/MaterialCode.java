@@ -72,6 +72,35 @@ public class MaterialCode extends Model{
         }
         this.update();
     }
+
+    public List<ProcurementDetail> getProcurementDetailRemaining(int year){
+        List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code).eq("procurement.status",ImportStatus.SUCCESS).le("procurement.budgetYear",year).orderBy("procurement.addDate desc").findList();
+        double totalImport = 0;
+        for(ProcurementDetail detail : importDetails){
+            totalImport += detail.quantity;
+        }
+        
+        List<RequisitionDetail> exportDetails = RequisitionDetail.find.where().eq("code",this).eq("requisition.status",ExportStatus.SUCCESS).le("requisition.approveDate",new Date(year-2443,8,30)).findList();
+        double totalExport = 0;
+        for(RequisitionDetail detail : exportDetails){
+            totalExport += detail.quantity;
+        }
+
+        int remain = (int)(totalImport-totalExport);
+        List<ProcurementDetail> details = new ArrayList<ProcurementDetail>();
+        for(ProcurementDetail detail : importDetails){
+            if(remain > detail.quantity){
+                details.add(detail);
+                remain -= detail.quantity;
+            }
+            else{
+                detail.quantity = remain;
+                details.add(detail);
+                break;
+            }
+        }
+        return details;
+    }
         
     public List<Double> getRemaining(int year){
         List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code).eq("procurement.status",ImportStatus.SUCCESS).le("procurement.budgetYear",year).orderBy("procurement.addDate asc").findList();
