@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.Date;
+import java.util.Locale;
 
+import java.text.*;
 import play.db.ebean.*;
 import javax.persistence.*;
 
@@ -141,6 +144,23 @@ public class ProcurementDetail extends Model{
 	{
 		return this.getSumablePrice()-this.depreciationPrice;
 	}
+        
+        public double getCurrentLifeTime(){
+            Date dNow = new Date( );
+            Date dAdd = this.procurement.addDate;
+            int result[] = new int[3];
+                result[0] = dNow.getDate()-dAdd.getDate();
+                result[1] = dNow.getMonth()-dAdd.getMonth();
+                result[2] = dNow.getYear()-dAdd.getYear();
+
+                if(result[0]<0){
+                    result[1]--;
+                }
+                if(result[1]<0){
+                    result[2]--;
+                }
+            return this.llifeTime-result[2];
+        }
 	
 	@JsonBackReference
 	@OneToMany(mappedBy="detail")

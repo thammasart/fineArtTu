@@ -72,6 +72,7 @@
                 <thead>
                     <tr>
                         <th style="text-align:center"> ลำดับที่</th>
+                        <th style="text-align:center"> รหัสวัสดุ</th>
                         <th style="text-align:center"> รายการ </th>
                         <th style="text-align:center"> หน่วย </th>
                         <th style="text-align:center"> ปริมาณ </th>
@@ -85,6 +86,7 @@
                 @for((mcl,index) <-mc.zipWithIndex){
                     <tr>
                         <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@mcl.code</th>
                         <th style="text-align:center">@mcl.description</th>
                         <th style="text-align:center">@mcl.classifier</th>
                         <th style="text-align:center" id="re@index">@mcl.remain</th>

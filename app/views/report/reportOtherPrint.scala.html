@@ -20,7 +20,7 @@
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>
-                        <th style="text-align:center">เลขที่ยืม</th>
+                        <th style="text-align:center">ใบยืม</th>
                         <th style="text-align:center">รายการ</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">หน่วยนับ</th>
@@ -35,7 +35,7 @@
                 @for((others,index)<-ot.zipWithIndex){
                     <tr id="tr@index">
                         <th style="text-align:center">@{index+1}</th>
-                        <th style="text-align:center">@others.otherTransfer.number</th>
+                        <th style="text-align:center">@others.otherTransfer.title</th>
                         <th style="text-align:center">@others.durableArticles.detail.fsn.descriptionDescription</th>
                         <th style="text-align:center">@others.durableArticles.code</th>
                         <th style="text-align:center">@others.durableArticles.detail.fsn.classifier</th>

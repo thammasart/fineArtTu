@@ -80,7 +80,7 @@
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>
                         <th style="text-align:center">วันที่โอน</th>
-                        <th style="text-align:center">เลขที่ยืม</th>
+                        <th style="text-align:center">ใบยืม</th>
                         <th style="text-align:center">รายการ</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">หน่วยนับ</th>
@@ -88,7 +88,6 @@
                         <th style="text-align:center">ผู้อนุมัติ</th>
                         <th style="text-align:center">รายละเอียดการโอน</th>
                         <th style="text-align:center">สถาณะใบโอน</th>
-                        <th style="display:none">สถาณะใบโอน</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,7 +95,7 @@
                     <tr id="tr@index">
                         <th style="text-align:center">@{index+1}</th>
                         <th style="text-align:center">@others.otherTransfer.getApproveDate()</th>
-                        <th style="text-align:center">@others.otherTransfer.number</th>
+                        <th style="text-align:center">@others.otherTransfer.title</th>
                         <th style="text-align:center">@others.durableArticles.detail.fsn.descriptionDescription</th>
                         <th style="text-align:center">@others.durableArticles.code</th>
                         <th style="text-align:center">@others.durableArticles.detail.fsn.classifier</th>
@@ -107,7 +106,6 @@
                         <th style="text-align:center">ไม่ระบุ</th>
                         }
                         <th style="text-align:center">@others.otherTransfer.description</th>
-                        <th id="rStatus@index" style="text-align:center">@others.otherTransfer.status</th>
                         <th style="display:none">@others.durableArticles.barCode</th>
                     </tr>
                     <script>
