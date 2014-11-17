@@ -73,7 +73,6 @@ public class Report  extends Controller {
             List<models.durableGoods.ProcurementDetail> importDetails = models.durableGoods.ProcurementDetail.find.where().eq("code",each.code).eq("procurement.status",ImportStatus.SUCCESS).eq("procurement.budgetYear",year).orderBy("procurement.addDate asc").findList();
             
             List<models.durableGoods.RequisitionDetail> exportDetails = models.durableGoods.RequisitionDetail.find.where().eq("code",each).eq("requisition.status",ExportStatus.SUCCESS).between("requisition.approveDate",new Date(year-2444,9,1),new Date(year-2443,8,30)).orderBy("requisition.approveDate asc").findList();
-            System.out.println("amount of export " + exportDetails.size());
             SimpleDateFormat fts = new SimpleDateFormat ("dd.mm.yy");
             double totalAmount = temp.get(1);
             double sumOfPrice = temp.get(0) * temp.get(1);
