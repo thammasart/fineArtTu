@@ -113,20 +113,22 @@ public class ExportOrder extends Controller {
                 req.approver = employees.get(0);
             }
 
+            // updatae status Requisition
+            req.status = ExportStatus.SUCCESS;
+            req.update();
+
             // update Material remain
             for(RequisitionDetail detail: req.details){
                 if(detail.status == ExportStatus.INIT){
                     detail.code.remain -= detail.quantity;
                     detail.code.update();
+                    detail.updateDetail();
                     detail.status = ExportStatus.SUCCESS;
+                    RequisitionDetail.updateAfter(detail.requisition.approveDate, detail.code);
                 }
                 detail.year = req.approveDate.getYear() + 2443;
                 detail.update();
             }
-
-            // updatae status Requisition
-            req.status = ExportStatus.SUCCESS;
-            req.update();
         }
 
         return redirect(routes.ExportOrder.exportOrder());
@@ -172,8 +174,9 @@ public class ExportOrder extends Controller {
                                 detail.code.remain += detail.quantity;
                                 detail.code.update();
                                 detail.status = ExportStatus.DELETE;
+                                detail.update();
+                                RequisitionDetail.updateAfter(detail.requisition.approveDate, detail.code);
                             }
-                            detail.update();
                         }
                         order.status = ExportStatus.DELETE;
                         order.update();
@@ -218,12 +221,14 @@ public class ExportOrder extends Controller {
                         if(withdrawers.size() > 0){
                             newDetail.withdrawer = withdrawers.get(0);
                             newDetail.status = ExportStatus.INIT;
+                            newDetail.save();
                             if(requisition.status == ExportStatus.SUCCESS){
                                 code.remain -= quantity;
                                 code.update();
                                 newDetail.status = ExportStatus.SUCCESS;
+                                newDetail.save();
+                                RequisitionDetail.updateAfter(newDetail.requisition.approveDate, newDetail.code);
                             }
-                            newDetail.save();
                             result.put("status", "SUCCESS");
                         }
                         else{
@@ -288,6 +293,7 @@ public class ExportOrder extends Controller {
                             if(requisition.status == ExportStatus.SUCCESS){
                                 code.remain -= quantity;
                                 code.update();
+                                RequisitionDetail.updateAfter(requisition.approveDate, code);
                             }
                             result.put("status", "SUCCESS");
                         }
