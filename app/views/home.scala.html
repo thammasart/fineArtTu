@@ -1,4 +1,4 @@
-@(user : User, material:List[MaterialCode])
+@(user : User, material:List[MaterialCode],da:List[models.durableArticles.DurableArticles])
 @header("main")
 
 @nav(user)
@@ -16,28 +16,26 @@
                         <th style="text-align:center">ลำดับที่</th>
                         <th style="text-align:center">รายการ</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
-                        <th style="text-align:center">อายุการใช้งาน/ปี</th>
                         <th style="text-align:center">อายุการใช้งานที่เหลือ/ปี</th>
-                        <th style="text-align:center">หน่วยนับ</th>
+                        <th style="text-align:center">เตือนอายุการใช้งาน/ปี</th>
                         <th style="text-align:center">ราคา/หน่วย</th>
-                        <th style="text-align:center">ราคาปัจจุบัน</th>
                         <th style="text-align:center">วันที่นำเข้า</th>
                         <th style="text-align:center">ที่เก็บ</th>
                     </tr>
                 </thead>
                 <tbody>
+                @for((dura,index) <- da.zipWithIndex){
                     <tr>
-                        <th style="text-align:center">1</th>
-                        <th style="text-align:center">โต็ะพิมพ์ผ้า</th>
-                        <th style="text-align:center">พ.41/7110-007-001</th>
-                        <th style="text-align:center">5</th>
-                        <th style="text-align:center">1</th>
-                        <th style="text-align:center">ตัว</th>
-                        <th style="text-align:center">32162.50</th>
-                        <th style="text-align:center">6432.50</th>
-                        <th style="text-align:center">01/01/42</th>
-                        <th style="text-align:center">ห้อง 5013</th>
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@dura.detail.description</th>
+                        <th style="text-align:center">@dura.code</th>
+                        <th style="text-align:center">@dura.detail.getCurrentLifeTime()</th>
+                        <th style="text-align:center">@dura.detail.alertTime</th>
+                        <th style="text-align:center">@dura.detail.price</th>
+                        <th style="text-align:center">@dura.detail.procurement.getAddDate()</th>
+                        <th style="text-align:center">ห้อง @dura.room</th>
                     </tr>
+                }
                 </tbody>
             </table>
         </div>

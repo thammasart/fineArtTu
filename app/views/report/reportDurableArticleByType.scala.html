@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <div class="input-group">
                       <span class="input-group-addon">ค้นหา</span>
-                      <input type="text" class="form-control" style="width:250px">
+                      <input type="text" class="form-control" style="width:200px">
                     </div>
                   </div>
             </div>
@@ -73,8 +73,8 @@
                 <thead>
                     <tr>
                     	<th>ลำดับ<span class="glyphicon glyphicon-sort"></span></th>
-                    	<th>ใบรายการ<span class="glyphicon glyphicon-sort"></span></th>
                     	<th>วัน เดือน ปี<span class="glyphicon glyphicon-sort"></span></th>
+                    	<th>ใบรายการ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>รายการ<span class="glyphicon glyphicon-sort"></span></th>
                         <th>ทะเบียนครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                         <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
@@ -92,8 +92,8 @@
                 @for((da,index) <- article.zipWithIndex){
                             <tr>
                                 <th>@{index+1}</th>
-                                <th>@da.detail.procurement.title</th>
                                 <th>@da.detail.procurement.getAddDate()</th>
+                                <th>@da.detail.procurement.title</th>
                                 <th>@da.detail.description</th>
                                 <th>@da.code</th>
                                 <th id="q@index">@da.detail.quantity</th>
@@ -136,7 +136,7 @@ $(document).ready( function(){
 	        //console.log(dateMax);
 	        
 	        // date column
-	        var date = aData[2];
+	        var date = aData[1];
 	        date = date.split('/')[2] + date.split('/')[1] + date.split('/')[0];
 	        console.log(date);
 	 

@@ -20,11 +20,12 @@
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">วันที่</th>
+                        <th style="text-align:center">ใบรายการ</th>
                         <th style="text-align:center">รายการ</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">หน่วยนับ</th>
                         <th style="text-align:center">ราคา/หน่วย</th>
-                        <th style="text-align:center">วันที่</th>
                         <th style="text-align:center">ที่เก็บ-เดิม</th>
                         <th style="text-align:center">ผู้ซื้อ</th>
                         <th style="text-align:center">โอนจาก</th>
@@ -36,11 +37,12 @@
                 @for((detail,index)<-ad.zipWithIndex){
                     <tr>
                         <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@detail.auction.getApproveDate()</th>
+                        <th style="text-align:center">@detail.auction.title</th>
                         <th style="text-align:center">@detail.durableArticles.detail.fsn.descriptionDescription</th>
                         <th style="text-align:center">@detail.durableArticles.code</th>
                         <th style="text-align:center">@detail.durableArticles.detail.fsn.classifier</th>
                         <th style="text-align:center">@detail.getRemainPrice()</th>
-                        <th style="text-align:center">@detail.auction.getApproveDate()</th>
                         <th style="text-align:center">@detail.durableArticles.room</th>
                         <th style="text-align:center">@detail.auction.company.nameEntrepreneur</th>
                         <th style="text-align:center">@detail.durableArticles.department</th>

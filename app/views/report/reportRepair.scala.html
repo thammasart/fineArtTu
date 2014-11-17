@@ -74,18 +74,18 @@
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>
-                        <th style="text-align:center">เลขที่ใบซ่อม</th>
+                        <th style="text-align:center">วันที่ส่งซ่อม</th>
+                        <th style="text-align:center">วันที่รับคืน</th>
+                        <th style="text-align:center">ใบซ่อม</th>
                         <th style="text-align:center">รายการ</th>
                         <th style="text-align:center">หมายเลขครุภัณฑ์</th>
                         <th style="text-align:center">หน่วยนับ</th>
-                        <th style="text-align:center">วันที่ส่งซ่อม</th>
-                        <th style="text-align:center">วันที่รับคืน</th>
                         <th style="text-align:center">ที่เก็บ-เดิม</th>
                         <th style="text-align:center">ซ่อมที่</th>
                         <th style="text-align:center">ส่งซ่อมโดย</th>
                         <th style="text-align:center">ประเภทการชำรุด</th>
                         <th style="text-align:center">สถาณะปัจจุบัญ</th>
-                        <th style="text-align:center">ราคาซ่อม/รวม</th>
+                        <th style="text-align:center">ราคาซ่อม</th>
                         <th style="display:none">barcode</th>
                     </tr>
                 </thead>
@@ -93,12 +93,12 @@
                 @for((repairs,index)<-repair.zipWithIndex){
                     <tr id="tr@index">
                         <th style="text-align:center">@{index+1}</th>
-                        <th style="text-align:center">@repairs.repairing.number</th>
+                        <th style="text-align:center">@repairs.repairing.getDateOfSentToRepair()</th>
+                        <th style="text-align:center">@repairs.repairing.getDateOfReceiveFromRepair()</th>
+                        <th style="text-align:center">@repairs.repairing.title</th>
                         <th style="text-align:center">@repairs.durableArticles.detail.fsn.descriptionDescription</th>
                         <th style="text-align:center">@repairs.durableArticles.code</th>
                         <th style="text-align:center">@repairs.durableArticles.detail.fsn.classifier</th>
-                        <th style="text-align:center">@repairs.repairing.getDateOfSentToRepair()</th>
-                        <th style="text-align:center">@repairs.repairing.getDateOfReceiveFromRepair()</th>
                         <th style="text-align:center">@repairs.durableArticles.room</th>
                         <th style="text-align:center">@repairs.repairing.company.nameEntrepreneur</th>
                         <th style="text-align:center">@repairs.durableArticles.department</th>

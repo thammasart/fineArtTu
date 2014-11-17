@@ -8,6 +8,7 @@ import views.html.*;
 import models.*;
 import models.fsnNumber.FSN_Description;
 import models.fsnNumber.FSN_Type;
+import models.type.*;
 
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,8 @@ public class Application extends Controller {
     public static Result home(){
         List<MaterialCode> mc = MaterialCode.find.all();
         List<MaterialCode> mcAlert = new ArrayList<MaterialCode>(); 
+        List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.where().eq("status",SuppliesStatus.NORMAL).findList();                    //ครุภัณฑ์
+        List<models.durableArticles.DurableArticles> aAlert = new ArrayList<models.durableArticles.DurableArticles>();
         User user = User.find.byId(request().username());
 
         for(MaterialCode material : mc){
@@ -33,7 +36,14 @@ public class Application extends Controller {
                 mcAlert.add(material);
             }
         }
-    	return ok(home.render(user,mcAlert));
+        for(models.durableArticles.DurableArticles each : da){
+            System.out.println(each.detail.alertTime +" "+  each.detail.getCurrentLifeTime() +" " + each.code);
+            if(each.detail.alertTime >= each.detail.getCurrentLifeTime()){
+                aAlert.add(each);
+            }
+        }
+        
+    	return ok(home.render(user,mcAlert,da));
     }
 
     @Security.Authenticated(Secured.class)
