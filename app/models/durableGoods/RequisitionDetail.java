@@ -74,7 +74,7 @@ public class RequisitionDetail extends Model{
 
         int quantity = this.quantity;
         double totlePrice = 0.00;
-        while(quantity > 0){
+        while(quantity > 0 && !priceList.isEmpty() && !remainList.isEmpty()){
         	int index = remainList.size() -1;
         	remain = remainList.get(index);
         	if(quantity > remain){
@@ -89,7 +89,7 @@ public class RequisitionDetail extends Model{
         	}
         }
 
-        this.price = price;
+        this.price = totlePrice/quantity;
         this.totlePrice = totlePrice;
         this.update();
 	}

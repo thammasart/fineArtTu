@@ -19,10 +19,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;                                                                                         
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -223,37 +219,40 @@ public class ExportOrder extends Controller {
                             newDetail.status = ExportStatus.INIT;
                             newDetail.save();
                             if(requisition.status == ExportStatus.SUCCESS){
-                                code.remain -= quantity;
-                                code.update();
-                                newDetail.status = ExportStatus.SUCCESS;
-                                newDetail.save();
+                                newDetail.code.remain -= quantity;
+                                newDetail.code.update();
+                                newDetail.update();
                                 RequisitionDetail.updateAfter(newDetail.requisition.approveDate, newDetail.code);
                             }
                             result.put("status", "SUCCESS");
                         }
                         else{
                             result.put("message", "ไม่พบผู้เบิก");
-                            result.put("status", "error");
+                            result.put("status", "error5");
                         }
                     }
                     else{
                         result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
-                        result.put("status", "error");
+                        result.put("status", "error4");
                     }
                 }
                 else{
                     result.put("message", "หมายเลขวัสดุไม่ถูกต้อง");
-                    result.put("status", "error");
+                    result.put("status", "error3");
                 }
             }
             else{
                 result.put("message", "ไม่สามารถเพิ่มรายการเบิกใรก ใบเบิก เลขที่" + json.get("requisitionId") + "ได้");
-                result.put("status", "error");
+                result.put("status", "error1");
             }
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("status","error01");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("status", "error");
+            result.put("status","error00");
         }
         return ok(result);
     }
@@ -266,7 +265,7 @@ public class ExportOrder extends Controller {
             return redirect(routes.Application.home());
         }
         ObjectNode result = Json.newObject();
-        try {
+       try {
             RequestBody body = request().body();
             JsonNode json = body.asJson();
             RequisitionDetail detail = RequisitionDetail.find.byId((new Long(json.get("id").toString())));
@@ -274,52 +273,55 @@ public class ExportOrder extends Controller {
             if(detail != null && requisition != null && (requisition.status == ExportStatus.INIT || requisition.status == ExportStatus.SUCCESS) ){
                 MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
                 if(code != null){
-                    int quantity = Integer.parseInt(json.get("quantity").asText());
-                    if(requisition.status == ExportStatus.SUCCESS && code.equals(detail.code)){
-                        detail.code.remain += detail.quantity;
-                        detail.code.update();
-                    }
                     detail.code = code;
+                    int quantity = Integer.parseInt(json.get("quantity").asText());
                     if(quantity > 0){
-                        detail.quantity = quantity;
                         detail.description = json.get("description").asText();
                         String firstName = json.get("withdrawerNmae").asText();
                         String lastName = json.get("withdrawerLastname").asText();
                         String position = json.get("withdrawerPosition").asText();
                         List<User> withdrawers = User.find.where().eq("firstName",firstName).eq("lastName",lastName).eq("position",position).findList();
                         if(withdrawers.size() > 0){
+                            if(requisition.status == ExportStatus.SUCCESS){
+                                detail.code.remain += detail.quantity;
+                                detail.code.update();
+                                detail.code = MaterialCode.find.byId(json.get("code").asText()); // ไม่ควรแก้ detail.code อาจเท่ากะบ code
+                                detail.code.remain -= quantity;
+                                detail.code.update();
+                                detail.quantity = quantity;
+                                RequisitionDetail.updateAfter(detail.requisition.approveDate, detail.code);
+                            }
                             detail.withdrawer = withdrawers.get(0);
                             detail.update();
-                            if(requisition.status == ExportStatus.SUCCESS){
-                                code.remain -= quantity;
-                                code.update();
-                                RequisitionDetail.updateAfter(requisition.approveDate, code);
-                            }
                             result.put("status", "SUCCESS");
                         }
                         else{
                             result.put("message", "ไม่พบผู้เบิก");
-                            result.put("status", "error");
+                            result.put("status", "error4");
                         }
                     }
                     else{
                         result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
-                        result.put("status", "error");
+                        result.put("status", "error3");
                     }
                 }
                 else{
                     result.put("message", "หมายเลขวัสดุไม่ถูกต้อง");
-                    result.put("status", "error");
+                    result.put("status", "error2");
                 }
             }
             else{
                 result.put("message", "ไม่สามารถเพิ่มรายการเบิกใรก ใบเบิก เลขที่ " + json.get("requisitionId") + " ได้");
-                result.put("status", "error");
+                result.put("status", "error1");
             }
+        }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("status","error01");
         }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("status", "error");
+            result.put("status","error00");
         }
         return ok(result);
     }
@@ -356,9 +358,13 @@ public class ExportOrder extends Controller {
                 result.put("status", "error");
             }
         }
+        catch(RuntimeException e){
+            result.put("message", e.getMessage());
+            result.put("status","error01");
+        }
         catch(Exception e){
             result.put("message", e.getMessage());
-            result.put("status", "error");
+            result.put("status","error00");
         }
         return ok(result);
     }
