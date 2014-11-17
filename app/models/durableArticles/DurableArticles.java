@@ -52,93 +52,87 @@ public class DurableArticles extends Model{	// ครุภัณฑ์
         int addDateDay = this.detail.procurement.getDay();
         int addDateMonth = this.detail.procurement.getMonth();
         int addDateYear = this.detail.procurement.getYear();
-		
-		// System.out.println("Welcome To Hell");
-		// System.out.println("Item   :" + addDateDay + "/" + addDateMonth + "/" + addDateYear);
-		// System.out.println("Current:" + day + "/" + month + "/" + year);
-		// System.out.println(this.detail.price+"  "+this.detail.llifeTime);
-		
-		double depreciationPrice = this.detail.price;
-		double depreciationOfYear = this.detail.price / this.detail.llifeTime; 
-		double depreciationOfMonth = depreciationOfYear / 12;
-		
-		for(int i =0;i<year-addDateYear;i++){
-			if(depreciationPrice-depreciationOfYear>1.0){
-				depreciationPrice=depreciationPrice-depreciationOfYear;
-				// System.out.println("reduce:"+i+":"+depreciationOfYear);
-			}
-			else break;
-		}
-		
-		if(day>15){
-			month++;
-		}
-		if(addDateDay>15){
-			addDateMonth++;	
-		}
 
-		for(int i =0;i<month-addDateMonth;i++){
-			if( depreciationPrice - depreciationOfMonth > 1.0){
-				depreciationPrice = depreciationPrice - depreciationOfMonth;
-				// System.out.println("reduce:"+i+":"+depreciationOfMonth);
-			}
-			else{
-				depreciationPrice = 1.0;
-				break;
-			}
-		}
-		return depreciationPrice;
-	}
-	
-	
-	
-	
-	public int getRemainMonthLifetime(){
-		Date now = new Date();
-		Date addDate = new Date();
-		int lifeTime = 0;
+        double totlePrice = 0.00;
+		int totleMonth = 1;
+		int remainMonth = 1;
 		if(detail != null){
-			lifeTime = (int)detail.llifeTime;
-			addDate = detail.procurement.addDate;
+			totlePrice = detail.price;
+			totleMonth = this.getTotalLlifeTimeInMonth();
+			remainMonth = this.getRemainInMonth(day, month, year);
 		}
-		int m  = (addDate.getYear() + lifeTime) - now.getYear();
-		m = m*12;
-		m = m + (addDate.getMonth() - now.getMonth());
-		if(addDate.getDate() > 15){
-			m++;
-		}
-		else if(addDate.getDate() < 15){
-			m--;
-		}
-		return m;
-	}
-
-	public String getRemainLifetimeToString(){
-		int m = this.getRemainMonthLifetime();
-		if(m < 0)	m = 0;
-		
-		int y = m/12;
-		m = m%12;
-
-		String result = "" + y +" ปี " + m + " เดือน";
+		double result = (totlePrice/totleMonth) * remainMonth;
+		if(result <= 0){
+			result = 1.00;
+		} 
 		return result;
 	}
-
+	
 	public double getRemaining(){
-		int lifeTime = 1;
-		double price = 0;
+		double totlePrice = 0.00;
+		int totleMonth = 1;
+		int remainMonth = 1;
 		if(detail != null){
-			lifeTime = (int)detail.llifeTime;
-			price = (int)detail.price;
+			totlePrice = detail.price;
+			totleMonth = this.getTotalLlifeTimeInMonth();
+			remainMonth = this.getRemainInMonth();
 		}
-		int m = (lifeTime*12) - this.getRemainMonthLifetime();
-		double result = price - ((price/(lifeTime*12)) * m ); 
+		double result = (totlePrice/totleMonth) * remainMonth;
+		if(result <= 0){
+			result = 1.00;
+		} 
 		return result;	
 	}
 
 	public String getRemainingPriceToString(){
 		double result = this.getRemaining(); 
 		return String.format("%1$,.2f", result);	
+	}
+
+	public int getTotalLlifeTimeInMonth(){
+		if(detail != null)
+			return (int) (this.detail.llifeTime * 12.0);
+		else 
+			return 0;
+	}
+
+	public String getRemainLifetimeToString(){
+		int month = this.getRemainInMonth();
+		int year = month/12;
+		month = month%12;
+		String result = "" + year +" ปี " + month + " เดือน";
+		return result;
+	}
+
+	public String getRemainLifetimeToString(int date, int month, int year){
+		int remainMonth = this.getRemainInMonth(date, month, year);
+		int remainYear = remainMonth/12;
+		remainMonth = remainMonth%12;
+		String result = "" + remainYear +" ปี " + remainMonth + " เดือน";
+		return result;
+	}
+
+	public int getRemainInMonth(){
+		Date today = new Date();
+		int date = today.getDate();
+		int month = today.getMonth()+1;
+		int year = today.getYear()+2443;
+        return getRemainInMonth(date, month, year);
+	}
+
+	public int getRemainInMonth(int date, int month, int year){
+		int addDateDay = this.detail.procurement.getDay();
+        int addDateMonth = this.detail.procurement.getMonth();
+        int addDateYear = this.detail.procurement.getYear();
+        if(addDateDay > 15){
+        	addDateMonth++;
+        }
+        if(date > 15){
+        	month++;
+        }
+        int remainMonth = this.getTotalLlifeTimeInMonth() - (((year-addDateYear)*12) + (month-addDateMonth));
+        if(remainMonth < 0)	remainMonth = 0;
+        return remainMonth;
 	}
 
 	@SuppressWarnings("unchecked")

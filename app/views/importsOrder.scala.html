@@ -33,9 +33,9 @@
             </div>
             <div>
                 <a style="float:right;margin-left:1%;"href="@routes.Import.createImportsOrderDurableArticlesAdd()">
-                <button class="btn btn-success width200px">เพิ่มรายการครุภัณฑ์</button>
+                <button class="btn btn-success width200px">เพิ่มรายการนำเข้า</button>
                 </a>
-                <button class="btn btn-danger width200px" style="float:right;" ng-click="open('durableArticles')">ลบรายการครุภัณฑ์</button>
+                <button class="btn btn-danger width200px" style="float:right;" ng-click="open('durableArticles')">ลบรายการนำเข้า</button>
             </div>
 
         </div>
@@ -98,7 +98,7 @@
 			                    	</a>
 		                    	}
 		                        </th>
-		                        <th> <button class="btn btn-xs btn-info" onclick="edit(@articleOrder.id,1)" > รายละเอียด</button>
+		                        <th> <button class="btn btn-xs btn-primary" onclick="edit(@articleOrder.id,1)" > ทำรายการต่อ</button>
 	                    	</tr>
 		                }
                     }
@@ -175,9 +175,9 @@
 
               <div>
                   <a style="float:right;margin-left:1%;"href="@routes.Import.createImportsOrderGoodsAdd()">
-                  <button class="btn btn-success width200px">เพิ่มรายการวัสดุ</button>
+                  <button class="btn btn-success width200px">เพิ่มรายการนำเข้า</button>
                   </a>
-                  <button class="btn btn-danger width200px" style="float:right;" ng-click="open('goods')">ลบรายการวัสดุ</button>
+                  <button class="btn btn-danger width200px" style="float:right;" ng-click="open('goods')">ลบรายการนำเข้า</button>
               </div>
 
         </div>
@@ -239,7 +239,7 @@
 			                    	</a>
 		                    	}
 		                    </th>
-							<th> <button class="btn btn-xs btn-info" onclick="edit(@goodOrder.id,2)" > รายละเอียด</button>
+							<th> <button class="btn btn-xs btn-primary" onclick="edit(@goodOrder.id,2)" > ทำรายการต่อ</button>
 						</tr>
 					}
 				}

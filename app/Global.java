@@ -29,6 +29,7 @@ public class Global extends GlobalSettings {
 			Ebean.save((List) Yaml.load("export/borrow.yml"));
 
 			cratedurableGoods();
+			updateMaterialCode();
 		}
 	}
 
@@ -70,5 +71,11 @@ public class Global extends GlobalSettings {
 			goods.detail = detail;
 			goods.save();
 		} 
+	}
+
+	private void updateMaterialCode(){
+		for(MaterialCode code : MaterialCode.find.all()){
+			code.updateRemain();
+		}
 	}
 }
