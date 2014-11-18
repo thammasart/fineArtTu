@@ -57,12 +57,12 @@ public class Export extends Controller {
             }
             else if(code.isEmpty() && !description.isEmpty()){
                 description = '%'+description+'%';
-                searchResult = DurableArticles.find.where().ilike("code.detail.fsn.descriptionDescription", description).eq("status",SuppliesStatus.NORMAL).findList();
+                searchResult = DurableArticles.find.where().ilike("detail.fsn.descriptionDescription", description).eq("status",SuppliesStatus.NORMAL).findList();
             }
             else if(!code.isEmpty() && !description.isEmpty()){
                 code = '%'+code+'%';
                 description = '%'+description+'%';
-                searchResult =  searchResult = DurableArticles.find.where().ilike("code",code).ilike("code.detail.fsn.descriptionDescription", description).eq("status",SuppliesStatus.NORMAL).findList();
+                searchResult = DurableArticles.find.where().ilike("code",code).ilike("detail.fsn.descriptionDescription", description).eq("status",SuppliesStatus.NORMAL).findList();
             }
             else{
                 searchResult = DurableArticles.find.where().eq("status",SuppliesStatus.NORMAL).findList();
