@@ -219,7 +219,7 @@ function drawChart() {
 	load();
 	//myRandom();
 	if(state['page'] == 0){
-		if(state['page'] == 0 && (state['mode'] == 'requisition' || state['mode'] == 'remain')){
+		if(state['page'] == 0 && state['mode'] == 'remain'){
 			getData('column');
 		}else{
 			getData('line');

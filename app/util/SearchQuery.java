@@ -25,6 +25,8 @@ import models.durableArticles.RepairingDetail;
 import models.durableGoods.DurableGoods;
 import models.type.ExportStatus;
 import models.type.ImportStatus;
+import models.durableGoods.OrderGoods;
+import models.durableGoods.OrderGoodsDetail;
 import models.durableGoods.Requisition;
 import models.durableGoods.RequisitionDetail;
 
@@ -203,6 +205,28 @@ public class SearchQuery {
 			}
 		}
 		return new ArrayList<Requisition>(set); 
+	}
+
+	public static ArrayList<OrderGoods> getRequisitionGoods(String query){
+		Set<OrderGoods> set = OrderGoods.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
+		set.addAll(OrderGoods.find.where().eq("status", ExportStatus.SUCCESS).ilike("number", "%"+query+"%").findSet());
+		List<OrderGoods> os = OrderGoods.find.where().eq("status", ExportStatus.SUCCESS).findList();
+		for(OrderGoods o : os){
+			if(dateValidator(o.approveDate, query) || userValidator(o.approver, query) || userValidator(o.user, query)){
+				set.add(o);
+				continue;
+			}
+			for(OrderGoodsDetail od : o.details){
+				if(od.goods!=null && (od.goods.codes.contains(query) || od.goods.detail!=null && od.goods.detail.description.contains(query) )||
+						od.department!=null && od.department.contains(query) || 
+						od.firstName!=null && od.firstName.contains(query) ||
+						od.lastName!=null && od.lastName.contains(query)){
+					set.add(o);
+					break;
+				}
+			}
+		}
+		return new ArrayList<OrderGoods>(set); 
 	}
 	
 	public static ArrayList<InternalTransfer> getInternalTransfer(String query){
