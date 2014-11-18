@@ -209,7 +209,7 @@ function initViewDetial(id){
 	document.getElementById("saveExport").style.visibility = "hidden";
 	
 	init(id);
-	titleInHeader = "แสดงรายละเอียดการการยืม";
+	titleInHeader = "แสดงรายละเอียดการยืม";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
 
@@ -232,6 +232,6 @@ function changeToEdit(){
 	document.getElementById("saveExport").style.visibility = "visible";
 	document.getElementById("changeToEditButton").style.display = "none";
 
-	titleInHeader = "แก้ไขรายละเอียดการการยืม";
+	titleInHeader = "แก้ไขรายละเอียดการยืม";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 }
