@@ -1,0 +1,25 @@
+001 home
+============================================================================================
+100 admin
+101 manageRole
+102 addUser
+============================================================================================
+210 importInstitute
+220 importOrder
+=============================================================================================
+400 report
+401 reportAuction
+402 reportBorrow
+403 reportDonate
+404 reportDurableArticleByType
+405 reportDurablrAtyicles
+406 reportExcangeDurableArticles
+407 reportExportDurableArticles
+408 reportImportDurableArticles
+409 reportOther
+410 reportRemainingMaterial
+411 reportRemainingMaterialConclusion
+412 report//optionCalculateDepreciate
+413 reportRepair
+============================================================================================
+500 graph
