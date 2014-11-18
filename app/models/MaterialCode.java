@@ -74,13 +74,13 @@ public class MaterialCode extends Model{
     }
 
     public List<ProcurementDetail> getProcurementDetailRemaining(int year){
-        List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code).eq("procurement.status",ImportStatus.SUCCESS).le("procurement.budgetYear",year).orderBy("procurement.addDate desc").findList();
+        List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code).eq("procurement.status",ImportStatus.SUCCESS).le("procurement.addDate",new Date(year-2444,8,30)).orderBy("procurement.addDate desc").findList();
         double totalImport = 0;
         for(ProcurementDetail detail : importDetails){
             totalImport += detail.quantity;
         }
         
-        List<RequisitionDetail> exportDetails = RequisitionDetail.find.where().eq("code",this).eq("requisition.status",ExportStatus.SUCCESS).le("requisition.approveDate",new Date(year-2443,8,30)).findList();
+        List<RequisitionDetail> exportDetails = RequisitionDetail.find.where().eq("code",this).eq("requisition.status",ExportStatus.SUCCESS).le("requisition.approveDate",new Date(year-2444,8,30)).findList();
         double totalExport = 0;
         for(RequisitionDetail detail : exportDetails){
             totalExport += detail.quantity;
