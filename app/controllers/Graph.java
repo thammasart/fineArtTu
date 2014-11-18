@@ -1,9 +1,7 @@
 package controllers;
 
-import play.*;
 import play.mvc.*;
 import play.mvc.Http.RequestBody;
-import play.data.*;
 import play.libs.Json;
 import views.html.*;
 import models.*;
@@ -28,6 +26,8 @@ import models.durableArticles.OtherTransfer_FF_Committee;
 import models.durableArticles.Repairing;
 import models.durableArticles.RepairingDetail;
 import models.durableGoods.DurableGoods;
+import models.durableGoods.OrderGoods;
+import models.durableGoods.OrderGoodsDetail;
 import models.durableGoods.Requisition;
 import models.durableGoods.RequisitionDetail;
 import models.fsnNumber.FSN_Description;
@@ -42,13 +42,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class Graph extends Controller {
@@ -139,6 +135,8 @@ public class Graph extends Controller {
         	result = getProcurementMaterialHTML(ids);
         }else if(className.equals("requisition")){
         	result = getRequisitionHTML(ids);
+        }else if(className.equals("requisitionGoods")){
+        	result = getRequisitionGoodsHTML(ids);
         }else if(className.equals("internalTransfer")){
         	result = getInternalTransferHTML(ids);
         }else if(className.equals("auction")){
@@ -189,6 +187,8 @@ public class Graph extends Controller {
         	result = getProcurementGoodsHTML(query);
         }else if(className.equals("requisition")){
         	result = getRequisitionHTML(query);
+        }else if(className.equals("requisitionGoods")){
+        	result = getRequisitionGoodsHTML(query);
         }else if(className.equals("internalTransfer")){
         	result = getInternalTransferHTML(query);
         }else if(className.equals("auction")){
@@ -425,7 +425,10 @@ public class Graph extends Controller {
     }
     
     private static ArrayNode getRequisition(String relation,int row,int col, int page, int lRow, int lCol, String selectedName){
-    	ArrayNode result = getDetailHeader("รายการ");
+    	ArrayList<String> columns = new ArrayList<String>();
+    	columns.add("วัสดุสิ้นเปลือง");
+    	columns.add("วัสดุคงทนถาวร");
+    	ArrayNode result = getHeader(columns);
     	if(row == -1 && col == -1){
     		if(relation.equals("year")){
     			for(int i=3; i>=0; i--){
@@ -433,12 +436,13 @@ public class Graph extends Controller {
     				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
     				
     				List<Date> date = getYearDate((3-i));
-    				int d = getSumRequisition(date.get(0), date.get(1)); 
+    				List<Integer> d = getSumRequisition(date.get(0), date.get(1)); 
     				year = year-i;
     				tr.add(""+year);
-    				tr.add(d);
-    				tr.add(colors[3-i]);
-    				tr.add(d);
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
     				result.add(tr);
     			}
     		}else{
@@ -446,7 +450,7 @@ public class Graph extends Controller {
     			if(relation.equals("quarter")) num = 4;
     			for(int i=0; i<num; i++){
     				ArrayNode tr = JsonNodeFactory.instance.arrayNode();
-    				int d;
+    				List<Integer> d;
     				if(relation.equals("month")){
     					List<Date> date = getMonthDate(i);
         				d = getSumRequisition(date.get(0), date.get(1));
@@ -456,9 +460,10 @@ public class Graph extends Controller {
         				d = getSumRequisition(date.get(0), date.get(1));
     					tr.add("ไตรมาส"+(i+1));
     				}
-    				tr.add(d);
-    				tr.add(colors[i]);
-    				tr.add(d);
+    				tr.add(d.get(0));
+    				tr.add(d.get(0));
+    				tr.add(d.get(1));
+    				tr.add(d.get(1));
     				result.add(tr);
     			}
     		}
@@ -471,8 +476,13 @@ public class Graph extends Controller {
     		}else if(relation.equals("quarter")){
     			d = getQuarterDate(row);
     		}
-			List<Requisition> rs = Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
-			result = getDetailRequisitionMap(rs);
+    		if(col == 1 || col == 2){
+    			List<Requisition> rs = Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = getDetailRequisitionMap(rs);
+    		}else if(col == 3 || col == 4){
+    			List<OrderGoods> os = OrderGoods.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = getDetailOrderGoodsMap(os);
+    		}
     	}else{
     		List<Date> d = null;
     		if(relation.equals("year")){
@@ -482,8 +492,14 @@ public class Graph extends Controller {
     		}else if(relation.equals("quarter")){
     			d = getQuarterDate(lRow);
     		}
-			List<Requisition> rs = Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
-			result = getTableRequisition( rs , selectedName );
+    		
+    		if(lCol == 1 || lCol == 2){
+    			List<Requisition> rs = Requisition.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = getTableRequisition( rs, selectedName );
+    		}else if(lCol == 3 || lCol == 4){
+    			List<OrderGoods> os = OrderGoods.find.where().between("approveDate", d.get(0), d.get(1)).eq("status", ExportStatus.SUCCESS).findList();
+    			result = getTableOrderGoods( os, selectedName);
+    		}
     	}
     	return result;
     }
@@ -781,7 +797,7 @@ public class Graph extends Controller {
     					tr.add(new SimpleDateFormat("MMM",new Locale("th", "th")).format(cal.getTime()));
     				}else{
     					List<Date> date = getQuarterDate(i);
-        				d = getSumRequisition(date.get(0), date.get(1));
+        				d = getSumRemain(date.get(1));
     					tr.add("ไตรมาส"+(i+1));
     				}
     				tr.add(d);
@@ -849,8 +865,11 @@ public class Graph extends Controller {
 		return d;
 	}
 
-	private static int getSumRequisition(Date startDate, Date endDate){
-		return Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size();
+	private static List<Integer> getSumRequisition(Date startDate, Date endDate){
+		List<Integer> result = new ArrayList<Integer>();
+		result.add(Requisition.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		result.add(OrderGoods.find.where().between("approveDate", startDate, endDate).eq("status", ExportStatus.SUCCESS).findList().size());
+		return result;
 	}
 
 	private static ArrayList<Integer> getSumTransfer(Date startDate, Date endDate){
@@ -1159,7 +1178,37 @@ public class Graph extends Controller {
 		return result;
     }
     
-    private static ArrayNode getDetailInternalTranfersMap(List<InternalTransfer> rs) {
+    private static ArrayNode getDetailOrderGoodsMap(List<OrderGoods> os) {
+    	ArrayNode result = getDetailHeader("ชิ้น");
+    	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
+    	for(OrderGoods o : os){
+    		for(OrderGoodsDetail od : o.details){
+    			FSN_Description fsn = FSN_Description.find.byId(od.goods.detail.code);
+    			String key = fsn.typ.groupClass.group.groupDescription;
+    			Integer value = listResult.get(key);
+				if(value == null){
+					listResult.put(key, 1);
+				}else{
+					listResult.put(key, listResult.get(key) + 1);
+				}
+    		}
+    	}
+    	int i=0;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add(key);
+			tr.add(listResult.get(key));
+			tr.add(colors[i++]);
+			tr.add(key);
+			result.add(tr);
+		}
+		if(result.size() <= 1){
+			result.add(getEmptyMapDetail());
+		}
+		return result;
+	}
+
+	private static ArrayNode getDetailInternalTranfersMap(List<InternalTransfer> rs) {
 		ArrayNode result = getDetailHeader("ชิ้น");
     	HashMap<String, Integer> listResult = new HashMap<String,Integer>();
     	for(InternalTransfer r : rs){
@@ -1609,7 +1658,41 @@ public class Graph extends Controller {
     	return result;
     }
 
-    private static ArrayNode getTableInternalTranfers(List<InternalTransfer> rs, String selectedName) {
+    private static ArrayNode getTableOrderGoods(List<OrderGoods> os, String selectedName) {
+    	ArrayNode result = JsonNodeFactory.instance.arrayNode();
+    	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
+    	HashMap<String,String> ids = new HashMap<String,String>();
+    	for(OrderGoods o : os){
+    		for(OrderGoodsDetail od : o.details){
+    			FSN_Description fsn = FSN_Description.find.byId(od.goods.detail.code);
+    			if(fsn.typ.groupClass.group.groupDescription.equals(selectedName)){
+    				String key = fsn.descriptionDescription;
+					Integer value = listResult.get(key);
+					if(value == null){
+						listResult.put(key, 1);
+						ids.put(key,"" + od.id);
+					}else{
+						listResult.put(key, listResult.get(key) + 1);
+						ids.put(key,ids.get(key) + "," + od.id);
+					}
+				}
+    		}
+    		
+    	}
+    	int i=1;
+		for (String key : listResult.keySet()) {
+			ArrayNode tr = JsonNodeFactory.instance.arrayNode();
+			tr.add("" + i++);
+			tr.add(key);
+			tr.add(String.format("%d",listResult.get(key)));
+			tr.add(getDescriptionButton("requisitionGoods", ids.get(key), "/graphDescription"));
+			//tr.add(descriptionBtn);
+			result.add(tr);
+		}
+    	return result;
+	}
+
+	private static ArrayNode getTableInternalTranfers(List<InternalTransfer> rs, String selectedName) {
     	ArrayNode result = JsonNodeFactory.instance.arrayNode();
     	HashMap<String,Integer> listResult = new HashMap<String,Integer>();
     	HashMap<String,String> ids = new HashMap<String,String>();
@@ -2251,7 +2334,7 @@ public class Graph extends Controller {
 			result += getDetailLabel("หมายเลขใบรายการ", r.number);
 			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(r.approveDate));
 			if(r.approver!=null)result += getDetailLabel("ผู้อนุมัติ", String.format("%s %s %s", r.approver.namePrefix, r.approver.firstName, r.approver.lastName ));
-			if(r.user!=null)result += getDetailLabel("ผู้เบิก", String.format("%s %s %s",  r.user.namePrefix, r.user.firstName, r.user.lastName));
+			if(r.user!=null)result += getDetailLabel("ผู้จ่าย", String.format("%s %s %s",  r.user.namePrefix, r.user.firstName, r.user.lastName));
 			String expandable = "";
 			for(RequisitionDetail rd : r.details){
 				expandable += getDetailLabel("ชื่อวัสดุ", String.valueOf(rd.code.description));
@@ -2274,11 +2357,77 @@ public class Graph extends Controller {
 			
 			result += getDetailLabel("รายการ/เรื่อง", rd.requisition.title);
 			result += getDetailLabel("หมายเลขใบรายการ", rd.requisition.number);
-			result += getDetailLabel("ชื่อพัสดุ", rd.description);
+			result += getDetailLabel("ชื่อพัสดุ", rd.code.description);
 			result += getDetailLabel("จำนวน", String.valueOf(rd.quantity));
 			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(rd.requisition.approveDate));
 			result += getDetailLabel("ผู้อนุมัติ", String.format("%s %s %s", rd.requisition.approver.namePrefix, rd.requisition.approver.firstName, rd.requisition.approver.lastName ));
-			result += getDetailLabel("ผู้เบิก", String.format("%s %s %s",  rd.requisition.user.namePrefix, rd.requisition.user.firstName, rd.requisition.user.lastName));
+			result += getDetailLabel("ผู้จ่าย", String.format("%s %s %s",  rd.requisition.user.namePrefix, rd.requisition.user.firstName, rd.requisition.user.lastName));
+			result += getDetailLabel("ผู้เบิก", String.format("%s %s",  rd.withdrawer.firstName, rd.withdrawer.lastName));
+			result += "</div>";
+		}
+		result += "</div>";
+		return result;
+	}
+
+	private static String getRequisitionGoodsHTML(String query) {
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		List<OrderGoods> os = util.SearchQuery.getRequisitionGoods(query);
+		for(OrderGoods o : os){
+			result += "<div class=\"well\">";
+			result += getDetailLabel("รายการ/เรื่อง", o.title);
+			result += getDetailLabel("หมายเลขใบรายการ", o.number);
+			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(o.approveDate));
+			if(o.approver!=null)result += getDetailLabel("ผู้อนุมัติ", String.format("%s %s %s", o.approver.namePrefix, o.approver.firstName, o.approver.lastName ));
+			if(o.user!=null)result += getDetailLabel("ผู้จ่าย", String.format("%s %s %s",  o.user.namePrefix, o.user.firstName, o.user.lastName));
+			String expandable = "";
+			for(OrderGoodsDetail od : o.details){
+				expandable += getDetailLabel("หมายเลขพัสดุ", od.goods.codes);
+				expandable += getDetailLabel("ย้ายไปสาขา", od.department,"margin-left:2%");
+				expandable += getDetailLabel("ย้ายไปห้อง", od.room, "margin-left:2%");
+				expandable += getDetailLabel("ย้ายไปชั้น", od.floorLevel, "margin-left:2%");
+				//expandable += getDetailLabel("สาเหตุการเบิก", od.description);
+			}
+			result += getExpandableHTML("รายการเบิก", expandable);
+			result += "</div>";
+		}
+		result += "</div>";
+		return result;
+	}
+
+	private static String getRequisitionGoodsHTML(String[] ids) {
+		String result = "<div>";
+		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
+		for(int i=0; i<ids.length; i++){
+			String id = ids[i];
+			OrderGoodsDetail od = OrderGoodsDetail.find.byId(Long.valueOf(id));
+			OrderGoods o = od.order;
+			System.out.println(od.goods.detail.code);
+			FSN_Description fsn = FSN_Description.find.byId(od.goods.detail.code);
+			result += "<div class=\"well\">";
+			
+			result += getDetailLabel("รายการ/เรื่อง", od.order.title);
+			result += getDetailLabel("หมายเลขใบรายการ", od.order.number);
+			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(od.order.approveDate));
+			result += getDetailLabel("จำนวน", String.valueOf(od.order.details.size()));
+			result += getDetailLabel("ผู้อนุมัติ", String.format("%s %s %s", od.order.approver.namePrefix, od.order.approver.firstName, od.order.approver.lastName ));
+			result += getDetailLabel("ผู้จ่าย", String.format("%s %s %s",  od.order.user.namePrefix, od.order.user.firstName, od.order.user.lastName));
+			result += getDetailLabel("ผู้เบิก", String.format("%s %s",  od.firstName, od.lastName));
+			String expandable = "";
+			for(;i<ids.length; i++){
+				id = ids[i];
+				OrderGoodsDetail newDetail = OrderGoodsDetail.find.byId(Long.valueOf(id));
+				if(newDetail.order.equals(o)){
+					expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.goods.codes);
+					expandable += getDetailLabel("ย้ายไปสาขา", newDetail.department,"margin-left:2%");
+					expandable += getDetailLabel("ย้ายไปห้อง", newDetail.room, "margin-left:2%");
+					expandable += getDetailLabel("ย้ายไปชั้น", newDetail.floorLevel, "margin-left:2%");
+				}else{
+					i--;
+					break;
+				}
+			}
+			result += getExpandableHTML("รายละเอียดเพิ่มเติม" + fsn.descriptionDescription , expandable);
 			result += "</div>";
 		}
 		result += "</div>";
@@ -2911,9 +3060,9 @@ public class Graph extends Controller {
 		List<OtherTransfer> q9 = util.SearchQuery.getOtherTransfer(query);
 		List<Repairing> q10 = util.SearchQuery.getRepair(query);
 		List<Borrow> q11 = util.SearchQuery.getBorrow(query);
-		List<MaterialCode> q12 = util.SearchQuery.getMaterialCodes(query);
-		String[] names = {"ผู้ใช้","สถานประกอบการ","นำเข้าครุภัณฑ์","นำเข้าวัสดุ","เบิกจ่ายวัสดุ","โอนย้ายภายใน","จำหน่าย","บริจาค","โอนย้ายอื่นๆ","ส่งซ่อม","ขอยืม","คงเหลือ"};
-		String ids = "";
+		//List<MaterialCode> q12 = util.SearchQuery.getMaterialCodes(query);
+		List<OrderGoods> q13 = util.SearchQuery.getRequisitionGoods(query);
+		String[] names = {"ผู้ใช้","สถานประกอบการ","นำเข้าครุภัณฑ์","นำเข้าวัสดุ","เบิกจ่ายวัสดุสิ้นเปลือง","โอนย้ายภายใน","จำหน่าย","บริจาค","โอนย้ายอื่นๆ","ส่งซ่อม","ขอยืม","คงเหลือ","เบิกจ่ายวัสดุคงทนถาวร"};
 		int i=1;
 		if(q1.size()>0){
 			result.add(getSearchTableRow(i++, names[0], q1.size(), "user", query));
@@ -2929,6 +3078,9 @@ public class Graph extends Controller {
 		}
 		if(q5.size()>0){
 			result.add(getSearchTableRow(i++, names[4], q5.size(), "requisition", query));
+		}
+		if(q13.size()>0){
+			result.add(getSearchTableRow(i++, names[12], q13.size(), "requisitionGoods", query));
 		}
 		if(q6.size()>0){
 			result.add(getSearchTableRow(i++, names[5], q6.size(), "internalTransfer", query));
