@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import models.MaterialCode;
 import models.type.OrderDetailStatus;
+import models.type.ImportStatus;
 
 import models.fsnNumber.FSN_Description;
 
@@ -50,12 +51,34 @@ public class ProcurementDetail extends Model{
 	@SuppressWarnings("unchecked")
 	public static Finder<Long,ProcurementDetail> find = new Finder(Long.class,ProcurementDetail.class);
         
-        public String getClassifier(){
-            FSN_Description  fsn = FSN_Description.find.byId(this.code);           
-            return fsn.classifier;
-        }
-        public String getGroupeType(){
-            FSN_Description  fsn = FSN_Description.find.byId(this.code);           
-            return fsn.typ.groupClass.group.groupDescription;
-        }
+    public String getClassifier(){
+        FSN_Description  fsn = FSN_Description.find.byId(this.code);           
+        return fsn.classifier;
+    }
+    public String getGroupeType(){
+        FSN_Description  fsn = FSN_Description.find.byId(this.code);           
+        return fsn.typ.groupClass.group.groupDescription;
+    }
+
+    @Override
+   	public void save(){
+		super.save();
+		MaterialCode material = MaterialCode.find.byId(this.code);
+		if(this.procurement != null && material != null){
+			if(this.procurement.status == ImportStatus.SUCCESS && this.procurement.addDate != null){
+				RequisitionDetail.updateAfter(this.procurement.addDate, material);
+			}
+		}
+	}
+
+	@Override
+   	public void update(){
+		super.update();
+		MaterialCode material = MaterialCode.find.byId(this.code);
+		if(this.procurement != null && material != null){
+			if(this.procurement.status == ImportStatus.SUCCESS && this.procurement.addDate != null){
+				RequisitionDetail.updateAfter(this.procurement.addDate, material);
+			}
+		}
+	}
 }

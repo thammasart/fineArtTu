@@ -132,8 +132,33 @@ public class Procurement extends Model{
 	
 		}
 		
-		
 		return s;
+	}
+
+	@Override
+   	public void save(){
+		super.save();
+		if(this.status == ImportStatus.SUCCESS && this.addDate != null){
+			for(ProcurementDetail detail : details){
+				MaterialCode material = MaterialCode.find.byId(detail.code);
+				if(material != null){
+					RequisitionDetail.updateAfter(this.addDate, material);
+				}
+			}
+		}
+	}
+
+	@Override
+   	public void update(){
+		super.update();
+		if(this.status == ImportStatus.SUCCESS && this.addDate != null){
+			for(ProcurementDetail detail : details){
+				MaterialCode material = MaterialCode.find.byId(detail.code);
+				if(material != null){
+					RequisitionDetail.updateAfter(this.addDate, material);
+				}
+			}
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
