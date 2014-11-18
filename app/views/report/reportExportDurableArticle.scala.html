@@ -13,12 +13,25 @@
             <span style="font-size:25px">
                 รายการเบิกจ่าย
             </span>
-            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/DurableArticles/print')">
-                พิมพ์รายการเบิกจ่าย
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/exportDurableArticles/print')">
+                พิมพ์รายการเบิกจ่ายวัสดุสิ้นเปลือง
             </button>
             <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
                 พิมพ์ตารางนี้
             </button>
+            <script>
+                function printLink(){
+                    var w = window.open(window.location.pathname+"/print");
+                    w.print();
+                }
+                function printTable(){
+                    var divToPrint = document.getElementById("printTable");
+                    newWin= window.open("");
+                    newWin.document.write(divToPrint.outerHTML);
+                    newWin.print();
+                    newWin.close();
+                }
+            </script>
         </div>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
@@ -32,14 +45,14 @@
                         </form>
                 </div>
                <div class="form-inline" role="form" >
-                  <div class="form-group">
+                  <div class="form-group" >
                       <div class="input-group date width190px" id="start-picker">
                           <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="startDate"placeholder="จากวันที่" disabled>
                           <input type="text" name="birthDate" id="birthInputBox" hidden>
                           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                       </div>
                  </div>
-                  <div class="form-group " >
+                  <div class="form-group" >
                       <div class="input-group date width190px" id="end-picker">
                           <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="endDate"placeholder="ถึงวันที่" disabled>
                           <input type="text" name="birthDate" id="birthInputBox" hidden>
@@ -91,7 +104,7 @@
                         <th style="text-align:center">@detail.code.code</th>
                         <th style="text-align:center">@detail.quantity</th>
                         <th style="text-align:center">@detail.code.classifier</th>
-                        <th style="text-align:center">detail.ราคา</th>
+                        <th style="text-align:center">@detail.price</th>
                         <th style="text-align:center">@detail.withdrawer.firstName @detail.withdrawer.lastName</th>
                     </tr>
                 }
@@ -99,9 +112,60 @@
             </table>
         </div> 
         <div >
-            <span style="font-size:25px">
+            <span style="font-size:25px; float:left; margin-right:1%;">
                 วัสดุคงทำถาวร
             </span>
+               <div class="form-inline" role="form" >
+                  <div class="form-group" >
+                      <div class="input-group date width190px" id="start-picker2">
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="startDate2"placeholder="จากวันที่" disabled>
+                          <input type="text" name="birthDate" id="birthInputBox" hidden>
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                 </div>
+                  <div class="form-group" >
+                      <div class="input-group date width190px" id="end-picker2">
+                          <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="endDate2"placeholder="ถึงวันที่" disabled>
+                          <input type="text" name="birthDate" id="birthInputBox" hidden>
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                      </div>
+                 </div>
+                    <script type="text/javascript">
+                        $(function () {
+                            $('#start-picker2').datetimepicker({
+                            	pickTime : false,
+                            }).on('hide.dp',function(){
+                            	getDataTable(1).draw();
+                            });
+                        });
+                        $(function () {
+                            $('#end-picker2').datetimepicker({
+                            	pickTime : false,
+                            }).on('hide.dp',function(){
+                            	getDataTable(1).draw();
+                            });
+                        });
+                    </script>
+               </div>
+                <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/exportDurableArticles/print2')">
+                    พิมพ์รายการเบิกจ่ายวัสดุคงทนถาวร
+                </button>
+                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                    พิมพ์ตารางนี้
+                </button>
+                <script>
+                    function printLink(){
+                        var w = window.open(window.location.pathname+"/print2");
+                        w.print();
+                    }
+                    function printTable(){
+                        var divToPrint = document.getElementById("printTable");
+                        newWin= window.open("");
+                        newWin.document.write(divToPrint.outerHTML);
+                        newWin.print();
+                        newWin.close();
+                    }
+                </script>
             <table class="table table-striped overlayTable" align="center">
                 <thead>
                     <tr>
@@ -119,7 +183,7 @@
                 @for((detail,index) <-order.zipWithIndex){
                     <tr>
                         <th style="text-align:center">@{index+1}</th>
-                        <th style="text-align:center">@detail.order.approveDate</th>
+                        <th style="text-align:center">@detail.order.approveDateToString()</th>
                         <th style="text-align:center">@detail.goods.detail.description</th>
                         <th style="text-align:center">@detail.goods.codes</th>
                         <th style="text-align:center">@detail.goods.detail.getClassifier()</th>
@@ -172,7 +236,44 @@ $(document).ready( function(){
 	        return false;
 	    }
 	);
+	$.fn.dataTableExt.afnFiltering.push(
+	    function( oSettings, aData, iDataIndex ) {
+	        // input change to format yyyymmdd
+	        var dateMin = $('#startDate2').val();
+	        if(dateMin != ""){
+	        	dateMin = dateMin.split('/')[2] + dateMin.split('/')[1] + dateMin.split('/')[0];
+	        }
+	        //console.log(dateMin);
+	        
+	        var dateMax = $('#endDate2').val();
+	        if(dateMax != ""){
+	        	dateMax = dateMax.split('/')[2] + dateMax.split('/')[1] + dateMax.split('/')[0];
+	        }
+	        //console.log(dateMax);
+	        
+	        // date column
+	        var date = aData[1];
+	        date = date.split('/')[2] + date.split('/')[1] + date.split('/')[0];
+	        console.log(date);
+	 
+	        // run through cases
+	        if ( dateMin == "" && date <= dateMax){
+	            return true;
+	        }
+	        else if ( dateMin =="" && date <= dateMax ){
+	            return true;
+	        }
+	        else if ( dateMin <= date && "" == dateMax ){
+	            return true;
+	        }
+	        else if ( dateMin <= date && date <= dateMax ){
+	            return true;
+	        }
+	        // all failed
+	        return false;
+	    }
+	);
 } );
 </script>
 
-@footer()
+@footer("407")

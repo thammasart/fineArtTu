@@ -247,3 +247,9 @@ table.dataTable thead .sorting {
     position: relative;
     margin-top: -5%;
 }
+.conclusionBorder{
+    border:double !important;
+    border-right:none !important;
+    border-left:none !important;   
+    border-color:black !important;
+}

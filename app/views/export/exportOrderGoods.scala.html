@@ -1,7 +1,7 @@
 @(user : User, initList:List[models.durableGoods.OrderGoods], successList:List[models.durableGoods.OrderGoods])
 @header("exportOrderGoods")
 
-    <script src="@routes.Assets.at("javascripts/export/exportOrder.js")"></script>
+    <script src="@routes.Assets.at("javascripts/export/exportGoods.js")"></script>
 
 @nav(user)
 @headerTag("ระบบเบิกจ่ายวัสดุคงทนถาวร")
@@ -28,7 +28,7 @@
       <a style="float:right;margin-left:1%;" class="width20p" href="@routes.ExportOrderGoods.exportCreateOrderGoods()">
         <button class="btn btn-success" style="width:100%">เพิ่มรายการเบิกจ่าย</button>
       </a>
-      <button class="btn btn-danger width20p" style="float:right;" ng-click="openDelModal()">ลบรายการเบิกจ่าย</button>
+      <button class="btn btn-danger width20p" style="float:right;" onclick="deleteOrderGoods()">ลบรายการเบิกจ่าย</button>
     </div>
 
   </div>

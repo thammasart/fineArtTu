@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Collections.*;
+import java.util.Locale;
 import java.text.*;
 
 public class Report  extends Controller {
@@ -33,10 +34,19 @@ public class Report  extends Controller {
         DynamicForm form = Form.form().bindFromRequest();
         String year = form.get("year");
 
-        return redirect(routes.Report.reportRemainingMaterial(Integer.parseInt(year)));
+        return redirect(routes.Report.reportRemainingMaterial(Integer.parseInt(year),1));
     }
     @Security.Authenticated(Secured.class)
-        public static Result reportRemainingMaterial(int year) {
+        public static Result reportRemainingMaterialPostPrint() {
+        User user = User.find.where().eq("username", session().get("username")).findUnique();
+        List<MaterialCode> mc = MaterialCode.find.all();
+        DynamicForm form = Form.form().bindFromRequest();
+        String year = form.get("yearPrint");
+
+        return redirect(routes.Report.reportRemainingMaterial(Integer.parseInt(year),2));
+    }
+    @Security.Authenticated(Secured.class)
+        public static Result reportRemainingMaterial(int year,int view) {
         
         if(year == -1){
             Date dNow = new Date( );
@@ -54,12 +64,18 @@ public class Report  extends Controller {
 
             int totalMaterial = 0;
             double totlePrice = 0.00;
+            int totalReciveAmount = 0;
+            double totalRecivePrice = 0;
+            int totalWithdrawAmount = 0;
+            double totalWithdrawPrice = 0;
 
             List<models.durableGoods.ProcurementDetail> allRemain = each.getProcurementDetailRemaining(year);
             for(models.durableGoods.ProcurementDetail remain : allRemain){
 
                 totalMaterial += remain.quantity;
                 totlePrice +=  remain.price * remain.quantity;
+                totalReciveAmount += remain.quantity;
+                totalRecivePrice += remain.price * remain.quantity;
 
                 String[] detail = new String[13];
                 if(details.size() == 0){
@@ -87,7 +103,7 @@ public class Report  extends Controller {
 
             List<models.durableGoods.ProcurementDetail> importDetails = models.durableGoods.ProcurementDetail.find.where().eq("code",each.code).eq("procurement.status",ImportStatus.SUCCESS).between("procurement.addDate",new Date(year-2444,9,1),new Date(year-2443,8,30)).orderBy("procurement.addDate asc").findList();
             List<models.durableGoods.RequisitionDetail> exportDetails = models.durableGoods.RequisitionDetail.find.where().eq("code",each).eq("requisition.status",ExportStatus.SUCCESS).between("requisition.approveDate",new Date(year-2444,9,1),new Date(year-2443,8,30)).orderBy("requisition.approveDate asc").findList();
-            SimpleDateFormat fts = new SimpleDateFormat ("dd.MM.yy");
+            SimpleDateFormat fts = new SimpleDateFormat ("dd/MM/yyyy",new Locale("th","th"));
             double totalAmount = temp.get(1);
 
             double sumOfPrice = temp.get(0) * temp.get(1);
@@ -96,6 +112,9 @@ public class Report  extends Controller {
 
                     totalMaterial += importDetails.get(0).quantity;
                     totlePrice += importDetails.get(0).price * importDetails.get(0).quantity; 
+
+                    totalReciveAmount += importDetails.get(0).quantity;
+                    totalRecivePrice += importDetails.get(0).price * importDetails.get(0).quantity;
 
                     String[] detail = new String[13];
                     if(details.size() == 0){
@@ -129,6 +148,9 @@ public class Report  extends Controller {
 
                     totalMaterial -= exportDetails.get(0).quantity;
                     totlePrice -= exportDetails.get(0).totlePrice;
+                    
+                    totalWithdrawAmount += exportDetails.get(0).quantity;
+                    totalWithdrawPrice += exportDetails.get(0).totlePrice;
 
                     String[] detail = new String[13];
                     if(details.size() == 0){
@@ -155,12 +177,15 @@ public class Report  extends Controller {
                     details.add(detail);
                     exportDetails.remove(0);
                 }
-            }
+            }// end while
 
             if(importDetails.size() > 0 ){
                 while(importDetails.size() > 0){     
                     totalMaterial += importDetails.get(0).quantity;
                     totlePrice += importDetails.get(0).price * importDetails.get(0).quantity; 
+
+                    totalReciveAmount += importDetails.get(0).quantity;
+                    totalRecivePrice += importDetails.get(0).price * importDetails.get(0).quantity;
 
                     String[] detail = new String[13];
                     if(details.size() == 0){
@@ -197,6 +222,9 @@ public class Report  extends Controller {
                     totalMaterial -= exportDetails.get(0).quantity;
                     totlePrice -= exportDetails.get(0).totlePrice;
 
+                    totalWithdrawAmount += exportDetails.get(0).quantity;
+                    totalWithdrawPrice += exportDetails.get(0).totlePrice;
+
                     String[] detail = new String[13];
                     if(details.size() == 0){
                         detail[0] = String.format("%d", material.size() + 1);
@@ -223,10 +251,34 @@ public class Report  extends Controller {
                     exportDetails.remove(0);
                 }
             }
+                if(!details.isEmpty()){
+                    //add conclusion
+                    String[] detail = new String[13];
+                    detail[0] = "";
+                    detail[1] = "ใช้ไป/คงเหลือ";
+                    detail[2] = "";
+                    detail[3] = "";
+                    detail[4] = "";
+                    detail[5] = "";
+                    detail[6] = "";
+                    detail[7] = String.format("%d", totalReciveAmount);
+                    detail[8] = String.format("%.2f", totalRecivePrice);
+                    detail[9] = String.format("%d", totalWithdrawAmount);
+                    detail[10] = String.format("%.2f", totalWithdrawPrice);
+                    detail[11] = String.format("%d", totalMaterial);
+                    detail[12] = String.format("%.2f", totlePrice);
+                    
+                    details.add(detail);
+                }
+
             material.add(details);
         }
 
-        return ok(reportRemainingMaterial.render(user,material));
+        if(view == 1){
+            return ok(reportRemainingMaterial.render(year,user,material));
+        } else {
+            return ok(reportRemainingMaterialPrint.render(year,user,material));
+        }
     }
     
     @Security.Authenticated(Secured.class)
@@ -239,7 +291,7 @@ public class Report  extends Controller {
         public static Result reportDurableArticlesPrint() {
         List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.all();                    //ครุภัณฑ์
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
         return ok(reportDurableArticlesPrint.render(da,date));
     }
@@ -268,7 +320,7 @@ public class Report  extends Controller {
         List<MaterialCode> mc = MaterialCode.find.all();
         
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
         return ok(reportRemainingMaterialConclusionPrint.render(mc,date));
     }
@@ -288,7 +340,7 @@ public class Report  extends Controller {
         
         
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
         return ok(reportRemainingMaterialConclusionPrint2.render(dList,date));
     }
@@ -342,7 +394,7 @@ public class Report  extends Controller {
         }
 
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
         return ok(reportImportDurableArticlePrint.render(dList,date,count));
     }
@@ -386,7 +438,7 @@ public class Report  extends Controller {
         }
 
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportDurableArticleByTypePrint.render(date,dList));
@@ -398,6 +450,24 @@ public class Report  extends Controller {
         
         List<OrderGoodsDetail> order = OrderGoodsDetail.find.where().orderBy("order.approveDate asc").findList();
         return ok(reportExportDurableArticle.render(user,details,order));
+    }
+    @Security.Authenticated(Secured.class)
+        public static Result reportExportDurableArticlesPrint() {
+        List<RequisitionDetail> details = RequisitionDetail.find.where().orderBy("requisition.approveDate asc").findList();
+        
+        Date dNow = new Date( );
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
+        String date = ft.format(dNow).toString();
+        return ok(reportExportDurableArticlePrint.render(date,details));
+    }
+    @Security.Authenticated(Secured.class)
+        public static Result reportExportDurableArticlesPrint2() {
+        List<OrderGoodsDetail> order = OrderGoodsDetail.find.where().orderBy("order.approveDate asc").findList();
+        
+        Date dNow = new Date( );
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
+        String date = ft.format(dNow).toString();
+        return ok(reportExportDurableArticlePrint2.render(date,order));
     }
     @Security.Authenticated(Secured.class)
         public static Result reportExchangeDurableArticles() {
@@ -418,7 +488,7 @@ public class Report  extends Controller {
         }
 
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok( reportExchangeDurableArticlePrint.render(date,itd));
@@ -441,7 +511,7 @@ public class Report  extends Controller {
             ad.addAll(ac.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok( reportAuctionPrint.render(date,ad));
@@ -454,7 +524,7 @@ public class Report  extends Controller {
             dond.addAll(dn.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportDonatePrint.render(date,dond));
@@ -495,7 +565,7 @@ public class Report  extends Controller {
             rd.addAll(repair.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportRepairPrint.render(date,rd));
@@ -526,7 +596,7 @@ public class Report  extends Controller {
             bd.addAll(br.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportBorrowPrint.render(date,bd));
@@ -549,7 +619,7 @@ public class Report  extends Controller {
             otherD.addAll(ot.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportOtherPrint.render(date,otherD));

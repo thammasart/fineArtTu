@@ -212,6 +212,32 @@ $(function() {
     });
 });
 $(function() {
+    $( "#recieveFirstName" ).autocomplete({
+          source: userAll,
+          focus: function(event, ui) {
+              $("input#recieveFirstName").val(ui.item.label);
+            mapInput5();
+          },
+          select: function(event, ui) {
+             $("#searchform button").click(); 
+             setTimeout(mapInput5,100);
+          }
+    });
+});
+$(function() {
+    $( "#edit_firstName" ).autocomplete({
+          source: userAll,
+          focus: function(event, ui) {
+              $("input#edit_firstName").val(ui.item.label);
+            mapInput6();
+          },
+          select: function(event, ui) {
+             $("#searchform button").click(); 
+             setTimeout(mapInput6,100);
+          }
+    });
+});
+$(function() {
     $( "#withdrawerEdit" ).autocomplete({
           source: userAll,
           focus: function(event, ui) {
@@ -243,6 +269,26 @@ function mapInput4(){
             document.getElementById("withdrawerEdit").value = nameList[j];            
             document.getElementById("withdrawerLastnameEdit").value = lastnameList[j];
             document.getElementById("withdrawerPositionEdit").value = positionList[j];
+        }
+    }
+}
+function mapInput5(){
+    var id = document.getElementById("recieveFirstName").value ;
+    for(var j = 0; j < userAll.length;j++){
+        if(id == userAll[j]){
+            document.getElementById("recieveFirstName").value = nameList[j];            
+            document.getElementById("recieveLastName").value = lastnameList[j];
+            document.getElementById("recievePosition").value = positionList[j];
+        }
+    }
+}
+function mapInput6(){
+    var id = document.getElementById("edit_firstName").value ;
+    for(var j = 0; j < userAll.length;j++){
+        if(id == userAll[j]){
+            document.getElementById("edit_firstName").value = nameList[j];            
+            document.getElementById("edit_lastName").value = lastnameList[j];
+            document.getElementById("edit_position").value = positionList[j];
         }
     }
 }

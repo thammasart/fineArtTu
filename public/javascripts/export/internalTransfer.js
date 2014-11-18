@@ -118,8 +118,8 @@ function getDetail(){
 					s += '<tr  id="detailRow' + details[i].id + '">';
 					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">' +
 								' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
-					s += '	<th>'+(i+1)+'</th>';
-					s += '	<th>'+ details[i].durableArticles.code +'</th>';
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">'+(i+1)+'</th>';
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')" >'+ details[i].durableArticles.code +'</th>';
 					if(details[i].durableArticles.detail){
 						s += '	<th>'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
 					}
@@ -204,8 +204,9 @@ function deleteDetail(){
     	success: function(result){
     		var status = result["status"];
 		    if(status == "SUCCESS"){
-		    	var newDetail = [];	
-				var oldDetail = [];
+		    	newDetail = [];	
+				oldDetail = [];
+				checkedDetail = [];
 				getDetail();
 			}
 			else{

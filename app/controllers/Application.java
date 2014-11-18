@@ -37,7 +37,6 @@ public class Application extends Controller {
             }
         }
         for(models.durableArticles.DurableArticles each : da){
-            System.out.println(each.detail.alertTime +" "+  each.detail.getCurrentLifeTime() +" " + each.getRemainInMonth());
             if(each.detail.alertTime >= each.detail.getCurrentLifeTime()){
                 aAlert.add(each);
             }
