@@ -50,7 +50,7 @@ function searchFSN(){
 }
 
 function searchGoods(){
-	var fsnCode = document.getElementById("code").value;
+	var fsnCode = document.getElementById("fsnCode").value;
 	var des = document.getElementById("description").value;
 	$.ajax({
 		type: "GET",

@@ -25,13 +25,13 @@ function addDetailButton(){
 	destroyTable();
 	document.getElementById("searchResultTable").innerHTML = "";
 	updateTable();
-	document.getElementById("code").value = '';
+	document.getElementById("fsnCode").value = '';
 	document.getElementById("description").value = '';
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
 	document.getElementById("editDetailWindows").style.display = "none";
 	document.getElementById("titleInHeader").innerHTML = "เพิ่มรายละเอียดการเบิกจ่าย";
-	document.getElementById("code").focus();
+	document.getElementById("fsnCode").focus();
 }
 
 function addOrderButton(){
@@ -73,16 +73,6 @@ function editDetail(code){
 function update(){
 	orderGoods.title = document.getElementById("title").value;
 	orderGoods.number = document.getElementById("number").value;
-}
-
-function updateDetail(){
-	detail.code = document.getElementById("code").value;
-	detail.quantity = document.getElementById("quantity").value;
-	detail.description = document.getElementById("description").value;
-  	detail.withdrawerNmae = document.getElementById("withdrawer").value;
-  	detail.withdrawerLastname = document.getElementById("withdrawerLastname").value;
-  	detail.withdrawerPosition = document.getElementById("withdrawerPosition").value;
-  	detail.orderGoods = orderGoods.id;
 }
 
 function addCheckedDetail(code){
@@ -198,7 +188,7 @@ function saveDetail(){
     	success: function(result){
     		var status = result["status"];
 		    if(status == "SUCCESS"){
-		    	document.getElementById("code").value = "";
+		    	document.getElementById("fsnCode").value = "";
 				document.getElementById("description").value = "";
 				document.getElementById("department").value = "";
 				document.getElementById("room").value = "";
@@ -335,11 +325,6 @@ function validateSaveDetail(){
         document.getElementById("groupCodeAlert").style.display = "table-row";
         submit= false;
     }else  document.getElementById("groupCodeAlert").style.display= "none";
-
-    if(document.getElementById("code").value ==""){
-        document.getElementById("codeAlert").style.display = "table-row";
-        submit= false;
-    }else  document.getElementById("codeAlert").style.display= "none";
 
     if(document.getElementById("quantity").value ==""){
         document.getElementById("quantityAlert").style.display = "table-row";
