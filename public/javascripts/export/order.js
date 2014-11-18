@@ -21,8 +21,10 @@ function addDetailButton(){
 	document.getElementById("code").value = '';
 	document.getElementById("groupCode").value = '';
 	document.getElementById("quantity").value = '';
+	document.getElementById("description").value = '';
 	document.getElementById("withdrawer").value = '';
-	document.getElementById("withdrawerPosition").value = ''
+	document.getElementById("withdrawerPosition").value = '';
+	document.getElementById("withdrawerPosition").value = '';
 	document.getElementById("addWindows").style.display = "none";
 	document.getElementById("addDetailWindows").style.display = "block";
 	document.getElementById("editDetailWindows").style.display = "none";
@@ -199,8 +201,9 @@ function deleteDetail(){
     	success: function(result){
     		var status = result["status"];
 		    if(status == "SUCCESS"){
-		    	var newDetail = [];	
-				var oldDetail = [];
+		    	newDetail = [];	
+				oldDetail = [];
+				checkedDetail = [];
 				getDetail();
 			}
 			else{

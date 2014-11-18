@@ -16,7 +16,7 @@ import models.type.ExportStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table (name = "durable_articles_auction")
+@Table (name = "auction")
 public class Auction extends Model{ // จำหน่าย หรือ การขายทอดตลาด
 
 	@Id
@@ -25,18 +25,18 @@ public class Auction extends Model{ // จำหน่าย หรือ กา
 	public String contractNo; // สัญญาเลขที่
 	public double totalPrice; // ราคารวม
 	public Date approveDate; // วันที่ทำการอนุมัติ
-	public String soldDestination; // บริษัท-ร้านค้า ที่จำหน่วยไป
-	public String buildingNo; // เลขที่
-	public String village; // หมู่
-	public String alley; // ซอย
-	public String road; // ถนน
-	public String parish; // ตำบล
-	public String district; // อำเภอ
-	public String province; // จังหวัด
-	public String telephoneNumber; // เบอร์โทร
-	public String fax; // Fax
-	public String postCode; // รหัสไปรษณีย์
-	public String email; //e-mail
+	// public String soldDestination; // บริษัท-ร้านค้า ที่จำหน่วยไป
+	// public String buildingNo; // เลขที่
+	// public String village; // หมู่
+	// public String alley; // ซอย
+	// public String road; // ถนน
+	// public String parish; // ตำบล
+	// public String district; // อำเภอ
+	// public String province; // จังหวัด
+	// public String telephoneNumber; // เบอร์โทร
+	// public String fax; // Fax
+	// public String postCode; // รหัสไปรษณีย์
+	// public String email; //e-mail
 
 	public ExportStatus status; //สถานะใบโอน
 

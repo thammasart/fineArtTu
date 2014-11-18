@@ -147,8 +147,9 @@ function deleteDetail(){
     	success: function(result){
     		var status = result["status"];
 		    if(status == "SUCCESS"){
-		    	var newDetail = [];	
-				var oldDetail = [];
+		    	newDetail = [];	
+				oldDetail = [];
+				checkedDetail = [];
 				getDetail();
 			}
 			else{

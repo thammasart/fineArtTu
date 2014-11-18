@@ -7,7 +7,7 @@ import models.Company;
 import models.User;
 
 @Entity
-@Table (name = "durable_articles_borrow_detail")
+@Table (name = "borrow_detail")
 public class BorrowDetail extends Model{
 
 	@Id
