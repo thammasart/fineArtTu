@@ -1,54 +1,21 @@
 @(thisYear:Integer ,user : User, mc : List[List[Array[String]]])
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+<script>
+    var count = 1;
+</script>
 @header("รายงาน")
 
-@nav(user)
-@headerTag("รายงานวัสดุคงเหลือ")
-
-<body onload="init()">
-
-@sideMenu(user)
-
-<script>
-    function init(){
-        document.yearForm.year.focus();
-    }
-</script>
-<div class="listWindow" >
-
-            <span style="font-size:25px;float:left;" >
-                รางงานวัสดุคงเหลือ 
-            </span>
-            <form method="post" action="@routes.Report.reportRemainingMaterialPostPrint()">
-                <div class="form-group" style="float:right">
-                    <div class="input-group">
-                      <input type="hidden" name="yearPrint" id="yearPrint" value="@thisYear" >
-                      <button type="submit" class="btn btn-primary" > พิมพ์รายงานวัสดุคงเหลือ </button>
-                    </div>
-                </div>
-            </form>
-        <div class="tableHeaderBtnContainer" style="display:inline-block">
-                <div class="searchS">
-                        <form>
-                            <div class="form-group">
-                                <div class="input-group">
-                                  <span class="input-group-addon">ค้นหา</span>
-                                  <input type="text" class="form-control" style="width:200px">
-                                </div>
-                              </div>
-                        </form>
-                </div>
-                    <form method="post" name="yearForm" action="@routes.Report.reportRemainingMaterialPost()">
-                        <div class="form-group">
-                            <div class="input-group">
-                              <span class="input-group-addon">ปีงบประมาณ</span>
-                              <input type="number" class="form-control" style="width:200px" id="year" name="year" value="@thisYear" onkeypress="validateNumberKey(event);;">
-                            </div>
-                        </div>
-                    </form>
-        </div>
-
         <div >
-            <table class="table table-striped overlayTable" align="center">
+            <h3 align="center">
+                บัญชีคุมวัสดุคงเหลือปี @thisYear
+            </h3>
+            <table class="table table-bordered" align="center"style="font-size:13px; border-color:black;border:double;">
                 <thead>
                     <tr>
                         <th style="text-align:center"> ลำดับที่</th>
@@ -71,7 +38,7 @@
                 @for((material,index) <- mc.zipWithIndex){
                     @for((detail,index2) <- material.zipWithIndex){
                         <tr id="tr@index@index2">
-                            <th name="row@index@index2" style="text-align:center" id="r0@index@index2">@{index+1}</th>
+                            <th name="row@index@index2" style="text-align:center" id="r0@index@index2"></th>
                             <th name="row@index@index2" style="text-align:center" id="r1@index@index2">@detail(1)</th>
                             <th name="row@index@index2" style="text-align:center">@detail(2)</th>
                             <th name="row@index@index2" style="text-align:center">@detail(3)</th>
@@ -86,8 +53,9 @@
                             <th name="row@index@index2" style="text-align:center">@detail(12)</th>
                         </tr>
                         <script>
-                            if(@index2 != 0){
-                                document.getElementById("r0@index@index2").style.color="rgba(255, 255, 255,0)";
+                            if(@index2 == 0){
+                                document.getElementById("r0@index@index2").innerHTML= count;
+                                count++;
                             }
                             if(document.getElementById("r1@index@index2").innerHTML == "ใช้ไป/คงเหลือ"){
                                 var row = document.getElementsByName("row@index@index2");
@@ -96,19 +64,9 @@
                                 }
                                 document.getElementById("tr@index@index2").style.height = "65px";
                             }
-                            if(document.getElementById("r6@index@index2").innerHTML != "" && document.getElementById("r7@index@index2").innerHTML != ""){
-                                document.getElementById("tr@index@index2").className += " success";
-                            }
-                            if(document.getElementById("r9@index@index2").innerHTML != "" && document.getElementById("r10@index@index2").innerHTML != "" && document.getElementById("r7@index@index2").innerHTML == ""){
-                                document.getElementById("tr@index@index2").className += "danger";
-                            }
                         </script>
                     }
                 }
                 </tbody>
             </table>
         </div> 
-<!---->
-</div>
-
-@footer("411")
