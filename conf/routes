@@ -154,6 +154,8 @@ GET             /report/DurableArticles/print                                   
 GET             /report/ImportDurableArticles                                   controllers.Report.reportImportDurableArticles()
 GET             /report/ImportDurableArticles/print                             controllers.Report.reportImportDurableArticlesPrint()
 GET             /report/exportDurableArticles                                   controllers.Report.reportExportDurableArticles()
+GET             /report/exportDurableArticles/print                             controllers.Report.reportExportDurableArticlesPrint()
+GET             /report/exportDurableArticles/print2                            controllers.Report.reportExportDurableArticlesPrint2()
 GET             /report/exchangeDurableArticles                                 controllers.Report.reportExchangeDurableArticles()
 GET             /report/exchangeDurableArticles/print                           controllers.Report.reportExchangeDurableArticlesPrint()
 GET             /report/Auction                                                 controllers.Report.reportAuction()

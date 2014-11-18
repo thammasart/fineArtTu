@@ -291,7 +291,7 @@ public class Report  extends Controller {
         public static Result reportDurableArticlesPrint() {
         List<models.durableArticles.DurableArticles> da = models.durableArticles.DurableArticles.find.all();                    //ครุภัณฑ์
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
         return ok(reportDurableArticlesPrint.render(da,date));
     }
@@ -320,7 +320,7 @@ public class Report  extends Controller {
         List<MaterialCode> mc = MaterialCode.find.all();
         
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
         return ok(reportRemainingMaterialConclusionPrint.render(mc,date));
     }
@@ -340,7 +340,7 @@ public class Report  extends Controller {
         
         
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
         return ok(reportRemainingMaterialConclusionPrint2.render(dList,date));
     }
@@ -394,7 +394,7 @@ public class Report  extends Controller {
         }
 
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
         return ok(reportImportDurableArticlePrint.render(dList,date,count));
     }
@@ -438,7 +438,7 @@ public class Report  extends Controller {
         }
 
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportDurableArticleByTypePrint.render(date,dList));
@@ -450,6 +450,24 @@ public class Report  extends Controller {
         
         List<OrderGoodsDetail> order = OrderGoodsDetail.find.where().orderBy("order.approveDate asc").findList();
         return ok(reportExportDurableArticle.render(user,details,order));
+    }
+    @Security.Authenticated(Secured.class)
+        public static Result reportExportDurableArticlesPrint() {
+        List<RequisitionDetail> details = RequisitionDetail.find.where().orderBy("requisition.approveDate asc").findList();
+        
+        Date dNow = new Date( );
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
+        String date = ft.format(dNow).toString();
+        return ok(reportExportDurableArticlePrint.render(date,details));
+    }
+    @Security.Authenticated(Secured.class)
+        public static Result reportExportDurableArticlesPrint2() {
+        List<OrderGoodsDetail> order = OrderGoodsDetail.find.where().orderBy("order.approveDate asc").findList();
+        
+        Date dNow = new Date( );
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
+        String date = ft.format(dNow).toString();
+        return ok(reportExportDurableArticlePrint2.render(date,order));
     }
     @Security.Authenticated(Secured.class)
         public static Result reportExchangeDurableArticles() {
@@ -470,7 +488,7 @@ public class Report  extends Controller {
         }
 
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok( reportExchangeDurableArticlePrint.render(date,itd));
@@ -493,7 +511,7 @@ public class Report  extends Controller {
             ad.addAll(ac.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok( reportAuctionPrint.render(date,ad));
@@ -506,7 +524,7 @@ public class Report  extends Controller {
             dond.addAll(dn.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportDonatePrint.render(date,dond));
@@ -547,7 +565,7 @@ public class Report  extends Controller {
             rd.addAll(repair.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportRepairPrint.render(date,rd));
@@ -578,7 +596,7 @@ public class Report  extends Controller {
             bd.addAll(br.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportBorrowPrint.render(date,bd));
@@ -601,7 +619,7 @@ public class Report  extends Controller {
             otherD.addAll(ot.detail);
         }
         Date dNow = new Date( );
-        SimpleDateFormat ft = new SimpleDateFormat (" dd.M.yyyy");
+        SimpleDateFormat ft = new SimpleDateFormat (" dd MMMM yyyy",new Locale("th","th"));
         String date = ft.format(dNow).toString();
 
         return ok(reportOtherPrint.render(date,otherD));

@@ -1,0 +1,47 @@
+@(date : String, req : List[models.durableGoods.RequisitionDetail])
+
+<style type="text/css" media="print">
+        table { page-break-inside:auto; border:double; }
+        div    { page-break-inside:avoid;}
+        thead { display:table-header-group }
+        tfoot { display:table-footer-group }
+</style>
+
+@header("รายงาน")
+
+        <div >
+            <h3 align="center">
+                รายการเบิกจ่ายวัสดุสิ้นเปลือง
+            </h3>
+            <div align="center">
+                @date
+            </div>
+            <table class="table table-striped overlayTable" align="center"style="font-size:13px; border-color:black;border:double;">
+                <thead>
+                    <tr>
+                        <th style="text-align:center">ลำดับที่</th>
+                        <th style="text-align:center">วันที่</th>
+                        <th style="text-align:center">รายการ</th>
+                        <th style="text-align:center">หมายวัสดุ</th>
+                        <th style="text-align:center">จำนวนที่เบิก</th>
+                        <th style="text-align:center">หน่วยนับ</th>
+                        <th style="text-align:center">ราคา/หน่วย</th>
+                        <th style="text-align:center">ผู้เบิก</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for((detail,index) <-req.zipWithIndex){
+                    <tr>
+                        <th style="text-align:center">@{index+1}</th>
+                        <th style="text-align:center">@detail.requisition.approveDateToString()</th>
+                        <th style="text-align:center">@detail.code.description</th>
+                        <th style="text-align:center">@detail.code.code</th>
+                        <th style="text-align:center">@detail.quantity</th>
+                        <th style="text-align:center">@detail.code.classifier</th>
+                        <th style="text-align:center">@detail.price</th>
+                        <th style="text-align:center">@detail.withdrawer.firstName @detail.withdrawer.lastName</th>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div> 
