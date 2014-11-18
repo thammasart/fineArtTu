@@ -34,7 +34,7 @@ public class RequisitionDetail extends Model{
 	public Requisition requisition;	// ใบเบิก
 
 	public void updateDetail(){
-		List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code.code).eq("procurement.status",ImportStatus.SUCCESS).eq("status",OrderDetailStatus.SUCCESS).le("procurement.addDate",this.requisition.approveDate).orderBy("procurement.addDate desc").findList();
+		List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code.code).eq("procurement.status",ImportStatus.SUCCESS).le("procurement.addDate",this.requisition.approveDate).orderBy("procurement.addDate desc").findList();
 		double totalImport = 0;
         for(ProcurementDetail detail : importDetails){
             totalImport += detail.quantity;
@@ -54,17 +54,15 @@ public class RequisitionDetail extends Model{
         }
 
         int remain = (int)(totalImport-totalExport);
-        List<Double> priceList = new ArrayList<Double>();
-        List<Integer> remainList = new ArrayList<Integer>();
+        List<ProcurementDetail> remainMaterial = new ArrayList<ProcurementDetail>();
         for(ProcurementDetail detail : importDetails){
        		if(remain > detail.quantity){
-       			priceList.add(detail.price);
-       			remainList.add(detail.quantity);
+       			remainMaterial.add(0,detail);
                 remain -= detail.quantity;
             }
        		else{
-       			priceList.add(detail.price);
-       			remainList.add(remain);
+                detail.quantity = remain;
+       			remainMaterial.add(0,detail);
                 remain = 0;
                 break;
             }
@@ -72,17 +70,15 @@ public class RequisitionDetail extends Model{
 
         int quantity = this.quantity;
         double totlePrice = 0.00;
-        while(quantity > 0 && !priceList.isEmpty() && !remainList.isEmpty()){
-        	int index = remainList.size() -1;
-        	remain = remainList.get(index);
+        while(quantity > 0 && !remainMaterial.isEmpty()){
+        	remain = remainMaterial.get(0).quantity;
         	if(quantity > remain){
-        		totlePrice += priceList.get(index) * remain;
-        		priceList.remove(index);
-        		remainList.remove(index);
+        		totlePrice += remainMaterial.get(0).price * remain;
+        		remainMaterial.remove(0);
         		quantity -= remain;
         	}
         	else{
-        		totlePrice += priceList.get(index) * quantity;
+        		totlePrice += remainMaterial.get(0).price * quantity;
         		quantity = 0;
         	}
         }
