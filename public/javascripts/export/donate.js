@@ -266,7 +266,7 @@ function initViewDetial(id){
 	document.getElementById("D_add").style.display = "none";
 	
 	init(id);
-	titleInHeader = "แสดงรายละเอียดการการบริจาค";
+	titleInHeader = "แสดงรายละเอียดการบริจาค";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 
 	var i;
@@ -310,7 +310,7 @@ function changeToEdit(){
 	document.getElementById("FF_add").style.display = "block";
 	document.getElementById("D_add").style.display = "block";
 
-	titleInHeader = "แก้ไขรายละเอียดการการบริจาค";
+	titleInHeader = "แก้ไขรายละเอียดการบริจาค";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 
 	var i;

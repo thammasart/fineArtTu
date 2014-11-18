@@ -13,7 +13,7 @@ import models.type.*;
 import models.User;
 
 @Entity
-@Table (name = "consumable_requisition_detail")
+@Table (name = "requisition_detail")
 public class RequisitionDetail extends Model{
 
 	@Id

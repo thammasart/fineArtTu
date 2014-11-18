@@ -362,7 +362,7 @@ function initViewDetial(id){
 	document.getElementById("D_add").style.display = "none";
 
 	init(id);
-	titleInHeader = "แสดงรายละเอียดการการจำหน่าย";
+	titleInHeader = "แสดงรายละเอียดการจำหน่าย";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 
 	var i;
@@ -430,7 +430,7 @@ function changeToEdit(){
 	document.getElementById("E_add").style.display = "block";
 	document.getElementById("D_add").style.display = "block";
 
-	titleInHeader = "แก้ไขรายละเอียดการการจำหน่าย";
+	titleInHeader = "แก้ไขรายละเอียดการจำหน่าย";
 	document.getElementById("titleInHeader").innerHTML = titleInHeader;
 
 	var i;

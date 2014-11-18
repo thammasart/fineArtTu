@@ -16,7 +16,7 @@ import models.type.ExportStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table (name = "consumable_requisition")
+@Table (name = "requisition")
 public class Requisition extends Model{
 
 	@Id
