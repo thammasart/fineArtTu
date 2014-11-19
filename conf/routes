@@ -237,7 +237,6 @@ POST	/graphDescriptionQuery							controllers.Graph.getDescriptionQuery()
 GET		/option/CalculateDepreciate					controllers.Option.optionCalculateDepreciate()
 POST     /option/CalculatingDepreciate				               	controllers.Option.optionCalculatingDepreciate()
 POST     /option/CalculatingDepreciate/print			               	controllers.Option.optionCalculatingDepreciatePrint()
-GET		/option/IncomingBalance						controllers.Option.optionIncomingBalance()
 GET		/option/ChangeTax						controllers.Option.optionChangeTax()
 
 GET		/option/ExportFile						controllers.Option.optionExportFile()

@@ -97,11 +97,7 @@ public class Option extends Controller {
 	
 	
 	
-	@Security.Authenticated(Secured.class)
-    public static Result optionIncomingBalance() {
-        User user = User.find.where().eq("username", session().get("username")).findUnique();
-        return ok(optionIncomingBalance.render(user));
-    }
+
 	
 	@Security.Authenticated(Secured.class)
     public static Result optionChangeTax() {
