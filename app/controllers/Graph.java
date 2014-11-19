@@ -2073,10 +2073,19 @@ public class Graph extends Controller {
 			FSN_Description fsn = null;
 			if(d!=null){
 				models.durableGoods.ProcurementDetail pd = d.detail;
+				System.out.println(d.detail.code);
 				if(d.typeOfDurableGoods == 0){
+					System.out.println("m");
 					m = MaterialCode.find.byId(d.detail.code);
+					if(m == null){
+						fsn = FSN_Description.find.byId(d.detail.code);
+					}
 				}else{
+					System.out.println("fsn");
 					fsn = FSN_Description.find.byId(d.detail.code);
+					if(fsn == null){
+						m = MaterialCode.find.byId(d.detail.code);
+					}
 				}
 				result += "<div class=\"well\">";
 				result += getDetailLabel("ชื่อใบรายการ", d.detail.procurement.title);
@@ -2093,7 +2102,20 @@ public class Graph extends Controller {
 				result += getDetailLabel("เบอร์โทรศัพท์", pd.phone);
 				result += getDetailLabel("ยี่ห้อ", pd.brand);
 				result += getDetailLabel("หมายเลขเครื่อง", pd.serialNumber);
-				String path = d.typeOfDurableGoods == 0 ? m.path: fsn.path;
+				String path = "";
+				if(d.typeOfDurableGoods == 0){
+					if(m != null){
+						path = m.path;
+					}else if(fsn != null){
+						path = fsn.path;
+					}
+				}else{
+					if(fsn != null){
+						path = fsn.path;
+					}else if(m != null){
+						path = m.path;
+					}
+				}
 				result += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
 				String expandable = "";
 				for(;i<ids.length;i++){
@@ -2284,8 +2306,14 @@ public class Graph extends Controller {
 			if(pd!=null){
 				if(pd.typeOfDurableGoods == 0){
 					m = MaterialCode.find.byId(pd.code);
+					if(m == null){
+						fsn = FSN_Description.find.byId(pd.code);
+					}
 				}else{
 					fsn = FSN_Description.find.byId(pd.code);
+					if(fsn == null){
+						m = MaterialCode.find.byId(pd.code);
+					}
 				}
 
 				result += "<div class=\"well\">";
@@ -2303,7 +2331,20 @@ public class Graph extends Controller {
 				result += getDetailLabel("เบอร์โทรศัพท์", pd.phone);
 				result += getDetailLabel("ยี่ห้อ", pd.brand);
 				result += getDetailLabel("หมายเลขเครื่อง", pd.serialNumber);
-				String path = pd.typeOfDurableGoods == 0 ? m.path: fsn.path;
+				String path = "";
+				if(pd.typeOfDurableGoods == 0){
+					if(m != null){
+						path = m.path;
+					}else if(fsn != null){
+						path = fsn.path;
+					}
+				}else{
+					if(fsn != null){
+						path = fsn.path;
+					}else if(m != null){
+						path = m.path;
+					}
+				}
 				result += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/" + path + "\">");
 				String expandable = "";
 				for(DurableGoods d : pd.subDetails){
@@ -2534,7 +2575,7 @@ public class Graph extends Controller {
 			for(Auction_D_Committee d : a.dCommittee){
 				expandable += getDetailCommitteeLabel(d.committeePosition, String.format("%s %s %s", d.user.namePrefix, d.user.firstName, d.user.lastName));
 			}
-			if(!expandable.equals("")) result += getExpandableHTML("คณะกรรมการประเมิณราคากลาง", expandable);
+			if(!expandable.equals("")) result += getExpandableHTML("คณะกรรมการประเมินราคากลาง", expandable);
 			
 			expandable = "";
 			for(Auction_E_Committee e : a.eCommittee){
@@ -2583,7 +2624,7 @@ public class Graph extends Controller {
 			for(Auction_D_Committee d : a.dCommittee){
 				expandable += getDetailCommitteeLabel(d.committeePosition, String.format("%s %s %s", d.user.namePrefix, d.user.firstName, d.user.lastName));
 			}
-			result += getExpandableHTML("คณะกรรมการประเมิณราคากลาง", expandable);
+			result += getExpandableHTML("คณะกรรมการประเมินราคากลาง", expandable);
 			
 			expandable = "";
 			for(Auction_E_Committee e : a.eCommittee){
