@@ -27,6 +27,22 @@ angular.module('userAccountModule', ['ui.bootstrap'])
              });
             exportLink = link;
          };
+         $scope.openCancelModalOrderGoodsAdd = function() {
+             var cancelModalInstance = $modal.open({
+                     templateUrl : 'cancelList.html',
+                     controller : cancelModalOrderGoodsAddInstanceCtrl,
+                     size : 'lg'
+             });
+         };
+         $scope.openCancelExportOrderModal = function(link) {
+             var cancelModalInstance = $modal.open({
+                     templateUrl : 'cancelExportAdd.html',
+                     controller : cancelModalExportInstanceCtrl,
+                     size : 'lg'
+             });
+            exportLink = link;
+         };
+
 
          function combine() { 
             for(var i = 0; i < nameList.length ; i++){
@@ -136,6 +152,28 @@ var cancelModalInstanceCtrl = function($scope, $modalInstance){
 
    $scope.ok = function () {
         window.location.href = exportLink + "?id="+exportId ;
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
+var cancelModalExportInstanceCtrl= function($scope, $modalInstance){
+
+   $scope.ok = function () {
+        window.location.href = exportLink + "?id="+exportId ;
+        $modalInstance.close();
+    };
+
+    $scope.cancel = function () {
+        $modalInstance.dismiss();
+    };
+}
+var cancelModalOrderGoodsAddInstanceCtrl = function($scope, $modalInstance){
+
+   $scope.ok = function () {
+        deleteDetail();
         $modalInstance.close();
     };
 

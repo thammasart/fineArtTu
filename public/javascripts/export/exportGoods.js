@@ -15,7 +15,7 @@ var deleteModalInstanceCtrl = function($scope, $modalInstance){
     $scope.name = "Delete List(s).";
 
    $scope.ok = function () {
-        deleteRequisition();
+        deleteOrderGoods();
         $modalInstance.close();
     };
 
