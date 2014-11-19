@@ -34,6 +34,13 @@ angular.module('userAccountModule', ['ui.bootstrap'])
                      size : 'lg'
              });
          };
+         $scope.openDeleteDetailModal= function() {
+             var cancelModalInstance = $modal.open({
+                     templateUrl : 'cancelList.html',
+                     controller : cancelModalOrderGoodsAddInstanceCtrl,
+                     size : 'lg'
+             });
+         };
          $scope.openCancelExportOrderModal = function(link) {
              var cancelModalInstance = $modal.open({
                      templateUrl : 'cancelExportAdd.html',
@@ -171,7 +178,7 @@ var cancelModalExportInstanceCtrl= function($scope, $modalInstance){
     };
 }
 var cancelModalOrderGoodsAddInstanceCtrl = function($scope, $modalInstance){
-
+   $scope.name = " ลบรายการ " ;
    $scope.ok = function () {
         deleteDetail();
         $modalInstance.close();

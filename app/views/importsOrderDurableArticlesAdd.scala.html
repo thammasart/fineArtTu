@@ -202,7 +202,6 @@
              <thead>
                 <tr>
                     <th><input type="checkbox" id="checkAll" onclick="tickAll(2)"/></th>
-                    <th>ID<span class="glyphicon glyphicon-sort"></span></th>
                     <th>FSN<span class="glyphicon glyphicon-sort"></span></th>
                     <th>ชื่อครุภัณฑ์<span class="glyphicon glyphicon-sort"></span></th>
                     <th>จำนวน<span class="glyphicon glyphicon-sort"></span></th>
@@ -313,7 +312,7 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคา</span>
-                    <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat" onkeyup="addVat()">
+                    <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat" onkeyup="addVat(event)">
                     <span class="alertText" id="priceNoVatAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
@@ -322,7 +321,7 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคารวมภาษี</span>
-                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price" onkeyup="decreaseVat()">
+                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price" onkeyup="decreaseVat(event)">
                         <span class="alertText" id="priceAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>

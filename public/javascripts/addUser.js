@@ -50,11 +50,10 @@ function submitButtonClick(){
         document.getElementById("passwordDiffAlert").style.display = "none";
     }
 
-//    if($("#status option:selected").text() == "---เลือก---"){
-//        document.getElementById("statusAlert").style.display = "table-row";
-//        submitStatus = false;
-//    alert("hello");
-//    }else document.getElementById("statusAlert").style.display = "none";
+    if($("#status option:selected").text() == "---เลือก---"){
+    	document.getElementById("statusAlert").style.display = "table-row";
+    	submitStatus = false;
+    }else document.getElementById("statusAlert").style.display = "none";
 
     return submitStatus;
 }

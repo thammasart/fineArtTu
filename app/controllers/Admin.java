@@ -37,8 +37,8 @@ public class Admin extends Controller {
             System.out.println(newUserFrom);
             User newUser = newUserFrom.get();    
             newUser.status = UserStatus.find.byId(f.get("statusName"));
-            newUser.save();
-            return redirect(routes.Admin.index());
+        	newUser.save();
+        	return redirect(routes.Admin.index());
         }else {
             flash("sameUser", " This username already exists.");
             return redirect(routes.Admin.addUser());
