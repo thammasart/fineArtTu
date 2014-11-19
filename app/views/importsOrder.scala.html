@@ -83,7 +83,7 @@
 		                        <th>@articleOrder.getAddDate()</th>
 		                        <th>@articleOrder.getCheckDate()</th>
 		                        <th>@articleOrder.budgetType</th>
-		                        <th>@articleOrder.institute</th>
+		                        <th>@articleOrder.company.nameEntrepreneur</th>
 		                        <th>@articleOrder.budgetYear</th>
 		                        <th>
 								@if(articleOrder.fileType != null && articleOrder.fileType.contains("image")){
@@ -132,7 +132,7 @@
 		                        <th>@articleOrder.getAddDate()</th>
 		                        <th>@articleOrder.getCheckDate()</th>
 		                        <th>@articleOrder.budgetType</th>
-		                        <th>@articleOrder.institute</th>
+		                        <th>@articleOrder.company.nameEntrepreneur</th>
 		                        <th>@articleOrder.budgetYear</th>
 		                        <th>
 								@if(articleOrder.fileType != null && articleOrder.fileType.contains("image")){
@@ -220,7 +220,7 @@
 							<th>@goodOrder.getAddDate()</th>
 							<th>@goodOrder.getCheckDate()</th>
 							<th>@goodOrder.budgetType</th>
-							<th>@goodOrder.institute</th>
+							<th>@goodOrder.company.nameEntrepreneur</th>
 							<th>@goodOrder.budgetYear</th>
 							<th>
 								@if(goodOrder.fileType != null && goodOrder.fileType.contains("image")){
@@ -267,7 +267,7 @@
 								<th>@goodOrder.getAddDate()</th>
 								<th>@goodOrder.getCheckDate()</th>
 								<th>@goodOrder.budgetType</th>
-								<th>@goodOrder.institute</th>
+								<th>@goodOrder.company.nameEntrepreneur</th>
 								<th>@goodOrder.budgetYear</th>
 								<th>
 								@if(goodOrder.fileType != null && goodOrder.fileType.contains("image")){

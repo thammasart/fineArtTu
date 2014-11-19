@@ -837,7 +837,7 @@ public class Import extends Controller {
     	articlesOrder.title = form.get("title");
     	articlesOrder.contractNo = form.get("contractNo");
     	articlesOrder.budgetType = form.get("budgetType");
-    	articlesOrder.institute = form.get("institute");
+    	//articlesOrder.institute = form.get("institute");
     	articlesOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
     	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---")){
     		//System.out.println(form.get("institute"));
@@ -1051,7 +1051,7 @@ public class Import extends Controller {
     	goodsOrder.title = form.get("title");
     	goodsOrder.contractNo = form.get("contractNo");
     	goodsOrder.budgetType = form.get("budgetType");
-    	goodsOrder.institute = form.get("institute");
+    	//goodsOrder.institute = form.get("institute");
     	goodsOrder.budgetYear = Integer.parseInt(form.get("budgetYear"));
     	
     	if(form.get("institute")!=null && !form.get("institute").equals("---เลือก---"))

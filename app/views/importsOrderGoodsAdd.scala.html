@@ -101,10 +101,10 @@
         <div class="form-inline" role="form" align="left">
             <div class="input-group marginBtm1">
                 <span class="input-group-addon width250px">สถานประกอบการ</span>
-                    <select class="form-control textAlignCenter  width300px" name="institute" value="@order.institute">
+                    <select class="form-control textAlignCenter  width300px" name="institute">
                         <option>---เลือก---</option>
                         @for(company <- companies){
-                        	<option @if(order.institute ==company.nameEntrepreneur ){ selected}>@company.nameEntrepreneur</option>
+                        	<option @if(order.company != null && order.company.nameEntrepreneur ==company.nameEntrepreneur ){ selected}>@company.nameEntrepreneur</option>
                         }
                     </select>
             </div>

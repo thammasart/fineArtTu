@@ -130,7 +130,7 @@ public class DataRandom {
 		p.addDate = new Date(); 	
 		p.checkDate = new Date(); 
 		p.budgetType = budgetType[rand.nextInt(budgetType.length)];
-		p.institute = randomString();
+		//p.institute = randomString();
 		p.budgetYear = 2557;
 		p.status = importStatus[rand.nextInt(importStatus.length)];
 		p.company = getRandomCompany();
@@ -208,7 +208,6 @@ public class DataRandom {
 		d.title = randomString();
 		d.firstName = randomString();
 		d.lastName = randomString();
-		d.remain = rand.nextInt(100);
 		d.detail = pd;
 		return d;
 	}

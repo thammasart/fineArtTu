@@ -2559,6 +2559,32 @@
   typ: *fsnType7125001
   path: images/fsnNumber/7125-001-0004.jpg
   fileType: image
+  ################################################################################################
+- &Address001 !!models.Address
+  buildingNo:          "89"
+  village:             ม.18
+  alley:               e/A
+  road:                e/A
+  parish:              ต.คลองหนึ่ง
+  district:            อ.คลองหลวง
+  province:            จ.ปทุมธานี
+  telephoneNumber:     0-2564-4440-59
+  fax:                 0-2564-4493
+  postCode:            "12121"
+  email:               tu2@tu.ac.th
+- &Company001 !!models.Company
+  typeEntrepreneur:        e/A
+  typedealer:              e/A
+  nameEntrepreneur:        e/A
+  nameDealer:              มหาวิทยาลัยธรรมศาสตร์
+  payCodition:             e/A
+  payPeriod:               0
+  sendPeriod:              0
+  durableArticlesType:     e/A
+  durableGoodsType:        e/A
+  consumableGoodsType:     e/A
+  otherDetail:             e/A
+  address:                 *Address001
 - &procurement01    !!models.durableArticles.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    1/57
@@ -2567,6 +2593,7 @@
   checkDate:     2014-09-21
   budgetType:    พิเศษ
   budgetYear:    57 
+  company: *Company001
 - &procurement02    !!models.durableArticles.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    2/57
@@ -2575,6 +2602,7 @@
   checkDate:     2014-09-15
   budgetType:    พิเศษ
   budgetYear:    57
+  company: *Company001
 - &procurement03    !!models.durableArticles.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    3/57
@@ -2583,6 +2611,7 @@
   checkDate:     2014-03-21
   budgetType:    พิเศษ
   budgetYear:    57
+  company: *Company001
 - &procurementDetail01    !!models.durableArticles.ProcurementDetail
   description:    ตู้หมายเลข1
   fsn:    *fsnDescription71250010001
