@@ -215,23 +215,31 @@ function cancelStatus(id,typeOfOrder){
 	});
 }
 
-function addVat(){
-	var price = parseInt($('#priceNoVat').val());
-	var tax = document.getElementById("tax").value;
-	if(!isNaN(price)){
-		parseInt(price);
-		parseInt(tax);
-		$('#price').val(price + price * tax * 0.01);
+function addVat(event){
+	var keyCode = ('which' in event) ? event.which : event.keyCode;
+	console.log(keyCode);
+	if(keyCode != 9 && keyCode != 16){
+		var price = parseInt($('#priceNoVat').val());
+		var tax = document.getElementById("tax").value;
+		if(!isNaN(price)){
+			parseInt(price);
+			parseInt(tax);
+			$('#price').val(price + price * tax * 0.01);
+		}
 	}
 }
 
-function decreaseVat(){
-	var price = $('#price').val();
-	var tax = document.getElementById("tax").value;
-	if(!isNaN(price)){
-		parseInt(price);
-		parseInt(tax);
-		$('#priceNoVat').val(price - price * tax * 0.01);
+function decreaseVat(event){
+	var keyCode = ('which' in event) ? event.which : event.keyCode;
+	console.log(keyCode);
+	if(keyCode != 9 && keyCode != 16){
+		var price = $('#price').val();
+		var tax = document.getElementById("tax").value;
+		if(!isNaN(price)){
+			parseInt(price);
+			parseInt(tax);
+			$('#priceNoVat').val(price - price * tax * 0.01);
+		}
 	}
 }
 
@@ -626,7 +634,6 @@ function loadOrderArticle(data){
 	for(var i = 0; i<data["data"].length; i++){
 		divTable += '		 <tr id=row'+data['data'][i].id+'>'+
 		'                    <th><input class="checkLists" id="check'+ data['data'][i].id +'" type="checkbox" onchange="addTick('+ data['data'][i].id +')" onclick="isCheckAll(2)"></th>'+
-		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].id +'</th>'+
 		'                    <th onclick="addTick('+ data['data'][i].id +');isCheckAll(2)">'+ data['data'][i].fsn +'</th>'+
 		'                    <th id="delName'+ data['data'][i].id +'">'+ data['data'][i].description +'</th>'+
 		'                    <th>'+ data['data'][i].quantity +'</th>'+

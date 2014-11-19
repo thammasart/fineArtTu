@@ -60,7 +60,6 @@
                     <tr>
                         <th><input type="checkbox" id="checkAll" onchange="checkAll()"/></th>
                         <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>ID<span class="glyphicon glyphicon-sort"></span></th>
                         <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
                         <th>วันนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
                         <th>วันตรวจสอบ<span class="glyphicon glyphicon-sort"></span></th>
@@ -80,7 +79,6 @@
 	                    	<tr id="row@articleOrder.id">
 		                        <th><input class="checkLists" id="check@articleOrder.id" type="checkbox" onchange="addTick('@articleOrder.id','durableArticles')" onclick="isCheckAll()"></th>
 		                        <th onclick="addTick('@articleOrder.id','durableArticles');isCheckAll()">@articleOrder.title</th>
-		                        <th onclick="addTick('@articleOrder.id','durableArticles');isCheckAll()">@articleOrder.id</th>
 		                        <th>@articleOrder.contractNo</th>
 		                        <th>@articleOrder.getAddDate()</th>
 		                        <th>@articleOrder.getCheckDate()</th>
@@ -111,7 +109,6 @@
                     <tr>
                         <th><input type="checkbox" id="checkAll2" onchange="checkAll(1,'checkAll2')"/></th>
                         <th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-                        <th>ID<span class="glyphicon glyphicon-sort"></span></th>
                         <th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
                         <th>วันนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
                         <th>วันตรวจสอบ<span class="glyphicon glyphicon-sort"></span></th>
@@ -131,7 +128,6 @@
 		                    <tr id="row@articleOrder.id">
 		                        <th><input class="checkLists" id="check@articleOrder.id" type="checkbox" onchange="addTick('@articleOrder.id','durableArticles')" onclick="isCheckAll(1,'checkAll2')"></th>
 		                        <th onclick="addTick('@articleOrder.id','durableArticles');isCheckAll(1,'checkAll2')"><span hidden>@articleOrder.barCode</span>@articleOrder.title</th>
-		                        <th onclick="addTick('@articleOrder.id','durableArticles');isCheckAll(1,'checkAll2')">@articleOrder.id</th>
 		                        <th>@articleOrder.contractNo</th>
 		                        <th>@articleOrder.getAddDate()</th>
 		                        <th>@articleOrder.getCheckDate()</th>
@@ -202,7 +198,6 @@
 					<tr>
 					<th><input type="checkbox" id="checkAll3" onclick="checkAll(2,'checkAll3')"/></th>
 					<th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-					<th>ID<span class="glyphicon glyphicon-sort"></span></th>
 					<th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
 					<th>วันนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
 					<th>วันตรวจสอบ<span class="glyphicon glyphicon-sort"></span></th>
@@ -221,7 +216,6 @@
 						<tr id="row2@goodOrder.id">
 							<th><input class="checkLists" id="check2@goodOrder.id" type="checkbox" onchange="addTick('@goodOrder.id','goods')" onclick="isCheckAll(2,'checkAll3')"></th>
 							<th onclick="addTick('@goodOrder.id','goods');isCheckAll(2,'checkAll3')">@goodOrder.title</th>
-							<th onclick="addTick('@goodOrder.id','goods');isCheckAll(2,'checkAll3')">@goodOrder.id</th>
 							<th>@goodOrder.contractNo</th>
 							<th>@goodOrder.getAddDate()</th>
 							<th>@goodOrder.getCheckDate()</th>
@@ -251,7 +245,6 @@
                       <tr>
 						<th><input type="checkbox" id="checkAll4" onclick="checkAll(3,'checkAll4')"/></th>
 						<th>ชื่อรายการ<span class="glyphicon glyphicon-sort"></span></th>
-						<th>ID<span class="glyphicon glyphicon-sort"></span></th>
 						<th>เลขที่<span class="glyphicon glyphicon-sort"></span></th>
 						<th>วันนำเข้า<span class="glyphicon glyphicon-sort"></span></th>
 						<th>วันตรวจสอบ<span class="glyphicon glyphicon-sort"></span></th>
@@ -270,7 +263,6 @@
 							<tr id="row2@goodOrder.id">
 								<th><input class="checkLists" id="check2@goodOrder.id" type="checkbox" onchange="addTick('@goodOrder.id','goods')" onclick="isCheckAll(3,'checkAll4')"></th>
 								<th onclick="addTick('@goodOrder.id','goods');isCheckAll(3,'checkAll4')"><span hidden>@goodOrder.barCode</span>@goodOrder.title</th>
-								<th onclick="addTick('@goodOrder.id','goods');isCheckAll(3,'checkAll4')">@goodOrder.id</th>
 								<th>@goodOrder.contractNo</th>
 								<th>@goodOrder.getAddDate()</th>
 								<th>@goodOrder.getCheckDate()</th>
