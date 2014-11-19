@@ -95,6 +95,13 @@ public class ExportSold extends Controller {
             auction.title = f.get("title");
             auction.contractNo = f.get("contractNo");
             auction.setApproveDate(f.get("approveDate"));
+            String totalPrice = f.get("totalPrice");
+            if(totalPrice != null){
+                auction.totalPrice = Double.parseDouble(totalPrice);
+            }
+            else{
+                auction.totalPrice = 0.00;
+            }
 
             // save sold destination
             String soldDestination = f.get("soldDestination");
