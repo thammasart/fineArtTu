@@ -300,9 +300,14 @@ public class SearchQuery {
 		Set<Auction> set = Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
 		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("contractNo", "%"+query+"%").findSet());
 		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.nameEntrepreneur", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("soldDestination", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("telephoneNumber", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("email", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.typedealer", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.nameDealer", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.payCodition", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.sendPeriod", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.durableArticlesType", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.durableGoodsType", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.consumableGoodsType", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.otherDetail", "%"+query+"%").findSet());
 		
 		List<Auction> as = Auction.find.where().eq("status",ExportStatus.SUCCESS).findList();
 		for(Auction a : as){

@@ -2281,11 +2281,11 @@ public class Graph extends Controller {
 				if(pd.typeOfDurableGoods == 0){
 					m = MaterialCode.find.byId(pd.code);
 					expandable += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/"+ m.path + "\">");
-					result += getExpandableHTML("รายละเอียดเพิ่มเติม" + m.description , expandable);
+					result += getExpandableHTML("รายละเอียดเพิ่มเติม (" + m.description + ")" , expandable);
 				}else{
 					fsn = FSN_Description.find.byId(pd.code);
 					expandable += getDetailLabel("รูปภาพ","<img style=\"width:80px;\" src=\"/assets/"+ fsn.path + "\">");
-					result += getExpandableHTML("รายละเอียดเพิ่มเติม" + fsn.descriptionDescription , expandable);
+					result += getExpandableHTML("รายละเอียดเพิ่มเติม (" + fsn.descriptionDescription + ")", expandable);
 				}
 			}
 			result += "</div>";

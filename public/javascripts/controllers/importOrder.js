@@ -217,7 +217,6 @@ function cancelStatus(id,typeOfOrder){
 
 function addVat(event){
 	var keyCode = ('which' in event) ? event.which : event.keyCode;
-	console.log(keyCode);
 	if(keyCode != 9 && keyCode != 16){
 		var price = parseInt($('#priceNoVat').val());
 		var tax = document.getElementById("tax").value;
@@ -231,7 +230,6 @@ function addVat(event){
 
 function decreaseVat(event){
 	var keyCode = ('which' in event) ? event.which : event.keyCode;
-	console.log(keyCode);
 	if(keyCode != 9 && keyCode != 16){
 		var price = $('#price').val();
 		var tax = document.getElementById("tax").value;
