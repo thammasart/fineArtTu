@@ -18,7 +18,7 @@ import models.type.ExportStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table (name = "durable_articles_donation")
+@Table (name = "donation")
 public class Donation extends Model{ // บริจาค
 
 	@Id

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table (name = "durable_articles_donation_detail")
+@Table (name = "donation_detail")
 public class DonationDetail extends Model{
 
 	@Id

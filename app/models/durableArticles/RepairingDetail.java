@@ -7,7 +7,7 @@ import models.Company;
 import models.User;
 
 @Entity
-@Table (name = "durable_articles_repairing_detail")
+@Table (name = "repairing_detail")
 public class RepairingDetail extends Model{
 
 	@Id

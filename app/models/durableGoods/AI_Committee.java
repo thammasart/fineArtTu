@@ -10,7 +10,7 @@ import models.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table (name = "durable__goods_eo_committee")
+@Table (name = "durable_goods_ai_committee")
 public class AI_Committee extends Model{
 
 	@Id

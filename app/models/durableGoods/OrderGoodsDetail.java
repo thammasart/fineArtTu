@@ -7,7 +7,7 @@ import models.User;
 import models.MaterialCode;
 
 @Entity
-@Table (name = "durable_goods_order_detail")
+@Table (name = "order_goods_detail")
 public class OrderGoodsDetail extends Model{
 
 	@Id

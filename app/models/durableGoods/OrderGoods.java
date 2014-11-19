@@ -13,7 +13,7 @@ import models.type.ExportStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
-@Table (name = "durable_goods_order")
+@Table (name = "order_goods")
 public class OrderGoods extends Model{
 
 	@Id
