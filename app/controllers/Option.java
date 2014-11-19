@@ -77,7 +77,13 @@ public class Option extends Controller {
     public static Result optionCalculatingDepreciate() {
         DynamicForm f = Form.form().bindFromRequest();
         String temp = f.get("years");
-        int year = Integer.parseInt(temp);
+        int year = 0;
+        try{
+            year = Integer.parseInt(temp);
+        }catch(NumberFormatException e){
+            Date dNow = new Date();
+            year = dNow.getYear() + 2443 ;
+        }
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         
         List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status",ImportStatus.SUCCESS).findList(); 

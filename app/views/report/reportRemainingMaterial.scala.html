@@ -16,13 +16,13 @@
 <div class="listWindow" >
 
             <span style="font-size:25px;float:left;" >
-                รางงานวัสดุคงเหลือ 
+                รายงานวัสดุคงเหลือ 
             </span>
             <form method="post" action="@routes.Report.reportRemainingMaterialPostPrint()">
                 <div class="form-group" style="float:right">
                     <div class="input-group">
                       <input type="hidden" name="yearPrint" id="yearPrint" value="@thisYear" >
-                      <button type="submit" class="btn btn-primary" > พิมพ์รายงานวัสดุคงเหลือ </button>
+                      <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-print"></span> พิมพ์รายงานวัสดุคงเหลือ </button>
                     </div>
                 </div>
             </form>

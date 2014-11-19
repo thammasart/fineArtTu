@@ -32,9 +32,15 @@ public class Report  extends Controller {
         User user = User.find.where().eq("username", session().get("username")).findUnique();
         List<MaterialCode> mc = MaterialCode.find.all();
         DynamicForm form = Form.form().bindFromRequest();
+        int years = 0;
         String year = form.get("year");
-
-        return redirect(routes.Report.reportRemainingMaterial(Integer.parseInt(year),1));
+        try{
+            years = Integer.parseInt(year);
+        }catch(NumberFormatException e){
+            Date dNow = new Date();
+            years = dNow.getYear() + 2443 ;
+        }
+        return redirect(routes.Report.reportRemainingMaterial(years,1));
     }
     @Security.Authenticated(Secured.class)
         public static Result reportRemainingMaterialPostPrint() {

@@ -13,12 +13,6 @@
             <span style="font-size:25px">
                 รายการเบิกจ่าย
             </span>
-            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/exportDurableArticles/print')">
-                พิมพ์รายการเบิกจ่ายวัสดุสิ้นเปลือง
-            </button>
-            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
-                พิมพ์ตารางนี้
-            </button>
             <script>
                 function printLink(){
                     var w = window.open(window.location.pathname+"/print");
@@ -44,7 +38,13 @@
                               </div>
                         </form>
                 </div>
-               <div class="form-inline" role="form" >
+        </div>
+
+        <div >
+            <span style="font-size:25px;float:left; margin-right:2%;">
+                วัสดุสิ้นเปลือง
+            </span>
+               <div class="form-inline" role="form" style="float:left;">
                   <div class="form-group" >
                       <div class="input-group date width190px" id="start-picker">
                           <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="startDate"placeholder="จากวันที่" disabled>
@@ -76,19 +76,19 @@
                         });
                     </script>
                </div>
-        </div>
-
-        <div >
-            <span style="font-size:25px">
-                วัสดุสิ้นเปลือง
-            </span>
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/exportDurableArticles/print')">
+                พิมพ์รายการเบิกจ่ายวัสดุสิ้นเปลือง
+            </button>
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                พิมพ์ตารางนี้
+            </button>
             <table class="table table-striped overlayTable" align="center">
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>
                         <th style="text-align:center">วันที่</th>
                         <th style="text-align:center">รายการ</th>
-                        <th style="text-align:center">หมายวัสดุ</th>
+                        <th style="text-align:center">หมายเลขวัสดุ</th>
                         <th style="text-align:center">จำนวนที่เบิก</th>
                         <th style="text-align:center">หน่วยนับ</th>
                         <th style="text-align:center">ราคา/หน่วย</th>
@@ -113,9 +113,9 @@
         </div> 
         <div >
             <span style="font-size:25px; float:left; margin-right:1%;">
-                วัสดุคงทำถาวร
+                วัสดุคงทนถาวร
             </span>
-               <div class="form-inline" role="form" >
+               <div class="form-inline" role="form" style="float:left;">
                   <div class="form-group" >
                       <div class="input-group date width190px" id="start-picker2">
                           <input type="text" class="form-control width150px" data-format="DD/MM/YYYY" autocomplete="off" id="startDate2"placeholder="จากวันที่" disabled>
@@ -147,18 +147,18 @@
                         });
                     </script>
                </div>
-                <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/exportDurableArticles/print2')">
+                <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink2('http://localhost:9000/report/exportDurableArticles/print2')">
                     พิมพ์รายการเบิกจ่ายวัสดุคงทนถาวร
                 </button>
-                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable2()">
                     พิมพ์ตารางนี้
                 </button>
                 <script>
-                    function printLink(){
+                    function printLink2(){
                         var w = window.open(window.location.pathname+"/print2");
                         w.print();
                     }
-                    function printTable(){
+                    function printTable2(){
                         var divToPrint = document.getElementById("printTable");
                         newWin= window.open("");
                         newWin.document.write(divToPrint.outerHTML);
