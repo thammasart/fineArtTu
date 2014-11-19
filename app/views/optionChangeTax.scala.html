@@ -11,7 +11,7 @@
 	<div class="form-inline marginBtm1" role="form" align="center">
 	      <div class="form-group" style="width:70%">
 	            <div class="input-group" style="width:90%">
-	                <span class="input-group-addon width250px" >เปอร์เซ็นภาษีมูลค่าเพิ่ม</span>
+	                <span class="input-group-addon width250px" >เปอร์เซ็นต์ภาษีมูลค่าเพิ่ม</span>
 	                <input id="tax" type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" name="">
 	                <button class="btn btn-success" style="margin-left: 1%" onclick="changeTax()">ยืนยัน</button>
 	            </div>
@@ -21,7 +21,6 @@
 	<script>
 		function changeTax(){
 			var obj = { "tax" : $("#tax").val() };
-			console.log('asdas');
 			$.ajax({
 				url:'/option/changeTax',
 			    type: 'post',
@@ -29,7 +28,7 @@
 			    contentType: 'application/json',
 			    dataType: 'json',
 			    success: function(result) {
-		    		setData(result , chart);
+		    		alert("ระบบได้ทำการเปลี่ยนแปลงเปอร์เซ็นต์ค่าภาษีเรียบร้อยแล้ว");
 			    },
 			    statusCode:{
 			    	500: function(response){
