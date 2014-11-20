@@ -232,7 +232,10 @@ public class ExportOrder extends Controller {
                         }
                     }
                     else{
-                        result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
+                        if(quantity > 0)
+                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " ไม่เกิน " + code.remain + " " + code.classifier);
+                        else
+                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " มากว่า 0 " + code.classifier);
                         result.put("status", "error4");
                     }
                 }
@@ -301,7 +304,10 @@ public class ExportOrder extends Controller {
                         }
                     }
                     else{
-                        result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
+                        if(quantity > 0)
+                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " ไม่เกิน " + (code.remain+detail.quantity) + " " + code.classifier);
+                        else
+                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " มากว่า 0 " + code.classifier);
                         result.put("status", "error3");
                     }
                 }
