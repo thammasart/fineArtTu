@@ -207,7 +207,7 @@ public class ExportOrder extends Controller {
                 if(code != null){
                     newDetail.code = code;
                     int quantity = Integer.parseInt(json.get("quantity").asText());
-                    if(quantity > 0){
+                    if(quantity > 0 && quantity <= code.remain){
                         newDetail.quantity = quantity;
                         newDetail.description = json.get("description").asText();
                         String firstName = json.get("withdrawerNmae").asText();
@@ -275,7 +275,7 @@ public class ExportOrder extends Controller {
                 if(code != null){
                     detail.code = code;
                     int quantity = Integer.parseInt(json.get("quantity").asText());
-                    if(quantity > 0){
+                    if(quantity > 0 && quantity <= (code.remain+detail.quantity)){
                         detail.description = json.get("description").asText();
                         String firstName = json.get("withdrawerNmae").asText();
                         String lastName = json.get("withdrawerLastname").asText();

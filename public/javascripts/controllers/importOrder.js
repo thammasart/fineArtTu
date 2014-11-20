@@ -122,7 +122,9 @@ function setDetail(id,tab,page){
     		    }else{
     		    	$('#typeOfGoods').val(result["typeOfGood"]);
     		    }
-    			
+    			if(result["canEdit"] == 0){
+    				$('#editBtn2').prop('disabled', true);
+    			}
     			$('#procurementDetailId').val(result["id"]);
     			$('#description').val(result["description"]);
     			$('#code').val(result["code"]);

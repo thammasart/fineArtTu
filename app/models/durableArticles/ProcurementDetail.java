@@ -15,6 +15,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import models.fsnNumber.FSN_Description;
 import models.type.OrderDetailStatus;
+import models.type.SuppliesStatus;
 
 @Entity
 @Table (name = "durable_articles_procurement_detail")
@@ -145,22 +146,40 @@ public class ProcurementDetail extends Model{
 		return this.getSumablePrice()-this.depreciationPrice;
 	}
         
-        public double getCurrentLifeTime(){
-            Date dNow = new Date( );
-            Date dAdd = this.procurement.addDate;
-            int result[] = new int[3];
-                result[0] = dNow.getDate()-dAdd.getDate();
-                result[1] = dNow.getMonth()-dAdd.getMonth();
-                result[2] = dNow.getYear()-dAdd.getYear();
+    public double getCurrentLifeTime(){
+        Date dNow = new Date( );
+        Date dAdd = this.procurement.addDate;
+        int result[] = new int[3];
+            result[0] = dNow.getDate()-dAdd.getDate();
+            result[1] = dNow.getMonth()-dAdd.getMonth();
+            result[2] = dNow.getYear()-dAdd.getYear();
 
-                if(result[0]<0){
-                    result[1]--;
-                }
-                if(result[1]<0){
-                    result[2]--;
-                }
-            return this.llifeTime-result[2];
-        }
+            if(result[0]<0){
+                result[1]--;
+            }
+            if(result[1]<0){
+                result[2]--;
+            }
+        return this.llifeTime-result[2];
+    }
+    
+    public int getUNCHANGE()
+	{
+		int canChangeOrderDetail=1;
+		
+		for(DurableArticles d: subDetails)
+		{
+			if(d.status!=SuppliesStatus.NORMAL)
+    		{
+    			if(d.status!=null)
+    			{
+    				canChangeOrderDetail=0;break;
+    			}
+    		}
+		}
+		
+		return canChangeOrderDetail;
+	}
 	
 	@JsonBackReference
 	@OneToMany(mappedBy="detail")

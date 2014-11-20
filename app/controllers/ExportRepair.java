@@ -181,7 +181,9 @@ public class ExportRepair extends Controller {
             int numberOfDetail = Integer.parseInt(f.get("numberOfDetail"));
             for(int i=0; i<numberOfDetail; i++){
                 RepairingDetail detail = repair.detail.get(i);
-                detail.price = Double.parseDouble(f.get("price"+Integer.toString(i)));
+                String str = f.get("price"+Integer.toString(i));
+                double price = str.equals("")? 0 :Double.parseDouble(str); 
+                detail.price = price;
                 detail.update();
             }
             repair.repairCosts = Double.parseDouble(repairCosts);

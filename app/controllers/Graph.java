@@ -2422,13 +2422,47 @@ public class Graph extends Controller {
 			if(o.approver!=null)result += getDetailLabel("ผู้อนุมัติ", String.format("%s %s %s", o.approver.namePrefix, o.approver.firstName, o.approver.lastName ));
 			if(o.user!=null)result += getDetailLabel("ผู้จ่าย", String.format("%s %s %s",  o.user.namePrefix, o.user.firstName, o.user.lastName));
 			String expandable = "";
+			String department = "";
+			String room = "";
+			String floor = "";
+			String withdrawer = "";
+			
 			for(OrderGoodsDetail od : o.details){
-				expandable += getDetailLabel("หมายเลขพัสดุ", od.goods.codes);
-				expandable += getDetailLabel("ย้ายไปสาขา", od.department,"margin-left:2%");
-				expandable += getDetailLabel("ย้ายไปห้อง", od.room, "margin-left:2%");
-				expandable += getDetailLabel("ย้ายไปชั้น", od.floorLevel, "margin-left:2%");
+				if(department.equals("") && room.equals("") && floor.equals("")){
+					department = od.department;
+					room = od.room;
+					floor = od.floorLevel;
+				}
+				if(withdrawer.equals("")){
+					withdrawer = String.format("%s %s %s",od.firstName, od.lastName, od.position);
+					expandable += getDetailLabel("ผู้เบิก", withdrawer);
+				}
+				if(!od.department.equals(department) || !od.room.equals(room) || !od.floorLevel.equals(floor)){
+					expandable += getDetailLabel("ย้ายไปสาขา", department);
+					expandable += getDetailLabel("ย้ายไปห้อง", room);
+					expandable += getDetailLabel("ย้ายไปชั้น", floor);
+					if(!withdrawer.equals(String.format("%s %s %s",od.firstName, od.lastName, od.position))){
+						withdrawer = String.format("%s %s %s",od.firstName, od.lastName, od.position);
+						expandable += getDetailLabel("ผู้เบิก", withdrawer);
+					}
+					expandable += getDetailLabel("หมายเลขพัสดุ", od.goods.codes);
+					department = od.department;
+					room = od.room;
+					floor = od.floorLevel;
+				}else{
+					expandable += getDetailLabel("หมายเลขพัสดุ", od.goods.codes);
+				}
+				if(!withdrawer.equals(String.format("%s %s %s",od.firstName, od.lastName, od.position))){
+					withdrawer = String.format("%s %s %s",od.firstName, od.lastName, od.position);
+					expandable += getDetailLabel("ผู้เบิก", withdrawer);
+				}
 				//expandable += getDetailLabel("สาเหตุการเบิก", od.description);
 			}
+			
+			if(!department.equals("")) expandable += getDetailLabel("ย้ายไปสาขา", department);
+			if(!room.equals("")) expandable += getDetailLabel("ย้ายไปห้อง", room);
+			if(!floor.equals("")) expandable += getDetailLabel("ย้ายไปชั้น", floor);
+			
 			result += getExpandableHTML("รายการเบิก", expandable);
 			result += "</div>";
 		}
@@ -2453,16 +2487,43 @@ public class Graph extends Controller {
 			result += getDetailLabel("จำนวน", String.valueOf(od.order.details.size()));
 			result += getDetailLabel("ผู้อนุมัติ", String.format("%s %s %s", od.order.approver.namePrefix, od.order.approver.firstName, od.order.approver.lastName ));
 			result += getDetailLabel("ผู้จ่าย", String.format("%s %s %s",  od.order.user.namePrefix, od.order.user.firstName, od.order.user.lastName));
-			result += getDetailLabel("ผู้เบิก", String.format("%s %s",  od.firstName, od.lastName));
 			String expandable = "";
+			String department = "";
+			String room = "";
+			String floor = "";
+			String withdrawer = "";
 			for(;i<ids.length; i++){
 				id = ids[i];
 				OrderGoodsDetail newDetail = OrderGoodsDetail.find.byId(Long.valueOf(id));
 				if(newDetail.order.equals(o)){
-					expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.goods.codes);
-					expandable += getDetailLabel("ย้ายไปสาขา", newDetail.department,"margin-left:2%");
-					expandable += getDetailLabel("ย้ายไปห้อง", newDetail.room, "margin-left:2%");
-					expandable += getDetailLabel("ย้ายไปชั้น", newDetail.floorLevel, "margin-left:2%");
+					if(department.equals("") && room.equals("") && floor.equals("")){
+						department = newDetail.department;
+						room = newDetail.room;
+						floor = newDetail.floorLevel;
+					}
+					if(withdrawer.equals("")){
+						withdrawer = String.format("%s %s %s",newDetail.firstName, newDetail.lastName, newDetail.position);
+						expandable += getDetailLabel("ผู้เบิก", withdrawer);
+					}
+					if(!newDetail.department.equals(department) || !newDetail.room.equals(room) || !newDetail.floorLevel.equals(floor)){
+						expandable += getDetailLabel("ย้ายไปสาขา", department);
+						expandable += getDetailLabel("ย้ายไปห้อง", room);
+						expandable += getDetailLabel("ย้ายไปชั้น", floor);
+						if(!withdrawer.equals(String.format("%s %s %s",newDetail.firstName, newDetail.lastName, newDetail.position))){
+							withdrawer = String.format("%s %s %s",newDetail.firstName, newDetail.lastName, newDetail.position);
+							expandable += getDetailLabel("ผู้เบิก", withdrawer);
+						}
+						expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.goods.codes);
+						department = newDetail.department;
+						room = newDetail.room;
+						floor = newDetail.floorLevel;
+					}else{
+						expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.goods.codes);
+					}
+					if(!withdrawer.equals(String.format("%s %s %s",newDetail.firstName, newDetail.lastName, newDetail.position))){
+						withdrawer = String.format("%s %s %s",newDetail.firstName, newDetail.lastName, newDetail.position);
+						expandable += getDetailLabel("ผู้เบิก", withdrawer);
+					}
 				}else{
 					i--;
 					break;
@@ -2487,16 +2548,44 @@ public class Graph extends Controller {
 			result += getDetailLabel("วันที่อนุมัติ", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(in.approveDate));
 			if(in.approver!=null) result += getDetailLabel("ผู้อนุมัติ", String.format("%s %s %s", in.approver.namePrefix, in.approver.firstName, in.approver.lastName ));
 			String expandable = "";
+			String department = "";
+			String room = "";
+			String floor = "";
+			String withdrawer = "";
 			for(InternalTransferDetail ind : in.detail){
-				expandable += getDetailLabel("หมายเลขพัสดุ", ind.durableArticles.code);
-				expandable += getDetailLabel("ย้ายไปสาขา", ind.newDepartment,"margin-left:2%");
-				expandable += getDetailLabel("ย้ายไปห้อง", ind.newRoom, "margin-left:2%");
-				expandable += getDetailLabel("ย้ายไปชั้น", ind.newFloorLevel, "margin-left:2%");
-				//TODO withdrawer
-				if(ind.newPosition!=null && ind.newFirstName!=null && ind.newLastName!=null){
-					expandable += getDetailLabel("ผู้รับผิดชอบ", String.format("%s %s %s", ind.newPosition, ind.newFirstName, ind.newLastName), "margin-left:2%");
+				if(department.equals("") && room.equals("") && floor.equals("")){
+					department = ind.newDepartment;
+					room = ind.newRoom;
+					floor = ind.newFloorLevel;
+				}
+				if(withdrawer.equals("")){
+					withdrawer = String.format("%s %s %s",ind.newFirstName, ind.newLastName, ind.newPosition);
+					expandable += getDetailLabel("ผู้เบิก", withdrawer);
+				}
+				if(!ind.newDepartment.equals(department) || !ind.newRoom.equals(room) || !ind.newFloorLevel.equals(floor)){
+					expandable += getDetailLabel("ย้ายไปสาขา", department);
+					expandable += getDetailLabel("ย้ายไปห้อง", room);
+					expandable += getDetailLabel("ย้ายไปชั้น", floor);
+					if(!withdrawer.equals(String.format("%s %s %s",ind.newFirstName, ind.newLastName, ind.newPosition))){
+						withdrawer = String.format("%s %s %s",ind.newFirstName, ind.newLastName, ind.newPosition);
+						expandable += getDetailLabel("ผู้เบิก", withdrawer);
+					}
+					expandable += getDetailLabel("หมายเลขพัสดุ", ind.durableArticles.code);
+					department = ind.newDepartment;
+					room = ind.newRoom;
+					floor = ind.newFloorLevel;
+				}else{
+					expandable += getDetailLabel("หมายเลขพัสดุ", ind.durableArticles.code);
+				}
+				if(!withdrawer.equals(String.format("%s %s %s", ind.newFirstName, ind.newLastName, ind.newPosition))){
+					withdrawer = String.format("%s %s %s", ind.newFirstName, ind.newLastName, ind.newPosition);
+					expandable += getDetailLabel("ผู้เบิก", withdrawer);
 				}
 			}
+			
+			if(!department.equals("")) expandable += getDetailLabel("ย้ายไปสาขา", department);
+			if(!room.equals("")) expandable += getDetailLabel("ย้ายไปห้อง", room);
+			if(!floor.equals("")) expandable += getDetailLabel("ย้ายไปชั้น", floor);
 			
 			if(!expandable.equals(""))result += getExpandableHTML("รายการโอนย้าย", expandable);
 			result += "</div>";
@@ -2510,7 +2599,6 @@ public class Graph extends Controller {
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(int i=0; i<ids.length; i++){
 			String id = ids[i];
-			String detailsCodes = "";
 			InternalTransferDetail inDetail = InternalTransferDetail.find.byId(Long.valueOf(id));
 			InternalTransfer in = inDetail.internalTransfer; 
 			result += "<div class=\"well\">";
@@ -2524,14 +2612,49 @@ public class Graph extends Controller {
 			if(inDetail.newPosition!=null && inDetail.newFirstName!=null && inDetail.newLastName!=null){
 				result += getDetailLabel("ผู้รับผิดชอบ", String.format("%s %s %s", inDetail.newPosition, inDetail.newFirstName, inDetail.newLastName));
 			}
+			
+			String expandable = "";
+			String department = "";
+			String room = "";
+			String floor = "";
+			String withdrawer = "";
+			
 			for(; i<ids.length; i++){
 				id = ids[i];
-				InternalTransferDetail newDetail = InternalTransferDetail.find.byId(Long.valueOf(id));
-				if(newDetail.internalTransfer.equals(in)){
-					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+				InternalTransferDetail ind = InternalTransferDetail.find.byId(Long.valueOf(id));
+				if(ind.internalTransfer.equals(in)){
+					if(department.equals("") && room.equals("") && floor.equals("")){
+						department = ind.newDepartment;
+						room = ind.newRoom;
+						floor = ind.newFloorLevel;
+					}
+					if(withdrawer.equals("")){
+						withdrawer = String.format("%s %s %s",ind.newFirstName, ind.newLastName, ind.newPosition);
+						expandable += getDetailLabel("ผู้เบิก", withdrawer);
+					}
+					if(!ind.newDepartment.equals(department) || !ind.newRoom.equals(room) || !ind.newFloorLevel.equals(floor)){
+						expandable += getDetailLabel("ย้ายไปสาขา", department);
+						expandable += getDetailLabel("ย้ายไปห้อง", room);
+						expandable += getDetailLabel("ย้ายไปชั้น", floor);
+						if(!withdrawer.equals(String.format("%s %s %s",ind.newFirstName, ind.newLastName, ind.newPosition))){
+							withdrawer = String.format("%s %s %s",ind.newFirstName, ind.newLastName, ind.newPosition);
+							expandable += getDetailLabel("ผู้เบิก", withdrawer);
+						}
+						expandable += getDetailLabel("หมายเลขพัสดุ", ind.durableArticles.code);
+						department = ind.newDepartment;
+						room = ind.newRoom;
+						floor = ind.newFloorLevel;
+					}else{
+						expandable += getDetailLabel("หมายเลขพัสดุ", ind.durableArticles.code);
+					}
+					if(!withdrawer.equals(String.format("%s %s %s", ind.newFirstName, ind.newLastName, ind.newPosition))){
+						withdrawer = String.format("%s %s %s", ind.newFirstName, ind.newLastName, ind.newPosition);
+						expandable += getDetailLabel("ผู้เบิก", withdrawer);
+					}
+					/*detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
 					detailsCodes += getDetailLabel("ย้ายไปสาขา", newDetail.newDepartment,"margin-left:2%");
 					detailsCodes += getDetailLabel("ย้ายไปห้อง", newDetail.newRoom, "margin-left:2%");
-					detailsCodes += getDetailLabel("ย้ายไปชั้น", newDetail.newFloorLevel, "margin-left:2%");
+					detailsCodes += getDetailLabel("ย้ายไปชั้น", newDetail.newFloorLevel, "margin-left:2%");*/
 					/*detailsCodes += getDetailLabel("ย้ายสาขาไปยัง", newDetail.durableArticles.department+"->"+newDetail.department,"margin-left:3%");
 					detailsCodes += getDetailLabel("ย้ายห้องไปยัง", newDetail.durableArticles.room+"->"+newDetail.room, "margin-left:3%");
 					detailsCodes += getDetailLabel("ย้ายชั้นไปยัง", newDetail.durableArticles.floorLevel+"->"+newDetail.floorLevel, "margin-left:3%");*/
@@ -2541,7 +2664,11 @@ public class Graph extends Controller {
 				}
 			}
 			
-			result += getExpandableHTML("รายการโอนย้าย", detailsCodes);
+			if(!department.equals("")) expandable += getDetailLabel("ย้ายไปสาขา", department);
+			if(!room.equals("")) expandable += getDetailLabel("ย้ายไปห้อง", room);
+			if(!floor.equals("")) expandable += getDetailLabel("ย้ายไปชั้น", floor);
+			
+			if(!expandable.equals(""))result += getExpandableHTML("รายการโอนย้าย", expandable);
 			result += "</div>";
 		}
 		result += "</div>";
@@ -2572,16 +2699,17 @@ public class Graph extends Controller {
 			if(!expandable.equals("")) result += getExpandableHTML("คณะกรรมการสอบข้อเท็จจริง", expandable);
 			
 			expandable = "";
-			for(Auction_D_Committee d : a.dCommittee){
-				expandable += getDetailCommitteeLabel(d.committeePosition, String.format("%s %s %s", d.user.namePrefix, d.user.firstName, d.user.lastName));
+			for(Auction_E_Committee e : a.eCommittee){
+				expandable += getDetailCommitteeLabel(e.committeePosition, String.format("%s %s %s", e.user.namePrefix, e.user.firstName, e.user.lastName));
 			}
 			if(!expandable.equals("")) result += getExpandableHTML("คณะกรรมการประเมินราคากลาง", expandable);
 			
 			expandable = "";
-			for(Auction_E_Committee e : a.eCommittee){
-				expandable += getDetailCommitteeLabel(e.committeePosition, String.format("%s %s %s", e.user.namePrefix, e.user.firstName, e.user.lastName));
+			for(Auction_D_Committee d : a.dCommittee){
+				expandable += getDetailCommitteeLabel(d.committeePosition, String.format("%s %s %s", d.user.namePrefix, d.user.firstName, d.user.lastName));
 			}
 			if(!expandable.equals("")) result += getExpandableHTML("คณะกรรมการจำหน่าย", expandable);
+			
 			for(AuctionDetail ad : a.detail){
 				detailsCodes += getDetailLabel("หมายเลขพัสดุ", ad.durableArticles.code);
 			}
@@ -2621,14 +2749,14 @@ public class Graph extends Controller {
 			result += getExpandableHTML("คณะกรรมการสอบข้อเท็จจริง", expandable);
 			
 			expandable = "";
-			for(Auction_D_Committee d : a.dCommittee){
-				expandable += getDetailCommitteeLabel(d.committeePosition, String.format("%s %s %s", d.user.namePrefix, d.user.firstName, d.user.lastName));
+			for(Auction_E_Committee e : a.eCommittee){
+				expandable += getDetailCommitteeLabel(e.committeePosition, String.format("%s %s %s", e.user.namePrefix, e.user.firstName, e.user.lastName));
 			}
 			result += getExpandableHTML("คณะกรรมการประเมินราคากลาง", expandable);
 			
 			expandable = "";
-			for(Auction_E_Committee e : a.eCommittee){
-				expandable += getDetailCommitteeLabel(e.committeePosition, String.format("%s %s %s", e.user.namePrefix, e.user.firstName, e.user.lastName));
+			for(Auction_D_Committee d : a.dCommittee){
+				expandable += getDetailCommitteeLabel(d.committeePosition, String.format("%s %s %s", d.user.namePrefix, d.user.firstName, d.user.lastName));
 			}
 			result += getExpandableHTML("คณะกรรมการจำหน่าย", expandable);
 			for(;i<ids.length;i++){
@@ -2822,7 +2950,6 @@ public class Graph extends Controller {
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		List<Repairing> rs = util.SearchQuery.getRepair(query);
 		for(Repairing r : rs){
-			String detailsCodes = "";
 			result += "<div class=\"well\">";
 			
 			result += getDetailLabel("รายการ/เรื่อง", r.title);
@@ -2833,13 +2960,35 @@ public class Graph extends Controller {
 				result += getDetailLabel("วันที่รับคืน", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(r.dateOfReceiveFromRepair));
 			}
 			if(r.approver!=null)result += getDetailLabel("ผู้อนุมัติ",String.format("%s %s %s", r.approver.namePrefix, r.approver.firstName, r.approver.lastName ));
-			detailsCodes += getDetailLabel("ราคาส่งซ่อม", String.valueOf(r.repairCosts));
-			for(RepairingDetail rd : r.detail){
-				detailsCodes += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code);
-				detailsCodes += getDetailLabel("ลักษณะการชำรุด", rd.description);
-			}
 			
-			result += getExpandableHTML("รายการส่งซ่อม", detailsCodes);
+			String expandable = "";
+			if(r.dateOfReceiveFromRepair != null){
+				expandable += getDetailLabel("ราคาส่งซ่อมทั้งหมด", String.valueOf(r.repairCosts));
+			}
+			String description = "";
+			for(RepairingDetail rd : r.detail){
+				if(description.equals("")){
+					description = rd.description;
+				}
+				if(!description.equals(rd.description)){
+					expandable += getDetailLabel("ลักษณะการชำรุด", description);
+					description = rd.description;
+					if(r.dateOfReceiveFromRepair != null){
+						expandable += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code + " ราคาซ่อม : " + rd.price);
+					}else{
+						expandable += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code);
+					}
+				}else{
+					if(r.dateOfReceiveFromRepair != null){
+						expandable += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code + " ราคาซ่อม : " + rd.price);
+					}else{
+						expandable += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code);
+					}
+				}
+			}
+			if(!description.equals("")) expandable += getDetailLabel("ลักษณะการชำรุด", description);
+			
+			result += getExpandableHTML("รายการส่งซ่อม", expandable);
 			result += "</div>";
 		}
 		result += "</div>";
@@ -2851,33 +3000,53 @@ public class Graph extends Controller {
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(int i=0; i<ids.length; i++){
 			String id = ids[i];
-			String detailsCodes = "";
 			RepairingDetail rd = RepairingDetail.find.byId(Long.valueOf(id));
 			Repairing r = rd.repairing; 
 			result += "<div class=\"well\">";
 			
 			result += getDetailLabel("รายการ/เรื่อง", rd.repairing.title);
 			result += getDetailLabel("หมายเลขใบรายการ", rd.repairing.number);
-			result += getDetailLabel("ร้านค้าที่ส่งซ่อม", r.company.nameEntrepreneur);
+			if(r.company != null) result += getDetailLabel("ร้านค้าที่ส่งซ่อม", r.company.nameEntrepreneur);
 			result += getDetailLabel("วันที่ส่งซ่อม", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(rd.repairing.dateOfSentToRepair));
 			if(rd.repairing.dateOfReceiveFromRepair != null){
 				result += getDetailLabel("วันที่รับคืน", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(rd.repairing.dateOfReceiveFromRepair));
 			}
 			result += getDetailLabel("ผู้อนุมัติ",String.format("%s %s %s", rd.repairing.approver.namePrefix, rd.repairing.approver.firstName, rd.repairing.approver.lastName ));
-			detailsCodes += getDetailLabel("ราคาส่งซ่อม", String.valueOf(r.repairCosts));
+			String expandable = "";
+			String description = "";
+			if(rd.repairing.dateOfReceiveFromRepair != null){
+				expandable += getDetailLabel("ราคาส่งซ่อม", String.valueOf(r.repairCosts));
+			}
 			for(; i<ids.length; i++){
 				id = ids[i];
 				RepairingDetail newDetail = RepairingDetail.find.byId(Long.valueOf(id));
 				if(newDetail.repairing.equals(r)){
-					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
-					detailsCodes += getDetailLabel("ลักษณะการชำรุด", newDetail.description);
+					if(description.equals("")){
+						description = newDetail.description;
+					}
+					if(!description.equals(newDetail.description)){
+						expandable += getDetailLabel("ลักษณะการชำรุด", description);
+						description = newDetail.description;
+						if(r.dateOfReceiveFromRepair != null){
+							expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code + " ราคาซ่อม : " + newDetail.price);
+						}else{
+							expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+						}
+					}else{
+						if(r.dateOfReceiveFromRepair != null){
+							expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code + " ราคาซ่อม : " + newDetail.price);
+						}else{
+							expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+						}
+					}
 				}else{
 					i--;
 					break;
 				}
 			}
+			if(!description.equals("")) expandable += getDetailLabel("ลักษณะการชำรุด", description);
 			
-			result += getExpandableHTML("รายการส่งซ่อม", detailsCodes);
+			result += getExpandableHTML("รายการส่งซ่อม", expandable);
 			result += "</div>";
 		}
 		result += "</div>";
