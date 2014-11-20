@@ -207,6 +207,7 @@ public class ExportOrderGoods extends Controller {
                             newDetail.floorLevel = json.get("floorLevel").asText();
                             newDetail.firstName = json.get("recieveTitle").asText();
                             newDetail.firstName = json.get("recieveFirstName").asText();
+                            newDetail.description = json.get("description").asText();
                             newDetail.lastName = json.get("recieveLastName").asText();
                             newDetail.position = json.get("recievePosition").asText();
                             newDetail.goods = goods;
@@ -257,6 +258,7 @@ public class ExportOrderGoods extends Controller {
                 detail.department = json.get("department").asText();
                 detail.room = json.get("room").asText();
                 detail.floorLevel = json.get("floorLevel").asText();
+                detail.description = json.get("description").asText();
                 detail.title = json.get("title").asText();
                 detail.firstName = json.get("firstName").asText();
                 detail.lastName = json.get("lastName").asText();
