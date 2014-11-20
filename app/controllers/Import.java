@@ -651,7 +651,8 @@ public class Import extends Controller {
 	    			else item.put("fsn", "null");
 	    			item.put("description", p.description);
 	    			item.put("quantity", p.quantity);
-	    			item.put("classifier", "อัน");
+	    			String classifier = p.fsn.classifier==null? "อัน" : p.fsn.classifier;  
+	    			item.put("classifier", classifier);
 	    			item.put("price", p.price);
 	    			item.put("priceNoVat", p.priceNoVat);
 	    			item.put("lifeTime", p.llifeTime);
@@ -697,12 +698,14 @@ public class Import extends Controller {
     			
 	    			FSN_Description fsnCode=null;
 	        		MaterialCode consumableGoodCode=null;
-	        		
-	        		if(p.typeOfDurableGoods==1)//is a durableGood
+	        		String classifier = "";
+	        		if(p.typeOfDurableGoods==1){//is a durableGood
 	        			fsnCode = FSN_Description.find.byId(p.code);
-	     
-	        		else
+	        			classifier = fsnCode.classifier == null ? "อัน" : fsnCode.classifier;
+	        		}else{
 	        			consumableGoodCode= MaterialCode.find.byId(p.code);
+	        			classifier = consumableGoodCode.classifier == null ? "อัน" : consumableGoodCode.classifier;
+	        		}
 	    			
 	    			ObjectNode item = Json.newObject();
 	    			item.put("typeOfGood", p.typeOfDurableGoods);
@@ -711,7 +714,7 @@ public class Import extends Controller {
 	        		else item.put("code", "null");
 	        		item.put("description", p.description);
 	        		item.put("quantity", p.quantity);
-	        		item.put("classifier", "อัน");
+	        		item.put("classifier", classifier);
 	        		item.put("price", p.price);
 	        		item.put("priceNoVat", p.priceNoVat);
 	        		if(p.typeOfDurableGoods==1)//is a durableGood
@@ -1610,11 +1613,15 @@ public class Import extends Controller {
     		{
 	    		FSN_Description fsnCode=null;
 	    		MaterialCode consumableGoodCode=null;
-	    		
-	    		if(p.typeOfDurableGoods==1)//is a durableGood
+	    		String classifier = "";
+	    		if(p.typeOfDurableGoods==1){//is a durableGood
 	    			fsnCode = FSN_Description.find.byId(p.code);
-	    		else
+	    			classifier = fsnCode.classifier == null ? "อัน" : fsnCode.classifier;
+	    		}
+	    		else{
 	    			consumableGoodCode= MaterialCode.find.byId(p.code);
+	    			classifier = consumableGoodCode.classifier == null ? "อัน" : consumableGoodCode.classifier;
+	    		}
 
 	
 	    		
@@ -1624,7 +1631,7 @@ public class Import extends Controller {
 	    		else item.put("code", p.code);
 	    		item.put("description", p.description);
 	    		item.put("quantity", p.quantity);
-	    		item.put("classifier", "อัน");
+	    		item.put("classifier", classifier);
 	    		item.put("price", p.price);
 	    		item.put("priceNoVat", p.priceNoVat);
 	    		if(p.typeOfDurableGoods==1)//is a durableGood
@@ -1835,7 +1842,8 @@ public class Import extends Controller {
 				else item.put("fsn", "null");
 	    		item.put("description", p.description);
 	    		item.put("quantity", p.quantity);
-	    		item.put("classifier", "อัน");
+	    		String classifier = p.fsn.classifier==null? "อัน" : p.fsn.classifier;  
+    			item.put("classifier", classifier);
 	    		item.put("price", p.price);
 	    		item.put("priceNoVat", p.priceNoVat);
 	    		item.put("lifeTime", p.llifeTime);
@@ -2213,7 +2221,8 @@ public class Import extends Controller {
 	    		else item.put("fsn", "null");
 	    		item.put("description", p.description);
 	    		item.put("quantity", p.quantity);
-	    		item.put("classifier", "อัน");
+	    		String classifier = p.fsn.classifier==null? "อัน" : p.fsn.classifier;  
+    			item.put("classifier", classifier);
 	    		item.put("price", p.price);
 	    		item.put("priceNoVat", p.priceNoVat);
 	    		item.put("lifeTime", p.llifeTime);
@@ -2342,11 +2351,14 @@ public class Import extends Controller {
     		{
 	    		FSN_Description fsnCode=null;
 	    		MaterialCode consumableGoodCode=null;
-	    		
-	    		if(p.typeOfDurableGoods==1)//is a durableGood
+	    		String classifier = "";
+	    		if(p.typeOfDurableGoods==1){//is a durableGood
 	    			fsnCode = FSN_Description.find.byId(p.code);
-	    		else
+	    			classifier = fsnCode.classifier == null ? "อัน" : fsnCode.classifier;
+	    		}else{
 	    			consumableGoodCode= MaterialCode.find.byId(p.code);
+	    			classifier = consumableGoodCode.classifier == null ? "อัน" : consumableGoodCode.classifier;
+	    		}
 	    		
 	    		ObjectNode item = Json.newObject();
 	    		item.put("id", p.id);
@@ -2354,7 +2366,7 @@ public class Import extends Controller {
 	    		else item.put("code", p.code);
 	    		item.put("description", p.description);
 	    		item.put("quantity", p.quantity);
-	    		item.put("classifier", "อัน");
+	    		item.put("classifier", classifier);
 	    		item.put("price", p.price);
 	    		item.put("priceNoVat", p.priceNoVat);
 	    		if(p.typeOfDurableGoods==1)//is a durableGood

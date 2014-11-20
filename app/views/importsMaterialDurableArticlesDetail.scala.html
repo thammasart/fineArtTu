@@ -60,8 +60,8 @@
 		});
 		$('#browse').prop('disabled',false); //fix only button 
 		
-		$('#t1').prop('disabled',false);			
-		$('#t2').prop('disabled',false);			
+		$('#descriptionDescription').prop('disabled',false);			
+		$('#typeDescription').prop('disabled',false);			
 	}
 	
     function changeValue()
@@ -76,8 +76,8 @@
     		$('#browse').prop('disabled',false); //fix only button 
     		$('#classifier').prop('disabled',false); 
     		$('#button').hide();
-    		$('#t1').prop('disabled',false);			
-    		$('#t2').prop('disabled',false);
+    		$('#descriptionDescription').prop('disabled',false);			
+    		$('#typeDescription').prop('disabled',false);
     	
     }
 </script>
@@ -134,7 +134,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" > ชื่อชนิด</span>
-                                <input id="t2" type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@fsn.typ.typeDescription" name="typeDescription" id="typeDescription">
+                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@fsn.typ.typeDescription" name="typeDescription" id="typeDescription">
                                 <span class="alertText" id="typeDescriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
@@ -151,7 +151,7 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >  ชื่อครุภัณฑ์</span>
-                                <input id="t1" type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@fsn.descriptionDescription" name="descriptionDescription" id="descriptionDescription" autocomplete="off">
+                                <input type="text" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@fsn.descriptionDescription" name="descriptionDescription" id="descriptionDescription" autocomplete="off">
                                 <span class="alertText" id="descriptionDescriptionAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
@@ -175,7 +175,7 @@
 		</div> <!-- end well -->
 
     <legend style="width:auto">รายละเอียดเพิ่มเติม</legend>
-    <textarea class="form-control" rows="3" name="otherDetail">@fsn.otherDetail</textarea>
+    <textarea class="form-control" maxlength="255" rows="3" name="otherDetail">@fsn.otherDetail</textarea>
 
 
     </div>
@@ -187,11 +187,9 @@
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                   </button>
               </a>
-              <a id="fixButton" href="@routes.Import.importsMaterial2("1")">
-                  <button onclick="enableToSend();" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
-                      แก้ไข <span class="glyphicon glyphicon-ok"></span>
-                  </button>
-              </a>
+              <button onclick="enableToSend();" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                  แก้ไข <span class="glyphicon glyphicon-ok"></span>
+              </button>
 
             </div>
     

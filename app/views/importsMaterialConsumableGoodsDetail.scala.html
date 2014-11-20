@@ -165,7 +165,8 @@
                       <div class="form-group" >
                             <div class="input-group" >
                                 <span class="input-group-addon width250px" >จำนวนขั้นต่ำสำหรับแจ้งเตือน</span>
-                                <input id="minNumber" type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.minNumberToAlert" name="minNumberToAlert">
+                                <input id="minNumberToAlert" type="number" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" value="@code.minNumberToAlert" name="minNumberToAlert">
+                            	<span class="alertText" id="minNumberToAlert2"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                             </div>
                       </div>
                 </div>
@@ -180,7 +181,7 @@
         
 
     <legend style="width:auto">รายละเอียดเพิ่มเติม</legend>
-    <textarea class="form-control" rows="3" name="otherDetail">@code.otherDetail</textarea>
+    <textarea class="form-control" maxlength="255" rows="3" name="otherDetail">@code.otherDetail</textarea>
 
 
 
@@ -192,11 +193,9 @@
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                   </button>
               </a>
-              <a id="fixButton" href="@routes.Import.importsMaterial2("3")">
-                  <button onclick="enableToSend();" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
-                      แก้ไข <span class="glyphicon glyphicon-ok"></span>
-                  </button>
-              </a>
+              <button onclick="enableToSend();" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+                  แก้ไข <span class="glyphicon glyphicon-ok"></span>
+              </button>
 
           </div>
 
