@@ -795,12 +795,6 @@ function isCorrectFSN(){
 	}
 	return false;
 }
-function isInteger(data){
-	console.log(data);
-	console.log(parseInt(data, 10));
-	if (data == parseInt(data, 10) && data > 0) return true;
-    else return false;
-}
 function submitToNext(type){
     
     submitNext = true;

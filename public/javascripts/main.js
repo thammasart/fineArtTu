@@ -22,6 +22,12 @@ var tableConfiguration = {
 	        }
 	    },
 	};
+function isInteger(data){
+	console.log(data);
+	console.log(parseInt(data, 10));
+	if (data == parseInt(data, 10) && data >= 0) return true;
+    else return false;
+}
 
 function validateNumberKey(evt) {
 
@@ -215,3 +221,5 @@ $(document).ready( function () {
         }  
     });  
 } );
+
+
