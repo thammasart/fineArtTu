@@ -80,7 +80,6 @@ public class SearchQuery {
 		Set<models.durableArticles.Procurement> set = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("title", "%"+query+"%").findSet();
 		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
 		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("budgetType", "%"+query+"%").findSet());
-		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("institute", "%"+query+"%").findSet());
 		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("barCode", "%"+query+"%").findSet());
 		
 		List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
@@ -138,7 +137,6 @@ public class SearchQuery {
 		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
 		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
 		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("budgetType", "%"+query+"%").findSet());
-		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("institute", "%"+query+"%").findSet());
 		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("barCode", "%"+query+"%").findSet());
 		
 		List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();

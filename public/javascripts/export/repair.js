@@ -29,7 +29,8 @@ function getTotalPrice(){
 	numberOfDetail =  parseInt(document.getElementById("numberOfDetail").value);
 	totle = 0.00;
 	for(i = 0, len = numberOfDetail; i < len; i++){
-		totle += parseFloat(document.getElementById("price"+i.toString()).value);
+		if(document.getElementById("price"+i.toString()).value != "")
+			totle += parseFloat(document.getElementById("price"+i.toString()).value);
 	}
 	document.getElementById("repairCosts").value = totle;
 }

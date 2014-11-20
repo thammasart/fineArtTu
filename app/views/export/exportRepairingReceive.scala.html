@@ -143,7 +143,7 @@
               <th>@detail.durableArticles.code</th>
               <th>@detail.durableArticles.detail.fsn.descriptionDescription</th>
               <th>@detail.description</th>
-              <th style="text-align:center;" ><input type="text" class="form-control textAlignCenter width175px"  value="0.00" onkeyup="getTotalPrice()"onkeydown="getTotalPrice()" id="price@index" name="price@index" ></th>
+              <th style="text-align:center;" ><input type="text" class="form-control textAlignCenter width175px"  value="0.00" onkeyup="getTotalPrice()"onkeydown="getTotalPrice()" onkeypress="validateNumberKey(event)" id="price@index" name="price@index" ></th>
             </tr>
           }
         </tbody>
