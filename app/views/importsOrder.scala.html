@@ -83,7 +83,11 @@
 		                        <th>@articleOrder.getAddDate()</th>
 		                        <th>@articleOrder.getCheckDate()</th>
 		                        <th>@articleOrder.budgetType</th>
+		                        @if(articleOrder.company!=null){
 		                        <th>@articleOrder.company.nameEntrepreneur</th>
+		                        }else{
+		                        <th>โปรดระบุ</th>
+		                        }
 		                        <th>@articleOrder.budgetYear</th>
 		                        <th>
 								@if(articleOrder.fileType != null && articleOrder.fileType.contains("image")){
@@ -224,7 +228,11 @@
 							<th>@goodOrder.getAddDate()</th>
 							<th>@goodOrder.getCheckDate()</th>
 							<th>@goodOrder.budgetType</th>
-							<th>@goodOrder.company.nameEntrepreneur</th>
+							@if(goodOrder.company!=null){
+	                        <th>@goodOrder.company.nameEntrepreneur</th>
+	                        }else{
+	                        <th>โปรดระบุ</th>
+	                        }
 							<th>@goodOrder.budgetYear</th>
 							<th>
 								@if(goodOrder.fileType != null && goodOrder.fileType.contains("image")){

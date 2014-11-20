@@ -1948,15 +1948,14 @@ public class Import extends Controller {
     		goodsOrder.status = ImportStatus.CANCEL;
 	    		for(models.durableGoods.ProcurementDetail pd :goodsOrder.details)
 				{
-	    			pd.code="";
 	    			pd.status= OrderDetailStatus.DELETE;
 	    			if(pd.typeOfDurableGoods==0)
 					{
 						MaterialCode mc=MaterialCode.find.byId(pd.code);
 						
-						//System.out.println("Before");
-						//System.out.println(mc.remain);
-						//System.out.println(mc.pricePerEach);
+						System.out.println("Before");
+						System.out.println(mc.remain);
+						System.out.println(mc.pricePerEach);
 						
 						double sumPrice=mc.pricePerEach*mc.remain;
 						sumPrice=sumPrice-(pd.quantity*pd.price);
@@ -1966,9 +1965,9 @@ public class Import extends Controller {
 						else
 							mc.pricePerEach=0;
 						
-						//System.out.println("After");
-						//System.out.println(mc.remain);
-						//System.out.println(mc.pricePerEach);
+						System.out.println("After");
+						System.out.println(mc.remain);
+						System.out.println(mc.pricePerEach);
 						
 						mc.update();
 					}
@@ -1976,9 +1975,9 @@ public class Import extends Controller {
 					{
 						FSN_Description fsn = FSN_Description.find.byId(pd.code);
 						
-						//System.out.println("Before");
-						//System.out.println(fsn.remain);
-						//System.out.println(fsn.pricePerEach);
+						System.out.println("Before");
+						System.out.println(fsn.remain);
+						System.out.println(fsn.pricePerEach);
 						
 						double sumPrice=fsn.pricePerEach*fsn.remain;
 						sumPrice=sumPrice-(pd.quantity*pd.price);
@@ -1989,9 +1988,9 @@ public class Import extends Controller {
 						else
 							fsn.pricePerEach=0;
 						
-						//System.out.println("After");
-						//System.out.println(fsn.remain);
-						//System.out.println(fsn.pricePerEach);
+						System.out.println("After");
+						System.out.println(fsn.remain);
+						System.out.println(fsn.pricePerEach);
 						
 						fsn.update();
 					}
@@ -2000,7 +1999,8 @@ public class Import extends Controller {
 					{
 						d.status = SuppliesStatus.DELETE;
 						d.update();
-					}		
+					}	
+					pd.code="";
 					pd.update();
 				}
 			}
