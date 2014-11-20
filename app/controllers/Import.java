@@ -456,6 +456,8 @@ public class Import extends Controller {
          for(int i=0;i<fsn.length;i++){
         	 fsnCode = FSN_Description.find.byId(fsn[i]);
         	 int x = ProcurementDetail.find.where().eq("fsn", fsnCode).findRowCount();
+        	 x=x+models.durableGoods.ProcurementDetail.find.where().eq("code", fsn[i]).findRowCount();
+        	 
         	 
         	 if(x==0)
         	 {
@@ -495,9 +497,8 @@ public class Import extends Controller {
 	   		 int cantDel=0;
 	   		for(int i=0;i<codeInList.length;i++){
 	   			code = MaterialCode.find.byId(codeInList[i]);
-	   			
 	   			int x = models.durableGoods.ProcurementDetail.find.where().eq("code", code.code).findRowCount();
-	   			
+
 	   			if(x==0)
 	   			{
 		   			code.delete();
@@ -1883,6 +1884,7 @@ public class Import extends Controller {
     		articlesOrder.status = ImportStatus.CANCEL;
 	    		for(models.durableArticles.ProcurementDetail pd :articlesOrder.details)
 				{
+	    			pd.fsn=null;
 	    			pd.status= OrderDetailStatus.DELETE;
 	    			for(DurableArticles d:pd.subDetails)
 					{
@@ -1904,6 +1906,7 @@ public class Import extends Controller {
     		goodsOrder.status = ImportStatus.CANCEL;
 	    		for(models.durableGoods.ProcurementDetail pd :goodsOrder.details)
 				{
+	    			pd.code="";
 	    			pd.status= OrderDetailStatus.DELETE;
 	    			if(pd.typeOfDurableGoods==0)
 					{
@@ -2028,6 +2031,7 @@ public class Import extends Controller {
 	        			
 	    				for(ProcurementDetail pd :p.details)
 	    				{
+	    					pd.fsn = null;
 	    					pd.status = OrderDetailStatus.DELETE;
 	    					for(DurableArticles d:pd.subDetails)
 	    					{
@@ -2123,6 +2127,7 @@ public class Import extends Controller {
 	    						d.status = SuppliesStatus.DELETE;
 	    						d.update();
 	    					}		
+	    					pd.code="";
 	    					pd.update();
 	    				}
 	        			
@@ -2198,6 +2203,7 @@ public class Import extends Controller {
 	        			subDetail.status = SuppliesStatus.DELETE;
 	        			subDetail.update();
 	        		}
+	        		pc.fsn = null;
 	        		pc.status = OrderDetailStatus.DELETE;
 	        		pc.update();
         		}
@@ -2251,7 +2257,6 @@ public class Import extends Controller {
     @Security.Authenticated(Secured.class)
     @BodyParser.Of(BodyParser.Json.class)
     public static Result removeProcurementDetail2(){ //good
-    	
     	RequestBody body = request().body();
 
     	JsonNode json = body.asJson();
@@ -2262,6 +2267,7 @@ public class Import extends Controller {
     	
     	if(!json.get("parseData").asText().equals(""))
     	{
+    		
         	String[] procumentDetails=json.get("parseData").asText().split(",");    		
         	int countCanDelete=0;
         	int countCantDelete=0;
@@ -2281,7 +2287,7 @@ public class Import extends Controller {
             			}
             		}
             	}
-        		
+            	
             	if(canChangeOrderDetail==1)
         		//////////////////////////////////////////////////////////////////////////////////////////////find canChangeOrderDetail
         		{
@@ -2315,13 +2321,14 @@ public class Import extends Controller {
 						fsn.update();
 		
 					}
-
+					
 	        		procurement = models.durableGoods.Procurement.find.byId(pc.procurement.id);
 	        		for(DurableGoods subDetail:pc.subDetails)
 	        		{
 	        			subDetail.status = SuppliesStatus.DELETE;
 	        			subDetail.update();
 	        		}
+	        		pc.code="";
 	        		pc.status = OrderDetailStatus.DELETE;
 	        		pc.update();
 	        		
