@@ -2950,7 +2950,6 @@ public class Graph extends Controller {
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		List<Repairing> rs = util.SearchQuery.getRepair(query);
 		for(Repairing r : rs){
-			String detailsCodes = "";
 			result += "<div class=\"well\">";
 			
 			result += getDetailLabel("รายการ/เรื่อง", r.title);
@@ -2961,13 +2960,35 @@ public class Graph extends Controller {
 				result += getDetailLabel("วันที่รับคืน", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(r.dateOfReceiveFromRepair));
 			}
 			if(r.approver!=null)result += getDetailLabel("ผู้อนุมัติ",String.format("%s %s %s", r.approver.namePrefix, r.approver.firstName, r.approver.lastName ));
-			detailsCodes += getDetailLabel("ราคาส่งซ่อม", String.valueOf(r.repairCosts));
-			for(RepairingDetail rd : r.detail){
-				detailsCodes += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code);
-				detailsCodes += getDetailLabel("ลักษณะการชำรุด", rd.description);
-			}
 			
-			result += getExpandableHTML("รายการส่งซ่อม", detailsCodes);
+			String expandable = "";
+			if(r.dateOfReceiveFromRepair != null){
+				expandable += getDetailLabel("ราคาส่งซ่อมทั้งหมด", String.valueOf(r.repairCosts));
+			}
+			String description = "";
+			for(RepairingDetail rd : r.detail){
+				if(description.equals("")){
+					description = rd.description;
+				}
+				if(!description.equals(rd.description)){
+					expandable += getDetailLabel("ลักษณะการชำรุด", description);
+					description = rd.description;
+					if(r.dateOfReceiveFromRepair != null){
+						expandable += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code + " ราคาซ่อม : " + rd.price);
+					}else{
+						expandable += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code);
+					}
+				}else{
+					if(r.dateOfReceiveFromRepair != null){
+						expandable += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code + " ราคาซ่อม : " + rd.price);
+					}else{
+						expandable += getDetailLabel("หมายเลขพัสดุ", rd.durableArticles.code);
+					}
+				}
+			}
+			if(!description.equals("")) expandable += getDetailLabel("ลักษณะการชำรุด", description);
+			
+			result += getExpandableHTML("รายการส่งซ่อม", expandable);
 			result += "</div>";
 		}
 		result += "</div>";
@@ -2979,33 +3000,53 @@ public class Graph extends Controller {
 		result += "<button class=\"graphBack btn btn-danger btn-s\" onclick=\"backToTable()\">ย้อนกลับ</button>";
 		for(int i=0; i<ids.length; i++){
 			String id = ids[i];
-			String detailsCodes = "";
 			RepairingDetail rd = RepairingDetail.find.byId(Long.valueOf(id));
 			Repairing r = rd.repairing; 
 			result += "<div class=\"well\">";
 			
 			result += getDetailLabel("รายการ/เรื่อง", rd.repairing.title);
 			result += getDetailLabel("หมายเลขใบรายการ", rd.repairing.number);
-			result += getDetailLabel("ร้านค้าที่ส่งซ่อม", r.company.nameEntrepreneur);
+			if(r.company != null) result += getDetailLabel("ร้านค้าที่ส่งซ่อม", r.company.nameEntrepreneur);
 			result += getDetailLabel("วันที่ส่งซ่อม", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(rd.repairing.dateOfSentToRepair));
 			if(rd.repairing.dateOfReceiveFromRepair != null){
 				result += getDetailLabel("วันที่รับคืน", new SimpleDateFormat("dd/MM/yyyy", new Locale("th","th")).format(rd.repairing.dateOfReceiveFromRepair));
 			}
 			result += getDetailLabel("ผู้อนุมัติ",String.format("%s %s %s", rd.repairing.approver.namePrefix, rd.repairing.approver.firstName, rd.repairing.approver.lastName ));
-			detailsCodes += getDetailLabel("ราคาส่งซ่อม", String.valueOf(r.repairCosts));
+			String expandable = "";
+			String description = "";
+			if(rd.repairing.dateOfReceiveFromRepair != null){
+				expandable += getDetailLabel("ราคาส่งซ่อม", String.valueOf(r.repairCosts));
+			}
 			for(; i<ids.length; i++){
 				id = ids[i];
 				RepairingDetail newDetail = RepairingDetail.find.byId(Long.valueOf(id));
 				if(newDetail.repairing.equals(r)){
-					detailsCodes += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
-					detailsCodes += getDetailLabel("ลักษณะการชำรุด", newDetail.description);
+					if(description.equals("")){
+						description = newDetail.description;
+					}
+					if(!description.equals(newDetail.description)){
+						expandable += getDetailLabel("ลักษณะการชำรุด", description);
+						description = newDetail.description;
+						if(r.dateOfReceiveFromRepair != null){
+							expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code + " ราคาซ่อม : " + newDetail.price);
+						}else{
+							expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+						}
+					}else{
+						if(r.dateOfReceiveFromRepair != null){
+							expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code + " ราคาซ่อม : " + newDetail.price);
+						}else{
+							expandable += getDetailLabel("หมายเลขพัสดุ", newDetail.durableArticles.code);
+						}
+					}
 				}else{
 					i--;
 					break;
 				}
 			}
+			if(!description.equals("")) expandable += getDetailLabel("ลักษณะการชำรุด", description);
 			
-			result += getExpandableHTML("รายการส่งซ่อม", detailsCodes);
+			result += getExpandableHTML("รายการส่งซ่อม", expandable);
 			result += "</div>";
 		}
 		result += "</div>";
