@@ -37,6 +37,34 @@ public class MaterialCode extends Model{
 	@ManyToOne
 	public MaterialType materialType;
 
+    public double getRemainingPricePerEach(){
+        List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code).eq("procurement.status",ImportStatus.SUCCESS).le("procurement.addDate",new Date()).orderBy("procurement.addDate desc").findList();
+        double totalImport = 0;
+        for(ProcurementDetail detail : importDetails){
+            totalImport += detail.quantity;
+        }
+        
+        List<RequisitionDetail> exportDetails = RequisitionDetail.find.where().eq("code",this).eq("requisition.status",ExportStatus.SUCCESS).le("requisition.approveDate",new Date()).findList();
+        double totalExport = 0;
+        for(RequisitionDetail detail : exportDetails){
+            totalExport += detail.quantity;
+        }
+
+        int remain = (int)(totalImport-totalExport);
+        double totalPrice = 0.00;
+        for(ProcurementDetail detail : importDetails){
+            if(remain > detail.quantity){
+                totalPrice += detail.price * detail.quantity;
+                remain -= detail.quantity;
+            }
+            else{
+                totalPrice += detail.price * remain;
+                break;
+            }
+        }
+        return totalPrice / (totalImport-totalExport);
+    }
+
     public void updateRemain(){
         List<ProcurementDetail> importDetails = ProcurementDetail.find.where().eq("code",this.code).eq("procurement.status",ImportStatus.SUCCESS).orderBy("procurement.addDate desc").findList();
         double totalImport = 0;
