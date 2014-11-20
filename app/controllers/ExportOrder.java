@@ -207,7 +207,7 @@ public class ExportOrder extends Controller {
                 if(code != null){
                     newDetail.code = code;
                     int quantity = Integer.parseInt(json.get("quantity").asText());
-                    if(quantity > 0){
+                    if(quantity > 0 && quantity <= code.remain){
                         newDetail.quantity = quantity;
                         newDetail.description = json.get("description").asText();
                         String firstName = json.get("withdrawerNmae").asText();
@@ -232,7 +232,10 @@ public class ExportOrder extends Controller {
                         }
                     }
                     else{
-                        result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
+                        if(quantity > 0)
+                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " ไม่เกิน " + code.remain + " " + code.classifier);
+                        else
+                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " มากว่า 0 " + code.classifier);
                         result.put("status", "error4");
                     }
                 }
@@ -275,7 +278,7 @@ public class ExportOrder extends Controller {
                 if(code != null){
                     detail.code = code;
                     int quantity = Integer.parseInt(json.get("quantity").asText());
-                    if(quantity > 0){
+                    if(quantity > 0 && quantity <= (code.remain+detail.quantity)){
                         detail.description = json.get("description").asText();
                         String firstName = json.get("withdrawerNmae").asText();
                         String lastName = json.get("withdrawerLastname").asText();
@@ -301,7 +304,10 @@ public class ExportOrder extends Controller {
                         }
                     }
                     else{
-                        result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง");
+                        if(quantity > 0)
+                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " ไม่เกิน " + (code.remain+detail.quantity) + " " + code.classifier);
+                        else
+                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " มากว่า 0 " + code.classifier);
                         result.put("status", "error3");
                     }
                 }
