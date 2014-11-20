@@ -777,6 +777,7 @@ public class Import extends Controller {
 	    		result.put("brand", pad.brand);
 	    		result.put("serialNumber", pad.serialNumber);
 	    		result.put("subDetails", subDetail);
+	    		result.put("canEdit", pad.getUNCHANGE());
 	    		String status = "null";
 	    		if(pad.status!=null){
 	    			status = pad.status.name();
