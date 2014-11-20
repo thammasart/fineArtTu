@@ -65,6 +65,7 @@ function editDetail(code){
     }
 	document.getElementById("edit_room").value = detailEdit.room ;
     document.getElementById("edit_floorLevel").value = detailEdit.floorLevel;
+    document.getElementById("descriptionEdit").value = detailEdit.description;
     document.getElementById("edit_firstName").value = detailEdit.firstName;
     document.getElementById("edit_lastName").value = detailEdit.lastName;
     document.getElementById("edit_position").value = detailEdit.position;
@@ -173,6 +174,7 @@ function saveDetail(){
 	dataDetail.department = document.getElementById("department").value;
 	dataDetail.room = document.getElementById("room").value;
 	dataDetail.floorLevel = document.getElementById("floorLevel").value;
+	dataDetail.description = document.getElementById("descriptionAdd").value;
 	dataDetail.recieveTitle = "---";//document.getElementById("recieveTitle").value;
 	dataDetail.recieveFirstName = document.getElementById("recieveFirstName").value;
 	dataDetail.recieveLastName = document.getElementById("recieveLastName").value;
@@ -212,6 +214,7 @@ function saveEditDetail(){
 	detailEdit.department  = document.getElementById("edit_sentToDepartment").value;
 	detailEdit.room  = document.getElementById("edit_room").value;
     detailEdit.floorLevel = document.getElementById("edit_floorLevel").value;
+    detailEdit.description = document.getElementById("descriptionEdit").value;
    	detailEdit.title = '---';//document.getElementById("recieveTitle").value;
   	detailEdit.firstName = document.getElementById("edit_firstName").value;
   	detailEdit.lastName = document.getElementById("edit_lastName").value;

@@ -84,9 +84,9 @@ function getDetail(){
 					s += '<tr id="detailRow' + details[i].id + '">';
 					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">' +
 								' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
-					s += '	<th>'+ details[i].durableArticles.code +'</th>';
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">'+ details[i].durableArticles.code +'</th>';
 					if(details[i].durableArticles.detail){
-						s += '	<th>'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
+						s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
 					}
 					else{
 						s += '	<th>'+ 'ไม่มี' +'</th>';
