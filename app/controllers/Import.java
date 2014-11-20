@@ -1435,17 +1435,20 @@ public class Import extends Controller {
 						    				mc.pricePerEach=0;
 						    			mc.update();
 						    			
-						    			
+						    			/*
 						    			System.out.println("After");
 						    			System.out.println(mc.remain);
 							    		System.out.println(mc.pricePerEach);
-							    		
+							    		*/
 						    			//////////////////////////จบลดสิ้นเปลือง
 							    		//เพิ่มสิ้นเปลือง
-							    		System.out.println("Before Con2");
+							    		
 							    		mc= MaterialCode.find.byId(codeId);
+							    		/*
+							    		System.out.println("Before Con2");
 							    		System.out.println(mc.remain);
 							    		System.out.println(mc.pricePerEach);
+							    		*/
 							    		
 						    			sumPrice=mc.pricePerEach*mc.remain;
 						    			sumPrice=sumPrice+(procurementDetail.quantity*procurementDetail.price);
@@ -2167,6 +2170,11 @@ public class Import extends Controller {
 	    					if(pd.typeOfDurableGoods==0)
 	    					{
 	    						MaterialCode mc=MaterialCode.find.byId(pd.code);
+	    						/*
+	    						System.out.println("Before Con");
+	    						System.out.println(mc.remain);
+	    						System.out.println(mc.pricePerEach);
+	    						*/
 	    						
 	    						double sumPrice=mc.pricePerEach*mc.remain;
 	    						sumPrice=sumPrice-(pd.quantity*pd.price);
@@ -2175,12 +2183,23 @@ public class Import extends Controller {
 	    							mc.pricePerEach=sumPrice/mc.remain;
 	    						else
 	    							mc.pricePerEach=0;
+	    						/*
+	    						System.out.println("After Con");
+	    						System.out.println(mc.remain);
+	    						System.out.println(mc.pricePerEach);
+	    						*/
 	    						
 	    						mc.update();
 	    					}
 	    					else
 	    					{
 	    						FSN_Description fsn = FSN_Description.find.byId(pd.code);
+	    						
+	    						/*
+	    						System.out.println("Before dur");
+	    						System.out.println(fsn.remain);
+	    						System.out.println(fsn.pricePerEach);
+	    						*/
 	    						
 	    						double sumPrice=fsn.pricePerEach*fsn.remain;
 	    						sumPrice=sumPrice-(pd.quantity*pd.price);
@@ -2190,6 +2209,12 @@ public class Import extends Controller {
 	    							fsn.pricePerEach=sumPrice/fsn.remain;
 	    						else
 	    							fsn.pricePerEach=0;
+	    						
+	    						/*
+	    						System.out.println("After dur");
+	    						System.out.println(fsn.remain);
+	    						System.out.println(fsn.pricePerEach);
+	    						*/
 	    						
 	    						fsn.update();
 	    					}
