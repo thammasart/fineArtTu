@@ -1973,54 +1973,56 @@ public class Import extends Controller {
     		goodsOrder.status = ImportStatus.CANCEL;
 	    		for(models.durableGoods.ProcurementDetail pd :goodsOrder.details)
 				{
-	    			pd.status= OrderDetailStatus.DELETE;
-	    			if(pd.typeOfDurableGoods==0)
-					{
-						MaterialCode mc=MaterialCode.find.byId(pd.code);
-						/*
-						System.out.println("Before");
-						System.out.println(mc.remain);
-						System.out.println(mc.pricePerEach);
-						*/
-						double sumPrice=mc.pricePerEach*mc.remain;
-						sumPrice=sumPrice-(pd.quantity*pd.price);
-						mc.remain=mc.remain-pd.quantity;
-						if(mc.remain>0)
-							mc.pricePerEach=sumPrice/mc.remain;
+	    			if(pd.status!=OrderDetailStatus.DELETE)//fix null on MaterialCode mc=MaterialCode.find.byId(pd.code);
+	    			{
+		    			if(pd.typeOfDurableGoods==0)
+						{
+							MaterialCode mc=MaterialCode.find.byId(pd.code);
+							/*
+							System.out.println("Before");
+							System.out.println(mc.remain);
+							System.out.println(mc.pricePerEach);
+							*/
+							double sumPrice=mc.pricePerEach*mc.remain;
+							sumPrice=sumPrice-(pd.quantity*pd.price);
+							mc.remain=mc.remain-pd.quantity;
+							if(mc.remain>0)
+								mc.pricePerEach=sumPrice/mc.remain;
+							else
+								mc.pricePerEach=0;
+							/*
+							System.out.println("After");
+							System.out.println(mc.remain);
+							System.out.println(mc.pricePerEach);
+							*/
+							mc.update();
+						}
 						else
-							mc.pricePerEach=0;
-						/*
-						System.out.println("After");
-						System.out.println(mc.remain);
-						System.out.println(mc.pricePerEach);
-						*/
-						mc.update();
-					}
-					else
-					{
-						FSN_Description fsn = FSN_Description.find.byId(pd.code);
-						
-						/*
-						System.out.println("Before");
-						System.out.println(fsn.remain);
-						System.out.println(fsn.pricePerEach);
-						*/
-						
-						double sumPrice=fsn.pricePerEach*fsn.remain;
-						sumPrice=sumPrice-(pd.quantity*pd.price);
-						fsn.remain=fsn.remain-pd.quantity;
-						
-						if(fsn.remain>0)
-							fsn.pricePerEach=sumPrice/fsn.remain;
-						else
-							fsn.pricePerEach=0;
-						/*
-						System.out.println("After");
-						System.out.println(fsn.remain);
-						System.out.println(fsn.pricePerEach);
-						*/
-						fsn.update();
-					}
+						{
+							FSN_Description fsn = FSN_Description.find.byId(pd.code);
+							
+							/*
+							System.out.println("Before");
+							System.out.println(fsn.remain);
+							System.out.println(fsn.pricePerEach);
+							*/
+							
+							double sumPrice=fsn.pricePerEach*fsn.remain;
+							sumPrice=sumPrice-(pd.quantity*pd.price);
+							fsn.remain=fsn.remain-pd.quantity;
+							
+							if(fsn.remain>0)
+								fsn.pricePerEach=sumPrice/fsn.remain;
+							else
+								fsn.pricePerEach=0;
+							/*
+							System.out.println("After");
+							System.out.println(fsn.remain);
+							System.out.println(fsn.pricePerEach);
+							*/
+							fsn.update();
+						}
+	    			}
 					
 					for(DurableGoods d:pd.subDetails)
 					{
@@ -2028,6 +2030,7 @@ public class Import extends Controller {
 						d.update();
 					}	
 					pd.code="";
+					pd.status= OrderDetailStatus.DELETE;
 					pd.update();
 				}
 			}
@@ -2364,7 +2367,11 @@ public class Import extends Controller {
 					if(pc.typeOfDurableGoods==0)//สิ้นเปลือง
 					{
 						MaterialCode mc=MaterialCode.find.byId(pc.code);
-						
+						/*
+						System.out.println("Before Con");
+						System.out.println(mc.remain);
+						System.out.println(mc.pricePerEach);
+						*/
 						double sumPrice=mc.pricePerEach*mc.remain;
 						sumPrice=sumPrice-(pc.quantity*pc.price);
 						mc.remain=mc.remain-pc.quantity;
@@ -2372,6 +2379,11 @@ public class Import extends Controller {
 							mc.pricePerEach=sumPrice/mc.remain;
 						else
 							mc.pricePerEach=0;
+						/*
+						System.out.println("After Con");
+						System.out.println(mc.remain);
+						System.out.println(mc.pricePerEach);
+						*/
 						
 						mc.update();
 					}
@@ -2379,6 +2391,11 @@ public class Import extends Controller {
 					{
 						FSN_Description fsn = FSN_Description.find.byId(pc.code);
 						
+						/*
+						System.out.println("Before Dur");
+						System.out.println(fsn.remain);
+						System.out.println(fsn.pricePerEach);
+						*/
 						double sumPrice=fsn.pricePerEach*fsn.remain;
 						sumPrice=sumPrice-(pc.quantity*pc.price);
 						fsn.remain=fsn.remain-pc.quantity;
@@ -2386,7 +2403,11 @@ public class Import extends Controller {
 							fsn.pricePerEach=sumPrice/fsn.remain;
 						else
 							fsn.pricePerEach=0;
-						
+						/*
+						System.out.println("After Dur");
+						System.out.println(fsn.remain);
+						System.out.println(fsn.pricePerEach);
+						*/
 						fsn.update();
 		
 					}
