@@ -62,7 +62,10 @@ public class MaterialCode extends Model{
                 break;
             }
         }
-        return totalPrice / (totalImport-totalExport);
+        if((totalImport-totalExport) > 0.00)
+            return totalPrice / (totalImport-totalExport);
+        else
+            return 0.00;
     }
 
     public void updateRemain(){
