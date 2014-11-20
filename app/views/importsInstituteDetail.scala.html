@@ -71,7 +71,6 @@
 	                    <div class="input-group">
 	                      <span class="input-group-addon width250px">ประเภทผู้ค้า</span>
 	                        <select class="form-control textAlignCenter  width450px"  name="typedealer" id="typedealerId">
-	                          <option>---ประเภทผู้ค้า---</option>
 	                          <option name="niti" value="ห้างหุ้นส่วนสามัญนิติบุคคล" @if(com.typedealer == "ห้างหุ้นส่วนสามัญนิติบุคคล"){selected}>ห้างหุ้นส่วนสามัญนิติบุคคล</option>
 	                          <option name="niti" value="ห้างห้นส่วนจำกัด" @if(com.typedealer == "ห้างห้นส่วนจำกัด"){selected}>ห้างห้นส่วนจำกัด</option>
 	                          <option name="niti" value="บริษัทจำกัด" @if(com.typedealer == "บริษัทจำกัด"){selected}>บริษัทจำกัด</option>
@@ -82,9 +81,9 @@
 	                          <option name="niti" value="องค์กรธุรกิจจัดตั้งหรือจดทะเบียนภายใต้กฎหมายเฉพาะ" @if(com.typedealer == "องค์กรธุรกิจจัดตั้งหรือจดทะเบียนภายใต้กฎหมายเฉพาะ"){selected}>องค์กรธุรกิจจัดตั้งหรือจดทะเบียนภายใต้กฎหมายเฉพาะ</option>
 	                          <option name="niti" value="กิจการค้าร่วม" @if(com.typedealer == "กิจการค้าร่วม"){selected}>กิจการค้าร่วม</option>
 	                          <option name="niti" value="หน่วยงานภาครัฐที่เบิกเงินผ่านระบบ" @if(com.typedealer == "หน่วยงานภาครัฐที่เบิกเงินผ่านระบบ"){selected}>หน่วยงานภาครัฐที่เบิกเงินผ่านระบบ GFMIS</option>
-	                          <option name="personal" value="คณะบุคคล" @if(com.typedealer == "คณะบุคคล"){selected}>คณะบุคคล</option>
-	                          <option name="personal" value="กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา" @if(com.typedealer == "กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา"){selected}>กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา</option>
-	                          <option name="personal" value="ห้างหุ้นส่วนสามัญ" @if(com.typedealer == "ห้างหุ้นส่วนสามัญ"){selected}>ห้างหุ้นส่วนสามัญ</option>
+	                          <option name="personal" style="display: none;" value="คณะบุคคล" @if(com.typedealer == "คณะบุคคล"){selected}>คณะบุคคล</option>
+	                          <option name="personal" style="display: none;" value="กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา" @if(com.typedealer == "กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา"){selected}>กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา</option>
+	                          <option name="personal" style="display: none;" value="ห้างหุ้นส่วนสามัญ" @if(com.typedealer == "ห้างหุ้นส่วนสามัญ"){selected}>ห้างหุ้นส่วนสามัญ</option>
 	                        </select>
 	                    </div>
             </div>
@@ -112,8 +111,8 @@
           </div>
       
             เงื่อนไขในการชำระเงิน
-            <input class="form-inline marginBtm1" type="radio" name="payCodition" value="เงินสด"  onclick="optionElement(1)" @if(com.payCodition == "เงินสด"){checked}> เงินสด
-			<input type="radio" name="payCodition" value="เครดิต"  onclick="optionElement(2)" @if(com.payCodition == "เครดิต"){checked}> เครดิต
+            <input class="form-inline marginBtm1" type="radio" name="payCodition" value="เงินสด" @if(com.payCodition == "เงินสด"){checked}> เงินสด
+			<input type="radio" name="payCodition" value="เครดิต" @if(com.payCodition == "เครดิต"){checked}> เครดิต
             
             
 

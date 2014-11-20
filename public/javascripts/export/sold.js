@@ -84,9 +84,9 @@ function getDetail(){
 					s += '<tr id="detailRow' + details[i].id + '">';
 					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">' +
 								' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
-					s += '	<th>'+ details[i].durableArticles.code +'</th>';
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">'+ details[i].durableArticles.code +'</th>';
 					if(details[i].durableArticles.detail){
-						s += '	<th>'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
+						s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
 					}
 					else{
 						s += '	<th>'+ 'ไม่มี' +'</th>';
@@ -343,17 +343,7 @@ function initViewDetial(id){
 	document.getElementById("contractNo").disabled = true;
 	document.getElementById("approveDate").disabled = true;
 	document.getElementById("soldDestination").disabled = true;
-	// document.getElementById("buildingNo").disabled = true;
-	// document.getElementById("village").disabled = true;
-	// document.getElementById("alley").disabled = true;
-	// document.getElementById("road").disabled = true;
-	// document.getElementById("parish").disabled = true;
-	// document.getElementById("district").disabled = true;
-	// document.getElementById("province").disabled = true;
-	// document.getElementById("telephoneNumber").disabled = true;
-	// document.getElementById("fax").disabled = true;
-	// document.getElementById("postCode").disabled = true;
-	// document.getElementById("email").disabled = true;
+	document.getElementById("totalPrice").disabled = true;
 
 	document.getElementById("initViewDetial").style.display = "none";
 	document.getElementById("editDetail").style.display = "none";
@@ -411,17 +401,7 @@ function changeToEdit(){
 	document.getElementById("contractNo").disabled = false;
 	document.getElementById("approveDate").disabled = false;
 	document.getElementById("soldDestination").disabled = false;
-	// document.getElementById("buildingNo").disabled = false;
-	// document.getElementById("village").disabled = false;
-	// document.getElementById("alley").disabled = false;
-	// document.getElementById("road").disabled = false;
-	// document.getElementById("parish").disabled = false;
-	// document.getElementById("district").disabled = false;
-	// document.getElementById("province").disabled = false;
-	// document.getElementById("telephoneNumber").disabled = false;
-	// document.getElementById("fax").disabled = false;
-	// document.getElementById("postCode").disabled = false;
-	// document.getElementById("email").disabled = false;
+	document.getElementById("totalPrice").disabled = false;
 
 	document.getElementById("initViewDetial").style.display = "table-cell";
 	document.getElementById("editDetail").style.display = "block";

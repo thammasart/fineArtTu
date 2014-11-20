@@ -802,24 +802,52 @@
   classifier:   อัน
   materialType: *cType017
 ################################################################################################
+- &Address002 !!models.Address
+  buildingNo:          "99"
+  village:             ม.18
+  alley:               N/A
+  road:                N/A
+  parish:              ต.คลองหนึ่ง
+  district:            อ.คลองหลวง
+  province:            จ.ปทุมธานี
+  telephoneNumber:     0-2564-4440-59
+  fax:                 0-2564-4493
+  postCode:            "12121"
+  email:               tu@tu.ac.th
+- &Company002 !!models.Company
+  typeEntrepreneur:        N/A
+  typedealer:              N/A
+  nameEntrepreneur:        N/A
+  nameDealer:              มหาวิทยาลัยธรรมศาสตร์
+  payCodition:             N/A
+  payPeriod:               0
+  sendPeriod:              0
+  durableArticlesType:     N/A
+  durableGoodsType:        N/A
+  consumableGoodsType:     N/A
+  otherDetail:             N/A
+  address:                 *Address002
 - &procurementGoods01    !!models.durableGoods.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    1/57
   status:    SUCCESS
   budgetType:    พิเศษ
   budgetYear:    57 
+  company: *Company002
 - &procurementGoods02    !!models.durableGoods.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    2/57
   status:    SUCCESS
   budgetType:    พิเศษ
   budgetYear:    57
+  company: *Company002
 - &procurementGoods03    !!models.durableGoods.Procurement
   title:    ใบนำเข้าเดือนกันยายน
   contractNo:    3/57
   status:    SUCCESS
   budgetType:    พิเศษ
   budgetYear:    57
+  company: *Company002
 - &procurementGoodsDetail01    !!models.durableGoods.ProcurementDetail
   description:    ปากกาหมายเลข1
   code:    '01057'
@@ -853,120 +881,90 @@
 - &durableGoods001    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail01
   codes:    '01057'
-  remain:    1
 - &durableGoods002    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail01
   codes:    '01057'
-  remain:    2
 - &durableGoods003    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail01
   codes:    '01057'
-  remain:    3
 - &durableGoods004    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail01
   codes:    '01057'
-  remain:    4
 - &durableGoods005    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail01
   codes:    '01057'
-  remain:    5
 - &durableGoods006    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail02
   codes:    '01054'
-  remain:    6
 - &durableGoods007    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail02
   codes:    '01054'
-  remain:    7
 - &durableGoods008    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail02
   codes:    '01054'
-  remain:    8
 - &durableGoods009    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail02
   codes:    '01054'
-  remain:    9
 - &durableGoods010    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail03
   codes:    '01056'
-  remain:    10
 - &durableGoods011    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail03
   codes:    '01056'
-  remain:    11
 - &durableGoods012    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail03
   codes:    '01056'
-  remain:    12
 - &durableGoods013    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail03
   codes:    '01056'
-  remain:    13
 - &durableGoods014    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail04
   codes:    '01055'
-  remain:    14
 - &durableGoods015    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail04
   codes:    '01055'
-  remain:    15
 - &durableGoods016    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail04
   codes:    '01055'
-  remain:    16
 - &durableGoods017    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail04
   codes:    '01055'
-  remain:    17
 - &durableGoods018    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    18
 - &durableGoods019    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    19
 - &durableGoods020    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    20
 - &durableGoods021    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    21
 - &durableGoods022    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    22
 - &durableGoods023    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    23
 - &durableGoods024    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    24
 - &durableGoods025    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    25
 - &durableGoods026    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    26
 - &durableGoods027    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail05
   codes:    '01056'
-  remain:    27
 - &durableGoods028    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail06
   codes:    '01054'
-  remain:    28
 - &durableGoods029    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail06
   codes:    '01054'
-  remain:    29
 - &durableGoods030    !!models.durableGoods.DurableGoods
   detail: *procurementGoodsDetail06
   codes:    '01054'
-  remain:    30

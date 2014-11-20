@@ -46,7 +46,7 @@ function submitButtonClick(){
             pe[j].style.display = "none";
         } 
     }else if(name == 2){ 
-        document.getElementById("typedealerId").options[12].selected = 'selected';
+        document.getElementById("typedealerId").options[10].selected = 'selected';
         for(i = 0; i < ni.length;i++){ 
             ni[i].style.display = "none";
         } 

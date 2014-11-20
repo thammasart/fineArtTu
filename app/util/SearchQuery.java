@@ -80,7 +80,6 @@ public class SearchQuery {
 		Set<models.durableArticles.Procurement> set = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("title", "%"+query+"%").findSet();
 		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
 		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("budgetType", "%"+query+"%").findSet());
-		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("institute", "%"+query+"%").findSet());
 		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("barCode", "%"+query+"%").findSet());
 		
 		List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
@@ -138,7 +137,6 @@ public class SearchQuery {
 		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
 		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
 		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("budgetType", "%"+query+"%").findSet());
-		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("institute", "%"+query+"%").findSet());
 		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("barCode", "%"+query+"%").findSet());
 		
 		List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
@@ -300,9 +298,14 @@ public class SearchQuery {
 		Set<Auction> set = Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
 		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("contractNo", "%"+query+"%").findSet());
 		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.nameEntrepreneur", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("soldDestination", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("telephoneNumber", "%"+query+"%").findSet());
-		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("email", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.typedealer", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.nameDealer", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.payCodition", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.sendPeriod", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.durableArticlesType", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.durableGoodsType", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.consumableGoodsType", "%"+query+"%").findSet());
+		set.addAll(Auction.find.where().eq("status", ExportStatus.SUCCESS).ilike("company.otherDetail", "%"+query+"%").findSet());
 		
 		List<Auction> as = Auction.find.where().eq("status",ExportStatus.SUCCESS).findList();
 		for(Auction a : as){

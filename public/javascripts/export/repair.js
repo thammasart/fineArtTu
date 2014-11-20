@@ -29,7 +29,8 @@ function getTotalPrice(){
 	numberOfDetail =  parseInt(document.getElementById("numberOfDetail").value);
 	totle = 0.00;
 	for(i = 0, len = numberOfDetail; i < len; i++){
-		totle += parseFloat(document.getElementById("price"+i.toString()).value);
+		if(document.getElementById("price"+i.toString()).value != "")
+			totle += parseFloat(document.getElementById("price"+i.toString()).value);
 	}
 	document.getElementById("repairCosts").value = totle;
 }
@@ -126,8 +127,8 @@ function getDetail(){
 					s += '<tr id="detailRow' + details[i].id + '">';
 					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')"> '+
 								' <input type="checkbox" id="detail' + details[i].id + '"> </th>';
-					s += '	<th>'+(i+1)+'</th>';
-					s += '	<th>'+ details[i].durableArticles.code +'</th>';
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">'+(i+1)+'</th>';
+					s += '	<th onclick="addCheckedDetail(' + details[i].id + ')">'+ details[i].durableArticles.code +'</th>';
 					if(details[i].durableArticles.detail){
 						s += '	<th>'+ details[i].durableArticles.detail.fsn.descriptionDescription +'</th>';
 					}

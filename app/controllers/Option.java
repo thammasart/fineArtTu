@@ -201,7 +201,7 @@ public class Option extends Controller {
 			 out.write(p.getAddDate()+',');
 			 out.write(p.getCheckDate()+',');
 			 out.write(p.budgetType+',');
-			 out.write(p.institute+',');
+			 out.write(p.company.nameEntrepreneur+',');
 			 out.write(p.budgetYear+"\n");			 
 		 }
 		 
@@ -215,7 +215,7 @@ public class Option extends Controller {
 			 out.write(p.getAddDate()+',');
 			 out.write(p.getCheckDate()+',');
 			 out.write(p.budgetType+',');
-			 out.write(p.institute+',');
+			 out.write(p.company.nameEntrepreneur+',');
 			 out.write(p.budgetYear+"\n");			 
 		 }
 		 

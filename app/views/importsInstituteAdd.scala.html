@@ -15,7 +15,7 @@
 
 
  					ประเภทผู้ประกอบการ
-                                  <input class="form-inline marginBtm1" type="radio" name="typeEntrepreneur" value="นิติบุคคล"  onclick="optionElement(1)"> นิติบุคคล
+                  <input class="form-inline marginBtm1" type="radio" name="typeEntrepreneur" value="นิติบุคคล"  onclick="optionElement(1)" checked> นิติบุคคล
 				  <input type="radio" name="typeEntrepreneur" value="บุคคลธรรมดา"  onclick="optionElement(2)"> บุคคลธรรมดา
 
 
@@ -23,8 +23,6 @@
 	                    <div class="input-group">
 	                      <span class="input-group-addon width250px">ประเภทผู้ค้า</span>
 	                        <select class="form-control textAlignCenter  width450px" name="typedealer" id="typedealerId">
-	                          <option>---ประเภทผู้ค้า---</option>
-	                          <option name="niti">---นิติบุคคล---</option>
 	                          <option name="niti">ห้างหุ้นส่วนสามัญนิติบุคคล</option>
 	                          <option name="niti">ห้างห้นส่วนจำกัด</option>
 	                          <option name="niti">บริษัทจำกัด</option>
@@ -35,10 +33,9 @@
 	                          <option name="niti">องค์กรธุรกิจจัดตั้งหรือจดทะเบียนภายใต้กฎหมายเฉพาะ</option>
 	                          <option name="niti">กิจการค้าร่วม</option>
 	                          <option name="niti">หน่วยงานภาครัฐที่เบิกเงินผ่านระบบ GFMIS</option>
-	                          <option name="personal">---บุคคลธรรมดา---</option>
-	                          <option name="personal">คณะบุคคล</option>
-	                          <option name="personal">กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา</option>
-	                          <option name="personal">ห้างหุ้นส่วนสามัญ</option>
+	                          <option name="personal" style="display: none;">คณะบุคคล</option>
+	                          <option name="personal" style="display: none;">กิจการร้านค้าเจ้าของคนเดียวหรือบุคคลธรรมดา</option>
+	                          <option name="personal" style="display: none;">ห้างหุ้นส่วนสามัญ</option>
 	                        </select>
 	                    </div>
             </div>
