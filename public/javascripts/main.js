@@ -5,7 +5,7 @@ window.onpageshow = function(evt) {
     }
 };
 
-var array = [];
+var arrayOfTable = [];
 var pagingNumber = 15;
 var tableConfiguration = {
 		"info" : false,
@@ -122,10 +122,10 @@ if(!('contains' in String.prototype)) {
 function destroyTable(num){
 	if(num == undefined){
 		for(var i=0; i<array.length; i++){
-			array[i].destroy();
+		    arrayOfTable[i].destroy();
 		}
 	}else{
-		array[num].destroy();
+	    arrayOfTable[num].destroy();
 	}
 }
 function updateTable(num){
@@ -134,16 +134,16 @@ function updateTable(num){
 	if(num == undefined){
 		for(var i=0; i<tableContent.length; i++){
 			table = $(tableContent.get(i)).DataTable(tableConfiguration);
-			array[i]= table;
+		    arrayOfTable[i]= table;
 		}
 	}else{
 		table = $(tableContent.get(num)).DataTable(tableConfiguration);
-		array[num]= table;
+	    arrayOfTable[num]= table;
 	}
 }
 
 function clearTable(num){
-	if(num != undefined) array[num].clear().draw();
+	if(num != undefined)arrayOfTable[num].clear().draw();
 }
 
 function getTable(num){
@@ -151,7 +151,7 @@ function getTable(num){
 }
 
 function getDataTable(num){
-	return array[num];
+	return arrayOfTable[num];
 }
 
 function setDataTableColumn(id,innerThead){
@@ -162,14 +162,14 @@ function setDataTableColumn(id,innerThead){
 	var tableContent = $('.table.table-striped.overlayTable');
 	for(var i=0; i<tableContent.length; i++){
 		if($(tableContent.get(i)).attr('id')){
-			return array[i];
+			return arrayOfTable[i];
 		}
 	}
 }
 
 function setSearchBox(searchBox,numTable){
 	$('#'+searchBox).on( 'keyup change', function () {
-		array[numTable].search( $('#'+searchBox).val()).draw();
+		arrayOfTable[numTable].search( $('#'+searchBox).val()).draw();
 	});
 }
 
@@ -180,7 +180,7 @@ $(document).ready( function () {
 	for(var i=0; i<tableContent.length; i++){
 		table = $(tableContent.get(i)).DataTable(tableConfiguration);
 		
-		array[i]= table;
+		arrayOfTable[i]= table;
 	}
 	for(var i=0; i<searchBox.length; i++){
 		if(searchBox.length < tableContent.length){
@@ -189,14 +189,14 @@ $(document).ready( function () {
 				var x = $(list).find(".table.table-striped.overlayTable");
 				for(var tmp=0; tmp < x.length; tmp++){
 					var id = x.get(tmp).id.slice(-1);
-					array[id].search( this.value ).draw();
+					arrayOfTable[id].search( this.value ).draw();
 				}
 			});
 		}else{
 			$(searchBox.get(i)).on( 'keyup change', function () {
 				var id = $(this).parent().parent().parent().parent().parent().parent().attr('id');
 				if(id != undefined && !isNaN(id)){
-					array[id-1].search( this.value ).draw();
+					arrayOfTable[id-1].search( this.value ).draw();
 				}else{
 					table.search(this.value).draw();
 				}
