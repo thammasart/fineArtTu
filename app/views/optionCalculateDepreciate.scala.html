@@ -19,7 +19,7 @@
             <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right" type="submit">
                 พิมพ์รายการค่าเสื่อม
             </button>
-            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable('printTable','ระบบคำนวณค่าเสื่อม')">
                 พิมพ์ตารางนี้
             </button>
             <input class="form-control" name="yearsPrint" id="yearsPrint" value="@year"type="hidden">
@@ -88,7 +88,7 @@
         </div>
 
         <div class="adminUserinfoTableContainer">
-            <table class="table table-striped overlayTable">
+            <table class="table table-striped overlayTable" id="printTable">
                 
 
                 <thead>

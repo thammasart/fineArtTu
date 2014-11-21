@@ -1,12 +1,6 @@
 @(user : User , mc: List[MaterialCode], mt:List[MaterialType], dg:List[models.durableGoods.DurableGoods])
 @header("รายงาน")
     <script src="@routes.Assets.at("javascripts/report.js")"></script>
-<style type="text/css" media="print">
-        table { page-break-inside:auto; border:double; }
-        div    { page-break-inside:avoid;}
-        thead { display:table-header-group }
-        tfoot { display:table-footer-group }
-</style>
 
 @nav(user)
 @headerTag("สรุปวัสดุคงเหลือ")
@@ -16,16 +10,16 @@
 
 <div class="listWindow">
 
-            <legend>
-                สรุปวัสดุคงเหลือ 
-            </legend>
+        <legend>
+            สรุปวัสดุคงเหลือ 
+        </legend>
         <div class="tableHeaderBtnContainer">
                 <div class="searchS">
                         <form>
                             <div class="form-group">
                                 <div class="input-group">
                                   <span class="input-group-addon">ค้นหา</span>
-                                  <input type="text" class="form-control "style="width:300px" id="search" >
+                                  <input type="text" class="form-control width200px" >
                                 </div>
                               </div>
                         </form>
@@ -42,9 +36,6 @@
                    </div>
               </div>
         </div>
-
-           <div class="tableHeaderBtnContainer">
-           </div>
         <div >
                 <span style="font-size:25px">
                     วัสดุสิ้นเปลือง
@@ -52,20 +43,13 @@
                 <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right" onclick="printLink()">
                     พิมพ์วัสดุสิ้นเปลือง
                 </button>
-                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable('printTable','สรุปวัสดุคงเหลือ:วัสดุสิ้นเปลือง')">
                     พิมพ์ตารางนี้
                 </button>
             <script>
                 function printLink(){
                     var w = window.open(window.location.pathname+"/Print");
                     w.print();
-                }
-                function printTable(){
-                    var divToPrint = document.getElementById("printTable");
-                    newWin= window.open("");
-                    newWin.document.write(divToPrint.outerHTML);
-                    newWin.print();
-                    newWin.close();
                 }
             </script>
             <table class="table table-striped overlayTable" align="center" id="printTable">
@@ -107,7 +91,7 @@
                 <button class="btn btn-primary glyphicon glyphicon-print  marginLeft2" style="float:right" onclick="printLink2()">
                     พิมพ์วัสดุคงทนถาวร
                 </button>
-                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable2()">
+                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable('printTable2','สรุปวัสดุคงเหลือ:วัสดุคงทนถาวร')">
                     พิมพ์ตารางนี้
                 </button>
                 <script>
@@ -115,15 +99,8 @@
                         var w = window.open(window.location.pathname+"/Print2");
                         w.print();
                     }
-                    function printTable2(){
-                        var divToPrint = document.getElementById("printTable");
-                        newWin= window.open("");
-                        newWin.document.write(divToPrint.outerHTML);
-                        newWin.print();
-                        newWin.close();
-                    }
                 </script>
-            <table class="table table-striped overlayTable" align="center">
+            <table class="table table-striped overlayTable" align="center" id="printTable2">
                 <thead>
                     <tr>
                         <th style="text-align:center"> ลำดับที่</th>
@@ -133,6 +110,7 @@
                         <th style="text-align:center"> ราคา/หน่วย </th>
                         <th style="text-align:center"> จำนวนเงิน </th>
                         <th style="text-align:center"> หมายเหตุ</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -144,6 +122,7 @@
                         <th style="text-align:center" id="prd@index">@dgs.detail.price</th>
                         <th style="text-align:center" id="ptd@index">256.80</th>
                         <th style="text-align:center">@dgs.detail.getGroupeType()</th>
+                        <th></th>
                         <script>
                             document.getElementById("ptd@index").innerHTML =  parseFloat(document.getElementById("red@index").innerHTML) * parseFloat(document.getElementById("prd@index").innerHTML) ;
                         </script>

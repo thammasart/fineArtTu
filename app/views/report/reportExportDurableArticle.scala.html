@@ -18,13 +18,6 @@
                     var w = window.open(window.location.pathname+"/print");
                     w.print();
                 }
-                function printTable(){
-                    var divToPrint = document.getElementById("printTable");
-                    newWin= window.open("");
-                    newWin.document.write(divToPrint.outerHTML);
-                    newWin.print();
-                    newWin.close();
-                }
             </script>
         </div>
         <div class="tableHeaderBtnContainer">
@@ -79,10 +72,10 @@
             <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink('http://localhost:9000/report/exportDurableArticles/print')">
                 พิมพ์รายการเบิกจ่ายวัสดุสิ้นเปลือง
             </button>
-            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable('printTable','รายการเบิกจ่าย:วัสดุสิ้นเปลือง')">
                 พิมพ์ตารางนี้
             </button>
-            <table class="table table-striped overlayTable" align="center">
+            <table class="table table-striped overlayTable" align="center" id="printTable">
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>
@@ -150,7 +143,7 @@
                 <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink2('http://localhost:9000/report/exportDurableArticles/print2')">
                     พิมพ์รายการเบิกจ่ายวัสดุคงทนถาวร
                 </button>
-                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable2()">
+                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable('printTable2','รายการเบิกจ่าย:วัสดุคงทนถาวร')">
                     พิมพ์ตารางนี้
                 </button>
                 <script>
@@ -166,7 +159,7 @@
                         newWin.close();
                     }
                 </script>
-            <table class="table table-striped overlayTable" align="center">
+            <table class="table table-striped overlayTable" align="center" id="printTable2">
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>

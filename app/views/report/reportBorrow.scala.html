@@ -14,20 +14,13 @@
             <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right"onclick="printLink()">
                 พิมพ์รายการยืม
             </button>
-            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable('printTable','รายการยืม/คืน')">
                 พิมพ์ตารางนี้
             </button>
             <script>
                 function printLink(){
                     var w = window.open(window.location.pathname+"/print");
                     w.print();
-                }
-                function printTable(){
-                    var divToPrint = document.getElementById("printTable");
-                    newWin= window.open("");
-                    newWin.document.write(divToPrint.outerHTML);
-                    newWin.print();
-                    newWin.close();
                 }
             </script>
         <div class="tableHeaderBtnContainer">
@@ -76,7 +69,7 @@
         </div>
 
         <div >
-            <table class="table table-striped overlayTable" align="center">
+            <table class="table table-striped overlayTable" align="center" id="printTable">
                 <thead>
                     <tr>
                         <th style="text-align:center">ลำดับที่</th>

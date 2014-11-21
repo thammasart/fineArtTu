@@ -18,7 +18,7 @@
                 พิมพ์ทะเบียนทรัพย์สิน
             </button>
         </form>
-            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable()">
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable('printTable','ทะเบียนทรัพย์สิน:@article.get(0).detail.fsn.typ.groupClass.classDescription')">
                 พิมพ์ตารางนี้
             </button>
         </div>
@@ -69,7 +69,7 @@
         </div>
 
         <div class="adminUserinfoTableContainer">
-            <table class="table table-striped overlayTable">
+            <table class="table table-striped overlayTable" id="printTable">
                 <thead>
                     <tr>
                     	<th>ลำดับ<span class="glyphicon glyphicon-sort"></span></th>

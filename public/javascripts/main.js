@@ -223,3 +223,23 @@ $(document).ready( function () {
 } );
 
 
+function printTable(id,tableName){
+    var divToPrint = document.getElementById(id);
+    newWin= window.open("");
+    var cssReference =newWin.document.createElement("link")
+                cssReference.href = "//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"; //include real path like "CSS/CSSFileName.css"
+                cssReference.rel = "stylesheet";
+                cssReference.type = "text/css";
+    divToPrint.className = "table table-bordered";
+    divToPrint.style.fontSize = "13px";
+    var para = document.createElement("h2");
+    para.style.textAlign="center";
+    var node = document.createTextNode(tableName);
+    para.appendChild(node);
+    newWin.document.write(para.outerHTML);
+    newWin.document.write(divToPrint.outerHTML);
+    newWin.document.getElementsByTagName('head')[0].appendChild(cssReference);
+    newWin.print();
+    newWin.close();
+    divToPrint.className = "table table-striped overlayTable";
+}
