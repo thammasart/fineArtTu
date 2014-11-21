@@ -70,7 +70,7 @@ public class Procurement extends Model{
 		{
 			for(DurableGoods d:pd.subDetails)
 			{
-				if(d.status!=SuppliesStatus.NORMAL)
+				if(d.status!=SuppliesStatus.NORMAL && d.status != SuppliesStatus.DELETE)
 	    		{
 	    			if(d.status!=null)
 	    			{

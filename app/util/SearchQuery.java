@@ -77,13 +77,12 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<models.durableArticles.Procurement> getDurableArticleProcurement(String query){
-		Set<models.durableArticles.Procurement> set = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("title", "%"+query+"%").findSet();
-		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
-		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("budgetType", "%"+query+"%").findSet());
-		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("barCode", "%"+query+"%").findSet());
+		Set<models.durableArticles.Procurement> set = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
+		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).ilike("contractNo", "%"+query+"%").findSet());
+		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).ilike("budgetType", "%"+query+"%").findSet());
+		set.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).ilike("barCode", "%"+query+"%").findSet());
 		
 		List<models.durableArticles.Procurement> ps = models.durableArticles.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
-		ps.addAll(models.durableArticles.Procurement.find.where().eq("status", ImportStatus.UNCHANGE).findList());
 		for(models.durableArticles.Procurement p : ps){
 			boolean flag = true;
 			if(dateValidator(p.addDate, query) || dateValidator(p.checkDate, query)){
@@ -133,14 +132,13 @@ public class SearchQuery {
 	}
 	
 	public static ArrayList<models.durableGoods.Procurement> getDurableGoodsProcurement(String query){
-		Set<models.durableGoods.Procurement> set = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("title", "%"+query+"%").findSet();
-		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
-		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("contractNo", "%"+query+"%").findSet());
-		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("budgetType", "%"+query+"%").findSet());
-		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).eq("status", ImportStatus.UNCHANGE).ilike("barCode", "%"+query+"%").findSet());
+		Set<models.durableGoods.Procurement> set = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).ilike("title", "%"+query+"%").findSet();
+		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).ilike("contractNo", "%"+query+"%").findSet());
+		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).ilike("contractNo", "%"+query+"%").findSet());
+		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).ilike("budgetType", "%"+query+"%").findSet());
+		set.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).ilike("barCode", "%"+query+"%").findSet());
 		
 		List<models.durableGoods.Procurement> ps = models.durableGoods.Procurement.find.where().eq("status", ImportStatus.SUCCESS).findList();
-		ps.addAll(models.durableGoods.Procurement.find.where().eq("status", ImportStatus.UNCHANGE).findList());
 		for(models.durableGoods.Procurement p : ps){
 			boolean flag = true;
 			if(dateValidator(p.addDate, query) || dateValidator(p.checkDate, query)){

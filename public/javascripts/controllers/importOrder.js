@@ -571,8 +571,8 @@ function setValueBelow(name,num){
 		document.getElementById(name+'PrefixName'+tmp).value = document.getElementById(name+'PrefixName'+num).value;
 		document.getElementById(name+'FirstName'+tmp).value = document.getElementById(name+'FirstName'+num).value;
 		document.getElementById(name+'LastName'+tmp).value = document.getElementById(name+'LastName'+num).value;
-		if(name=='article')
-		document.getElementById(name+'Stock'+tmp).value = document.getElementById(name+'Stock'+num).value;
+		/*if(name=='article')
+		document.getElementById(name+'Stock'+tmp).value = document.getElementById(name+'Stock'+num).value;*/
 	}
 }
 

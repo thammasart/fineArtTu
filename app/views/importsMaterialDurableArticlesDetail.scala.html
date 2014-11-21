@@ -78,7 +78,7 @@
     		$('#button').hide();
     		$('#descriptionDescription').prop('disabled',false);			
     		$('#typeDescription').prop('disabled',false);
-    	
+    		$("#editBtn").show();
     }
 </script>
 	    
@@ -187,7 +187,7 @@
                       <span class="glyphicon glyphicon-remove"></span> ยกเลิก
                   </button>
               </a>
-              <button onclick="enableToSend();" class="btn btn-success btn-lg width250px" style=" margin-top:1%;">
+              <button id="editBtn" onclick="enableToSend();" class="btn btn-success btn-lg width250px" style=" margin-top:1%; display: none;">
                   แก้ไข <span class="glyphicon glyphicon-ok"></span>
               </button>
 
