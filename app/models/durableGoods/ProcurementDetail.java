@@ -11,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import models.MaterialCode;
 import models.type.OrderDetailStatus;
 import models.type.ImportStatus;
+import models.type.SuppliesStatus;
 
+import models.durableArticles.DurableArticles;
 import models.fsnNumber.FSN_Description;
 
 
@@ -59,6 +61,24 @@ public class ProcurementDetail extends Model{
         FSN_Description  fsn = FSN_Description.find.byId(this.code);           
         return fsn.typ.groupClass.group.groupDescription;
     }
+    
+    public int getUNCHANGE()
+	{
+		int canChangeOrderDetail=1;
+		
+		for(DurableGoods d: subDetails)
+		{
+			if(d.status!=SuppliesStatus.NORMAL && d.status != SuppliesStatus.DELETE)
+    		{
+    			if(d.status!=null)
+    			{
+    				canChangeOrderDetail=0;break;
+    			}
+    		}
+		}
+		
+		return canChangeOrderDetail;
+	}
 
     @Override
    	public void save(){

@@ -169,7 +169,7 @@ public class ProcurementDetail extends Model{
 		
 		for(DurableArticles d: subDetails)
 		{
-			if(d.status!=SuppliesStatus.NORMAL)
+			if(d.status!=SuppliesStatus.NORMAL && d.status != SuppliesStatus.DELETE)
     		{
     			if(d.status!=null)
     			{
