@@ -25,6 +25,10 @@ public class Borrow extends Model{
 	public Date dateOfEndBorrow;
 	public String description; // หมายเหตุการยืม
 	public ExportStatus status;
+
+	public String fileName;
+	public String fileType;
+	public String path;
 	
 	@ManyToOne
 	public User user; // ผู้ยืม

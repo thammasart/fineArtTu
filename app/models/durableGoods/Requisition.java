@@ -26,6 +26,10 @@ public class Requisition extends Model{
 	public Date approveDate; //วันที่ทำการอนุมัติ
 	public ExportStatus status; //สถานะใบเบิก
 
+	public String fileName;
+	public String fileType;
+	public String path;
+
 	@ManyToOne
 	public User user; // ผู้จ่าย
 	@ManyToOne
