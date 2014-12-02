@@ -37,15 +37,15 @@
               </div>
         </div>
         <div >
-                <span style="font-size:25px">
-                    วัสดุสิ้นเปลือง
-                </span>
-                <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right" onclick="printLink()">
-                    พิมพ์วัสดุสิ้นเปลือง
-                </button>
-                <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable('printTable','สรุปวัสดุคงเหลือ:วัสดุสิ้นเปลือง')">
-                    พิมพ์ตารางนี้
-                </button>
+            <span style="font-size:25px">
+                วัสดุสิ้นเปลือง
+            </span>
+            <button class="btn btn-primary glyphicon glyphicon-print marginLeft2" style="float:right" onclick="printLink()">
+                พิมพ์วัสดุสิ้นเปลือง
+            </button>
+            <button class="btn btn-info glyphicon glyphicon-print" style="float:right" onclick="printTable('printTable','สรุปวัสดุคงเหลือ:วัสดุสิ้นเปลือง')">
+                พิมพ์ตารางนี้
+            </button>
             <script>
                 function printLink(){
                     var w = window.open(window.location.pathname+"/Print");
@@ -110,11 +110,11 @@
                         <th style="text-align:center"> ราคา/หน่วย </th>
                         <th style="text-align:center"> จำนวนเงิน </th>
                         <th style="text-align:center"> หมายเหตุ</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                @for((dgs,index) <-dg.zipWithIndex){
+                    <tr>
                         <th style="text-align:center">@{index+1}</th>
                         <th style="text-align:center">@dgs.detail.description</th>
                         <th style="text-align:center">@dgs.detail.getClassifier()</th>
@@ -122,7 +122,6 @@
                         <th style="text-align:center" id="prd@index">@dgs.detail.price</th>
                         <th style="text-align:center" id="ptd@index">256.80</th>
                         <th style="text-align:center">@dgs.detail.getGroupeType()</th>
-                        <th></th>
                         <script>
                             document.getElementById("ptd@index").innerHTML =  parseFloat(document.getElementById("red@index").innerHTML) * parseFloat(document.getElementById("prd@index").innerHTML) ;
                         </script>

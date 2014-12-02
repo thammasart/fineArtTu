@@ -33,6 +33,11 @@ function submitButtonClick(){
         submitStatus = false;
     }else  document.getElementById("firstnameAlert").style.display= "none";
 
+    if(document.getElementById("namePrefix").value ==""){
+        document.getElementById("namePrefixAlert").style.display = "table-row";
+        submitStatus = false;
+    }else  document.getElementById("namePrefixAlert").style.display= "none";
+
     if(document.getElementById("lastname").value ==""){
         document.getElementById("lastnameAlert").style.display = "table-row";
         submitStatus = false;
