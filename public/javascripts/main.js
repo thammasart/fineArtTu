@@ -121,7 +121,7 @@ if(!('contains' in String.prototype)) {
 
 function destroyTable(num){
 	if(num == undefined){
-		for(var i=0; i<array.length; i++){
+		for(var i=0; i<arrayOfTable.length; i++){
 		    arrayOfTable[i].destroy();
 		}
 	}else{
