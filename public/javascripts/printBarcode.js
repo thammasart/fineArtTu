@@ -1,4 +1,4 @@
-var url = "http://localhost/TSC-PHP.php";
+var url = "http://localhost:8080/TSC-PHP.php";
 
 function printBarcode(code){
 	if(code instanceof Array){
