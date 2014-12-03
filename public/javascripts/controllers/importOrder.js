@@ -8,7 +8,6 @@ var procumentDetailsTick = [];
 var procumentDetailsTickName = [];
 var procurementStatus = "null";
 
-
 $('document').ready(function(){
 	showPage('1');
 	createAICommittee();
@@ -217,7 +216,8 @@ function cancelStatus(id,typeOfOrder){
 	});
 }
 
-function addVat(event){
+function addVat(event,type){
+    if(type == "นิติบุคคล"){
 	var keyCode = ('which' in event) ? event.which : event.keyCode;
 	if(keyCode != 9 && keyCode != 16){
 		var price = parseInt($('#priceNoVat').val());
@@ -228,9 +228,13 @@ function addVat(event){
 			$('#price').val(price + price * tax * 0.01);
 		}
 	}
+    }else {
+        $('#price').val($('#priceNoVat').val());
+    }
 }
 
-function decreaseVat(event){
+function decreaseVat(event,type){
+    if(type == "นิติบุคคล"){
 	var keyCode = ('which' in event) ? event.which : event.keyCode;
 	if(keyCode != 9 && keyCode != 16){
 		var price = $('#price').val();
@@ -241,6 +245,10 @@ function decreaseVat(event){
 			$('#priceNoVat').val(price - price * tax * 0.01);
 		}
 	}
+    }else {
+        $('#priceNoVat').val($('#price').val());
+    }
+
 }
 
 function hidePrintBarcode(){
@@ -946,4 +954,3 @@ function getDutableGoodsBarcode(){
     	}
 	});
 }
-

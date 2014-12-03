@@ -98,10 +98,10 @@
        <div class="form-inline" role="form" align="left">
             <div class="input-group marginBtm1">
                 <span class="input-group-addon width250px">สถานประกอบการ</span>
-                    <select class="form-control textAlignCenter  width300px" name="institute">
+                    <select class="form-control textAlignCenter  width300px" name="institute" id="institute">
                         <option>---เลือก---</option>
                         @for(company <- companies){
-                        	<option @if(order.company != null && order.company.nameEntrepreneur ==company.nameEntrepreneur ){ selected}>@company.nameEntrepreneur</option>
+                        	<option @if(order.company != null && order.company.nameEntrepreneur ==company.nameEntrepreneur ){ selected} value="@company.typeEntrepreneur">@company.nameEntrepreneur</option>
                         }
                     </select>
             </div>
@@ -111,7 +111,7 @@
             <div class="form-group" >
                   <div class="input-group" >
                       <span class="input-group-addon width250px" >ปีงบประมาณ</span>
-                      <input type="number" class="form-control textAlignCenter  width300px" onkeypress="validateNumberKey(event)" placeholder="ใส่ค่า" name="budgetYear"  id="years" value="@if(order.status.name == "INIT"){@(new SimpleDateFormat("yy", new Locale("th", "th")).format(order.addDate))}else{@order.budgetYear}">
+                      <input type="number" class="form-control textAlignCenter  width300px" onkeypress="console.log(institute.value);validateNumberKey(event);" placeholder="ใส่ค่า" name="budgetYear"  id="years" value="@if(order.status.name == "INIT"){@(new SimpleDateFormat("yy", new Locale("th", "th")).format(order.addDate))}else{@order.budgetYear}">
                         <span class="alertText" id="yearsAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                   </div>
             </div>
@@ -312,7 +312,7 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคา</span>
-                    <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat" onkeyup="addVat(event)">
+                    <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat" onkeyup="addVat(event,institute.value)">
                     <span class="alertText" id="priceNoVatAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
@@ -321,7 +321,7 @@
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคารวมภาษี</span>
-                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price" onkeyup="decreaseVat(event)">
+                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price" onkeyup="decreaseVat(event,institute.value)">
                         <span class="alertText" id="priceAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
