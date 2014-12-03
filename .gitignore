@@ -16,6 +16,7 @@ dist
 conf/evolution/default/1.sql
 conf/evolutions/default/1.sql
 conf/evolutions/
+conf/*.ini
 *.swp
 .target/
 *.class
