@@ -20,7 +20,9 @@
     
 	@if(order.status.name == "SUCCESS"){
 		<button onclick="printBarcode('@order.barCode')" class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button>
-		<button id="editBtn1" onclick="removeDisable1()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
+		@if(user.status.module6){
+			<button id="editBtn1" onclick="removeDisable1()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
+		}
 	}
 	<input id="orderStatus" type="hidden" value="@order.status.name">
 	<input id="getUnchange" type="hidden" value="@order.getUNCHANGE()">
@@ -249,7 +251,9 @@ $('input').prop("disabled",false);
       <!-- ------------------------------------------------------------------------------------------------------------------------ -->
 <div class="detailWindow" id="page2" >
 	<button id="getBarcodeGoods" onclick="getDutableGoodsBarcode()" class="btn btn-info btn-lg width250px" style="margin-bottom:1%;display: none">ปริ้นบาร์โค้ด</button>
-	<button id="editBtn2" onclick="removeDisable2()" hidden class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
+	@if(user.status.module6){
+		<button id="editBtn2" onclick="removeDisable2()" hidden class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
+	}
 	<input id="isEditingOn" type="hidden" value="false">
 	<script>
 		function removeDisable2(){
