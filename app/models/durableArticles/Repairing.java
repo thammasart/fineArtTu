@@ -25,6 +25,10 @@ public class Repairing extends Model{
 	public Date dateOfReceiveFromRepair;
 	public double repairCosts; // ราคาไซ่อม
 	public ExportStatus status;
+
+	public String fileName;
+	public String fileType;
+	public String path;
 	
 	@ManyToOne
 	public Company company; // ร้านซ่อม

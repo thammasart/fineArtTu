@@ -26,6 +26,10 @@ public class InternalTransfer extends Model{
 	public Date approveDate; // วันที่ทำการอนุมัติ
 	public ExportStatus status; //สถานะใบโอน
 
+	public String fileName;
+	public String fileType;
+	public String path;
+
 	@ManyToOne
 	public User approver; // ผู้อนุมัต
 

@@ -28,6 +28,10 @@ public class Donation extends Model{ // บริจาค
 	public Date approveDate; // วันที่ทำการอนุมัติ
 	public ExportStatus status; //สถานะใบโอน
 
+	public String fileName;
+	public String fileType;
+	public String path;
+
 	@ManyToOne
 	public Company company; // หน่ายงานที่รับจำหน่าย
 

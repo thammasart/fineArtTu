@@ -38,6 +38,9 @@ create table auction (
   contract_no               varchar(255),
   total_price               double,
   approve_date              timestamp,
+  file_name                 varchar(255),
+  file_type                 varchar(255),
+  path                      varchar(255),
   status                    integer,
   company_id                bigint,
   constraint ck_auction_status check (status in (0,1,2,3,4,5)),
@@ -86,6 +89,9 @@ create table borrow (
   date_of_end_borrow        timestamp,
   description               varchar(255),
   status                    integer,
+  file_name                 varchar(255),
+  file_type                 varchar(255),
+  path                      varchar(255),
   user_username             varchar(255),
   approver_username         varchar(255),
   constraint ck_borrow_status check (status in (0,1,2,3,4,5)),
@@ -134,6 +140,9 @@ create table donation (
   contract_no               varchar(255),
   approve_date              timestamp,
   status                    integer,
+  file_name                 varchar(255),
+  file_type                 varchar(255),
+  path                      varchar(255),
   company_id                bigint,
   constraint ck_donation_status check (status in (0,1,2,3,4,5)),
   constraint pk_donation primary key (id))
@@ -247,6 +256,9 @@ create table internal_transfer (
   number                    varchar(255),
   approve_date              timestamp,
   status                    integer,
+  file_name                 varchar(255),
+  file_type                 varchar(255),
+  path                      varchar(255),
   approver_username         varchar(255),
   constraint ck_internal_transfer_status check (status in (0,1,2,3,4,5)),
   constraint pk_internal_transfer primary key (id))
@@ -298,6 +310,9 @@ create table order_goods (
   number                    varchar(255),
   approve_date              timestamp,
   status                    integer,
+  file_name                 varchar(255),
+  file_type                 varchar(255),
+  path                      varchar(255),
   user_username             varchar(255),
   approver_username         varchar(255),
   constraint ck_order_goods_status check (status in (0,1,2,3,4,5)),
@@ -328,6 +343,9 @@ create table other_transfer (
   approve_date              timestamp,
   description               varchar(255),
   status                    integer,
+  file_name                 varchar(255),
+  file_type                 varchar(255),
+  path                      varchar(255),
   approver_username         varchar(255),
   constraint ck_other_transfer_status check (status in (0,1,2,3,4,5)),
   constraint pk_other_transfer primary key (id))
@@ -372,7 +390,7 @@ create table durable_goods_procurement (
   path                      varchar(255),
   bar_code                  varchar(255),
   company_id                bigint,
-  constraint ck_durable_goods_procurement_status check (status in (0,1,2,3,4)),
+  constraint ck_durable_goods_procurement_status check (status in (0,1,2,3)),
   constraint pk_durable_goods_procurement primary key (id))
 ;
 
@@ -390,7 +408,7 @@ create table durable_articles_procurement (
   path                      varchar(255),
   bar_code                  varchar(255),
   company_id                bigint,
-  constraint ck_durable_articles_procurement_status check (status in (0,1,2,3,4)),
+  constraint ck_durable_articles_procurement_status check (status in (0,1,2,3)),
   constraint pk_durable_articles_procurement primary key (id))
 ;
 
@@ -411,7 +429,7 @@ create table durable_articles_procurement_detail (
   status                    integer,
   fsn_description_id        varchar(13),
   procurement_id            bigint,
-  constraint ck_durable_articles_procurement_detail_status check (status in (0,1,2,3)),
+  constraint ck_durable_articles_procurement_detail_status check (status in (0,1,2)),
   constraint pk_durable_articles_procurement_ primary key (id))
 ;
 
@@ -431,7 +449,7 @@ create table durable_goods_procurement_detail (
   type_of_durable_goods     integer,
   status                    integer,
   procurement_id            bigint,
-  constraint ck_durable_goods_procurement_detail_status check (status in (0,1,2,3)),
+  constraint ck_durable_goods_procurement_detail_status check (status in (0,1,2)),
   constraint pk_durable_goods_procurement_det primary key (id))
 ;
 
@@ -443,6 +461,9 @@ create table repairing (
   date_of_receive_from_repair timestamp,
   repair_costs              double,
   status                    integer,
+  file_name                 varchar(255),
+  file_type                 varchar(255),
+  path                      varchar(255),
   company_id                bigint,
   approver_username         varchar(255),
   constraint ck_repairing_status check (status in (0,1,2,3,4,5)),
@@ -464,6 +485,9 @@ create table requisition (
   number                    varchar(255),
   approve_date              timestamp,
   status                    integer,
+  file_name                 varchar(255),
+  file_type                 varchar(255),
+  path                      varchar(255),
   user_username             varchar(255),
   approver_username         varchar(255),
   constraint ck_requisition_status check (status in (0,1,2,3,4,5)),
