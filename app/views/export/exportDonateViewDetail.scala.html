@@ -20,7 +20,9 @@
 
   <div>
     <button onclick="printBarcode('@donation.getBarcode()')" class="btn btn-info btn-lg width250px" style="margin-bottom:1%;">ปริ้นบาร์โค้ด</button> 
-    <button id="changeToEditButton" onclick="changeToEdit()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
+    @if(user.status.module6){
+        <button id="changeToEditButton" onclick="changeToEdit()" class="btn btn-warning btn-lg width250px" style="margin-bottom:1%;">แก้ไขรายละเอียด</button>
+    }
   </div>
 
   <form name="addDonate" method="post" action="@routes.ExportDonate.saveDonation(donation.id)" onsubmit="return submitButtonClick()">
