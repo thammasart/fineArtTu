@@ -217,7 +217,7 @@ function cancelStatus(id,typeOfOrder){
 }
 
 function addVat(event,type){
-    if(type == "นิติบุคคล"){
+    //if(type == "นิติบุคคล"){
 	var keyCode = ('which' in event) ? event.which : event.keyCode;
 	if(keyCode != 9 && keyCode != 16){
 		var price = parseInt($('#priceNoVat').val());
@@ -228,13 +228,13 @@ function addVat(event,type){
 			$('#price').val(price + price * tax * 0.01);
 		}
 	}
-    }else {
+    /*}else {
         $('#price').val($('#priceNoVat').val());
-    }
+    }*/
 }
 
 function decreaseVat(event,type){
-    if(type == "นิติบุคคล"){
+    //if(type == "นิติบุคคล"){
 	var keyCode = ('which' in event) ? event.which : event.keyCode;
 	if(keyCode != 9 && keyCode != 16){
 		var price = $('#price').val();
@@ -245,9 +245,9 @@ function decreaseVat(event,type){
 			$('#priceNoVat').val(price - price * tax * 0.01);
 		}
 	}
-    }else {
+    /*}else {
         $('#priceNoVat').val($('#price').val());
-    }
+    }*/
 
 }
 

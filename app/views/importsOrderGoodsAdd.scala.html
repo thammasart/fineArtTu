@@ -106,7 +106,7 @@
                     <select class="form-control textAlignCenter  width300px" name="institute" id="institute">
                         <option>---เลือก---</option>
                         @for(company <- companies){
-                        	<option @if(order.company != null && order.company.nameEntrepreneur ==company.nameEntrepreneur ){ selected} value="@company.typeEntrepreneur">@company.nameEntrepreneur</option>
+                        	<option @if(order.company != null && order.company.nameEntrepreneur ==company.nameEntrepreneur ){ selected}>@company.nameEntrepreneur</option>
                         }
                     </select>
             </div>
@@ -303,14 +303,14 @@ $('input').prop("disabled",false);
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคา</span>
-                        <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat" onkeyup="addVat(event,institute.value)">
+                        <input type="number" min="0" class="form-control textAlignCenter width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="priceNoVat" id="priceNoVat" >
                         <span class="alertText" id="priceNoVatAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                 </div>
             </div>
             <div class="form-group" >
                 <div class="input-group" >
                     <span class="input-group-addon width250px" >ราคารวมภาษี</span>
-                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price" onkeyup="decreaseVat(event,institute.value)">
+                        <input type="number" min="0" class="form-control textAlignCenter  width300px"placeholder="ใส่ค่า" onkeypress="validateNumberKey(event)" name="price" id="price">
                         <span class="alertText" id="priceAlert"  > <i> *  กรุณาใส่ข้อมูลไห้ครบถ้วน</i></span>
                     </div>
                 </div>
