@@ -48,8 +48,8 @@
 <!--   loop here -->
                 @for(user<- users){
                     <tr id="row@user.username">
-                        <th><input class="checkLists" id="@user.username" type="checkbox" onchange="addTick(@user.username)" onclick="isCheckAll()"></th>
-                        <th onclick="addTick(@user.username);isCheckAll()">@user.username</th>
+                        <th><input class="checkLists" id="@user.username" type="checkbox" onchange="addTick('@user.username')" onclick="isCheckAll()"></th>
+                        <th onclick="addTick('@user.username');isCheckAll()">@user.username</th>
                         <th>@user.namePrefix</th>
                         <th>@user.firstName</th>
                         <th>@user.lastName</th>

@@ -63,7 +63,7 @@ var resultModalInstanceCtrl= function($scope, $modalInstance){
 
 
 function addTick(name){
-	var username = name.id;
+	var username = name;
 	console.log(usersTick);
 	if(usersTick.indexOf(username) > -1){
 		usersTick.remove(username);
@@ -105,7 +105,7 @@ function save() {
 
 function del(name) {
 	var data = {
-		'name' : name.textContent
+		'name' : name
 	};
 	postData('/Admin/removeRole', data);
 }
