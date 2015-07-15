@@ -115,6 +115,7 @@ public class ExportOrder extends Controller {
 
             // update Material remain
             for(RequisitionDetail detail: req.details){
+                detail = RequisitionDetail.find.byId(detail.id);
                 if(detail.status == ExportStatus.INIT){
                     detail.code.remain -= detail.quantity;
                     detail.code.update();
@@ -216,9 +217,8 @@ public class ExportOrder extends Controller {
                     }
 
                     int quantity = Integer.parseInt(json.get("quantity").asText());
-                    allQuantityOrder += quantity;
 
-                    if(quantity > 0 && allQuantityOrder <= code.remain){
+                    if(quantity > 0 && allQuantityOrder + quantity <= code.remain){
                         newDetail.quantity = quantity;
                         newDetail.description = json.get("description").asText();
                         String firstName = json.get("withdrawerNmae").asText();
@@ -244,7 +244,7 @@ public class ExportOrder extends Controller {
                     }
                     else{
                         if(quantity > 0)
-                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " ไม่เกิน " + code.remain + " " + code.classifier);
+                            result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " ไม่เกิน " + (code.remain-allQuantityOrder) + " " + code.classifier);
                         else
                             result.put("message", "จำนวนเบิกจ่ายไม่ถูกต้อง \n\nกรุณาระบุจำนวน " + code.description + " มากว่า 0 " + code.classifier);
                         result.put("status", "error4");
