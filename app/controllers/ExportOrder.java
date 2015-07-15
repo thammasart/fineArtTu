@@ -206,8 +206,19 @@ public class ExportOrder extends Controller {
                 MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
                 if(code != null){
                     newDetail.code = code;
+                    code.updateRemain();
+
+                    int allQuantityOrder = 0;
+                    if(requisition.status != ExportStatus.SUCCESS){
+                        for(RequisitionDetail detail : RequisitionDetail.find.where().eq("requisition",requisition).eq("code",code).findList()){
+                            allQuantityOrder += detail.quantity;
+                        }
+                    }
+
                     int quantity = Integer.parseInt(json.get("quantity").asText());
-                    if(quantity > 0 && quantity <= code.remain){
+                    allQuantityOrder += quantity;
+
+                    if(quantity > 0 && allQuantityOrder <= code.remain){
                         newDetail.quantity = quantity;
                         newDetail.description = json.get("description").asText();
                         String firstName = json.get("withdrawerNmae").asText();
@@ -277,7 +288,9 @@ public class ExportOrder extends Controller {
                 MaterialCode code =  MaterialCode.find.byId(json.get("code").asText());
                 if(code != null){
                     detail.code = code;
+                    code.updateRemain();
                     int quantity = Integer.parseInt(json.get("quantity").asText());
+
                     if(quantity > 0 && quantity <= (code.remain+detail.quantity)){
                         detail.description = json.get("description").asText();
                         String firstName = json.get("withdrawerNmae").asText();
