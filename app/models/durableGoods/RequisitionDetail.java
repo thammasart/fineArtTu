@@ -83,8 +83,9 @@ public class RequisitionDetail extends Model{
         	}
         }
 
-        this.price = totlePrice/quantity;
+        this.price = totlePrice/this.quantity;
         this.totlePrice = totlePrice;
+
         this.update();
 	}
 

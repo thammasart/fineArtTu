@@ -51,6 +51,15 @@ public class Report  extends Controller {
 
         return redirect(routes.Report.reportRemainingMaterial(Integer.parseInt(year),2));
     }
+
+    public static int compare(Date d1, Date d2) {
+        if (d1.getYear() != d2.getYear()) 
+            return d1.getYear() - d2.getYear();
+        if (d1.getMonth() != d2.getMonth()) 
+            return d1.getMonth() - d2.getMonth();
+        return d1.getDate() - d2.getDate();
+    }
+
     @Security.Authenticated(Secured.class)
         public static Result reportRemainingMaterial(int year,int view) {
         
@@ -114,7 +123,7 @@ public class Report  extends Controller {
 
             double sumOfPrice = temp.get(0) * temp.get(1);
             while(importDetails.size() > 0 && exportDetails.size() > 0 ){
-                if(importDetails.get(0).procurement.addDate.compareTo(exportDetails.get(0).requisition.approveDate) < 0){
+                if(compare(importDetails.get(0).procurement.addDate,exportDetails.get(0).requisition.approveDate) <= 0){
 
                     totalMaterial += importDetails.get(0).quantity;
                     totlePrice += importDetails.get(0).price * importDetails.get(0).quantity; 
