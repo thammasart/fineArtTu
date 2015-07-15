@@ -26,6 +26,8 @@ POST    /export/order/editDetail                           controllers.ExportOrd
 GET     /export/order/loadDetail                           controllers.ExportOrder.loadOrderDetail(id:Long)
 GET     /export/order/viewDetail                           controllers.ExportOrder.viewDetail(id:Long)
 
+GET     /export/updateMaterialRemain                       controllers.ExportOrder.updateMaterialRemain()
+
 GET     /export/orderGoods                                 controllers.ExportOrderGoods.exportOrderGoods()
 GET     /export/orderGoods/add                             controllers.ExportOrderGoods.exportOrderGoodsAdd(id:Long)
 GET     /export/orderGoods/new                             controllers.ExportOrderGoods.exportCreateOrderGoods()

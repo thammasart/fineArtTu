@@ -45,7 +45,6 @@ public class Admin extends Controller {
         }
 
     }
-    
 
     public static Result addUser() {
         User user = User.find.byId(session().get("username"));

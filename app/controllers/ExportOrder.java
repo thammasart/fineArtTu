@@ -406,4 +406,12 @@ public class ExportOrder extends Controller {
         }
         return ok(result);
     }
+
+    public static Result updateMaterialRemain(){
+        List<MaterialCode> allMaterial = MaterialCode.find.all();
+        for(MaterialCode material : allMaterial){
+            material.updateRemain();
+        }
+        return TODO;
+    }
 }
