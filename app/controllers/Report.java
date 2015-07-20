@@ -142,7 +142,8 @@ public class Report  extends Controller {
                         detail[1] = "";
                         detail[2] = "";
                     }
-                    detail[3] = fts.format(importDetails.get(0).procurement.addDate);
+                    models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(importDetails.get(0).procurement.id);
+                    detail[3] = fts.format(procurement.addDate);
                     if(importDetails.get(0).procurement.company != null)
                         detail[4] = importDetails.get(0).procurement.company.nameEntrepreneur;
                     else
@@ -213,7 +214,8 @@ public class Report  extends Controller {
                         detail[1] = "";
                         detail[2] = "";
                     }
-                    detail[3] = fts.format(importDetails.get(0).procurement.addDate);
+                    models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(importDetails.get(0).procurement.id);
+                    detail[3] = fts.format(procurement.addDate);
                     if(importDetails.get(0).procurement.company != null)
                         detail[4] = importDetails.get(0).procurement.company.nameEntrepreneur;
                     else
