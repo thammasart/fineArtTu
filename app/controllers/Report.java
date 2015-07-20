@@ -123,7 +123,8 @@ public class Report  extends Controller {
 
             double sumOfPrice = temp.get(0) * temp.get(1);
             while(importDetails.size() > 0 && exportDetails.size() > 0 ){
-                if(compare(importDetails.get(0).procurement.addDate,exportDetails.get(0).requisition.approveDate) <= 0){
+            	models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(importDetails.get(0).procurement.id);
+                if(compare(procurement.addDate,exportDetails.get(0).requisition.approveDate) <= 0){
 
                     totalMaterial += importDetails.get(0).quantity;
                     totlePrice += importDetails.get(0).price * importDetails.get(0).quantity; 
@@ -142,7 +143,7 @@ public class Report  extends Controller {
                         detail[1] = "";
                         detail[2] = "";
                     }
-                    models.durableGoods.Procurement procurement = models.durableGoods.Procurement.find.byId(importDetails.get(0).procurement.id);
+                    
                     detail[3] = fts.format(procurement.addDate);
                     if(importDetails.get(0).procurement.company != null)
                         detail[4] = importDetails.get(0).procurement.company.nameEntrepreneur;
